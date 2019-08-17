@@ -1,0 +1,144 @@
+
+
+<div class="col-12 m-0 p-0" style="background-color: white">
+
+  <div class="row m-0 p-0 pt-3 pl-3">
+
+    <div class="col-2 m-0 p-0 v-texto-1">
+      Vuelos
+    </div>
+
+    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+
+      <input type="radio" name="gender" value="1" class="mr-1"> Ida & Vuelta
+
+    </div>
+
+    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+
+      <input type="radio" name="gender" value="2" class="mr-1"> Sólo ida
+
+    </div>
+
+    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+
+      <input type="radio" name="gender" value="3" class="mr-1"> Multidestinos
+
+    </div>
+
+    <div class="col-2 m-0 p-0"></div>
+
+    <div class="col-2 m-0 p-0"></div>
+
+  </div>
+
+  <div class="row m-0 p-0 pt-3 pl-3">
+
+    <div class="col-4 m-0 p-0">
+
+      <div class="row m-0 p-0">
+
+        <div class="col-4 m-0 p-0">
+          Orígen
+        </div>
+
+        <div class="col-8 m-0 p-0">
+
+          <div class="ng-autocomplete" style="width: 95%;">
+            <ng-autocomplete
+              [data]="data"
+              [searchKeyword]="keyword"
+              (selected)='selectEvent($event)'
+              (inputChanged)='onChangeSearch($event)'
+              (inputFocused)='onFocused($event)'
+              [itemTemplate]="itemTemplate"
+              [notFoundTemplate]="notFoundTemplate">
+            </ng-autocomplete>
+
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.airportDescription"></a>
+            </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-4 m-0 p-0">
+
+      <div class="row m-0 p-0">
+
+        <div class="col-4 m-0 p-0">
+          Destino
+        </div>
+
+        <div class="col-8 m-0 p-0">
+
+          <div class="ng-autocomplete" style="width: 95%;">
+            <ng-autocomplete
+              [data]="data2"
+              [searchKeyword]="keyword"
+              (selected)='selectEvent2($event)'
+              (inputChanged)='onChangeSearch2($event)'
+              (inputFocused)='onFocused2($event)'
+              [itemTemplate]="itemTemplate2"
+              [notFoundTemplate]="notFoundTemplate2">
+            </ng-autocomplete>
+
+            <ng-template #itemTemplate2 let-item>
+              <a [innerHTML]="item.airportDescription"></a>
+            </ng-template>
+
+            <ng-template #notFoundTemplate2 let-notFound>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-4 m-0 p-0">
+
+      <div class="row m-0 p-0">
+
+        <div class="col-3 m-0 p-0">
+          Fechas
+        </div>
+
+        <div class="col-4 m-0 p-0">
+          <input type="text"
+                 placeholder="Salida"
+                 class="form-control"
+                 #dp="bsDatepicker"
+                 bsDatepicker
+                 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+          >
+        </div>
+
+        <div class="col-4 m-0 p-0">
+          <input type="text"
+                 placeholder="Retorno"
+                 class="form-control"
+                 bsDatepicker
+                 [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+          >
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row"></div>
+
+</div>
