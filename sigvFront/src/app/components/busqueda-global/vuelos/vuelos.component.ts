@@ -22,11 +22,16 @@ export class VuelosComponent implements OnInit {
   data: any[] = [];
   data2: any[] = [];
 
+  textoCabina: string;
+  cabina: string;
+
   constructor(
     private airportService: AirportService,
     private localeService: BsLocaleService
   ) {
     this.origen = "";
+    this.textoCabina = "Todas";
+    this.cabina = "";
   }
 
   ngOnInit() {
@@ -91,5 +96,11 @@ export class VuelosComponent implements OnInit {
   }
 
   onFocused2(e) {}
+
+
+  seleccionarCabina(valor, texto) {
+    this.cabina = valor;
+    this.textoCabina = texto;
+  }
 
 }

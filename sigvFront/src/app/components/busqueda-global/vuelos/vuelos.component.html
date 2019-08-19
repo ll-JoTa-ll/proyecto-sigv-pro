@@ -32,7 +32,7 @@
 
   </div>
 
-  <div class="row m-0 p-0 pt-3 pl-2">
+  <div class="row m-0 p-0 pt-4 pl-2">
 
     <div style="width: 30%" class=" m-0 p-0 v-texto-2">
 
@@ -152,7 +152,7 @@
 
   </div>
 
-  <div class="row m-0 p-0 pt-3 pl-2">
+  <div class="row m-0 p-0 pt-4 pl-2">
 
     <div class="col-3 m-0 p-0 v-texto-2">
 
@@ -162,7 +162,23 @@
           Cabina
         </div>
 
-        <div class="" style="width: 75%"></div>
+        <div class="m-0 p-0" style="width: 75%">
+
+          <div class="btn-group" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle"
+                    aria-controls="dropdown-basic">
+               <span class="caret"></span> {{textoCabina}}
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                role="menu" aria-labelledby="button-basic">
+              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
+              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Económica')">Económica</a></li>
+              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Business')">Business</a></li>
+              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'First')">First</a></li>
+            </ul>
+          </div>
+
+        </div>
 
       </div>
 
@@ -176,18 +192,39 @@
           Escala
         </div>
 
-        <div class="" style="width: 75%"></div>
+        <div class="m-0 p-0" style="width: 75%"></div>
 
       </div>
 
     </div>
 
-    <div class="col-3 m-0 p-0 v-texto-2"></div>
+    <div class="col-3 m-0 p-0 v-texto-2">
+
+      <div class="row m-0 p-0" style="height: 40px !important;">
+
+        <div class="m-0 p-0 d-flex align-items-center" style="width: 25%">
+          Pasajeros
+        </div>
+
+        <div class="m-0 p-0" style="width: 75%"></div>
+
+      </div>
+
+    </div>
 
     <div class="col-3 m-0 p-0 text-center v-texto-2">
-      <button class="btn v-btn-buscar">
-        Buscar
-      </button>
+
+      <div class="row m-0 p-0" style="height: 40px !important;">
+
+        <div class="col-12 text-center">
+          <button class="btn v-btn-buscar">
+            <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+            Buscar
+          </button>
+        </div>
+
+      </div>
+
     </div>
 
   </div>
