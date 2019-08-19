@@ -25,6 +25,11 @@ export class VuelosComponent implements OnInit {
   textoCabina: string;
   cabina: string;
 
+  textoEscala: string;
+  escala: string;
+
+  pasajeros: number;
+
   constructor(
     private airportService: AirportService,
     private localeService: BsLocaleService
@@ -32,6 +37,9 @@ export class VuelosComponent implements OnInit {
     this.origen = "";
     this.textoCabina = "Todas";
     this.cabina = "";
+    this.textoEscala = "Directo";
+    this.escala = "Direct";
+    this.pasajeros = 1;
   }
 
   ngOnInit() {
@@ -101,6 +109,29 @@ export class VuelosComponent implements OnInit {
   seleccionarCabina(valor, texto) {
     this.cabina = valor;
     this.textoCabina = texto;
+  }
+
+  seleccionarEscala(valor, texto) {
+    this.escala = valor;
+    this.textoEscala = texto;
+  }
+
+  pasajeroOperacion(valor) {
+    let pasajeros = this.pasajeros;
+    if (valor === true) {
+      pasajeros = pasajeros + 1;
+      if (pasajeros === 6) {
+        pasajeros = 5;
+      }
+      this.pasajeros = pasajeros;
+    }
+    if (valor === false) {
+      pasajeros = pasajeros - 1;
+      if (pasajeros === 0) {
+        pasajeros = 1;
+      }
+      this.pasajeros = pasajeros;
+    }
   }
 
 }

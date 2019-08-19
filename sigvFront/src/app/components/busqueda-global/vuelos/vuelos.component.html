@@ -119,12 +119,13 @@
           <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
             <input type="image"
                    src="./assets/images/home/calendario.svg"
+                   (click)="datepickerSalida.toggle()"
                    style="outline: none; border: 0; width: 20% !important;">
             <input type="text"
                    placeholder="Salida"
-                   class="p-0 pl-2 v-texto-2"
+                   class="p-0 pl-2 v-texto-3"
                    style="outline: none; border: 0; width: 80%"
-                   #dp="bsDatepicker"
+                   #datepickerSalida="bsDatepicker"
                    bsDatepicker
                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
             >
@@ -135,11 +136,13 @@
           <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
             <input type="image"
                    src="./assets/images/home/calendario.svg"
+                   (click)="datepickerRetorno.toggle()"
                    style="outline: none; border: 0; width: 20% !important;">
             <input type="text"
                    placeholder="Retorno"
-                   class="p-0 pl-2 v-texto-2"
+                   class="p-0 pl-2 v-texto-3"
                    style="outline: none; border: 0; width: 80%"
+                   #datepickerRetorno="bsDatepicker"
                    bsDatepicker
                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
             >
@@ -162,19 +165,26 @@
           Cabina
         </div>
 
-        <div class="m-0 p-0" style="width: 75%">
+        <div class="m-0 p-0 d-flex justify-content-center align-items-center" style="width: 75%">
 
-          <div class="btn-group" dropdown>
-            <button id="button-basic" dropdownToggle type="button" class="btn dropdown-toggle"
+          <div class="btn-group" style="width: 90% !important;" dropdown>
+            <button id="button-basic"
+                    dropdownToggle
+                    type="button"
+                    class="btn v-texto-3 dropdown-toggle box-shadow"
+                    style="padding-bottom: 10px; padding-top: 10px;"
                     aria-controls="dropdown-basic">
-               <span class="caret"></span> {{textoCabina}}
+              {{textoCabina}}
             </button>
-            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            <ul id="dropdown-basic"
+                *dropdownMenu
+                class="dropdown-menu v-texto-3"
+                style="cursor: pointer"
                 role="menu" aria-labelledby="button-basic">
               <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
-              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Económica')">Económica</a></li>
-              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Business')">Business</a></li>
-              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'First')">First</a></li>
+              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('Econo', 'Económica')">Económica</a></li>
+              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('Busin', 'Business')">Business</a></li>
+              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('First', 'First')">First</a></li>
             </ul>
           </div>
 
@@ -192,7 +202,28 @@
           Escala
         </div>
 
-        <div class="m-0 p-0" style="width: 75%"></div>
+        <div class="m-0 p-0" style="width: 75%">
+
+          <div class="btn-group" style="width: 90% !important;" dropdown>
+            <button id="button-basic-2"
+                    dropdownToggle
+                    type="button"
+                    class="btn v-texto-3 dropdown-toggle box-shadow"
+                    style="padding-bottom: 10px; padding-top: 10px;"
+                    aria-controls="dropdown-basic">
+              {{textoEscala}}
+            </button>
+            <ul id="dropdown-basic-2"
+                *dropdownMenu
+                class="dropdown-menu v-texto-3"
+                style="cursor: pointer"
+                role="menu" aria-labelledby="button-basic-2">
+              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('Direct', 'Directo')">Directo</a></li>
+              <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('esca', 'Con escalas')">Con escalas</a></li>
+            </ul>
+          </div>
+
+        </div>
 
       </div>
 
@@ -202,11 +233,31 @@
 
       <div class="row m-0 p-0" style="height: 40px !important;">
 
-        <div class="m-0 p-0 d-flex align-items-center" style="width: 25%">
+        <div class="m-0 p-0 d-flex align-items-center" style="width: 35%">
           Pasajeros
         </div>
 
-        <div class="m-0 p-0" style="width: 75%"></div>
+        <div class="m-0 p-0 d-flex align-items-center justify-content-center" style="width: 65%; padding: 6px !important;">
+
+          <label
+            for=""
+            style="padding: 0px; margin: 0px;"
+            class=" d-inline-flex justify-content-center align-items-center box-shadow">
+            <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
+            <input type="text" class="text-center v-texto-3" style="width: 60px; outline: none; border: 0" [value]="pasajeros">
+            <span
+              class="text-center"
+              (click)="pasajeroOperacion(false)"
+              style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-right-style: solid; border-right-color: white">
+              -</span>
+            <span
+              class="text-center"
+              (click)="pasajeroOperacion(true)"
+              style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-radius: 0 10px 10px 0"
+            >+</span>
+          </label>
+
+        </div>
 
       </div>
 
