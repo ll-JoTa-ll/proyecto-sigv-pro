@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DawaAutocompleteItem } from 'ngx-dawa-autocomplete';
 import { AirportService } from '../../../services/airport.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { listLocales } from 'ngx-bootstrap/chronos';
+//import { listLocales } from 'ngx-bootstrap/chronos';
 
 declare var jquery: any;
 declare var $: any;
@@ -31,7 +31,7 @@ export class VuelosComponent implements OnInit {
 
   ngOnInit() {
     //$(".x").hide();
-    this.localeService.use("es");
+    //this.localeService.use("es");
     this.airportList();
   }
 

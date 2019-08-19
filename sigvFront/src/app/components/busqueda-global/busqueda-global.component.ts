@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BusquedaGlobalComponent implements OnInit {
 
-  constructor() { }
+  flagTipo: number;
+
+  constructor() {
+    this.flagTipo = 1;
+  }
 
   ngOnInit() {
+  }
+
+  cambiarTipo(valor) {
+    this.flagTipo = valor;
   }
 
 }
