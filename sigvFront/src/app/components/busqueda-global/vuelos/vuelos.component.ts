@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DawaAutocompleteItem } from 'ngx-dawa-autocomplete';
 import { AirportService } from '../../../services/airport.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-//import { listLocales } from 'ngx-bootstrap/chronos';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -16,7 +17,12 @@ export class VuelosComponent implements OnInit {
 
   airportlist: any[] = [];
   airportlistFilter: any[] = [];
-  origen: string;
+  loginDataUser: ILoginDatosModel;
+
+  origenAuto: string;
+  destinoAuto: string;
+
+  tipoVuelo: string;
 
   keyword = 'airportDescription';
   data: any[] = [];
@@ -32,9 +38,14 @@ export class VuelosComponent implements OnInit {
 
   constructor(
     private airportService: AirportService,
-    private localeService: BsLocaleService
+    private localeService: BsLocaleService,
+    private sessionStorageService: SessionStorageService,
+    private localStorageService: LocalStorageService,
+    private spinner: NgxSpinnerService
   ) {
-    this.origen = "";
+    this.tipoVuelo = "RT";
+    this.origenAuto = "";
+    this.destinoAuto = "";
     this.textoCabina = "Todas";
     this.cabina = "";
     this.textoEscala = "Directo";
@@ -45,7 +56,10 @@ export class VuelosComponent implements OnInit {
   ngOnInit() {
     //$(".x").hide();
     //this.localeService.use("es");
-    this.airportList();
+    //this.airportList();
+
+    this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
   }
 
   airportList() {
@@ -68,6 +82,7 @@ export class VuelosComponent implements OnInit {
     // do something with selected item
     console.log("selectEvent");
     console.log(item);
+    this.origenAuto = item.airportCode;
     setTimeout(function() {
       $(".x").hide();
     }, 1000);
@@ -91,7 +106,9 @@ export class VuelosComponent implements OnInit {
     console.log(e);
   }
 
-  selectEvent2(item) {}
+  selectEvent2(item) {
+    this.destinoAuto = item.airportCode;
+  }
 
   onChangeSearch2(val: string) {
     $(".x").hide();
@@ -132,6 +149,159 @@ export class VuelosComponent implements OnInit {
       }
       this.pasajeros = pasajeros;
     }
+  }
+
+  seleccionarTipoVuelo(valor) {
+    this.tipoVuelo = valor;
+  }
+
+  searchFlight() {
+    this.spinner.show();
+
+    let origen: any[] = [];
+    let destino: any[] = [];
+    let fechas: any[] = [];
+    let horas: any[] = [];
+
+    if (this.tipoVuelo === "RT") {
+      origen.push(this.origenAuto);
+      origen.push(this.destinoAuto);
+
+      destino.push(this.destinoAuto);
+      destino.push(this.origenAuto);
+
+      console.log("origen");
+      console.log(origen);
+      console.log("destino");
+      console.log(destino);
+    }
+
+    if (this.tipoVuelo === "OW") {
+      origen.push(this.origenAuto);
+      destino.push(this.destinoAuto);
+    }
+
+    if (this.tipoVuelo === "MC") {}
+
+    let data = {
+      "TypeFlight": this.tipoVuelo,
+      "Origin": origen,
+      "Destination": destino,
+      "DepartureArrivalDate":
+        [
+          "2019/08/26", "2019/08/28"
+        ],
+      "DepartureArrivalTimeFrom":
+        [
+          "", ""
+        ],
+      "DepartureArrivalTimeTo":
+        [
+          "", ""
+        ],
+      "NumberPassengers": this.pasajeros,
+      "CabinType": this.cabina,
+      "EnviromentIsProd": this.loginDataUser.enviromentIsProd,
+      "Currency": "USD",
+      "NumberRecommendations": "50",
+      "UserId": this.loginDataUser.userId,
+      "Lpseudo": this.loginDataUser.lpseudo,
+      "Ocompany": this.loginDataUser.ocompany,
+      "Oprofile": this.loginDataUser.oprofile,
+      "OcostCenter": this.loginDataUser.ocostCenter,
+      "Lpassenger": null
+    };
+
+
+    /*
+    let data = {
+      "TypeFlight": "RT",
+      "Origin":
+        [
+          "[LIM]",
+          "[CUZ]"
+        ],
+      "Destination":
+        [
+          "[CUZ]",
+          "[LIM]"
+        ],
+      "DepartureArrivalDate":
+        [
+          "2019/08/26",
+          "2019/08/28"
+        ],
+      "DepartureArrivalTimeFrom":
+        [
+          "",
+          ""
+        ],
+      "DepartureArrivalTimeTo":
+        [
+          "",
+          ""
+        ],
+      "NumberPassengers": "1",
+      "CabinType": "",
+      "EnviromentIsProd": false,
+      "Currency": "USD",
+      "NumberRecommendations": "50",
+      "UserId": "1",
+      "Lpseudo":
+        [
+          {
+            "PseudoIsActive": true,
+            "CountryCode": "PE",
+            "PseudoCode": "LIMPE2235"
+          }
+        ],
+      "Ocompany":
+        {
+          "CompanyId": "1",
+          "CompanyDescription": "ENTEL PERU S.A.",
+          "CompanyProfile": "ENTEL",
+          "LcorporateCode":
+            [
+              {
+                "AirlineCode": "LA",
+                "Code": "ENTEL"
+              },
+              {
+                "AirlineCode": "P9",
+                "Code": "172318"
+              },
+              {
+                "AirlineCode": "CM",
+                "Code": "CIN1583"
+              }
+            ]
+        },
+      "Oprofile": {
+        "ProfileId": "1",
+        "ProfileDescription": "Agente Viajes"
+      },
+      "OcostCenter": {
+        "CostCenterId": "1",
+        "CostCenterCode": "NO COST CENTER",
+        "CostCenterDescription": "NO COST CENTER"
+      },
+      "Lpassenger": null
+    };
+    */
+
+    this.airportService.searchFlight(data).subscribe(
+      result => {
+        console.log(result);
+      },
+      err => {
+        this.spinner.hide();
+        console.log("ERROR: " + err);
+      },
+      () => {
+        this.spinner.hide();
+        console.log("this.airportService.searchFlight completado");
+      }
+    );
   }
 
 }

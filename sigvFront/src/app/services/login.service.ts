@@ -3,12 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SessionStorageService } from 'ngx-webstorage';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-
-interface ILogin {
-  userId: number;
-  userName: string;
-  userLastName: string;
-}
+import { ILoginDatosModel } from '../models/ILoginDatos.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +17,7 @@ export class LoginService {
     private sessionSt: SessionStorageService
   ) { }
 
-  login(datos): Observable<ILogin> {
-    return this.http.post<ILogin>(this._url + "LoginUser", datos);
+  login(datos): Observable<ILoginDatosModel> {
+    return this.http.post<ILoginDatosModel>(this._url + "LoginUser", datos);
   }
 }

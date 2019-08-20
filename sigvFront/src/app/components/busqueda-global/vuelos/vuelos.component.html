@@ -10,19 +10,19 @@
 
     <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
 
-      <input type="radio" name="gender" value="1" class="mr-1"> Ida & Vuelta
+      <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT" class="mr-1"> Ida & Vuelta
 
     </div>
 
     <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
 
-      <input type="radio" name="gender" value="2" class="mr-1"> Sólo ida
+      <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1"> Sólo ida
 
     </div>
 
     <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
 
-      <input type="radio" name="gender" value="3" class="mr-1"> Multidestinos
+      <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1"> Multidestinos
 
     </div>
 
@@ -132,7 +132,7 @@
           </label>
         </div>
 
-        <div class=" m-0 p-0" style="width: 40%">
+        <div *ngIf="tipoVuelo!=='OW'" class=" m-0 p-0" style="width: 40%">
           <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
             <input type="image"
                    src="./assets/images/home/calendario.svg"
@@ -161,11 +161,11 @@
 
       <div class="row m-0 p-0" style="height: 40px !important;">
 
-        <div class="m-0 p-0 d-flex align-items-center" style="width: 25%">
+        <div class="m-0 p-0 d-flex align-items-center" style="width: 27%">
           Cabina
         </div>
 
-        <div class="m-0 p-0 d-flex justify-content-center align-items-center" style="width: 75%">
+        <div class="m-0 p-0 d-flex justify-content-center align-items-center" style="width: 73%">
 
           <div class="btn-group" style="width: 90% !important;" dropdown>
             <button id="button-basic"
@@ -268,7 +268,7 @@
       <div class="row m-0 p-0" style="height: 40px !important;">
 
         <div class="col-12 text-center">
-          <button class="btn v-btn-buscar">
+          <button (click)="searchFlight()" class="btn v-btn-buscar">
             <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
             Buscar
           </button>
@@ -285,3 +285,12 @@
   </div>
 
 </div>
+
+<ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "medium"
+  color = "#fff"
+  type = "ball-spin-fade-rotating"
+  style="width: 100% !important; height: 100% !important;"
+
+></ngx-spinner>
