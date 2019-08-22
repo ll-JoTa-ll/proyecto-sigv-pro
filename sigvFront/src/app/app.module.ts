@@ -16,6 +16,10 @@ import { LoginComponent } from './components/login/login.component';
 import { BusquedaGlobalComponent } from './components/busqueda-global/busqueda-global.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { VuelosComponent } from './components/busqueda-global/vuelos/vuelos.component';
+import { RecomendacionComponent } from './components/busqueda-global/vuelos/recomendacion/recomendacion.component';
+import { RecomendacionSectionComponent } from './components/busqueda-global/vuelos/recomendacion-section/recomendacion-section.component';
+import { RecomendacionSegmentComponent } from './components/busqueda-global/vuelos/recomendacion-segment/recomendacion-segment.component';
+import { RecomendacionSegmentGroupComponent } from './components/busqueda-global/vuelos/recomendacion-segment-group/recomendacion-segment-group.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,11 @@ import { VuelosComponent } from './components/busqueda-global/vuelos/vuelos.comp
     LoginComponent,
     BusquedaGlobalComponent,
     HeaderComponent,
-    VuelosComponent
+    VuelosComponent,
+    RecomendacionComponent,
+    RecomendacionSectionComponent,
+    RecomendacionSegmentComponent,
+    RecomendacionSegmentGroupComponent
   ],
   imports: [
     BrowserModule,

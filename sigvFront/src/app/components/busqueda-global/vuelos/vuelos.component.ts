@@ -15,6 +15,8 @@ declare var $: any;
 })
 export class VuelosComponent implements OnInit {
 
+  flagBuscar: boolean;
+
   airportlist: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
@@ -43,13 +45,14 @@ export class VuelosComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private spinner: NgxSpinnerService
   ) {
+    this.flagBuscar = false;
     this.tipoVuelo = "RT";
     this.origenAuto = "";
     this.destinoAuto = "";
     this.textoCabina = "Todas";
     this.cabina = "";
-    this.textoEscala = "Directo";
-    this.escala = "Direct";
+    this.textoEscala = "Todas";
+    this.escala = "";
     this.pasajeros = 1;
   }
 
@@ -57,7 +60,6 @@ export class VuelosComponent implements OnInit {
     //$(".x").hide();
     //this.localeService.use("es");
     //this.airportList();
-
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
   }
@@ -201,6 +203,7 @@ export class VuelosComponent implements OnInit {
         ],
       "NumberPassengers": this.pasajeros,
       "CabinType": this.cabina,
+      "Scales": this.escala,
       "EnviromentIsProd": this.loginDataUser.enviromentIsProd,
       "Currency": "USD",
       "NumberRecommendations": "50",
@@ -292,6 +295,7 @@ export class VuelosComponent implements OnInit {
     this.airportService.searchFlight(data).subscribe(
       result => {
         console.log(result);
+        if (result === null) {}
       },
       err => {
         this.spinner.hide();
