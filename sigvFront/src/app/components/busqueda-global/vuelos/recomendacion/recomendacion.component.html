@@ -1,1 +1,63 @@
-<p>recomendacion works!</p>
+
+
+<div class="" style="width: 100%; height: 30px !important; border: none !important;"></div>
+
+<div class="m-0 p-0 box-shadow-important" style="width: 100%; border-radius:  0 0 20px 0;">
+
+  <div class="row m-0 p-0">
+
+    <div
+      class="col-9 m-0 p-0"
+      style="">
+      <!-- border-right: 1px solid #898989; -->
+
+      <app-recomendacion-section [sectionLength]="lsectionLength" [section]="section" *ngFor="let section of lsections">
+
+      </app-recomendacion-section>
+
+    </div>
+
+    <div
+      class="col-3 m-0 p-0"
+    >
+      <div class="row m-0 p-0">
+
+        <div class="col-12 m-0 p-0"></div>
+
+        <div class="col-12 m-0 p-0"></div>
+
+        <div class="col-11 m-0 p-0 text-right">
+          <span class="text-currency pr-1" style="color: #6B253C">{{currency}}</span>
+          <span class="text-currency-monto" style="color: #898989">{{totalFareAmount}}</span>
+        </div>
+        <div class="col-1 m-0 p-0"></div>
+
+        <div class="col-11 m-0 p-0 text-right">
+          <span class="text-per-person pr-4">Precio por adulto</span>
+          <span class="text-currency-2 pr-1" style="color: #6B253C">{{currency}}</span>
+          <span class="text-currency-monto-2">{{fareTaxAmountByPassenger}}</span>
+        </div>
+        <div class="col-1 m-0 p-0"></div>
+
+        <div class="col-12 m-0 p-0 text-center r-div-btn-1">
+          <button class="btn r-btn-1">
+            Ver familias
+          </button>
+        </div>
+
+        <div class="col-12 m-0 p-0 text-center r-div-btn-2">
+          <button class="btn r-btn-2">
+            Seleccionar
+          </button>
+        </div>
+
+        <div class="col-12 m-0 p-0 pt-2"></div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="" style="width: 100%; height: 30px !important; border: none !important;"></div>

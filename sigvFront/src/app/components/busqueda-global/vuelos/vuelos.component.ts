@@ -4,6 +4,7 @@ import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
+import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -20,6 +21,7 @@ export class VuelosComponent implements OnInit {
   airportlist: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
+  searchData: ISearchFlightModel[] = [];
 
   origenAuto: string;
   destinoAuto: string;
@@ -295,7 +297,10 @@ export class VuelosComponent implements OnInit {
     this.airportService.searchFlight(data).subscribe(
       result => {
         console.log(result);
-        if (result === null) {}
+        if (result !== null && result.length > 0) {
+          this.searchData = result;
+          this.flagBuscar = true;
+        }
       },
       err => {
         this.spinner.hide();

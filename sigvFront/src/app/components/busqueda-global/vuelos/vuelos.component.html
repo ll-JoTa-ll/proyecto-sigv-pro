@@ -1,6 +1,8 @@
 
 
-<div *ngIf="!flagBuscar" class="col-12 m-0 p-0" style="background-color: white;">
+<div *ngIf="!flagBuscar"
+     class="col-12 m-0 p-0 box-shadow"
+     style="background-color: white; border-radius:  0 0 20px 0;">
 
   <div class="row m-0 p-0 pt-3 pl-2">
 
@@ -288,9 +290,23 @@
 </div>
 
 
-<div *ngIf="flagBuscar" class="col-12 m-0 p-0">
+<div *ngIf="flagBuscar" class="col-12 m-0 p-0" style="background-color: white;">
 
-  <app-recomendacion ></app-recomendacion>
+  <app-recomendacion
+    *ngFor="let recomendacion of searchData"
+    [currency]="recomendacion.currency"
+    [totalFareAmount]="recomendacion.totalFareAmount"
+    [totalTaxAmount]="recomendacion.totalTaxAmount"
+    [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
+    [taxAmountByPassenger]="recomendacion.taxAmountByPassenger"
+    [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger"
+    [carrierId]="recomendacion.carrierId"
+    [numberPassengers]="recomendacion.numberPassengers"
+    [pseudo]="recomendacion.pseudo"
+    [lsections]="recomendacion.lsections"
+    [lsectionLength]="recomendacion.lsections.length"
+  >
+  </app-recomendacion>
 
 </div>
 

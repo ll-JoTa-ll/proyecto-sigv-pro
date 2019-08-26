@@ -22,7 +22,7 @@ export class AirportService {
     return this.http.get(this._url + "AirportList");
   }
 
-  searchFlight(data): Observable<ISearchFlightModel> {
-    return this.http.post<ISearchFlightModel>(this._url + "SearchFlight", data);
+  searchFlight(data): Observable<ISearchFlightModel[]> {
+    return this.http.post<ISearchFlightModel[]>(this._url + "SearchFlight", data);
   }
 }

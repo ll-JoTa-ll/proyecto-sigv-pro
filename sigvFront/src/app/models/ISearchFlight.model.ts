@@ -5,6 +5,7 @@ export interface ISearchFlightModel {
   totalTaxAmount;
   fareAmountByPassenger;
   taxAmountByPassenger;
+  fareTaxAmountByPassenger;
   carrierId;
   plaqueadoresId;
   numberPassengers;

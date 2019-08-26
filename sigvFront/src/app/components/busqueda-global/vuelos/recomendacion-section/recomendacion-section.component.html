@@ -1,1 +1,75 @@
-<p>recomendacion-section works!</p>
+
+
+<div
+  class="m-0 p-0 pt-4 pb-4 box-shadow-important"
+  style="width: 100%; border-right: 1px solid rgba(219, 223, 227, 0.303017) !important;">
+
+  <div class="row m-0 p-0">
+
+    <div class="col-12 m-0 p-0">
+
+
+      <!--
+      border-bottom: 1px solid #898989;
+      <div class="row m-0 p-0">
+        <div class="col-9 m-0 p-0"></div>
+        <div class="col-3 m-0 p-0"></div>
+      </div>
+      -->
+
+
+      <div class="row m-0 p-0">
+        <div class="col-3 m-0 p-0">
+          <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 s-text-1">
+              {{textType}}
+            </div>
+            <div class="col-12 m-0 p-0 s-text-2">
+              {{section.departureDateShow}}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3 m-0 p-0">
+          <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 s-text-1">
+              {{section.origin}}
+            </div>
+            <div class="col-12 m-0 p-0 s-text-2">
+              {{section.airportOrigin}}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3 m-0 p-0">
+          <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 s-text-1">
+              {{section.destination}}
+            </div>
+            <div class="col-12 m-0 p-0 s-text-2">
+              {{section.airportDestination}}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3 m-0 p-0 s-text-1 text-center">
+          Equipaje
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-12 m-0 p-0 pt-4">
+
+      <div class="row m-0 p-0">
+        <div class="col-9 m-0 p-0 pt-4 pb-4" style="border-right: 1px solid #898989;">
+          <app-recomendacion-segment [segment]="segment" *ngFor="let segment of section.lSegments"></app-recomendacion-segment>
+        </div>
+        <div class="col-3 m-0 p-0"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
