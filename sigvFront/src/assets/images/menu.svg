@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="55" height="43" viewBox="0 0 55 43">
+  <defs>
+    <clipPath id="clip-Web_1920_1">
+      <rect width="55" height="43"/>
+    </clipPath>
+  </defs>
+  <g id="Web_1920_1" data-name="Web 1920 – 1" clip-path="url(#clip-Web_1920_1)">
+    <rect width="55" height="43" fill="#fff"/>
+    <g id="Grupo_297" data-name="Grupo 297" transform="translate(11.607 10)">
+      <rect id="Rectángulo_74" data-name="Rectángulo 74" width="36.922" height="5.499" rx="2.75" transform="translate(0 0)" fill="#da1a2a"/>
+      <rect id="Rectángulo_75" data-name="Rectángulo 75" width="29.066" height="5.499" rx="2.75" transform="translate(0 8.641)" fill="#da1a2a"/>
+      <rect id="Rectángulo_76" data-name="Rectángulo 76" width="18.854" height="5.499" rx="2.75" transform="translate(0 17.283)" fill="#da1a2a"/>
+    </g>
+  </g>
+</svg>

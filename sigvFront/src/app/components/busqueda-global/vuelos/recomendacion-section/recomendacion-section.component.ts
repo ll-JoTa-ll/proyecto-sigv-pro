@@ -10,6 +10,8 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
   @Input() section;
   textType: string;
   @Input() sectionLength: number;
+  @Input() posicion: number;
+  imgIdaVuelta: string;
 
   constructor() { }
 
@@ -19,11 +21,22 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
     console.log(this.sectionLength);
     if (this.sectionLength === 1) {
       this.textType = 'Ida';
+      this.imgIdaVuelta = 'airplane_ida.svg';
     }
 
-    if (this.sectionLength === 2) {}
+    if (this.sectionLength === 2) {
+      if (this.posicion % 2 === 0) {
+        this.textType = 'Vuelta';
+        this.imgIdaVuelta = 'airplane_vuelta.svg';
+      } else {
+        this.textType = 'Ida';
+        this.imgIdaVuelta = 'airplane_ida.svg';
+      }
+    }
 
-    if (this.sectionLength > 2) {}
+    if (this.sectionLength > 2) {
+      this.textType = 'Tramo ' + this.posicion;
+    }
   }
 
   ngAfterViewInit() {
