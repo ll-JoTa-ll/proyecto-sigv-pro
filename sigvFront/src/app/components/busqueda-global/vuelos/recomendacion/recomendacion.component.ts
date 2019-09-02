@@ -19,6 +19,8 @@ export class RecomendacionComponent implements OnInit {
   @Input() pseudo: string;
   @Input() lsections: any[];
   @Input() lsectionLength: number;
+  @Input() lpolicies: any[];
+  @Input() recommendationId: number;
 
   constructor() { }
 

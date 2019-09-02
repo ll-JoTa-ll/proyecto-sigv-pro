@@ -2,7 +2,7 @@
 
 <div class="" style="width: 100%; height: 30px !important; border: none !important;"></div>
 
-<div class="m-0 p-0 box-shadow-important" style="width: 100%; border-radius:  0 0 20px 0; background-color: #FDFDFD;">
+<div class="m-0 p-0 box-shadow-important" style="width: 100%; border-radius:  0 0 20px 0; background-color: #FDFDFD !important;">
 
   <div class="row m-0 p-0">
 
@@ -14,6 +14,7 @@
       <app-recomendacion-section
         [sectionLength]="lsectionLength"
         [posicion]="i+1"
+        [recommendationId]="recommendationId"
         [section]="section" *ngFor="let section of lsections; let i=index">
 
       </app-recomendacion-section>
@@ -27,7 +28,23 @@
 
         <div class="col-12 m-0 p-0"></div>
 
-        <div class="col-12 m-0 p-0"></div>
+        <div class="col-12 m-0 p-0">
+
+          <div class="row m-0 p-0">
+            <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+              Precio Final
+            </div>
+
+            <div class="col-5 m-0 p-0 text-right">
+              <img *ngIf="lsections[0].lSectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 22px;">
+              <span *ngIf="lpolicies!==null" class="pl-1 r-span-1">●</span>
+              <span *ngIf="lpolicies===null" class="pl-1 r-span-2">●</span>
+            </div>
+
+            <div class="col-1 m-0 p-0"></div>
+          </div>
+
+        </div>
 
         <div class="col-11 m-0 p-0 text-right">
           <span class="text-currency pr-1" style="color: #6B253C">{{currency}}</span>

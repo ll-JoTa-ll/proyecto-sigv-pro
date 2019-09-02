@@ -5,9 +5,11 @@
 
   <div class="row m-0 p-0">
 
-    <div class="col-3 m-0 p-0 pl-2 d-flex justify-content-center align-items-center">
-      <input type="radio" name="marketingCarrier" value="male">
-      <img class="img-fluid" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+    <!--
+
+    <div class="col-3 m-0 p-0 pl-3">
+      <input class="vertical-center" type="radio" name="marketingCarrier" value="male">
+      <img class="img-fluid vertical-center pl-4" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
     </div>
 
     <div class="col-3 m-0 p-0 text-center sm-text-1 d-flex justify-content-center align-items-center">
@@ -39,6 +41,102 @@
           {{totalFlightTimeShow}}
         </div>
       </div>
+    </div>
+
+    -->
+
+
+    <div class="col-9 m-0 p-0" style="border-right: 1px solid #898989;">
+
+      <div class="row m-0 p-0">
+
+        <div class="col-3 m-0 p-0 pl-3 d-flex align-items-center">
+          <div class="row m-0 p-0">
+            <div class="col-4 m-0 p-0">
+              <input class="" type="radio" name="marketingCarrier" value="male">
+            </div>
+            <div class="col-4 m-0 p-0">
+              <img style="width: 50px !important;" class="pl-1" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+            </div>
+            <div class="col-4 m-0 p-0"></div>
+          </div>
+
+        </div>
+
+        <div class="col-3 m-0 p-0 text-center sm-text-1 d-flex justify-content-center align-items-center">
+          {{timeOfDepartureShow}}
+        </div>
+
+        <div class="col-6 m-0 p-0">
+          <div class="row m-0 p-0">
+            <div class="col-4 m-0 p-0">
+              <div class="row m-0 p-0">
+                <div *ngIf="lSegmentGroupsLength===1" class="col-12 m-0 p-0 text-center sm-text-2">
+                  Directo
+                </div>
+                <div *ngIf="lSegmentGroupsLength===1" class="col-12 m-0 p-0 text-center">
+                  <img src="./assets/images/home/directo.png" alt="">
+                </div>
+                <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center sm-text-2">
+                  {{lSegmentGroupsLength}} escalas
+                </div>
+                <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center">
+                  <img src="./assets/images/home/escala.png" alt="">
+                </div>
+              </div>
+            </div>
+            <div class="col-4 m-0 p-0 text-center sm-text-1 d-flex justify-content-center align-items-center">
+              {{timeOfArrivalShow}}
+            </div>
+            <div class="col-4 m-0 p-0 text-center sm-text-3 d-flex justify-content-center align-items-center">
+              {{totalFlightTimeShow}}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-3 m-0 p-0">
+
+      <div class="row m-0 p-0">
+
+
+          <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
+            <img *ngIf="bagAllowed" src="./assets/images/accesorio_rojo.svg" alt="">
+            <img *ngIf="!bagAllowed" src="./assets/images/accesorio_gris.svg" alt="">
+          </div>
+
+          <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
+            <img *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
+            <img *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt="">
+          </div>
+
+          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+            <img *ngIf="lSegmentGroups.length === 0" style="width: 20px; cursor: pointer;" (click)="listSegmentGroups(flagSegmentId, segment.lSegmentGroups)" src="./assets/images/arrow-down.svg" alt="">
+            <img *ngIf="lSegmentGroups.length > 0" style="width: 20px; cursor: pointer;" (click)="hideSegmentGroups(flagSegmentId)" src="./assets/images/arrow-up.svg" alt="">
+          </div>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row m-0 p-0 pb-5" [id]="flagSegmentId" *ngIf="lSegmentGroups.length > 0">
+
+    <div class="col-12 m-0 p-0">
+
+      <app-recomendacion-segment-group
+        [lSegmentGroupsLength]="segment.lSegmentGroups.length"
+        [totalFlightTimeShow]="segment.totalFlightTimeShow"
+        [segmentGroup]="segmentGroup"
+        [lSegmentGroupsIndex]="i+1"
+        *ngFor="let segmentGroup of lSegmentGroups; let i=index"></app-recomendacion-segment-group>
+
     </div>
 
   </div>

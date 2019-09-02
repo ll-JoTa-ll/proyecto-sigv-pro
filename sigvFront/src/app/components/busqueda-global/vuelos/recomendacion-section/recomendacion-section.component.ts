@@ -8,9 +8,10 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
 
   @Input() section;
-  textType: string;
   @Input() sectionLength: number;
   @Input() posicion: number;
+  @Input() recommendationId: number;
+  textType: string;
   imgIdaVuelta: string;
 
   constructor() { }

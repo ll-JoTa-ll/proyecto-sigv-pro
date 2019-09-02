@@ -187,6 +187,7 @@ export class VuelosComponent implements OnInit {
 
     if (this.tipoVuelo === "MC") {}
 
+    /*
     let data = {
       "TypeFlight": this.tipoVuelo,
       "Origin": origen,
@@ -216,38 +217,45 @@ export class VuelosComponent implements OnInit {
       "OcostCenter": this.loginDataUser.ocostCenter,
       "Lpassenger": null
     };
+    */
 
 
-    /*
+
     let data = {
       "TypeFlight": "RT",
       "Origin":
         [
           "[LIM]",
-          "[CUZ]"
+          "[BCN]"//,
+          //"[LIM]"
         ],
       "Destination":
         [
-          "[CUZ]",
-          "[LIM]"
+          "[BCN]",
+          "[LIM]"//,
+          //"[CIX]"
         ],
       "DepartureArrivalDate":
         [
-          "2019/08/26",
-          "2019/08/28"
+          "2019/09/26",
+          "2019/09/28"//,
+          //"2019/09/30"
         ],
       "DepartureArrivalTimeFrom":
         [
           "",
-          ""
+          ""//,
+          //""
         ],
       "DepartureArrivalTimeTo":
         [
           "",
-          ""
+          ""//,
+          //""
         ],
       "NumberPassengers": "1",
       "CabinType": "",
+      "Scales": "",
       "EnviromentIsProd": false,
       "Currency": "USD",
       "NumberRecommendations": "50",
@@ -292,7 +300,7 @@ export class VuelosComponent implements OnInit {
       },
       "Lpassenger": null
     };
-    */
+
 
     this.airportService.searchFlight(data).subscribe(
       result => {
