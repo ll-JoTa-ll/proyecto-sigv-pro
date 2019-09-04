@@ -15,6 +15,7 @@ export class RecomendacionSegmentComponent implements OnInit {
   @Input() indexSegment: number;
   @Input() recommendationId;
   @Input() sectionId;
+  @Input() lSectionGroups;
   carrierName: string;
   marketingCarrier: string;
   timeOfDepartureShow: string;

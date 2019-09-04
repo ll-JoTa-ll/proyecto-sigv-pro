@@ -1,7 +1,7 @@
 
 
 <div *ngIf="!flagBuscar"
-     class="col-12 m-0 p-0 box-shadow"
+     class="col-12 m-0 p-0 box-shadow animated fadeIn fast"
      style="background-color: white; border-radius:  0 0 20px 0;">
 
   <div class="row m-0 p-0 pt-3 pl-2">
@@ -291,7 +291,7 @@
 
 
 
-<div *ngIf="flagBuscar" class="col-12 m-0 p-0" style="background-color: white;">
+<div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
 
   <app-recomendacion
     *ngFor="let recomendacion of searchData"

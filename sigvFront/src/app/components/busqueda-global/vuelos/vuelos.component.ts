@@ -141,8 +141,8 @@ export class VuelosComponent implements OnInit {
     let pasajeros = this.pasajeros;
     if (valor === true) {
       pasajeros = pasajeros + 1;
-      if (pasajeros === 6) {
-        pasajeros = 5;
+      if (pasajeros === 9) {
+        pasajeros = 8;
       }
       this.pasajeros = pasajeros;
     }
@@ -226,12 +226,12 @@ export class VuelosComponent implements OnInit {
       "Origin":
         [
           "[LIM]",
-          "[BCN]"//,
+          "[SYD]"//,
           //"[LIM]"
         ],
       "Destination":
         [
-          "[BCN]",
+          "[SYD]",
           "[LIM]"//,
           //"[CIX]"
         ],

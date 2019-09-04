@@ -33,7 +33,7 @@
           </div>
         </div>
 
-        <div class="col-12 m-0 p-0">
+        <div class="col-12 m-0 p-0 pb-3">
 
           <div class="row m-0 p-0">
 
@@ -79,7 +79,7 @@
                           Duración
                         </div>
                         <div class="col-12 m-0 p-0 g-text-7">
-                          XXX
+                          {{segmentGroup.totalFlightTimeShow}}
                         </div>
                       </div>
 
@@ -91,9 +91,15 @@
                     <div class="col-3 m-0 p-0"></div>
                   </div>
 
-                  <div class="row m-0 p-0">
+                  <div class="row m-0 p-0 pt-2">
                     <div class="col-12 m-0 p-0 g-text-6">
-                      Clase:
+                      Clase: {{sectionGroup.cabinDescription}} - {{sectionGroup.classId}}
+                    </div>
+                  </div>
+
+                  <div class="row m-0 p-0 pt-2">
+                    <div class="col-12 m-0 p-0 g-text-6">
+                      Disponibilidad: {{sectionGroup.avlStatus}}
                     </div>
                   </div>
                 </div>

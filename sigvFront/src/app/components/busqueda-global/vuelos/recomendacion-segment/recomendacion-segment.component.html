@@ -56,7 +56,7 @@
               <input class="" type="radio" name="marketingCarrier" value="male">
             </div>
             <div class="col-4 m-0 p-0">
-              <img style="width: 50px !important;" class="pl-1" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+              <img style="width: 30px !important;" class="pl-1" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
             </div>
             <div class="col-4 m-0 p-0"></div>
           </div>
@@ -78,7 +78,7 @@
                   <img src="./assets/images/home/directo.png" alt="">
                 </div>
                 <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center sm-text-2">
-                  {{lSegmentGroupsLength}} escalas
+                  {{lSegmentGroupsLength - 1}} escalas
                 </div>
                 <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center">
                   <img src="./assets/images/home/escala.png" alt="">
@@ -126,7 +126,7 @@
 
   </div>
 
-  <div class="row m-0 p-0 pb-5" [id]="flagSegmentId" *ngIf="lSegmentGroups.length > 0">
+  <div class="row m-0 p-0 pb-5 animated fadeIn fast" [id]="flagSegmentId" *ngIf="lSegmentGroups.length > 0">
 
     <div class="col-12 m-0 p-0">
 
@@ -135,6 +135,7 @@
         [totalFlightTimeShow]="segment.totalFlightTimeShow"
         [segmentGroup]="segmentGroup"
         [lSegmentGroupsIndex]="i+1"
+        [sectionGroup]="lSectionGroups[i]"
         *ngFor="let segmentGroup of lSegmentGroups; let i=index"></app-recomendacion-segment-group>
 
     </div>
@@ -149,6 +150,7 @@
 
           <div class="row m-0 p-0">
 
+            <!--
             <div class="col-12 m-0 p-0">
               <div class="row m-0 p-0">
                 <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
@@ -166,8 +168,9 @@
                 </div>
               </div>
             </div>
+            -->
 
-            <div class="col-12 m-0 p-0">
+            <div class="col-12 m-0 p-0 pt-3">
               <div class="row m-0 p-0">
                 <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
                   <img src="./assets/images/accesorio5.svg" alt="">
@@ -185,7 +188,7 @@
               </div>
             </div>
 
-            <div class="col-12 m-0 p-0">
+            <div class="col-12 m-0 p-0 pt-3">
               <div class="row m-0 p-0">
                 <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
                   <img src="./assets/images/equipaje5.svg" alt="">

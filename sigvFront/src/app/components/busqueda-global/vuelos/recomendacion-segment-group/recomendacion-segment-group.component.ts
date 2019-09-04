@@ -11,6 +11,7 @@ export class RecomendacionSegmentGroupComponent implements OnInit {
   @Input() totalFlightTimeShow;
   @Input() lSegmentGroupsLength: number;
   @Input() lSegmentGroupsIndex: number;
+  @Input() sectionGroup;
 
   textFlightTimeShow: string;
   marketingCarrier: string;
@@ -21,7 +22,7 @@ export class RecomendacionSegmentGroupComponent implements OnInit {
     if (this.lSegmentGroupsLength === this.lSegmentGroupsIndex) {
       this.textFlightTimeShow = "Duracion total: " + this.totalFlightTimeShow;
     } else {
-      this.textFlightTimeShow = "Espera en aeropuero: " + this.segmentGroup.totalFlightTimeShow;
+      this.textFlightTimeShow = "Espera en aeropuerto: " + this.segmentGroup.timeWaitAirport;
     }
 
     this.marketingCarrier = this.segmentGroup.marketingCarrier + '.png';
