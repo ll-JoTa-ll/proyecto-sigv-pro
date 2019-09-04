@@ -20,6 +20,7 @@ import { RecomendacionComponent } from './components/busqueda-global/vuelos/reco
 import { RecomendacionSectionComponent } from './components/busqueda-global/vuelos/recomendacion-section/recomendacion-section.component';
 import { RecomendacionSegmentComponent } from './components/busqueda-global/vuelos/recomendacion-segment/recomendacion-segment.component';
 import { RecomendacionSegmentGroupComponent } from './components/busqueda-global/vuelos/recomendacion-segment-group/recomendacion-segment-group.component';
+import { FamiliaVueloComponent } from './components/shared/familia-vuelo/familia-vuelo.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RecomendacionSegmentGroupComponent } from './components/busqueda-global
     RecomendacionComponent,
     RecomendacionSectionComponent,
     RecomendacionSegmentComponent,
-    RecomendacionSegmentGroupComponent
+    RecomendacionSegmentGroupComponent,
+    FamiliaVueloComponent
   ],
   imports: [
     BrowserModule,
