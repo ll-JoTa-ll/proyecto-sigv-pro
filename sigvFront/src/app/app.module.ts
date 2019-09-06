@@ -21,6 +21,14 @@ import { RecomendacionSectionComponent } from './components/busqueda-global/vuel
 import { RecomendacionSegmentComponent } from './components/busqueda-global/vuelos/recomendacion-segment/recomendacion-segment.component';
 import { RecomendacionSegmentGroupComponent } from './components/busqueda-global/vuelos/recomendacion-segment-group/recomendacion-segment-group.component';
 import { FamiliaVueloComponent } from './components/shared/familia-vuelo/familia-vuelo.component';
+import { BuscadorComponent } from './components/vuelos/buscador/buscador.component';
+import { HotelesComponent } from './components/busqueda-global/hoteles/hoteles.component';
+import { BusesComponent } from './components/busqueda-global/buses/buses.component';
+import { PaquetesComponent } from './components/busqueda-global/paquetes/paquetes.component';
+import { SegurosComponent } from './components/busqueda-global/seguros/seguros.component';
+import { TxtAutocompletarComponent } from './components/shared/txt-autocompletar/txt-autocompletar.component';
+import { MultidestinosLgComponent } from './components/shared/multidestinos-lg/multidestinos-lg.component';
+import { MultidestinosXsComponent } from './components/shared/multidestinos-xs/multidestinos-xs.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +41,15 @@ import { FamiliaVueloComponent } from './components/shared/familia-vuelo/familia
     RecomendacionSectionComponent,
     RecomendacionSegmentComponent,
     RecomendacionSegmentGroupComponent,
-    FamiliaVueloComponent
+    FamiliaVueloComponent,
+    BuscadorComponent,
+    HotelesComponent,
+    BusesComponent,
+    PaquetesComponent,
+    SegurosComponent,
+    TxtAutocompletarComponent,
+    MultidestinosLgComponent,
+    MultidestinosXsComponent
   ],
   imports: [
     BrowserModule,

@@ -86,7 +86,9 @@
               </div>
             </div>
             <div class="col-4 m-0 p-0 text-center sm-text-1 d-flex justify-content-center align-items-center">
-              {{timeOfArrivalShow}}
+              {{timeOfArrivalShow}} <span
+              *ngIf="segment.dateVariation>0"
+              style="color: #ED1C24 !important; padding-left: 5px !important; font-size: 14px">+ {{segment.dateVariation}}</span>
             </div>
             <div class="col-4 m-0 p-0 text-center sm-text-3 d-flex justify-content-center align-items-center">
               {{totalFlightTimeShow}}
@@ -104,8 +106,10 @@
 
 
           <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
-            <img *ngIf="bagAllowed" src="./assets/images/accesorio_rojo.svg" alt="">
+            <img src="./assets/images/accesorio_rojo.svg" alt="">
+            <!--
             <img *ngIf="!bagAllowed" src="./assets/images/accesorio_gris.svg" alt="">
+            -->
           </div>
 
           <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
@@ -191,7 +195,8 @@
             <div class="col-12 m-0 p-0 pt-3">
               <div class="row m-0 p-0">
                 <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
-                  <img src="./assets/images/equipaje5.svg" alt="">
+                  <img *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
+                  <img *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt="">
                 </div>
                 <div class="col-10 m-0 p-0">
                   <div class="row m-0 p-0">

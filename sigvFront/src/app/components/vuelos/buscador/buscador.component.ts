@@ -1,135 +1,62 @@
-import { Component, OnInit } from '@angular/core';
-import { AirportService } from '../../../services/airport.service';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
+import { AirportService } from '../../../services/airport.service';
 
 declare var jquery: any;
 declare var $: any;
 
 @Component({
-  selector: 'app-vuelos',
-  templateUrl: './vuelos.component.html',
-  styleUrls: ['./vuelos.component.sass']
+  selector: 'app-buscador',
+  templateUrl: './buscador.component.html',
+  styleUrls: ['./buscador.component.sass']
 })
-export class VuelosComponent implements OnInit {
+export class BuscadorComponent implements OnInit {
 
-  flagBuscar: boolean;
+  @Input() tipoVuelo;
+  @Input() origenAuto: string;
+  @Input() origentTexto: string;
+  @Input() destinoAuto: string;
+  @Input() destinoTexto: string;
+  @Input() fechaSalida;
+  @Input() fechaRetorno;
+  @Input() cabina;
+  @Input() textoCabina: string;
+  @Input() escala;
+  @Input() textoEscala: string;
+  @Input() pasajeros;
+
+  @Output() lRecomendaciones = new EventEmitter<ISearchFlightModel[]>();
 
   airportlist: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
   searchData: ISearchFlightModel[] = [];
-
-  origenAuto: string;
-  origentTexto: string;
-  destinoAuto: string;
-  destinoTexto: string;
-
-  tipoVuelo: string;
-
   keyword = 'airportDescription';
   data: any[] = [];
   data2: any[] = [];
-
-  textoCabina: string;
-  cabina: string;
-
-  textoEscala: string;
-  escala: string;
-
-  pasajeros: number;
+  data3: any[] = [];
+  data4: any[] = [];
+  data5: any[] = [];
+  data6: any[] = [];
+  data7: any[] = [];
+  data8: any[] = [];
+  data9: any[] = [];
+  data10: any[] = [];
 
   constructor(
-    private airportService: AirportService,
-    private localeService: BsLocaleService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
-    private spinner: NgxSpinnerService
-  ) {
-    this.flagBuscar = false;
-    this.tipoVuelo = "RT";
-    this.origenAuto = "";
-    this.destinoAuto = "";
-    this.textoCabina = "Todas";
-    this.cabina = "";
-    this.textoEscala = "Todas";
-    this.escala = "";
-    this.pasajeros = 1;
-  }
+    private spinner: NgxSpinnerService,
+    private airportService: AirportService
+  ) { }
 
   ngOnInit() {
-    //$(".x").hide();
-    //this.localeService.use("es");
-    //this.airportList();
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
   }
-
-  airportList() {
-    this.airportService.airportList().subscribe(
-      (result: any) => {
-        console.log(result);
-        this.airportlist = result;
-        this.airportlistFilter = result;
-      },
-
-      (err) => { console.log("ERROR: " + err); },
-
-      () => {
-        console.log("Service airportList complete");
-      }
-    );
-  }
-
-  selectEvent(item) {
-    // do something with selected item
-    console.log("selectEvent");
-    console.log(item);
-    this.origenAuto = item.airportCode;
-    this.origentTexto = item.airportDescription;
-    setTimeout(function() {
-      $(".x").hide();
-    }, 1000);
-  }
-
-  onChangeSearch(val: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-    $(".x").hide();
-    if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
-      this.data = resultFilter;
-
-      $(".x").hide();
-    }
-  }
-
-  onFocused(e) {
-    // do something when input is focused
-    console.log("onFocused");
-    console.log(e);
-  }
-
-  selectEvent2(item) {
-    this.destinoAuto = item.airportCode;
-    this.destinoTexto = item.airportDescription;
-  }
-
-  onChangeSearch2(val: string) {
-    $(".x").hide();
-    if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
-      this.data2 = resultFilter;
-
-      $(".x").hide();
-    }
-  }
-
-  onFocused2(e) {}
-
 
   seleccionarCabina(valor, texto) {
     this.cabina = valor;
@@ -161,6 +88,138 @@ export class VuelosComponent implements OnInit {
 
   seleccionarTipoVuelo(valor) {
     this.tipoVuelo = valor;
+  }
+
+  selectEvent(flag, item) {
+    // do something with selected item
+    console.log("selectEvent");
+    console.log(item);
+
+    if (flag === 1) {
+      this.origenAuto = item.airportCode;
+      this.origentTexto = item.airportDescription;
+      setTimeout(function() {
+        $(".x").hide();
+      }, 1000);
+    }
+
+    if (flag === 2) {
+      this.destinoAuto = item.airportCode;
+      this.destinoTexto = item.airportDescription;
+      setTimeout(function() {
+        $(".x").hide();
+      }, 1000);
+    }
+  }
+
+  onChangeSearch(flag, val: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+    if (flag === 1) {
+      $(".x").hide();
+      if (val.length >= 3) {
+        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        this.data = resultFilter;
+
+        $(".x").hide();
+      }
+    }
+
+    if (flag === 2) {
+      $(".x").hide();
+      if (val.length >= 3) {
+        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        this.data2 = resultFilter;
+
+        $(".x").hide();
+      }
+    }
+
+    if (flag === 3) {
+      $(".x").hide();
+      if (val.length >= 3) {
+        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        this.data3 = resultFilter;
+
+        $(".x").hide();
+      }
+    }
+
+    if (flag === 4) {
+      $(".x").hide();
+      if (val.length >= 3) {
+        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        this.data4 = resultFilter;
+
+        $(".x").hide();
+      }
+    }
+
+    if (flag === 5) {
+      $(".x").hide();
+      if (val.length >= 3) {
+        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        this.data5 = resultFilter;
+
+        $(".x").hide();
+      }
+    }
+
+    if (flag === 6) {
+      $(".x").hide();
+      if (val.length >= 3) {
+        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        this.data6 = resultFilter;
+
+        $(".x").hide();
+      }
+    }
+
+    if (flag === 7) {
+      $(".x").hide();
+      if (val.length >= 3) {
+        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        this.data7 = resultFilter;
+
+        $(".x").hide();
+      }
+    }
+
+    if (flag === 8) {
+      $(".x").hide();
+      if (val.length >= 3) {
+        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        this.data8 = resultFilter;
+
+        $(".x").hide();
+      }
+    }
+
+    if (flag === 9) {
+      $(".x").hide();
+      if (val.length >= 3) {
+        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        this.data9 = resultFilter;
+
+        $(".x").hide();
+      }
+    }
+
+    if (flag === 10) {
+      $(".x").hide();
+      if (val.length >= 3) {
+        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        this.data10 = resultFilter;
+
+        $(".x").hide();
+      }
+    }
+  }
+
+  onFocused(flag, e) {
+    // do something when input is focused
+    console.log("onFocused");
+    console.log(e);
   }
 
   searchFlight() {
@@ -230,12 +289,12 @@ export class VuelosComponent implements OnInit {
       "Origin":
         [
           "[LIM]",
-          "[BCN]"//,
+          "[AQP]"//,
           //"[LIM]"
         ],
       "Destination":
         [
-          "[BCN]",
+          "[AQP]",
           "[LIM]"//,
           //"[CIX]"
         ],
@@ -310,8 +369,10 @@ export class VuelosComponent implements OnInit {
       result => {
         console.log(result);
         if (result !== null && result.length > 0) {
-          this.searchData = result;
-          this.flagBuscar = true;
+          //this.searchData = result;
+          //this.flagBuscar = true;
+
+          this.lRecomendaciones.emit(result);
         }
       },
       err => {
@@ -323,11 +384,6 @@ export class VuelosComponent implements OnInit {
         console.log("this.airportService.searchFlight completado");
       }
     );
-  }
-
-  searchFlightBuscador($event) {
-    this.searchData = [];
-    this.searchData = $event;
   }
 
 }

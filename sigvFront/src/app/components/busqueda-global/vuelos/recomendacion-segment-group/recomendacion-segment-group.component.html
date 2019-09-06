@@ -112,8 +112,11 @@
 
               <div class="row m-0 p-0">
 
-                <div class="col-12 m-0 p-0 text-center g-text-2">
+                <div *ngIf="segmentGroup.dateVariation===0" class="col-12 m-0 p-0 text-center g-text-2">
                   {{segmentGroup.arrivalDateShow}}
+                </div>
+                <div *ngIf="segmentGroup.dateVariation>0" style="color: #ED1C24 !important;" class="col-12 m-0 p-0 text-center g-text-2">
+                  <span style="padding-right: 5px !important;">(+{{segmentGroup.dateVariation}})</span> {{segmentGroup.arrivalDateShow}}
                 </div>
 
                 <div class="col-12 m-0 p-0 text-center g-text-3">

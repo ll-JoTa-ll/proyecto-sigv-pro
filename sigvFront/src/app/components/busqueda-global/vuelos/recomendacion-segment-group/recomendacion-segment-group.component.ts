@@ -22,7 +22,7 @@ export class RecomendacionSegmentGroupComponent implements OnInit {
     if (this.lSegmentGroupsLength === this.lSegmentGroupsIndex) {
       this.textFlightTimeShow = "Duracion total: " + this.totalFlightTimeShow;
     } else {
-      this.textFlightTimeShow = "Espera en aeropuerto: " + this.segmentGroup.timeWaitAirport;
+      this.textFlightTimeShow = "Espera en aeropuerto: " + this.segmentGroup.timeWaitAirport.replace("00d ", "");
     }
 
     this.marketingCarrier = this.segmentGroup.marketingCarrier + '.png';
