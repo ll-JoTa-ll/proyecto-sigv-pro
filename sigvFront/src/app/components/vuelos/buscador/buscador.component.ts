@@ -34,7 +34,7 @@ export class BuscadorComponent implements OnInit {
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
   searchData: ISearchFlightModel[] = [];
-  keyword = 'airportDescription';
+  keyword = 'name';
   data: any[] = [];
   data2: any[] = [];
   data3: any[] = [];
@@ -96,16 +96,16 @@ export class BuscadorComponent implements OnInit {
     console.log(item);
 
     if (flag === 1) {
-      this.origenAuto = item.airportCode;
-      this.origentTexto = item.airportDescription;
+      this.origenAuto = item.iataCode;
+      this.origentTexto = item.name;
       setTimeout(function() {
         $(".x").hide();
       }, 1000);
     }
 
     if (flag === 2) {
-      this.destinoAuto = item.airportCode;
-      this.destinoTexto = item.airportDescription;
+      this.destinoAuto = item.iataCode;
+      this.destinoTexto = item.name;
       setTimeout(function() {
         $(".x").hide();
       }, 1000);
@@ -118,7 +118,7 @@ export class BuscadorComponent implements OnInit {
     if (flag === 1) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data = resultFilter;
 
         $(".x").hide();
@@ -128,7 +128,7 @@ export class BuscadorComponent implements OnInit {
     if (flag === 2) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data2 = resultFilter;
 
         $(".x").hide();
@@ -138,7 +138,7 @@ export class BuscadorComponent implements OnInit {
     if (flag === 3) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data3 = resultFilter;
 
         $(".x").hide();
@@ -148,7 +148,7 @@ export class BuscadorComponent implements OnInit {
     if (flag === 4) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data4 = resultFilter;
 
         $(".x").hide();
@@ -158,7 +158,7 @@ export class BuscadorComponent implements OnInit {
     if (flag === 5) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data5 = resultFilter;
 
         $(".x").hide();
@@ -168,7 +168,7 @@ export class BuscadorComponent implements OnInit {
     if (flag === 6) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data6 = resultFilter;
 
         $(".x").hide();
@@ -178,7 +178,7 @@ export class BuscadorComponent implements OnInit {
     if (flag === 7) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data7 = resultFilter;
 
         $(".x").hide();
@@ -188,7 +188,7 @@ export class BuscadorComponent implements OnInit {
     if (flag === 8) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data8 = resultFilter;
 
         $(".x").hide();
@@ -198,7 +198,7 @@ export class BuscadorComponent implements OnInit {
     if (flag === 9) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data9 = resultFilter;
 
         $(".x").hide();
@@ -208,7 +208,7 @@ export class BuscadorComponent implements OnInit {
     if (flag === 10) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data10 = resultFilter;
 
         $(".x").hide();
@@ -250,130 +250,37 @@ export class BuscadorComponent implements OnInit {
 
     if (this.tipoVuelo === "MC") {}
 
-    /*
     let data = {
-      "TypeFlight": this.tipoVuelo,
+      "UserId": this.loginDataUser.userId,
+      "NumberPassengers": this.pasajeros,
+      "NumberRecommendations": "50",
+      "CabinType": this.cabina,
+      "Scales": this.escala,
+      "Currency": "USD",
       "Origin": origen,
       "Destination": destino,
       "DepartureArrivalDate":
         [
-          "2019/08/26", "2019/08/28"
-        ],
-      "DepartureArrivalTimeFrom":
-        [
-          "", ""
-        ],
-      "DepartureArrivalTimeTo":
-        [
-          "", ""
-        ],
-      "NumberPassengers": this.pasajeros,
-      "CabinType": this.cabina,
-      "Scales": this.escala,
-      "EnviromentIsProd": this.loginDataUser.enviromentIsProd,
-      "Currency": "USD",
-      "NumberRecommendations": "50",
-      "UserId": this.loginDataUser.userId,
-      "Lpseudo": this.loginDataUser.lpseudo,
-      "Ocompany": this.loginDataUser.ocompany,
-      "Oprofile": this.loginDataUser.oprofile,
-      "OcostCenter": this.loginDataUser.ocostCenter,
-      "Lpassenger": null
-    };
-    */
-
-
-
-    let data = {
-      "TypeFlight": "RT",
-      "Origin":
-        [
-          "[LIM]",
-          "[AQP]"//,
-          //"[LIM]"
-        ],
-      "Destination":
-        [
-          "[AQP]",
-          "[LIM]"//,
-          //"[CIX]"
-        ],
-      "DepartureArrivalDate":
-        [
-          "2019/09/26",
-          "2019/09/28"//,
-          //"2019/09/30"
+          "2019/12/26", "2019/12/28"
         ],
       "DepartureArrivalTimeFrom":
         [
           "",
-          ""//,
-          //""
+          ""
         ],
       "DepartureArrivalTimeTo":
         [
           "",
-          ""//,
-          //""
+          ""
         ],
-      "NumberPassengers": "1",
-      "CabinType": "",
-      "Scales": "",
-      "EnviromentIsProd": false,
-      "Currency": "USD",
-      "NumberRecommendations": "50",
-      "UserId": "1",
-      "Lpseudo":
-        [
-          {
-            "PseudoIsActive": true,
-            "CountryCode": "PE",
-            "PseudoCode": "LIMPE2235"
-          }
-        ],
-      "Ocompany":
-        {
-          "CompanyId": "1",
-          "CompanyDescription": "ENTEL PERU S.A.",
-          "CompanyProfile": "ENTEL",
-          "LcorporateCode":
-            [
-              {
-                "AirlineCode": "LA",
-                "Code": "ENTEL"
-              },
-              {
-                "AirlineCode": "P9",
-                "Code": "172318"
-              },
-              {
-                "AirlineCode": "CM",
-                "Code": "CIN1583"
-              }
-            ]
-        },
-      "Oprofile": {
-        "ProfileId": "1",
-        "ProfileDescription": "Agente Viajes"
-      },
-      "OcostCenter": {
-        "CostCenterId": "1",
-        "CostCenterCode": "NO COST CENTER",
-        "CostCenterDescription": "NO COST CENTER"
-      },
-      "Lpassenger": null
+      "Ocompany": this.loginDataUser.ocompany
     };
 
 
     this.airportService.searchFlight(data).subscribe(
       result => {
         console.log(result);
-        if (result !== null && result.length > 0) {
-          //this.searchData = result;
-          //this.flagBuscar = true;
-
-          this.lRecomendaciones.emit(result);
-        }
+        this.lRecomendaciones.emit(result);
       },
       err => {
         this.spinner.hide();

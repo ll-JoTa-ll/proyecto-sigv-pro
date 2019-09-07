@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   checkedRecuerdame: boolean;
   airportlist: any[] = [];
   flagLogin: number;
+  token;
 
   constructor(
     private loginService: LoginService,
@@ -52,6 +53,8 @@ export class LoginComponent implements OnInit {
         if (result != null) {
           this.flagLogin = 1;
           this.sessionStorageService.store('ss_login_data', result);
+          this.token = result.token;
+          this.sessionStorageService.store('ss_token', result.token);
           console.log(result);
         } else {
           console.log("NULL");
@@ -65,6 +68,7 @@ export class LoginComponent implements OnInit {
       },
 
       () => {
+        /*
         console.log("flagLogin = " + this.flagLogin);
         if (this.flagLogin === 1) {
           const ls_airportlist = this.localStorageService.retrieve('ls_airportlist');
@@ -72,17 +76,19 @@ export class LoginComponent implements OnInit {
             this.airportList();
           } else {
             this.spinner.hide();
-            this.router.navigate(['/home']);
+            this.router.navigate(['/vuelos']);
           }
         } else {
           this.spinner.hide();
         }
+        */
+        this.airportList(this.token);
       }
     );
   }
 
-  airportList() {
-    this.airportService.airportList().subscribe(
+  airportList(token) {
+    this.airportService.airportList(token).subscribe(
       (result: any) => {
         console.log(result);
         this.airportlist = result;
@@ -97,8 +103,8 @@ export class LoginComponent implements OnInit {
       () => {
         this.spinner.hide();
         console.log("Service airportList complete");
-        $(location).attr("href", "/home");
-        //this.router.navigate(['/home']);
+        //$(location).attr("href", "/vuelos");
+        this.router.navigate(['/vuelos']);
       }
     );
   }

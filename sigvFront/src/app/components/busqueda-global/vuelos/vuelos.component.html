@@ -42,7 +42,7 @@
 
         </div>
 
-        <div class="row m-0 p-0 pt-4 pl-2">
+        <div *ngIf="tipoVuelo!='MC'" class="row m-0 p-0 pt-4 pl-2">
 
           <div style="width: 30%" class=" m-0 p-0 v-texto-2">
 
@@ -67,7 +67,7 @@
                   </ng-autocomplete>
 
                   <ng-template #itemTemplate let-item>
-                    <a [innerHTML]="item.airportDescription"></a>
+                    <a [innerHTML]="item.name"></a>
                   </ng-template>
 
                   <ng-template #notFoundTemplate let-notFound>
@@ -103,7 +103,7 @@
                   </ng-autocomplete>
 
                   <ng-template #itemTemplate2 let-item>
-                    <a [innerHTML]="item.airportDescription"></a>
+                    <a [innerHTML]="item.name"></a>
                   </ng-template>
 
                   <ng-template #notFoundTemplate2 let-notFound>
@@ -162,6 +162,12 @@
             </div>
 
           </div>
+
+        </div>
+
+        <div *ngIf="tipoVuelo==='MC'" class="row m-0 p-0">
+
+          <app-multidestinos-lg style="width: 100% !important;"></app-multidestinos-lg>
 
         </div>
 
@@ -302,6 +308,28 @@
     </div>
 
 
+    <div *ngIf="flagDinData" class="col-12">
+
+      <div class="row m-0 p-0">
+
+        <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+        <div class="col-3 m-0 p-0"></div>
+
+        <div class="col-6 m-0 p-0">
+          <div class="col-12 m-0 p-0 text-center">
+
+            <alert type="warning">
+              No se encontraron itinerarios para esta búsqueda
+            </alert>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
 
     <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
 
@@ -345,9 +373,11 @@
           >
           </app-recomendacion>
 
+
         </div>
 
       </div>
+
 
     </div>
 

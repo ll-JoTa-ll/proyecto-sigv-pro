@@ -62,7 +62,7 @@
           </ng-autocomplete>
 
           <ng-template #itemTemplate let-item>
-            <a [innerHTML]="item.airportDescription"></a>
+            <a [innerHTML]="item.name"></a>
           </ng-template>
 
           <ng-template #notFoundTemplate let-notFound>
@@ -89,7 +89,7 @@
           </ng-autocomplete>
 
           <ng-template #itemTemplate2 let-item>
-            <a [innerHTML]="item.airportDescription"></a>
+            <a [innerHTML]="item.name"></a>
           </ng-template>
 
           <ng-template #notFoundTemplate2 let-notFound>

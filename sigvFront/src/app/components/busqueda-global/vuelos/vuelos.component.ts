@@ -30,7 +30,7 @@ export class VuelosComponent implements OnInit {
 
   tipoVuelo: string;
 
-  keyword = 'airportDescription';
+  keyword = 'name';
   data: any[] = [];
   data2: any[] = [];
 
@@ -41,6 +41,10 @@ export class VuelosComponent implements OnInit {
   escala: string;
 
   pasajeros: number;
+
+  token;
+
+  flagDinData;
 
   constructor(
     private airportService: AirportService,
@@ -58,6 +62,7 @@ export class VuelosComponent implements OnInit {
     this.textoEscala = "Todas";
     this.escala = "";
     this.pasajeros = 1;
+    this.flagDinData = false;
   }
 
   ngOnInit() {
@@ -66,8 +71,11 @@ export class VuelosComponent implements OnInit {
     //this.airportList();
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.sessionStorageService.store('ss_token', this.loginDataUser.token);
+    this.token = this.sessionStorageService.retrieve('ss_token');
   }
 
+  /*
   airportList() {
     this.airportService.airportList().subscribe(
       (result: any) => {
@@ -83,13 +91,14 @@ export class VuelosComponent implements OnInit {
       }
     );
   }
+  */
 
   selectEvent(item) {
     // do something with selected item
     console.log("selectEvent");
     console.log(item);
-    this.origenAuto = item.airportCode;
-    this.origentTexto = item.airportDescription;
+    this.origenAuto = item.iataCode;
+    this.origentTexto = item.name;
     setTimeout(function() {
       $(".x").hide();
     }, 1000);
@@ -100,7 +109,7 @@ export class VuelosComponent implements OnInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data = resultFilter;
 
       $(".x").hide();
@@ -114,14 +123,14 @@ export class VuelosComponent implements OnInit {
   }
 
   selectEvent2(item) {
-    this.destinoAuto = item.airportCode;
-    this.destinoTexto = item.airportDescription;
+    this.destinoAuto = item.iataCode;
+    this.destinoTexto = item.name;
   }
 
   onChangeSearch2(val: string) {
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.airportDescription.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data2 = resultFilter;
 
       $(".x").hide();
@@ -165,6 +174,7 @@ export class VuelosComponent implements OnInit {
 
   searchFlight() {
     this.spinner.show();
+    this.flagDinData = false;
 
     let origen: any[] = [];
     let destino: any[] = [];
@@ -191,120 +201,69 @@ export class VuelosComponent implements OnInit {
 
     if (this.tipoVuelo === "MC") {}
 
-    /*
     let data = {
-      "TypeFlight": this.tipoVuelo,
+      "UserId": this.loginDataUser.userId,
+      "NumberPassengers": this.pasajeros,
+      "NumberRecommendations": "50",
+      "CabinType": this.cabina,
+      "Scales": this.escala,
+      "Currency": "USD",
       "Origin": origen,
       "Destination": destino,
       "DepartureArrivalDate":
         [
-          "2019/08/26", "2019/08/28"
+          "2019/12/26", "2019/12/28"
         ],
       "DepartureArrivalTimeFrom":
         [
-          "", ""
+          "",
+          ""
         ],
       "DepartureArrivalTimeTo":
         [
-          "", ""
+          "",
+          ""
         ],
-      "NumberPassengers": this.pasajeros,
-      "CabinType": this.cabina,
-      "Scales": this.escala,
-      "EnviromentIsProd": this.loginDataUser.enviromentIsProd,
-      "Currency": "USD",
-      "NumberRecommendations": "50",
-      "UserId": this.loginDataUser.userId,
-      "Lpseudo": this.loginDataUser.lpseudo,
-      "Ocompany": this.loginDataUser.ocompany,
-      "Oprofile": this.loginDataUser.oprofile,
-      "OcostCenter": this.loginDataUser.ocostCenter,
-      "Lpassenger": null
+      "Ocompany": this.loginDataUser.ocompany
     };
-    */
 
-
-
+    /*
     let data = {
-      "TypeFlight": "RT",
+      "UserId": 1,
+      "NumberPassengers": "1",
+      "NumberRecommendations": "250",
+      "CabinType": "",
+      "Scales": "",
+      "Currency": "USD",
       "Origin":
         [
-          "[LIM]",
-          "[BCN]"//,
-          //"[LIM]"
+          "LIM",
+          "CUZ"
         ],
       "Destination":
         [
-          "[BCN]",
-          "[LIM]"//,
-          //"[CIX]"
+          "CUZ",
+          "LIM"
         ],
       "DepartureArrivalDate":
         [
-          "2019/09/26",
-          "2019/09/28"//,
-          //"2019/09/30"
+          "2019/11/15",
+          "2019/11/18"
         ],
       "DepartureArrivalTimeFrom":
         [
           "",
-          ""//,
-          //""
-        ],
-      "DepartureArrivalTimeTo":
-        [
-          "",
-          ""//,
-          //""
-        ],
-      "NumberPassengers": "1",
-      "CabinType": "",
-      "Scales": "",
-      "EnviromentIsProd": false,
-      "Currency": "USD",
-      "NumberRecommendations": "50",
-      "UserId": "1",
-      "Lpseudo":
-        [
-          {
-            "PseudoIsActive": true,
-            "CountryCode": "PE",
-            "PseudoCode": "LIMPE2235"
-          }
+          ""
         ],
       "Ocompany":
         {
-          "CompanyId": "1",
-          "CompanyDescription": "ENTEL PERU S.A.",
-          "CompanyProfile": "ENTEL",
-          "LcorporateCode":
-            [
-              {
-                "AirlineCode": "LA",
-                "Code": "ENTEL"
-              },
-              {
-                "AirlineCode": "P9",
-                "Code": "172318"
-              },
-              {
-                "AirlineCode": "CM",
-                "Code": "CIN1583"
-              }
-            ]
-        },
-      "Oprofile": {
-        "ProfileId": "1",
-        "ProfileDescription": "Agente Viajes"
-      },
-      "OcostCenter": {
-        "CostCenterId": "1",
-        "CostCenterCode": "NO COST CENTER",
-        "CostCenterDescription": "NO COST CENTER"
-      },
-      "Lpassenger": null
+          "CompanyId": 2,
+          "CompanyName": "CEMENTOS PACASMAYO S.A.A."
+        }
     };
+    */
 
+    console.log("data: " + JSON.stringify(data));
 
     this.airportService.searchFlight(data).subscribe(
       result => {
@@ -312,11 +271,13 @@ export class VuelosComponent implements OnInit {
         if (result !== null && result.length > 0) {
           this.searchData = result;
           this.flagBuscar = true;
+        } else {
+          this.flagDinData = true;
         }
       },
       err => {
         this.spinner.hide();
-        console.log("ERROR: " + err);
+        console.log("ERROR: " + JSON.stringify(err));
       },
       () => {
         this.spinner.hide();
@@ -328,6 +289,11 @@ export class VuelosComponent implements OnInit {
   searchFlightBuscador($event) {
     this.searchData = [];
     this.searchData = $event;
+    if (this.searchData == null) {
+      this.flagDinData = true;
+    } else {
+      this.flagDinData = false;
+    }
   }
 
 }

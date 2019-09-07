@@ -5,24 +5,52 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { ISearchFlightModel } from '../models/ISearchFlight.model';
 
+let httpOptions = {
+  headers: new HttpHeaders()
+};
+
+let httpOptions2 = {
+  headers: new HttpHeaders()
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class AirportService {
 
-  private _url: string = environment.url_2 + "/SearchFlight/";
+  token;
+
+  private _url: string = environment.url_2 + "/Airport/";
+  private _url2: string = environment.url_2 + "/Search/";
 
   constructor(
     private http: HttpClient,
     private sessionSt: SessionStorageService
-  ) { }
+  ) {
+    this.token = this.sessionSt.retrieve('ss_token');
+    console.log("token:  " + this.token);
+    httpOptions.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+  }
 
-  airportList() {
-    //console.log(this._url + "AirportList");
-    return this.http.get(this._url + "AirportList");
+  airportList(token) {
+    //console.log(this._url + "AirportList ");
+    /*
+    console.log("token: " + token);
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + token,
+      'Content-Type': "application/json",
+    });
+    console.log(httpOptions2);
+    */
+    return this.http.get(this._url + "GetAirports", httpOptions);
   }
 
   searchFlight(data): Observable<ISearchFlightModel[]> {
-    return this.http.post<ISearchFlightModel[]>(this._url + "SearchFlight", data);
+    console.log("searchFlight");
+    console.log("token: " + this.token);
+    return this.http.post<ISearchFlightModel[]>(this._url2 + "SearchFlight", data, httpOptions);
   }
 }
