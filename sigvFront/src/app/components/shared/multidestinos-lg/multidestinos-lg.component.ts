@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -14,6 +14,34 @@ declare var $: any;
   styleUrls: ['./multidestinos-lg.component.sass']
 })
 export class MultidestinosLgComponent implements OnInit {
+
+  @Output() outIndexTramo = new EventEmitter<number>();
+
+  @Output() outOrigenValue1 = new EventEmitter<string>();
+  @Output() outOrigenText1 = new EventEmitter<string>();
+  @Output() outOrigenValue2 = new EventEmitter<string>();
+  @Output() outOrigenText2 = new EventEmitter<string>();
+  @Output() outOrigenValue3 = new EventEmitter<string>();
+  @Output() outOrigenText3 = new EventEmitter<string>();
+  @Output() outOrigenValue4 = new EventEmitter<string>();
+  @Output() outOrigenText4 = new EventEmitter<string>();
+  @Output() outOrigenValue5 = new EventEmitter<string>();
+  @Output() outOrigenText5 = new EventEmitter<string>();
+  @Output() outOrigenValue6 = new EventEmitter<string>();
+  @Output() outOrigenText6 = new EventEmitter<string>();
+
+  @Output() outDestinoValue1 = new EventEmitter<string>();
+  @Output() outDestinoText1 = new EventEmitter<string>();
+  @Output() outDestinoValue2 = new EventEmitter<string>();
+  @Output() outDestinoText2 = new EventEmitter<string>();
+  @Output() outDestinoValue3 = new EventEmitter<string>();
+  @Output() outDestinoText3 = new EventEmitter<string>();
+  @Output() outDestinoValue4 = new EventEmitter<string>();
+  @Output() outDestinoText4 = new EventEmitter<string>();
+  @Output() outDestinoValue5 = new EventEmitter<string>();
+  @Output() outDestinoText5 = new EventEmitter<string>();
+  @Output() outDestinoValue6 = new EventEmitter<string>();
+  @Output() outDestinoText6 = new EventEmitter<string>();
 
   airportlist: any[] = [];
   airportlistFilter: any[] = [];
@@ -60,6 +88,9 @@ export class MultidestinosLgComponent implements OnInit {
   flagTramo4: boolean;
   flagTramo5: boolean;
   flagTramo6: boolean;
+  indexTramo: number;
+  lTramoOrigen: any[] = [];
+  lTramoDestino: any[] = [];
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -71,11 +102,13 @@ export class MultidestinosLgComponent implements OnInit {
     this.flagTramo4 = false;
     this.flagTramo5 = false;
     this.flagTramo6 = false;
+    this.indexTramo = 2;
   }
 
   ngOnInit() {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.outIndexTramo.emit(this.indexTramo);
   }
 
   selectEvent(flag, item) {
@@ -97,50 +130,76 @@ export class MultidestinosLgComponent implements OnInit {
       case 1:
         this.origenAuto1 = item.iataCode;
         this.origentTexto1 = item.name;
+        this.outOrigenValue1.emit(this.origenAuto1);
+        this.outOrigenText1.emit(this.origentTexto1);
+        console.log("case 1");
+        console.log("this.origenAuto1: " + this.origenAuto1);
         break;
       case 2:
         this.destinoAuto1 = item.iataCode;
         this.destinoTexto1 = item.name;
+        this.outDestinoValue1.emit(this.destinoAuto1);
+        this.outDestinoText1.emit(this.destinoTexto1);
         break;
       case 3:
         this.origenAuto2 = item.iataCode;
         this.origentTexto2 = item.name;
+        this.outOrigenValue2.emit(this.origenAuto2);
+        this.outOrigenText2.emit(this.origentTexto2);
         break;
       case 4:
         this.destinoAuto2 = item.iataCode;
         this.destinoTexto2 = item.name;
+        this.outDestinoValue2.emit(this.destinoAuto2);
+        this.outDestinoText2.emit(this.destinoTexto2);
         break;
       case 5:
         this.origenAuto3 = item.iataCode;
         this.origentTexto3 = item.name;
+        this.outOrigenValue3.emit(this.origenAuto3);
+        this.outOrigenText3.emit(this.origentTexto3);
         break;
       case 6:
         this.destinoAuto3 = item.iataCode;
         this.destinoTexto3 = item.name;
+        this.outDestinoValue3.emit(this.destinoAuto3);
+        this.outDestinoText3.emit(this.destinoTexto3);
         break;
       case 7:
         this.origenAuto4 = item.iataCode;
         this.origentTexto4 = item.name;
+        this.outOrigenValue4.emit(this.origenAuto4);
+        this.outOrigenText4.emit(this.origentTexto4);
         break;
       case 8:
         this.destinoAuto4 = item.iataCode;
         this.destinoTexto4 = item.name;
+        this.outDestinoValue4.emit(this.destinoAuto4);
+        this.outDestinoText4.emit(this.destinoTexto4);
         break;
       case 9:
         this.origenAuto5 = item.iataCode;
         this.origentTexto5 = item.name;
+        this.outOrigenValue5.emit(this.origenAuto5);
+        this.outOrigenText5.emit(this.origentTexto5);
         break;
       case 10:
         this.destinoAuto5 = item.iataCode;
         this.destinoTexto5 = item.name;
+        this.outDestinoValue5.emit(this.destinoAuto5);
+        this.outDestinoText5.emit(this.destinoTexto5);
         break;
       case 11:
         this.origenAuto6 = item.iataCode;
         this.origentTexto6 = item.name;
+        this.outOrigenValue6.emit(this.origenAuto6);
+        this.outOrigenText6.emit(this.origentTexto6);
         break;
       case 12:
         this.destinoAuto6 = item.iataCode;
         this.destinoTexto6 = item.name;
+        this.outDestinoValue6.emit(this.destinoAuto6);
+        this.outDestinoText6.emit(this.destinoTexto6);
         break;
     }
 
@@ -281,6 +340,8 @@ export class MultidestinosLgComponent implements OnInit {
   }
 
   agregarTramo(tramo) {
+    this.indexTramo = tramo;
+    this.outIndexTramo.emit(this.indexTramo);
     if (tramo === 3) {
       this.flagTramo3 = true;
     }

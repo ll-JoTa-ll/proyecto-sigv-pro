@@ -9,6 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { deLocale, esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale);
+defineLocale('de', deLocale);
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +33,9 @@ import { SegurosComponent } from './components/busqueda-global/seguros/seguros.c
 import { TxtAutocompletarComponent } from './components/shared/txt-autocompletar/txt-autocompletar.component';
 import { MultidestinosLgComponent } from './components/shared/multidestinos-lg/multidestinos-lg.component';
 import { MultidestinosXsComponent } from './components/shared/multidestinos-xs/multidestinos-xs.component';
+import { FiltrosComponent } from './components/busqueda-global/hoteles/filtros/filtros.component';
+import { BusquedaMiniComponent } from './components/busqueda-global/hoteles/busqueda-mini/busqueda-mini.component';
+import { ResultadoComponent } from './components/busqueda-global/hoteles/resultado/resultado.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +56,10 @@ import { MultidestinosXsComponent } from './components/shared/multidestinos-xs/m
     SegurosComponent,
     TxtAutocompletarComponent,
     MultidestinosLgComponent,
-    MultidestinosXsComponent
+    MultidestinosXsComponent,
+    FiltrosComponent,
+    BusquedaMiniComponent,
+    ResultadoComponent
   ],
   imports: [
     BrowserModule,

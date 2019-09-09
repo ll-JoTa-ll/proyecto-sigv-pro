@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AirportService } from '../../../services/airport.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { listLocales } from 'ngx-bootstrap/chronos';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
@@ -15,6 +16,9 @@ declare var $: any;
   styleUrls: ['./vuelos.component.sass']
 })
 export class VuelosComponent implements OnInit {
+
+  locale = 'es';
+  locales = listLocales();
 
   flagBuscar: boolean;
 
@@ -46,6 +50,39 @@ export class VuelosComponent implements OnInit {
 
   flagDinData;
 
+  indexTramo: number;
+
+  origenAuto1: string;
+  origenAuto2: string;
+  origenAuto3: string;
+  origenAuto4: string;
+  origenAuto5: string;
+  origenAuto6: string;
+  origentTexto1: string;
+  origentTexto2: string;
+  origentTexto3: string;
+  origentTexto4: string;
+  origentTexto5: string;
+  origentTexto6: string;
+  destinoAuto1: string;
+  destinoAuto2: string;
+  destinoAuto3: string;
+  destinoAuto4: string;
+  destinoAuto5: string;
+  destinoAuto6: string;
+  destinoTexto1: string;
+  destinoTexto2: string;
+  destinoTexto3: string;
+  destinoTexto4: string;
+  destinoTexto5: string;
+  destinoTexto6: string;
+
+  minDateSalida: Date;
+  minDateRetorno: Date;
+
+  fechaSalida: string;
+  fechaRetorno: string;
+
   constructor(
     private airportService: AirportService,
     private localeService: BsLocaleService,
@@ -63,6 +100,9 @@ export class VuelosComponent implements OnInit {
     this.escala = "";
     this.pasajeros = 1;
     this.flagDinData = false;
+    this.indexTramo = 2;
+    this.minDateSalida = new Date();
+    this.minDateSalida.setDate(this.minDateSalida.getDate());
   }
 
   ngOnInit() {
@@ -73,6 +113,8 @@ export class VuelosComponent implements OnInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     this.token = this.sessionStorageService.retrieve('ss_token');
+    console.log(this.locales);
+    this.localeService.use(this.locale);
   }
 
   /*
@@ -92,6 +134,50 @@ export class VuelosComponent implements OnInit {
     );
   }
   */
+
+  handlerSalida(datepickerSalida) {
+    console.log(datepickerSalida);
+  }
+
+  onValueChangeSalida(value: Date): void {
+    this.minDateRetorno = value;
+
+    let mes = "";
+    if ((value.getMonth() + 1) < 10) {
+      mes = "0" + (value.getMonth() + 1);
+    } else {
+      mes = "" + value.getMonth();
+    }
+
+    let dia = "";
+    if (value.getDate() < 10) {
+      dia = "0" + value.getDate();
+    } else {
+      dia = "" + value.getDate();
+    }
+
+    this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
+    console.log(this.fechaSalida);
+  }
+
+  onValueChangeRetorno(value: Date): void {
+    let mes = "";
+    if ((value.getMonth() + 1) < 10) {
+      mes = "0" + (value.getMonth() + 1);
+    } else {
+      mes = "" + value.getMonth();
+    }
+
+    let dia = "";
+    if (value.getDate() < 10) {
+      dia = "0" + value.getDate();
+    } else {
+      dia = "" + value.getDate();
+    }
+
+    this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
+    console.log(this.fechaRetorno);
+  }
 
   selectEvent(item) {
     // do something with selected item
@@ -179,7 +265,8 @@ export class VuelosComponent implements OnInit {
     let origen: any[] = [];
     let destino: any[] = [];
     let fechas: any[] = [];
-    let horas: any[] = [];
+    let horasFrom: any[] = [];
+    let horasTo: any[] = [];
 
     if (this.tipoVuelo === "RT") {
       origen.push(this.origenAuto);
@@ -192,11 +279,17 @@ export class VuelosComponent implements OnInit {
       console.log(origen);
       console.log("destino");
       console.log(destino);
+
+      fechas.push(this.fechaSalida);
+      fechas.push(this.fechaRetorno);
+      console.log("fechas");
+      console.log(fechas);
     }
 
     if (this.tipoVuelo === "OW") {
       origen.push(this.origenAuto);
       destino.push(this.destinoAuto);
+      fechas.push(this.fechaSalida);
     }
 
     if (this.tipoVuelo === "MC") {}
@@ -210,10 +303,7 @@ export class VuelosComponent implements OnInit {
       "Currency": "USD",
       "Origin": origen,
       "Destination": destino,
-      "DepartureArrivalDate":
-        [
-          "2019/12/26", "2019/12/28"
-        ],
+      "DepartureArrivalDate": fechas,
       "DepartureArrivalTimeFrom":
         [
           "",
@@ -294,6 +384,101 @@ export class VuelosComponent implements OnInit {
     } else {
       this.flagDinData = false;
     }
+  }
+
+  //TRAMO
+  updateIndexTramo($event) {
+    this.indexTramo = $event;
+    console.log("this.indexTramo: " + this.indexTramo);
+  }
+
+  //ORIGEN
+  updateOrigenTramoValue1($event) {
+    this.origenAuto1 = $event;
+    console.log("updateOrigenTramoValue1");
+    console.log(this.origenAuto1);
+  }
+  updateOrigenTramoValue2($event) {
+    this.origenAuto2 = $event;
+    console.log(this.origenAuto2);
+  }
+  updateOrigenTramoValue3($event) {
+    this.origenAuto3 = $event;
+    console.log(this.origenAuto3);
+  }
+  updateOrigenTramoValue4($event) {
+    this.origenAuto4 = $event;
+    console.log(this.origenAuto4);
+  }
+  updateOrigenTramoValue5($event) {
+    this.origenAuto5 = $event;
+    console.log(this.origenAuto5);
+  }
+  updateOrigenTramoValue6($event) {
+    this.origenAuto6 = $event;
+    console.log(this.origenAuto6);
+  }
+  updateOrigenTramoText1($event) {
+    this.origentTexto1 = $event;
+  }
+  updateOrigenTramoText2($event) {
+    this.origentTexto2 = $event;
+  }
+  updateOrigenTramoText3($event) {
+    this.origentTexto3 = $event;
+  }
+  updateOrigenTramoText4($event) {
+    this.origentTexto4 = $event;
+  }
+  updateOrigenTramoText5($event) {
+    this.origentTexto5 = $event;
+  }
+  updateOrigenTramoText6($event) {
+    this.origentTexto6 = $event;
+  }
+
+  //DESTINO
+  updateDestinoTramoValue1($event) {
+    this.destinoAuto1 = $event;
+    console.log(this.destinoAuto1);
+  }
+  updateDestinoTramoValue2($event) {
+    this.destinoAuto2 = $event;
+    console.log(this.destinoAuto2);
+  }
+  updateDestinoTramoValue3($event) {
+    this.destinoAuto3 = $event;
+    console.log(this.destinoAuto3);
+  }
+  updateDestinoTramoValue4($event) {
+    this.destinoAuto4 = $event;
+    console.log(this.destinoAuto4);
+  }
+  updateDestinoTramoValue5($event) {
+    this.destinoAuto5 = $event;
+    console.log(this.destinoAuto5);
+  }
+  updateDestinoTramoValue6($event) {
+    this.destinoAuto6 = $event;
+    console.log(this.destinoAuto6);
+  }
+  updateDestinoTramoText1($event) {
+    this.destinoTexto1 = $event;
+  }
+  updateDestinoTramoText2($event) {
+    this.destinoTexto2 = $event;
+  }
+  updateDestinoTramoText3($event) {
+    this.destinoTexto3 = $event;
+  }
+  updateDestinoTramoText4($event) {
+    this.destinoTexto4 = $event;
+  }
+  updateDestinoTramoText5($event) {
+    this.destinoTexto5 = $event;
+  }
+  updateDestinoTramoText6($event) {
+    this.destinoTexto6 = $event;
   }
 
 }

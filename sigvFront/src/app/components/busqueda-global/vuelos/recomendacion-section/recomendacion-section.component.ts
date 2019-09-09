@@ -17,9 +17,9 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("ngOnInit");
-    console.log("this.sectionLength");
-    console.log(this.sectionLength);
+    //console.log("ngOnInit");
+    //console.log("this.sectionLength");
+    //console.log(this.sectionLength);
     if (this.sectionLength === 1) {
       this.textType = 'Ida';
       this.imgIdaVuelta = 'airplane_ida.svg';
@@ -41,9 +41,9 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log("ngAfterViewInit");
-    console.log("this.sectionLength");
-    console.log(this.sectionLength);
+    //console.log("ngAfterViewInit");
+    //console.log("this.sectionLength");
+    //console.log(this.sectionLength);
     if (this.sectionLength === 1) {
       this.textType = 'Ida';
     }

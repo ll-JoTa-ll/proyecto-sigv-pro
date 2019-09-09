@@ -36,6 +36,8 @@ export class AirportService {
   }
 
   airportList(token) {
+    this.token = this.sessionSt.retrieve('ss_token');
+    console.log("token:  " + this.token);
     //console.log(this._url + "AirportList ");
     /*
     console.log("token: " + token);

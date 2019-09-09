@@ -45,17 +45,23 @@ export class BuscadorComponent implements OnInit {
   data8: any[] = [];
   data9: any[] = [];
   data10: any[] = [];
+  indexTramo: number;
 
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     private spinner: NgxSpinnerService,
     private airportService: AirportService
-  ) { }
+  ) {
+    this.indexTramo = 2;
+  }
 
   ngOnInit() {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    setTimeout(function() {
+      $(".x").hide();
+    }, 1000);
   }
 
   seleccionarCabina(valor, texto) {
