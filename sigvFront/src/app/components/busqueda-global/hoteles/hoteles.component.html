@@ -1,13 +1,130 @@
-
-
 <ng-container>
 
-  <app-header>
+    <app-header>
 
-    <div class="row m-0 p-0 animated fadeIn fast">
-      HOTELES
-    </div>
+        <div class="row m-0 p-0">
 
-  </app-header>
+            <div class="col-2 m-0 p-0"></div>
+
+            <div class="col-8 m-0 p-0 pl-2 pr-2" style="background-color: white;">
+                <div class="row m-0 p-0">
+                    <div class="m-0 p-0" style="width: 35%">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                                <label for="">Destino</label>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+
+                                <div class="ng-autocomplete" style="width: 95%;">
+                                    <ng-autocomplete style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.name"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 35%">
+                        <div class="row m-0 p-0">
+                            <div class="col-12">
+                                <label for="">Fechas</label>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-6">
+                                <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                                            <input type="image"
+                                                   src="./assets/images/home/calendario.svg"
+                                                   (click)="datepickerIngreso.toggle()"
+                                                   style="outline: none; border: 0; width: 20% !important;">
+                                            <input type="text"
+                                                   placeholder="Ingreso"
+                                                   class="p-0 pl-2 v-texto-3"
+                                                   style="outline: none; border: 0; width: 80%"
+                                                   #datepickerIngreso="bsDatepicker"
+                                                   (onHidden)="handlerIngreso(datepickerIngreso)"
+                                                   (bsValueChange)="onValueChangeIngreso($event)"
+                                                   [minDate]="minDateIngreso"
+                                                   bsDatepicker
+                                                   [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                                            >
+                                          </label>
+                            </div>
+                            <div class="col-6">
+                                <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                                            <input type="image"
+                                                   src="./assets/images/home/calendario.svg"
+                                                   (click)="datepickerSalida.toggle()"
+                                                   style="outline: none; border: 0; width: 20% !important;">
+                                            <input type="text"
+                                                   placeholder="Salida"
+                                                   class="p-0 pl-2 v-texto-3"
+                                                   style="outline: none; border: 0; width: 80%"
+                                                   #datepickerSalida="bsDatepicker"
+                                                   (bsValueChange)="onValueChangeSalida($event)"
+                                                   [minDate]="minDateSalida"
+                                                   bsDatepicker
+                                                   [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                                            >
+                                          </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 30%">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                                <label for="">Habitaciones</label>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <input type="text" class="col-6 form-control">
+                            <input type="text" class="col-6 form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 p-0">
+                    <div style="width: 20%">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                                <label for="">Estrellas</label>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                                <select name="" id="" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 20%">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 mt-4">
+                                <button class="btn btn-primary">Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-2 m-0 p-0"></div>
+
+        </div>
+
+
+
+    </app-header>
+
 
 </ng-container>
