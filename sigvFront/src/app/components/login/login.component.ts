@@ -82,6 +82,7 @@ export class LoginComponent implements OnInit {
           this.spinner.hide();
         }
         */
+        console.log("LOGIN Completado")
         this.airportList(this.token);
       }
     );

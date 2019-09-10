@@ -27,8 +27,12 @@ export class AirportService {
     private http: HttpClient,
     private sessionSt: SessionStorageService
   ) {
+    console.log("AirportService constructor");
+    console.log("AirportService constructor");
+    console.log("AirportService constructor");
+    console.log("AirportService constructor");
     this.token = this.sessionSt.retrieve('ss_token');
-    console.log("token:  " + this.token);
+    console.log("AirportService constructor token:  " + this.token);
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -51,6 +55,9 @@ export class AirportService {
   }
 
   searchFlight(data): Observable<ISearchFlightModel[]> {
+    console.log("searchFlight");
+    console.log("searchFlight");
+    console.log("searchFlight");
     console.log("searchFlight");
     console.log("token: " + this.token);
     return this.http.post<ISearchFlightModel[]>(this._url2 + "SearchFlight", data, httpOptions);

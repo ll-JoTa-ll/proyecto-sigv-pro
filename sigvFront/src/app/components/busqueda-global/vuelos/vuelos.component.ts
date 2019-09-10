@@ -83,6 +83,13 @@ export class VuelosComponent implements OnInit {
   fechaSalida: string;
   fechaRetorno: string;
 
+  fechaSalida1: string;
+  fechaSalida2: string;
+  fechaSalida3: string;
+  fechaSalida4: string;
+  fechaSalida5: string;
+  fechaSalida6: string;
+
   constructor(
     private airportService: AirportService,
     private localeService: BsLocaleService,
@@ -292,7 +299,96 @@ export class VuelosComponent implements OnInit {
       fechas.push(this.fechaSalida);
     }
 
-    if (this.tipoVuelo === "MC") {}
+    if (this.tipoVuelo === "MC") {
+      const indexTramo = this.indexTramo;
+      switch (indexTramo) {
+        case 2:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          break;
+        case 3:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          break;
+        case 4:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          break;
+        case 5:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          fechas.push(this.fechaSalida5);
+          break;
+        case 6:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+          origen.push(this.origenAuto6);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+          destino.push(this.destinoAuto6);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          fechas.push(this.fechaSalida5);
+          fechas.push(this.fechaSalida6);
+          break;
+      }
+    }
+
+    fechas.forEach(function(fe) {
+      horasFrom.push("");
+      horasTo.push("");
+    });
 
     let data = {
       "UserId": this.loginDataUser.userId,
@@ -304,16 +400,8 @@ export class VuelosComponent implements OnInit {
       "Origin": origen,
       "Destination": destino,
       "DepartureArrivalDate": fechas,
-      "DepartureArrivalTimeFrom":
-        [
-          "",
-          ""
-        ],
-      "DepartureArrivalTimeTo":
-        [
-          "",
-          ""
-        ],
+      "DepartureArrivalTimeFrom": horasFrom,
+      "DepartureArrivalTimeTo": horasTo,
       "Ocompany": this.loginDataUser.ocompany
     };
 
@@ -479,6 +567,25 @@ export class VuelosComponent implements OnInit {
   }
   updateDestinoTramoText6($event) {
     this.destinoTexto6 = $event;
+  }
+
+  updateFechaSalida1($event) {
+    this.fechaSalida1 = $event;
+  }
+  updateFechaSalida2($event) {
+    this.fechaSalida2 = $event;
+  }
+  updateFechaSalida3($event) {
+    this.fechaSalida3 = $event;
+  }
+  updateFechaSalida4($event) {
+    this.fechaSalida4 = $event;
+  }
+  updateFechaSalida5($event) {
+    this.fechaSalida5 = $event;
+  }
+  updateFechaSalida6($event) {
+    this.fechaSalida6 = $event;
   }
 
 }

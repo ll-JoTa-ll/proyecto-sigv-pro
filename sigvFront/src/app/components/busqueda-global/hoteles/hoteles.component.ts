@@ -36,7 +36,7 @@ export class HotelesComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     private spinner: NgxSpinnerService
-  ) { 
+  ) {
     this.minDateIngreso = new Date();
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
   }
@@ -100,8 +100,8 @@ export class HotelesComponent implements OnInit {
       dia = "" + value.getDate();
     }
 
-    this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
-    console.log(this.fechaSalida);
+    this.fechaIngreso = value.getFullYear() + "/" + mes + "/" + dia;
+    console.log(this.fechaIngreso);
   }
 
   onValueChangeSalida(value: Date): void {
@@ -119,8 +119,8 @@ export class HotelesComponent implements OnInit {
       dia = "" + value.getDate();
     }
 
-    this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
-    console.log(this.fechaRetorno);
+    this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
+    console.log(this.fechaSalida);
   }
 
 }
