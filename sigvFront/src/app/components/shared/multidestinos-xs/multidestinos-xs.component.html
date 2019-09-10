@@ -1,1 +1,444 @@
-<p>multidestinos-xs works!</p>
+
+
+
+<div class="col-12 m-0 p-0">
+  Tramo 1
+</div>
+<div class="col-12 m-0 p-0">
+  Origen
+</div>
+<div class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(1, $event)'
+      (inputChanged)='onChangeSearch(1, $event)'
+      (inputFocused)='onFocused(1, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div class="col-12 m-0 p-0">
+  Destino
+</div>
+<div class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data2"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(2, $event)'
+      (inputChanged)='onChangeSearch(2, $event)'
+      (inputFocused)='onFocused(2, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div class="col-12 m-0 p-0">
+  Fecha
+</div>
+<div class="col-12 m-0 p-0">
+
+  <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+    <input type="image"
+           src="./assets/images/home/calendario.svg"
+           (click)="datepickerSalida1.toggle()"
+           style="outline: none; border: 0; width: 20% !important; height: 20px;">
+    <input type="text"
+           placeholder="Salida"
+           class="p-0 pl-2 v-texto-3"
+           style="outline: none; border: 0; width: 80%"
+           #datepickerSalida1="bsDatepicker"
+           [minDate]="minDateSalida1"
+           (bsValueChange)="onValueChangeSalida1($event)"
+           bsDatepicker
+           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+    >
+  </label>
+
+</div>
+
+<hr>
+
+<div class="col-12 m-0 p-0">Tramo 2</div>
+<div class="col-12 m-0 p-0">Origen</div>
+<div class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data3"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(3, $event)'
+      (inputChanged)='onChangeSearch(3, $event)'
+      (inputFocused)='onFocused(3, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div class="col-12 m-0 p-0">Destino</div>
+<div class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data4"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(4, $event)'
+      (inputChanged)='onChangeSearch(4, $event)'
+      (inputFocused)='onFocused(4, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div class="col-12 m-0 p-0">Fecha</div>
+<div class="col-12 m-0 p-0">
+  <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+    <input type="image"
+           src="./assets/images/home/calendario.svg"
+           (click)="datepickerSalida2.toggle()"
+           style="outline: none; border: 0; width: 20% !important; height: 20px;">
+    <input type="text"
+           placeholder="Salida"
+           class="p-0 pl-2 v-texto-3"
+           style="outline: none; border: 0; width: 80%"
+           #datepickerSalida2="bsDatepicker"
+           [minDate]="minDateSalida2"
+           (bsValueChange)="onValueChangeSalida2($event)"
+           bsDatepicker
+           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+    >
+  </label>
+</div>
+
+<hr *ngIf="flagTramo3">
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0">Tramo 3</div>
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0">Origen</div>
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data5"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(5, $event)'
+      (inputChanged)='onChangeSearch(5, $event)'
+      (inputFocused)='onFocused(5, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0">Destino</div>
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data6"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(6, $event)'
+      (inputChanged)='onChangeSearch(6, $event)'
+      (inputFocused)='onFocused(6, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0">Fecha</div>
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0">
+  <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+    <input type="image"
+           src="./assets/images/home/calendario.svg"
+           (click)="datepickerSalida3.toggle()"
+           style="outline: none; border: 0; width: 20% !important; height: 20px;">
+    <input type="text"
+           placeholder="Salida"
+           class="p-0 pl-2 v-texto-3"
+           style="outline: none; border: 0; width: 80%"
+           #datepickerSalida3="bsDatepicker"
+           [minDate]="minDateSalida3"
+           (bsValueChange)="onValueChangeSalida3($event)"
+           bsDatepicker
+           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+    >
+  </label>
+</div>
+
+<hr *ngIf="flagTramo4">
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0">Tramo 4</div>
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0">Origen</div>
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data7"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(7, $event)'
+      (inputChanged)='onChangeSearch(7, $event)'
+      (inputFocused)='onFocused(7, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0">Destino</div>
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data8"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(8, $event)'
+      (inputChanged)='onChangeSearch(8, $event)'
+      (inputFocused)='onFocused(8, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0">Fecha</div>
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0">
+  <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+    <input type="image"
+           src="./assets/images/home/calendario.svg"
+           (click)="datepickerSalida4.toggle()"
+           style="outline: none; border: 0; width: 20% !important; height: 20px;">
+    <input type="text"
+           placeholder="Salida"
+           class="p-0 pl-2 v-texto-3"
+           style="outline: none; border: 0; width: 80%"
+           #datepickerSalida4="bsDatepicker"
+           [minDate]="minDateSalida4"
+           (bsValueChange)="onValueChangeSalida4($event)"
+           bsDatepicker
+           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+    >
+  </label>
+</div>
+
+<hr *ngIf="flagTramo5">
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0">Tramo 5</div>
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0">Origen</div>
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data9"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(9, $event)'
+      (inputChanged)='onChangeSearch(9, $event)'
+      (inputFocused)='onFocused(9, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0">Destino</div>
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data10"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(10, $event)'
+      (inputChanged)='onChangeSearch(10, $event)'
+      (inputFocused)='onFocused(10, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0">Fecha</div>
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0">
+  <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+    <input type="image"
+           src="./assets/images/home/calendario.svg"
+           (click)="datepickerSalida5.toggle()"
+           style="outline: none; border: 0; width: 20% !important; height: 20px;">
+    <input type="text"
+           placeholder="Salida"
+           class="p-0 pl-2 v-texto-3"
+           style="outline: none; border: 0; width: 80%"
+           #datepickerSalida5="bsDatepicker"
+           [minDate]="minDateSalida5"
+           (bsValueChange)="onValueChangeSalida5($event)"
+           bsDatepicker
+           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+    >
+  </label>
+</div>
+
+<hr *ngIf="flagTramo6">
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0">Tramo 6</div>
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0">Origen</div>
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data11"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(11, $event)'
+      (inputChanged)='onChangeSearch(11, $event)'
+      (inputFocused)='onFocused(11, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0">Destino</div>
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0">
+
+  <div class="ng-autocomplete" style="width: 95%;">
+    <ng-autocomplete
+      style="color: #898989 !important;"
+      [data]="data12"
+      [searchKeyword]="keyword"
+      (selected)='selectEvent(12, $event)'
+      (inputChanged)='onChangeSearch(12, $event)'
+      (inputFocused)='onFocused(12, $event)'
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+
+</div>
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0">Fecha</div>
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0">
+  <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+    <input type="image"
+           src="./assets/images/home/calendario.svg"
+           (click)="datepickerSalida6.toggle()"
+           style="outline: none; border: 0; width: 20% !important; height: 20px;">
+    <input type="text"
+           placeholder="Salida"
+           class="p-0 pl-2 v-texto-3"
+           style="outline: none; border: 0; width: 80%"
+           #datepickerSalida6="bsDatepicker"
+           [minDate]="minDateSalida6"
+           (bsValueChange)="onValueChangeSalida6($event)"
+           bsDatepicker
+           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+    >
+  </label>
+</div>
