@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   url: "http://sigvplussecurity.azurewebsites.net/api",
-  url_2: "http://sigvplusflight.azurewebsites.net/api"
+  url_2: "http://sigvplusflight.azurewebsites.net/api",
+  url_hotel: "http://172.16.3.20:8080/api"
 };
 
 /*

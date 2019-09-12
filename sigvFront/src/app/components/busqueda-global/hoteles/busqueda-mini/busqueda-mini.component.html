@@ -1,1 +1,122 @@
-<p>busqueda-mini works!</p>
+<div class="mt-4 mr-4 p-0">
+    <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                    <label for="" style="font-family: Omnes-med; font-size: 18px">Destino</label>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                    <div class="ng-autocomplete" style="width: 95%;">
+                        <ng-autocomplete [(ngModel)]="destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+
+                        <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item.name"></a>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row m-0 p-0">
+        <div class="col-12 mt-3 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                    <label for="" style="font-family: Omnes-med; font-size: 18px">Fechas</label>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-6">
+                    <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                                <input type="image"
+                                       src="./assets/images/home/calendario.svg"
+                                       (click)="datepickerIngreso.toggle()"
+                                       style="outline: none; border: 0; width: 10% !important;">
+                                <input type="text"
+                                       [(ngModel)]="fchingreso"
+                                       placeholder="Ingreso"
+                                       class="p-0 pl-2 v-texto-3"
+                                       style="outline: none; border: 0; width: 80%"
+                                       #datepickerIngreso="bsDatepicker"
+                                       (onHidden)="handlerIngreso(datepickerIngreso)"
+                                       (bsValueChange)="onValueChangeIngreso($event)"
+                                       [minDate]="minDateIngreso"
+                                       bsDatepicker
+                                       [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                                >
+                              </label>
+                </div>
+                <div class="col-6">
+                    <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                                <input type="image"
+                                       src="./assets/images/home/calendario.svg"
+                                       (click)="datepickerSalida.toggle()"
+                                       style="outline: none; border: 0; width: 10% !important;">
+                                <input type="text"
+                                       placeholder="Salida"
+                                       [(ngModel)]="fchsalida"
+                                       class="p-0 pl-2 v-texto-3"
+                                       style="outline: none; border: 0; width: 80%"
+                                       #datepickerSalida="bsDatepicker"
+                                       (bsValueChange)="onValueChangeSalida($event)"
+                                       [minDate]="minDateSalida"
+                                       bsDatepicker
+                                       [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                                >
+                              </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 m-0">
+        <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 mt-5 div-line">
+                </div>
+                <div class="div-noches">
+                    <span>3 noches</span><span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 m-0">
+        <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                    <label for="" style="font-family: Omnes-med; font-size: 18px">Habitaciones</label>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <label for="" class="d-inline-flex box-shadow col-6" style="width: 100% !important; padding: 0px; padding: 9px">
+                            <input type="image"
+                            src="./assets/images/cama.svg"
+                            style="outline: none; border: 0; width: 10% !important;"
+                            >
+                          </label>
+                <label for="" class="d-inline-flex box-shadow col-6" style="width: 100% !important; padding: 0px; padding: 9px">
+                          <input type="image"
+                          src="./assets/images/pasajero.svg"
+                          style="outline: none; border: 0; width: 10% !important;"
+                          >
+                          </label>
+            </div>
+        </div>
+    </div>
+    <div class="row p-0 m-0">
+        <div class="col-12 m-0 p-0">
+            <div class="row m-o p-0">
+                <button class="btn v-btn-buscar">
+                            <img src="./assets/images/home/buscador-musical.svg" alt="">
+                            Buscar
+                          </button>
+            </div>
+        </div>
+    </div>
+</div>

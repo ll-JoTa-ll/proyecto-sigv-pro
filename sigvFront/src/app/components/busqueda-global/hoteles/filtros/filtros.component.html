@@ -1,1 +1,59 @@
-<p>filtros works!</p>
+<div class="m-0 p-0">
+    <div class="row box-shadow pl-5 pr-5">
+        <div class="col-4 m-0 p-0">
+            <div class="m-0 p-0">
+                <label for="">Filtros</label>
+            </div>
+        </div>
+        <div class="col-4 m-0 p-0">
+            <div class="btn-group" style="width: 100% !important;" dropdown>
+                <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                                  Precio
+                                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="seleccionarCabina('E', 'Económica')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><span>5</span></a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="seleccionarCabina('B', 'Business')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><span>4</span></a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="seleccionarCabina('F', 'First')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><span>3</span></a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="seleccionarCabina('B', 'Business')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><span>2</span></a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="seleccionarCabina('F', 'First')"><img src="./assets/images/estrellas.svg"><span>1</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-4 m-0 p-0">
+            <div class="btn-group" style="width: 100% !important;" dropdown>
+                <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                                          Estrellas
+                                        </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="seleccionarCabina('E', 'Económica')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><span>5</span></a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="seleccionarCabina('B', 'Business')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><span>4</span></a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="seleccionarCabina('F', 'First')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><span>3</span></a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="seleccionarCabina('B', 'Business')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><span>2</span></a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" (click)="seleccionarCabina('F', 'First')"><img src="./assets/images/estrellas.svg"><span>1</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

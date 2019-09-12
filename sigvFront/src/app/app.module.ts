@@ -36,6 +36,8 @@ import { MultidestinosXsComponent } from './components/shared/multidestinos-xs/m
 import { FiltrosComponent } from './components/busqueda-global/hoteles/filtros/filtros.component';
 import { BusquedaMiniComponent } from './components/busqueda-global/hoteles/busqueda-mini/busqueda-mini.component';
 import { ResultadoComponent } from './components/busqueda-global/hoteles/resultado/resultado.component';
+import { GetMenorPrecioPipe } from './pipes/get-menor-precio.pipe';
+import { GetimghotelPipe } from './pipes/getimghotel.pipe';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { ResultadoComponent } from './components/busqueda-global/hoteles/resulta
     MultidestinosXsComponent,
     FiltrosComponent,
     BusquedaMiniComponent,
-    ResultadoComponent
+    ResultadoComponent,
+    GetMenorPrecioPipe,
+    GetimghotelPipe
   ],
   imports: [
     BrowserModule,

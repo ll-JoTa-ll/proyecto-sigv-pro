@@ -1,1 +1,77 @@
-<p>resultado works!</p>
+<div class="col-12 m-0 p-0">
+    <div class="row mt-5 p-0">
+        <div class="m-0 p-0 box-shadow" style="width: 35%">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                    <img class="img-hotel" src="{{urlHotel}}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="m-0 p-0 box-shadow" style="width: 35%">
+            <div class="row m-0 p-0">
+                <div class="col-12 mt-2">
+                    <span><i class="fas fa-star"></i></span>
+                    <span class="ml-3" style="font-size: 25px; font-family: Omnes-med">{{nombrehotel}}</span>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12 mt-3">
+                    <span>{{direccion}} ,</span>
+                    <span class="ml-2">A {{distancia}} km del centro</span>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12">
+                    <span class="txt-mapa">Ver mapa</span>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12 mt-2">
+                    <span class="porcentaje-trip">7.8</span>
+                    <span class="ml-3" *ngIf="estrellas === '5'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                    <span class="ml-3" *ngIf="estrellas === '4'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                    <span class="ml-3" *ngIf="estrellas === '3'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                    <span class="ml-3" *ngIf="estrellas === '2'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                    <span class="ml-3" *ngIf="estrellas === '1'"><img src="./assets/images/star.svg"></span>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12 mt-2">
+                    <span><img src="./assets/images/trip-advisor.png"></span>
+                </div>
+            </div>
+        </div>
+        <div class="m-0 p-0 box-shadow" style="width: 30%">
+            <div class="row m-0 p-0">
+                <div class="col-12 div-price">
+                    <span>Precio promedio noche</span>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12 text-center mt-3">
+                    <span class="tipomoneda">{{currency}}</span>
+                    <span class="precionoche">{{precioprom}}</span>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12 div-price-noche text-center mt-2">
+                    <span>Precio total 2 adultos</span>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0 text-center">
+                    <span class="price-currency">{{currency}}</span>
+                    <span class="preciopromedio">{{precioxnoche}}</span>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12 text-center mt-3">
+                    <button class="btn r-btn-2">
+                                Seleccionar
+                              </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

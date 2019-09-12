@@ -4,6 +4,9 @@ import { listLocales } from 'ngx-bootstrap/chronos';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
+import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
+import { HotelService } from '../../../services/hotel.service';
+import { typeWithParameters } from '@angular/compiler/src/render3/util';
 
 declare var jquery: any;
 declare var $: any;
@@ -18,7 +21,8 @@ export class HotelesComponent implements OnInit {
   locale = 'es';
   locales = listLocales();
 
-  flagBuscar: boolean;
+  flagBuscar: boolean = false;
+  flagDinData: boolean = false;
   airportlist: any[] = [];
   loginDataUser: ILoginDatosModel;
   token;
@@ -30,12 +34,19 @@ export class HotelesComponent implements OnInit {
   minDateSalida: Date;
   fechaIngreso: string;
   fechaSalida: string;
+  fechaRetorno: string;
+  LlistaHotel: IHotelResultsModel[];
+  estrellas: string;
+  textoestrellas: string;
+
+
 
   constructor(
     private localeService: BsLocaleService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private service: HotelService
   ) { 
     this.minDateIngreso = new Date();
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
@@ -100,7 +111,7 @@ export class HotelesComponent implements OnInit {
       dia = "" + value.getDate();
     }
 
-    this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
+    this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
     console.log(this.fechaSalida);
   }
 
@@ -119,8 +130,43 @@ export class HotelesComponent implements OnInit {
       dia = "" + value.getDate();
     }
 
-    this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
+    this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
     console.log(this.fechaRetorno);
   }
 
+  SeachHotel() {
+   this.spinner.show();
+   const SearchObj: any = { 
+      HotelCityCode: this.destinoValue,
+      Start: this.fechaSalida,
+      End: this.fechaRetorno,
+      Quantity: 1,
+      Count: 1,
+      HotelSegmentCategoryCode: this.estrellas
+    };
+   this.service.SearchHotel(SearchObj).subscribe(
+      data => {
+         console.log(this.LlistaHotel);
+         if (data !== null && data.length > 0) {
+           this.LlistaHotel = data;
+           this.flagBuscar = true;
+         } else {
+           this.flagDinData = true;
+      }
+      },
+    err => {
+      this.spinner.hide();
+      console.log("ERROR: " + JSON.stringify(err));
+    },
+   () => {
+     this.spinner.hide();
+     console.log("this.airportService.searchFlight completado");
+   } 
+  );
+}
+
+SeleccionarEstrella(codeestrella, texto) {
+  this.estrellas = codeestrella;
+  this.textoestrellas = texto;
+}
 }
