@@ -43,15 +43,15 @@ export class AirportService {
     this.token = this.sessionSt.retrieve('ss_token');
     console.log("token:  " + this.token);
     //console.log(this._url + "AirportList ");
-    /*
+
     console.log("token: " + token);
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + token,
       'Content-Type': "application/json",
     });
     console.log(httpOptions2);
-    */
-    return this.http.get(this._url + "GetAirports", httpOptions);
+
+    return this.http.get(this._url + "GetAirports", httpOptions2);
   }
 
   searchFlight(data): Observable<ISearchFlightModel[]> {

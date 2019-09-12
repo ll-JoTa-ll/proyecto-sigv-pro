@@ -385,6 +385,8 @@
           [escala]="escala"
           [textoEscala]="textoEscala"
           [pasajeros]="pasajeros"
+          [fechaSalida]="fechaSalida"
+          [fechaRetorno]="fechaRetorno"
           (lRecomendaciones)="searchFlightBuscador($event)"
           ></app-buscador>
 
@@ -407,6 +409,7 @@
             [lsectionLength]="recomendacion.lsections.length"
             [lpolicies]="recomendacion.lpolicies"
             [recommendationId]="recomendacion.recommendationId"
+            [tipoVuelo]="tipoVuelo"
           >
           </app-recomendacion>
 

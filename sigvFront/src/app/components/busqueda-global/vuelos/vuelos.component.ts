@@ -6,6 +6,7 @@ import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
+import {DatepickerRenderOptions} from 'ngx-bootstrap/datepicker/models';
 
 declare var jquery: any;
 declare var $: any;
@@ -90,6 +91,9 @@ export class VuelosComponent implements OnInit {
   fechaSalida5: string;
   fechaSalida6: string;
 
+  //dpSalida: Date;
+  dpRetorno;
+
   constructor(
     private airportService: AirportService,
     private localeService: BsLocaleService,
@@ -148,6 +152,7 @@ export class VuelosComponent implements OnInit {
 
   onValueChangeSalida(value: Date): void {
     this.minDateRetorno = value;
+    //console.log("dpSalida: " + this.dpSalida);
 
     let mes = "";
     if ((value.getMonth() + 1) < 10) {
@@ -448,8 +453,10 @@ export class VuelosComponent implements OnInit {
         console.log(result);
         if (result !== null && result.length > 0) {
           this.searchData = result;
+          this.sessionStorageService.store('ss_searchFlight', result);
           this.flagBuscar = true;
         } else {
+          this.sessionStorageService.store('ss_searchFlight', null);
           this.flagDinData = true;
         }
       },

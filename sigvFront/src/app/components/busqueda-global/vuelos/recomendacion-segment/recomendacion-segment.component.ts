@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 
 declare var jquery: any;
 declare var $: any;
@@ -8,7 +8,7 @@ declare var $: any;
   templateUrl: './recomendacion-segment.component.html',
   styleUrls: ['./recomendacion-segment.component.sass']
 })
-export class RecomendacionSegmentComponent implements OnInit {
+export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
 
   @Input() segment;
   @Input() bagAllowed;
@@ -16,6 +16,10 @@ export class RecomendacionSegmentComponent implements OnInit {
   @Input() recommendationId;
   @Input() sectionId;
   @Input() lSectionGroups;
+  @Input() recommendationIndex;
+
+  @Output() segmentRadioCheckId = new EventEmitter<string>();
+
   carrierName: string;
   marketingCarrier: string;
   timeOfDepartureShow: string;
@@ -24,9 +28,12 @@ export class RecomendacionSegmentComponent implements OnInit {
   totalFlightTimeShow;
   flagSegmentId: string;
   lSegmentGroups: any[] = [];
+  radioButtonName: string;
+  segmentRadioSel;
 
   constructor() {
     //this.flagSegmentId = 'flagSegment_' + this.recommendationId + '' + this.sectionId + '' + this.segmentId;
+    this.radioButtonName = 'radioSection';
   }
 
   ngOnInit() {
@@ -42,6 +49,18 @@ export class RecomendacionSegmentComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    console.log("this.radioButtonName: " + "#" + this.radioButtonName + this.recommendationId + this.sectionId + this.indexSegment);
+    console.log("this.indexSegment: " + this.indexSegment);
+    if (this.indexSegment === 1) {
+      this.segmentRadioCheckId.emit(this.radioButtonName + '_' + this.recommendationId + '_' + this.sectionId + '_' + this.indexSegment);
+      $("#" + this.radioButtonName + '_' +
+        this.recommendationId + '_' +
+        this.sectionId + '_' +
+        this.indexSegment).prop("checked", true);
+    }
+  }
+
   listSegmentGroups(flagSegmentId, lSegmentGroups) {
     console.log("flagSegmentId: " + flagSegmentId);
     this.lSegmentGroups = lSegmentGroups;
@@ -52,6 +71,12 @@ export class RecomendacionSegmentComponent implements OnInit {
     console.log("flagSegmentId: " + flagSegmentId);
     this.lSegmentGroups = [];
     $("#" + flagSegmentId).hide();
+  }
+
+  selectRadioButton(radioId) {
+    console.log("RecomendacionSegmentComponent");
+    console.log(radioId);
+    this.segmentRadioCheckId.emit(radioId);
   }
 
 }

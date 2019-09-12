@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-recomendacion-section',
@@ -11,8 +11,14 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
   @Input() sectionLength: number;
   @Input() posicion: number;
   @Input() recommendationId: number;
+  @Input() recommendationIndex: number;
+  @Input() tipoVuelo: string;
+
+  @Output() segmentRadioCheckId = new EventEmitter<string>();
+
   textType: string;
   imgIdaVuelta: string;
+  segmenteSel;
 
   constructor() { }
 
@@ -25,7 +31,7 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
       this.imgIdaVuelta = 'airplane_ida.svg';
     }
 
-    if (this.sectionLength === 2) {
+    if (this.tipoVuelo === 'RT') {
       if (this.posicion % 2 === 0) {
         this.textType = 'Vuelta';
         this.imgIdaVuelta = 'airplane_vuelta.svg';
@@ -35,7 +41,7 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
       }
     }
 
-    if (this.sectionLength > 2) {
+    if (this.tipoVuelo === 'MC') {
       this.textType = 'Tramo ' + this.posicion;
     }
   }
@@ -51,6 +57,12 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
     if (this.sectionLength === 2) {}
 
     if (this.sectionLength > 2) {}
+  }
+
+  setearRadioId($event) {
+    console.log("RecomendacionSectionComponent");
+    console.log($event);
+    this.segmentRadioCheckId.emit($event);
   }
 
 }

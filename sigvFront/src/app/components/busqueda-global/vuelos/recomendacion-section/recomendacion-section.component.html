@@ -77,9 +77,11 @@
             [segment]="segment"
             [bagAllowed]="section.bagAllowed"
             [indexSegment]="i+1"
+            [recommendationIndex]="recommendationIndex"
             [recommendationId]="recommendationId"
             [sectionId]="section.sectionId"
             [lSectionGroups]="section.lSectionGroups"
+            (segmentRadioCheckId)="setearRadioId($event)"
             *ngFor="let segment of section.lSegments; let i=index"
           ></app-recomendacion-segment>
         </div>

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { ISearchFlightModel } from '../../../../models/ISearchFlight.model';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-recomendacion',
@@ -7,6 +8,12 @@ import { ISearchFlightModel } from '../../../../models/ISearchFlight.model';
   styleUrls: ['./recomendacion.component.sass']
 })
 export class RecomendacionComponent implements OnInit {
+
+  modalRef: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
 
   @Input() currency: string;
   @Input() totalFareAmount: number;
@@ -21,10 +28,34 @@ export class RecomendacionComponent implements OnInit {
   @Input() lsectionLength: number;
   @Input() lpolicies: any[];
   @Input() recommendationId: number;
+  @Input() tipoVuelo: string;
 
-  constructor() { }
+  segmentRadioCheckId;
+
+  constructor(
+    private modalService: BsModalService
+  ) { }
 
   ngOnInit() {
+  }
+
+  openModal(template: TemplateRef<any>, recommendationId) {
+
+    console.log(this.recommendationId);
+    console.log(JSON.stringify(this.lsections));
+
+    return false;
+
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+  }
+
+  setearRadioId($event) {
+    console.log("RecomendacionComponent");
+    console.log($event);
+    this.segmentRadioCheckId = $event;
   }
 
 }

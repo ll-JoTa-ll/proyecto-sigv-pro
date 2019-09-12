@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -36,6 +37,9 @@ import { MultidestinosXsComponent } from './components/shared/multidestinos-xs/m
 import { FiltrosComponent } from './components/busqueda-global/hoteles/filtros/filtros.component';
 import { BusquedaMiniComponent } from './components/busqueda-global/hoteles/busqueda-mini/busqueda-mini.component';
 import { ResultadoComponent } from './components/busqueda-global/hoteles/resultado/resultado.component';
+import { FamiliasComponent } from './components/vuelos/familias/familias.component';
+import { FamiliaComponent } from './components/vuelos/familias/familia/familia.component';
+import { FamiliaFareComponent } from './components/vuelos/familias/familia-fare/familia-fare.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,10 @@ import { ResultadoComponent } from './components/busqueda-global/hoteles/resulta
     MultidestinosXsComponent,
     FiltrosComponent,
     BusquedaMiniComponent,
-    ResultadoComponent
+    ResultadoComponent,
+    FamiliasComponent,
+    FamiliaComponent,
+    FamiliaFareComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +80,8 @@ import { ResultadoComponent } from './components/busqueda-global/hoteles/resulta
     NgxSpinnerModule,
     AutocompleteLibModule,
     BsDatepickerModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
