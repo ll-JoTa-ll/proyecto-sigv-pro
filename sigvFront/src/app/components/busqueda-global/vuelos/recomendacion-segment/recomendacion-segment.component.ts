@@ -10,6 +10,7 @@ declare var $: any;
 })
 export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
 
+  @Input() section;
   @Input() segment;
   @Input() bagAllowed;
   @Input() indexSegment: number;
@@ -18,7 +19,9 @@ export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
   @Input() lSectionGroups;
   @Input() recommendationIndex;
 
-  @Output() segmentRadioCheckId = new EventEmitter<string>();
+  //@Output() segmentRadioCheckId = new EventEmitter<string>();
+  //@Output() outSegment = new EventEmitter<any>();
+  @Output() outSegmentCheck = new EventEmitter<any>();
 
   carrierName: string;
   marketingCarrier: string;
@@ -32,7 +35,6 @@ export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
   segmentRadioSel;
 
   constructor() {
-    //this.flagSegmentId = 'flagSegment_' + this.recommendationId + '' + this.sectionId + '' + this.segmentId;
     this.radioButtonName = 'radioSection';
   }
 
@@ -50,33 +52,45 @@ export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log("this.radioButtonName: " + "#" + this.radioButtonName + this.recommendationId + this.sectionId + this.indexSegment);
-    console.log("this.indexSegment: " + this.indexSegment);
     if (this.indexSegment === 1) {
-      this.segmentRadioCheckId.emit(this.radioButtonName + '_' + this.recommendationId + '_' + this.sectionId + '_' + this.indexSegment);
-      $("#" + this.radioButtonName + '_' +
+
+      console.log("this.section.ID: " + this.section.sectionId);
+
+      const segmentCheck = {
+        indexSegment_: this.indexSegment,
+        radioId_: this.radioButtonName + '_' + this.recommendationId + '_' + this.sectionId + '_' + this.segment.segmentId + '_' + this.indexSegment,
+        segment_: this.segment,
+        section_: this.section
+      };
+      this.outSegmentCheck.emit(segmentCheck);
+
+      $("#" +
+        this.radioButtonName + '_' +
         this.recommendationId + '_' +
         this.sectionId + '_' +
+        this.segment.segmentId + '_' +
         this.indexSegment).prop("checked", true);
     }
   }
 
   listSegmentGroups(flagSegmentId, lSegmentGroups) {
-    console.log("flagSegmentId: " + flagSegmentId);
     this.lSegmentGroups = lSegmentGroups;
     $("#" + flagSegmentId).show();
   }
 
   hideSegmentGroups(flagSegmentId) {
-    console.log("flagSegmentId: " + flagSegmentId);
     this.lSegmentGroups = [];
     $("#" + flagSegmentId).hide();
   }
 
   selectRadioButton(radioId) {
-    console.log("RecomendacionSegmentComponent");
-    console.log(radioId);
-    this.segmentRadioCheckId.emit(radioId);
+    const segmentCheck = {
+      indexSegment_: this.indexSegment,
+      radioId_: radioId,
+      segment_: this.segment,
+      section_: this.section
+    };
+    this.outSegmentCheck.emit(segmentCheck);
   }
 
 }

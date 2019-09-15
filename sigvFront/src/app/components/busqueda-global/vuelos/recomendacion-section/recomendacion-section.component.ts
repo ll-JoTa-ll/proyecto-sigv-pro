@@ -15,10 +15,12 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
   @Input() tipoVuelo: string;
 
   @Output() segmentRadioCheckId = new EventEmitter<string>();
+  @Output() outSection = new EventEmitter<any>();
+  @Output() outSegmentCheck = new EventEmitter<any>();
 
   textType: string;
   imgIdaVuelta: string;
-  segmenteSel;
+  segment;
 
   constructor() { }
 
@@ -59,10 +61,21 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
     if (this.sectionLength > 2) {}
   }
 
+  /*
   setearRadioId($event) {
     console.log("RecomendacionSectionComponent");
     console.log($event);
+    this.outSection.emit(this.section);
     this.segmentRadioCheckId.emit($event);
+  }
+
+  setearSegment($event) {
+    this.segment = $event;
+  }
+  */
+
+  setSegmentCheck($event) {
+    this.outSegmentCheck.emit($event);
   }
 
 }

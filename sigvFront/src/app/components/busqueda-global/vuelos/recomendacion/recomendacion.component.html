@@ -17,7 +17,7 @@
         [recommendationId]="recommendationId"
         [recommendationIndex]="i+1"
         [tipoVuelo]="tipoVuelo"
-        (segmentRadioCheckId)="setearRadioId($event)"
+        (outSegmentCheck)="setearRadioId($event)"
         [section]="section" *ngFor="let section of lsections; let i=index">
       </app-recomendacion-section>
 

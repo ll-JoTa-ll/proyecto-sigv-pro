@@ -9,9 +9,70 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
 
+  <style>
+    .div-contenedor-loader {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      background: url('assets/images/login_body_2.png') no-repeat;
+      z-index: 3000 !important;
+    }
+
+    .div-color {
+      background: -webkit-linear-gradient(
+        left, rgba(237,28,35,1) 0%, rgba(176,23,56,1) 36%, rgba(60,71,73,1) 100%
+      );
+      z-index: 3000 !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      padding: 0px !important;
+      margin: 0px !important;
+    }
+
+    .div-img {
+      background: url('assets/images/login_body_2.png') no-repeat;
+      z-index: 3000 !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      padding: 0px !important;
+      margin: 0px !important;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
 
 </head>
 <body>
+  <div id="divLoaderLogin" class="div-color" style="width: 100%; height: 100vh;">
+    <div class="div-img" style="width: 100%; height: 100vh;">
+
+      <img src="assets/images/loading.gif" alt="">
+      
+    </div>
+  </div>
   <app-root></app-root>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>

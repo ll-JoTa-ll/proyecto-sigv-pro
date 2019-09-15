@@ -56,9 +56,9 @@
               <input
                 class=""
                 type="radio"
-                [id]="radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + indexSegment"
+                [id]="radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment"
                 [name]="radioButtonName+recommendationId+sectionId"
-                (click)="selectRadioButton(radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + indexSegment)"
+                (click)="selectRadioButton(radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment)"
                 value="male">
             </div>
             <div class="col-4 m-0 p-0">
