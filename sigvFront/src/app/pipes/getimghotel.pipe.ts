@@ -19,9 +19,13 @@ export class GetimghotelPipe implements PipeTransform {
     } else {
        lmultimediadescription = odescriptions.OMultimediaDescriptions.LMultimediaDescription;
        results = lmultimediadescription.filter(m => m.OImageItems != null);
-       limageitem = results[0].OImageItems.LImageItem[0];
-       imgformat = limageitem.LImageFormat[0];
-       url = imgformat.url;
+       if (results.length === 0) {
+         url = '/assets/images/imagenotfound.jpg';
+       } else {
+        limageitem = results[0].OImageItems.LImageItem[0];
+        imgformat = limageitem.LImageFormat[0];
+        url = imgformat.url;
+       }
       }
     return url;
     }

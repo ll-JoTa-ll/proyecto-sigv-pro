@@ -8,7 +8,7 @@
 
             <div class="col-8 m-0 p-0 pl-2 pr-2" style="background-color: white;">
                 <div class="row m-0 p-0">
-                    <div class="m-0 p-0" style="width: 35%">
+                    <div class="m-0 p-0 v-texto-2 div-destino">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <label for="">Destino</label>
@@ -17,7 +17,7 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
 
-                                <div class="ng-autocomplete" style="width: 95%;">
+                                <div class="ng-autocomplete div-autocomplete">
                                     <ng-autocomplete style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
 
@@ -33,76 +33,114 @@
                             </div>
                         </div>
                     </div>
-                    <div style="width: 35%">
+                    <div class="v-texto-2 div-fechas">
                         <div class="row m-0 p-0">
-                            <div class="col-12">
+                            <div class="col-12 m-0 p-0">
                                 <label for="">Fechas</label>
                             </div>
                         </div>
                         <div class="row m-0 p-0">
-                            <div class="col-6">
-                                <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                            <div class="col-6 m-0 p-0 pr-3">
+                                <label for="" class="d-inline-flex box-shadow label-fecha">
                                             <input type="image"
                                                    src="./assets/images/home/calendario.svg"
                                                    (click)="datepickerIngreso.toggle()"
-                                                   style="outline: none; border: 0; width: 10% !important;">
+                                                   class="input-img">
                                             <input type="text"
                                                    placeholder="Ingreso"
-                                                   class="p-0 pl-2 v-texto-3"
-                                                   style="outline: none; border: 0; width: 80%"
+                                                   class="p-0 pl-2 input-date"
                                                    #datepickerIngreso="bsDatepicker"
                                                    (onHidden)="handlerIngreso(datepickerIngreso)"
                                                    (bsValueChange)="onValueChangeIngreso($event)"
                                                    [minDate]="minDateIngreso"
                                                    bsDatepicker
+                                                   id="dateingreso"
                                                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
                                             >
                                           </label>
                             </div>
-                            <div class="col-6">
-                                <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                            <div class="col-6 m-0 p-0 pr-3">
+                                <label for="" class="d-inline-flex box-shadow label-fecha">
                                             <input type="image"
                                                    src="./assets/images/home/calendario.svg"
                                                    (click)="datepickerSalida.toggle()"
-                                                   style="outline: none; border: 0; width: 10% !important;">
+                                                   class="input-img">
                                             <input type="text"
                                                    placeholder="Salida"
-                                                   class="p-0 pl-2 v-texto-3"
-                                                   style="outline: none; border: 0; width: 80%"
+                                                   class="p-0 pl-2 input-date"
                                                    #datepickerSalida="bsDatepicker"
                                                    (bsValueChange)="onValueChangeSalida($event)"
                                                    [minDate]="minDateSalida"
                                                    bsDatepicker
+                                                   id="datesalida"
                                                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
                                             >
                                           </label>
                             </div>
                         </div>
                     </div>
-                    <div style="width: 30%">
+                    <div class="v-texto-2 div-habitaciones">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <label for="">Habitaciones</label>
                             </div>
                         </div>
-                        <div class="row m-0 p-0">
-                            <label for="" class="d-inline-flex box-shadow col-6" style="width: 100% !important; padding: 0px; padding: 9px">
+                        <div class="row m-0 p-0" onclick="MostrarModal()" id="habitacion">
+                            <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
                                   <input type="image"
                                   src="./assets/images/cama.svg"
-                                  style="outline: none; border: 0; width: 10% !important;"
+                                  class="input-img"
                                   >
+                                  <input type="text"
+                                  id="txthabitacion"
+                                  class="input-text2"
+                                  value="1">
                                 </label>
-                            <label for="" class="d-inline-flex box-shadow col-6" style="width: 100% !important; padding: 0px; padding: 9px">
+                            <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
                                 <input type="image"
                                 src="./assets/images/pasajero.svg"
-                                style="outline: none; border: 0; width: 10% !important;"
+                                class="input-img"
                                 >
+                                <input type="text"
+                                id="txtpersonas"
+                                class="input-text2"
+                                value="2">
                                 </label>
+                        </div>
+                        <div class="modal-info tooltipBagDiv box-shadow" id="pop1" style="display: none;">
+                            <div id="habitacion_1">
+                                <div id="seccion_habitacion">
+                                    <div class="title-room">
+                                        <span>Habitacion #1</span>
+                                    </div>
+                                    <hr>
+                                    <div class="number-adults">
+                                        <span>Adultos</span>
+                                        <div class="input-group number-spinner">
+                                            <span class="input-group-btn">
+                                                                <button class="btn btn-danger" data-dir="dwn"><i class="fas fa-minus"></i></button>
+                                                            </span>
+                                            <input type="text" class="form-control text-center" id="txtadultos_1" value="2">
+                                            <span class="input-group-btn">
+                                                                <button  class="btn btn-danger" data-dir="up"><i class="fas fa-plus"></i></button>
+                                                            </span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                            <div id="habitacion_2"></div>
+                            <div id="options_1">
+                                <div class="btn-agregar" id="divbotones_1" style="display: block;">
+                                    <button class="btn btn-danger text-btn" onclick="AddHabitaciones(1)">Añadir habitacion</button>
+                                    <button class="btn btn-danger añadir" onclick="Aplicar(1)">Aplicar</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row m-0 p-0">
-                    <div style="width: 20%">
+                <div class="row m-0 p-0 v-texto-2 div-estrellas">
+                    <div style="width: 60%">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <label for="">Estrellas</label>
@@ -110,48 +148,54 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <div class="btn-group" style="width: 100% !important;" dropdown>
+                                <div class="btn-group div-btn-star" dropdown>
                                     <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                                        <span class="star-filtro" *ngIf="textoestrellas === 'Todas'">     {{textoestrellas}}</span>
                                         <span class="star-filtro" *ngIf="textoestrellas === '5'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
                                         <span class="star-filtro" *ngIf="textoestrellas === '4'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
                                         <span class="star-filtro" *ngIf="textoestrellas === '3'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
                                         <span class="star-filtro" *ngIf="textoestrellas === '2'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">     {{textoestrellas}}</span>
                                         <span class="star-filtro" *ngIf="textoestrellas === '1'"><img src="./assets/images/star.svg">     {{textoestrellas}}</span>
                                             </button>
-                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3 list-star pl-3 pr-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
                                         <li role="menuitem"><a class="dropdown-item" (click)="SeleccionarEstrella('', 'Todas')">Todas</a></li>
-                                        <li role="menuitem row">
-                                            <div class="dropdown-item col-11" (click)="SeleccionarEstrella('8', '5')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
-                                            <div class="col-1">5</div>
+                                        <li role="menuitem" class="row m-0 p-0">
+                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('8', '5')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                                            <div class="col-1 m-0 p-0 number-star">5</div>
                                         </li>
-                                        <li role="menuitem">
-                                            <a class="dropdown-item col-11" (click)="SeleccionarEstrella('7', '4')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></a><span class="col-1">4</span>
+                                        <li role="menuitem" class="row m-0 p-0">
+                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('7', '4')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                                            <div class="col-1 m-0 p-0 number-star">4</div>
                                         </li>
-                                        <li role="menuitem">
-                                            <a class="dropdown-item col-11" (click)="SeleccionarEstrella('16', '3')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></a><span class="col-1">3</span>
+                                        <li role="menuitem" class="row m-0 p-0">
+                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('16', '3')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                                            <div class="col-1 m-0 p-0 number-star">3</div>
                                         </li>
-                                        <li role="menuitem">
-                                            <a class="dropdown-item col-11" (click)="SeleccionarEstrella('13', '2')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></a><span class="col-1">2</span>
+                                        <li role="menuitem" class="row m-0 p-0">
+                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('13', '2')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                                            <div class="col-1 m-0 p-0 number-star">2</div>
                                         </li>
-                                        <li role="menuitem">
-                                            <a class="dropdown-item col-11" (click)="SeleccionarEstrella('13', '1')"><img src="./assets/images/estrellas.svg"></a><span class="col-1">1</span>
+                                        <li role="menuitem" class="row m-0 p-0">
+                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('13', '1')"><img src="./assets/images/estrellas.svg"></div>
+                                            <div class="col-1 m-0 p-0 number-star">1</div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div style="width: 20%">
+                    <div style="width: 40%">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
+                                <label for=""></label>
                             </div>
                         </div>
                         <div class="row m-0 p-0">
-                            <div class="col-12 mt-4">
+                            <div class="col-12 mt-2">
                                 <button class="btn v-btn-buscar" (click)="SeachHotel()">
                                     <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
                                     Buscar
-                                  </button>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -179,26 +223,49 @@
 
                     </div>
                 </div>
-
             </div>
 
         </div>
-
         <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
             <div class="row m-0 p-0">
-                <div class="col-3 m-0 p-0 pr-3 pl-5">
-                    <app-busqueda-mini [destino]="destinoText" [fchingreso]="fechaSalida" [fchsalida]="fechaRetorno"></app-busqueda-mini>
+                <div class="col-3 m-0 p-0 pt-4 pr-4 pl-5">
+                    <app-busqueda-mini [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas"></app-busqueda-mini>
+                    <app-filtro-estrellas [listado]="LlistaHotel" (resultfiltro)="ObtenerListaFiltroEstrella($event)"></app-filtro-estrellas>
+                    <app-filtro-precio (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel"></app-filtro-precio>
+                    <app-filtro-nombrehotel [listado]="LlistaHotel"></app-filtro-nombrehotel>
                 </div>
-                <div class="col-9 m-0 p-0 pr-5">
-                    <app-filtros></app-filtros>
-                    <app-resultado *ngFor="let lHotel of LlistaHotel" [nombrehotel]="lHotel.hotelName" [direccion]="lHotel.AddressLine" [distancia]="lHotel.Distance" [estrellas]="lHotel.HotelSegmentCategoryCode" [currency]="lHotel.LBeRoomStay[0].CurrencyCode" [precioxnoche]="lHotel.MinPrice"
-                        [precioprom]="lHotel.LBeRoomStay | getMenorPrecio" [urlHotel]="lHotel.OHotelInfo | getimghotel">
-                    </app-resultado>
+                <div class="col-9 m-0 p-0 pt-4 pl-4 pr-5">
+                    <app-filtros [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)" (vistalistado)="MostrarListado($event)"></app-filtros>
+                    <div *ngIf="vistalistado">
+                        <app-resultado *ngFor="let lHotel of LlistaHotel; let i = index" [nombrehotel]="lHotel.hotelName" [direccion]="lHotel.AddressLine" [distancia]="lHotel.Distance" [estrellas]="lHotel.HotelSegmentCategoryCode" [currency]="lHotel.LBeRoomStay[0].CurrencyCode"
+                            [precioxnoche]="lHotel.MinPrice" [precioprom]="lHotel.LBeRoomStay | getMenorPrecio" [urlHotel]="lHotel.OHotelInfo | getimghotel" [index]="i + 1" [latitud]="lHotel.Latitude" [longitud]="lHotel.Longitude">
+                        </app-resultado>
+                    </div>
+                    <app-mapa-hoteles *ngIf="vistamapa" [listado]="LlistaHotel"></app-mapa-hoteles>
+
+                    <div *ngIf="divwarning" class="col-12">
+
+                        <div class="row m-0 p-0">
+
+                            <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+                            <div class="col-3 m-0 p-0"></div>
+
+                            <div class="col-6 m-0 p-0">
+                                <div class="col-12 m-0 p-0 text-center">
+
+                                    <alert type="warning">
+                                        No se encontraron alojamientos para esta búsqueda
+                                    </alert>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-
-
         <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
 
     </app-header>

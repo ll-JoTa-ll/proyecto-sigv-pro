@@ -11,6 +11,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale, esLocale } from 'ngx-bootstrap/locale';
+import { AgmCoreModule } from '@agm/core';
+
+
 defineLocale('es', esLocale);
 defineLocale('de', deLocale);
 
@@ -38,6 +41,11 @@ import { BusquedaMiniComponent } from './components/busqueda-global/hoteles/busq
 import { ResultadoComponent } from './components/busqueda-global/hoteles/resultado/resultado.component';
 import { GetMenorPrecioPipe } from './pipes/get-menor-precio.pipe';
 import { GetimghotelPipe } from './pipes/getimghotel.pipe';
+import { FiltroEstrellasComponent } from './components/busqueda-global/hoteles/filtro-estrellas/filtro-estrellas.component';
+import { FiltroNombrehotelComponent } from './components/busqueda-global/hoteles/filtro-nombrehotel/filtro-nombrehotel.component';
+import { FiltroPrecioComponent } from './components/busqueda-global/hoteles/filtro-precio/filtro-precio.component';
+import { MapaHotelesComponent } from './components/busqueda-global/hoteles/mapa-hoteles/mapa-hoteles.component';
+import { FormatoLongitudPipe } from './pipes/formato-longitud.pipe';
 
 @NgModule({
   declarations: [
@@ -63,7 +71,12 @@ import { GetimghotelPipe } from './pipes/getimghotel.pipe';
     BusquedaMiniComponent,
     ResultadoComponent,
     GetMenorPrecioPipe,
-    GetimghotelPipe
+    GetimghotelPipe,
+    FiltroEstrellasComponent,
+    FiltroNombrehotelComponent,
+    FiltroPrecioComponent,
+    MapaHotelesComponent,
+    FormatoLongitudPipe
   ],
   imports: [
     BrowserModule,
@@ -77,7 +90,11 @@ import { GetimghotelPipe } from './pipes/getimghotel.pipe';
     NgxSpinnerModule,
     AutocompleteLibModule,
     BsDatepickerModule.forRoot(),
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDaXMHgcWr4xnHihDztbEPvkzyRnRFV81A',
+      libraries: ['places']
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

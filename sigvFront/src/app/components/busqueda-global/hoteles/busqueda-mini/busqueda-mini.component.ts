@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -24,6 +24,8 @@ export class BusquedaMiniComponent implements OnInit {
   @Input() fchsalida: string;
   @Input() habitaciones: string;
   @Input() adultos: string;
+  @Input() textoestrellas: string;
+  @Output() messagelistado = new EventEmitter<any[]>();
 
   destinoValue: string;
   destinoText: string;
@@ -37,6 +39,8 @@ export class BusquedaMiniComponent implements OnInit {
   token;
   keyword = 'name';
   data: any[] = [];
+  LResultshotel: IHotelResultsModel[];
+  estrellas: string;
 
   SearchObj: any = { 
     HotelCityCode: '',
@@ -61,11 +65,27 @@ export class BusquedaMiniComponent implements OnInit {
   ngOnInit() {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-    this.sessionStorageService.store('ss_token', this.loginDataUser.token);
-    this.token = this.sessionStorageService.retrieve('ss_token');
+   // this.sessionStorageService.store('ss_token', this.loginDataUser.token);
+  //  this.token = this.sessionStorageService.retrieve('ss_token');
     console.log(this.locales);
     this.localeService.use(this.locale);
-    this.fchingreso = '20-05-2019';
+    let n1: any;
+    let n2: any;
+    let fecha1 = this.fchingreso;
+    let fecha2 = this.fchsalida;
+    n1 = fecha1.split('-');
+    n2 = fecha2.split('-');
+    let nuevafecha: any = new Date(n1[0], n1[1] - 1, n1[2]);
+    let nuevafecha2: any = new Date(n2[0], n2[1] - 1, n2[2]);
+    let resta = nuevafecha2 - nuevafecha;
+    let dias = Math.floor(resta / (1000 * 60 * 60 * 24));
+    $('#nronoches').html(dias);
+
+    
+  }
+
+  Enviarlistado() {
+    this.messagelistado.emit(this.LResultshotel);
   }
 
   selectEvent(item) {
@@ -103,41 +123,72 @@ export class BusquedaMiniComponent implements OnInit {
 
   onValueChangeIngreso(value: Date): void {
     this.minDateSalida = value;
-
-    let mes = "";
-    if ((value.getMonth() + 1) < 10) {
-      mes = "0" + (value.getMonth() + 1);
+    if (value === null) {
+      return;
     } else {
-      mes = "" + value.getMonth();
+      let mes = "";
+      if ((value.getMonth() + 1) < 10) {
+        mes = "0" + (value.getMonth() + 1);
+      } else {
+        mes = "" + value.getMonth();
+      }
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+      this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
+      console.log(this.fechaSalida);
     }
-
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
-
-    this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
-    console.log(this.fechaSalida);
   }
 
   onValueChangeSalida(value: Date): void {
-    let mes = "";
-    if ((value.getMonth() + 1) < 10) {
-      mes = "0" + (value.getMonth() + 1);
+    if (value === null) {
+      return;
     } else {
-      mes = "" + value.getMonth();
+      let mes = "";
+      if ((value.getMonth() + 1) < 10) {
+        mes = "0" + (value.getMonth() + 1);
+      } else {
+        mes = "" + value.getMonth();
+      }
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+      this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
+      console.log(this.fechaRetorno);
     }
-
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
-
-    this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
-    console.log(this.fechaRetorno);
   }
+
+  SeachHotel() {
+    this.spinner.show();
+    const SearchObj: any = { 
+       HotelCityCode: this.destinoValue,
+       Start: this.fechaSalida,
+       End: this.fechaRetorno,
+       Quantity: $('#txthabitacion').val(),
+       Count: $('#txtpersonas').val(),
+       HotelSegmentCategoryCode: ''
+     };
+    this.habitaciones = $('#txthabitacion').val();
+    this.adultos = $('#txtpersonas').val();
+    this.service.SearchHotel(SearchObj).subscribe(
+       data => {
+          console.log(this.LResultshotel);
+          this.LResultshotel = data;
+         // this.Enviarlistado();
+          this.messagelistado.emit(this.LResultshotel);
+          this.spinner.hide();
+       },
+   );
+ }
+
+ SeleccionarEstrella(codeestrella, texto) {
+  this.estrellas = codeestrella;
+  this.textoestrellas = texto;
+}
 }

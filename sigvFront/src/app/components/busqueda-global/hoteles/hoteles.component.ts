@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -21,8 +21,8 @@ export class HotelesComponent implements OnInit {
   locale = 'es';
   locales = listLocales();
 
-  flagBuscar: boolean = false;
-  flagDinData: boolean = false;
+  flagBuscar: boolean;
+  flagDinData: boolean;
   airportlist: any[] = [];
   loginDataUser: ILoginDatosModel;
   token;
@@ -35,9 +35,16 @@ export class HotelesComponent implements OnInit {
   fechaIngreso: string;
   fechaSalida: string;
   fechaRetorno: string;
-  LlistaHotel: IHotelResultsModel[];
+  LlistaHotel: IHotelResultsModel[] = [];
   estrellas: string;
-  textoestrellas: string;
+  textoestrellas: string = 'Todas';
+  habitaciones: string;
+  personas: string;
+  vistamapa: boolean = false;
+  vistalistado: boolean = true;
+  dateingreso: string;
+  datesalida: string;
+  divwarning: boolean;
 
 
 
@@ -50,13 +57,16 @@ export class HotelesComponent implements OnInit {
   ) { 
     this.minDateIngreso = new Date();
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
+    this.flagBuscar = false;
+    this.flagDinData = false;
+    this.divwarning = false
   }
 
   ngOnInit() {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-    this.sessionStorageService.store('ss_token', this.loginDataUser.token);
-    this.token = this.sessionStorageService.retrieve('ss_token');
+    //this.sessionStorageService.store('ss_token', this.loginDataUser.token);
+    //this.token = this.sessionStorageService.retrieve('ss_token');
     console.log(this.locales);
     this.localeService.use(this.locale);
   }
@@ -134,21 +144,62 @@ export class HotelesComponent implements OnInit {
     console.log(this.fechaRetorno);
   }
 
+  Obtenerlistado($event) {
+    this.LlistaHotel = [];
+    this.LlistaHotel = $event;
+  }
+
+  ObtenerListFiltro($event) {
+    this.LlistaHotel = [];
+    this.LlistaHotel = $event;
+  }
+
+  MostrarMapa($event) {
+     this.vistamapa = $event;
+     this.vistalistado = false;
+  }
+
+  MostrarListado($event) {
+     this.vistalistado = $event;
+     this.vistamapa = false;
+  }
+
+  ObtenerListaFiltroEstrella($event) {
+    this.LlistaHotel = [];
+    this.LlistaHotel = $event;
+  }
+
+  ObtenerListaFiltroPrecio($event) {
+    this.LlistaHotel = [];
+    this.LlistaHotel = $event;
+
+    if (this.LlistaHotel.length === 0) {
+      this.divwarning = true;
+    }
+
+  }
+
   SeachHotel() {
    this.spinner.show();
+   this.flagDinData = false;
+   this.dateingreso = $('#dateingreso').val();
+   this.datesalida = $('#datesalida').val();
    const SearchObj: any = { 
       HotelCityCode: this.destinoValue,
       Start: this.fechaSalida,
       End: this.fechaRetorno,
-      Quantity: 1,
-      Count: 1,
+      Quantity: $('#txthabitacion').val(),
+      Count: $('#txtpersonas').val(),
       HotelSegmentCategoryCode: this.estrellas
     };
+   this.habitaciones = $('#txthabitacion').val();
+   this.personas = $('#txtpersonas').val();
    this.service.SearchHotel(SearchObj).subscribe(
-      data => {
+      result => {
          console.log(this.LlistaHotel);
-         if (data !== null && data.length > 0) {
-           this.LlistaHotel = data;
+         if (result !== null && result.length > 0) {
+           this.LlistaHotel = result;
+           this.localStorageService.store('hotel', this.LlistaHotel[0]);
            this.flagBuscar = true;
          } else {
            this.flagDinData = true;
@@ -161,7 +212,7 @@ export class HotelesComponent implements OnInit {
    () => {
      this.spinner.hide();
      console.log("this.airportService.searchFlight completado");
-   } 
+   }
   );
 }
 

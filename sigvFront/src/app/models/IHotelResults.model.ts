@@ -31,7 +31,7 @@ export class IHotelResultsModel {
             sourceOfBusiness: string;
         }
     ];
-    MinPrice: string;
+    MinPrice: number;
     PriceTotal: string;
     LHotelAmenity: [
         {

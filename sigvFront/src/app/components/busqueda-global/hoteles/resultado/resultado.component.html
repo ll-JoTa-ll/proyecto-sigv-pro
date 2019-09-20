@@ -1,28 +1,37 @@
 <div class="col-12 m-0 p-0">
     <div class="row mt-5 p-0">
-        <div class="m-0 p-0 box-shadow" style="width: 35%">
+        <div class="m-0 p-0 box-shadow div-result-1">
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0">
-                    <img class="img-hotel" src="{{urlHotel}}" alt="">
+                    <img *ngIf="urlHotel" class="img-hotel" src="{{urlHotel}}" alt="">
                 </div>
             </div>
         </div>
-        <div class="m-0 p-0 box-shadow" style="width: 35%">
-            <div class="row m-0 p-0">
-                <div class="col-12 mt-2">
-                    <span><i class="fas fa-star"></i></span>
-                    <span class="ml-3" style="font-size: 25px; font-family: Omnes-med">{{nombrehotel}}</span>
+        <div class="m-0 p-0 box-shadow pl-4 div-result-2">
+            <div class="row m-0 p-0 pt-4">
+                <div class="col-12">
+                    <span class="name-hotel">{{nombrehotel}}</span>
                 </div>
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 mt-3">
-                    <span>{{direccion}} ,</span>
-                    <span class="ml-2">A {{distancia}} km del centro</span>
+                    <span class="direccion-hotel">{{direccion}} ,</span>
+                    <span class="ml-2 distance">A {{distancia}} km del centro</span>
                 </div>
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12">
-                    <span class="txt-mapa">Ver mapa</span>
+                    <span class="txt-mapa" (click)="Mostrarmapa(index)">Ver mapa</span>
+                </div>
+            </div>
+            <div class="PopupContainer" id="mapa_{{index}}">
+                <div class="tooltipBagDiv box-shadow animated fadeIn fast">
+                    <span class="title-modal">Vista de mapa</span>
+                    <a class="btn-close" (click)="OcultarMapa(index)">X</a>
+                    <agm-map [latitude]="latitud | formatoLongitud" [zoom]="15" [longitude]="longitud | formatoLongitud">
+                        <agm-marker [latitude]="latitud | formatoLongitud" [longitude]="longitud | formatoLongitud" [iconUrl]="urlimg"></agm-marker>
+                    </agm-map>
+                    <span class="hotel-nombre">{{nombrehotel}}</span>
                 </div>
             </div>
             <div class="row m-0 p-0">
@@ -41,15 +50,15 @@
                 </div>
             </div>
         </div>
-        <div class="m-0 p-0 box-shadow" style="width: 30%">
-            <div class="row m-0 p-0">
-                <div class="col-12 div-price">
+        <div class="m-0 p-0 box-shadow div-result-3">
+            <div class="row m-0 p-0 pt-4">
+                <div class="col-6 m-0 p-0 text-center div-price">
                     <span>Precio promedio noche</span>
                 </div>
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 text-center mt-3">
-                    <span class="tipomoneda">{{currency}}</span>
+                    <span class="tipomoneda pr-2">{{currency}}</span>
                     <span class="precionoche">{{precioprom}}</span>
                 </div>
             </div>
@@ -60,11 +69,11 @@
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0 text-center">
-                    <span class="price-currency">{{currency}}</span>
+                    <span class="price-currency pr-2">{{currency}}</span>
                     <span class="preciopromedio">{{precioxnoche}}</span>
                 </div>
             </div>
-            <div class="row m-0 p-0">
+            <div class="row m-0 p-0 pb-4">
                 <div class="col-12 text-center mt-3">
                     <button class="btn r-btn-2">
                                 Seleccionar
