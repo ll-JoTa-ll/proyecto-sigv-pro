@@ -2,6 +2,9 @@ import { Component, OnInit, Input, TemplateRef, Output, EventEmitter } from '@an
 import { ISearchFlightModel } from '../../../../models/ISearchFlight.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+import { FamilyService } from '../../../../services/family.service';
+import { VuelosComponent } from '../vuelos.component';
+import { IFareFamilyModel } from '../../../../models/IFareFamily.model';
 
 @Component({
   selector: 'app-recomendacion',
@@ -36,10 +39,14 @@ export class RecomendacionComponent implements OnInit {
   loginDataUser;
   outSegmentCheck;
 
+  lstFamilyResult: IFareFamilyModel[] = [];
+
   constructor(
     private modalService: BsModalService,
     private sessionStorageService: SessionStorageService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private familyService: FamilyService,
+    private vuelosComponent: VuelosComponent
   ) { }
 
   ngOnInit() {
@@ -100,19 +107,14 @@ export class RecomendacionComponent implements OnInit {
     let dataFamilias = {
       NumberPassengers: this.numberPassengers,
       Currency: this.currency,
+      CarrierId: this.carrierId,
       Lsections: Lsections_,
       Ocompany: this.loginDataUser.ocompany
     };
 
     console.log("dataFamilias: " + JSON.stringify(dataFamilias));
 
-
-    return false;
-
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'gray modal-lg' })
-    );
+    this.getFareFamily(dataFamilias, template);
   }
 
   setearRadioId($event) {
@@ -144,10 +146,32 @@ export class RecomendacionComponent implements OnInit {
       });
 
       this.lstRadioCheck.push(dataRadioSel);
-      console.log("ANTES: " + JSON.stringify(this.lstRadioCheck));
+      //console.log("ANTES: " + JSON.stringify(this.lstRadioCheck));
       this.lstRadioCheck = this.lstRadioCheck.filter(x => x.flag === 1);
-      console.log("DESPUES: " + JSON.stringify(this.lstRadioCheck));
+      ///console.log("DESPUES: " + JSON.stringify(this.lstRadioCheck));
     }
+  }
+
+  getFareFamily(dataPost, template) {
+    this.vuelosComponent.spinner.show();
+    this.familyService.getFareFamily(dataPost).subscribe(
+      result => {
+        console.log('result: ' + JSON.stringify(result));
+        this.lstFamilyResult = result;
+      },
+      err => {
+        console.log('ERROR: ' + JSON.stringify(err));
+        this.vuelosComponent.spinner.hide();
+      },
+      () => {
+        console.log('getFareFamily completado');
+        this.vuelosComponent.spinner.hide();
+        this.modalRef = this.modalService.show(
+          template,
+          Object.assign({}, { class: 'gray modal-lg' })
+        );
+      }
+    );
   }
 
 }

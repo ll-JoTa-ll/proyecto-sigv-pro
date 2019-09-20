@@ -99,7 +99,7 @@ export class VuelosComponent implements OnInit {
     private localeService: BsLocaleService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
-    private spinner: NgxSpinnerService
+    public spinner: NgxSpinnerService
   ) {
     this.flagBuscar = false;
     this.tipoVuelo = "RT";

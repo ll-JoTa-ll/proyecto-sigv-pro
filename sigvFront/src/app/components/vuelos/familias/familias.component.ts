@@ -7,16 +7,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FamiliasComponent implements OnInit {
 
-  @Input() familia;
+  @Input() lstFamilyResult;
   @Input() nroPersonas: number;
-  currency: string;
+  @Input() currency: string;
   precioTotal: number;
   precioPersona: number;
 
   constructor() {
-    this.currency = "";
-    this.precioTotal = 0;
-    this.precioPersona = 0;
+    this.precioTotal = 1;
+    this.precioPersona = 1;
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-familia-fare',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./familia-fare.component.sass']
 })
 export class FamiliaFareComponent implements OnInit {
+
+  @Input() fareFamily;
+  @Input() currency;
+  @Input() fareFamilyIndex;
 
   constructor() { }
 
