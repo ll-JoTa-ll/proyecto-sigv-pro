@@ -1,11 +1,12 @@
 <div class="row m-0 p-0" style="">
 
+    <!-- position: fixed !important; width: 20% !important; -->
     <div class="col-12 m-0 p-0" style="width: 100%; height: 30px !important; border: none !important;"></div>
 
     <div class="col-12 m-0 p-0">
 
 
-        <div class="row m-0 p-0 box-shadow" style="padding: 10px !important; position: fixed !important; width: 20% !important;">
+        <div class="row m-0 p-0 box-shadow" style="padding: 10px !important;">
 
             <div class="col-12 m-0 p-0">
                 <p class="m-0 bv-texto-titulo-1">Vuelos</p>
@@ -90,38 +91,38 @@
                     <div class="col-6 m-0 p-0 pr-1">
 
                         <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
-              <input type="image"
-                     src="./assets/images/home/calendario.svg"
-                     (click)="datepickerSalida.toggle()"
-                     style="outline: none; border: 0; width: 20% !important;">
-              <input type="text"
-                     placeholder="Salida"
-                     class="p-0 pl-2 bv-texto-2"
-                     style="outline: none; border: 0; width: 80%"
-                     #datepickerSalida="bsDatepicker"
-                     bsDatepicker
-                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
-              >
-            </label>
+                <input type="image"
+                       src="./assets/images/home/calendario.svg"
+                       (click)="datepickerSalida.toggle()"
+                       style="outline: none; border: 0; width: 20% !important;">
+                <input type="text"
+                       placeholder="Salida"
+                       class="p-0 pl-2 bv-texto-2"
+                       style="outline: none; border: 0; width: 80%"
+                       #datepickerSalida="bsDatepicker"
+                       bsDatepicker
+                       [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+                >
+              </label>
 
                     </div>
 
                     <div class="col-6 m-0 p-0 pl-1" *ngIf="tipoVuelo!=='OW'">
 
                         <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
-              <input type="image"
-                     src="./assets/images/home/calendario.svg"
-                     (click)="datepickerRetorno.toggle()"
-                     style="outline: none; border: 0; width: 20% !important;">
-              <input type="text"
-                     placeholder="Retorno"
-                     class="p-0 pl-2 bv-texto-2"
-                     style="outline: none; border: 0; width: 80%"
-                     #datepickerRetorno="bsDatepicker"
-                     bsDatepicker
-                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
-              >
-            </label>
+                <input type="image"
+                       src="./assets/images/home/calendario.svg"
+                       (click)="datepickerRetorno.toggle()"
+                       style="outline: none; border: 0; width: 20% !important;">
+                <input type="text"
+                       placeholder="Retorno"
+                       class="p-0 pl-2 bv-texto-2"
+                       style="outline: none; border: 0; width: 80%"
+                       #datepickerRetorno="bsDatepicker"
+                       bsDatepicker
+                       [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+                >
+              </label>
 
                     </div>
 
@@ -136,19 +137,19 @@
             <div class="col-12 m-0 p-0 pt-2">
 
                 <label for="" style="padding: 0px; margin: 0px; width: 100% !important;" class=" d-inline-flex align-items-center box-shadow">
-          <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px; width: 10% !important;" class="pl-2">
-          <input type="text" class="text-center bv-texto-2" style="width: 60% !important; outline: none; border: 0" [value]="pasajeros">
-          <span
-            class="text-center"
-            (click)="pasajeroOperacion(false)"
-            style="background-color: #ED1C24; width: 15% !important; color: white; cursor: pointer; border-right-style: solid; border-right-color: white">
-              -</span>
-          <span
-            class="text-center"
-            (click)="pasajeroOperacion(true)"
-            style="background-color: #ED1C24; width: 15% !important; color: white; cursor: pointer; border-radius: 0 10px 10px 0"
-          >+</span>
-        </label>
+            <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px; width: 10% !important;" class="pl-2">
+            <input type="text" class="text-center bv-texto-2" style="width: 60% !important; outline: none; border: 0" [value]="pasajeros">
+            <span
+              class="text-center"
+              (click)="pasajeroOperacion(false)"
+              style="background-color: #ED1C24; width: 15% !important; color: white; cursor: pointer; border-right-style: solid; border-right-color: white">
+                -</span>
+            <span
+              class="text-center"
+              (click)="pasajeroOperacion(true)"
+              style="background-color: #ED1C24; width: 15% !important; color: white; cursor: pointer; border-radius: 0 10px 10px 0"
+            >+</span>
+          </label>
 
             </div>
 
@@ -168,8 +169,8 @@
 
                                 <div class="btn-group" style="width: 90% !important;" dropdown>
                                     <button id="button-basic" dropdownToggle type="button" class="btn bv-texto-2 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                    {{textoCabina}}
-                  </button>
+                      {{textoCabina}}
+                    </button>
                                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu bv-texto-2" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
                                         <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
                                         <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('E', 'Económica')">Económica</a></li>
@@ -196,8 +197,8 @@
 
                                 <div class="btn-group" style="width: 90% !important;" dropdown>
                                     <button id="button-basic-2" dropdownToggle type="button" class="btn bv-texto-2 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                    {{textoEscala}}
-                  </button>
+                      {{textoEscala}}
+                    </button>
                                     <ul id="dropdown-basic-2" *dropdownMenu class="dropdown-menu bv-texto-2" style="cursor: pointer" role="menu" aria-labelledby="button-basic-2">
                                         <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('', 'Todas')">Directo</a></li>
                                         <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('D', 'Directo')">Directo</a></li>
@@ -218,9 +219,9 @@
             <div class="col-12 m-0 p-0 pt-4">
 
                 <button (click)="searchFlight()" class="btn bv-texto-3" style="width: 100% !important;">
-          <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-          Buscar
-        </button>
+            <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+            Buscar
+          </button>
 
             </div>
 

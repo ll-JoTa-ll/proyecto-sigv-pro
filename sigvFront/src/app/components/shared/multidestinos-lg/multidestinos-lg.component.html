@@ -95,6 +95,8 @@
                class="p-0 pl-2 v-texto-3"
                style="outline: none; border: 0; width: 80%"
                #datepickerSalida1="bsDatepicker"
+               [minDate]="minDateSalida1"
+               (bsValueChange)="onValueChangeSalida1($event)"
                bsDatepicker
                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
         >
@@ -105,6 +107,8 @@
   </div>
 
 </div>
+
+<hr>
 
 <div class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">Tramo 2</div>
 <div class="col-12 m-0 p-0 pl-2 pt-3">
@@ -201,6 +205,8 @@
                class="p-0 pl-2 v-texto-3"
                style="outline: none; border: 0; width: 80%"
                #datepickerSalida2="bsDatepicker"
+               [minDate]="minDateSalida2"
+               (bsValueChange)="onValueChangeSalida2($event)"
                bsDatepicker
                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
         >
@@ -216,6 +222,7 @@
 
 </div>
 
+<hr *ngIf="flagTramo3">
 <div *ngIf="flagTramo3" class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">Tramo 3</div>
 <div *ngIf="flagTramo3" class="col-12 m-0 p-0 pl-2 pt-3">
 
@@ -311,6 +318,8 @@
                class="p-0 pl-2 v-texto-3"
                style="outline: none; border: 0; width: 80%"
                #datepickerSalida3="bsDatepicker"
+               [minDate]="minDateSalida3"
+               (bsValueChange)="onValueChangeSalida3($event)"
                bsDatepicker
                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
         >
@@ -327,6 +336,7 @@
 
 </div>
 
+<hr *ngIf="flagTramo4">
 <div *ngIf="flagTramo4" class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">Tramo 4</div>
 <div *ngIf="flagTramo4" class="col-12 m-0 p-0 pl-2 pt-3">
 
@@ -422,6 +432,8 @@
                class="p-0 pl-2 v-texto-3"
                style="outline: none; border: 0; width: 80%"
                #datepickerSalida4="bsDatepicker"
+               [minDate]="minDateSalida4"
+               (bsValueChange)="onValueChangeSalida4($event)"
                bsDatepicker
                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
         >
@@ -438,6 +450,7 @@
 
 </div>
 
+<hr *ngIf="flagTramo5">
 <div *ngIf="flagTramo5" class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">Tramo 5</div>
 <div *ngIf="flagTramo5" class="col-12 m-0 p-0 pl-2 pt-3">
 
@@ -533,6 +546,8 @@
                class="p-0 pl-2 v-texto-3"
                style="outline: none; border: 0; width: 80%"
                #datepickerSalida5="bsDatepicker"
+               [minDate]="minDateSalida5"
+               (bsValueChange)="onValueChangeSalida5($event)"
                bsDatepicker
                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
         >
@@ -549,6 +564,7 @@
 
 </div>
 
+<hr *ngIf="flagTramo6">
 <div *ngIf="flagTramo6" class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">Tramo 6</div>
 <div *ngIf="flagTramo6" class="col-12 m-0 p-0 pl-2 pt-3">
 
@@ -644,6 +660,8 @@
                class="p-0 pl-2 v-texto-3"
                style="outline: none; border: 0; width: 80%"
                #datepickerSalida6="bsDatepicker"
+               [minDate]="minDateSalida6"
+               (bsValueChange)="onValueChangeSalida6($event)"
                bsDatepicker
                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
         >

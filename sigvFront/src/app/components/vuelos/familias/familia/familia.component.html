@@ -1,0 +1,143 @@
+
+
+
+
+
+<div class="row m-0 p-0 pb-3" style="width: 100%;">
+
+  <div class="col-1 m-0 p-0"></div>
+
+  <div class="col-3 m-0 p-0">
+    <div class="row m-0 p-0">
+      <div class="col-2 m-0 p-0">
+        <img src="./assets/images/{{imgIdaVuelta}}" alt="">
+      </div>
+      <div class="col-10 m-0 p-0">
+        <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0 ff-text-1">
+            {{textoTipo}}
+          </div>
+          <div class="col-12 m-0 p-0 ff-text-2">
+            {{familia.departureDateShow}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row m-0 p-0"></div>
+  </div>
+
+  <div class="col-2 m-0 p-0">
+    <div class="row m-0 p-0">
+      <div class="col-12 m-0 p-0 ff-text-1">{{familia.origin}}</div>
+      <div class="col-12 m-0 p-0 ff-text-2" >{{familia.airportOrigin}}</div>
+    </div>
+
+    <div class="row m-0 p-0">
+      <div class="col-12 m-0 p-0 ff-text-3">{{familia.timeOfDepartureShow}}</div>
+    </div>
+  </div>
+
+  <div class="col-2 m-0 p-0">
+    <div class="row m-0 p-0" style="height: 40px;"></div>
+
+    <div class="row m-0 p-0">
+      <div *ngIf="familia.numberScales>0" class="col-12 m-0 p-0 ff-text-5 text-center">
+        {{familia.numberScales}} escala(s)
+      </div>
+
+      <div *ngIf="familia.numberScales===0" class="col-12 m-0 p-0 ff-text-5 text-center">
+        Directo
+      </div>
+
+      <div *ngIf="familia.numberScales>0" class="col-12 m-0 p-0 text-center">
+        <img src="./assets/images/home/escala.png" alt="">
+      </div>
+
+      <div *ngIf="familia.numberScales===0" class="col-12 m-0 p-0 text-center">
+        <img src="./assets/images/home/directo.png" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-4 m-0 p-0">
+    <div class="row m-0 p-0">
+      <div class="col-12 m-0 p-0 ff-text-1">{{familia.destination}}</div>
+      <div class="col-12 m-0 p-0 ff-text-2">{{familia.airportDestination}}</div>
+    </div>
+
+    <div class="row m-0 p-0">
+      <div class="col-4 m-0 p-0 ff-text-3">{{familia.timeOfArrivalShow}}</div>
+      <div class="col-4 m-0 p-0 ff-text-4 d-flex align-items-center">{{familia.totalFlightTimeShow}}</div>
+      <div class="col-4 m-0 p-0">
+        <img *ngIf="lfareFamilies.length === 0" style="width: 20px; cursor: pointer;" (click)="listFareFamilies(fareFamilyId)" src="./assets/images/arrow-down.svg" alt="">
+        <img *ngIf="lfareFamilies.length > 0" style="width: 20px; cursor: pointer;" (click)="hideFareFamilies(fareFamilyId)" src="./assets/images/arrow-up.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="lfareFamilies.length>0" class="row m-0 p-0 animated fadeIn fast" style="width: 100%;" [id]="fareFamilyId">
+  <div class="col-12 m-0 p-0">
+
+
+    <div class="row m-0 p-0 d-flex justify-content-center">
+
+      <div class="col-2 m-0 p-0">
+
+        <div class="row m-0 p-0">
+
+          <div class="col-12 m-0 p-0" style="height: 70px;"></div>
+
+          <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center">
+            INCLUYE
+          </div>
+
+          <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center">
+            NO INCLUYE
+          </div>
+
+          <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center">
+            PAGA POR
+          </div>
+
+          <div class="col-12 m-0 p-0"></div>
+
+        </div>
+
+      </div>
+
+      <div class="col-10 m-0 p-0">
+
+        <div class="row m-0 p-0" style="width: 100%; display: flex; flex-wrap: nowrap; overflow-x: auto">
+
+          <app-familia-fare
+            [fareFamily]="fareFamily"
+            [currency]="familia.currency"
+            [fareFamilyIndex]="i+1"
+            *ngFor="let fareFamily of lfareFamilies; let i=index"
+          ></app-familia-fare>
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+
+  </div>
+</div>
+
+
+<div class="row m-0 p-0">
+  <div class="col-1 m-0 p-0"></div>
+
+  <div class="col-10 m-0 p-0">
+    <hr>
+  </div>
+
+  <div class="col-1 m-0 p-0"></div>
+</div>

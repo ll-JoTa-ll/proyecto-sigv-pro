@@ -15,8 +15,10 @@
         [sectionLength]="lsectionLength"
         [posicion]="i+1"
         [recommendationId]="recommendationId"
+        [recommendationIndex]="i+1"
+        [tipoVuelo]="tipoVuelo"
+        (outSegmentCheck)="setearRadioId($event)"
         [section]="section" *ngFor="let section of lsections; let i=index">
-
       </app-recomendacion-section>
 
     </div>
@@ -60,9 +62,28 @@
         <div class="col-1 m-0 p-0"></div>
 
         <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 30px !important;">
-          <button class="btn r-btn-1">
+          <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId)">
             Ver familias
           </button>
+
+          <ng-template #modalFamilias let-c="close" let-d="dismiss">
+
+            <div class="modal-header m-0 p-0" style="border: none;">
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body m-0 p-0">
+              <app-familias
+                [lstFamilyResult]="lstFamilyResult"
+                [nroPersonas]="numberPassengers"
+                [currency]="currency"
+              ></app-familias>
+            </div>
+
+          </ng-template>
+
         </div>
         <div class="col-1 m-0 p-0"></div>
 

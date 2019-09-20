@@ -6,6 +6,7 @@ import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
+import {DatepickerRenderOptions} from 'ngx-bootstrap/datepicker/models';
 
 declare var jquery: any;
 declare var $: any;
@@ -83,12 +84,22 @@ export class VuelosComponent implements OnInit {
   fechaSalida: string;
   fechaRetorno: string;
 
+  fechaSalida1: string;
+  fechaSalida2: string;
+  fechaSalida3: string;
+  fechaSalida4: string;
+  fechaSalida5: string;
+  fechaSalida6: string;
+
+  //dpSalida: Date;
+  dpRetorno;
+
   constructor(
     private airportService: AirportService,
     private localeService: BsLocaleService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
-    private spinner: NgxSpinnerService
+    public spinner: NgxSpinnerService
   ) {
     this.flagBuscar = false;
     this.tipoVuelo = "RT";
@@ -141,6 +152,7 @@ export class VuelosComponent implements OnInit {
 
   onValueChangeSalida(value: Date): void {
     this.minDateRetorno = value;
+    //console.log("dpSalida: " + this.dpSalida);
 
     let mes = "";
     if ((value.getMonth() + 1) < 10) {
@@ -292,28 +304,109 @@ export class VuelosComponent implements OnInit {
       fechas.push(this.fechaSalida);
     }
 
-    if (this.tipoVuelo === "MC") {}
+    if (this.tipoVuelo === "MC") {
+      const indexTramo = this.indexTramo;
+      switch (indexTramo) {
+        case 2:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          break;
+        case 3:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          break;
+        case 4:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          break;
+        case 5:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          fechas.push(this.fechaSalida5);
+          break;
+        case 6:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+          origen.push(this.origenAuto6);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+          destino.push(this.destinoAuto6);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          fechas.push(this.fechaSalida5);
+          fechas.push(this.fechaSalida6);
+          break;
+      }
+    }
+
+    fechas.forEach(function(fe) {
+      horasFrom.push("");
+      horasTo.push("");
+    });
 
     let data = {
       "UserId": this.loginDataUser.userId,
       "NumberPassengers": this.pasajeros,
-      "NumberRecommendations": "50",
+      "NumberRecommendations": "1",
       "CabinType": this.cabina,
       "Scales": this.escala,
       "Currency": "USD",
       "Origin": origen,
       "Destination": destino,
       "DepartureArrivalDate": fechas,
-      "DepartureArrivalTimeFrom":
-        [
-          "",
-          ""
-        ],
-      "DepartureArrivalTimeTo":
-        [
-          "",
-          ""
-        ],
+      "DepartureArrivalTimeFrom": horasFrom,
+      "DepartureArrivalTimeTo": horasTo,
       "Ocompany": this.loginDataUser.ocompany
     };
 
@@ -360,8 +453,10 @@ export class VuelosComponent implements OnInit {
         console.log(result);
         if (result !== null && result.length > 0) {
           this.searchData = result;
+          this.sessionStorageService.store('ss_searchFlight', result);
           this.flagBuscar = true;
         } else {
+          this.sessionStorageService.store('ss_searchFlight', null);
           this.flagDinData = true;
         }
       },
@@ -479,6 +574,25 @@ export class VuelosComponent implements OnInit {
   }
   updateDestinoTramoText6($event) {
     this.destinoTexto6 = $event;
+  }
+
+  updateFechaSalida1($event) {
+    this.fechaSalida1 = $event;
+  }
+  updateFechaSalida2($event) {
+    this.fechaSalida2 = $event;
+  }
+  updateFechaSalida3($event) {
+    this.fechaSalida3 = $event;
+  }
+  updateFechaSalida4($event) {
+    this.fechaSalida4 = $event;
+  }
+  updateFechaSalida5($event) {
+    this.fechaSalida5 = $event;
+  }
+  updateFechaSalida6($event) {
+    this.fechaSalida6 = $event;
   }
 
 }

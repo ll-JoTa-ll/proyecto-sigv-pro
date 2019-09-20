@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -46,6 +47,9 @@ import { FiltroNombrehotelComponent } from './components/busqueda-global/hoteles
 import { FiltroPrecioComponent } from './components/busqueda-global/hoteles/filtro-precio/filtro-precio.component';
 import { MapaHotelesComponent } from './components/busqueda-global/hoteles/mapa-hoteles/mapa-hoteles.component';
 import { FormatoLongitudPipe } from './pipes/formato-longitud.pipe';
+import { FamiliasComponent } from './components/vuelos/familias/familias.component';
+import { FamiliaComponent } from './components/vuelos/familias/familia/familia.component';
+import { FamiliaFareComponent } from './components/vuelos/familias/familia-fare/familia-fare.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +80,10 @@ import { FormatoLongitudPipe } from './pipes/formato-longitud.pipe';
     FiltroNombrehotelComponent,
     FiltroPrecioComponent,
     MapaHotelesComponent,
-    FormatoLongitudPipe
+    FormatoLongitudPipe,
+    FamiliasComponent,
+    FamiliaComponent,
+    FamiliaFareComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +101,8 @@ import { FormatoLongitudPipe } from './pipes/formato-longitud.pipe';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDaXMHgcWr4xnHihDztbEPvkzyRnRFV81A',
       libraries: ['places']
-    })
+    }),
+    ModalModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

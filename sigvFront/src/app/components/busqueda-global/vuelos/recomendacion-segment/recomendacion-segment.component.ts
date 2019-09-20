@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 
 declare var jquery: any;
 declare var $: any;
@@ -8,14 +8,21 @@ declare var $: any;
   templateUrl: './recomendacion-segment.component.html',
   styleUrls: ['./recomendacion-segment.component.sass']
 })
-export class RecomendacionSegmentComponent implements OnInit {
+export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
 
+  @Input() section;
   @Input() segment;
   @Input() bagAllowed;
   @Input() indexSegment: number;
   @Input() recommendationId;
   @Input() sectionId;
   @Input() lSectionGroups;
+  @Input() recommendationIndex;
+
+  //@Output() segmentRadioCheckId = new EventEmitter<string>();
+  //@Output() outSegment = new EventEmitter<any>();
+  @Output() outSegmentCheck = new EventEmitter<any>();
+
   carrierName: string;
   marketingCarrier: string;
   timeOfDepartureShow: string;
@@ -24,9 +31,11 @@ export class RecomendacionSegmentComponent implements OnInit {
   totalFlightTimeShow;
   flagSegmentId: string;
   lSegmentGroups: any[] = [];
+  radioButtonName: string;
+  segmentRadioSel;
 
   constructor() {
-    //this.flagSegmentId = 'flagSegment_' + this.recommendationId + '' + this.sectionId + '' + this.segmentId;
+    this.radioButtonName = 'radioSection';
   }
 
   ngOnInit() {
@@ -42,16 +51,46 @@ export class RecomendacionSegmentComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(): void {
+    if (this.indexSegment === 1) {
+
+      console.log("this.section.ID: " + this.section.sectionId);
+
+      const segmentCheck = {
+        indexSegment_: this.indexSegment,
+        radioId_: this.radioButtonName + '_' + this.recommendationId + '_' + this.sectionId + '_' + this.segment.segmentId + '_' + this.indexSegment,
+        segment_: this.segment,
+        section_: this.section
+      };
+      this.outSegmentCheck.emit(segmentCheck);
+
+      $("#" +
+        this.radioButtonName + '_' +
+        this.recommendationId + '_' +
+        this.sectionId + '_' +
+        this.segment.segmentId + '_' +
+        this.indexSegment).prop("checked", true);
+    }
+  }
+
   listSegmentGroups(flagSegmentId, lSegmentGroups) {
-    console.log("flagSegmentId: " + flagSegmentId);
     this.lSegmentGroups = lSegmentGroups;
     $("#" + flagSegmentId).show();
   }
 
   hideSegmentGroups(flagSegmentId) {
-    console.log("flagSegmentId: " + flagSegmentId);
     this.lSegmentGroups = [];
     $("#" + flagSegmentId).hide();
+  }
+
+  selectRadioButton(radioId) {
+    const segmentCheck = {
+      indexSegment_: this.indexSegment,
+      radioId_: radioId,
+      segment_: this.segment,
+      section_: this.section
+    };
+    this.outSegmentCheck.emit(segmentCheck);
   }
 
 }

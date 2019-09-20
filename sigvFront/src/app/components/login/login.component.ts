@@ -33,9 +33,11 @@ export class LoginComponent implements OnInit {
     //private location: Location
   ) {
     this.checkedRecuerdame = true;
+    this.sessionStorageService.store('ss_login_data', '');
   }
 
   ngOnInit() {
+    this.sessionStorageService.store('ss_login_data', '');
   }
 
   login() {
@@ -82,6 +84,7 @@ export class LoginComponent implements OnInit {
           this.spinner.hide();
         }
         */
+        console.log("LOGIN Completado")
         this.airportList(this.token);
       }
     );

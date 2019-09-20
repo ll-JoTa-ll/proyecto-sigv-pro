@@ -22,13 +22,18 @@ export class AirportService {
 
   private _url: string = environment.url_2 + "/Airport/";
   private _url2: string = environment.url_2 + "/Search/";
+  private _url3: string = environment.url_3 + "/Search/";
 
   constructor(
     private http: HttpClient,
     private sessionSt: SessionStorageService
   ) {
+    console.log("AirportService constructor");
+    console.log("AirportService constructor");
+    console.log("AirportService constructor");
+    console.log("AirportService constructor");
     this.token = this.sessionSt.retrieve('ss_token');
-    console.log("token:  " + this.token);
+    console.log("AirportService constructor token:  " + this.token);
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -39,20 +44,23 @@ export class AirportService {
     this.token = this.sessionSt.retrieve('ss_token');
     console.log("token:  " + this.token);
     //console.log(this._url + "AirportList ");
-    /*
-    console.log("token: " + token);
+
+    //console.log("token: " + token);
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + token,
       'Content-Type': "application/json",
     });
     console.log(httpOptions2);
-    */
-    return this.http.get(this._url + "GetAirports", httpOptions);
+
+    return this.http.get(this._url + "GetAirports", httpOptions2);
   }
 
   searchFlight(data): Observable<ISearchFlightModel[]> {
     console.log("searchFlight");
+    console.log("searchFlight");
+    console.log("searchFlight");
+    console.log("searchFlight");
     console.log("token: " + this.token);
-    return this.http.post<ISearchFlightModel[]>(this._url2 + "SearchFlight", data, httpOptions);
+    return this.http.post<ISearchFlightModel[]>(this._url3 + "SearchFlight", data, httpOptions);
   }
 }

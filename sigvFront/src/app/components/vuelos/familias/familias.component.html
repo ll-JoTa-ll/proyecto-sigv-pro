@@ -1,0 +1,103 @@
+
+
+
+<div class="row m-0 p-0">
+
+  <div class="col-2 m-0 p-0"></div>
+
+  <div class="col-8 m-0 p-0">
+
+    <div class="row m-0 p-0">
+
+      <div class="col-1 m-0 p-0"></div>
+
+      <div class="col-11 m-0 p-0">
+
+        <div class="row m-0 p-0">
+
+          <div class="col-12 m-0 p-0 f-text-1">
+            Las tarifas que te mostraremos en las familias corresponden a 1 pasajero y no incluye tasas de embargue. Estas
+            están incluídas dentro al momento de seleccionar la combinación requerida en el Precio Base.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-2 m-0 p-0"></div>
+
+</div>
+
+
+<div class="row m-0 p-0">
+
+  <div class="col-2 m-0 p-0"></div>
+
+  <div class="col-8 m-0 p-0 pt-3">
+
+    <div class="row m-0 p-0">
+      <div class="col-1 m-0 p-0"></div>
+
+      <div class="col-10 m-0 p-0 box-shadow" style="height: 150px; border-radius: 20px 0 20px 0;">
+
+        <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0" style="height: 20px;"></div>
+
+          <div class="col-12 m-0 p-0" style="height: 20px;">
+
+            <div class="row m-0 p-0">
+              <div class="col-4 m-0 p-0 d-flex justify-content-center align-items-center f-div-pxa">
+                Precio Final
+              </div>
+              <div class="col-4 m-0 p-0"></div>
+              <div class="col-4 m-0 p-0"></div>
+            </div>
+
+          </div>
+
+          <div class="col-12 m-0 p-0 d-flex align-items-center" style="height: 110px;">
+
+            <div class="row m-0 p-0" style="width: 100%;">
+
+              <div class="col-6 m-0 p-0 d-flex justify-content-center align-items-center">
+                Precio por adulto <span class="f-text-3 pl-1">{{currency}}</span>  <span class="f-text-4 pl-1">{{precioPersona}}</span>
+              </div>
+
+              <div class="col-6 m-0 p-0 text-center">
+                <span class="f-text-5">{{currency}}</span>  <span class="f-text-6 pl-1">{{precioTotal}}</span>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-1 m-0 p-0"></div>
+    </div>
+
+
+  </div>
+
+  <div class="col-2 m-0 p-0"></div>
+
+</div>
+
+<div class="row m-0 p-0 pt-5 pb-5" style="width: 100%;">
+
+  <app-familia
+    style="width: 100%;"
+    [familiasCount]="lstFamilyResult.length"
+    [familia]="family"
+    [familyIndex]="i+1"
+    *ngFor="let family of lstFamilyResult; let i=index"></app-familia>
+
+</div>
+
+
+

@@ -43,6 +43,13 @@ export class MultidestinosLgComponent implements OnInit {
   @Output() outDestinoValue6 = new EventEmitter<string>();
   @Output() outDestinoText6 = new EventEmitter<string>();
 
+  @Output() outFechaSalida1 = new EventEmitter<string>();
+  @Output() outFechaSalida2 = new EventEmitter<string>();
+  @Output() outFechaSalida3 = new EventEmitter<string>();
+  @Output() outFechaSalida4 = new EventEmitter<string>();
+  @Output() outFechaSalida5 = new EventEmitter<string>();
+  @Output() outFechaSalida6 = new EventEmitter<string>();
+
   airportlist: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
@@ -91,6 +98,18 @@ export class MultidestinosLgComponent implements OnInit {
   indexTramo: number;
   lTramoOrigen: any[] = [];
   lTramoDestino: any[] = [];
+  minDateSalida1: Date;
+  minDateSalida2: Date;
+  minDateSalida3: Date;
+  minDateSalida4: Date;
+  minDateSalida5: Date;
+  minDateSalida6: Date;
+  fechaSalida1: string;
+  fechaSalida2: string;
+  fechaSalida3: string;
+  fechaSalida4: string;
+  fechaSalida5: string;
+  fechaSalida6: string;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -103,6 +122,18 @@ export class MultidestinosLgComponent implements OnInit {
     this.flagTramo5 = false;
     this.flagTramo6 = false;
     this.indexTramo = 2;
+    this.minDateSalida1 = new Date();
+    this.minDateSalida1.setDate(this.minDateSalida1.getDate());
+    this.minDateSalida2 = new Date();
+    this.minDateSalida2.setDate(this.minDateSalida2.getDate());
+    this.minDateSalida3 = new Date();
+    this.minDateSalida3.setDate(this.minDateSalida3.getDate());
+    this.minDateSalida4 = new Date();
+    this.minDateSalida4.setDate(this.minDateSalida4.getDate());
+    this.minDateSalida5 = new Date();
+    this.minDateSalida5.setDate(this.minDateSalida5.getDate());
+    this.minDateSalida6 = new Date();
+    this.minDateSalida6.setDate(this.minDateSalida6.getDate());
   }
 
   ngOnInit() {
@@ -375,6 +406,146 @@ export class MultidestinosLgComponent implements OnInit {
     if (tramo === 6) {
       this.flagTramo6 = false;
     }
+  }
+
+  onValueChangeSalida1(value: Date): void {
+    this.minDateSalida2 = value;
+    this.minDateSalida3 = value;
+    this.minDateSalida4 = value;
+    this.minDateSalida5 = value;
+    this.minDateSalida6 = value;
+
+    let mes = "";
+    if ((value.getMonth() + 1) < 10) {
+      mes = "0" + (value.getMonth() + 1);
+    } else {
+      mes = "" + value.getMonth();
+    }
+
+    let dia = "";
+    if (value.getDate() < 10) {
+      dia = "0" + value.getDate();
+    } else {
+      dia = "" + value.getDate();
+    }
+
+    this.fechaSalida1 = value.getFullYear() + "/" + mes + "/" + dia;
+    this.outFechaSalida1.emit(this.fechaSalida1);
+    console.log(this.fechaSalida1);
+  }
+
+  onValueChangeSalida2(value: Date): void {
+    this.minDateSalida3 = value;
+    this.minDateSalida4 = value;
+    this.minDateSalida5 = value;
+    this.minDateSalida6 = value;
+
+    let mes = "";
+    if ((value.getMonth() + 1) < 10) {
+      mes = "0" + (value.getMonth() + 1);
+    } else {
+      mes = "" + value.getMonth();
+    }
+
+    let dia = "";
+    if (value.getDate() < 10) {
+      dia = "0" + value.getDate();
+    } else {
+      dia = "" + value.getDate();
+    }
+
+    this.fechaSalida2 = value.getFullYear() + "/" + mes + "/" + dia;
+    this.outFechaSalida2.emit(this.fechaSalida2);
+    console.log(this.fechaSalida2);
+  }
+
+  onValueChangeSalida3(value: Date): void {
+    this.minDateSalida4 = value;
+    this.minDateSalida5 = value;
+    this.minDateSalida6 = value;
+
+    let mes = "";
+    if ((value.getMonth() + 1) < 10) {
+      mes = "0" + (value.getMonth() + 1);
+    } else {
+      mes = "" + value.getMonth();
+    }
+
+    let dia = "";
+    if (value.getDate() < 10) {
+      dia = "0" + value.getDate();
+    } else {
+      dia = "" + value.getDate();
+    }
+
+    this.fechaSalida3 = value.getFullYear() + "/" + mes + "/" + dia;
+    this.outFechaSalida3.emit(this.fechaSalida3);
+    console.log(this.fechaSalida3);
+  }
+
+  onValueChangeSalida4(value: Date): void {
+    this.minDateSalida5 = value;
+    this.minDateSalida6 = value;
+
+    let mes = "";
+    if ((value.getMonth() + 1) < 10) {
+      mes = "0" + (value.getMonth() + 1);
+    } else {
+      mes = "" + value.getMonth();
+    }
+
+    let dia = "";
+    if (value.getDate() < 10) {
+      dia = "0" + value.getDate();
+    } else {
+      dia = "" + value.getDate();
+    }
+
+    this.fechaSalida4 = value.getFullYear() + "/" + mes + "/" + dia;
+    this.outFechaSalida4.emit(this.fechaSalida4);
+    console.log(this.fechaSalida4);
+  }
+
+  onValueChangeSalida5(value: Date): void {
+    this.minDateSalida6 = value;
+
+    let mes = "";
+    if ((value.getMonth() + 1) < 10) {
+      mes = "0" + (value.getMonth() + 1);
+    } else {
+      mes = "" + value.getMonth();
+    }
+
+    let dia = "";
+    if (value.getDate() < 10) {
+      dia = "0" + value.getDate();
+    } else {
+      dia = "" + value.getDate();
+    }
+
+    this.fechaSalida5 = value.getFullYear() + "/" + mes + "/" + dia;
+    this.outFechaSalida5.emit(this.fechaSalida5);
+    console.log(this.fechaSalida5);
+  }
+
+  onValueChangeSalida6(value: Date): void {
+    let mes = "";
+    if ((value.getMonth() + 1) < 10) {
+      mes = "0" + (value.getMonth() + 1);
+    } else {
+      mes = "" + value.getMonth();
+    }
+
+    let dia = "";
+    if (value.getDate() < 10) {
+      dia = "0" + value.getDate();
+    } else {
+      dia = "" + value.getDate();
+    }
+
+    this.fechaSalida6 = value.getFullYear() + "/" + mes + "/" + dia;
+    this.outFechaSalida6.emit(this.fechaSalida6);
+    console.log(this.fechaSalida6);
   }
 
 }
