@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
           this.sessionStorageService.store('ss_login_data', result);
           this.token = result.token;
           this.sessionStorageService.store('ss_token', result.token);
-          console.log(result);
+          //console.log(result);
         } else {
           console.log("NULL");
         }
@@ -85,13 +85,13 @@ export class LoginComponent implements OnInit {
         }
         */
         console.log("LOGIN Completado")
-        this.airportList(this.token);
+        this.airportList();
       }
     );
   }
 
-  airportList(token) {
-    this.airportService.airportList(token).subscribe(
+  airportList() {
+    this.airportService.airportList().subscribe(
       (result: any) => {
         console.log(result);
         this.airportlist = result;

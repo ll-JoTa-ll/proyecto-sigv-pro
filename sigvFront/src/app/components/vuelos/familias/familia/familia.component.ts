@@ -19,6 +19,9 @@ export class FamiliaComponent implements OnInit {
   imgIdaVuelta: string;
   lfareFamilies: any[] = [];
   fareFamilyId: string;
+  flagCountInc: number;
+  flagCountNof: number;
+  flagCountCha: number;
 
   constructor() { }
 
@@ -45,6 +48,36 @@ export class FamiliaComponent implements OnInit {
       this.textoTipo = 'Tramo ' + this.familyIndex;
       this.imgIdaVuelta = 'airplane_ida.svg';
     }
+
+
+    console.log('calculando altura mas alta');
+    let flagCountInc = 0;
+    let flagCountNof = 0;
+    let flagCountCha = 0;
+    this.familia.lfareFamilies.forEach(function(fare, index) {
+      if (index === 0) {
+        //
+      }
+      const lstInc = fare.lfamilyServices.filter(x => x.serviceStatus === 'INC');
+      const lstNof = fare.lfamilyServices.filter(x => x.serviceStatus === 'NOF');
+      const lstCha = fare.lfamilyServices.filter(x => x.serviceStatus === 'CHA');
+
+      if (lstInc.length > flagCountInc) {
+        flagCountInc = lstInc.length;
+      }
+
+      if (lstNof.length > flagCountNof) {
+        flagCountNof = lstNof.length;
+      }
+
+      if (lstCha.length > flagCountCha) {
+        flagCountCha = lstCha.length;
+      }
+    });
+    this.flagCountInc = flagCountInc;
+    this.flagCountNof = flagCountNof;
+    this.flagCountCha = flagCountCha;
+
   }
 
   listFareFamilies(fareFamilyId) {

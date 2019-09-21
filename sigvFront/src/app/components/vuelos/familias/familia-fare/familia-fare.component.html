@@ -2,21 +2,55 @@
 
 
 
-<div class="" style="width: 280px;">
+<div class="m-2" style="width: 280px; padding-bottom: 30px !important;">
 
-  <div class="row m-0 p-0 box-shadow">
+  <div class="row m-0 p-0 box-shadow" style="border-radius: 20px 0 20px 0 !important; border: 1px solid #ccc !important;">
 
-    <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center" style="height: 70px;">
+    <div
+      class="col-12 m-0 p-0 d-flex justify-content-center align-items-center ff-text-size-1"
+      style="height: 70px; background-color: #C6C6C6; color: white; font-family: Omnes-med; border-radius: 20px 0 0 0"
+    >
       {{fareFamily.fareFamilyName}}
     </div>
 
-    <div class="col-12 m-0 p-0"></div>
+    <div class="col-12 m-0 p-0" [id]="idDivInc+fareFamilyIndex" style="border: 1px solid #ccc !important;">
 
-    <div class="col-12 m-0 p-0"></div>
+      <p
+        *ngFor="let inc of lstInc; let i=index"
+        class="p-0 m-0 pl-2 ff-text-size-2"
+        style="color: #898989; font-family: Omnes-med;"
+      >
+        <span class="pr-1" style="color: #6B253C">{{i+1}}.</span> {{inc.serviceDescription}}
+      </p>
 
-    <div class="col-12 m-0 p-0"></div>
+    </div>
 
-    <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center">
+    <div class="col-12 m-0 p-0" [id]="idDivNof+fareFamilyIndex" style="border: 1px solid #ccc !important;">
+
+      <p
+        *ngFor="let inc of lstNof; let i=index"
+        class="p-0 m-0 pl-2 ff-text-size-2"
+        style="color: #898989; font-family: Omnes-med;"
+      >
+        <span class="pr-1" style="color: #6B253C">{{i+1}}.</span> {{inc.serviceDescription}}
+      </p>
+
+    </div>
+
+    <div class="col-12 m-0 p-0" [id]="idDivCha+fareFamilyIndex" style="border: 1px solid #ccc !important;">
+
+      <p
+        *ngFor="let inc of lstCha; let i=index"
+        class="p-0 m-0 pl-2 ff-text-size-2"
+        style="color: #898989; font-family: Omnes-med;"
+      >
+        <span class="pr-1" style="color: #6B253C">{{i+1}}.</span> {{inc.serviceDescription}}
+      </p>
+
+    </div>
+
+    <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center"
+         style="border: 1px solid #ccc !important; border-radius: 0 0 20px 0 !important; height: 50px !important;">
 
       <label>
         <input type="radio">
