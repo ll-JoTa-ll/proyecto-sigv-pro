@@ -12,10 +12,13 @@ declare var $: any;
 export class FiltroPrecioComponent implements OnInit, AfterViewInit {
 
   @Input() listado: IHotelResultsModel[];
+  @Input() menorprecio: number;
+  @Input() mayorprecio: number;
   @Output() filtroprecio = new EventEmitter<any[]>();
   mostrardiv: boolean = true;
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit() {
   }

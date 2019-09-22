@@ -1,13 +1,17 @@
-<div class="col-12 m-0 p-0">
-    <div class="row mt-5 p-0">
-        <div class="m-0 p-0 box-shadow div-result-1">
+<div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+<div class="col-12 m-0 p-0" style="background: white; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5)">
+    <div class="row p-0 m-0">
+        <div class="m-0 p-0 div-result-1">
+            <!--
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0">
-                    <img *ngIf="urlHotel" class="img-hotel" src="{{urlHotel}}" alt="">
+                    <img *ngIf="urlHotel" class="img-fluid img-hotel" src="{{urlHotel}}" alt="">
                 </div>
             </div>
+        -->
+            <img *ngIf="urlHotel" class="img-fluid img-hotel" src="{{urlHotel}}" alt="">
         </div>
-        <div class="m-0 p-0 box-shadow pl-4 div-result-2">
+        <div class="m-0 p-0 pl-4 div-result-2">
             <div class="row m-0 p-0 pt-4">
                 <div class="col-12">
                     <span class="name-hotel">{{nombrehotel}}</span>
@@ -50,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="m-0 p-0 box-shadow div-result-3">
+        <div class="m-0 p-0 div-result-3">
             <div class="row m-0 p-0 pt-4">
                 <div class="col-6 m-0 p-0 text-center div-price">
                     <span>Precio promedio noche</span>
@@ -73,7 +77,7 @@
                     <span class="preciopromedio">{{precioxnoche}}</span>
                 </div>
             </div>
-            <div class="row m-0 p-0 pb-4">
+            <div class="row m-0 p-0">
                 <div class="col-12 text-center mt-3">
                     <button class="btn r-btn-2">
                                 Seleccionar

@@ -46,6 +46,9 @@ export class HotelesComponent implements OnInit {
   datesalida: string;
   divwarning: boolean;
 
+  mayorPrecioHotel: number;
+  menorPrecioHotel: number;
+
 
 
   constructor(
@@ -180,6 +183,14 @@ export class HotelesComponent implements OnInit {
   }
 
   SeachHotel() {
+    console.log('SeachHotel');
+    console.log('SeachHotel');
+    console.log('SeachHotel');
+    console.log('SeachHotel');
+    console.log('SeachHotel');
+    console.log('SeachHotel');
+    console.log('SeachHotel');
+    console.log('SeachHotel');
    this.spinner.show();
    this.flagDinData = false;
    this.dateingreso = $('#dateingreso').val();
@@ -194,13 +205,51 @@ export class HotelesComponent implements OnInit {
     };
    this.habitaciones = $('#txthabitacion').val();
    this.personas = $('#txtpersonas').val();
+
+   console.log(JSON.stringify(SearchObj));
+
    this.service.SearchHotel(SearchObj).subscribe(
       result => {
          console.log(this.LlistaHotel);
          if (result !== null && result.length > 0) {
+          console.log('result: ' + result);
            this.LlistaHotel = result;
            this.localStorageService.store('hotel', this.LlistaHotel[0]);
            this.flagBuscar = true;
+
+           let menorValor = 1000000;
+           let mayorValor = 0;
+           result.forEach(function(item, index1) {
+
+            let mmm = 1000000;
+
+            item.LBeRoomStay
+
+             item.LBeRoomStay.forEach(function(item2, index2) {
+               //
+
+               /*
+              if (parseFloat(item2.AmountAfterTax) > mayorValor) {
+                mayorValor = parseFloat(item2.AmountAfterTax);
+              }
+              */
+
+              if (parseFloat(item2.AmountAfterTax) < menorValor) {
+                menorValor = parseFloat(item2.AmountAfterTax);
+              }
+
+              if (index2 === 0) {
+                if (parseFloat(item2.AmountAfterTax) > mayorValor) {
+                  mayorValor = parseFloat(item2.AmountAfterTax);
+                }
+              }
+
+
+             });
+           });
+
+           this.menorPrecioHotel = menorValor;
+           this.mayorPrecioHotel = mayorValor;
          } else {
            this.flagDinData = true;
       }

@@ -50,6 +50,7 @@ import { FormatoLongitudPipe } from './pipes/formato-longitud.pipe';
 import { FamiliasComponent } from './components/vuelos/familias/familias.component';
 import { FamiliaComponent } from './components/vuelos/familias/familia/familia.component';
 import { FamiliaFareComponent } from './components/vuelos/familias/familia-fare/familia-fare.component';
+import { GetmayorpricePipe } from './pipes/getmayorprice.pipe';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { FamiliaFareComponent } from './components/vuelos/familias/familia-fare/
     FormatoLongitudPipe,
     FamiliasComponent,
     FamiliaComponent,
-    FamiliaFareComponent
+    FamiliaFareComponent,
+    GetmayorpricePipe
   ],
   imports: [
     BrowserModule,

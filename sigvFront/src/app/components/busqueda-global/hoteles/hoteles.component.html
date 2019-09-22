@@ -142,7 +142,7 @@
                 <div class="row m-0 p-0 v-texto-2 div-estrellas">
                     <div style="width: 60%">
                         <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0">
+                            <div class="col-12 m-0 p-0 txt-estrellas">
                                 <label for="">Estrellas</label>
                             </div>
                         </div>
@@ -231,7 +231,7 @@
                 <div class="col-3 m-0 p-0 pt-4 pr-4 pl-5">
                     <app-busqueda-mini [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas"></app-busqueda-mini>
                     <app-filtro-estrellas [listado]="LlistaHotel" (resultfiltro)="ObtenerListaFiltroEstrella($event)"></app-filtro-estrellas>
-                    <app-filtro-precio (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel"></app-filtro-precio>
+                    <app-filtro-precio (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio>
                     <app-filtro-nombrehotel [listado]="LlistaHotel"></app-filtro-nombrehotel>
                 </div>
                 <div class="col-9 m-0 p-0 pt-4 pl-4 pr-5">
