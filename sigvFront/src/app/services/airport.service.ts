@@ -35,10 +35,11 @@ export class AirportService {
     });
   }
 
-  airportList() {
+  airportList(token) {
     this.token = this.sessionSt.retrieve('ss_token');
+    console.log('token' + token);
     httpOptions2.headers = new HttpHeaders({
-      'Authorization': "Bearer " + this.token,
+      'Authorization': "Bearer " + token,
       'Content-Type': "application/json",
     });
     return this.http.get(this._url + "GetAirports", httpOptions2);

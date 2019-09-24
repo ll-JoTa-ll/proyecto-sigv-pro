@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
       (result) => {
         if (result != null) {
           this.flagLogin = 1;
+          console.log('login result: ' + JSON.stringify(result));
           this.sessionStorageService.store('ss_login_data', result);
           this.token = result.token;
           this.sessionStorageService.store('ss_token', result.token);
@@ -66,7 +67,7 @@ export class LoginComponent implements OnInit {
 
       (error) => {
         this.spinner.hide();
-        console.log(error);
+        console.log('ERROR' + JSON.stringify(error));
       },
 
       () => {
@@ -91,7 +92,7 @@ export class LoginComponent implements OnInit {
   }
 
   airportList() {
-    this.airportService.airportList().subscribe(
+    this.airportService.airportList(this.token).subscribe(
       (result: any) => {
         console.log(result);
         this.airportlist = result;
@@ -100,7 +101,7 @@ export class LoginComponent implements OnInit {
 
       (err) => {
         this.spinner.hide();
-        console.log("ERROR: " + err);
+        console.log('ERROR' + JSON.stringify(err));
         },
 
       () => {

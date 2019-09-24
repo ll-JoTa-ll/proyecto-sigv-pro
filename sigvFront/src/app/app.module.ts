@@ -40,6 +40,7 @@ import { ResultadoComponent } from './components/busqueda-global/hoteles/resulta
 import { FamiliasComponent } from './components/vuelos/familias/familias.component';
 import { FamiliaComponent } from './components/vuelos/familias/familia/familia.component';
 import { FamiliaFareComponent } from './components/vuelos/familias/familia-fare/familia-fare.component';
+import { ReservaHotelComponent } from './components/reserva-hotel/reserva-hotel.component';
 import { PagoComponent } from './components/reserva-hotel/pago/pago.component';
 import { DetallePagoComponent } from './components/reserva-hotel/detalle-pago/detalle-pago.component';
 import { TitularesReservaComponent } from './components/reserva-hotel/titulares-reserva/titulares-reserva.component';
@@ -71,6 +72,7 @@ import { DetalleCompraComponent } from './components/reserva-hotel/detalle-compr
     FamiliasComponent,
     FamiliaComponent,
     FamiliaFareComponent,
+    ReservaHotelComponent,
     PagoComponent,
     DetallePagoComponent,
     TitularesReservaComponent,

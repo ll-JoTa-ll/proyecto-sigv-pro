@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit} from '@angular/core';
 import { IFareFamilyServiceModel } from '../../../../models/IFareFamilyService.model';
 
 declare var jquery: any;
@@ -9,7 +9,7 @@ declare var $: any;
   templateUrl: './familia-fare.component.html',
   styleUrls: ['./familia-fare.component.sass']
 })
-export class FamiliaFareComponent implements OnInit {
+export class FamiliaFareComponent implements OnInit, AfterViewInit {
 
   @Input() fareFamily: IFareFamilyServiceModel;
   @Input() currency;
@@ -17,6 +17,7 @@ export class FamiliaFareComponent implements OnInit {
   @Input() flagCountInc;
   @Input() flagCountNof;
   @Input() flagCountCha;
+  @Input() familyIndex;
 
   idDivInc: string;
   idDivNof: string;
@@ -24,53 +25,42 @@ export class FamiliaFareComponent implements OnInit {
   lstInc: any[] = [];
   lstNof: any[] = [];
   lstCha: any[] = [];
+  classDivInc: string;
+  classDivNof: string;
+  classDivCha: string;
 
   constructor() {
     this.idDivInc = 'idDivInc';
     this.idDivNof = 'idDivNof';
     this.idDivCha = 'idDivCha';
+
+    this.classDivInc = 'classDivInc';
+    this.classDivNof = 'classDivNof';
+    this.classDivCha = 'classDivCha';
   }
 
   ngOnInit() {
     const fareFamily = this.fareFamily;
-    console.log('fareFamily: ' + JSON.stringify(fareFamily));
-
+    //console.log('fareFamily: ' + JSON.stringify(fareFamily));
     this.lstInc = fareFamily.lfamilyServices.filter(x => x.serviceStatus === 'INC');
     this.lstNof = fareFamily.lfamilyServices.filter(x => x.serviceStatus === 'NOF');
     this.lstCha = fareFamily.lfamilyServices.filter(x => x.serviceStatus === 'CHA');
+  }
 
-    const heightDivInc = 27 * this.flagCountInc;
-    const heightDivNof = 27 * this.flagCountNof;
-    const heightDivCha = 27 * this.flagCountCha;
-    $("#" + this.idDivInc + this.fareFamilyIndex).height(heightDivInc + 'px');
-    $("#" + this.idDivNof + this.fareFamilyIndex).height(heightDivNof + 'px');
-    $("#" + this.idDivCha + this.fareFamilyIndex).height(heightDivCha + 'px');
+  ngAfterViewInit() {
+    const heightDivInc = 20 * this.flagCountInc;
+    const heightDivNof = 20 * this.flagCountNof;
+    const heightDivCha = 20 * this.flagCountCha;
+    console.log('this.flagCountInc' + this.flagCountInc);
+    console.log('this.flagCountNof' + this.flagCountNof);
+    console.log('this.flagCountCha' + this.flagCountCha);
 
-    /*
-    let lstInc_: any[] = [];
-    let lstNof_: any[] = [];
-    let lstCha_: any[] = [];
-
-    fareFamily.lfamilyServices.forEach(function(fare) {
-      if (fare.serviceStatus === 'INC') {
-        lstInc_.push(fare);
-      }
-      if (fare.serviceStatus === 'NOF') {
-        lstNof_.push(fare);
-      }
-      if (fare.serviceStatus === 'CHA') {
-        lstCha_.push(fare);
-      }
-    });
-
-    this.lstInc = lstInc_;
-    this.lstNof = lstNof_;
-    this.lstCha = lstCha_;
-    */
-
-    //console.log('this.lstInc: ' + JSON.stringify(this.lstInc));
-    //console.log('this.lstNof: ' + JSON.stringify(this.lstNof));
-    //console.log('this.lstCha: ' + JSON.stringify(this.lstCha));
+    console.log('heightDivInc: ' + heightDivInc);
+    console.log('heightDivNof: ' + heightDivNof);
+    console.log('heightDivCha: ' + heightDivCha);
+    $("." + this.classDivInc + this.familyIndex).height(heightDivInc);
+    $("." + this.classDivNof + this.familyIndex).height(heightDivNof);
+    $("." + this.classDivCha + this.familyIndex).height(heightDivCha);
   }
 
 }

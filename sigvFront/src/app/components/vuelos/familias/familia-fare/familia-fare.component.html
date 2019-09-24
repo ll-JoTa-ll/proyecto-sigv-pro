@@ -13,7 +13,11 @@
       {{fareFamily.fareFamilyName}}
     </div>
 
-    <div class="col-12 m-0 p-0" [id]="idDivInc+fareFamilyIndex" style="border: 1px solid #ccc !important;">
+    <div
+      class="col-12 m-0 p-0"
+      [class]="classDivInc+familyIndex"
+      [id]="idDivInc+fareFamilyIndex"
+      style="border: 1px solid #ccc !important; width: 100%;">
 
       <p
         *ngFor="let inc of lstInc; let i=index"
@@ -25,7 +29,11 @@
 
     </div>
 
-    <div class="col-12 m-0 p-0" [id]="idDivNof+fareFamilyIndex" style="border: 1px solid #ccc !important;">
+    <div
+      class="col-12 m-0 p-0"
+      [class]="classDivNof+familyIndex"
+      [id]="idDivNof+fareFamilyIndex"
+      style="border: 1px solid #ccc !important; width: 100%;">
 
       <p
         *ngFor="let inc of lstNof; let i=index"
@@ -37,7 +45,11 @@
 
     </div>
 
-    <div class="col-12 m-0 p-0" [id]="idDivCha+fareFamilyIndex" style="border: 1px solid #ccc !important;">
+    <div
+      class="col-12 m-0 p-0"
+      [class]="classDivCha+familyIndex"
+      [id]="idDivCha+fareFamilyIndex"
+      style="border: 1px solid #ccc !important; width: 100%;">
 
       <p
         *ngFor="let inc of lstCha; let i=index"
