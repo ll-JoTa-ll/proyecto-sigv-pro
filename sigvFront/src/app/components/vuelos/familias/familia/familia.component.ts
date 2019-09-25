@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { IFareFamilyModel } from '../../../../models/IFareFamily.model';
 
 declare var jquery: any;
@@ -15,6 +15,8 @@ export class FamiliaComponent implements OnInit {
   @Input() familiasCount;
   @Input() familyIndex;
 
+  @Output() sumTotal = new EventEmitter<number>();
+
   textoTipo: string;
   imgIdaVuelta: string;
   lfareFamilies: any[] = [];
@@ -22,8 +24,15 @@ export class FamiliaComponent implements OnInit {
   flagCountInc: number;
   flagCountNof: number;
   flagCountCha: number;
+  classDivInc: string;
+  classDivNof: string;
+  classDivCha: string;
 
-  constructor() { }
+  constructor() {
+    this.classDivInc = 'classDivInc';
+    this.classDivNof = 'classDivNof';
+    this.classDivCha = 'classDivCha';
+  }
 
   ngOnInit() {
     this.fareFamilyId = 'fareFamilyId' + this.familyIndex;
@@ -54,9 +63,10 @@ export class FamiliaComponent implements OnInit {
     let flagCountInc = 0;
     let flagCountNof = 0;
     let flagCountCha = 0;
+    let sumTotal = 0;
     this.familia.lfareFamilies.forEach(function(fare, index) {
       if (index === 0) {
-        //
+        sumTotal += fare.fareFamilyPrice;
       }
       const lstInc = fare.lfamilyServices.filter(x => x.serviceStatus === 'INC');
       const lstNof = fare.lfamilyServices.filter(x => x.serviceStatus === 'NOF');
@@ -74,6 +84,7 @@ export class FamiliaComponent implements OnInit {
         flagCountCha = lstCha.length;
       }
     });
+    this.sumTotal.emit(sumTotal);
     this.flagCountInc = flagCountInc;
     this.flagCountNof = flagCountNof;
     this.flagCountCha = flagCountCha;
@@ -83,6 +94,40 @@ export class FamiliaComponent implements OnInit {
   listFareFamilies(fareFamilyId) {
     this.lfareFamilies = this.familia.lfareFamilies;
     $("#" + fareFamilyId).show();
+
+    const flagCountInc = this.flagCountInc;
+    const flagCountNof = this.flagCountNof;
+    const flagCountCha = this.flagCountCha;
+
+    const classDivInc = this.classDivInc;
+    const classDivNof = this.classDivNof;
+    const classDivCha = this.classDivCha;
+
+    const familyIndex = this.familyIndex;
+
+    setTimeout(function() {
+      let heightDivInc = 20 * flagCountInc;
+      let heightDivNof = 20 * flagCountNof;
+      let heightDivCha = 20 * flagCountCha;
+      if (heightDivInc === 0) {
+        heightDivInc = 30;
+      }
+      if (heightDivNof === 0) {
+        heightDivNof = 30;
+      }
+      if (heightDivCha === 0) {
+        heightDivCha = 30;
+      }
+      console.log('heightDivInc: ' + heightDivInc);
+      console.log('heightDivNof: ' + heightDivNof);
+      console.log('heightDivCha: ' + heightDivCha);
+      $("." + classDivInc + familyIndex).height(heightDivInc);
+      $("." + classDivNof + familyIndex).height(heightDivNof);
+      $("." + classDivCha + familyIndex).height(heightDivCha);
+      $("." + classDivInc + familyIndex).addClass('div-height');
+      $("." + classDivNof + familyIndex).addClass('div-height');
+      $("." + classDivCha + familyIndex).addClass('div-height');
+    }, 10);
   }
 
   hideFareFamilies(fareFamilyId) {

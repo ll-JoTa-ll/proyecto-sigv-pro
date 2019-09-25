@@ -28,6 +28,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   classDivInc: string;
   classDivNof: string;
   classDivCha: string;
+  nameRadioBtn: string;
+  idRadioBtn: string;
 
   constructor() {
     this.idDivInc = 'idDivInc';
@@ -37,6 +39,9 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     this.classDivInc = 'classDivInc';
     this.classDivNof = 'classDivNof';
     this.classDivCha = 'classDivCha';
+
+    this.nameRadioBtn = 'nameRadioFam';
+    this.idRadioBtn = 'idRadioFam';
   }
 
   ngOnInit() {
@@ -51,6 +56,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     const heightDivInc = 20 * this.flagCountInc;
     const heightDivNof = 20 * this.flagCountNof;
     const heightDivCha = 20 * this.flagCountCha;
+    /*
     console.log('this.flagCountInc' + this.flagCountInc);
     console.log('this.flagCountNof' + this.flagCountNof);
     console.log('this.flagCountCha' + this.flagCountCha);
@@ -58,6 +64,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     console.log('heightDivInc: ' + heightDivInc);
     console.log('heightDivNof: ' + heightDivNof);
     console.log('heightDivCha: ' + heightDivCha);
+    */
     $("." + this.classDivInc + this.familyIndex).height(heightDivInc);
     $("." + this.classDivNof + this.familyIndex).height(heightDivNof);
     $("." + this.classDivCha + this.familyIndex).height(heightDivCha);
