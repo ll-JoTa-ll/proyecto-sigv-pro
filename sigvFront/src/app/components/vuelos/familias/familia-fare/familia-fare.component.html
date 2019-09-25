@@ -65,7 +65,13 @@
          style="border: 1px solid #ccc !important; border-radius: 0 0 20px 0 !important; height: 50px !important;">
 
       <label>
-        <input type="radio" [name]="nameRadioBtn + '_' + familyIndex" [id]="idRadioBtn + '_' + familyIndex + '_' + fareFamilyIndex">
+        <input
+          type="radio"
+          *ngIf="fareFamily.fareFamilyPrice>0"
+          [name]="nameRadioBtn + '_' + familyIndex"
+          [id]="idRadioBtn + '_' + familyIndex + '_' + fareFamilyIndex"
+          (click)="selectRadioBtnFam(idRadioBtn + '_' + familyIndex + '_' + fareFamilyIndex)"
+        >
         <span class="pl-1">{{currency}}</span>
         <span class="pl-1">{{fareFamily.fareFamilyPrice}}</span>
       </label>

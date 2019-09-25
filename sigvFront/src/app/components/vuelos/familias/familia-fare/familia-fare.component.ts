@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, AfterViewInit} from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import { IFareFamilyServiceModel } from '../../../../models/IFareFamilyService.model';
 
 declare var jquery: any;
@@ -18,6 +18,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   @Input() flagCountNof;
   @Input() flagCountCha;
   @Input() familyIndex;
+
+  @Output() idRadioBtnFareFam = new EventEmitter<string>();
 
   idDivInc: string;
   idDivNof: string;
@@ -68,6 +70,14 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     $("." + this.classDivInc + this.familyIndex).height(heightDivInc);
     $("." + this.classDivNof + this.familyIndex).height(heightDivNof);
     $("." + this.classDivCha + this.familyIndex).height(heightDivCha);
+
+    if (this.fareFamilyIndex === 1) {
+      $('#' + this.idRadioBtn + '_' + this.familyIndex + '_' + this.fareFamilyIndex).prop("checked", true);
+    }
+  }
+
+  selectRadioBtnFam(id) {
+    this.idRadioBtnFareFam.emit(id);
   }
 
 }

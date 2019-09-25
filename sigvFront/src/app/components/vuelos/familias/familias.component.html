@@ -96,6 +96,7 @@
     [familia]="family"
     [familyIndex]="i+1"
     (sumTotal)="sumTotal($event)"
+    (idRadioBtnFareFam)="selectRadioBtnFam($event)"
     *ngFor="let family of lstFamilyResult; let i=index"></app-familia>
 
 </div>

@@ -16,6 +16,7 @@ export class FamiliaComponent implements OnInit {
   @Input() familyIndex;
 
   @Output() sumTotal = new EventEmitter<number>();
+  @Output() idRadioBtnFareFam = new EventEmitter<string>();
 
   textoTipo: string;
   imgIdaVuelta: string;
@@ -133,6 +134,11 @@ export class FamiliaComponent implements OnInit {
   hideFareFamilies(fareFamilyId) {
     this.lfareFamilies = [];
     $("#" + fareFamilyId).hide();
+  }
+
+  selectRadioBtnFam($event) {
+    console.log('idRadioBtnFareFam: ' + $event);
+    this.idRadioBtnFareFam.emit($event);
   }
 
 }

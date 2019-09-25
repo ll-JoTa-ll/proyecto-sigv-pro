@@ -120,6 +120,7 @@
             [flagCountNof]="flagCountNof"
             [flagCountCha]="flagCountCha"
             [familyIndex]="familyIndex"
+            (idRadioBtnFareFam)="selectRadioBtnFam($event)"
             *ngFor="let fareFamily of lfareFamilies; let i=index"
           ></app-familia-fare>
 
