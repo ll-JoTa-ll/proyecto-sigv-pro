@@ -45,6 +45,21 @@ import { PagoComponent } from './components/reserva-hotel/pago/pago.component';
 import { DetallePagoComponent } from './components/reserva-hotel/detalle-pago/detalle-pago.component';
 import { TitularesReservaComponent } from './components/reserva-hotel/titulares-reserva/titulares-reserva.component';
 import { DetalleCompraComponent } from './components/reserva-hotel/detalle-compra/detalle-compra.component';
+import { ReservaVueloComponent } from './components/reserva-vuelo/reserva-vuelo.component';
+import { DatosPasajeroComponent } from './components/reserva-vuelo/datos-pasajero/datos-pasajero.component';
+import { PersonaContactoComponent } from './components/reserva-vuelo/persona-contacto/persona-contacto.component';
+import { InfoAdicionalComponent } from './components/reserva-vuelo/info-adicional/info-adicional.component';
+import { MotivoViajeComponent } from './components/reserva-vuelo/motivo-viaje/motivo-viaje.component';
+import { PrecioFinalComponent } from './components/reserva-vuelo/precio-final/precio-final.component';
+import { InfoVueloSectionComponent } from './components/reserva-vuelo/info-vuelo-section/info-vuelo-section.component';
+import { InfoVueloSegmentComponent } from './components/reserva-vuelo/info-vuelo-segment/info-vuelo-segment.component';
+import { ModalResumenComponent } from './components/reserva-vuelo/modal-resumen/modal-resumen.component';
+import { ModalInfraccionPaxComponent } from './components/reserva-vuelo/modal-infraccion-pax/modal-infraccion-pax.component';
+import { VuelosExcepcionPoliticaComponent } from './components/vuelos-excepcion-politica/vuelos-excepcion-politica.component';
+import { ExVueloSectionComponent } from './components/vuelos-excepcion-politica/ex-vuelo-section/ex-vuelo-section.component';
+import { ExVueloSegmentComponent } from './components/vuelos-excepcion-politica/ex-vuelo-segment/ex-vuelo-segment.component';
+import { ExMisVuelosComponent } from './components/vuelos-excepcion-politica/ex-mis-vuelos/ex-mis-vuelos.component';
+import { ExPoliticasInfrigidasComponent } from './components/vuelos-excepcion-politica/ex-politicas-infrigidas/ex-politicas-infrigidas.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +91,22 @@ import { DetalleCompraComponent } from './components/reserva-hotel/detalle-compr
     PagoComponent,
     DetallePagoComponent,
     TitularesReservaComponent,
-    DetalleCompraComponent
+    DetalleCompraComponent,
+    ReservaVueloComponent,
+    DatosPasajeroComponent,
+    PersonaContactoComponent,
+    InfoAdicionalComponent,
+    MotivoViajeComponent,
+    PrecioFinalComponent,
+    InfoVueloSectionComponent,
+    InfoVueloSegmentComponent,
+    ModalResumenComponent,
+    ModalInfraccionPaxComponent,
+    VuelosExcepcionPoliticaComponent,
+    ExVueloSectionComponent,
+    ExVueloSegmentComponent,
+    ExMisVuelosComponent,
+    ExPoliticasInfrigidasComponent
   ],
   imports: [
     BrowserModule,
