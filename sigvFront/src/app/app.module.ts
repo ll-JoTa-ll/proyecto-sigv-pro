@@ -51,6 +51,7 @@ import { FamiliasComponent } from './components/vuelos/familias/familias.compone
 import { FamiliaComponent } from './components/vuelos/familias/familia/familia.component';
 import { FamiliaFareComponent } from './components/vuelos/familias/familia-fare/familia-fare.component';
 import { GetmayorpricePipe } from './pipes/getmayorprice.pipe';
+import { HabitacionComponent } from './components/busqueda-global/hoteles/habitacion/habitacion.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { GetmayorpricePipe } from './pipes/getmayorprice.pipe';
     FamiliasComponent,
     FamiliaComponent,
     FamiliaFareComponent,
-    GetmayorpricePipe
+    GetmayorpricePipe,
+    HabitacionComponent
   ],
   imports: [
     BrowserModule,

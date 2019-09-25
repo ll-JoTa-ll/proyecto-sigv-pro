@@ -19,6 +19,7 @@ export class IHotelResultsModel {
             Name: string;
             RoomTypeCode: string;
             Start: string;
+            NumberOfNigths: string;
             StartDateWindow: string;
             TextDESC: string;
             availabilityStatus: string;

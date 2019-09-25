@@ -22,6 +22,8 @@ export class ResultadoComponent implements OnInit {
   @Input() index: string;
   @Input() latitud: string;
   @Input() longitud: string;
+  @Input() cantidadnoche: string;
+  @Input() cantpersonas: string;
   urlimg = '/assets/images/hotel-icon.png';
 
   constructor() { }

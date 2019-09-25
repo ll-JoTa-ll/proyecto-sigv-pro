@@ -229,16 +229,17 @@
         <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
             <div class="row m-0 p-0">
                 <div class="col-3 m-0 p-0 pt-4 pr-4 pl-5">
-                    <app-busqueda-mini [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas"></app-busqueda-mini>
+                    <app-busqueda-mini [cantidadnoches]="cantidadnoche" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas"></app-busqueda-mini>
                     <app-filtro-estrellas [listado]="LlistaHotel" (resultfiltro)="ObtenerListaFiltroEstrella($event)"></app-filtro-estrellas>
-                    <app-filtro-precio (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio>
-                    <app-filtro-nombrehotel [listado]="LlistaHotel"></app-filtro-nombrehotel>
+                    <app-filtro-precio [cantnoche]="cantidadnoche" [currency]="currency" (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio>
+                    <app-filtro-nombrehotel (resultFiltro)="ObtenerListaFiltroNombre($event)" [listado]="LlistaHotel"></app-filtro-nombrehotel>
                 </div>
                 <div class="col-9 m-0 p-0 pt-4 pl-4 pr-5">
                     <app-filtros [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)" (vistalistado)="MostrarListado($event)"></app-filtros>
                     <div *ngIf="vistalistado">
                         <app-resultado *ngFor="let lHotel of LlistaHotel; let i = index" [nombrehotel]="lHotel.hotelName" [direccion]="lHotel.AddressLine" [distancia]="lHotel.Distance" [estrellas]="lHotel.HotelSegmentCategoryCode" [currency]="lHotel.LBeRoomStay[0].CurrencyCode"
-                            [precioxnoche]="lHotel.MinPrice" [precioprom]="lHotel.LBeRoomStay | getMenorPrecio" [urlHotel]="lHotel.OHotelInfo | getimghotel" [index]="i + 1" [latitud]="lHotel.Latitude" [longitud]="lHotel.Longitude">
+                            [precioxnoche]="lHotel.MinPrice" [precioprom]="lHotel.LBeRoomStay | getMenorPrecio" [urlHotel]="lHotel.OHotelInfo | getimghotel" [index]="i + 1" [latitud]="lHotel.Latitude" [longitud]="lHotel.Longitude" [cantidadnoche]="lHotel.LBeRoomStay[0].NumberOfNigths"
+                            [cantpersonas]="lHotel.LBeRoomStay[0].Count">
                         </app-resultado>
                     </div>
                     <app-mapa-hoteles *ngIf="vistamapa" [listado]="LlistaHotel"></app-mapa-hoteles>

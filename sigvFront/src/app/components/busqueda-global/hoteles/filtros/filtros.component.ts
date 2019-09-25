@@ -13,6 +13,8 @@ export class FiltrosComponent implements OnInit {
   @Output() messagelistado = new EventEmitter<any[]>();
   @Output() vistamapa = new EventEmitter<any>();
   @Output() vistalistado = new EventEmitter<any>();
+  textoprecio: string = 'Menor a Mayor';
+  textoestrellas: string = 'Estrellas';
 
   mostrarmapa: boolean = true;
   mostrarlistado: boolean = true;
@@ -28,6 +30,7 @@ export class FiltrosComponent implements OnInit {
         return a.MinPrice - b.MinPrice;
        });
       this.messagelistado.emit(this.ListaHotel);
+      this.textoprecio = 'Menor a Mayor';
     }
 
     if (number === 2) {
@@ -35,6 +38,7 @@ export class FiltrosComponent implements OnInit {
         return b.MinPrice - a.MinPrice;
        });
       this.messagelistado.emit(this.ListaHotel);
+      this.textoprecio = 'Mayor a Menor';
     }
   }
 
@@ -44,6 +48,7 @@ export class FiltrosComponent implements OnInit {
         return parseFloat(b.HotelSegmentCategoryCode) - parseFloat(a.HotelSegmentCategoryCode);
        });
       this.messagelistado.emit(this.ListaHotel);
+      this.textoestrellas = 'Mayor a Menor';
      }
 
      if (number === 2) {
@@ -51,6 +56,7 @@ export class FiltrosComponent implements OnInit {
         return parseFloat(a.HotelSegmentCategoryCode) - parseFloat(b.HotelSegmentCategoryCode);
        });
       this.messagelistado.emit(this.ListaHotel);
+      this.textoestrellas = 'Menor a Mayor';
     }
   }
 

@@ -1,19 +1,19 @@
 <div class="m-0 p-0 pt-5">
     <div class="row m-0 p-0 box-shadow">
         <div class="col-12 m-0 p-0 pt-3 pl-4 txt-precio">
-            Precio
+            Precio Total por {{cantnoche}} noche(s)
         </div>
         <div class="col-12 m-0 p-0">
             <div class="row p-0 m-0">
                 <div class="col-6 m-0 p-0 pt-2 pl-4">
                     <span class="pr-2 txt-min">Min</span>
-                    <span>S/.</span>
-                    <span class="price">{{menorprecio}}</span>
+                    <span class="currency pr-1">{{currency}}</span>
+                    <span class="price" id="menorprice">{{menorprecio}}</span>
                 </div>
                 <div class="col-6 m-0 p-0 pt-2 pr-4 text-right">
                     <span class="pr-2 txt-max">Max</span>
-                    <span>S/.</span>
-                    <span class="price">{{mayorprecio}}</span>
+                    <span class="currency pr-1">{{currency}}</span>
+                    <span class="price" id="mayorprice">{{mayorprecio}}</span>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0">
-                            <input type="text" class="input-price box-shadow" id="precio1">
+                            <input type="text" class="input-price box-shadow" id="precio1" (keyup)="RangoPrecio()" (keypress)="validateNumber($event)">
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                     </div>
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0">
-                            <input type="text" class="input-price box-shadow" id="precio2">
+                            <input type="text" class="input-price box-shadow" id="precio2" (keyup)="RangoPrecio()" (keypress)="validateNumber($event)">
                         </div>
                     </div>
                 </div>

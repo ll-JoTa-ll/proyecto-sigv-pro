@@ -20,7 +20,7 @@ export class GetimghotelPipe implements PipeTransform {
        lmultimediadescription = odescriptions.OMultimediaDescriptions.LMultimediaDescription;
        results = lmultimediadescription.filter(m => m.OImageItems != null);
        if (results.length === 0) {
-         url = '/assets/images/imagenotfound.jpg';
+         url = '/assets/images/imagenotfound.jfif';
        } else {
         limageitem = results[0].OImageItems.LImageItem[0];
         imgformat = limageitem.LImageFormat[0];

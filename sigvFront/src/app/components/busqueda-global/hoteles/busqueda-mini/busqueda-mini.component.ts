@@ -25,6 +25,7 @@ export class BusquedaMiniComponent implements OnInit {
   @Input() habitaciones: string;
   @Input() adultos: string;
   @Input() textoestrellas: string;
+  @Input() cantidadnoches: string;
   @Output() messagelistado = new EventEmitter<any[]>();
 
   destinoValue: string;
@@ -69,19 +70,6 @@ export class BusquedaMiniComponent implements OnInit {
   //  this.token = this.sessionStorageService.retrieve('ss_token');
     console.log(this.locales);
     this.localeService.use(this.locale);
-    let n1: any;
-    let n2: any;
-    let fecha1 = this.fchingreso;
-    let fecha2 = this.fchsalida;
-    n1 = fecha1.split('-');
-    n2 = fecha2.split('-');
-    let nuevafecha: any = new Date(n1[0], n1[1] - 1, n1[2]);
-    let nuevafecha2: any = new Date(n2[0], n2[1] - 1, n2[2]);
-    let resta = nuevafecha2 - nuevafecha;
-    let dias = Math.floor(resta / (1000 * 60 * 60 * 24));
-    $('#nronoches').html(dias);
-
-    
   }
 
   Enviarlistado() {
@@ -130,7 +118,7 @@ export class BusquedaMiniComponent implements OnInit {
       if ((value.getMonth() + 1) < 10) {
         mes = "0" + (value.getMonth() + 1);
       } else {
-        mes = "" + value.getMonth();
+        mes = "" + (value.getMonth() + 1);
       }
       let dia = "";
       if (value.getDate() < 10) {
@@ -151,7 +139,7 @@ export class BusquedaMiniComponent implements OnInit {
       if ((value.getMonth() + 1) < 10) {
         mes = "0" + (value.getMonth() + 1);
       } else {
-        mes = "" + value.getMonth();
+        mes = "" + (value.getMonth() + 1);
       }
       let dia = "";
       if (value.getDate() < 10) {
@@ -172,13 +160,14 @@ export class BusquedaMiniComponent implements OnInit {
        End: this.fechaRetorno,
        Quantity: $('#txthabitacion').val(),
        Count: $('#txtpersonas').val(),
-       HotelSegmentCategoryCode: ''
+       HotelSegmentCategoryCode: this.estrellas
      };
     this.habitaciones = $('#txthabitacion').val();
     this.adultos = $('#txtpersonas').val();
     this.service.SearchHotel(SearchObj).subscribe(
        data => {
           console.log(this.LResultshotel);
+          this.localStorageService.store('ls_search_hotel', data);
           this.LResultshotel = data;
          // this.Enviarlistado();
           this.messagelistado.emit(this.LResultshotel);

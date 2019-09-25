@@ -9,7 +9,7 @@
                 <li>
                     <span>
                             <label class="checkbox pr-3">
-                                    <input type="checkbox" checked="checked">
+                                    <input type="checkbox" [(ngModel)]="todas" checked="checked" (change)="FiltroEstrella('todas')">
                                     <span class="check"></span>
                     </label>
                     <span>Todas las estrellas</span>
@@ -18,7 +18,7 @@
                 <li>
                     <span>
                             <label class="checkbox pr-3">
-                                    <input type="checkbox" (click)="FiltroEstrella('5')">
+                                    <input type="checkbox" [(ngModel)]="estrella5" (change)="FiltroEstrella('5')">
                                     <span class="check"></span>
                     </label>
                     <span><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
@@ -27,7 +27,7 @@
                 <li>
                     <span>
                             <label class="checkbox pr-3">
-                                    <input type="checkbox" (click)="FiltroEstrella('4')">
+                                    <input type="checkbox" [(ngModel)]="estrella4" (change)="FiltroEstrella('4')">
                                     <span class="check"></span>
                     </label>
                     <span><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
@@ -36,7 +36,7 @@
                 <li>
                     <span>
                             <label class="checkbox pr-3">
-                                    <input type="checkbox" (click)="FiltroEstrella('3')">
+                                    <input type="checkbox" [(ngModel)]="estrella3" (change)="FiltroEstrella('3')">
                                     <span class="check"></span>
                     </label>
                     <span><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
@@ -45,7 +45,7 @@
                 <li>
                     <span>
                             <label class="checkbox pr-3">
-                                    <input type="checkbox" (click)="FiltroEstrella('2')">
+                                    <input type="checkbox" [(ngModel)]="estrella2" (change)="FiltroEstrella('2')">
                                     <span class="check"></span>
                     </label>
                     <span><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
@@ -54,7 +54,7 @@
                 <li>
                     <span>
                             <label class="checkbox pr-3">
-                                    <input type="checkbox" (click)="FiltroEstrella('1')">
+                                    <input type="checkbox" [(ngModel)]="estrella1" (change)="FiltroEstrella('1')">
                                     <span class="check"></span>
                     </label>
                     <span><img src="./assets/images/star.svg"></span>

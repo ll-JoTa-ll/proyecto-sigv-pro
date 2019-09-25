@@ -45,6 +45,8 @@ export class HotelesComponent implements OnInit {
   dateingreso: string;
   datesalida: string;
   divwarning: boolean;
+  currency: string;
+  cantidadnoche: string;
 
   mayorPrecioHotel: number;
   menorPrecioHotel: number;
@@ -114,7 +116,7 @@ export class HotelesComponent implements OnInit {
     if ((value.getMonth() + 1) < 10) {
       mes = "0" + (value.getMonth() + 1);
     } else {
-      mes = "" + value.getMonth();
+      mes = "" + (value.getMonth() + 1);
     }
 
     let dia = "";
@@ -133,7 +135,7 @@ export class HotelesComponent implements OnInit {
     if ((value.getMonth() + 1) < 10) {
       mes = "0" + (value.getMonth() + 1);
     } else {
-      mes = "" + value.getMonth();
+      mes = "" + (value.getMonth() + 1);
     }
 
     let dia = "";
@@ -170,9 +172,22 @@ export class HotelesComponent implements OnInit {
   ObtenerListaFiltroEstrella($event) {
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
+    if (this.LlistaHotel.length === 0) {
+      this.divwarning = true;
+    }
   }
 
   ObtenerListaFiltroPrecio($event) {
+    this.LlistaHotel = [];
+    this.LlistaHotel = $event;
+
+    if (this.LlistaHotel.length === 0) {
+      this.divwarning = true;
+    }
+
+  }
+
+  ObtenerListaFiltroNombre($event) {
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
 
@@ -191,11 +206,11 @@ export class HotelesComponent implements OnInit {
     console.log('SeachHotel');
     console.log('SeachHotel');
     console.log('SeachHotel');
-   this.spinner.show();
-   this.flagDinData = false;
-   this.dateingreso = $('#dateingreso').val();
-   this.datesalida = $('#datesalida').val();
-   const SearchObj: any = { 
+    this.spinner.show();
+    this.flagDinData = false;
+    this.dateingreso = $('#dateingreso').val();
+    this.datesalida = $('#datesalida').val();
+    const SearchObj: any = { 
       HotelCityCode: this.destinoValue,
       Start: this.fechaSalida,
       End: this.fechaRetorno,
@@ -203,23 +218,26 @@ export class HotelesComponent implements OnInit {
       Count: $('#txtpersonas').val(),
       HotelSegmentCategoryCode: this.estrellas
     };
-   this.habitaciones = $('#txthabitacion').val();
-   this.personas = $('#txtpersonas').val();
+    this.habitaciones = $('#txthabitacion').val();
+    this.personas = $('#txtpersonas').val();
 
-   console.log(JSON.stringify(SearchObj));
+    console.log(JSON.stringify(SearchObj));
 
-   this.service.SearchHotel(SearchObj).subscribe(
+    this.service.SearchHotel(SearchObj).subscribe(
       result => {
          console.log(this.LlistaHotel);
          if (result !== null && result.length > 0) {
           console.log('result: ' + result);
+          this.localStorageService.store('ls_search_hotel', result);
            this.LlistaHotel = result;
            this.localStorageService.store('hotel', this.LlistaHotel[0]);
            this.flagBuscar = true;
 
            let menorValor = 1000000;
            let mayorValor = 0;
-           result.forEach(function(item, index1) {
+           let currency;
+           let cantnoche;
+          result.forEach(function(item, index1) {
 
             let mmm = 1000000;
 
@@ -227,7 +245,8 @@ export class HotelesComponent implements OnInit {
 
              item.LBeRoomStay.forEach(function(item2, index2) {
                //
-
+                currency = item2.CurrencyCode;
+                cantnoche = item2.NumberOfNigths;
                /*
               if (parseFloat(item2.AmountAfterTax) > mayorValor) {
                 mayorValor = parseFloat(item2.AmountAfterTax);
@@ -237,17 +256,15 @@ export class HotelesComponent implements OnInit {
               if (parseFloat(item2.AmountAfterTax) < menorValor) {
                 menorValor = parseFloat(item2.AmountAfterTax);
               }
-
               if (index2 === 0) {
                 if (parseFloat(item2.AmountAfterTax) > mayorValor) {
                   mayorValor = parseFloat(item2.AmountAfterTax);
                 }
               }
-
-
              });
            });
-
+           this.cantidadnoche = cantnoche;
+           this.currency = currency;
            this.menorPrecioHotel = menorValor;
            this.mayorPrecioHotel = mayorValor;
          } else {
