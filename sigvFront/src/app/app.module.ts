@@ -14,6 +14,7 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale, esLocale } from 'ngx-bootstrap/locale';
 defineLocale('es', esLocale);
 defineLocale('de', deLocale);
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -121,7 +122,8 @@ import { ExPoliticasInfrigidasComponent } from './components/vuelos-excepcion-po
     AutocompleteLibModule,
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    CollapseModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

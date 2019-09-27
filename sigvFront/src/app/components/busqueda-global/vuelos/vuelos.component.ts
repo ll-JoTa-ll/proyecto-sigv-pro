@@ -398,7 +398,7 @@ export class VuelosComponent implements OnInit {
     let data = {
       "UserId": this.loginDataUser.userId,
       "NumberPassengers": this.pasajeros,
-      "NumberRecommendations": "1",
+      "NumberRecommendations": "50",
       "CabinType": this.cabina,
       "Scales": this.escala,
       "Currency": "USD",
