@@ -40,6 +40,7 @@ export class RecomendacionComponent implements OnInit {
   outSegmentCheck;
 
   lstFamilyResult: IFareFamilyModel[] = [];
+  flagResultFamilias: number;
 
   constructor(
     private modalService: BsModalService,
@@ -47,7 +48,9 @@ export class RecomendacionComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private familyService: FamilyService,
     private vuelosComponent: VuelosComponent
-  ) { }
+  ) {
+    this.flagResultFamilias = 0;
+  }
 
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -154,10 +157,21 @@ export class RecomendacionComponent implements OnInit {
 
   getFareFamily(dataPost, template) {
     this.vuelosComponent.spinner.show();
+    let flagResultFamilias = 0;
     this.familyService.getFareFamily(dataPost).subscribe(
       result => {
         console.log('result: ' + JSON.stringify(result));
-        this.lstFamilyResult = result;
+        if (result === null) {
+          flagResultFamilias = 0;
+        } else {
+          this.lstFamilyResult = result;
+          if (this.lstFamilyResult.length === 0) {
+            flagResultFamilias = 0;
+          } else {
+            flagResultFamilias = 1;
+          }
+        }
+        this.flagResultFamilias = flagResultFamilias;
       },
       err => {
         console.log('ERROR: ' + JSON.stringify(err));
@@ -166,10 +180,17 @@ export class RecomendacionComponent implements OnInit {
       () => {
         console.log('getFareFamily completado');
         this.vuelosComponent.spinner.hide();
-        this.modalRef = this.modalService.show(
-          template,
-          Object.assign({}, { class: 'gray modal-lg' })
-        );
+        if (flagResultFamilias === 1) {
+          this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg' })
+          );
+        } else {
+          this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg sin-familias' })
+          );
+        }
       }
     );
   }
