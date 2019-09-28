@@ -15,6 +15,8 @@ declare var $: any;
 })
 export class MultidestinosXsComponent implements OnInit, AfterViewInit {
 
+  @Input() inIndexTramo;
+
   @Input() infechaSalida1;
   @Input() infechaSalida2;
   @Input() infechaSalida3;
@@ -89,7 +91,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   @Output() outFechaSalida5 = new EventEmitter<string>();
   @Output() outFechaSalida6 = new EventEmitter<string>();
 
-
+  lstDestinos: any[] = [];
 
   airportlist: any[] = [];
   airportlistFilter: any[] = [];
@@ -266,72 +268,144 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.outOrigenText1.emit(this.origentTexto1);
         console.log("case 1");
         console.log("this.origenAuto1: " + this.origenAuto1);
+        const data1 = {
+          value: this.origenAuto1,
+          text: this.origentTexto1,
+          index: 1
+        };
+        this.lstDestinos.push(data1);
         break;
       case 2:
         this.destinoAuto1 = item.iataCode;
         this.destinoTexto1 = item.name;
         this.outDestinoValue1.emit(this.destinoAuto1);
         this.outDestinoText1.emit(this.destinoTexto1);
+        const data2 = {
+          value: this.destinoAuto1,
+          text: this.destinoTexto1,
+          index: 2
+        };
+        this.lstDestinos.push(data2);
         break;
       case 3:
         this.origenAuto2 = item.iataCode;
         this.origentTexto2 = item.name;
         this.outOrigenValue2.emit(this.origenAuto2);
         this.outOrigenText2.emit(this.origentTexto2);
+        const data3 = {
+          value: this.origenAuto2,
+          text: this.origentTexto2,
+          index: 3
+        };
+        this.lstDestinos.push(data3);
         break;
       case 4:
         this.destinoAuto2 = item.iataCode;
         this.destinoTexto2 = item.name;
         this.outDestinoValue2.emit(this.destinoAuto2);
         this.outDestinoText2.emit(this.destinoTexto2);
+        const data4 = {
+          value: this.destinoAuto2,
+          text: this.destinoTexto2,
+          index: 4
+        };
+        this.lstDestinos.push(data4);
         break;
       case 5:
         this.origenAuto3 = item.iataCode;
         this.origentTexto3 = item.name;
         this.outOrigenValue3.emit(this.origenAuto3);
         this.outOrigenText3.emit(this.origentTexto3);
+        const data5 = {
+          value: this.origenAuto3,
+          text: this.origentTexto3,
+          index: 5
+        };
+        this.lstDestinos.push(data5);
         break;
       case 6:
         this.destinoAuto3 = item.iataCode;
         this.destinoTexto3 = item.name;
         this.outDestinoValue3.emit(this.destinoAuto3);
         this.outDestinoText3.emit(this.destinoTexto3);
+        const data6 = {
+          value: this.destinoAuto3,
+          text: this.destinoTexto3,
+          index: 6
+        };
+        this.lstDestinos.push(data6);
         break;
       case 7:
         this.origenAuto4 = item.iataCode;
         this.origentTexto4 = item.name;
         this.outOrigenValue4.emit(this.origenAuto4);
         this.outOrigenText4.emit(this.origentTexto4);
+        const data7 = {
+          value: this.origenAuto4,
+          text: this.origentTexto4,
+          index: 7
+        };
+        this.lstDestinos.push(data7);
         break;
       case 8:
         this.destinoAuto4 = item.iataCode;
         this.destinoTexto4 = item.name;
         this.outDestinoValue4.emit(this.destinoAuto4);
         this.outDestinoText4.emit(this.destinoTexto4);
+        const data8 = {
+          value: this.destinoAuto4,
+          text: this.destinoTexto4,
+          index: 8
+        };
+        this.lstDestinos.push(data8);
         break;
       case 9:
         this.origenAuto5 = item.iataCode;
         this.origentTexto5 = item.name;
         this.outOrigenValue5.emit(this.origenAuto5);
         this.outOrigenText5.emit(this.origentTexto5);
+        const data9 = {
+          value: this.origenAuto5,
+          text: this.origentTexto5,
+          index: 9
+        };
+        this.lstDestinos.push(data9);
         break;
       case 10:
         this.destinoAuto5 = item.iataCode;
         this.destinoTexto5 = item.name;
         this.outDestinoValue5.emit(this.destinoAuto5);
         this.outDestinoText5.emit(this.destinoTexto5);
+        const data10 = {
+          value: this.destinoAuto5,
+          text: this.destinoTexto5,
+          index: 10
+        };
+        this.lstDestinos.push(data10);
         break;
       case 11:
         this.origenAuto6 = item.iataCode;
         this.origentTexto6 = item.name;
         this.outOrigenValue6.emit(this.origenAuto6);
         this.outOrigenText6.emit(this.origentTexto6);
+        const data11 = {
+          value: this.origenAuto6,
+          text: this.origentTexto6,
+          index: 11
+        };
+        this.lstDestinos.push(data11);
         break;
       case 12:
         this.destinoAuto6 = item.iataCode;
         this.destinoTexto6 = item.name;
         this.outDestinoValue6.emit(this.destinoAuto6);
         this.outDestinoText6.emit(this.destinoTexto6);
+        const data12 = {
+          value: this.destinoAuto6,
+          text: this.destinoTexto6,
+          index: 12
+        };
+        this.lstDestinos.push(data12);
         break;
     }
 
@@ -492,20 +566,30 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   }
 
   eliminarTramo(tramo) {
+    this.indexTramo = tramo - 1;
+    this.outIndexTramo.emit(this.indexTramo);
     if (tramo === 3) {
       this.flagTramo3 = false;
+      this.origentTexto3 = '';
+      this.destinoTexto3 = '';
     }
 
     if (tramo === 4) {
       this.flagTramo4 = false;
+      this.origentTexto4 = '';
+      this.destinoTexto4 = '';
     }
 
     if (tramo === 5) {
       this.flagTramo5 = false;
+      this.origentTexto5 = '';
+      this.destinoTexto5 = '';
     }
 
     if (tramo === 6) {
       this.flagTramo6 = false;
+      this.origentTexto6 = '';
+      this.destinoTexto6 = '';
     }
   }
 

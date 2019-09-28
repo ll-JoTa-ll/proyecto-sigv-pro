@@ -398,20 +398,30 @@ export class MultidestinosLgComponent implements OnInit {
   }
 
   eliminarTramo(tramo) {
+    this.indexTramo = tramo - 1;
+    this.outIndexTramo.emit(this.indexTramo);
     if (tramo === 3) {
       this.flagTramo3 = false;
+      this.origentTexto3 = '';
+      this.destinoTexto3 = '';
     }
 
     if (tramo === 4) {
       this.flagTramo4 = false;
+      this.origentTexto4 = '';
+      this.destinoTexto4 = '';
     }
 
     if (tramo === 5) {
       this.flagTramo5 = false;
+      this.origentTexto5 = '';
+      this.destinoTexto5 = '';
     }
 
     if (tramo === 6) {
       this.flagTramo6 = false;
+      this.origentTexto6 = '';
+      this.destinoTexto6 = '';
     }
   }
 
