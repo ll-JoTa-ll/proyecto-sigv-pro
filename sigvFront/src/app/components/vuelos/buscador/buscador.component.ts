@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, AfterViewInit} from '@angular/core';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
@@ -13,7 +13,7 @@ declare var $: any;
   templateUrl: './buscador.component.html',
   styleUrls: ['./buscador.component.sass']
 })
-export class BuscadorComponent implements OnInit {
+export class BuscadorComponent implements OnInit, AfterViewInit {
 
   @Input() tipoVuelo;
   @Input() origenAuto: string;
@@ -27,6 +27,49 @@ export class BuscadorComponent implements OnInit {
   @Input() escala;
   @Input() textoEscala: string;
   @Input() pasajeros;
+  @Input() minDateSalida;
+  @Input() minDateRetorno;
+  @Input() fechaSalidaShow;
+  @Input() fechaRetornoShow;
+
+  @Input() fechaSalida1;
+  @Input() fechaSalida2;
+  @Input() fechaSalida3;
+  @Input() fechaSalida4;
+  @Input() fechaSalida5;
+  @Input() fechaSalida6;
+
+  @Input() fechaSalidaShow1;
+  @Input() fechaSalidaShow2;
+  @Input() fechaSalidaShow3;
+  @Input() fechaSalidaShow4;
+  @Input() fechaSalidaShow5;
+  @Input() fechaSalidaShow6;
+
+  @Input() origenAuto1;
+  @Input() origenAuto2;
+  @Input() origenAuto3;
+  @Input() origenAuto4;
+  @Input() origenAuto5;
+  @Input() origenAuto6;
+  @Input() origentTexto1;
+  @Input() origentTexto2;
+  @Input() origentTexto3;
+  @Input() origentTexto4;
+  @Input() origentTexto5;
+  @Input() origentTexto6;
+  @Input() destinoAuto1;
+  @Input() destinoAuto2;
+  @Input() destinoAuto3;
+  @Input() destinoAuto4;
+  @Input() destinoAuto5;
+  @Input() destinoAuto6;
+  @Input() destinoTexto1;
+  @Input() destinoTexto2;
+  @Input() destinoTexto3;
+  @Input() destinoTexto4;
+  @Input() destinoTexto5;
+  @Input() destinoTexto6;
 
   @Output() lRecomendaciones = new EventEmitter<ISearchFlightModel[]>();
 
@@ -62,6 +105,29 @@ export class BuscadorComponent implements OnInit {
     setTimeout(function() {
       $(".x").hide();
     }, 1000);
+  }
+
+  ngAfterViewInit() {
+    setTimeout(function() {
+      $(".x").hide();
+    }, 1000);
+    const tipoVuelo = this.tipoVuelo;
+    const fechaSalidaShow = this.fechaSalidaShow;
+    const fechaRetornoShow = this.fechaRetornoShow;
+    switch (tipoVuelo) {
+      case 'RT':
+        $('#radio_b_tv_1').prop("checked", true);
+        $('#datepickerSalida').val(fechaSalidaShow);
+        $('#datepickerRetorno').val(fechaRetornoShow);
+        break;
+      case 'OW':
+        $('#radio_b_tv_2').prop("checked", true);
+        $('#datepickerRetorno').val(fechaRetornoShow);
+        break;
+      case 'MC':
+        $('#radio_b_tv_3').prop("checked", true);
+        break;
+    }
   }
 
   seleccionarCabina(valor, texto) {
@@ -226,6 +292,47 @@ export class BuscadorComponent implements OnInit {
     // do something when input is focused
     console.log("onFocused");
     console.log(e);
+  }
+
+  onValueChangeSalida(value: Date): void {
+    this.minDateRetorno = value;
+    //console.log("dpSalida: " + this.dpSalida);
+
+    let mes = "";
+    if ((value.getMonth() + 1) < 10) {
+      mes = "0" + (value.getMonth() + 1);
+    } else {
+      mes = "" + value.getMonth();
+    }
+
+    let dia = "";
+    if (value.getDate() < 10) {
+      dia = "0" + value.getDate();
+    } else {
+      dia = "" + value.getDate();
+    }
+
+    this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
+    console.log(this.fechaSalida);
+  }
+
+  onValueChangeRetorno(value: Date): void {
+    let mes = "";
+    if ((value.getMonth() + 1) < 10) {
+      mes = "0" + (value.getMonth() + 1);
+    } else {
+      mes = "" + value.getMonth();
+    }
+
+    let dia = "";
+    if (value.getDate() < 10) {
+      dia = "0" + value.getDate();
+    } else {
+      dia = "" + value.getDate();
+    }
+
+    this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
+    console.log(this.fechaRetorno);
   }
 
   searchFlight() {

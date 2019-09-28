@@ -83,6 +83,8 @@ export class VuelosComponent implements OnInit {
 
   fechaSalida: string;
   fechaRetorno: string;
+  fechaSalidaShow: string;
+  fechaRetornoShow: string;
 
   fechaSalida1: string;
   fechaSalida2: string;
@@ -90,6 +92,13 @@ export class VuelosComponent implements OnInit {
   fechaSalida4: string;
   fechaSalida5: string;
   fechaSalida6: string;
+
+  fechaSalidaShow1: string;
+  fechaSalidaShow2: string;
+  fechaSalidaShow3: string;
+  fechaSalidaShow4: string;
+  fechaSalidaShow5: string;
+  fechaSalidaShow6: string;
 
   //dpSalida: Date;
   dpRetorno;
@@ -155,10 +164,12 @@ export class VuelosComponent implements OnInit {
     //console.log("dpSalida: " + this.dpSalida);
 
     let mes = "";
-    if ((value.getMonth() + 1) < 10) {
-      mes = "0" + (value.getMonth() + 1);
+    let getMonth = value.getMonth() + 1;
+    if (getMonth < 10) {
+      getMonth = value.getMonth() + 1;
+      mes = "0" + getMonth;
     } else {
-      mes = "" + value.getMonth();
+      mes = "" + getMonth;
     }
 
     let dia = "";
@@ -169,15 +180,18 @@ export class VuelosComponent implements OnInit {
     }
 
     this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
+    this.fechaSalidaShow = dia + "/" + mes + "/" + value.getFullYear();
     console.log(this.fechaSalida);
   }
 
   onValueChangeRetorno(value: Date): void {
     let mes = "";
-    if ((value.getMonth() + 1) < 10) {
-      mes = "0" + (value.getMonth() + 1);
+    let getMonth = value.getMonth() + 1;
+    if (getMonth < 10) {
+      getMonth = value.getMonth() + 1;
+      mes = "0" + getMonth;
     } else {
-      mes = "" + value.getMonth();
+      mes = "" + getMonth;
     }
 
     let dia = "";
@@ -188,6 +202,7 @@ export class VuelosComponent implements OnInit {
     }
 
     this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
+    this.fechaRetornoShow = dia + "/" + mes + "/" + value.getFullYear();
     console.log(this.fechaRetorno);
   }
 
@@ -593,6 +608,25 @@ export class VuelosComponent implements OnInit {
   }
   updateFechaSalida6($event) {
     this.fechaSalida6 = $event;
+  }
+
+  updateFechaSalidaShow1($event) {
+    this.fechaSalidaShow1 = $event;
+  }
+  updateFechaSalidaShow2($event) {
+    this.fechaSalidaShow2 = $event;
+  }
+  updateFechaSalidaShow3($event) {
+    this.fechaSalidaShow3 = $event;
+  }
+  updateFechaSalidaShow4($event) {
+    this.fechaSalidaShow4 = $event;
+  }
+  updateFechaSalidaShow5($event) {
+    this.fechaSalidaShow5 = $event;
+  }
+  updateFechaSalidaShow6($event) {
+    this.fechaSalidaShow6 = $event;
   }
 
 }

@@ -21,19 +21,19 @@
 
           <div class="col-6 m-0 p-0">
 
-            <input (click)="seleccionarTipoVuelo('RT')" type="radio" name="gender" value="RT" class="bv-texto-1"> Ida & Vuelta
+            <input id="radio_b_tv_1" (click)="seleccionarTipoVuelo('RT')" type="radio" name="gender" value="RT" class="bv-texto-1"> Ida & Vuelta
 
           </div>
 
           <div class="col-6 m-0 p-0">
 
-            <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="bv-texto-1"> Sólo ida
+            <input id="radio_b_tv_2" (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="bv-texto-1"> Sólo ida
 
           </div>
 
           <div class="col-12 m-0 p-0 pt-2">
 
-            <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="bv-texto-1"> Multidestinos
+            <input id="radio_b_tv_3" (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="bv-texto-1"> Multidestinos
 
           </div>
 
@@ -45,11 +45,11 @@
         <hr>
       </div>
 
-      <div class="col-12 m-0 p-0 bv-texto-1">
+      <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 bv-texto-1">
         Origen
       </div>
 
-      <div class="col-12 m-0 p-0 pt-2">
+      <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
         <div class="ng-autocomplete" style="width: 100%;">
           <ng-autocomplete
             [(ngModel)]="origentTexto"
@@ -72,11 +72,11 @@
         </div>
       </div>
 
-      <div class="col-12 m-0 p-0 bv-texto-1 pt-2">
+      <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 bv-texto-1 pt-2">
         Destino
       </div>
 
-      <div class="col-12 m-0 p-0 pt-2">
+      <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
         <div class="ng-autocomplete" style="width: 100%;">
           <ng-autocomplete
             [(ngModel)]="destinoTexto"
@@ -99,11 +99,11 @@
         </div>
       </div>
 
-      <div class="col-12 m-0 p-0 bv-texto-1 pt-2">
+      <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 bv-texto-1 pt-2">
         Fechas
       </div>
 
-      <div class="col-12 m-0 p-0 pt-2">
+      <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
 
         <div class="row m-0 p-0">
 
@@ -115,10 +115,13 @@
                      (click)="datepickerSalida.toggle()"
                      style="outline: none; border: 0; width: 20% !important;">
               <input type="text"
+                     id="datepickerSalida"
                      placeholder="Salida"
                      class="p-0 pl-2 bv-texto-2"
-                     style="outline: none; border: 0; width: 80%"
+                     style="outline: none; border: 0; width: 80%; font-size: 13px !important;"
                      #datepickerSalida="bsDatepicker"
+                     (bsValueChange)="onValueChangeSalida($event)"
+                     [minDate]="minDateSalida"
                      bsDatepicker
                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
               >
@@ -134,10 +137,13 @@
                      (click)="datepickerRetorno.toggle()"
                      style="outline: none; border: 0; width: 20% !important;">
               <input type="text"
+                     id="datepickerRetorno"
                      placeholder="Retorno"
                      class="p-0 pl-2 bv-texto-2"
-                     style="outline: none; border: 0; width: 80%"
+                     style="outline: none; border: 0; width: 80%; font-size: 13px !important;"
                      #datepickerRetorno="bsDatepicker"
+                     (bsValueChange)="onValueChangeRetorno($event)"
+                     [minDate]="minDateRetorno"
                      bsDatepicker
                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
               >
@@ -148,6 +154,45 @@
         </div>
 
       </div>
+
+      <app-multidestinos-xs
+        [infechaSalida1]="fechaSalida1"
+        [infechaSalida2]="fechaSalida2"
+        [infechaSalida3]="fechaSalida3"
+        [infechaSalida4]="fechaSalida4"
+        [infechaSalida5]="fechaSalida5"
+        [infechaSalida6]="fechaSalida6"
+        [infechaSalidaShow1]="fechaSalidaShow1"
+        [infechaSalidaShow2]="fechaSalidaShow2"
+        [infechaSalidaShow3]="fechaSalidaShow3"
+        [infechaSalidaShow4]="fechaSalidaShow4"
+        [infechaSalidaShow5]="fechaSalidaShow5"
+        [infechaSalidaShow6]="fechaSalidaShow6"
+        [inorigenAuto1]="origenAuto1"
+        [inorigenAuto2]="origenAuto2"
+        [inorigenAuto3]="origenAuto3"
+        [inorigenAuto4]="origenAuto4"
+        [inorigenAuto5]="origenAuto5"
+        [inorigenAuto6]="origenAuto6"
+        [inorigentTexto1]="origentTexto1"
+        [inorigentTexto2]="origentTexto2"
+        [inorigentTexto3]="origentTexto3"
+        [inorigentTexto4]="origentTexto4"
+        [inorigentTexto5]="origentTexto5"
+        [inorigentTexto6]="origentTexto6"
+        [indestinoAuto1]="destinoAuto1"
+        [indestinoAuto2]="destinoAuto2"
+        [indestinoAuto3]="destinoAuto3"
+        [indestinoAuto4]="destinoAuto4"
+        [indestinoAuto5]="destinoAuto5"
+        [indestinoAuto6]="destinoAuto6"
+        [indestinoTexto1]="destinoTexto1"
+        [indestinoTexto2]="destinoTexto2"
+        [indestinoTexto3]="destinoTexto3"
+        [indestinoTexto4]="destinoTexto4"
+        [indestinoTexto5]="destinoTexto5"
+        [indestinoTexto6]="destinoTexto6"
+        *ngIf="tipoVuelo==='MC'" style="width: 100% !important;"></app-multidestinos-xs>
 
       <div class="col-12 m-0 p-0 bv-texto-1 pt-2">
         Pasajeros
