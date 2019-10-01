@@ -156,6 +156,7 @@
                          class="p-0 pl-2 v-texto-3"
                          style="outline: none; border: 0; width: 80%"
                          #datepickerRetorno="bsDatepicker"
+                         (onHidden)="handlerSalida(datepickerRetorno)"
                          (bsValueChange)="onValueChangeRetorno($event)"
                          [minDate]="minDateRetorno"
                          bsDatepicker
@@ -204,6 +205,12 @@
             (outFechaSalida4)="updateFechaSalida4($event)"
             (outFechaSalida5)="updateFechaSalida5($event)"
             (outFechaSalida6)="updateFechaSalida6($event)"
+            (outFechaSalidaShow1)="updateFechaSalidaShow1($event)"
+            (outFechaSalidaShow2)="updateFechaSalidaShow2($event)"
+            (outFechaSalidaShow3)="updateFechaSalidaShow3($event)"
+            (outFechaSalidaShow4)="updateFechaSalidaShow4($event)"
+            (outFechaSalidaShow5)="updateFechaSalidaShow5($event)"
+            (outFechaSalidaShow6)="updateFechaSalidaShow6($event)"
             style="width: 100% !important;"></app-multidestinos-lg>
 
         </div>
@@ -368,6 +375,7 @@
     </div>
 
 
+    <!-- flagBuscar -->
     <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
 
       <div class="row m-0 p-0">
@@ -387,6 +395,46 @@
           [pasajeros]="pasajeros"
           [fechaSalida]="fechaSalida"
           [fechaRetorno]="fechaRetorno"
+          [minDateSalida]="minDateSalida"
+          [minDateRetorno]="minDateRetorno"
+          [fechaSalidaShow]="fechaSalidaShow"
+          [fechaRetornoShow]="fechaRetornoShow"
+          [fechaSalida1]="fechaSalida1"
+          [fechaSalida2]="fechaSalida2"
+          [fechaSalida3]="fechaSalida3"
+          [fechaSalida4]="fechaSalida4"
+          [fechaSalida5]="fechaSalida5"
+          [fechaSalida6]="fechaSalida6"
+          [fechaSalidaShow1]="fechaSalidaShow1"
+          [fechaSalidaShow2]="fechaSalidaShow2"
+          [fechaSalidaShow3]="fechaSalidaShow3"
+          [fechaSalidaShow4]="fechaSalidaShow4"
+          [fechaSalidaShow5]="fechaSalidaShow5"
+          [fechaSalidaShow6]="fechaSalidaShow6"
+          [origenAuto1]="origenAuto1"
+          [origenAuto2]="origenAuto2"
+          [origenAuto3]="origenAuto3"
+          [origenAuto4]="origenAuto4"
+          [origenAuto5]="origenAuto5"
+          [origenAuto6]="origenAuto6"
+          [origentTexto1]="origentTexto1"
+          [origentTexto2]="origentTexto2"
+          [origentTexto3]="origentTexto3"
+          [origentTexto4]="origentTexto4"
+          [origentTexto5]="origentTexto5"
+          [origentTexto6]="origentTexto6"
+          [destinoAuto1]="destinoAuto1"
+          [destinoAuto2]="destinoAuto2"
+          [destinoAuto3]="destinoAuto3"
+          [destinoAuto4]="destinoAuto4"
+          [destinoAuto5]="destinoAuto5"
+          [destinoAuto6]="destinoAuto6"
+          [destinoTexto1]="destinoTexto1"
+          [destinoTexto2]="destinoTexto2"
+          [destinoTexto3]="destinoTexto3"
+          [destinoTexto4]="destinoTexto4"
+          [destinoTexto5]="destinoTexto5"
+          [destinoTexto6]="destinoTexto6"
           (lRecomendaciones)="searchFlightBuscador($event)"
           ></app-buscador>
 

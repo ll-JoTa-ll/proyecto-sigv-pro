@@ -18,6 +18,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   @Input() flagCountNof;
   @Input() flagCountCha;
   @Input() familyIndex;
+  @Input() familyLength;
 
   @Output() idRadioBtnFareFam = new EventEmitter<string>();
 
@@ -32,6 +33,29 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   classDivCha: string;
   nameRadioBtn: string;
   idRadioBtn: string;
+  idNameFamilyName: string;
+  classNameFamilyName: string;
+
+  colorsFare = [
+    "white",
+    "#3D5DBB",
+    "#FF560D",
+    "#E8A40C",
+    "#FFCD0D",
+    "#65E29C",
+    "#71FC86",
+    "#71D7FC",
+    "#9BC53D",
+    "#5F1A37",
+    "#274C77",
+    "#BE95C4",
+    "#8EA604",
+    "#3C1518",
+    "#D90368",
+    "#00CC66",
+    "#4C2C69",
+    "#C33C54"
+  ];
 
   constructor() {
     this.idDivInc = 'idDivInc';
@@ -44,6 +68,9 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
 
     this.nameRadioBtn = 'nameRadioFam';
     this.idRadioBtn = 'idRadioFam';
+
+    this.idNameFamilyName = 'idNameFamilyName';
+    this.classNameFamilyName = 'classNameFamilyName';
   }
 
   ngOnInit() {
@@ -55,9 +82,18 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const heightDivInc = 20 * this.flagCountInc;
-    const heightDivNof = 20 * this.flagCountNof;
-    const heightDivCha = 20 * this.flagCountCha;
+    let heightDivInc = 20 * this.flagCountInc;
+    let heightDivNof = 20 * this.flagCountNof;
+    let heightDivCha = 20 * this.flagCountCha;
+    if (heightDivInc === 0 || this.flagCountInc === 1) {
+      heightDivInc = 43;
+    }
+    if (heightDivNof === 0 || this.flagCountNof === 1) {
+      heightDivNof = 43;
+    }
+    if (heightDivCha === 0 || this.flagCountCha === 1) {
+      heightDivCha = 43;
+    }
     /*
     console.log('this.flagCountInc' + this.flagCountInc);
     console.log('this.flagCountNof' + this.flagCountNof);
@@ -73,10 +109,20 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
 
     if (this.fareFamilyIndex === 1) {
       $('#' + this.idRadioBtn + '_' + this.familyIndex + '_' + this.fareFamilyIndex).prop("checked", true);
+      $('#' + this.idNameFamilyName + '_' + this.familyIndex + '_' + this.fareFamilyIndex).css({'background-color': this.colorsFare[this.fareFamilyIndex]});
     }
   }
 
   selectRadioBtnFam(id) {
+    const familyLength = this.familyLength;
+    for (let i = 1; i <= familyLength; i++) {
+      $('#' + this.idNameFamilyName + '_' + this.familyIndex + '_' + i).css({'background-color': '#C6C6C6'});
+    }
+
+    const selRadio = id.split('_');
+    const familyIndex = selRadio[1];
+    const fareFamilyIndex = selRadio[2];
+    $('#' + this.idNameFamilyName + '_' + familyIndex + '_' + fareFamilyIndex).css({'background-color': this.colorsFare[fareFamilyIndex]});
     this.idRadioBtnFareFam.emit(id);
   }
 

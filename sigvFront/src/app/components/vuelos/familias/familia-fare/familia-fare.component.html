@@ -8,7 +8,8 @@
 
     <div
       class="col-12 m-0 p-0 d-flex justify-content-center align-items-center ff-text-size-1"
-      style="height: 70px; background-color: #C6C6C6; color: white; font-family: Omnes-med; border-radius: 20px 0 0 0"
+      [id]="idNameFamilyName+'_'+familyIndex+'_'+fareFamilyIndex"
+      style="height: 70px; color: white; font-family: Omnes-med; border-radius: 20px 0 0 0; background-color: #C6C6C6"
     >
       {{fareFamily.fareFamilyName}}
     </div>
@@ -26,6 +27,7 @@
       >
         <span class="pr-1" style="color: #6B253C">{{i+1}}.</span> {{inc.serviceDescription}}
       </p>
+      <p class="m-0 p-0 text-center d-flex justify-content-center align-items-center" *ngIf="lstInc.length===0" style="font-size: 28px; font-family: Omnes-med; color: #6B253C">X</p>
 
     </div>
 
@@ -42,6 +44,7 @@
       >
         <span class="pr-1" style="color: #6B253C">{{i+1}}.</span> {{inc.serviceDescription}}
       </p>
+      <p class="m-0 p-0 text-center d-flex justify-content-center align-items-center" *ngIf="lstNof.length===0" style="font-size: 28px; font-family: Omnes-med; color: #6B253C">X</p>
 
     </div>
 
@@ -58,6 +61,7 @@
       >
         <span class="pr-1" style="color: #6B253C">{{i+1}}.</span> {{inc.serviceDescription}}
       </p>
+      <p class="m-0 p-0 text-center d-flex justify-content-center align-items-center" *ngIf="lstCha.length===0" style="font-size: 28px; font-family: Omnes-med; color: #6B253C">X</p>
 
     </div>
 
@@ -72,8 +76,8 @@
           [id]="idRadioBtn + '_' + familyIndex + '_' + fareFamilyIndex"
           (click)="selectRadioBtnFam(idRadioBtn + '_' + familyIndex + '_' + fareFamilyIndex)"
         >
-        <span class="pl-1">{{currency}}</span>
-        <span class="pl-1">{{fareFamily.fareFamilyPrice}}</span>
+        <span class="pl-1 ff-text-currency">{{currency}}</span>
+        <span class="pl-1 ff-text-price">{{fareFamily.fareFamilyPrice}}</span>
       </label>
 
     </div>
@@ -81,9 +85,6 @@
   </div>
 
 </div>
-
-
-
 
 
 
