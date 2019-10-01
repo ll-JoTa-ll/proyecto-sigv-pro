@@ -5,6 +5,8 @@ import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { FamilyService } from '../../../../services/family.service';
 import { VuelosComponent } from '../vuelos.component';
 import { IFareFamilyModel } from '../../../../models/IFareFamily.model';
+import { AirportService } from '../../../../services/airport.service';
+import { IFlightAvailability } from 'src/app/models/IFlightAvailability';
 
 @Component({
   selector: 'app-recomendacion',
@@ -40,13 +42,15 @@ export class RecomendacionComponent implements OnInit {
   outSegmentCheck;
 
   lstFamilyResult: IFareFamilyModel[] = [];
+  lsFlightAvailabilty: IFlightAvailability[] = [];
 
   constructor(
     private modalService: BsModalService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     private familyService: FamilyService,
-    private vuelosComponent: VuelosComponent
+    private vuelosComponent: VuelosComponent,
+    private airportService: AirportService
   ) { }
 
   ngOnInit() {
@@ -172,6 +176,81 @@ export class RecomendacionComponent implements OnInit {
         );
       }
     );
+  }
+
+  getFlightAvailability(recommendationId) {
+    let Lsections_: any[] = [];
+    const lstRadioCheck = this.lstRadioCheck;
+    lstRadioCheck.forEach(function(item) {
+      const sectionId = item.sectionId_;
+      const segmentId = item.segmentId_;
+      const segmentIndex = item.segmentIndex_;
+      const recommendationId = item.recommendationId_;
+      const section = item.section_;
+      const segment = item.segment_;
+
+      //LsegmentGroups
+      let LsegmentGroups_: any[] = [];
+      segment.lSegmentGroups.forEach(function(group, i) {
+        const dataGroup = {
+          ClassId: section.lSectionGroups[i].classId,
+          DepartureDate: group.departureDate,
+          TimeOfDeparture: group.timeOfDeparture,
+          ArrivalDate: group.arrivalDate,
+          TimeOfArrival: group.timeOfArrival,
+          Origin: group.origin,
+          Destination: group.destination,
+          MarketingCarrier: group.marketingCarrier,
+          FlightOrtrainNumber: group.flightOrtrainNumber,
+          EquipmentType: group.equipmentType,
+          FareBasis: section.lSectionGroups[i].fareBasis
+        };
+        LsegmentGroups_.push(dataGroup);
+      });
+
+      //Lsegments
+      let Lsegments_: any[] = [];
+      const lsegment = {
+        SegmentID: segment.segmentId,
+        FareType: section.lSectionGroups[0].fareType,
+        TotalFlightTime: segment.totalFlightTime,
+        LsegmentGroups: LsegmentGroups_
+      };
+      Lsegments_.push(lsegment);
+
+      //Lsections
+      const lsection = {
+        SectionID: section.sectionId,
+        Origin: section.origin,
+        Destination: section.destination,
+        Lsegments: Lsegments_
+      };
+      Lsections_.push(lsection);
+    });
+
+    let dataFamilias = {
+      NumberPassengers: this.numberPassengers,
+      Currency: this.currency,
+      CarrierId: this.carrierId,
+      Lsections: Lsections_,
+      Ocompany: this.loginDataUser.ocompany
+    };
+
+    console.log("data: " + JSON.stringify(dataFamilias));
+    this.flightAvailability(dataFamilias);
+  }
+
+  flightAvailability(data) {
+    this.airportService.fligthAvailibility(data).subscribe(
+      results => {
+          this.lsFlightAvailabilty = results;
+          console.log('results :', JSON.stringify(this.lsFlightAvailabilty));
+      },
+      err => {
+        console.log('ERROR: ' + JSON.stringify(err));
+        this.vuelosComponent.spinner.hide();
+      },
+    )
   }
 
 }

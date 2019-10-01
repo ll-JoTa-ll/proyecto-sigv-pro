@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   url: "http://sigvplussecurity.azurewebsites.net/api",
   url_2: "http://sigvplusflight.azurewebsites.net/api",
-  url_3: 'https://sigvplusflight.azurewebsites.net/api'
+  url_3: 'https://sigvplusflight.azurewebsites.net/api',
+  url_4: 'https://sigvplusflight.azurewebsites.net/api/'
 };
 
 /*

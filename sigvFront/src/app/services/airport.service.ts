@@ -4,6 +4,7 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { ISearchFlightModel } from '../models/ISearchFlight.model';
+import { IFlightAvailability } from '../models/IFlightAvailability';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -23,6 +24,7 @@ export class AirportService {
   private _url: string = environment.url_2 + "/Airport/";
   private _url2: string = environment.url_2 + "/Search/";
   private _url3: string = environment.url_3 + "/Search/";
+  private _url4: string = environment.url_4 + "/Booking/";
 
   constructor(
     private http: HttpClient,
@@ -53,5 +55,14 @@ export class AirportService {
     });
     console.log(httpOptions2);
     return this.http.post<ISearchFlightModel[]>(this._url3 + "SearchFlight", data, httpOptions2);
+  }
+
+  fligthAvailibility(data): Observable<IFlightAvailability[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IFlightAvailability[]>(this._url4 + "FlightAvailability", data, httpOptions2);
   }
 }

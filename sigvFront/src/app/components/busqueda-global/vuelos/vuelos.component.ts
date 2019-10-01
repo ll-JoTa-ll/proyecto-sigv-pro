@@ -158,7 +158,7 @@ export class VuelosComponent implements OnInit {
     if ((value.getMonth() + 1) < 10) {
       mes = "0" + (value.getMonth() + 1);
     } else {
-      mes = "" + value.getMonth();
+      mes = "" + (value.getMonth() + 1);
     }
 
     let dia = "";
@@ -177,7 +177,7 @@ export class VuelosComponent implements OnInit {
     if ((value.getMonth() + 1) < 10) {
       mes = "0" + (value.getMonth() + 1);
     } else {
-      mes = "" + value.getMonth();
+      mes = "" + (value.getMonth() + 1);
     }
 
     let dia = "";
@@ -398,7 +398,7 @@ export class VuelosComponent implements OnInit {
     let data = {
       "UserId": this.loginDataUser.userId,
       "NumberPassengers": this.pasajeros,
-      "NumberRecommendations": "1",
+      "NumberRecommendations": "100",
       "CabinType": this.cabina,
       "Scales": this.escala,
       "Currency": "USD",
