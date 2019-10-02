@@ -442,6 +442,15 @@
 
         <div class="col-9 m-0 p-0 pr-5">
 
+          <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0">
+              <app-multipaises-price
+                [currency]="searchData[0].currency"
+                [priceByPseudo]="searchData[0].priceByPseudo"
+              ></app-multipaises-price>
+            </div>
+          </div>
+
           <app-recomendacion
             *ngFor="let recomendacion of searchData"
             [currency]="recomendacion.currency"
@@ -458,6 +467,7 @@
             [lpolicies]="recomendacion.lpolicies"
             [recommendationId]="recomendacion.recommendationId"
             [tipoVuelo]="tipoVuelo"
+            [pseudoRepeat]="recomendacion.pseudoRepeat"
           >
           </app-recomendacion>
 

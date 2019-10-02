@@ -61,6 +61,8 @@ import { ExVueloSectionComponent } from './components/vuelos-excepcion-politica/
 import { ExVueloSegmentComponent } from './components/vuelos-excepcion-politica/ex-vuelo-segment/ex-vuelo-segment.component';
 import { ExMisVuelosComponent } from './components/vuelos-excepcion-politica/ex-mis-vuelos/ex-mis-vuelos.component';
 import { ExPoliticasInfrigidasComponent } from './components/vuelos-excepcion-politica/ex-politicas-infrigidas/ex-politicas-infrigidas.component';
+import { MultipaisesComponent } from './components/busqueda-global/multipaises/multipaises.component';
+import { MultipaisesPriceComponent } from './components/vuelos/multipaises-price/multipaises-price.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +109,9 @@ import { ExPoliticasInfrigidasComponent } from './components/vuelos-excepcion-po
     ExVueloSectionComponent,
     ExVueloSegmentComponent,
     ExMisVuelosComponent,
-    ExPoliticasInfrigidasComponent
+    ExPoliticasInfrigidasComponent,
+    MultipaisesComponent,
+    MultipaisesPriceComponent
   ],
   imports: [
     BrowserModule,

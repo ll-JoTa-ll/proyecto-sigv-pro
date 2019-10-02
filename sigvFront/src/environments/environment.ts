@@ -7,7 +7,8 @@ export const environment = {
   url: "http://sigvplussecurity.azurewebsites.net/api",
   url_2: "http://sigvplusflight.azurewebsites.net/api",
   url_3: 'https://sigvplusflight.azurewebsites.net/api',
-  url_4: 'https://sigvplusflight.azurewebsites.net/api/'
+  url_4: 'https://sigvplusflight.azurewebsites.net/api/',
+  rol_autogestion: [2]
 };
 
 /*
