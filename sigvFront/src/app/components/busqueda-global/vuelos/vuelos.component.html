@@ -1,5 +1,13 @@
+<ng-container *ngIf="false">
+  <app-header>
 
-<ng-container>
+    <app-add-pax-centralizador></app-add-pax-centralizador>
+
+  </app-header>
+</ng-container>
+
+
+<ng-container *ngIf="true">
 
   <app-header>
 
@@ -435,6 +443,7 @@
           [destinoTexto4]="destinoTexto4"
           [destinoTexto5]="destinoTexto5"
           [destinoTexto6]="destinoTexto6"
+          [inIndexTramo]="indexTramo"
           (lRecomendaciones)="searchFlightBuscador($event)"
           ></app-buscador>
 
@@ -442,7 +451,7 @@
 
         <div class="col-9 m-0 p-0 pr-5">
 
-          <div class="row m-0 p-0">
+          <div class="row m-0 p-0" *ngIf="searchData[0].pseudoRepeat !== null">
             <div class="col-12 m-0 p-0">
               <app-multipaises-price
                 [currency]="searchData[0].currency"

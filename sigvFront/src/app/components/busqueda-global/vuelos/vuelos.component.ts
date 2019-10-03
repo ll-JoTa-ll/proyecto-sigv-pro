@@ -287,6 +287,7 @@ export class VuelosComponent implements OnInit {
 
   searchFlight() {
     this.spinner.show();
+    console.log("this.indexTramo: " + this.indexTramo);
     this.flagDinData = false;
 
     let origen: any[] = [];

@@ -186,63 +186,66 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('this.infechaSalidaShow1' + this.infechaSalidaShow1);
-    console.log('this.infechaSalidaShow2' + this.infechaSalidaShow2);
-    console.log('this.infechaSalidaShow3' + this.infechaSalidaShow3);
-    console.log('this.infechaSalidaShow4' + this.infechaSalidaShow4);
-    console.log('this.infechaSalidaShow5' + this.infechaSalidaShow5);
-    console.log('this.infechaSalidaShow6' + this.infechaSalidaShow6);
+    console.log('ngAfterViewInit');
+    const inIndexTramo = this.inIndexTramo;
+    console.log('inIndexTramo: ' + inIndexTramo);
+    for (let i = 3; i <= inIndexTramo; i++) {
+      this.agregarTramo(i);
+    }
+
     $('#datepickerSalida1').val(this.infechaSalidaShow1);
-    $('#datepickerSalida2').val(this.infechaSalidaShow2);
-    $('#datepickerSalida3').val(this.infechaSalidaShow3);
-    $('#datepickerSalida4').val(this.infechaSalidaShow4);
-    $('#datepickerSalida5').val(this.infechaSalidaShow5);
-    $('#datepickerSalida6').val(this.infechaSalidaShow6);
-
-    console.log('this.infechaSalida1' + this.infechaSalida1);
-    console.log('this.infechaSalida2' + this.infechaSalida2);
     this.fechaSalida1 = this.infechaSalida1;
-    this.fechaSalida2 = this.infechaSalida2;
-    this.fechaSalida3 = this.infechaSalida3;
-    this.fechaSalida4 = this.infechaSalida4;
-    this.fechaSalida5 = this.infechaSalida5;
-    this.fechaSalida6 = this.infechaSalida6;
-
-    console.log('this.inorigenAuto1' + this.inorigenAuto1);
-    console.log('this.inorigenAuto2' + this.inorigenAuto2);
     this.origenAuto1 = this.inorigenAuto1;
-    this.origenAuto2 = this.inorigenAuto2;
-    this.origenAuto3 = this.inorigenAuto3;
-    this.origenAuto4 = this.inorigenAuto4;
-    this.origenAuto5 = this.inorigenAuto5;
-    this.origenAuto6 = this.inorigenAuto6;
-
-    console.log('this.inorigentTexto1' + this.inorigentTexto1);
-    console.log('this.inorigentTexto1' + this.inorigentTexto1);
     this.origentTexto1 = this.inorigentTexto1;
-    this.origentTexto2 = this.inorigentTexto2;
-    this.origentTexto3 = this.inorigentTexto3;
-    this.origentTexto4 = this.inorigentTexto4;
-    this.origentTexto5 = this.inorigentTexto5;
-    this.origentTexto6 = this.inorigentTexto6;
-
-    console.log('this.indestinoAuto1' + this.indestinoAuto1);
-    console.log('this.indestinoAuto1' + this.indestinoAuto1);
     this.destinoAuto1 = this.indestinoAuto1;
-    this.destinoAuto2 = this.indestinoAuto2;
-    this.destinoAuto3 = this.indestinoAuto3;
-    this.destinoAuto4 = this.indestinoAuto4;
-    this.destinoAuto5 = this.indestinoAuto5;
-    this.destinoAuto6 = this.indestinoAuto6;
-
-    console.log('this.indestinoTexto1' + this.indestinoTexto1);
-    console.log('this.indestinoTexto1' + this.indestinoTexto1);
     this.destinoTexto1 = this.indestinoTexto1;
+
+    $('#datepickerSalida2').val(this.infechaSalidaShow2);
+    this.fechaSalida2 = this.infechaSalida2;
+    this.origenAuto2 = this.inorigenAuto2;
+    this.origentTexto2 = this.inorigentTexto2;
+    this.destinoAuto2 = this.indestinoAuto2;
     this.destinoTexto2 = this.indestinoTexto2;
-    this.destinoTexto3 = this.indestinoTexto3;
-    this.destinoTexto4 = this.indestinoTexto4;
-    this.destinoTexto5 = this.indestinoTexto5;
-    this.destinoTexto6 = this.indestinoTexto6;
+
+    if (inIndexTramo >= 3) {
+      $('#datepickerSalida3').val(this.infechaSalidaShow3);
+      this.fechaSalida3 = this.infechaSalida3;
+      this.origenAuto3 = this.inorigenAuto3;
+      this.origentTexto3 = this.inorigentTexto3;
+      this.destinoAuto3 = this.indestinoAuto3;
+      this.destinoTexto3 = this.indestinoTexto3;
+    }
+
+
+    if (inIndexTramo >= 4) {
+      $('#datepickerSalida4').val(this.infechaSalidaShow4);
+      this.fechaSalida4 = this.infechaSalida4;
+      this.origenAuto4 = this.inorigenAuto4;
+      this.origentTexto4 = this.inorigentTexto4;
+      this.destinoAuto4 = this.indestinoAuto4;
+      this.destinoTexto4 = this.indestinoTexto4;
+    }
+
+
+    if (inIndexTramo >= 5) {
+      $('#datepickerSalida5').val(this.infechaSalidaShow5);
+      this.fechaSalida5 = this.infechaSalida5;
+      this.origenAuto5 = this.inorigenAuto5;
+      this.origentTexto5 = this.inorigentTexto5;
+      this.destinoAuto5 = this.indestinoAuto5;
+      this.destinoTexto5 = this.indestinoTexto5;
+    }
+
+
+    if (inIndexTramo >= 6) {
+      $('#datepickerSalida6').val(this.infechaSalidaShow6);
+      this.fechaSalida6 = this.infechaSalida6;
+      this.origenAuto6 = this.inorigenAuto6;
+      this.origentTexto6 = this.inorigentTexto6;
+      this.destinoAuto6 = this.indestinoAuto6;
+      this.destinoTexto6 = this.indestinoTexto6;
+    }
+
   }
 
   selectEvent(flag, item) {
@@ -546,6 +549,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   }
 
   agregarTramo(tramo) {
+    console.log('tramo: ' + tramo);
     this.indexTramo = tramo;
     this.outIndexTramo.emit(this.indexTramo);
     if (tramo === 3) {

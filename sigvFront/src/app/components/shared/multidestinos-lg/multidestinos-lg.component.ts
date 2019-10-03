@@ -379,6 +379,7 @@ export class MultidestinosLgComponent implements OnInit {
 
   agregarTramo(tramo) {
     this.indexTramo = tramo;
+    console.log('tramo LG: ' + tramo);
     this.outIndexTramo.emit(this.indexTramo);
     if (tramo === 3) {
       this.flagTramo3 = true;
