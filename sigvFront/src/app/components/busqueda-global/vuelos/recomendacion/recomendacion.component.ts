@@ -7,6 +7,7 @@ import { VuelosComponent } from '../vuelos.component';
 import { IFareFamilyModel } from '../../../../models/IFareFamily.model';
 import { AirportService } from '../../../../services/airport.service';
 import { IFlightAvailability } from 'src/app/models/IFlightAvailability';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recomendacion',
@@ -42,7 +43,7 @@ export class RecomendacionComponent implements OnInit {
   outSegmentCheck;
 
   lstFamilyResult: IFareFamilyModel[] = [];
-  lsFlightAvailabilty: IFlightAvailability[] = [];
+  lsFlightAvailabilty: IFlightAvailability;
   flagResultFamilias: number;
 
   constructor(
@@ -51,7 +52,8 @@ export class RecomendacionComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private familyService: FamilyService,
     private vuelosComponent: VuelosComponent,
-    private airportService: AirportService
+    private airportService: AirportService,
+    private router: Router
   ) {
     this.flagResultFamilias = 0;
   }
@@ -199,7 +201,7 @@ export class RecomendacionComponent implements OnInit {
     );
   }
 
-  getFlightAvailability(recommendationId) {
+  getFlightAvailability(recommendationId, template: TemplateRef<any>) {
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
     lstRadioCheck.forEach(function(item) {
@@ -257,21 +259,119 @@ export class RecomendacionComponent implements OnInit {
       Ocompany: this.loginDataUser.ocompany
     };
 
-    console.log("data: " + JSON.stringify(dataFamilias));
-    this.flightAvailability(dataFamilias);
+    this.flightAvailability(dataFamilias, template);
   }
 
-  flightAvailability(data) {
+  ObtenerSecciones() {
+    let Lsections_: any[] = [];
+    const lstRadioCheck = this.lstRadioCheck;
+    lstRadioCheck.forEach(function(item) {
+      const sectionId = item.sectionId_;
+      const segmentId = item.segmentId_;
+      const segmentIndex = item.segmentIndex_;
+      const recommendationId = item.recommendationId_;
+      const section = item.section_;
+      const segment = item.segment_;
+
+      //LsegmentGroups
+      let LsegmentGroups_: any[] = [];
+      segment.lSegmentGroups.forEach(function(group, i) {
+        const dataGroup = {
+          ClassId: section.lSectionGroups[i].classId,
+          DepartureDate: group.departureDate,
+          TimeOfDeparture: group.timeOfDeparture,
+          TimeOfDepartureShow: group.timeOfDepartureShow,
+          ArrivalDate: group.arrivalDate,
+          ArrivalDateShow: group.arrivalDateShow,
+          DepartureDateShow: group.departureDateShow,
+          TimeOfArrival: group.timeOfArrival,
+          TimeOfArrivalShow: group.timeOfArrivalShow,
+          Origin: group.origin,
+          Destination: group.destination,
+          MarketingCarrier: group.marketingCarrier,
+          FlightOrtrainNumber: group.flightOrtrainNumber,
+          EquipmentType: group.equipmentType,
+          FareBasis: section.lSectionGroups[i].fareBasis,
+          TotalFlightTimeShow: group.totalFlightTimeShow,
+          CityOrigin: group.cityOrigin,
+          CityDestination: group.cityDestination,
+          CarrierName: group.carrierName,
+          AirportOrigin: group.airportOrigin,
+          AirportDestination: group.airportDestination,
+          CabinDescription: section.lSectionGroups[i].cabinDescription,
+          TimeWaitAirport: group.timeWaitAirport
+        };
+        LsegmentGroups_.push(dataGroup);
+      });
+
+      //Lsegments
+      let Lsegments_: any[] = [];
+      const lsegment = {
+        SegmentID: segment.segmentId,
+        FareType: section.lSectionGroups[0].fareType,
+        TotalFlightTime: segment.totalFlightTime,
+        TotalFlightTimeShow: segment.totalFlightTimeShow,
+        LsegmentGroups: LsegmentGroups_
+      };
+      Lsegments_.push(lsegment);
+
+      //Lsections
+      const lsection = {
+        SectionID: section.sectionId,
+        Origin: section.origin,
+        Destination: section.destination,
+        AirportDestination: section.airportDestination,
+        AirportOrigin: section.airportOrigin,
+        DepartureDateShow: section.departureDateShow,
+        BagAllowed: section.bagAllowed,
+        Lsegments: Lsegments_
+      };
+
+
+      Lsections_.push(lsection);
+    });
+
+    let dataFamilias = {
+      NumberPassengers: this.numberPassengers,
+      Currency: this.currency,
+      CarrierId: this.carrierId,
+      Lsections: Lsections_,
+      lpolicies: this.lpolicies,
+      Ocompany: this.loginDataUser.ocompany
+    };
+    console.log('mi seccion');
+    console.log(dataFamilias);
+    this.sessionStorageService.store('ss_FlightAvailability_request', dataFamilias);
+
+  }
+
+  flightAvailability(data, template) {
+    this.vuelosComponent.spinner.show();
     this.airportService.fligthAvailibility(data).subscribe(
       results => {
+        console.log('fligthAvailibility results: ' + results);
+        if (results.oerror === null) {
           this.lsFlightAvailabilty = results;
           console.log('results :', JSON.stringify(this.lsFlightAvailabilty));
+          this.sessionStorageService.store('ss_FlightAvailability_result', results);
+          this.ObtenerSecciones();
+          this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
+          this.router.navigate(['/reserva-vuelo']);
+        } else {
+          this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg sin-familias' })
+          );
+        }
       },
       err => {
         console.log('ERROR: ' + JSON.stringify(err));
         this.vuelosComponent.spinner.hide();
       },
-      () => {}
+      () => {
+        console.log('flight availability completado');
+        this.vuelosComponent.spinner.hide();
+      }
     );
   }
 

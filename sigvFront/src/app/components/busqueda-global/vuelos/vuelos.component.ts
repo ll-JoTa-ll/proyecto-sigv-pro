@@ -410,8 +410,14 @@ export class VuelosComponent implements OnInit {
       horasTo.push("");
     });
 
+    let Lusers = [{
+      RoleId: this.loginDataUser.orole.roleId,
+      UserId: this.loginDataUser.userId,
+      CostCenterId: null
+    }];
+
     let data = {
-      "UserId": this.loginDataUser.userId,
+      "Lusers": Lusers,
       "NumberPassengers": this.pasajeros,
       "NumberRecommendations": "50",
       "CabinType": this.cabina,

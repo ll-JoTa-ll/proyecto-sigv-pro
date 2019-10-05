@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-modal-infraccion-pax',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modal-infraccion-pax.component.sass']
 })
 export class ModalInfraccionPaxComponent implements OnInit {
+
+  @Input() LPolicies;
+  @Input() currency;
 
   constructor() { }
 

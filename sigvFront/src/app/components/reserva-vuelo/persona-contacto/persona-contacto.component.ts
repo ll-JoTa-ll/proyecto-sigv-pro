@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ICostCenter } from '../../../models/ICostCenter';
 
 @Component({
   selector: 'app-persona-contacto',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./persona-contacto.component.sass']
 })
 export class PersonaContactoComponent implements OnInit {
+
+  @Input() lsCostCenter: ICostCenter[];
 
   constructor() { }
 

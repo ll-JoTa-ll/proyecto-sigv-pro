@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IReasonFlight } from '../../../models/IReasonFlight';
 
 @Component({
   selector: 'app-motivo-viaje',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./motivo-viaje.component.sass']
 })
 export class MotivoViajeComponent implements OnInit {
+
+  @Input() lsReasonflight: IReasonFlight[];
 
   constructor() { }
 

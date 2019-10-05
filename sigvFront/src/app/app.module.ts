@@ -61,6 +61,12 @@ import { ExVueloSectionComponent } from './components/vuelos-excepcion-politica/
 import { ExVueloSegmentComponent } from './components/vuelos-excepcion-politica/ex-vuelo-segment/ex-vuelo-segment.component';
 import { ExMisVuelosComponent } from './components/vuelos-excepcion-politica/ex-mis-vuelos/ex-mis-vuelos.component';
 import { ExPoliticasInfrigidasComponent } from './components/vuelos-excepcion-politica/ex-politicas-infrigidas/ex-politicas-infrigidas.component';
+import { InfoRecomendacionComponent } from './components/reserva-vuelo/info-recomendacion/info-recomendacion.component';
+import { FormatearfechaPipe } from './pipes/formatearfecha.pipe';
+import { ModalResumenVueloComponent } from './components/reserva-vuelo/modal-resumen-vuelo/modal-resumen-vuelo.component';
+import { VueloSectionComponent } from './components/reserva-vuelo/vuelo-section/vuelo-section.component';
+import { InfoSegmentComponent } from './components/reserva-vuelo/info-segment/info-segment.component';
+import { InfoSegmentGroupComponent } from './components/reserva-vuelo/info-segment-group/info-segment-group.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +113,13 @@ import { ExPoliticasInfrigidasComponent } from './components/vuelos-excepcion-po
     ExVueloSectionComponent,
     ExVueloSegmentComponent,
     ExMisVuelosComponent,
-    ExPoliticasInfrigidasComponent
+    ExPoliticasInfrigidasComponent,
+    InfoRecomendacionComponent,
+    FormatearfechaPipe,
+    ModalResumenVueloComponent,
+    VueloSectionComponent,
+    InfoSegmentComponent,
+    InfoSegmentGroupComponent
   ],
   imports: [
     BrowserModule,

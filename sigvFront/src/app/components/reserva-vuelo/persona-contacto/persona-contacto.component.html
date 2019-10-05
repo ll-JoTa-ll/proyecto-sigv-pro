@@ -1,4 +1,4 @@
-<div class="m-0 p-0 pt-5">
+<div class="m-0 p-0 pt-5 pr-5">
     <div class="col-12 m-0 p-0 contenedor-form">
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 title-form pt-3 pb-3 pl-5">
@@ -14,7 +14,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" name="" id="">
+                                <input class="input-pasajero" type="text" id="">
                             </div>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" name="" id="">
+                                <input class="input-pasajero" type="text" id="">
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" name="" id="">
+                                <input class="input-pasajero" type="text" id="">
                             </div>
                         </div>
                     </div>
@@ -52,8 +52,8 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <select class="input-pasajero" type="text" name="" id="">
-                                    <option value="">Centro de costos</option>
+                                <select class="input-pasajero" type="text" id="">
+                                    <option value="{{item.id}}" *ngFor="let item of lsCostCenter">{{item.name}}</option>
                                     </select>
                             </div>
                         </div>

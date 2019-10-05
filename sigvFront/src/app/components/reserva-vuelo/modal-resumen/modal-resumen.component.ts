@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-modal-resumen',
@@ -6,6 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modal-resumen.component.sass']
 })
 export class ModalResumenComponent implements OnInit {
+
+  @Input() precioadulto: number;
+  @Input() preciototal: number;
+  @Input() currency: string;
+  @Input() LSection: string;
+  @Input() Lpolicies: string;
 
   constructor() { }
 

@@ -1,0 +1,106 @@
+<div class="row m-0 p-0">
+    <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0 pt-3 pb-3 div-air">
+            <div *ngIf="tipo==1" class="col-6 m-0 p-0 text-center">
+                <span *ngIf="tipo==1" class="pr-5"><img class="img-airlane" src="/assets/images/airlines/{{marketingCarrier}}"></span>
+                <span [ngClass]="{
+                    'text-airlane': tipo == 1,
+                    'text-airlane-2': tipo == 2
+                }">Aerolinea Operadores {{segmentGroup.CarrierName}} </span>
+            </div>
+            <div *ngIf="tipo==1" class="col-6 m-0 p-0 text-center">
+                <span class="text-plane">Vuelo {{segmentGroup.FlightOrtrainNumber}} - {{segmentGroup.EquipmentType}}</span>
+            </div>
+
+            <div *ngIf="tipo==2" class="col-12 m-0 p-0 text-center text-airlane-2">
+                Aerolinea Operadores {{segmentGroup.CarrierName}}
+            </div>
+            <div *ngIf="tipo==2" class="col-12 m-0 p-0 text-center text-plane">
+                Vuelo {{segmentGroup.FlightOrtrainNumber}} - {{segmentGroup.EquipmentType}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row m-0 p-0 pt-4">
+    <div class="col-4 m-0 p-0">
+        <div class="row m-0 p-0 div-city1 pl-5">
+            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-1': tipo == 1,
+            'texto1-1': tipo == 2}">{{segmentGroup.DepartureDateShow}}</div>
+            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-2': tipo == 1,
+            'texto2-1': tipo == 2}">{{segmentGroup.TimeOfDepartureShow}}</div>
+            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-3': tipo == 1,
+            'texto3-1': tipo == 2}">{{segmentGroup.Origin}}</div>
+            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-4': tipo == 1, 
+            'texto4-1': tipo == 2}">{{segmentGroup.CityOrigin}}</div>
+            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-5': tipo == 1,
+            'texto5-1': tipo == 2}">{{segmentGroup.AirportOrigin}}</div>
+        </div>
+    </div>
+    <div class="col-4 m-0 p-0">
+        <div class="row m-0 p-0 pt-5">
+            <div class="col-12 m-0 p-0 text-center">
+                <div class="row m-0 p-0">
+                    <div class="col-3 m-0 p-0"></div>
+                    <div class="col-1 m-0 p-0">
+                        <hr style="background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box" class="div-separator1">
+                    </div>
+                    <div class="col-4 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0" [ngClass]="{'text-duracion': tipo == 1,
+                             'text-duracion1': tipo == 2}">
+                                Duración
+                            </div>
+                            <div class="col-12 m-0 p-0" [ngClass]="{'text-timetotal': tipo == 1,
+                            'text-timetotal1': tipo == 2}">
+                                {{segmentGroup.TotalFlightTimeShow}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1 m-0 p-0">
+                        <hr style="background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box" class="div-separator2">
+                    </div>
+                    <div class="col-3 m-0 p-0"></div>
+                </div>
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0">
+                        <span class="pr-2" [ngClass]="{'txt-clase': tipo == 1, 'txt-clase1': tipo == 2}">Clase:</span>
+                        <span [ngClass]="{'txt-desclase': tipo == 1, 'txt-desclase1': tipo == 2}">{{segmentGroup.CabinDescription}} - {{segmentGroup.ClassId}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 m-0 p-0">
+        <div class="row m-0 p-0 div-city1 pr-5">
+            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-1': tipo == 1,
+            'texto1-1': tipo == 2}">{{segmentGroup.ArrivalDateShow}}</div>
+            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-2': tipo == 1,
+            'texto2-1': tipo == 2}">{{segmentGroup.TimeOfArrivalShow}}</div>
+            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-3': tipo == 1,
+            'texto3-1': tipo == 2}">{{segmentGroup.Destination}}</div>
+            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-4': tipo == 1, 
+            'texto4-1': tipo == 2}">{{segmentGroup.CityDestination}}</div>
+            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-5': tipo == 1,
+            'texto5-1': tipo == 2}">{{segmentGroup.AirportDestination}}</div>
+        </div>
+    </div>
+</div>
+<div class="row m-0 p-0">
+    <div class="col-12 m-0 p-0 pt-3 text-center g-text-5">
+        <div class="row m-0 p-0" style="display: flex !important;
+        justify-content: center !important;
+        align-items: center;">
+
+            <div class="col-4 m-0 p-0">
+                <hr style="height: 7px; border-radius: 20px 0 0 20px; background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box">
+            </div>
+            <div class="col-4 m-0 p-0 g-text-5 d-flex justify-content-center align-items-center" style="border-radius: 20px 20px 20px 20px; background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; height: 32px">
+                {{textFlightTimeShow}}
+            </div>
+            <div class="col-4 m-0 p-0">
+                <hr style="height: 7px; border-radius: 0 20px 20px 0;background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box">
+            </div>
+        </div>
+    </div>
+
+</div>

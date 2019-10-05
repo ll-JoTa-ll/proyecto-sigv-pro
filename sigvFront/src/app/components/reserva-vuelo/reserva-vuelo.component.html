@@ -5,10 +5,10 @@
             <div class="col-8 m-0 p-0">
                 <div class="row m-0 p-0">
                     <div class="col-7 m-0 p-0">
-                        <app-datos-pasajero></app-datos-pasajero>
-                        <app-persona-contacto></app-persona-contacto>
+                        <app-datos-pasajero [currency]="currency" [datosuser]="datosuser" [LPolicies]="LPolicies"></app-datos-pasajero>
+                        <app-persona-contacto [lsCostCenter]="lsCostCenter"></app-persona-contacto>
                         <app-info-adicional></app-info-adicional>
-                        <app-motivo-viaje></app-motivo-viaje>
+                        <app-motivo-viaje [lsReasonflight]="lsReasonFlight"></app-motivo-viaje>
                         <div class="row m-0 p-0 pt-4 pb-5">
                             <div class="col-12 p-0 m-0 text-center">
                                 <button class="btn bv-texto-3" (click)="openModal(modalresumen)">COMPRAR</button>
@@ -20,7 +20,7 @@
                                         </button>
                                 </div>
                                 <div class="modal-body m-0 p-0">
-                                    <app-modal-resumen></app-modal-resumen>
+                                    <app-modal-resumen [Lpolicies]="LPolicies" [LSection]="LSection" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount"></app-modal-resumen>
                                 </div>
                             </ng-template>
 
@@ -28,8 +28,8 @@
                         </div>
                     </div>
                     <div class="col-5 m-0 p-0">
-                        <app-precio-final></app-precio-final>
-                        <app-info-vuelo-section></app-info-vuelo-section>
+                        <app-precio-final [Lpolicies]="LPolicies" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount"></app-precio-final>
+                        <app-info-recomendacion [tipovuelo]="tipovuelo" [LSection]="LSection"></app-info-recomendacion>
                     </div>
                 </div>
             </div>

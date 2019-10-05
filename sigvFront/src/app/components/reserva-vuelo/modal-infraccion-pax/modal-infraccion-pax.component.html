@@ -3,26 +3,25 @@
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 text-center title-header pb-5">El pasajero está infringiendo las siguientes políticas</div>
         </div>
-        <div class="row m-0 p-0 text-center">
+        <div class="row m-0 p-0 text-center" *ngFor="let policie of LPolicies">
             <div class="col-12 m-0 p-0">
                 <div class="row m-0 p-0 pb-3 pl-4 pr-4">
                     <div class="col-4 div-despolitica">
                         <span></span>
-                        <span>Política de Días de Anticipación</span>
-                    </div>
-                    <div class="col-8 div-politica">
-                        10 días de anticipación minimo para compra
+                        <span>{{policie.name}}</span>
                     </div>
                 </div>
             </div>
             <div class="col-12 m-0 p-0">
                 <div class="row m-0 p-0 pb-3 pl-4 pr-4">
-                    <div class="col-4 div-despolitica">
+                    <div class="col-4 div-despolitica" style="display: flex !important;
+                    justify-content: center !important;
+                    align-items: center;">
                         <span></span>
                         <span>Infracción</span>
                     </div>
                     <div class="col-8 div-politica">
-                        Se está comprando un vuelo con 2 días de anticipación
+                        {{policie.message}}
                     </div>
                 </div>
             </div>
@@ -32,9 +31,12 @@
                         <span></span>
                         <span>Impacto</span>
                     </div>
-                    <div class="col-8 div-politica">
-                        <span>USD</span>
-                        <span>50.00</span>
+                    <div class="col-8 div-politica" *ngIf="policie.impact != 0">
+                        <span class="pr-2">{{currency}}</span>
+                        <span>{{policie.impact}}</span>
+                    </div>
+                    <div class="col-8 div-politica" *ngIf="policie.impact === 0">
+                        <span>No hay impacto</span>
                     </div>
                 </div>
             </div>

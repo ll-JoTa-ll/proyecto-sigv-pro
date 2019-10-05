@@ -1,4 +1,4 @@
-<div class="m-0 p-0 pt-5">
+<div class="m-0 p-0 pt-5 pr-5">
     <div class="col-12 m-0 p-0 contenedor-form">
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 title-form pt-3 pb-3 pl-5">
@@ -6,8 +6,10 @@
             </div>
             <div class="col-12 m-0 p-0">
                 <div class="row m-0 p-0">
-                    <div class="col-12 div-info">
-                        <input type="text" class="input-pasajero">
+                    <div class="col-12 div-info text-center pt-3 pb-3">
+                        <select name="" id="" class="input-pasajero">
+                           <option value="{{item.id}}" *ngFor="let item of lsReasonflight">{{item.description}}</option>
+                       </select>
                     </div>
                 </div>
             </div>
