@@ -2,7 +2,7 @@ export interface IDatosUser {
     userId: number;
     personId: number;
     roleDescription: string;
-    name: string = '';
+    name: string;
     lastName: string;
     documentType: string;
     documentNumber: string;

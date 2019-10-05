@@ -71,6 +71,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   @Input() destinoTexto5;
   @Input() destinoTexto6;
 
+  @Input() inIndexTramo;
+
   @Output() lRecomendaciones = new EventEmitter<ISearchFlightModel[]>();
 
   airportlist: any[] = [];
@@ -96,10 +98,11 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     private spinner: NgxSpinnerService,
     private airportService: AirportService
   ) {
-    this.indexTramo = 2;
+
   }
 
   ngOnInit() {
+    this.indexTramo = this.inIndexTramo;
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     setTimeout(function() {
@@ -299,10 +302,12 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     //console.log("dpSalida: " + this.dpSalida);
 
     let mes = "";
-    if ((value.getMonth() + 1) < 10) {
-      mes = "0" + (value.getMonth() + 1);
+    let getMonth = value.getMonth() + 1;
+    if (getMonth < 10) {
+      getMonth = value.getMonth() + 1;
+      mes = "0" + getMonth;
     } else {
-      mes = "" + value.getMonth();
+      mes = "" + getMonth;
     }
 
     let dia = "";
@@ -318,10 +323,12 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   onValueChangeRetorno(value: Date): void {
     let mes = "";
-    if ((value.getMonth() + 1) < 10) {
-      mes = "0" + (value.getMonth() + 1);
+    let getMonth = value.getMonth() + 1;
+    if (getMonth < 10) {
+      getMonth = value.getMonth() + 1;
+      mes = "0" + getMonth;
     } else {
-      mes = "" + value.getMonth();
+      mes = "" + getMonth;
     }
 
     let dia = "";
@@ -473,6 +480,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       "DepartureArrivalTimeTo": horasTo,
       "Ocompany": this.loginDataUser.ocompany
     };
+
+    console.log('data buscar: ' + JSON.stringify(data));
 
 
     this.airportService.searchFlight(data).subscribe(

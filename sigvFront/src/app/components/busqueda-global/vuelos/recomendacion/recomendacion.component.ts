@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Input, TemplateRef, Output, EventEmitter, AfterViewInit} from '@angular/core';
 import { ISearchFlightModel } from '../../../../models/ISearchFlight.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './recomendacion.component.html',
   styleUrls: ['./recomendacion.component.sass']
 })
-export class RecomendacionComponent implements OnInit {
+export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   modalRef: BsModalRef;
   config = {
@@ -36,6 +36,7 @@ export class RecomendacionComponent implements OnInit {
   @Input() lpolicies: any[];
   @Input() recommendationId: number;
   @Input() tipoVuelo: string;
+  @Input() pseudoRepeat;
 
   segmentRadioCheckId;
   lstRadioCheck: any[] = [];
@@ -45,6 +46,9 @@ export class RecomendacionComponent implements OnInit {
   lstFamilyResult: IFareFamilyModel[] = [];
   lsFlightAvailabilty: IFlightAvailability;
   flagResultFamilias: number;
+
+  flagPseudoRepeat: boolean;
+  lstPseudoRepeat: any[] = [];
 
   constructor(
     private modalService: BsModalService,
@@ -60,6 +64,30 @@ export class RecomendacionComponent implements OnInit {
 
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+
+    const pseudoRepeat = this.pseudoRepeat;
+    console.log('pseudoRepeat: ' + pseudoRepeat);
+    if (pseudoRepeat === null) {
+      this.flagPseudoRepeat = false;
+    } else {
+      this.flagPseudoRepeat = true;
+      if (pseudoRepeat.indexOf('-') >= 0) {
+        const lstPseudoRepeat = pseudoRepeat.split('-');
+        for (let i = 0; i < lstPseudoRepeat.length; i++) {
+          lstPseudoRepeat[i] = lstPseudoRepeat[i] + '.png';
+        }
+        console.log('lstPseudoRepeat: ' + lstPseudoRepeat);
+        this.lstPseudoRepeat = lstPseudoRepeat;
+      } else {
+        let lstPseudoRepeat: any[] = [];
+        lstPseudoRepeat.push(pseudoRepeat);
+        for (let i = 0; i < lstPseudoRepeat.length; i++) {
+          lstPseudoRepeat[i] = lstPseudoRepeat[i] + '.png';
+        }
+        console.log('lstPseudoRepeat: ' + lstPseudoRepeat);
+        this.lstPseudoRepeat = lstPseudoRepeat;
+      }
+    }
   }
 
   openModal(template: TemplateRef<any>, recommendationId) {
@@ -373,6 +401,10 @@ export class RecomendacionComponent implements OnInit {
         this.vuelosComponent.spinner.hide();
       }
     );
+  }
+
+  ngAfterViewInit() {
+
   }
 
 }

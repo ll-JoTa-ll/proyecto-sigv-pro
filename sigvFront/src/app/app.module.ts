@@ -67,6 +67,10 @@ import { ModalResumenVueloComponent } from './components/reserva-vuelo/modal-res
 import { VueloSectionComponent } from './components/reserva-vuelo/vuelo-section/vuelo-section.component';
 import { InfoSegmentComponent } from './components/reserva-vuelo/info-segment/info-segment.component';
 import { InfoSegmentGroupComponent } from './components/reserva-vuelo/info-segment-group/info-segment-group.component';
+import { MultipaisesComponent } from './components/busqueda-global/multipaises/multipaises.component';
+import { MultipaisesPriceComponent } from './components/vuelos/multipaises-price/multipaises-price.component';
+import { AddPaxCentralizadorComponent } from './components/vuelos/add-pax-centralizador/add-pax-centralizador.component';
+import { RecomendacionPoliticasComponent } from './components/busqueda-global/vuelos/recomendacion-politicas/recomendacion-politicas.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +123,11 @@ import { InfoSegmentGroupComponent } from './components/reserva-vuelo/info-segme
     ModalResumenVueloComponent,
     VueloSectionComponent,
     InfoSegmentComponent,
-    InfoSegmentGroupComponent
+    InfoSegmentGroupComponent,
+    MultipaisesComponent,
+    MultipaisesPriceComponent,
+    AddPaxCentralizadorComponent,
+    RecomendacionPoliticasComponent
   ],
   imports: [
     BrowserModule,

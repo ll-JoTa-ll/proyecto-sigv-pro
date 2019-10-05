@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div *ngIf="sectionLength - 1" class="col-6 m-0 p-0 text-right txt-detalle pr-4 pt-2">
-                        <span (click)="openModal(modalresumen)" class="pr-3">Ver detalle</span>
+                        <span (click)="openModal(modalresumen)" class="pr-3" style="cursor: pointer">Ver detalle</span>
                         <span><img src="/assets/images/info-button.svg" alt=""></span>
                     </div>
                     <ng-template #modalresumen let-c="close" let-d="dismiss">
