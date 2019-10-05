@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import {DatepickerRenderOptions} from 'ngx-bootstrap/datepicker/models';
+import {consoleTestResultHandler} from 'tslint/lib/test';
 
 declare var jquery: any;
 declare var $: any;
@@ -100,8 +101,7 @@ export class VuelosComponent implements OnInit {
   fechaSalidaShow5: string;
   fechaSalidaShow6: string;
 
-  //dpSalida: Date;
-  dpRetorno;
+  model: any = {};
 
   constructor(
     private airportService: AirportService,
@@ -426,41 +426,11 @@ export class VuelosComponent implements OnInit {
       "Ocompany": this.loginDataUser.ocompany
     };
 
-    /*
-    let data = {
-      "UserId": 1,
-      "NumberPassengers": "1",
-      "NumberRecommendations": "250",
-      "CabinType": "",
-      "Scales": "",
-      "Currency": "USD",
-      "Origin":
-        [
-          "LIM",
-          "CUZ"
-        ],
-      "Destination":
-        [
-          "CUZ",
-          "LIM"
-        ],
-      "DepartureArrivalDate":
-        [
-          "2019/11/15",
-          "2019/11/18"
-        ],
-      "DepartureArrivalTimeFrom":
-        [
-          "",
-          ""
-        ],
-      "Ocompany":
-        {
-          "CompanyId": 2,
-          "CompanyName": "CEMENTOS PACASMAYO S.A.A."
-        }
-    };
-    */
+    const flagVal = this.validarDataBusqueda(data);
+    if (!flagVal) {
+      this.spinner.hide();
+      return flagVal;
+    }
 
     console.log("data: " + JSON.stringify(data));
 
@@ -485,6 +455,49 @@ export class VuelosComponent implements OnInit {
         console.log("this.airportService.searchFlight completado");
       }
     );
+  }
+
+  validarDataBusqueda(data) {
+    console.log('this.origentTexto: ' + this.origentTexto);
+    console.log('this.destinoTexto: ' + this.destinoTexto);
+    const tipoVuelo = this.tipoVuelo;
+    const indexTramo = this.indexTramo;
+    let flagVal = true;
+
+    if (tipoVuelo === 'RT') {
+      if ($.trim(this.model.origentTexto) === '') {
+        flagVal = false;
+      }
+      if ($.trim(this.model.destinoTexto) === '') {
+        flagVal = false;
+      }
+      if ($.trim(this.fechaSalida) === '') {
+        flagVal = false;
+      }
+      if ($.trim(this.fechaRetorno) === '') {
+        flagVal = false;
+      }
+    }
+
+    if (tipoVuelo === 'OW') {
+      if ($.trim(this.origentTexto) === '') {
+        flagVal = false;
+      }
+      if ($.trim(this.destinoTexto) === '') {
+        flagVal = false;
+      }
+      if ($.trim(this.fechaSalida) === '') {
+        flagVal = false;
+      }
+    }
+
+    if (tipoVuelo === 'MC') {
+      if (indexTramo >= 2) {}
+    }
+
+    if (data) {}
+
+    return flagVal;
   }
 
   searchFlightBuscador($event) {

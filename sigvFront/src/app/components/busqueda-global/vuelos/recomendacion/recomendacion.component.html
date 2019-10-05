@@ -33,8 +33,8 @@
 
                         <div class="col-5 m-0 p-0 text-right">
                             <img *ngIf="lsections[0].lSectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 22px;">
-                            <span *ngIf="lpolicies!==null" class="pl-1 r-span-1">●</span>
-                            <span *ngIf="lpolicies===null" class="pl-1 r-span-2">●</span>
+                            <span *ngIf="lpolicies.length>0" class="pl-1 r-span-1">●</span>
+                            <span *ngIf="lpolicies.length===0" class="pl-1 r-span-2">●</span>
                         </div>
 
                         <div class="col-1 m-0 p-0"></div>
@@ -111,3 +111,7 @@
 </div>
 
 <div class="" style="width: 100%; height: 30px !important; border: none !important;"></div>
+
+<ng-template>
+
+</ng-template>

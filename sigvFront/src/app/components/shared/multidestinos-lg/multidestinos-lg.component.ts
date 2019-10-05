@@ -15,6 +15,8 @@ declare var $: any;
 })
 export class MultidestinosLgComponent implements OnInit {
 
+  model: any = {};
+
   @Output() outIndexTramo = new EventEmitter<number>();
 
   @Output() outOrigenValue1 = new EventEmitter<string>();
@@ -178,6 +180,14 @@ export class MultidestinosLgComponent implements OnInit {
         this.destinoTexto1 = item.name;
         this.outDestinoValue1.emit(this.destinoAuto1);
         this.outDestinoText1.emit(this.destinoTexto1);
+
+        this.origenAuto2 = item.iataCode;
+        this.origentTexto2 = item.name;
+        this.outOrigenValue2.emit(this.destinoAuto1);
+        this.outOrigenText2.emit(this.destinoTexto1);
+
+        this.model.origentTexto2 = this.destinoTexto1;
+
         break;
       case 3:
         this.origenAuto2 = item.iataCode;
@@ -190,6 +200,14 @@ export class MultidestinosLgComponent implements OnInit {
         this.destinoTexto2 = item.name;
         this.outDestinoValue2.emit(this.destinoAuto2);
         this.outDestinoText2.emit(this.destinoTexto2);
+
+        this.origenAuto3 = item.iataCode;
+        this.origentTexto3 = item.name;
+        this.outOrigenValue3.emit(this.destinoAuto2);
+        this.outOrigenText3.emit(this.destinoTexto2);
+
+        this.model.origentTexto3 = this.destinoTexto2;
+
         break;
       case 5:
         this.origenAuto3 = item.iataCode;
@@ -202,6 +220,14 @@ export class MultidestinosLgComponent implements OnInit {
         this.destinoTexto3 = item.name;
         this.outDestinoValue3.emit(this.destinoAuto3);
         this.outDestinoText3.emit(this.destinoTexto3);
+
+        this.origenAuto4 = item.iataCode;
+        this.origentTexto4 = item.name;
+        this.outOrigenValue4.emit(this.destinoAuto3);
+        this.outOrigenText4.emit(this.destinoTexto3);
+
+        this.model.origentTexto4 = this.destinoTexto3;
+
         break;
       case 7:
         this.origenAuto4 = item.iataCode;
@@ -214,6 +240,14 @@ export class MultidestinosLgComponent implements OnInit {
         this.destinoTexto4 = item.name;
         this.outDestinoValue4.emit(this.destinoAuto4);
         this.outDestinoText4.emit(this.destinoTexto4);
+
+        this.origenAuto5 = item.iataCode;
+        this.origentTexto5 = item.name;
+        this.outOrigenValue5.emit(this.destinoAuto4);
+        this.outOrigenText5.emit(this.destinoTexto4);
+
+        this.model.origentTexto5 = this.destinoTexto4;
+
         break;
       case 9:
         this.origenAuto5 = item.iataCode;
@@ -226,6 +260,14 @@ export class MultidestinosLgComponent implements OnInit {
         this.destinoTexto5 = item.name;
         this.outDestinoValue5.emit(this.destinoAuto5);
         this.outDestinoText5.emit(this.destinoTexto5);
+
+        this.origenAuto6 = item.iataCode;
+        this.origentTexto6 = item.name;
+        this.outOrigenValue6.emit(this.destinoAuto5);
+        this.outOrigenText6.emit(this.destinoTexto5);
+
+        this.model.origentTexto6 = this.destinoTexto5;
+
         break;
       case 11:
         this.origenAuto6 = item.iataCode;
