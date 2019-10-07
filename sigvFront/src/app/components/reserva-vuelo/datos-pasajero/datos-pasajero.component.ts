@@ -79,10 +79,17 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     console.log('this.datosPax: ' + JSON.stringify(this.datosPax));
   }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'gray modal-lg m-infraccion' })
-    );
+  openModal(template: TemplateRef<any>, template2: TemplateRef<any>) {
+    if (this.LPolicies.length === 0) {
+      this.modalRef = this.modalService.show(
+        template2,
+        Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+      );
+    } else {
+      this.modalRef = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+      );
+    }
   }
 }

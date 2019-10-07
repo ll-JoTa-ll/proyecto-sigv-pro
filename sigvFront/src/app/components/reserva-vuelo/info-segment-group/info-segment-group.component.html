@@ -6,14 +6,14 @@
                 <span [ngClass]="{
                     'text-airlane': tipo == 1,
                     'text-airlane-2': tipo == 2
-                }">Aerolinea Operadores {{segmentGroup.CarrierName}} </span>
+                }">Aerolinea Operadores: {{segmentGroup.CarrierName}} </span>
             </div>
             <div *ngIf="tipo==1" class="col-6 m-0 p-0 text-center">
                 <span class="text-plane">Vuelo {{segmentGroup.FlightOrtrainNumber}} - {{segmentGroup.EquipmentType}}</span>
             </div>
 
             <div *ngIf="tipo==2" class="col-12 m-0 p-0 text-center text-airlane-2">
-                Aerolinea Operadores {{segmentGroup.CarrierName}}
+                Aerolinea Operadores: {{segmentGroup.CarrierName}}
             </div>
             <div *ngIf="tipo==2" class="col-12 m-0 p-0 text-center text-plane">
                 Vuelo {{segmentGroup.FlightOrtrainNumber}} - {{segmentGroup.EquipmentType}}

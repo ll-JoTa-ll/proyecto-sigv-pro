@@ -20,7 +20,7 @@ export class FamilyService {
 
   token;
 
-  private _url3: string = environment.url_3 + "/Search/";
+  private _url3: string = environment.url_2 + "/Search/";
 
   constructor(
     private http: HttpClient,

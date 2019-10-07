@@ -26,11 +26,11 @@ export class AirportService {
 
   private _url: string = environment.url_2 + "/Airport/";
   private _url2: string = environment.url_2 + "/Search/";
-  private _url3: string = environment.url_3 + "/Search/";
-  private _url4: string = environment.url_4 + "/Booking/";
+  private _url3: string = environment.url_2 + "/Search/";
+  private _url4: string = environment.url_2 + "/Booking/";
   private _url5: string = environment.url_5 + "/User/";
   private _url6: string = environment.url_5 + "/CostCenter/";
-  private _url7: string = environment.url_4 + "/ReasonFlight/";
+  private _url7: string = environment.url_2 + "/ReasonFlight/";
 
   constructor(
     private http: HttpClient,
