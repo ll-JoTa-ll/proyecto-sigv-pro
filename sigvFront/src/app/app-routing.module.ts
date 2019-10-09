@@ -10,6 +10,7 @@ import { SegurosComponent } from './components/busqueda-global/seguros/seguros.c
 import { ReservaVueloComponent } from './components/reserva-vuelo/reserva-vuelo.component';
 
 const routes: Routes = [
+  { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
   { path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
   { path: 'home', component: BusquedaGlobalComponent, runGuardsAndResolvers: 'always' },
   { path: 'vuelos', component: VuelosComponent, runGuardsAndResolvers: 'always' },
