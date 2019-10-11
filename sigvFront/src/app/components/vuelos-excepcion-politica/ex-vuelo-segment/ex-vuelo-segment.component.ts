@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ExVueloSegmentComponent implements OnInit {
 
   constructor() { }
+  lstSegment: [] = []
 
   ngOnInit() {
   }
