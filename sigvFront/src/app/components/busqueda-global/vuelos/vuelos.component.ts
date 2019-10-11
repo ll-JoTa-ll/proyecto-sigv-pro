@@ -412,12 +412,17 @@ export class VuelosComponent implements OnInit {
     });
 
     let data = {
-      "UserId": this.loginDataUser.userId,
+      "Lusers": [
+        {
+          "RoleId": this.loginDataUser.orole.roleId,
+          "CostCenterId": this.loginDataUser.lcostCenter,
+          "UserId": this.loginDataUser.userId
+        }
+      ],
       "NumberPassengers": this.pasajeros,
-      "NumberRecommendations": "50",
+      "NumberRecommendations": "100",
       "CabinType": this.cabina,
       "Scales": this.escala,
-      "Currency": "USD",
       "Origin": origen,
       "Destination": destino,
       "DepartureArrivalDate": fechas,

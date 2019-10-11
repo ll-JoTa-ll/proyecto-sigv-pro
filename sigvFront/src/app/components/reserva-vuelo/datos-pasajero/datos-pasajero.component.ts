@@ -25,7 +25,8 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     frequentFlyer: ''
   };
   */
- @Input() datosuser: IDatosUser;
+  @Input() datosuser: IDatosUser;
+  @Input() lsuser: any[];
   @Input() LPolicies;
   @Input() currency;
   selectedvalue;
@@ -76,7 +77,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     this.flagValDatosPAsajeros = true;
     console.log('ngAfterViewInit DatosPasajeroComponent');
     console.log('this.datosuser: ' + JSON.stringify(this.datosuser));
-    console.log('this.datosPax: ' + JSON.stringify(this.datosPax));
   }
 
   openModal(template: TemplateRef<any>, template2: TemplateRef<any>) {

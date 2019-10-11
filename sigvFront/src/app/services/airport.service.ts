@@ -8,6 +8,8 @@ import { IFlightAvailability } from '../models/IFlightAvailability';
 import { IDatosUser } from '../models/IDatosUser';
 import { ICostCenter } from '../models/ICostCenter';
 import { IReasonFlight } from '../models/IReasonFlight';
+import { IAddPassenger } from '../models/IAddPassenger.model';
+import { IPnrConfirm } from '../models/IPnrConfirm.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -78,7 +80,8 @@ export class AirportService {
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
     });
-    return this.http.post<IDatosUser>(this._url5 + "GetUserById", data, httpOptions2);
+    const url = `${this._url5 + 'GetUserById'}?${'userId=' + data}`;
+    return this.http.get<IDatosUser>(url, httpOptions2);
   }
 
   getCostCenter(data): Observable<ICostCenter[]> {
@@ -96,6 +99,25 @@ export class AirportService {
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
     });
-    return this.http.post<IReasonFlight[]>(this._url7 + "GetReasonFlight", data, httpOptions2);
+    const url = `${this._url7 + 'GetReasonFlight'}?${'companyId=' + data}`;
+    return this.http.get<IReasonFlight[]>(url, httpOptions2);
+  }
+
+  AddPassenger(data): Observable<IAddPassenger> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IAddPassenger>(this._url4 + "AddPassenger", data, httpOptions2);
+  }
+
+  GeneratePnr(data): Observable<IPnrConfirm> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IPnrConfirm>(this._url4 + "GeneratePNR", data, httpOptions2);
   }
 }

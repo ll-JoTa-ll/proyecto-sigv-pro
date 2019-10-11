@@ -5,7 +5,12 @@
             <div class="col-8 m-0 p-0">
                 <div class="row m-0 p-0">
                     <div class="col-7 m-0 p-0">
-                        <app-datos-pasajero [currency]="currency" [datosuser]="datosuser" [LPolicies]="LPolicies"></app-datos-pasajero>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0 title-form pt-3 pb-3 pl-5">
+                                DATOS DEL PASAJERO(S)
+                            </div>
+                            <app-datos-pasajero [currency]="currency" [datosuser]="datosuser" [LPolicies]="LPolicies"></app-datos-pasajero>
+                        </div>
                         <app-persona-contacto [lsCostCenter]="lsCostCenter"></app-persona-contacto>
                         <app-info-adicional></app-info-adicional>
                         <app-motivo-viaje [lsReasonflight]="lsReasonFlight"></app-motivo-viaje>
@@ -20,11 +25,10 @@
                                         </button>
                                 </div>
                                 <div class="modal-body m-0 p-0">
-                                    <app-modal-resumen [Lpolicies]="LPolicies" [LSection]="LSection" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount"></app-modal-resumen>
+                                    <app-modal-resumen [lSectionPassengers]="LSectionPassenger" [userid]="userid" [email]="email" [phone]="phone" [lsusuario]="datosusuario" [pseudo]="pseudo" [gds]="gds" [carrierId]="carrierId" [numberpasssengers]="numberpassengers" [ocompany]="ocompany"
+                                        [Flighavailabiltyresponse]="flightAvailability_result" [Lpolicies]="LPolicies" [LSection]="LSection" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount"></app-modal-resumen>
                                 </div>
                             </ng-template>
-
-
                         </div>
                     </div>
                     <div class="col-5 m-0 p-0">

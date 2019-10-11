@@ -21,6 +21,7 @@ export class ReservaVueloComponent implements OnInit {
   };
 
   flightAvailability_request;
+  datarequest;
   flightAvailability_result;
   tipovuelo;
   loginDataUser;
@@ -32,6 +33,16 @@ export class ReservaVueloComponent implements OnInit {
   ocompany;
   lsCostCenter: ICostCenter[];
   lsReasonFlight: IReasonFlight[];
+  numberpassengers;
+  osession;
+  carrierId;
+  pseudo;
+  gds;
+  datosusuario;
+  email;
+  phone;
+  userid;
+  LSectionPassenger;
 
   constructor(
     private modalService: BsModalService,
@@ -39,7 +50,8 @@ export class ReservaVueloComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private service: AirportService
   ) {
-    this.flightAvailability_request = this.sessionStorageService.retrieve('ss_FlightAvailability_request');
+    this.datarequest = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
+    this.flightAvailability_request = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
     this.flightAvailability_result = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
@@ -52,9 +64,15 @@ export class ReservaVueloComponent implements OnInit {
   ngOnInit() {
     console.log('obj' , this.flightAvailability_request);
     this.LSection = this.flightAvailability_request.Lsections;
+    this.LSectionPassenger = this.datarequest.Lsections;
     this.LPolicies = this.flightAvailability_request.lpolicies;
     this.ocompany = this.flightAvailability_request.Ocompany;
     this.currency = this.flightAvailability_request.Currency;
+    this.numberpassengers = this.flightAvailability_request.NumberPassengers;
+    this.osession = this.flightAvailability_result.osession;
+    this.carrierId = this.flightAvailability_request.CarrierId;
+    this.pseudo = this.flightAvailability_request.Pseudo;
+    this.gds = this.flightAvailability_request.Gds;
     if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0]) {
         this.GetUsers();
     }
@@ -66,7 +84,7 @@ export class ReservaVueloComponent implements OnInit {
       let data = {
         Id: this.loginDataUser.userId
       }
-      this.service.GetUser(data).subscribe(
+      this.service.GetUser(data.Id).subscribe(
         results => {
              this.datosuser = results;
         },
@@ -96,7 +114,7 @@ export class ReservaVueloComponent implements OnInit {
       CompanyId: this.ocompany.companyId
     };
 
-    this.service.getReasonFlight(data).subscribe(
+    this.service.getReasonFlight(data.CompanyId).subscribe(
       results => {
          this.lsReasonFlight = results;
       },
@@ -107,6 +125,38 @@ export class ReservaVueloComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
+    let prefix;
+    if (this.datosuser.gender === 'M') {
+      prefix = 'MR';
+    } else {
+      prefix = 'MRS';
+    }
+    let fechatotal;
+    let fecha = this.datosuser.birthDate.substr(0, 10);
+    let fechaformat = fecha.split('-');
+    let año = fechaformat[0];
+    let mes = fechaformat[1];
+    let dia = fechaformat[2];
+    fechatotal = año + '/' + mes + '/' + dia;
+    this.email = this.datosuser.email;
+    this.phone = this.datosuser.phone;
+    this.userid = this.datosuser.userId;
+
+    this.datosusuario =
+    [{
+      "PassengerId": 1,
+			"PersonId": this.datosuser.personId,
+			"Prefix": prefix,
+			"Type": "ADT",
+			"Name": this.datosuser.firstName,
+			"LastName": this.datosuser.lastName,
+			"Gender": this.datosuser.gender,
+			"BirthDate": fechatotal,
+			"Odocument": this.datosuser.odocument,
+			"FrequentFlyer": this.datosuser.frequentFlyer,
+			"IsVIP": this.datosuser.isVIP
+    }];
+
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'gray modal-lg m-resumen' })

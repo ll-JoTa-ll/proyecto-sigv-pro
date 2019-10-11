@@ -31,6 +31,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   @Input() carrierId: string;
   @Input() numberPassengers: number;
   @Input() pseudo: string;
+  @Input() gds: string;
   @Input() lsections: any[];
   @Input() lsectionLength: number;
   @Input() lpolicies: any[];
@@ -143,10 +144,11 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
     let dataFamilias = {
       NumberPassengers: this.numberPassengers,
-      Currency: this.currency,
       CarrierId: this.carrierId,
       Lsections: Lsections_,
-      Ocompany: this.loginDataUser.ocompany
+      Ocompany: this.loginDataUser.ocompany,
+      Gds: this.gds,
+      PSeudo: this.pseudo
     };
 
     console.log("dataFamilias: " + JSON.stringify(dataFamilias));
@@ -284,9 +286,11 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Currency: this.currency,
       CarrierId: this.carrierId,
       Lsections: Lsections_,
-      Ocompany: this.loginDataUser.ocompany
+      Ocompany: this.loginDataUser.ocompany,
+      Gds: this.gds,
+      PSeudo: this.pseudo
     };
-
+    this.sessionStorageService.store('ss_FlightAvailability_request1', dataFamilias);
     this.flightAvailability(dataFamilias, template);
   }
 
@@ -365,11 +369,13 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       CarrierId: this.carrierId,
       Lsections: Lsections_,
       lpolicies: this.lpolicies,
-      Ocompany: this.loginDataUser.ocompany
+      Ocompany: this.loginDataUser.ocompany,
+      Gds: this.gds,
+      Pseudo: this.pseudo
     };
     console.log('mi seccion');
     console.log(dataFamilias);
-    this.sessionStorageService.store('ss_FlightAvailability_request', dataFamilias);
+    this.sessionStorageService.store('ss_FlightAvailability_request2', dataFamilias);
 
   }
 

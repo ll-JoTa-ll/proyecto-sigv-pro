@@ -1,14 +1,24 @@
 export interface IDatosUser {
     userId: number;
     personId: number;
-    roleDescription: string;
-    name: string;
+    orole: {
+        id: number,
+        description: string
+    };
+    firstName: string;
     lastName: string;
-    documentType: string;
-    documentNumber: string;
+    odocument;
     nationality: string;
     email: string;
     phone: string;
     frequentFlyer: string;
     birthDate: string;
+    lcostCenter: [
+        {
+            id: string,
+            name: string
+        }
+    ];
+    isVIP: boolean;
+    gender: string;
 }

@@ -15,4 +15,5 @@ export interface ISearchFlightModel {
   ltaxDetails;
   lsections;
   lpolicies;
+  gds;
 }
