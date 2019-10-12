@@ -85,7 +85,8 @@
                         <span class="text-info4">Equipaje</span>
                     </div>
                     <div class="col-12 m-0 p-0 pb-4">
-                        <span class="text-infobag">Este vuelo permite una maleta de 23k</span>
+                        <span *ngIf="LSection[0].BagAllowed === true" class="text-infobag">Este vuelo permite {{LSection[0].BagQuantity}} maleta</span>
+                        <span *ngIf="LSection[0].BagAllowed === false" class="text-infobag">Este vuelo no permite maleta</span>
                     </div>
                 </div>
             </div>

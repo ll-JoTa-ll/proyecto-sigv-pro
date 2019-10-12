@@ -356,6 +356,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         AirportOrigin: section.airportOrigin,
         DepartureDateShow: section.departureDateShow,
         BagAllowed: section.bagAllowed,
+        BagQuantity: section.bagQuantity,
         Lsegments: Lsegments_
       };
 
