@@ -70,35 +70,39 @@
       <div class="col-4 m-0 p-0 ff-text-3">{{familia.timeOfArrivalShow}}</div>
       <div class="col-4 m-0 p-0 ff-text-4 d-flex align-items-center">{{familia.totalFlightTimeShow}}</div>
       <div class="col-4 m-0 p-0">
-        <img *ngIf="lfareFamilies.length === 0" style="width: 20px; cursor: pointer;" (click)="listFareFamilies(fareFamilyId)" src="./assets/images/arrow-down.svg" alt="">
-        <img *ngIf="lfareFamilies.length > 0" style="width: 20px; cursor: pointer;" (click)="hideFareFamilies(fareFamilyId)" src="./assets/images/arrow-up.svg" alt="">
+        <img *ngIf="isCollapsed" style="width: 20px; cursor: pointer;" (click)="listFareFamilies(fareFamilyId)" src="./assets/images/arrow-down.svg" alt="">
+        <img *ngIf="!isCollapsed" style="width: 20px; cursor: pointer;" (click)="hideFareFamilies(fareFamilyId)" src="./assets/images/arrow-up.svg" alt="">
       </div>
     </div>
   </div>
 
 </div>
 
-<div *ngIf="lfareFamilies.length>0" class="row m-0 p-0 animated fadeIn fast" style="width: 100%;" [id]="fareFamilyId">
+<div *ngIf="lfareFamilies.length>0" [collapse]="isCollapsed" [isAnimated]="true" class="row m-0 p-0" style="width: 100%;" [id]="fareFamilyId">
   <div class="col-12 m-0 p-0">
 
 
     <div class="row m-0 p-0 d-flex justify-content-center">
 
-      <div class="col-2 m-0 p-0">
+      <div class="col-2 m-0 p-0 pl-4">
 
-        <div class="row m-0 p-0">
+        <div class="row m-0 p-0" style="">
 
           <div class="col-12 m-0 p-0" style="height: 80px;"></div>
 
-          <div style="width: 100% !important;;" class="col-12 m-0 p-0 d-flex justify-content-center align-items-center" [class]="classDivInc+familyIndex">
+          <div
+            style="width: 100% !important; border: 1px solid #ccc !important; border-radius: 20px 0 0 0 !important; border: 1px solid #ccc !important;"
+            class="box-shadow col-12 m-0 p-0 d-flex justify-content-center align-items-center" [class]="classDivInc+familyIndex">
             INCLUYE
           </div>
 
-          <div style="width: 100% !important;;" class="col-12 m-0 p-0 d-flex justify-content-center align-items-center" [class]="classDivNof+familyIndex">
+          <div style="width: 100% !important; border: 1px solid #ccc !important;" class="box-shadow col-12 m-0 p-0 d-flex justify-content-center align-items-center" [class]="classDivNof+familyIndex">
             NO INCLUYE
           </div>
 
-          <div style="width: 100% !important;;" class="col-12 m-0 p-0 d-flex justify-content-center align-items-center" [class]="classDivCha+familyIndex">
+          <div
+            style="width: 100% !important; border: 1px solid #ccc !important; border-radius: 0 0 20px 0 !important; border: 1px solid #ccc !important;"
+            class="box-shadow col-12 m-0 p-0 d-flex justify-content-center align-items-center" [class]="classDivCha+familyIndex">
             PAGA POR
           </div>
 
@@ -120,6 +124,7 @@
             [flagCountNof]="flagCountNof"
             [flagCountCha]="flagCountCha"
             [familyIndex]="familyIndex"
+            [familyLength]="lfareFamilies.length"
             (idRadioBtnFareFam)="selectRadioBtnFam($event)"
             *ngFor="let fareFamily of lfareFamilies; let i=index"
           ></app-familia-fare>

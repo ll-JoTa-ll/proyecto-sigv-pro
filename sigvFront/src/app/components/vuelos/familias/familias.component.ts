@@ -83,6 +83,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     });
 
     this.precioTotal = precioTotal;
+    this.precioPersona = this.precioTotal / this.nroPersonas;
   }
 
 }

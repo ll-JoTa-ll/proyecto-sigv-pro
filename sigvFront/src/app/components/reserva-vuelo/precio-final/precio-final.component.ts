@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-precio-final',
@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./precio-final.component.sass']
 })
 export class PrecioFinalComponent implements OnInit {
+
+  @Input() precioadulto: number;
+  @Input() preciototal: number;
+  @Input() currency: string;
+  @Input() Lpolicies: string;
 
   constructor() { }
 

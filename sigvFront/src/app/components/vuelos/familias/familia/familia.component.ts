@@ -29,6 +29,28 @@ export class FamiliaComponent implements OnInit {
   classDivNof: string;
   classDivCha: string;
 
+  colorsFare = [
+    "#3D5DBB",
+    "#FF560D",
+    "#E8A40C",
+    "#FFCD0D",
+    "#65E29C",
+    "#71FC86",
+    "#71D7FC",
+    "#9BC53D",
+    "#5F1A37",
+    "#274C77",
+    "#BE95C4",
+    "#8EA604",
+    "#3C1518",
+    "#D90368",
+    "#00CC66",
+    "#4C2C69",
+    "#C33C54"
+  ];
+
+  isCollapsed = true;
+
   constructor() {
     this.classDivInc = 'classDivInc';
     this.classDivNof = 'classDivNof';
@@ -93,8 +115,11 @@ export class FamiliaComponent implements OnInit {
   }
 
   listFareFamilies(fareFamilyId) {
+    const isCollapsed = this.isCollapsed
+    this.isCollapsed = !isCollapsed;
+
     this.lfareFamilies = this.familia.lfareFamilies;
-    $("#" + fareFamilyId).show();
+    //$("#" + fareFamilyId).show();
 
     const flagCountInc = this.flagCountInc;
     const flagCountNof = this.flagCountNof;
@@ -110,14 +135,14 @@ export class FamiliaComponent implements OnInit {
       let heightDivInc = 20 * flagCountInc;
       let heightDivNof = 20 * flagCountNof;
       let heightDivCha = 20 * flagCountCha;
-      if (heightDivInc === 0) {
-        heightDivInc = 30;
+      if (heightDivInc === 0 || flagCountInc === 1) {
+        heightDivInc = 43;
       }
-      if (heightDivNof === 0) {
-        heightDivNof = 30;
+      if (heightDivNof === 0 || flagCountNof === 1) {
+        heightDivNof = 43;
       }
-      if (heightDivCha === 0) {
-        heightDivCha = 30;
+      if (heightDivCha === 0 || flagCountCha === 1) {
+        heightDivCha = 43;
       }
       console.log('heightDivInc: ' + heightDivInc);
       console.log('heightDivNof: ' + heightDivNof);
@@ -132,8 +157,10 @@ export class FamiliaComponent implements OnInit {
   }
 
   hideFareFamilies(fareFamilyId) {
-    this.lfareFamilies = [];
-    $("#" + fareFamilyId).hide();
+    //this.lfareFamilies = [];
+    //$("#" + fareFamilyId).hide();
+    const isCollapsed = this.isCollapsed
+    this.isCollapsed = !isCollapsed;
   }
 
   selectRadioBtnFam($event) {

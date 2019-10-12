@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import {DatepickerRenderOptions} from 'ngx-bootstrap/datepicker/models';
+import {consoleTestResultHandler} from 'tslint/lib/test';
 
 declare var jquery: any;
 declare var $: any;
@@ -83,6 +84,8 @@ export class VuelosComponent implements OnInit {
 
   fechaSalida: string;
   fechaRetorno: string;
+  fechaSalidaShow: string;
+  fechaRetornoShow: string;
 
   fechaSalida1: string;
   fechaSalida2: string;
@@ -91,8 +94,14 @@ export class VuelosComponent implements OnInit {
   fechaSalida5: string;
   fechaSalida6: string;
 
-  //dpSalida: Date;
-  dpRetorno;
+  fechaSalidaShow1: string;
+  fechaSalidaShow2: string;
+  fechaSalidaShow3: string;
+  fechaSalidaShow4: string;
+  fechaSalidaShow5: string;
+  fechaSalidaShow6: string;
+
+  model: any = {};
 
   constructor(
     private airportService: AirportService,
@@ -155,10 +164,12 @@ export class VuelosComponent implements OnInit {
     //console.log("dpSalida: " + this.dpSalida);
 
     let mes = "";
-    if ((value.getMonth() + 1) < 10) {
-      mes = "0" + (value.getMonth() + 1);
+    let getMonth = value.getMonth() + 1;
+    if (getMonth < 10) {
+      getMonth = value.getMonth() + 1;
+      mes = "0" + getMonth;
     } else {
-      mes = "" + value.getMonth();
+      mes = "" + getMonth;
     }
 
     let dia = "";
@@ -169,15 +180,18 @@ export class VuelosComponent implements OnInit {
     }
 
     this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
+    this.fechaSalidaShow = dia + "/" + mes + "/" + value.getFullYear();
     console.log(this.fechaSalida);
   }
 
   onValueChangeRetorno(value: Date): void {
     let mes = "";
-    if ((value.getMonth() + 1) < 10) {
-      mes = "0" + (value.getMonth() + 1);
+    let getMonth = value.getMonth() + 1;
+    if (getMonth < 10) {
+      getMonth = value.getMonth() + 1;
+      mes = "0" + getMonth;
     } else {
-      mes = "" + value.getMonth();
+      mes = "" + getMonth;
     }
 
     let dia = "";
@@ -188,6 +202,7 @@ export class VuelosComponent implements OnInit {
     }
 
     this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
+    this.fechaRetornoShow = dia + "/" + mes + "/" + value.getFullYear();
     console.log(this.fechaRetorno);
   }
 
@@ -272,6 +287,7 @@ export class VuelosComponent implements OnInit {
 
   searchFlight() {
     this.spinner.show();
+    console.log("this.indexTramo: " + this.indexTramo);
     this.flagDinData = false;
 
     let origen: any[] = [];
@@ -395,10 +411,20 @@ export class VuelosComponent implements OnInit {
       horasTo.push("");
     });
 
+    let lUsers_: any[] = [];
+
+    lUsers_.push(
+      {
+        "RoleId": this.loginDataUser.orole.roleId,
+        "CostCenterId": null,
+        "UserId": this.loginDataUser.userId
+      }
+    );
+
     let data = {
-      "UserId": this.loginDataUser.userId,
+      "Lusers": lUsers_,
       "NumberPassengers": this.pasajeros,
-      "NumberRecommendations": "1",
+      "NumberRecommendations": "50",
       "CabinType": this.cabina,
       "Scales": this.escala,
       "Currency": "USD",
@@ -410,41 +436,11 @@ export class VuelosComponent implements OnInit {
       "Ocompany": this.loginDataUser.ocompany
     };
 
-    /*
-    let data = {
-      "UserId": 1,
-      "NumberPassengers": "1",
-      "NumberRecommendations": "250",
-      "CabinType": "",
-      "Scales": "",
-      "Currency": "USD",
-      "Origin":
-        [
-          "LIM",
-          "CUZ"
-        ],
-      "Destination":
-        [
-          "CUZ",
-          "LIM"
-        ],
-      "DepartureArrivalDate":
-        [
-          "2019/11/15",
-          "2019/11/18"
-        ],
-      "DepartureArrivalTimeFrom":
-        [
-          "",
-          ""
-        ],
-      "Ocompany":
-        {
-          "CompanyId": 2,
-          "CompanyName": "CEMENTOS PACASMAYO S.A.A."
-        }
-    };
-    */
+    const flagVal = this.validarDataBusqueda(data);
+    if (!flagVal) {
+      this.spinner.hide();
+      return flagVal;
+    }
 
     console.log("data: " + JSON.stringify(data));
 
@@ -469,6 +465,49 @@ export class VuelosComponent implements OnInit {
         console.log("this.airportService.searchFlight completado");
       }
     );
+  }
+
+  validarDataBusqueda(data) {
+    console.log('this.origentTexto: ' + this.origentTexto);
+    console.log('this.destinoTexto: ' + this.destinoTexto);
+    const tipoVuelo = this.tipoVuelo;
+    const indexTramo = this.indexTramo;
+    let flagVal = true;
+
+    if (tipoVuelo === 'RT') {
+      if ($.trim(this.model.origentTexto) === '') {
+        flagVal = false;
+      }
+      if ($.trim(this.model.destinoTexto) === '') {
+        flagVal = false;
+      }
+      if ($.trim(this.fechaSalida) === '') {
+        flagVal = false;
+      }
+      if ($.trim(this.fechaRetorno) === '') {
+        flagVal = false;
+      }
+    }
+
+    if (tipoVuelo === 'OW') {
+      if ($.trim(this.origentTexto) === '') {
+        flagVal = false;
+      }
+      if ($.trim(this.destinoTexto) === '') {
+        flagVal = false;
+      }
+      if ($.trim(this.fechaSalida) === '') {
+        flagVal = false;
+      }
+    }
+
+    if (tipoVuelo === 'MC') {
+      if (indexTramo >= 2) {}
+    }
+
+    if (data) {}
+
+    return flagVal;
   }
 
   searchFlightBuscador($event) {
@@ -593,6 +632,25 @@ export class VuelosComponent implements OnInit {
   }
   updateFechaSalida6($event) {
     this.fechaSalida6 = $event;
+  }
+
+  updateFechaSalidaShow1($event) {
+    this.fechaSalidaShow1 = $event;
+  }
+  updateFechaSalidaShow2($event) {
+    this.fechaSalidaShow2 = $event;
+  }
+  updateFechaSalidaShow3($event) {
+    this.fechaSalidaShow3 = $event;
+  }
+  updateFechaSalidaShow4($event) {
+    this.fechaSalidaShow4 = $event;
+  }
+  updateFechaSalidaShow5($event) {
+    this.fechaSalidaShow5 = $event;
+  }
+  updateFechaSalidaShow6($event) {
+    this.fechaSalidaShow6 = $event;
   }
 
 }

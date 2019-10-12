@@ -1,106 +1,172 @@
+<div class="" id="recomendationInit" style="width: 100%; height: 30px !important; border: none !important;">
 
-
-<div class="" id="recomendationInit" style="width: 100%; height: 30px !important; border: none !important;"></div>
+</div>
 
 <div class="m-0 p-0 box-shadow-important" style="width: 100%; border-radius:  0 0 20px 0; background-color: #FDFDFD !important;">
 
-  <div class="row m-0 p-0">
+    <div class="row m-0 p-0">
 
-    <div
-      class="col-9 m-0 p-0"
-      style="">
-      <!-- border-right: 1px solid #898989; -->
-
-      <app-recomendacion-section
-        [sectionLength]="lsectionLength"
-        [posicion]="i+1"
-        [recommendationId]="recommendationId"
-        [recommendationIndex]="i+1"
-        [tipoVuelo]="tipoVuelo"
-        (outSegmentCheck)="setearRadioId($event)"
-        [section]="section" *ngFor="let section of lsections; let i=index">
-      </app-recomendacion-section>
-
-    </div>
-
-    <div
-      class="col-3 m-0 p-0 pt-4"
-    >
-      <div class="row m-0 p-0">
-
-        <div class="col-12 m-0 p-0"></div>
-
-        <div class="col-12 m-0 p-0">
-
-          <div class="row m-0 p-0">
-            <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
-              Precio Final
-            </div>
-
-            <div class="col-5 m-0 p-0 text-right">
-              <img *ngIf="lsections[0].lSectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 22px;">
-              <span *ngIf="lpolicies!==null" class="pl-1 r-span-1">●</span>
-              <span *ngIf="lpolicies===null" class="pl-1 r-span-2">●</span>
-            </div>
-
-            <div class="col-1 m-0 p-0"></div>
+      <div *ngIf="flagPseudoRepeat" class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+          <div *ngFor="let pais of lstPseudoRepeat" style="width: 50px" class="m-0 p-0 text-center">
+            <img src="./assets/images/pseudos/{{pais}}" alt="" style="width: 40px;">
           </div>
-
         </div>
+      </div>
 
-        <div class="col-11 m-0 p-0 text-right">
-          <span class="text-currency pr-1" style="color: #6B253C">{{currency}}</span>
-          <span class="text-currency-monto" style="color: #898989">{{totalFareAmount}}</span>
+        <div class="col-9 m-0 p-0" style="">
+            <!-- border-right: 1px solid #898989; -->
+            <app-recomendacion-section [sectionLength]="lsectionLength" [posicion]="i+1" [recommendationId]="recommendationId" [recommendationIndex]="i+1" [tipoVuelo]="tipoVuelo" (outSegmentCheck)="setearRadioId($event)" [section]="section" *ngFor="let section of lsections; let i=index">
+            </app-recomendacion-section>
         </div>
-        <div class="col-1 m-0 p-0"></div>
+        <div class="col-3 m-0 p-0 pt-4">
+            <div class="row m-0 p-0">
 
-        <div class="col-11 m-0 p-0 text-right">
-          <span class="text-per-person pr-4">Precio por adulto</span>
-          <span class="text-currency-2 pr-1" style="color: #6B253C">{{currency}}</span>
-          <span class="text-currency-monto-2">{{fareTaxAmountByPassenger}}</span>
-        </div>
-        <div class="col-1 m-0 p-0"></div>
+                <div class="col-12 m-0 p-0"></div>
 
-        <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 30px !important;">
-          <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId)">
+                <div class="col-12 m-0 p-0">
+
+                    <div class="row m-0 p-0">
+                        <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+                            Precio Final
+                        </div>
+
+                        <div class="col-5 m-0 p-0 text-right">
+                            <img *ngIf="lsections[0].lSectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 22px;">
+                            <span style="cursor: pointer" (click)="openModalPoliticas(modalPolitica)" *ngIf="lpolicies.length>0" class="pl-1 r-span-1">●</span>
+                            <span *ngIf="lpolicies.length===0" class="pl-1 r-span-2">●</span>
+                        </div>
+
+                        <div class="col-1 m-0 p-0"></div>
+                    </div>
+
+                </div>
+
+                <div class="col-11 m-0 p-0 text-right">
+                    <span class="text-currency pr-1" style="color: #6B253C">{{currency}}</span>
+                    <span class="text-currency-monto" style="color: #898989">{{totalFareAmount}}</span>
+                </div>
+                <div class="col-1 m-0 p-0"></div>
+
+                <div class="col-11 m-0 p-0 text-right">
+                    <span class="text-per-person pr-4">Precio por adulto</span>
+                    <span class="text-currency-2 pr-1" style="color: #6B253C">{{currency}}</span>
+                    <span class="text-currency-monto-2">{{fareTaxAmountByPassenger}}</span>
+                </div>
+                <div class="col-1 m-0 p-0"></div>
+
+                <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 30px !important;">
+                    <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId)">
             Ver familias
           </button>
 
-          <ng-template #modalFamilias let-c="close" let-d="dismiss">
+                    <ng-template #modalFamilias let-c="close" let-d="dismiss">
 
-            <div class="modal-header m-0 p-0" style="border: none;">
-              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <div class="modal-header pb-0" style="border: none;">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
               </button>
+                        </div>
+
+                        <div class="modal-body m-0 p-0">
+                            <app-familias *ngIf="flagResultFamilias===1" [lstFamilyResult]="lstFamilyResult" [nroPersonas]="numberPassengers" [currency]="currency"></app-familias>
+
+                            <div *ngIf="flagResultFamilias===0" class="row m-0 p-0">
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+                                    ¡Lo sentimos!
+                                </div>
+
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                                    No hemos encontrado familias disponibles para este vuelo en particular. Por favor, selecciona otras de las opciones.
+                                </div>
+
+                                <div class="col-12 m-0 p-0 pb-4 text-center">
+                                    <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+                                      <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                                      Continuar con mi busqueda
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-template>
+
+                    <ng-template #modalerror let-c="close" let-d="dismiss">
+
+                        <div class="modal-header pb-0" style="border: none;">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                        </div>
+
+                        <div class="modal-body m-0 p-0">
+                            <div class="row m-0 p-0">
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+                                    ¡Lo sentimos!
+                                </div>
+
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                                    No hemos encontrado disponibilidad
+                                </div>
+
+                                <div class="col-12 m-0 p-0 pb-4 text-center">
+                                    <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+                                      <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                                      Continuar con mi busqueda
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-template>
+
+                </div>
+                <div class="col-1 m-0 p-0"></div>
+
+                <div class="col-11 m-0 p-0 text-right r-div-btn-2">
+                    <button class="btn r-btn-2" (click)="getFlightAvailability(recommendationId, modalerror)">
+                      Seleccionar
+                    </button>
+                </div>
+                <div class="col-1 m-0 p-0"></div>
+
+                <div class="col-12 m-0 p-0 pt-2"></div>
+
             </div>
-
-            <div class="modal-body m-0 p-0">
-              <app-familias
-                [lstFamilyResult]="lstFamilyResult"
-                [nroPersonas]="numberPassengers"
-                [currency]="currency"
-              ></app-familias>
-            </div>
-
-          </ng-template>
-
         </div>
-        <div class="col-1 m-0 p-0"></div>
 
-        <div class="col-11 m-0 p-0 text-right r-div-btn-2">
-          <button class="btn r-btn-2">
-            Seleccionar
-          </button>
-        </div>
-        <div class="col-1 m-0 p-0"></div>
-
-        <div class="col-12 m-0 p-0 pt-2"></div>
-
-      </div>
     </div>
-
-  </div>
 
 </div>
 
 <div class="" style="width: 100%; height: 30px !important; border: none !important;"></div>
+
+<ng-template #modalPolitica let-c="close" let-d="dismiss">
+
+  <div class="modal-header pb-0" style="border: none;">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body m-0 p-0">
+
+    <div class="row m-0 p-0 pb-3">
+      <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+        <u>Infracción de Políticas de Viaje</u>
+      </div>
+    </div>
+
+    <div class="row m-0 p-0">
+
+      <app-recomendacion-politicas
+        [politica]="politica"
+        [politicaIndex]="i+1"
+        [politicaslength]="lpolicies.length"
+        *ngFor="let politica of lpolicies; let i=index"></app-recomendacion-politicas>
+
+    </div>
+
+  </div>
+
+</ng-template>

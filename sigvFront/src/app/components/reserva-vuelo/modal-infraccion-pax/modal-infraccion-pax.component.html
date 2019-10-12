@@ -1,1 +1,45 @@
-<p>modal-infraccion-pax works!</p>
+<div class="row m-0 p-0">
+    <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 text-center title-header pb-5">El pasajero está infringiendo las siguientes políticas</div>
+        </div>
+        <div class="row m-0 p-0 text-center" *ngFor="let policie of LPolicies">
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0 pb-3 pl-4 pr-4">
+                    <div class="col-4 div-despolitica">
+                        <span></span>
+                        <span>{{policie.name}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0 pb-3 pl-4 pr-4">
+                    <div class="col-4 div-despolitica" style="display: flex !important;
+                    justify-content: center !important;
+                    align-items: center;">
+                        <span></span>
+                        <span>Infracción</span>
+                    </div>
+                    <div class="col-8 div-politica">
+                        {{policie.message}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0 pb-5 pl-4 pr-4">
+                    <div class="col-4 div-despolitica">
+                        <span></span>
+                        <span>Impacto</span>
+                    </div>
+                    <div class="col-8 div-politica" *ngIf="policie.impact != 0">
+                        <span class="pr-2">{{currency}}</span>
+                        <span>{{policie.impact}}</span>
+                    </div>
+                    <div class="col-8 div-politica" *ngIf="policie.impact === 0">
+                        <span>No hay impacto</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

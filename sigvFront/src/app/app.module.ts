@@ -14,6 +14,7 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale, esLocale } from 'ngx-bootstrap/locale';
 defineLocale('es', esLocale);
 defineLocale('de', deLocale);
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -61,10 +62,16 @@ import { ExVueloSegmentComponent } from './components/vuelos-excepcion-politica/
 import { ExMisVuelosComponent } from './components/vuelos-excepcion-politica/ex-mis-vuelos/ex-mis-vuelos.component';
 import { ExPoliticasInfrigidasComponent } from './components/vuelos-excepcion-politica/ex-politicas-infrigidas/ex-politicas-infrigidas.component';
 import { ExPrecioAdultoComponent } from './components/vuelos-excepcion-politica/ex-precio-adulto/ex-precio-adulto.component';
-import { ReservaGeneradaComponent } from './components/reserva-vuelo/reserva-generada/reserva-generada.component';
-import { AutorizadoresComponent } from './components/reserva-vuelo/reserva-generada/autorizadores/autorizadores.component';
-import { PasajerosComponent } from './components/reserva-vuelo/reserva-generada/pasajeros/pasajeros.component';
-import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/solicitud-aprobacion.component';
+import { InfoRecomendacionComponent } from './components/reserva-vuelo/info-recomendacion/info-recomendacion.component';
+import { FormatearfechaPipe } from './pipes/formatearfecha.pipe';
+import { ModalResumenVueloComponent } from './components/reserva-vuelo/modal-resumen-vuelo/modal-resumen-vuelo.component';
+import { VueloSectionComponent } from './components/reserva-vuelo/vuelo-section/vuelo-section.component';
+import { InfoSegmentComponent } from './components/reserva-vuelo/info-segment/info-segment.component';
+import { InfoSegmentGroupComponent } from './components/reserva-vuelo/info-segment-group/info-segment-group.component';
+import { MultipaisesComponent } from './components/busqueda-global/multipaises/multipaises.component';
+import { MultipaisesPriceComponent } from './components/vuelos/multipaises-price/multipaises-price.component';
+import { AddPaxCentralizadorComponent } from './components/vuelos/add-pax-centralizador/add-pax-centralizador.component';
+import { RecomendacionPoliticasComponent } from './components/busqueda-global/vuelos/recomendacion-politicas/recomendacion-politicas.component';
 
 @NgModule({
   declarations: [
@@ -113,10 +120,16 @@ import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/
     ExMisVuelosComponent,
     ExPoliticasInfrigidasComponent,
     ExPrecioAdultoComponent,
-    ReservaGeneradaComponent,
-    AutorizadoresComponent,
-    PasajerosComponent,
-    SolicitudAprobacionComponent
+    InfoRecomendacionComponent,
+    FormatearfechaPipe,
+    ModalResumenVueloComponent,
+    VueloSectionComponent,
+    InfoSegmentComponent,
+    InfoSegmentGroupComponent,
+    MultipaisesComponent,
+    MultipaisesPriceComponent,
+    AddPaxCentralizadorComponent,
+    RecomendacionPoliticasComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +144,8 @@ import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/
     AutocompleteLibModule,
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    CollapseModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

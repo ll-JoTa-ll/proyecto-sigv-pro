@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { AirportService } from '../../services/airport.service';
 //import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 declare var jquery: any;
 declare var $: any;
@@ -55,6 +56,8 @@ export class LoginComponent implements OnInit {
         if (result != null) {
           this.flagLogin = 1;
           console.log('login result: ' + JSON.stringify(result));
+          let flagAutogestion = false;
+          const companyId = result.ocompany.companyId;
           this.sessionStorageService.store('ss_login_data', result);
           this.token = result.token;
           this.sessionStorageService.store('ss_token', result.token);

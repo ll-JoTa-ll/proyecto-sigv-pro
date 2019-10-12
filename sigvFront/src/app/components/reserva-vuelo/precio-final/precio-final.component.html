@@ -1,1 +1,35 @@
-<p>precio-final works!</p>
+<div class="m-0 p-0 pt-5 pl-2">
+    <div class="col-12 m-0 p-0 contenedor-form">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-6 m-0 p-0 pt-3">
+                        <span class="div-price">Precio Final</span>
+                    </div>
+                    <div class="col-6 m-0 p-0 text-right pt-3 pr-5">
+                        <span class="pr-4"><img src="./assets/images/medalla.svg"></span>
+                        <span *ngIf="Lpolicies.length > 0" class="circulo-politica"></span>
+                        <span *ngIf="Lpolicies.length === 0" class="circulo-politica1"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12 text-right m-0 p-0 pr-5">
+                        <span class="currency">{{currency}}</span>
+                        <span class="price pl-2">{{preciototal}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12 text-right m-0 p-0 pr-5">
+                        <span class="text-precio pr-5">Precio por adulto</span>
+                        <span class="currency1">{{currency}}</span>
+                        <span class="price1 pl-1">{{precioadulto}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

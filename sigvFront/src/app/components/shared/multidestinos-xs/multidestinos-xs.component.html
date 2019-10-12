@@ -2,15 +2,20 @@
 
 
 <div class="col-12 m-0 p-0">
-  Tramo 1
+  <div class="row m-0 p-0">
+    <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+      Tramo 1
+    </div>
+  </div>
 </div>
-<div class="col-12 m-0 p-0">
+<div class="col-12 m-0 p-0 v-texto-2">
   Origen
 </div>
 <div class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="origentTexto1"
       style="color: #898989 !important;"
       [data]="data"
       [searchKeyword]="keyword"
@@ -31,13 +36,14 @@
   </div>
 
 </div>
-<div class="col-12 m-0 p-0">
+<div class="col-12 m-0 p-0 v-texto-2">
   Destino
 </div>
 <div class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="destinoTexto1"
       style="color: #898989 !important;"
       [data]="data2"
       [searchKeyword]="keyword"
@@ -58,7 +64,7 @@
   </div>
 
 </div>
-<div class="col-12 m-0 p-0">
+<div class="col-12 m-0 p-0 v-texto-2">
   Fecha
 </div>
 <div class="col-12 m-0 p-0">
@@ -69,6 +75,7 @@
            (click)="datepickerSalida1.toggle()"
            style="outline: none; border: 0; width: 20% !important; height: 20px;">
     <input type="text"
+           id="datepickerSalida1"
            placeholder="Salida"
            class="p-0 pl-2 v-texto-3"
            style="outline: none; border: 0; width: 80%"
@@ -84,12 +91,19 @@
 
 <hr>
 
-<div class="col-12 m-0 p-0">Tramo 2</div>
-<div class="col-12 m-0 p-0">Origen</div>
+<div class="col-12 m-0 p-0">
+  <div class="row m-0 p-0">
+    <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+      Tramo 2
+    </div>
+  </div>
+</div>
+<div class="col-12 m-0 p-0 v-texto-2">Origen</div>
 <div class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="origentTexto2"
       style="color: #898989 !important;"
       [data]="data3"
       [searchKeyword]="keyword"
@@ -110,11 +124,12 @@
   </div>
 
 </div>
-<div class="col-12 m-0 p-0">Destino</div>
+<div class="col-12 m-0 p-0 v-texto-2">Destino</div>
 <div class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="destinoTexto2"
       style="color: #898989 !important;"
       [data]="data4"
       [searchKeyword]="keyword"
@@ -135,7 +150,7 @@
   </div>
 
 </div>
-<div class="col-12 m-0 p-0">Fecha</div>
+<div class="col-12 m-0 p-0 v-texto-2">Fecha</div>
 <div class="col-12 m-0 p-0">
   <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
@@ -143,6 +158,7 @@
            (click)="datepickerSalida2.toggle()"
            style="outline: none; border: 0; width: 20% !important; height: 20px;">
     <input type="text"
+           id="datepickerSalida2"
            placeholder="Salida"
            class="p-0 pl-2 v-texto-3"
            style="outline: none; border: 0; width: 80%"
@@ -154,14 +170,24 @@
     >
   </label>
 </div>
+<div class="col-12 m-0 p-0">
+  <button *ngIf="!flagTramo3" (click)="agregarTramo(3)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
+</div>
 
 <hr *ngIf="flagTramo3">
-<div *ngIf="flagTramo3" class="col-12 m-0 p-0">Tramo 3</div>
-<div *ngIf="flagTramo3" class="col-12 m-0 p-0">Origen</div>
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0">
+  <div class="row m-0 p-0">
+    <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+      Tramo 3
+    </div>
+  </div>
+</div>
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0 v-texto-2">Origen</div>
 <div *ngIf="flagTramo3" class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="origentTexto3"
       style="color: #898989 !important;"
       [data]="data5"
       [searchKeyword]="keyword"
@@ -182,11 +208,12 @@
   </div>
 
 </div>
-<div *ngIf="flagTramo3" class="col-12 m-0 p-0">Destino</div>
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0 v-texto-2">Destino</div>
 <div *ngIf="flagTramo3" class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="destinoTexto3"
       style="color: #898989 !important;"
       [data]="data6"
       [searchKeyword]="keyword"
@@ -207,7 +234,7 @@
   </div>
 
 </div>
-<div *ngIf="flagTramo3" class="col-12 m-0 p-0">Fecha</div>
+<div *ngIf="flagTramo3" class="col-12 m-0 p-0 v-texto-2">Fecha</div>
 <div *ngIf="flagTramo3" class="col-12 m-0 p-0">
   <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
@@ -215,6 +242,7 @@
            (click)="datepickerSalida3.toggle()"
            style="outline: none; border: 0; width: 20% !important; height: 20px;">
     <input type="text"
+           id="datepickerSalida3"
            placeholder="Salida"
            class="p-0 pl-2 v-texto-3"
            style="outline: none; border: 0; width: 80%"
@@ -226,14 +254,27 @@
     >
   </label>
 </div>
+<div class="col-12 m-0 p-0">
+  <button *ngIf="flagTramo3 && !flagTramo4" (click)="eliminarTramo(3)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
+</div>
+<div class="col-12 m-0 p-0">
+  <button *ngIf="flagTramo3 && !flagTramo4" (click)="agregarTramo(4)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
+</div>
 
 <hr *ngIf="flagTramo4">
-<div *ngIf="flagTramo4" class="col-12 m-0 p-0">Tramo 4</div>
-<div *ngIf="flagTramo4" class="col-12 m-0 p-0">Origen</div>
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0">
+  <div class="row m-0 p-0">
+    <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+      Tramo 4
+    </div>
+  </div>
+</div>
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0 v-texto-2">Origen</div>
 <div *ngIf="flagTramo4" class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="origentTexto4"
       style="color: #898989 !important;"
       [data]="data7"
       [searchKeyword]="keyword"
@@ -254,11 +295,12 @@
   </div>
 
 </div>
-<div *ngIf="flagTramo4" class="col-12 m-0 p-0">Destino</div>
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0 v-texto-2">Destino</div>
 <div *ngIf="flagTramo4" class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="destinoTexto4"
       style="color: #898989 !important;"
       [data]="data8"
       [searchKeyword]="keyword"
@@ -279,7 +321,7 @@
   </div>
 
 </div>
-<div *ngIf="flagTramo4" class="col-12 m-0 p-0">Fecha</div>
+<div *ngIf="flagTramo4" class="col-12 m-0 p-0 v-texto-2">Fecha</div>
 <div *ngIf="flagTramo4" class="col-12 m-0 p-0">
   <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
@@ -287,6 +329,7 @@
            (click)="datepickerSalida4.toggle()"
            style="outline: none; border: 0; width: 20% !important; height: 20px;">
     <input type="text"
+           id="datepickerSalida4"
            placeholder="Salida"
            class="p-0 pl-2 v-texto-3"
            style="outline: none; border: 0; width: 80%"
@@ -298,14 +341,27 @@
     >
   </label>
 </div>
+<div class="col-12 m-0 p-0">
+  <button *ngIf="flagTramo4 && !flagTramo5" (click)="eliminarTramo(4)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
+</div>
+<div class="col-12 m-0 p-0">
+  <button *ngIf="flagTramo4 && !flagTramo5" (click)="agregarTramo(5)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
+</div>
 
 <hr *ngIf="flagTramo5">
-<div *ngIf="flagTramo5" class="col-12 m-0 p-0">Tramo 5</div>
-<div *ngIf="flagTramo5" class="col-12 m-0 p-0">Origen</div>
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0">
+  <div class="row m-0 p-0">
+    <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+      Tramo 5
+    </div>
+  </div>
+</div>
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0 v-texto-2">Origen</div>
 <div *ngIf="flagTramo5" class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="origentTexto5"
       style="color: #898989 !important;"
       [data]="data9"
       [searchKeyword]="keyword"
@@ -326,11 +382,12 @@
   </div>
 
 </div>
-<div *ngIf="flagTramo5" class="col-12 m-0 p-0">Destino</div>
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0 v-texto-2">Destino</div>
 <div *ngIf="flagTramo5" class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="destinoTexto5"
       style="color: #898989 !important;"
       [data]="data10"
       [searchKeyword]="keyword"
@@ -351,7 +408,7 @@
   </div>
 
 </div>
-<div *ngIf="flagTramo5" class="col-12 m-0 p-0">Fecha</div>
+<div *ngIf="flagTramo5" class="col-12 m-0 p-0 v-texto-2">Fecha</div>
 <div *ngIf="flagTramo5" class="col-12 m-0 p-0">
   <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
@@ -359,6 +416,7 @@
            (click)="datepickerSalida5.toggle()"
            style="outline: none; border: 0; width: 20% !important; height: 20px;">
     <input type="text"
+           id="datepickerSalida5"
            placeholder="Salida"
            class="p-0 pl-2 v-texto-3"
            style="outline: none; border: 0; width: 80%"
@@ -370,14 +428,27 @@
     >
   </label>
 </div>
+<div class="col-12 m-0 p-0">
+  <button *ngIf="flagTramo5 && !flagTramo6" (click)="eliminarTramo(5)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
+</div>
+<div class="col-12 m-0 p-0">
+  <button *ngIf="flagTramo5 && !flagTramo6" (click)="agregarTramo(6)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
+</div>
 
 <hr *ngIf="flagTramo6">
-<div *ngIf="flagTramo6" class="col-12 m-0 p-0">Tramo 6</div>
-<div *ngIf="flagTramo6" class="col-12 m-0 p-0">Origen</div>
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0">
+  <div class="row m-0 p-0">
+    <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+      Tramo 6
+    </div>
+  </div>
+</div>
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0 v-texto-2">Origen</div>
 <div *ngIf="flagTramo6" class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="origentTexto6"
       style="color: #898989 !important;"
       [data]="data11"
       [searchKeyword]="keyword"
@@ -398,11 +469,12 @@
   </div>
 
 </div>
-<div *ngIf="flagTramo6" class="col-12 m-0 p-0">Destino</div>
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0 v-texto-2">Destino</div>
 <div *ngIf="flagTramo6" class="col-12 m-0 p-0">
 
-  <div class="ng-autocomplete" style="width: 95%;">
+  <div class="ng-autocomplete" style="width: 100%;">
     <ng-autocomplete
+      [(ngModel)]="destinoTexto6"
       style="color: #898989 !important;"
       [data]="data12"
       [searchKeyword]="keyword"
@@ -423,7 +495,7 @@
   </div>
 
 </div>
-<div *ngIf="flagTramo6" class="col-12 m-0 p-0">Fecha</div>
+<div *ngIf="flagTramo6" class="col-12 m-0 p-0 v-texto-2">Fecha</div>
 <div *ngIf="flagTramo6" class="col-12 m-0 p-0">
   <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
@@ -431,6 +503,7 @@
            (click)="datepickerSalida6.toggle()"
            style="outline: none; border: 0; width: 20% !important; height: 20px;">
     <input type="text"
+           id="datepickerSalida6"
            placeholder="Salida"
            class="p-0 pl-2 v-texto-3"
            style="outline: none; border: 0; width: 80%"
@@ -442,3 +515,8 @@
     >
   </label>
 </div>
+<div class="col-12 m-0 p-0">
+  <button *ngIf="flagTramo6" (click)="eliminarTramo(6)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
+</div>
+
+<div class="col-12 m-0 p-0 pb-3"></div>

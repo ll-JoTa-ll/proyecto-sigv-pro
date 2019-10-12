@@ -1,0 +1,18 @@
+<div class="m-0 p-0 pl-2 pt-5">
+    <div class="col-12 m-0 p-0 contenedor-form">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0">
+                <app-info-vuelo-section [LSection]="LSection" *ngFor="let section of LSection; let i = index" [section]="section" [sectionLength]="LSection.length" [tipoVuelo]="tipovuelo" [posicion]="i + 1"></app-info-vuelo-section>
+            </div>
+        </div>
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 text-center pt-4 pb-4">
+                        <button class="btn btn-regulaciones">Ver Regulaciones</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
