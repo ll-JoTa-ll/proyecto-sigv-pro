@@ -8,6 +8,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class RecomendacionPoliticasComponent implements OnInit {
 
   @Input() politica;
+  @Input() politicaIndex;
+  @Input() politicaslength;
 
   constructor() { }
 

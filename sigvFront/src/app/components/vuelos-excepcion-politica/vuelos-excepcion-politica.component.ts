@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Pruebas } from 'src/app/models/IPruebas.model';
 
 @Component({
   selector: 'app-vuelos-excepcion-politica',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VuelosExcepcionPoliticaComponent implements OnInit {
 
+  
+
+
   constructor() { }
 
   ngOnInit() {
+   
   }
 
 }

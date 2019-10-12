@@ -33,7 +33,7 @@
 
                         <div class="col-5 m-0 p-0 text-right">
                             <img *ngIf="lsections[0].lSectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 22px;">
-                            <span *ngIf="lpolicies.length>0" class="pl-1 r-span-1">●</span>
+                            <span style="cursor: pointer" (click)="openModalPoliticas(modalPolitica)" *ngIf="lpolicies.length>0" class="pl-1 r-span-1">●</span>
                             <span *ngIf="lpolicies.length===0" class="pl-1 r-span-2">●</span>
                         </div>
 
@@ -141,6 +141,32 @@
 
 <div class="" style="width: 100%; height: 30px !important; border: none !important;"></div>
 
-<ng-template>
+<ng-template #modalPolitica let-c="close" let-d="dismiss">
+
+  <div class="modal-header pb-0" style="border: none;">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body m-0 p-0">
+
+    <div class="row m-0 p-0 pb-3">
+      <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+        <u>Infracción de Políticas de Viaje</u>
+      </div>
+    </div>
+
+    <div class="row m-0 p-0">
+
+      <app-recomendacion-politicas
+        [politica]="politica"
+        [politicaIndex]="i+1"
+        [politicaslength]="lpolicies.length"
+        *ngFor="let politica of lpolicies; let i=index"></app-recomendacion-politicas>
+
+    </div>
+
+  </div>
 
 </ng-template>

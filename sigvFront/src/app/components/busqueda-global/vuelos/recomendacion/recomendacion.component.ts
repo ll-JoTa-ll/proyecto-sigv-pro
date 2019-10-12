@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   modalRef: BsModalRef;
+  modalRefPoliticas: BsModalRef;
   config = {
     backdrop: true,
     ignoreBackdropClick: true
@@ -412,6 +413,13 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
+  }
+
+  openModalPoliticas(template) {
+    this.modalRefPoliticas = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray con-politicas' })
+    );
   }
 
 }

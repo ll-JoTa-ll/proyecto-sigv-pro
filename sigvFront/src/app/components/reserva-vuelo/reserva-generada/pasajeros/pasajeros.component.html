@@ -1,0 +1,49 @@
+<div class="m-0 p-0 box-shadow pt-5">
+    <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0">
+            <span class="spanAutorizador">Pasajeros</span>
+        </div>
+        <label class="txtApro pl-5 pt-4">(Las personas en la siguiente lista se encargaran de revisar su solicitud y gestionarla .)</label>
+        <div class="col-12 m-0 p-0">
+            <div *ngFor="let item of listPasajeros" class="row m-0 p-0 pl-5">
+                <div class="col-4 m-0 p-0 pr-3">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pt-3">
+                            <label class="txtDescripcion">Nombres:</label>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 box-shadow">
+                            {{item.nombres}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 m-0 p-0 pr-3">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pt-3">
+                            <label class="txtDescripcion">Apellidos:</label>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 box-shadow">
+                            {{item.apellidos}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 m-0 p-0 pr-3">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pt-3">
+                            <label class="txtDescripcion">Email:</label>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 box-shadow">
+                            {{item.email}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

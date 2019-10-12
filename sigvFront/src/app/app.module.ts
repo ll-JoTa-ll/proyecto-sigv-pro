@@ -61,6 +61,7 @@ import { ExVueloSectionComponent } from './components/vuelos-excepcion-politica/
 import { ExVueloSegmentComponent } from './components/vuelos-excepcion-politica/ex-vuelo-segment/ex-vuelo-segment.component';
 import { ExMisVuelosComponent } from './components/vuelos-excepcion-politica/ex-mis-vuelos/ex-mis-vuelos.component';
 import { ExPoliticasInfrigidasComponent } from './components/vuelos-excepcion-politica/ex-politicas-infrigidas/ex-politicas-infrigidas.component';
+import { ExPrecioAdultoComponent } from './components/vuelos-excepcion-politica/ex-precio-adulto/ex-precio-adulto.component';
 import { InfoRecomendacionComponent } from './components/reserva-vuelo/info-recomendacion/info-recomendacion.component';
 import { FormatearfechaPipe } from './pipes/formatearfecha.pipe';
 import { ModalResumenVueloComponent } from './components/reserva-vuelo/modal-resumen-vuelo/modal-resumen-vuelo.component';
@@ -118,6 +119,7 @@ import { RecomendacionPoliticasComponent } from './components/busqueda-global/vu
     ExVueloSegmentComponent,
     ExMisVuelosComponent,
     ExPoliticasInfrigidasComponent,
+    ExPrecioAdultoComponent,
     InfoRecomendacionComponent,
     FormatearfechaPipe,
     ModalResumenVueloComponent,

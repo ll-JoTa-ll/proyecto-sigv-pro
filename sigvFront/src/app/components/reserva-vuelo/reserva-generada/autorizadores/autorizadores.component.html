@@ -1,0 +1,60 @@
+<div class="m-0 p-0 box-shadow pt-5">
+    <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0">
+            <span class="spanAutorizador">Autorizadores</span>
+        </div>
+        <label class="txtApro pl-5 pt-4">(Las personas en la siguiente lista se encargaran de revisar su solicitud y gestionarla .)</label>
+        <div class="col-12 m-0 p-0">
+            <div *ngFor="let item of listUsers" class="row m-0 p-0 pl-5">
+                <div class="col-3 m-0 p-0 pr-3">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pt-3">
+                            <label class="txtDescripcion">Nombre:</label>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 box-shadow">
+                            {{item.nombre}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 m-0 p-0 pr-3">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pt-3">
+                            <label class="txtDescripcion">Centro de costos:</label>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 box-shadow">
+                            {{item.centroCosto}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 m-0 p-0 pr-3">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pt-3">
+                            <label class="txtDescripcion">Telefono:</label>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 box-shadow">
+                            {{item.telefono}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 m-0 p-0">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pt-3">
+                            <label class="txtDescripcion">Email:</label>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pr-4">
+                            <input class="txtInput m-0 p-0" type="text" [(ngModel)]="item.email">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
