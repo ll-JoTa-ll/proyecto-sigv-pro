@@ -101,6 +101,8 @@ export class VuelosComponent implements OnInit {
   fechaSalidaShow5: string;
   fechaSalidaShow6: string;
 
+  flagCentralizador: boolean;
+
   model: any = {};
 
   constructor(
@@ -133,6 +135,8 @@ export class VuelosComponent implements OnInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     this.token = this.sessionStorageService.retrieve('ss_token');
+    this.flagCentralizador = this.sessionStorageService.retrieve('ss_flagCentralizador');
+    console.log('this.flagCentralizador: ' + this.flagCentralizador);
     console.log(this.locales);
     this.localeService.use(this.locale);
   }
