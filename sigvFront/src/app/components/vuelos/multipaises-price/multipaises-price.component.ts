@@ -13,6 +13,8 @@ export class MultipaisesPriceComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('priceByPseudo: ' + JSON.stringify(this.priceByPseudo));
+    console.log('currency: ' + this.currency);
     const priceByPseudo = this.priceByPseudo;
     priceByPseudo.forEach(function(price) {
       price.pseudo = price.pseudo + '.png';

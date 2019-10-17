@@ -30,7 +30,7 @@
 
                   <div class="col-5 m-0 p-0 d-flex justify-content-center align-items-center">
                     <label class="m-0 p-0">
-                      <input (click)="seleccionarTipoBusqueda('N')" type="radio" name="name_pax">
+                      <input (click)="seleccionarTipoBusqueda('N')" type="radio" name="name_pax" checked>
                       <span class="pl-1">Nombre/Apellido</span>
                     </label>
                   </div>
@@ -221,6 +221,16 @@
 
   <div class="col-2 m-0 p-0"></div>
 
+</div>
+
+<div class="row m-0 p-0 pb-5">
+  <div class="col-2 m-0 p-0"></div>
+  <div class="col-8 m-0 p-0 text-center">
+    <button class="btn apc-btn-continuar" [disabled]="lstPasajeros.length===0" (click)="continuar()">
+      Continuar
+    </button>
+  </div>
+  <div class="col-2 m-0 p-0"></div>
 </div>
 
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>

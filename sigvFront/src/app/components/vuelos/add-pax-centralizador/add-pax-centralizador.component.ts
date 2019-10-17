@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserCompanyService } from '../../../services/user-company.service';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IUserCompanyModel } from '../../../models/IUserCompany.model';
+import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-pax-centralizador',
@@ -11,20 +13,26 @@ import { IUserCompanyModel } from '../../../models/IUserCompany.model';
 })
 export class AddPaxCentralizadorComponent implements OnInit {
 
+  @Output() flagCentralizado = new EventEmitter<boolean>();
+
   tipoBusqueda: string;
   nombreText: string;
   documentoText: string;
   companyId;
   lstPerson: IUserCompanyModel[] = [];
   lstPasajeros: IUserCompanyModel[] = [];
+  maxPax: number;
 
   constructor(
     private userCompanyService: UserCompanyService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router: Router
   ) {
+    this.sessionStorageService.store('ss_lstPasajeros', this.lstPasajeros);
     this.companyId = this.sessionStorageService.retrieve('ss_companyId');
+    this.maxPax = environment.max_pax;
   }
 
   ngOnInit() {
@@ -61,8 +69,12 @@ export class AddPaxCentralizadorComponent implements OnInit {
   }
 
   agregarPasajero(person) {
+    const maxPax = this.maxPax;
     let flagVal = 0;
     let lstPasajeros = this.lstPasajeros;
+    if (lstPasajeros.length === maxPax) {
+      return false;
+    }
     lstPasajeros.forEach(function(item) {
       if (item.userId === person.userId) {
         flagVal = 1;
@@ -88,6 +100,11 @@ export class AddPaxCentralizadorComponent implements OnInit {
     lstPasajeros.splice(flagIndex, 1);
 
     this.lstPasajeros = lstPasajeros;
+  }
+
+  continuar() {
+    this.sessionStorageService.store('ss_lstPasajeros', this.lstPasajeros);
+    this.flagCentralizado.emit(false);
   }
 
 }

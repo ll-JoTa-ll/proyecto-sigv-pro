@@ -1,7 +1,7 @@
 <ng-container *ngIf="flagCentralizador">
     <app-header>
 
-        <app-add-pax-centralizador></app-add-pax-centralizador>
+        <app-add-pax-centralizador (flagCentralizado)="updateCentralizador($event)"></app-add-pax-centralizador>
 
     </app-header>
 </ng-container>
@@ -244,21 +244,22 @@
                             </div>
 
                             <div class="m-0 p-0 d-flex align-items-center justify-content-center" style="width: 65%; padding: 6px !important;">
-
-                                <label for="" style="padding: 0px; margin: 0px;" class=" d-inline-flex justify-content-center align-items-center box-shadow">
-                        <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
-                        <input type="text" class="text-center v-texto-3" style="width: 60px; outline: none; border: 0" [value]="pasajeros">
-                        <span
-                          class="text-center"
-                          (click)="pasajeroOperacion(false)"
-                          style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-right-style: solid; border-right-color: white">
-                    -</span>
-                        <span
-                          class="text-center"
-                          (click)="pasajeroOperacion(true)"
-                          style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-radius: 0 10px 10px 0"
-                        >+</span>
-                      </label>
+                              <label for="" style="padding: 0px; margin: 0px;" class=" d-inline-flex justify-content-center align-items-center box-shadow">
+                                <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
+                                <input readonly type="text" class="text-center v-texto-3" style="width: 60px; outline: none; border: 0" [value]="pasajeros">
+                                <span
+                                *ngIf="flagPaxMasMenos"
+                                class="text-center"
+                                (click)="pasajeroOperacion(false)"
+                                style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-right-style: solid; border-right-color: white">
+                                -</span>
+                                <span
+                                *ngIf="flagPaxMasMenos"
+                                class="text-center"
+                                (click)="pasajeroOperacion(true)"
+                                style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-radius: 0 10px 10px 0"
+                                >+</span>
+                              </label>
 
                             </div>
 
@@ -320,19 +321,19 @@
 
                 <div class="col-3 m-0 p-0 pr-3 pl-5">
 
-                    <app-buscador [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto" [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros"
+                    <app-buscador [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto" [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros"
                         [fechaSalida]="fechaSalida" [fechaRetorno]="fechaRetorno" [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2"
                         [fechaSalida3]="fechaSalida3" [fechaSalida4]="fechaSalida4" [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3"
                         [fechaSalidaShow4]="fechaSalidaShow4" [fechaSalidaShow5]="fechaSalidaShow5" [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5"
                         [origenAuto6]="origenAuto6" [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2" [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1"
                         [destinoAuto2]="destinoAuto2" [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3"
-                        [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)"></app-buscador>
+                        [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)"></app-buscador>
 
                 </div>
 
-                <div class="col-9 m-0 p-0 pr-5">
+                <div class="col-9 m-0 p-0 pr-5" *ngIf="inicioBuscador">
 
-                    <div class="row m-0 p-0" *ngIf="searchData[0].pseudoRepeat !== null">
+                    <div class="row m-0 p-0" *ngIf="searchData[0].pseudoRepeat !== null && flagPseudoRepeat">
                         <div class="col-12 m-0 p-0">
                             <app-multipaises-price [currency]="searchData[0].currency" [priceByPseudo]="searchData[0].priceByPseudo"></app-multipaises-price>
                         </div>

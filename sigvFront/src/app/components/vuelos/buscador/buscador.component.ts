@@ -73,7 +73,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   @Input() inIndexTramo;
 
+  @Input() flagPaxMasMenos;
+
   @Output() lRecomendaciones = new EventEmitter<ISearchFlightModel[]>();
+  @Output() inicioBuscar = new EventEmitter<boolean>();
 
   airportlist: any[] = [];
   airportlistFilter: any[] = [];
@@ -344,6 +347,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   searchFlight() {
     this.spinner.show();
+    this.inicioBuscar.emit(false);
 
     let origen: any[] = [];
     let destino: any[] = [];
@@ -466,13 +470,39 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       horasTo.push("");
     });
 
+    let lUsers_: any[] = [];
+
+    const lstPasajeros = this.sessionStorageService.retrieve('ss_lstPasajeros');
+    if (lstPasajeros != null) {
+      if (lstPasajeros.length > 0) {
+        lstPasajeros.forEach(function(item, index) {
+          console.log('item_pax: ' + JSON.stringify(item))
+          const pax = {
+            "RoleId": item.orole.id,
+            "CostCenterId": null,
+            "UserId": item.userId
+          };
+          lUsers_.push(pax);
+        });
+      }
+    } else {
+      lUsers_.push(
+        {
+          "RoleId": this.loginDataUser.orole.roleId,
+          "CostCenterId": null,
+          "UserId": this.loginDataUser.userId
+        }
+      );
+    }
+
+    console.log('lUsers_: ' + JSON.stringify(lUsers_));
+
     let data = {
-      "UserId": this.loginDataUser.userId,
+      "Lusers": lUsers_,
       "NumberPassengers": this.pasajeros,
       "NumberRecommendations": "50",
       "CabinType": this.cabina,
       "Scales": this.escala,
-      "Currency": "USD",
       "Origin": origen,
       "Destination": destino,
       "DepartureArrivalDate": fechas,

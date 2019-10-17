@@ -12,7 +12,7 @@ import {VuelosExcepcionPoliticaComponent} from './components/vuelos-excepcion-po
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
-  { path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
+  //{ path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
   { path: 'home', component: BusquedaGlobalComponent, runGuardsAndResolvers: 'always' },
   { path: 'vuelos', component: VuelosComponent, runGuardsAndResolvers: 'always' },
   { path: 'hoteles', component: HotelesComponent, runGuardsAndResolvers: 'always' },
