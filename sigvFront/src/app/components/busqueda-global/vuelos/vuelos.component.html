@@ -339,7 +339,13 @@
                         </div>
                     </div>
 
-                    <app-recomendacion *ngFor="let recomendacion of searchData" [currency]="recomendacion.currency" [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount" [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
+                  <div class="row m-0 p-0 pt-5">
+                    <div class="col-12 m-0 p-0">
+                      <app-filtro-superior [tipoEscala]="escala" (searchFilter)="busquedaFiltros($event)"></app-filtro-superior>
+                    </div>
+                  </div>
+
+                    <app-recomendacion *ngFor="let recomendacion of searchData" [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency" [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount" [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
                         [taxAmountByPassenger]="recomendacion.taxAmountByPassenger" [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger" [carrierId]="recomendacion.carrierId" [numberPassengers]="recomendacion.numberPassengers" [pseudo]="recomendacion.pseudo"
                         [gds]="recomendacion.gds" [lsections]="recomendacion.lsections" [lsectionLength]="recomendacion.lsections.length" [lpolicies]="recomendacion.lpolicies" [recommendationId]="recomendacion.recommendationId" [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.pseudoRepeat">
                     </app-recomendacion>

@@ -72,6 +72,7 @@ import { MultipaisesComponent } from './components/busqueda-global/multipaises/m
 import { MultipaisesPriceComponent } from './components/vuelos/multipaises-price/multipaises-price.component';
 import { AddPaxCentralizadorComponent } from './components/vuelos/add-pax-centralizador/add-pax-centralizador.component';
 import { RecomendacionPoliticasComponent } from './components/busqueda-global/vuelos/recomendacion-politicas/recomendacion-politicas.component';
+import { FiltroSuperiorComponent } from './components/vuelos/filtro-superior/filtro-superior.component';
 
 @NgModule({
   declarations: [
@@ -129,7 +130,8 @@ import { RecomendacionPoliticasComponent } from './components/busqueda-global/vu
     MultipaisesComponent,
     MultipaisesPriceComponent,
     AddPaxCentralizadorComponent,
-    RecomendacionPoliticasComponent
+    RecomendacionPoliticasComponent,
+    FiltroSuperiorComponent
   ],
   imports: [
     BrowserModule,

@@ -704,4 +704,13 @@ export class VuelosComponent implements OnInit {
     //this.searchData = [];
   }
 
+  busquedaFiltros($event) {
+    this.searchData = [];
+    this.searchData = $event;
+    const spinner = this.spinner;
+    setTimeout(function() {
+      spinner.hide();
+    }, 500);
+  }
+
 }

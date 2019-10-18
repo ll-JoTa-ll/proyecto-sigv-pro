@@ -16,4 +16,5 @@ export interface ISearchFlightModel {
   lsections;
   lpolicies;
   gds;
+  isVisible;
 }
