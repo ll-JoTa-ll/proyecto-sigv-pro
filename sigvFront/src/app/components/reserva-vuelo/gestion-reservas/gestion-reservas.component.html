@@ -1,0 +1,79 @@
+<ng-container>
+    <app-header>
+
+        <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0"></div>
+            <div class="col-8 m-0 p-0">
+                <div class="row m-0 p-0 pt-5 pb-3">
+                    <div class="col-12 m-0 p-0 txt-titulo">
+                        Gestión de reservas
+                    </div>
+                </div>
+                <div class="row m-0 p-0">
+
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container">
+                                    <input type="radio" checked name="radio"> Pendientes
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container">
+                                    <input type="radio"> Aprobados
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container">
+                                    <input type="radio"> Todos
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                    <div class="col-2 m-0 p-0">
+                        <button class="btn btn-buscar">Buscar</button>
+                    </div>
+
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-2 m-0 p-0"></div>
+                </div>
+                <div class="row m-0 p-0 pt-5">
+                    <div class="col-12 m-0 p-0">
+                        <table class="table-reservas">
+                            <thead class="cabecera-tabla">
+                                <tr>
+                                    <th>Fecha de Creación</th>
+                                    <th>Reserva</th>
+                                    <th>Expira</th>
+                                    <th>#Aprobadores</th>
+                                    <th>Ruta</th>
+                                    <th>Solicitante</th>
+                                    <th>Estado</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="body-table">
+                                <tr>
+                                    <td>21/08/2019</td>
+                                    <td>NRDFDSWS</td>
+                                    <td>21/10/2019</td>
+                                    <td>3</td>
+                                    <td>LIMA-NYC-LIMA</td>
+                                    <td>Bertol Franco</td>
+                                    <td>Pendiente</td>
+                                    <td><img src="assets/images/time-left.svg"></td>
+                                    <td style="color: #176FC7;">Gestionar <i class="fas fa-chevron-right"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 m-0 p-0"></div>
+        </div>
+
+    </app-header>
+</ng-container>

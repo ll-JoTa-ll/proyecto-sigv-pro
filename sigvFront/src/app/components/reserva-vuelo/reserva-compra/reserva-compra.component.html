@@ -1,0 +1,81 @@
+<ng-container>
+    <app-header>
+        <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0">
+
+            </div>
+            <div class="col-8 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="back col-12 m-0 p-0 pb-1 pt-4">
+                        Volver atras</div>
+                </div>
+                <p *ngIf="LPolicies.length > 0 && lsapprover.length === 0" class="txtSolicitud m-0 p-0 pb-3">Solicitud de excepción de politica</p>
+                <p *ngIf="LPolicies.length === 0 && lsapprover.length > 0" class="txtSolicitud m-0 p-0 pb-3">Solicitud de aprobacion</p>
+                <p *ngIf="LPolicies.length === 0 && lsapprover.length === 0" class="txtSolicitud m-0 p-0 pb-3">Confirme su vuelo</p>
+                <p *ngIf="LPolicies.length > 0 && lsapprover.length > 0" class="txtSolicitud m-0 p-0 pb-3">Solicitud de aprobación y excepcion de políticas</p>
+            </div>
+            <div class="col-2 m-0 p-0">
+
+            </div>
+        </div>
+
+        <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0">
+            </div>
+            <div class="col-8 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-8 m-0 p-0">
+                        <span class="pb-3"> <span><img class="img-plane" src="assets/images/airplane_ida.svg"></span><span class="trip pl-2">Mi vuelo</span></span>
+                        <app-vuelo-section [tipo]="1" *ngFor="let section of Lsection" [section]="section"></app-vuelo-section>
+
+                        <app-ex-politicas-infrigidas [lsapprovers]="lsapprover" [Currency]="currency" [LPolicies]="LPolicies" *ngIf="LPolicies.length > 0">
+
+                        </app-ex-politicas-infrigidas>
+                        <div class="col-12 m-0 p-0 pt-4 pb-4">
+                            <div class="row m-0 p-0" *ngIf="lsapprover.length > 0">
+                                <div class="col-12 m-0 p-0">
+                                    <div class="row m-0 p-0">
+                                        <div *ngIf="LPolicies.length > 0" class="col-12 m-0 p-0 pr-5 text-center">
+                                            <button class="btn btnEnviar" (click)="AddPassenger()">Enviar Solicitud</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-0 p-0" *ngIf="lsapprover.length === 0 && LPolicies.length === 0 || lsapprover.length === 0 && LPolicies.length > 0">
+                                <div class="col-6 m-0 p-0">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-12 m-0 p-0 pr-5 text-right">
+                                            <button class="btn btnEnviar" (click)="AddPassenger()">Reservar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 m-0 p-0">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-12 m-0 p-0 pl-5">
+                                            <button class="btn btnEmitir" (click)="Emitir()">Emitir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-4 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                            </div>
+                        </div>
+                        <app-precio-final [tipo]="2" [Lpolicies]="LPolicies" [currency]="lsflightavailability.currency" [precioadulto]="lsflightavailability.fareAmountByPassenger" [preciototal]="lsflightavailability.totalFareAmount"></app-precio-final>
+                        <app-resumen-pasajero [lsusers]="lsusuario"></app-resumen-pasajero>
+                        <app-resumen-equipaje [Lsection]="Lsection"></app-resumen-equipaje>
+                        <!-- <app-resumen-regulaciones></app-resumen-regulaciones> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 m-0 p-0">
+
+            </div>
+        </div>
+
+    </app-header>
+</ng-container>

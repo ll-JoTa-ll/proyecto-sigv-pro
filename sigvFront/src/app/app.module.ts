@@ -72,6 +72,15 @@ import { MultipaisesComponent } from './components/busqueda-global/multipaises/m
 import { MultipaisesPriceComponent } from './components/vuelos/multipaises-price/multipaises-price.component';
 import { AddPaxCentralizadorComponent } from './components/vuelos/add-pax-centralizador/add-pax-centralizador.component';
 import { RecomendacionPoliticasComponent } from './components/busqueda-global/vuelos/recomendacion-politicas/recomendacion-politicas.component';
+import { ReservaCompraComponent } from './components/reserva-vuelo/reserva-compra/reserva-compra.component';
+import { ResumenPasajeroComponent } from './components/reserva-vuelo/resumen-pasajero/resumen-pasajero.component';
+import { ResumenEquipajeComponent } from './components/reserva-vuelo/resumen-equipaje/resumen-equipaje.component';
+import { ResumenRegulacionesComponent } from './components/reserva-vuelo/resumen-regulaciones/resumen-regulaciones.component';
+import { ReservaGeneradaComponent } from './components/reserva-vuelo/reserva-generada/reserva-generada.component';
+import { AutorizadoresComponent } from './components/reserva-vuelo/reserva-generada/autorizadores/autorizadores.component';
+import { PasajerosComponent } from './components/reserva-vuelo/reserva-generada/pasajeros/pasajeros.component';
+import { GestionReservasComponent } from './components/reserva-vuelo/gestion-reservas/gestion-reservas.component';
+import { ReservaTicketComponent } from './components/reserva-vuelo/reserva-ticket/reserva-ticket.component';
 
 @NgModule({
   declarations: [
@@ -129,7 +138,16 @@ import { RecomendacionPoliticasComponent } from './components/busqueda-global/vu
     MultipaisesComponent,
     MultipaisesPriceComponent,
     AddPaxCentralizadorComponent,
-    RecomendacionPoliticasComponent
+    RecomendacionPoliticasComponent,
+    ReservaCompraComponent,
+    ResumenPasajeroComponent,
+    ResumenEquipajeComponent,
+    ResumenRegulacionesComponent,
+    ReservaGeneradaComponent,
+    AutorizadoresComponent,
+    PasajerosComponent,
+    GestionReservasComponent,
+    ReservaTicketComponent
   ],
   imports: [
     BrowserModule,

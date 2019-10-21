@@ -3,38 +3,44 @@
         <div class="col-12 m-0 p-0 pt-4">
             <div class="row m-0 p-0 box-shadow pt-4 pb-5">
                 <span class="txtPoliticas">Politicas Infringidas</span>
-                <div class="txtDias col-12 m-0 p-0 pb-1 pt-4 pr-2">
-                    <img class="m-0 p-0 pl-5" src="assets/images/calendario.svg"><label class="txtDias m-0 p-0 pl-3">Dias de Anticipación</label>
-                </div>
-                <div class="col-12 m-0 p-0">
-                    <div class="row m-0 p-0">
 
-                        <div class="txtInfraccion col-8 m-0 p-0 pt-4 pb-3 pl-5">Infraccion</div>
-                        <div class="txtInfraccion col-4 m-0 p-0 pt-4 pb-3">Impacto</div>
+                <div class="row m-0 p-0" *ngFor="let item of LPolicies">
+                    <div class="txtDias col-12 m-0 p-0 pb-1 pt-4 pr-2">
+                        <img class="m-0 p-0 pl-5" src="assets/images/calendario.svg"><label class="txtDias m-0 p-0 pl-3">{{item.name}}</label>
                     </div>
-                </div>
-                <div class="col-12 m-0 p-0">
-                    <div class="row m-0 p-0">
-                        <div class="col-8 m-0 p-0 pr-4 pb-1 pl-5">
-                            <div class="row m-0 p-0 box-shadow pr-5 pl-2">
-                                <div class="txtDescripcion col-12 m-0 p-0 pt-3 pb-3 pl-3">
-                                    La política de días de anticipación no cumple con los [20] días nacionales establecidos. De haber comprado con la debida anticipación, el pasaje le hubiera costado [76.03]. El impacto es de USD$ [54.28]
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+
+                            <div class="txtInfraccion col-8 m-0 p-0 pt-4 pb-3 pl-5">Infraccion</div>
+                            <div class="txtInfraccion col-4 m-0 p-0 pt-4 pb-3">Impacto</div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-8 m-0 p-0 pr-4 pb-1 pl-5">
+                                <div class="row m-0 p-0 box-shadow pr-5 pl-2">
+                                    <div class="txtDescripcion col-12 m-0 p-0 pt-3 pb-3 pl-3">
+                                        {{item.message}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4 m-0 p-0 pr-5">
+                                <div class="row m-0 p-0 box-shadow">
+                                    <div class="txtImpacto col-12 m-0 p-0 pb-4 pt-4 text-center" *ngIf="item.impact != 0">
+                                        <span class="txtCurrency m-0 p-0">
+                                                                   {{Currency}}
+                                                                </span>
+                                        <span class="txtAmount m-0 p-0">{{item.impact}}</span>
+                                    </div>
+                                    <div class="txtImpacto col-12 m-0 p-0 pb-4 pt-4 text-center" *ngIf="item.impact === 0">
+                                        No hay impacto
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 m-0 p-0 pr-5">
-                            <div class="row m-0 p-0 box-shadow">
-                                <div class="txtImpacto col-12 m-0 p-0 pl-4 pb-4 pt-5">
-                                    <span class="txtCurrency m-0 p-0">
-                                                       USD$
-                                                    </span>
-                                    <span class="txtAmount m-0 p-0 pt-3">100.00</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-
+                <!--
                 <div class="col-12 m-0 p-0">
                     <div class="row m-0 p-0">
                         <div class="col-6 m-0 p-0 pr-5 pl-5">
@@ -63,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-
+-->
                 <div class="row m-0 p-0">
                     <div class="col-12 m-0 p-0 pt-5">
                         <span class="spanAutorizador">Autorizadores</span>
@@ -71,52 +77,40 @@
                     <label class="txtApro pl-5 pt-4">(Las personas en la siguiente lista se encargaran de revisar su solicitud y gestionarla .)</label>
                 </div>
                 <div class="col-12 m-0 p-0">
-                    <div *ngFor="let item of listUsers" class="row m-0 p-0 pl-5">
-                        <div class="col-3 m-0 p-0 pr-3">
+                    <div *ngFor="let item of lsapprovers" class="row m-0 p-0 pl-5">
+                        <div class="col-4 m-0 p-0 pr-3">
                             <div class="row m-0 p-0">
                                 <div class="col-12 m-0 p-0 pt-3">
                                     <label class="txtDescripcion">Nombre:</label>
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
-                                <div class="col-12 m-0 p-0 box-shadow">
-                                    {{item.nombre}}
+                                <div class="col-12 m-0 p-0 box-shadow input-pasajero text-center">
+                                    {{item.firstName}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3 m-0 p-0 pr-3">
+                        <div class="col-4 m-0 p-0 pr-3">
                             <div class="row m-0 p-0">
                                 <div class="col-12 m-0 p-0 pt-3">
-                                    <label class="txtDescripcion">Centro de costos:</label>
+                                    <label class="txtDescripcion">Apellidos:</label>
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
-                                <div class="col-12 m-0 p-0 box-shadow">
-                                    {{item.centroCosto}}
+                                <div class="col-12 m-0 p-0 box-shadow input-pasajero text-center">
+                                    {{item.lastName}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3 m-0 p-0 pr-3">
-                            <div class="row m-0 p-0">
-                                <div class="col-12 m-0 p-0 pt-3">
-                                    <label class="txtDescripcion">Telefono:</label>
-                                </div>
-                            </div>
-                            <div class="row m-0 p-0">
-                                <div class="col-12 m-0 p-0 box-shadow">
-                                    {{item.telefono}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3 m-0 p-0">
+                        <div class="col-4 m-0 p-0">
                             <div class="row m-0 p-0">
                                 <div class="col-12 m-0 p-0 pt-3">
                                     <label class="txtDescripcion">Email:</label>
                                 </div>
                             </div>
                             <div class="row m-0 p-0">
-                                <div class="col-12 m-0 p-0 pr-4">
-                                    <input class="txtInput m-0 p-0" type="text" [(ngModel)]="item.email">
+                                <div class="col-12 m-0 p-0 pr-4 box-shadow input-pasajero text-center">
+                                    {{item.email}}
                                 </div>
                             </div>
                         </div>
@@ -125,39 +119,5 @@
 
             </div>
         </div>
-
-
-
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0 p-0 pt-4 pl-5">
-                <div class="row m-0 p-0">
-                    <div class="col-12 m-0 p-0 pb-5">
-                        <img src="assets/images/time.svg">
-                        <label class="txtAnti m-0 p-0 pl-2">Días de Anticipación</label>
-                        <label class="txtApro m-0 p-0">El aprobador solo tendra 2h para aprobar su vuelo. Una vez pasado el tiempo, el vuelo será cancelado y deberá generar nuevamente la solicitud.</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-                <div class="col-6 m-0 p-0">
-                    <div class="row m-0 p-0">
-                        <div class="col-12 m-0 p-0 pr-5 text-right">
-                            <button class="btn btnEnviar">Re enviar Solicitud</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 m-0 p-0">
-                    <div class="row m-0 p-0">
-                        <div class="col-12 m-0 p-0 pl-5">
-                            <button class="btn btnVolver">Volver</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 </div>

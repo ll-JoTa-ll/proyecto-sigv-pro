@@ -9,6 +9,9 @@ import { PaquetesComponent } from './components/busqueda-global/paquetes/paquete
 import { SegurosComponent } from './components/busqueda-global/seguros/seguros.component';
 import { ReservaVueloComponent } from './components/reserva-vuelo/reserva-vuelo.component';
 import {VuelosExcepcionPoliticaComponent} from './components/vuelos-excepcion-politica/vuelos-excepcion-politica.component';
+import { ReservaCompraComponent } from './components/reserva-vuelo/reserva-compra/reserva-compra.component';
+import { ReservaGeneradaComponent } from './components/reserva-vuelo/reserva-generada/reserva-generada.component';
+import { ReservaTicketComponent } from './components/reserva-vuelo/reserva-ticket/reserva-ticket.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -20,7 +23,10 @@ const routes: Routes = [
   { path: 'paquetes', component: PaquetesComponent, runGuardsAndResolvers: 'always' },
   { path: 'seguros', component: SegurosComponent, runGuardsAndResolvers: 'always' },
   { path: 'reserva-vuelo', component: ReservaVueloComponent, runGuardsAndResolvers: 'always' },
-  { path: 'excepcion-vuelo', component: VuelosExcepcionPoliticaComponent, runGuardsAndResolvers: 'always' }
+  { path: 'excepcion-vuelo', component: VuelosExcepcionPoliticaComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reserva-vuelo-compra', component: ReservaCompraComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reserva-generada', component: ReservaGeneradaComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reserva-ticket', component: ReservaTicketComponent, runGuardsAndResolvers: 'always' },
 ];
 
 @NgModule({

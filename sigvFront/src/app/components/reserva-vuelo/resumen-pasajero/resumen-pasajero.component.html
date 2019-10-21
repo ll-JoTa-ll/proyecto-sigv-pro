@@ -1,0 +1,23 @@
+<div class="m-0 p-0 pl-4 pt-5">
+    <div class="col-12 m-0 p-0 box-shadow">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 txt-pasajero text-center pb-3 pt-2">
+                PASAJEROS
+            </div>
+        </div>
+        <div class="row m-0 p-0 pt-3 pb-3">
+            <div class="col-12 m-0 p-0 pl-3" *ngFor="let item of lsusers">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 lbl-nombre pb-2">
+                        Nombre Pasajero:
+                    </div>
+                </div>
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 txt-nombre">
+                        {{item.Name}} {{item.LastName}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

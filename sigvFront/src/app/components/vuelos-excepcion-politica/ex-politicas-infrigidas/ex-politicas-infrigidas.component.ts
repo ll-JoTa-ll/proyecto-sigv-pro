@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Pruebas } from 'src/app/models/IPruebas.model';
+import { IGetApprovers } from '../../../models/IGetApprovers.model';
 
 @Component({
   selector: 'app-ex-politicas-infrigidas',
@@ -9,6 +10,10 @@ import { Pruebas } from 'src/app/models/IPruebas.model';
 export class ExPoliticasInfrigidasComponent implements OnInit {
 
   listUsers: Pruebas[] = [];
+  @Input() LPolicies;
+  @Input() Currency;
+  @Input() lsapprovers: IGetApprovers[];
+
 
   constructor() { }
 
@@ -18,43 +23,7 @@ export class ExPoliticasInfrigidasComponent implements OnInit {
       centroCosto: "lelele",
       telefono: "lilili",
       email: "lololo@gmail.com"
-    },
-    {
-      nombre: "lala",
-      centroCosto: "lele",
-      telefono: "lili",
-      email: "lolo@gmail.com"
-    },
-    {
-      nombre: "lala",
-      centroCosto: "lele",
-      telefono: "lili",
-      email: "lolo@gmail.com"
-    },
-    {
-      nombre: "lala",
-      centroCosto: "lele",
-      telefono: "lili",
-      email: "lolo@gmail.com"
-    },
-    {
-      nombre: "lala",
-      centroCosto: "lele",
-      telefono: "lili",
-      email: "lolo@gmail.com"
-    },
-    {
-      nombre: "lala",
-      centroCosto: "lele",
-      telefono: "lili",
-      email: "lolo@gmail.com"
-    },
-    {
-      nombre: "lala",
-      centroCosto: "lele",
-      telefono: "lili",
-      email: "lolo@gmail.com"
-    }]
+    }];
   }
 
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { Pruebas } from '../../../../models/IPruebas.model';
+import { IGetApprovers } from '../../../../models/IGetApprovers.model';
 
 @Component({
   selector: 'app-autorizadores',
@@ -8,23 +9,12 @@ import { Pruebas } from '../../../../models/IPruebas.model';
 })
 export class AutorizadoresComponent implements OnInit {
 
-  listUsers: Pruebas[] = [];
+  @Input() lsapprovers: IGetApprovers[];
+
 
   constructor() { }
 
   ngOnInit() {
-    this.listUsers = [{
-      nombre: "lalala",
-      centroCosto: "lelele",
-      telefono: "lilili",
-      email: "lololo@gmail.com"
-    },
-    {
-    nombre: "lalwala",
-    centroCosto: "lelewle",
-    telefono: "liliwli",
-    email: "lololo@gmail.com"
-    }]
   }
 
 }

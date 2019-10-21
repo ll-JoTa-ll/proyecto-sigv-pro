@@ -10,6 +10,8 @@ import { ICostCenter } from '../models/ICostCenter';
 import { IReasonFlight } from '../models/IReasonFlight';
 import { IAddPassenger } from '../models/IAddPassenger.model';
 import { IPnrConfirm } from '../models/IPnrConfirm.model';
+import { IGetApprovers } from '../models/IGetApprovers.model';
+import { IGenerateTicket } from '../models/IGenerateTicket.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -33,6 +35,7 @@ export class AirportService {
   private _url5: string = environment.url_5 + "/User/";
   private _url6: string = environment.url_5 + "/CostCenter/";
   private _url7: string = environment.url_2 + "/ReasonFlight/";
+  private _url8: string = environment.url_6 + "/Email/";
 
   constructor(
     private http: HttpClient,
@@ -103,21 +106,39 @@ export class AirportService {
     return this.http.get<IReasonFlight[]>(url, httpOptions2);
   }
 
-  AddPassenger(data): Observable<IAddPassenger> {
-    this.token = this.sessionSt.retrieve('ss_token');
-    httpOptions2.headers = new HttpHeaders({
-      'Authorization': "Bearer " + this.token,
-      'Content-Type': "application/json",
-    });
-    return this.http.post<IAddPassenger>(this._url4 + "AddPassenger", data, httpOptions2);
-  }
-
-  GeneratePnr(data): Observable<IPnrConfirm> {
+  AddPassenger(data): Observable<IPnrConfirm> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
     });
     return this.http.post<IPnrConfirm>(this._url4 + "GeneratePNR", data, httpOptions2);
+  }
+
+  GetApprovers(data): Observable<IGetApprovers[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IGetApprovers[]>(this._url4 + "GetApprovers", data, httpOptions2);
+  }
+
+  SendEmail(data) {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post(this._url8 + "SendEmail", data, httpOptions2);
+  }
+
+  GenerateTicket(data): Observable<IGenerateTicket> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IGenerateTicket>(this._url4 + "GenerateTicket", data, httpOptions2);
   }
 }

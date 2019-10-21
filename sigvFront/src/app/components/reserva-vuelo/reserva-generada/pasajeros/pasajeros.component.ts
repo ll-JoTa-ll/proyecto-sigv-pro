@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Pasajeros } from 'src/app/models/IPasajeros.model';
+import { IDatosUser } from '../../../../models/IDatosUser';
 
 
 @Component({
@@ -9,16 +10,11 @@ import { Pasajeros } from 'src/app/models/IPasajeros.model';
 })
 export class PasajerosComponent implements OnInit {
 
-  listPasajeros: Pasajeros[] = [];
+  @Input() lsusers: IDatosUser;
 
   constructor() { }
 
   ngOnInit() {
-    this.listPasajeros = [{
-      nombres: "lalala",
-      apellidos: "lelele",
-      email: "lololo@gmail.com"
-    }]
   }
 
 }

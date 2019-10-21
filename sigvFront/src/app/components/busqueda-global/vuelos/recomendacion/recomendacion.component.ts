@@ -39,6 +39,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   @Input() recommendationId: number;
   @Input() tipoVuelo: string;
   @Input() pseudoRepeat;
+  @Input() flightNational;
 
   segmentRadioCheckId;
   lstRadioCheck: any[] = [];
@@ -373,7 +374,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       lpolicies: this.lpolicies,
       Ocompany: this.loginDataUser.ocompany,
       Gds: this.gds,
-      Pseudo: this.pseudo
+      Pseudo: this.pseudo,
+      FlightNational: this.flightNational
     };
     console.log('mi seccion');
     console.log(dataFamilias);
