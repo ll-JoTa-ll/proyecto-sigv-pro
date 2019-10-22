@@ -75,6 +75,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   @Input() flagPaxMasMenos;
 
+  @Input() flagVuelosManiana: boolean;
+  @Input() flagVuelosNoche: boolean;
+  @Input() flagFilterVuelo: boolean;
+
   @Output() lRecomendaciones = new EventEmitter<ISearchFlightModel[]>();
   @Output() inicioBuscar = new EventEmitter<boolean>();
 
@@ -101,10 +105,11 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     private spinner: NgxSpinnerService,
     private airportService: AirportService
   ) {
-
+    console.log('buscador constructor');
   }
 
   ngOnInit() {
+    console.log('buscador ngOnInit');
     this.indexTramo = this.inIndexTramo;
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -114,6 +119,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    console.log('buscador ngAfterViewInit');
     setTimeout(function() {
       $(".x").hide();
     }, 1000);
@@ -133,6 +139,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       case 'MC':
         $('#radio_b_tv_3').prop("checked", true);
         break;
+    }
+
+    if (this.flagFilterVuelo === true) {
+      //this.searchFlight();
     }
   }
 
@@ -470,6 +480,16 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       horasTo.push("");
     });
 
+    if (this.flagVuelosManiana === true) {
+      horasFrom[0] = '0500';
+      horasTo[0] = '1159';
+    }
+
+    if (this.flagVuelosNoche === true) {
+      horasFrom[0] = '1900';
+      horasTo[0] = '2359';
+    }
+
     let lUsers_: any[] = [];
 
     const lstPasajeros = this.sessionStorageService.retrieve('ss_lstPasajeros');
@@ -513,6 +533,9 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
     console.log('data buscar: ' + JSON.stringify(data));
 
+    this.sessionStorageService.store('ss_dataRequestFlight', data);
+    this.sessionStorageService.store('ss_horasFrom', horasFrom);
+    this.sessionStorageService.store('ss_horasTo', horasTo);
 
     this.airportService.searchFlight(data).subscribe(
       result => {

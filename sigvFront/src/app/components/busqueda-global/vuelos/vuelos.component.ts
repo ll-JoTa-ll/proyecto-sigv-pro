@@ -106,6 +106,11 @@ export class VuelosComponent implements OnInit {
   inicioBuscador: boolean;
   flagPaxMasMenos: boolean;
 
+  vuelosManiana: boolean;
+  vuelosNoche: boolean;
+  vueloTurnoFiltro: boolean;
+  flagBuscadorLateral: boolean;
+
   model: any = {};
 
   constructor(
@@ -131,6 +136,10 @@ export class VuelosComponent implements OnInit {
     this.flagPseudoRepeat = false;
     this.inicioBuscador = true;
     this.flagPaxMasMenos = true;
+    this.vuelosManiana = false;
+    this.vuelosNoche = false;
+    this.vueloTurnoFiltro = false;
+    this.flagBuscadorLateral = false;
   }
 
   ngOnInit() {
@@ -471,6 +480,10 @@ export class VuelosComponent implements OnInit {
       "Ocompany": this.loginDataUser.ocompany
     };
 
+    this.sessionStorageService.store('ss_dataRequestFlight', data);
+    this.sessionStorageService.store('ss_horasFrom', horasFrom);
+    this.sessionStorageService.store('ss_horasTo', horasTo);
+
     const flagVal = this.validarDataBusqueda(data);
     if (!flagVal) {
       this.spinner.hide();
@@ -487,6 +500,7 @@ export class VuelosComponent implements OnInit {
           this.searchData = result;
           this.sessionStorageService.store('ss_searchFlight', result);
           this.flagBuscar = true;
+          this.flagBuscadorLateral = true;
         } else {
           this.sessionStorageService.store('ss_searchFlight', null);
           this.flagDinData = true;
@@ -494,10 +508,12 @@ export class VuelosComponent implements OnInit {
       },
       err => {
         this.spinner.hide();
+        this.flagBuscadorLateral = false;
         console.log("ERROR: " + JSON.stringify(err));
       },
       () => {
         this.spinner.hide();
+        this.flagBuscadorLateral = false;
         console.log("this.airportService.searchFlight completado");
       }
     );
@@ -711,6 +727,17 @@ export class VuelosComponent implements OnInit {
     setTimeout(function() {
       spinner.hide();
     }, 500);
+  }
+
+  vuelosTurno($event) {
+    /*
+    this.flagBuscadorLateral = false;
+    const dataFilter = $event;
+    this.vuelosManiana = dataFilter.soloManiana;
+    this.vuelosNoche = dataFilter.soloNoche;
+    this.vueloTurnoFiltro = dataFilter.filtroTurnos;
+    this.flagBuscadorLateral = true;
+    */
   }
 
 }

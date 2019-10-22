@@ -321,7 +321,7 @@
 
                 <div class="col-3 m-0 p-0 pr-3 pl-5">
 
-                    <app-buscador [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto" [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros"
+                    <app-buscador [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto" [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros"
                         [fechaSalida]="fechaSalida" [fechaRetorno]="fechaRetorno" [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2"
                         [fechaSalida3]="fechaSalida3" [fechaSalida4]="fechaSalida4" [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3"
                         [fechaSalidaShow4]="fechaSalidaShow4" [fechaSalidaShow5]="fechaSalidaShow5" [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5"
@@ -341,7 +341,10 @@
 
                   <div class="row m-0 p-0 pt-5">
                     <div class="col-12 m-0 p-0">
-                      <app-filtro-superior [tipoEscala]="escala" (searchFilter)="busquedaFiltros($event)"></app-filtro-superior>
+                      <app-filtro-superior
+                        [tipoEscala]="escala"
+                        (searchFilter)="busquedaFiltros($event)"
+                      ></app-filtro-superior>
                     </div>
                   </div>
 
