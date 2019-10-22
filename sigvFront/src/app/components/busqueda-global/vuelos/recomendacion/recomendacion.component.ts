@@ -40,6 +40,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   @Input() tipoVuelo: string;
   @Input() pseudoRepeat;
   @Input() flightNational;
+  @Input() isVisible;
 
   segmentRadioCheckId;
   lstRadioCheck: any[] = [];

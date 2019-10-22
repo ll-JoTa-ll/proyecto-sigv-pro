@@ -1,4 +1,4 @@
-<div class="m-0 p-0 pt-4 pb-4 box-shadow-important" style="width: 100%; border-right: 1px solid rgba(219, 223, 227, 0.303017) !important; background-color: #FDFDFD !important;">
+<div *ngIf="section.isVisible" class="m-0 p-0 pt-4 pb-4 box-shadow-important" style="width: 100%; border-right: 1px solid rgba(219, 223, 227, 0.303017) !important; background-color: #FDFDFD !important;">
 
     <div class="row m-0 p-0">
 
@@ -69,8 +69,18 @@
             <div class="row m-0 p-0">
                 <!-- style="border-right: 1px solid #898989;" -->
                 <div class="col-12 m-0 p-0 pt-4 pb-4">
-                    <app-recomendacion-segment [section]="section" [segment]="segment" [bagAllowed]="section.bagAllowed" [indexSegment]="i+1" [recommendationIndex]="recommendationIndex" [recommendationId]="recommendationId" [sectionId]="section.sectionId" [lSectionGroups]="section.lSectionGroups"
-                        (outSegmentCheck)="setSegmentCheck($event)" *ngFor="let segment of section.lSegments; let i=index"></app-recomendacion-segment>
+                    <app-recomendacion-segment
+                      [section]="section"
+                      [segment]="segment"
+                      [bagAllowed]="section.bagAllowed"
+                      [indexSegment]="i+1"
+                      [recommendationIndex]="recommendationIndex"
+                      [recommendationId]="recommendationId"
+                      [sectionId]="section.sectionId"
+                      [lSectionGroups]="section.lSectionGroups"
+                      (outSegmentCheck)="setSegmentCheck($event)"
+                      *ngFor="let segment of section.lSegments; let i=index"
+                    ></app-recomendacion-segment>
                 </div>
 
                 <!--

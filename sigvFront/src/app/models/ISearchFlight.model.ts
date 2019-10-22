@@ -17,4 +17,5 @@ export interface ISearchFlightModel {
   lpolicies;
   gds;
   flightNational;
+  isVisible;
 }

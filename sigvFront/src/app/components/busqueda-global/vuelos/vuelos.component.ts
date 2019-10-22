@@ -101,6 +101,11 @@ export class VuelosComponent implements OnInit {
   fechaSalidaShow5: string;
   fechaSalidaShow6: string;
 
+  flagCentralizador: boolean;
+  flagPseudoRepeat: boolean;
+  inicioBuscador: boolean;
+  flagPaxMasMenos: boolean;
+
   model: any = {};
 
   constructor(
@@ -123,6 +128,9 @@ export class VuelosComponent implements OnInit {
     this.indexTramo = 2;
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate());
+    this.flagPseudoRepeat = false;
+    this.inicioBuscador = true;
+    this.flagPaxMasMenos = true;
   }
 
   ngOnInit() {
@@ -133,8 +141,16 @@ export class VuelosComponent implements OnInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     this.token = this.sessionStorageService.retrieve('ss_token');
-    console.log(this.locales);
+    this.flagCentralizador = this.sessionStorageService.retrieve('ss_flagCentralizador');
+    //console.log('this.flagCentralizador: ' + this.flagCentralizador);
+    //console.log(this.locales);
     this.localeService.use(this.locale);
+    if (!this.flagCentralizador) {
+      this.sessionStorageService.store('ss_lstPasajeros', null);
+      this.flagPaxMasMenos = true;
+    } else {
+      this.flagPaxMasMenos = false;
+    }
   }
 
   /*
@@ -413,18 +429,38 @@ export class VuelosComponent implements OnInit {
 
     let lUsers_: any[] = [];
 
-    lUsers_.push(
-      {
-        "RoleId": this.loginDataUser.orole.roleId,
-        "CostCenterId": null,
-        "UserId": this.loginDataUser.userId
+    const lstPasajeros = this.sessionStorageService.retrieve('ss_lstPasajeros');
+    if (lstPasajeros != null) {
+      if (lstPasajeros.length > 0) {
+        lstPasajeros.forEach(function(item, index) {
+          console.log('item_pax: ' + JSON.stringify(item))
+          const pax = {
+            "RoleId": item.orole.id,
+            "CostCenterId": null,
+            "UserId": item.userId
+          };
+          lUsers_.push(pax);
+        });
       }
-    );
+    } else {
+      lUsers_.push(
+        {
+          "RoleId": this.loginDataUser.orole.roleId,
+          "CostCenterId": null,
+          "UserId": this.loginDataUser.userId
+        }
+      );
+    }
+
+
+    console.log('lUsers_: ' + JSON.stringify(lUsers_));
+
+
 
     let data = {
       "Lusers": lUsers_,
       "NumberPassengers": this.pasajeros,
-      "NumberRecommendations": "100",
+      "NumberRecommendations": "50",
       "CabinType": this.cabina,
       "Scales": this.escala,
       "Origin": origen,
@@ -446,6 +482,7 @@ export class VuelosComponent implements OnInit {
     this.airportService.searchFlight(data).subscribe(
       result => {
         console.log(result);
+        this.flagPseudoRepeat = true;
         if (result !== null && result.length > 0) {
           this.searchData = result;
           this.sessionStorageService.store('ss_searchFlight', result);
@@ -510,8 +547,12 @@ export class VuelosComponent implements OnInit {
   }
 
   searchFlightBuscador($event) {
+    this.flagPseudoRepeat = false;
     this.searchData = [];
     this.searchData = $event;
+    this.flagPseudoRepeat = true;
+    this.sessionStorageService.store('ss_searchFlight', this.searchData);
+    this.inicioBuscador = true;
     if (this.searchData == null) {
       this.flagDinData = true;
     } else {
@@ -650,6 +691,26 @@ export class VuelosComponent implements OnInit {
   }
   updateFechaSalidaShow6($event) {
     this.fechaSalidaShow6 = $event;
+  }
+
+  updateCentralizador($event) {
+    this.flagCentralizador = $event;
+    const lstPasajeros = this.sessionStorageService.retrieve('ss_lstPasajeros');
+    this.pasajeros = lstPasajeros.length;
+  }
+
+  inicioBuscadorLateral($event) {
+    this.inicioBuscador = $event;
+    //this.searchData = [];
+  }
+
+  busquedaFiltros($event) {
+    this.searchData = [];
+    this.searchData = $event;
+    const spinner = this.spinner;
+    setTimeout(function() {
+      spinner.hide();
+    }, 500);
   }
 
 }

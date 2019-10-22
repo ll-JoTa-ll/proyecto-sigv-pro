@@ -49,18 +49,28 @@ export class LoginComponent implements OnInit {
     };
     this.flagLogin = 0;
 
+    const lstCentralizador = environment.cod_rol_centralizador;
+
     console.log(this.checkedRecuerdame);
 
     this.loginService.login(datos).subscribe(
       (result) => {
         if (result != null) {
           this.flagLogin = 1;
-          console.log('login result: ' + JSON.stringify(result));
-          let flagAutogestion = false;
-          const companyId = result.ocompany.companyId;
+          //console.log('login result: ' + JSON.stringify(result));
+          let flagCentralizador = false;
+          const roleId = result.orole.roleId;
+          console.log('roleId: ' + roleId);
+          lstCentralizador.forEach(function(cent) {
+            console.log('cent: ' + cent);
+            if (cent === roleId) {
+              flagCentralizador = true;
+            }
+          });
           this.sessionStorageService.store('ss_login_data', result);
           this.token = result.token;
-          this.sessionStorageService.store('ss_token', result.token);
+          this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
+          this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
           //console.log(result);
         } else {
           console.log("NULL");
@@ -70,7 +80,7 @@ export class LoginComponent implements OnInit {
 
       (error) => {
         this.spinner.hide();
-        console.log('ERROR' + JSON.stringify(error));
+        //console.log('ERROR' + JSON.stringify(error));
       },
 
       () => {
@@ -88,7 +98,7 @@ export class LoginComponent implements OnInit {
           this.spinner.hide();
         }
         */
-        console.log("LOGIN Completado")
+        //console.log("LOGIN Completado")
         this.airportList();
       }
     );
@@ -97,19 +107,19 @@ export class LoginComponent implements OnInit {
   airportList() {
     this.airportService.airportList(this.token).subscribe(
       (result: any) => {
-        console.log(result);
+        //console.log(result);
         this.airportlist = result;
         this.localStorageService.store('ls_airportlist', this.airportlist);
       },
 
       (err) => {
         this.spinner.hide();
-        console.log('ERROR' + JSON.stringify(err));
+        //console.log('ERROR' + JSON.stringify(err));
         },
 
       () => {
         this.spinner.hide();
-        console.log("Service airportList complete");
+        //console.log("Service airportList complete");
         //$(location).attr("href", "/vuelos");
         this.router.navigate(['/vuelos']);
       }

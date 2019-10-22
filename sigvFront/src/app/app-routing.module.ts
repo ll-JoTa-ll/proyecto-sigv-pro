@@ -15,7 +15,7 @@ import { ReservaTicketComponent } from './components/reserva-vuelo/reserva-ticke
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
-  { path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
+  //{ path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
   { path: 'home', component: BusquedaGlobalComponent, runGuardsAndResolvers: 'always' },
   { path: 'vuelos', component: VuelosComponent, runGuardsAndResolvers: 'always' },
   { path: 'hoteles', component: HotelesComponent, runGuardsAndResolvers: 'always' },
