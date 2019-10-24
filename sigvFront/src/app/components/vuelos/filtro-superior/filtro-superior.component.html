@@ -7,8 +7,9 @@
     Filtros
   </div>
 
-  <div *ngIf="flagVD" class="col-2 m-0 p-0 text-center">
+  <div *ngIf="flagVD" class="col-3 m-0 p-0 text-center">
     <button
+      style="width: 160px"
       (click)="selDirectos(1)"
       class="btn"
       [ngClass]="{
@@ -18,19 +19,22 @@
     >
       Vuelos Directos
     </button>
+    <!--
     <button
-      (click)="flagVD=!flagVD"
+      (click)="cerrarVD()"
       class="btn"
       [ngClass]="{
         'fs-btn-activo': flagVDactivo===true,
         'fs-btn-inactivo': flagVDactivo===false
       }"
     >x</button>
+    -->
   </div>
 
   <div *ngIf="flagSM" class="col-3 m-0 p-0 text-center">
     <button
-      (click)="selSalidaManiana()"
+      style="width: 160px"
+      (click)="selSalidaManiana(1)"
       class="btn"
       [ngClass]="{
         'fs-btn-activo': flagSMactivo===true,
@@ -39,19 +43,22 @@
     >
       Salida en la mañana
     </button>
+    <!--
     <button
-      (click)="flagSM=!flagSM"
+      (click)="cerrarSM()"
       class="btn"
       [ngClass]="{
         'fs-btn-activo': flagSMactivo===true,
         'fs-btn-inactivo': flagSMactivo===false
       }"
     >x</button>
+    -->
   </div>
 
   <div *ngIf="flagSN" class="col-3 m-0 p-0 text-center">
     <button
-      (click)="selSalidaNoche()"
+      style="width: 160px"
+      (click)="selSalidaNoche(1)"
       class="btn"
       [ngClass]="{
         'fs-btn-activo': flagSNactivo===true,
@@ -60,14 +67,16 @@
     >
       Salida en la noche
     </button>
+    <!--
     <button
-      (click)="flagSN=!flagSN"
+      (click)="cerrarSN()"
       class="btn"
       [ngClass]="{
         'fs-btn-activo': flagSNactivo===true,
         'fs-btn-inactivo': flagSNactivo===false
       }"
     >x</button>
+    -->
   </div>
 
 </div>

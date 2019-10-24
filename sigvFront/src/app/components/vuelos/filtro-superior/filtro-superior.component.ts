@@ -116,7 +116,7 @@ export class FiltroSuperiorComponent implements OnInit {
     }
   }
 
-  selSalidaManiana() {
+  selSalidaManiana(tipo) {
     /*
     this.flagSMactivo = !this.flagSMactivo;
     this.flagSNactivo = false;
@@ -128,8 +128,10 @@ export class FiltroSuperiorComponent implements OnInit {
     this.filterTurn.emit(data);
     */
     this.spinner.show();
-    this.flagSMactivo = !this.flagSMactivo;
-    this.flagSNactivo = false;
+    if (tipo === 1) {
+      this.flagSMactivo = !this.flagSMactivo;
+      this.flagSNactivo = false;
+    }
 
     this.departureArrivalTimeFrom = null;
     this.departureArrivalTimeTo = null;
@@ -216,7 +218,7 @@ export class FiltroSuperiorComponent implements OnInit {
     );
   }
 
-  selSalidaNoche() {
+  selSalidaNoche(tipo) {
     /*
     this.flagSNactivo = !this.flagSNactivo;
     this.flagSMactivo = false;
@@ -228,8 +230,10 @@ export class FiltroSuperiorComponent implements OnInit {
     this.filterTurn.emit(data);
     */
     this.spinner.show();
-    this.flagSNactivo = !this.flagSNactivo;
-    this.flagSMactivo = false;
+    if (tipo === 1) {
+      this.flagSNactivo = !this.flagSNactivo;
+      this.flagSMactivo = false;
+    }
 
     this.departureArrivalTimeFrom = null;
     this.departureArrivalTimeTo = null;
@@ -314,6 +318,41 @@ export class FiltroSuperiorComponent implements OnInit {
         console.log("this.airportService.searchFlight dataRequestFlight completado");
       }
     );
+  }
+
+  cerrarVD() {
+    const flagVDactivo = this.flagVDactivo;
+    if (flagVDactivo === false) {
+      this.flagVD = !this.flagVD;
+    } else {
+      this.flagVDactivo = false;
+      this.flagVD = !this.flagVD;
+      this.selDirectos(2);
+    }
+  }
+
+  cerrarSM() {
+    //flagSM=!flagSM
+    const flagSMactivo = this.flagSMactivo;
+    if (flagSMactivo === false) {
+      this.flagSM = false;
+    } else {
+      this.flagSMactivo = false;
+      this.flagSM = false;
+      this.selSalidaManiana(2);
+    }
+  }
+
+  cerrarSN() {
+    //flagSN=!flagSN
+    const flagSNactivo = this.flagSNactivo;
+    if (flagSNactivo === false) {
+      this.flagSN = false;
+    } else {
+      this.flagSNactivo = false;
+      this.flagSN = false;
+      this.selSalidaNoche(2);
+    }
   }
 
 }
