@@ -178,14 +178,14 @@ export class FiltroSuperiorComponent implements OnInit {
       data.DepartureArrivalTimeFrom = departureArrivalTimeFrom_;
       data.DepartureArrivalTimeTo = departureArrivalTimeTo_;
     } else {
-      /*
+
       const ss_horasFrom = this.sessionStorageService.retrieve('ss_horasFrom');
       const ss_horasTo = this.sessionStorageService.retrieve('ss_horasTo');
       console.log('ss_horasFrom: ' + JSON.stringify(ss_horasFrom));
       console.log('ss_horasTo: ' + JSON.stringify(ss_horasTo));
       data.DepartureArrivalTimeFrom = ss_horasFrom;
       data.DepartureArrivalTimeTo = ss_horasTo;
-      */
+
       const departureArrivalTimeFrom_ = dataRequestFlight.DepartureArrivalTimeFrom;
       departureArrivalTimeFrom_[0] = '';
       const departureArrivalTimeTo_ = dataRequestFlight.DepartureArrivalTimeTo;
@@ -227,6 +227,93 @@ export class FiltroSuperiorComponent implements OnInit {
     };
     this.filterTurn.emit(data);
     */
+    this.spinner.show();
+    this.flagSNactivo = !this.flagSNactivo;
+    this.flagSMactivo = false;
+
+    this.departureArrivalTimeFrom = null;
+    this.departureArrivalTimeTo = null;
+
+    let dataRequestFlight = this.sessionStorageService.retrieve('ss_dataRequestFlight');
+    console.log('dataRequestFlight: ' + JSON.stringify(dataRequestFlight));
+    let data = {
+      "Lusers": dataRequestFlight.Lusers,
+      "NumberPassengers": dataRequestFlight.NumberPassengers,
+      "NumberRecommendations": dataRequestFlight.NumberRecommendations,
+      "CabinType": dataRequestFlight.CabinType,
+      "Scales": dataRequestFlight.Scales,
+      "Origin": dataRequestFlight.Origin,
+      "Destination": dataRequestFlight.Destination,
+      "DepartureArrivalDate": dataRequestFlight.DepartureArrivalDate,
+      "DepartureArrivalTimeFrom": dataRequestFlight.DepartureArrivalTimeFrom,
+      "DepartureArrivalTimeTo": dataRequestFlight.DepartureArrivalTimeTo,
+      "Ocompany": dataRequestFlight.Ocompany
+    };
+
+    /*
+    let departureArrivalTimeFrom = dataRequestFlight.DepartureArrivalTimeFrom;
+    console.log('departureArrivalTimeFrom: ' + JSON.stringify(departureArrivalTimeFrom));
+    this.departureArrivalTimeFrom = departureArrivalTimeFrom;
+    let departureArrivalTimeTo = dataRequestFlight.DepartureArrivalTimeTo;
+    console.log('departureArrivalTimeTo: ' + JSON.stringify(departureArrivalTimeTo));
+    this.departureArrivalTimeTo = departureArrivalTimeTo;
+    */
+
+    console.log('this.flagSNactivo: ' + this.flagSNactivo);
+    if (this.flagSNactivo === true) {
+      //console.log('ss_horasFrom: ' + this.ss_horasFrom);
+      //console.log('ss_horasTo: ' + this.ss_horasTo);
+      //departureArrivalTimeFrom[0] = '0500';
+      //departureArrivalTimeTo[0] = '1159';
+      //console.log('ss_horasFrom: ' + this.ss_horasFrom);
+      //console.log('ss_horasTo: ' + this.ss_horasTo);
+      //dataRequestFlight.DepartureArrivalTimeFrom = departureArrivalTimeFrom;
+      //dataRequestFlight.DepartureArrivalTimeTo = departureArrivalTimeTo;
+
+      const departureArrivalTimeFrom_ = dataRequestFlight.DepartureArrivalTimeFrom;
+      departureArrivalTimeFrom_[0] = '1900';
+      const departureArrivalTimeTo_ = dataRequestFlight.DepartureArrivalTimeTo;
+      departureArrivalTimeTo_[0] = '2359';
+
+      data.DepartureArrivalTimeFrom = departureArrivalTimeFrom_;
+      data.DepartureArrivalTimeTo = departureArrivalTimeTo_;
+    } else {
+
+      const ss_horasFrom = this.sessionStorageService.retrieve('ss_horasFrom');
+      const ss_horasTo = this.sessionStorageService.retrieve('ss_horasTo');
+      console.log('ss_horasFrom: ' + JSON.stringify(ss_horasFrom));
+      console.log('ss_horasTo: ' + JSON.stringify(ss_horasTo));
+      data.DepartureArrivalTimeFrom = ss_horasFrom;
+      data.DepartureArrivalTimeTo = ss_horasTo;
+
+      const departureArrivalTimeFrom_ = dataRequestFlight.DepartureArrivalTimeFrom;
+      departureArrivalTimeFrom_[0] = '';
+      const departureArrivalTimeTo_ = dataRequestFlight.DepartureArrivalTimeTo;
+      departureArrivalTimeTo_[0] = '';
+
+      data.DepartureArrivalTimeFrom = departureArrivalTimeFrom_;
+      data.DepartureArrivalTimeTo = departureArrivalTimeTo_;
+    }
+
+    console.log('dataRequestFlight: ' + JSON.stringify(data));
+
+    this.airportService.searchFlight(data).subscribe(
+      result => {
+        console.log(result);
+        this.sessionStorageService.store('ss_searchFlight', result);
+        //this.searchFilter.emit(result);
+      },
+      err => {
+        this.spinner.hide();
+        console.log("ERROR dataRequestFlight: " + err);
+      },
+      () => {
+        //this.spinner.hide();
+        dataRequestFlight = null;
+        this.selDirectos(2);
+        console.log("this.airportService.searchFlight dataRequestFlight completado");
+      }
+    );
   }
 
 }
