@@ -12,6 +12,8 @@ import {VuelosExcepcionPoliticaComponent} from './components/vuelos-excepcion-po
 import { ReservaCompraComponent } from './components/reserva-vuelo/reserva-compra/reserva-compra.component';
 import { ReservaGeneradaComponent } from './components/reserva-vuelo/reserva-generada/reserva-generada.component';
 import { ReservaTicketComponent } from './components/reserva-vuelo/reserva-ticket/reserva-ticket.component';
+import { GestionReservasComponent } from './components/reserva-vuelo/gestion-reservas/gestion-reservas.component';
+import { AprobacionReservaComponent } from './components/reserva-vuelo/aprobacion-reserva/aprobacion-reserva.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: 'reserva-vuelo-compra', component: ReservaCompraComponent, runGuardsAndResolvers: 'always' },
   { path: 'reserva-generada', component: ReservaGeneradaComponent, runGuardsAndResolvers: 'always' },
   { path: 'reserva-ticket', component: ReservaTicketComponent, runGuardsAndResolvers: 'always' },
+  { path: 'gestion-reserva', component: GestionReservasComponent, runGuardsAndResolvers: 'always' },
+  { path: 'aprobar-reserva', component: AprobacionReservaComponent, runGuardsAndResolvers: 'always' }
 ];
 
 @NgModule({

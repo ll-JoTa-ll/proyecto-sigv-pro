@@ -4,7 +4,7 @@
             <span class="spanAutorizador">Pasajeros</span>
         </div>
         <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0 pl-4 pr-4 pt-3">
+            <div class="row m-0 p-0 pl-4 pr-4 pt-3" *ngFor="let item of lsusers">
                 <div class="col-4 m-0 p-0 pr-3">
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 pt-3">
@@ -13,7 +13,7 @@
                     </div>
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 box-shadow input-pasajero text-center">
-                            {{lsusers.firstName}}
+                            {{item.firstName}}
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 box-shadow input-pasajero text-center">
-                            {{lsusers.lastName}}
+                            {{item.lastName}}
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 pr-4 box-shadow input-pasajero text-center">
-                            {{lsusers.email}}
+                            {{item.email}}
                         </div>
                     </div>
                 </div>

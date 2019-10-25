@@ -12,6 +12,7 @@ import { IAddPassenger } from '../models/IAddPassenger.model';
 import { IPnrConfirm } from '../models/IPnrConfirm.model';
 import { IGetApprovers } from '../models/IGetApprovers.model';
 import { IGenerateTicket } from '../models/IGenerateTicket.model';
+import { IReservaModel } from '../models/iReserva.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -28,14 +29,15 @@ export class AirportService {
 
   token;
 
-  private _url: string = environment.url_2 + "/Airport/";
-  private _url2: string = environment.url_2 + "/Search/";
-  private _url3: string = environment.url_2 + "/Search/";
-  private _url4: string = environment.url_2 + "/Booking/";
-  private _url5: string = environment.url_5 + "/User/";
-  private _url6: string = environment.url_5 + "/CostCenter/";
-  private _url7: string = environment.url_2 + "/ReasonFlight/";
-  private _url8: string = environment.url_6 + "/Email/";
+  private _url: string = environment.url_2 + "Airport/";
+  private _url2: string = environment.url_2 + "Search/";
+  private _url3: string = environment.url_2 + "Search/";
+  private _url4: string = environment.url_2 + "Booking/";
+  private _url5: string = environment.url_5 + "User/";
+  private _url6: string = environment.url_5 + "CostCenter/";
+  private _url7: string = environment.url_2 + "ReasonFlight/";
+  private _url8: string = environment.url_6 + "Email/";
+  private _url9: string = environment.url_2 + "Reservation/";
 
   constructor(
     private http: HttpClient,
@@ -140,5 +142,15 @@ export class AirportService {
       'Content-Type': "application/json",
     });
     return this.http.post<IGenerateTicket>(this._url4 + "GenerateTicket", data, httpOptions2);
+  }
+
+  ListaReservas(data): Observable<IReservaModel[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    const url = `${this._url9 + 'GetReservationList'}?${'userId=' + data}`;
+    return this.http.get<IReservaModel[]>(url, httpOptions2);
   }
 }

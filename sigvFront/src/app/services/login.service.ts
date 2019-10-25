@@ -10,7 +10,7 @@ import { ILoginDatosModel } from '../models/ILoginDatos.model';
 })
 export class LoginService {
 
-  private _url: string = environment.url + "/Authenticate/";
+  private _url: string = environment.url + "Authenticate/";
 
   constructor(
     private http: HttpClient,

@@ -8,6 +8,7 @@ import { ICostCenter } from 'src/app/models/ICostCenter';
 import { IReasonFlight } from 'src/app/models/IReasonFlight';
 import { Router } from '@angular/router';
 import { IGetApprovers } from '../../models/IGetApprovers.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var jquery: any;
 declare var $: any;
@@ -33,7 +34,7 @@ export class ReservaVueloComponent implements OnInit {
   lst_rol_autogestion;
   LSection;
   LPolicies;
-  datosuser: IDatosUser;
+  datosuser: any[] = [];
   currency;
   ocompany;
   lsCostCenter: ICostCenter[];
@@ -72,6 +73,8 @@ export class ReservaVueloComponent implements OnInit {
   ngOnInit() {
     if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0]) {
       this.GetUsers();
+  } else {
+     this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
   }
     this.LSection = this.flightAvailability_request.Lsections;
     this.LSectionPassenger = this.datarequest.Lsections;
@@ -93,9 +96,12 @@ export class ReservaVueloComponent implements OnInit {
       let data = {
         Id: this.loginDataUser.userId
       }
+      let objuser;
       this.service.GetUser(data.Id).subscribe(
         results => {
-             this.datosuser = results;
+          objuser = results;
+          this.datosuser.push(objuser);
+          console.log(this.datosuser);
         },
         err => {
              console.log("error results", err);
@@ -143,22 +149,41 @@ export class ReservaVueloComponent implements OnInit {
     } else {
       infraction = false;
     }
-    let prefix;
-    if (this.datosuser.gender === 'M') {
-      prefix = 'MR';
-    } else {
-      prefix = 'MRS';
-    }
 
-    let fechatotal;
-    let fecha = this.datosuser.birthDate.substr(0, 10);
-    let fechaformat = fecha.split('-');
-    let año = fechaformat[0];
-    let mes = fechaformat[1];
-    let dia = fechaformat[2];
-    fechatotal = año + '/' + mes + '/' + dia;
-
-    let datosusuario =
+    let datosusuario: any[] = [];
+    this.datosuser.forEach(function(item) {
+      let prefix;
+      if (item.gender === 'M') {
+        prefix = 'MR';
+      } else {
+        prefix = 'MRS';
+      }
+  
+      let fechatotal;
+      let fecha = item.birthDate.substr(0, 10);
+      let fechaformat = fecha.split('-');
+      let año = fechaformat[0];
+      let mes = fechaformat[1];
+      let dia = fechaformat[2];
+      fechatotal = año + '/' + mes + '/' + dia;
+      
+      const objuser = {
+          "PassengerId": 1,
+          "PersonId": item.personId,
+          "Prefix": prefix,
+          "Type": "ADT",
+          "Name": item.firstName,
+          "LastName": item.lastName,
+          "Gender": item.gender,
+          "BirthDate": fechatotal,
+          "Odocument": item.odocument,
+          "FrequentFlyer": item.frequentFlyer,
+          "IsVIP": item.isVIP,
+          "lcostCenter": item.lcostCenter
+         };
+         datosusuario.push(objuser);
+    });
+   /* let datosusuario =
     [{
       "PassengerId": 1,
 			"PersonId": this.datosuser.personId,
@@ -172,7 +197,7 @@ export class ReservaVueloComponent implements OnInit {
 			"FrequentFlyer": this.datosuser.frequentFlyer,
       "IsVIP": this.datosuser.isVIP,
       "lcostCenter": this.datosuser.lcostCenter
-    }];
+    }];*/
 
     let data = {
       "Ocompany": this.ocompany,
@@ -194,39 +219,42 @@ export class ReservaVueloComponent implements OnInit {
   }
 
   Comprar() {
-    let prefix;
-    if (this.datosuser.gender === 'M') {
-      prefix = 'MR';
-    } else {
-      prefix = 'MRS';
-    }
-    let fechatotal;
-    let fecha = this.datosuser.birthDate.substr(0, 10);
-    let fechaformat = fecha.split('-');
-    let año = fechaformat[0];
-    let mes = fechaformat[1];
-    let dia = fechaformat[2];
-    fechatotal = año + '/' + mes + '/' + dia;
-    this.email = this.datosuser.email;
+   /* this.email = this.datosuser.email;
     this.phone = this.datosuser.phone;
-    this.userid = this.datosuser.userId;
+    this.userid = this.datosuser.userId;*/
     let idmotivo = $('#cbomotivo option:selected').val();
 
-    this.datosusuario =
-    [{
-      "PassengerId": 1,
-			"PersonId": this.datosuser.personId,
-			"Prefix": prefix,
-			"Type": "ADT",
-			"Name": this.datosuser.firstName,
-			"LastName": this.datosuser.lastName,
-			"Gender": this.datosuser.gender,
-			"BirthDate": fechatotal,
-			"Odocument": this.datosuser.odocument,
-			"FrequentFlyer": this.datosuser.frequentFlyer,
-			"IsVIP": this.datosuser.isVIP
-    }];
-    this.sessionStorageService.store('datosusuario', this.datosusuario);
+    let datosusuario: any[] = [];
+    this.datosuser.forEach(function(item) {
+      let prefix;
+      if (item.gender === 'M') {
+        prefix = 'MR';
+      } else {
+        prefix = 'MRS';
+      }
+      let fechatotal;
+      let fecha = item.birthDate.substr(0, 10);
+      let fechaformat = fecha.split('-');
+      let año = fechaformat[0];
+      let mes = fechaformat[1];
+      let dia = fechaformat[2];
+      fechatotal = año + '/' + mes + '/' + dia;
+      const objuser = {
+        "PassengerId": 1,
+        "PersonId": item.personId,
+        "Prefix": prefix,
+        "Type": "ADT",
+        "Name": item.firstName,
+        "LastName": item.lastName,
+        "Gender": item.gender,
+        "BirthDate": fechatotal,
+        "Odocument": item.odocument,
+        "FrequentFlyer": item.frequentFlyer,
+        "IsVIP": item.isVIP
+       }
+      datosusuario.push(objuser);
+    });
+    this.sessionStorageService.store('datosusuario', datosusuario);
     this.sessionStorageService.store('sectioninfo', this.LSection);
     this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
     this.sessionStorageService.store('politicas', this.LPolicies);
@@ -234,5 +262,4 @@ export class ReservaVueloComponent implements OnInit {
     this.sessionStorageService.store('idmotivo', idmotivo);
     this.router.navigate(['/reserva-vuelo-compra']);
   }
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, Input, Output, AfterViewInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, Input, Output, AfterViewInit, Injectable } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { IDatosUser } from 'src/app/models/IDatosUser';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
@@ -25,10 +25,10 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     frequentFlyer: ''
   };
   */
-  @Input() datosuser: IDatosUser;
-  @Input() lsuser: any[];
   @Input() LPolicies;
   @Input() currency;
+  @Input() user;
+  @Input() index;
   selectedvalue;
   fechanacimiento;
   datosPax;
@@ -44,8 +44,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
   constructor(private modalService: BsModalService) {
     this.flagValDatosPAsajeros = false;
-    console.log('constructor DatosPasajeroComponent');
-    console.log('this.datosuser: ' + JSON.stringify(this.datosuser));
     /*
     console.log('constructor');
     console.log('this.datosuser: ' + JSON.stringify(this.datosuser));
@@ -63,8 +61,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit DatosPasajeroComponent');
-    console.log('this.datosuser: ' + JSON.stringify(this.datosuser));
     /*
     console.log('ngOnInit');
     this.datosPax = this.datosuser;
@@ -76,7 +72,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.flagValDatosPAsajeros = true;
     console.log('ngAfterViewInit DatosPasajeroComponent');
-    console.log('this.datosuser: ' + JSON.stringify(this.datosuser));
   }
 
   openModal(template: TemplateRef<any>, template2: TemplateRef<any>) {

@@ -13,6 +13,7 @@ export class ExPoliticasInfrigidasComponent implements OnInit {
   @Input() LPolicies;
   @Input() Currency;
   @Input() lsapprovers: IGetApprovers[];
+  @Input() tipo;
 
 
   constructor() { }

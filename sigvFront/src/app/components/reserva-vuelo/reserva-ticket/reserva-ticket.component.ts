@@ -16,7 +16,7 @@ export class ReservaTicketComponent implements OnInit {
   constructor(private sessionStorageService: SessionStorageService) {
   this.Lsection = this.sessionStorageService.retrieve('sectioninfo');
   this.lsflightavailability = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
-  this.lusers = this.sessionStorageService.retrieve('lsuser');
+  this.lusers = this.sessionStorageService.retrieve('datosusuario');
   }
 
   ngOnInit() {

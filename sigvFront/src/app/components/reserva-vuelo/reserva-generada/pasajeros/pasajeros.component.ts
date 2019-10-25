@@ -10,7 +10,7 @@ import { IDatosUser } from '../../../../models/IDatosUser';
 })
 export class PasajerosComponent implements OnInit {
 
-  @Input() lsusers: IDatosUser;
+  @Input() lsusers;
 
   constructor() { }
 

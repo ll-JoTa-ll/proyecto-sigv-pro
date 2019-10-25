@@ -5,7 +5,7 @@
                 <div class="row m-0 p-0">
                     <div class="col-6 m-0 p-0">
                         <span class="div-pasajero">
-                                PASAJERO 1
+                                PASAJERO {{index}}
                         </span>
                     </div>
                     <div class="col-6 m-0 p-0 text-right pr-4">
@@ -63,7 +63,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" [(ngModel)]="datosuser.firstName" id="">
+                                <input class="input-pasajero" type="text" [(ngModel)]="user.firstName" id="">
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" [(ngModel)]="datosuser.lastName" id="">
+                                <input class="input-pasajero" type="text" [(ngModel)]="user.lastName" id="">
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <select class="input-pasajero" type="text" [(ngModel)]="datosuser.odocument.type" id="">
+                                <select class="input-pasajero" type="text" [(ngModel)]="user.odocument.type" id="">
                                     <option value="NI">DNI</option>
                                     <option value="PP">PASAPORTE</option>
                                     </select>
@@ -104,7 +104,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" [(ngModel)]="datosuser.odocument.number" id="">
+                                <input class="input-pasajero" type="text" [(ngModel)]="user.odocument.number" id="">
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" [(ngModel)]="datosuser.nationality" id="">
+                                <input class="input-pasajero" type="text" [(ngModel)]="user.nationality" id="">
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" id="" value="{{datosuser.birthDate | formatearfecha}}">
+                                <input class="input-pasajero" type="text" id="" value="{{user.birthDate | formatearfecha}}">
                             </div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" [(ngModel)]="datosuser.email" id="">
+                                <input class="input-pasajero" type="text" [(ngModel)]="user.email" id="">
                             </div>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" [(ngModel)]="datosuser.phone" id="">
+                                <input class="input-pasajero" type="text" [(ngModel)]="user.phone" id="">
                             </div>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" id="" [(ngModel)]="datosuser.frequentFlyer">
+                                <input class="input-pasajero" type="text" id="" [(ngModel)]="user.frequentFlyer">
                             </div>
                         </div>
                     </div>

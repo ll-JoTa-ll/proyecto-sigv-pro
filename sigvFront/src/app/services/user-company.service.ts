@@ -16,7 +16,7 @@ export class UserCompanyService {
 
   token;
 
-  private _url5: string = environment.url_5 + "/User/";
+  private _url5: string = environment.url_5 + "User/";
 
   constructor(
     private http: HttpClient,
