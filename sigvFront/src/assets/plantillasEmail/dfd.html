@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
 
 <head>
-    <title>SIGPLUS</title>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
-    <style type='text/css'>
+    <style>
         @font-face {
             font-family: 'Omnes-bold';
             src: url('https://sigvplus.azurewebsites.net/sigvFront/assets/fonts/Omnes/OmnesBold.ttf');
@@ -32,287 +35,132 @@
             margin: 0px;
         }
         
-        .lblUsuario {
-            color: #676767;
-            font-size: 18px;
-            opacity: 1;
-            letter-spacing: 0;
+        .tabla {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .tabla,
+        td,
+        th {
+            border: 1px solid #ddd;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
     <div style='width: 100%;'>
-        <div class='row' style='padding-bottom: 30px;'>
-            <div style='width: 40%;'>
-
-            </div>
-            <div class='text-center' style='width: 20%;'>
-                <label style='color: #6B253C; font-family: Arial, Helvetica, sans-serif; font-size: 23px; border-bottom: 1px solid #6B253C; opacity: 1; letter-spacing: 0;'>SOLICITUD DE APROBACIÓN</label>
-            </div>
-            <div style='width: 40%'>
-
-            </div>
-        </div>
-        <div class='row' style='padding-top: 30px;'>
-            <div style='width: 50%;'>
-                <div class='lblUsuario'>
-                    El usuario:
-                </div>
-                <div class='lblUsuario'>
-                    Juan Caro está solicitando aprobación.
-                </div>
-            </div>
-            <div style='width: 20%;'>
-
-            </div>
-            <div class='pr-5' style='width: 30%; border-radius: 40px 0px 40px 0px; padding: 1em; background: white; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding-left: 30px; padding-top: 30px; padding-bottom: 30px;'>
-                <div class='row' style=''>
-                    <div>
-                        <span><img style='width: 70px;' src='https://sigvplus.azurewebsites.net/sigvFront/assets/images/time.gif'></span><label style='font-family: Omnes-sem; color: #6B253C; font-size: 25px; opacity: 1; padding-left: 10px;'>Solo tienes hasta:</label>
-                    </div>
-                </div>
-                <div class='row'>
-                    <label style='color: #676767; font-size: 21px; opacity: 1; letter-spacing: 0; padding-left: 50px;'>Las 17:30 para gestionar la Reserva</label>
-                </div>
-            </div>
-        </div>
-        <div class='row' style='padding-bottom: 40px;'>
-            <div style='width: 100%;'>
-                <label style='color: #6B253C; font-size: 20px;'>● Solicitud:</label>
-            </div>
-        </div>
         <div class='row'>
-            <div style='width: 20%;'>
-
+            <div style='width: 10% !important;'>
             </div>
-            <div style='width: 60%;'>
-                <div class='row' style='border-radius: 20px 0px 20px 0px; padding: 1em; background: white;border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset;'>
-                    <div style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0; padding-left: 30px; padding-bottom: 20px; padding-top: 20px; text-align: center;'>
-                        Buen dia, necesitamos viajar el evento de California, nos confirmaron el dia de ayer, por ello no se reservó antes el pasaje.
-                    </div>
-                </div>
-            </div>
-            <div style='width: 20%;'>
-
-            </div>
-        </div>
-        <div class='row'>
-            <div style='width: 100%; padding-bottom: 30px;'>
-                <label style='color: #6B253C; font-size: 20px;'>● Itinerario:</label>
-            </div>
-        </div>
-        <div class='row' style='padding-bottom: 40px;'>
-            <!-- Itinerario -->
-            @section
-            <div style='width: 60%; border-radius: 20px 20px 20px 20px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white;'>
-                <div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>
-                    <div style='width: 40%;'>
-                        <span class='m-0 p-0'><img style='width: 350px;' class='m-0 p-0' src='https://sigvplus.azurewebsites.net/sigvFront/assets/images/layer5.gif'></span>
-                    </div>
-                    <div style='width: 20%; text-align: center;  padding-top: 30px;'>
-                        <span style='color: #676767; font-size: 14px; opacity: 100%;'>Aerolinea Operadora : LATAM</span>
-                    </div>
-                    <div style='width: 40%; text-align: center; padding-top: 30px; padding-left: 50px;'>
-                        <label style='color: #676767; font-size: 18px; opacity: 100%; width: 40%;'>Vuelo AV140 - Airbus A319</label>
-                    </div>
-                </div>
-                <div class='row' style='padding-top: 40px; padding-bottom: 30px;'>
-                    <div style='width: 40%; text-align: center;'>
-                        <div class='m-0 p-0 pt-4' style='color: #898989; font-size: 17px; opacity: 1;'>
-                            Lun, 09 Sep.
-                        </div>
-                        <div class='m-0 p-0' style='color: #676767; font-size: 38px; opacity: 1; letter-spacing: 0;'>
-                            01:15
-                        </div>
-                        <div class='m-0 p-0' style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0;'>
-                            LIM
-                        </div>
-                        <div class='m-0 p-0' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>
-                            Lima
-                        </div>
-                        <div class='m-0 p-0 pt-2' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>
-                            Aeropuerto Internacional Jorge Chavez
-                        </div>
-                    </div>
-                    <div style='width: 20%; padding-left: 40px; padding-top: 30px; text-align: center;'>
-                        <div class='m-0 p-0 pt-4' style='color: #898989; font-size: 17px; opacity: 1;'>
-                            Duracion
-                        </div>
-                        <div class='m-0 p-0' style='color: #676767; font-size: 38px; opacity: 1; letter-spacing: 0;'>
-                            3h 15m
-                        </div>
-                        <div class='m-0 p-0' style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0;'>
-                            Clase: <label class='m-0 p-0 pl-3' style='color: #898989; font-size: 18px; opacity: 1; letter-spacing: 0;'>Económica</label>
-                        </div>
-                    </div>
-                    <div style='width: 40%; padding-left: 50px; text-align: center;'>
-                        <div class='m-0 p-0 pt-4' style='color: #898989; font-size: 17px; opacity: 1;'>
-                            Lun, 09 Sep.
-                        </div>
-                        <div class='m-0 p-0' style='color: #676767; font-size: 38px; opacity: 1; letter-spacing: 0;'>
-                            01:15
-                        </div>
-                        <div class='m-0 p-0' style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0;'>
-                            LIM
-                        </div>
-                        <div class='m-0 p-0' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>
-                            Lima
-                        </div>
-                        <div class='m-0 p-0 pt-2' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>
-                            Aeropuerto Internacional Jorge Chavez
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style='width: 10%;'>
-
-            </div>
-            <!-- Precio por Adulto -->
-            @precio
-            <div style='width: 25%; border-radius: 40px 0px 40px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white; height: 180px;'>
+            <div style='width: 80% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017); padding-left: 1%; padding-right: 1%; padding-top: 1%; padding-bottom: 1%;'>
                 <div class='row'>
-                    <img style='padding-left: 290px; width: 50px' src='https://sigvplus.azurewebsites.net/sigvFront/assets/images/medal.gif'>
-                </div>
-                <div class='row' style='padding-bottom: 10px; padding-left: 30px;'>
-                    <span class='m-0 p-0' style='text-align: center;   font-size: 32px; letter-spacing: 0; color: #6B253C; padding-left: 60px; padding-top: 10px;'>USD</span>
-                    <span class='m-0 p-0' style='text-align: center;   font-size: 45px; letter-spacing: 0; color: #898989; padding-left: 10px;'>822312.00</span>
-                </div>
-                <div class='row' style='padding-top: 15px; padding-left: 30px;'>
-                    <span class='m-0 p-0' style='font-size: 17px; letter-spacing: 0; color: #676767; padding-right: 20px;'>Precio por Adulto</span>
-                    <span class='m-0 p-0' style='text-align: center;   font-size: 20px; letter-spacing: 0; color: #6B253C; padding-right: 5px;'>USD </span>
-                    <span class='m-0 p-0' style='text-align: center;   font-size: 20px; letter-spacing: 0; color: #898989;'>163.00</span>
-                </div>
-            </div>
-            <div style='width: 5%;'>
-
-            </div>
-        </div>
-        <div class='row'>
-            @pasajeros
-            <div style='width: 100%; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white; padding-top: 20px; padding-bottom: 20px;'>
-                <div class='row' style='padding-bottom: 30px;'>
-                    <span style='background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; border-radius: 0px 23px 23px 0px; color: #FFFFFF; padding: 7px 90px 7px 30px;'>Pasajeros</span>
-                    <span class='m-0 p-0' style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0; width: 80%; text-align: right;'>Ver Infracción</span>
-                </div>
-                <!-- Pasajeros -->
-                <div class='row'>
-                    <div style='width: 30%'>
+                    <div style='width: 50% !important;'>
+                        El vuelo seleccionado está infringiendo las políticas de viaje de su empresa
+                    </div>
+                    <div style='width: 50% !important; border-radius: 40px 0px 40px 0px; padding: 1em; background: white; border: 2px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); padding-left: 30px; padding-top: 30px; padding-bottom: 30px;'>
                         <div class='row'>
-                            <label class='m-0 p-0' style='color: #676767; font-size: 17px; opacity: 1; letter-spacing: 0;'>Nombres:</label>
+                            <div>
+                                <span><img style='width: 40px;' src='https://sigvplus.azurewebsites.net/sigvFront/assets/images/time.gif'></span><label style='font-family: Omnes-sem; color: #6B253C; font-size: 25px; opacity: 1; padding-left: 10px;'>Solo tienes hasta:</label>
+                            </div>
                         </div>
                         <div class='row'>
-                            <span style='border: 1px solid #D9D4D4; height: 30px; width: 500px; border-radius: 5px;'></span>
+                            <label style='color: #676767; font-size: 21px; opacity: 1; letter-spacing: 0; padding-left: 50px;'>Las @horatimelimit del @fechatimelimit para gestionar la Reserva</label>
                         </div>
                     </div>
-                    <div style='width: 5%;'>
-
-                    </div>
-                    <div style='width: 30%'>
-                        <div class='row'>
-                            <label class='m-0 p-0' style='color: #676767; font-size: 17px; opacity: 1; letter-spacing: 0;'>Apellidos:</label>
-                        </div>
-                        <div class='row'>
-                            <span style='border: 1px solid #D9D4D4; height: 30px; width: 500px; border-radius: 5px;'></span>
-                        </div>
-                    </div>
-                    <div style='width: 5%;'>
-
-                    </div>
-                    <div style='width: 30%'>
-                        <div class='row'>
-                            <label class='m-0 p-0' style='color: #676767; font-size: 17px; opacity: 1; letter-spacing: 0;'>Email:</label>
-                        </div>
-                        <div class='row'>
-                            <span style='border: 1px solid #D9D4D4; height: 30px; width: 500px; border-radius: 5px;'></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class='row' style='padding-bottom: 50px; padding-top: 50px;'>
-            <div style='width: 100%; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white; padding-bottom: 20px; padding-top: 20px;'>
-                <div class='row'>
-                    <span style='background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; border-radius: 0px 23px 23px 0px; color: #FFFFFF; padding: 7px 90px 7px 30px;'>Politicas Infringidas</span>
-                </div>
-                <div class='row' style='padding-top: 25px; padding-bottom: 30px;'>
-                    <img src='https://sigvplus.azurewebsites.net/sigvFront/assets/images/calendario.png'><label class='m-0 p-0 pl-3' style='  color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;'>Dias de Anticipación</label>
                 </div>
                 <div class='row'>
-                    <div style='color: #4A4A4A; font-size: 18px; opacity: 1; letter-spacing: 0; padding-bottom: 20px;'>Infraccion</div>
-                    <div style='color: #4A4A4A; font-size: 18px; opacity: 1; letter-spacing: 0; text-align: right; width: 1160px; padding-bottom: 20px;'>Impacto</div>
-                </div>
-                <!-- Politicas Infringidas -->
-                <div class='row' style=''>
-                    <div style='width: 60%; text-align: center; color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white;'>
-                        La política de días de anticipación no cumple con los [20] días nacionales establecidos. De haber comprado con la debida anticipación, el pasaje le hubiera costado [76.03]. El impacto es de USD$ [54.28]
-                    </div>
-                    <div style='width: 10%;'>
-
-                    </div>
-                    <div style='width: 30%; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white;'>
-                        <span style='color: #3D3D3D; font-size: 25px; opacity: 1; letter-spacing: 0; padding-left: 100px;'>
-                                                                               USD$
-                                                                            </span>
-                        <span style='color: #3D3D3D; font-size: 38px; opacity: 1; letter-spacing: 0;'>53220.00</span>
+                    <div style='width: 100% !important; color: #6B253C; font-size: 20px;'>
+                        ● Motivos de Aprobación
                     </div>
                 </div>
-
-                <div class='row' style='padding-top: 40px;'>
-                    <span style='  background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; border-radius: 0px 23px 23px 0px; color: #FFFFFF; padding: 7px 90px 7px 30px;'>Autorizadores</span>
-                </div>
-                <div class='row' style='padding-top: 40px;'>
-                    <label style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0;'>(Las personas en la siguiente lista se encargaran de revisar su solicitud y gestionarla .)</label>
-                </div>
-                <!-- Autorizadores -->
-                <div class='row' style='padding-top: 20px;'>
-                    <div style='width: 100%;'>
+                <div class='row'>
+                    <div style='width: 100% !important; padding-left: 10%; padding-right: 10%; text-align: center !important; padding-bottom: 2%; padding-top: 2%;'>
                         <div class='row'>
-
-                            <div style='width: 19%'>
-                                <div class='row'>
-                                    <label class='m-0 p-0' style='color: #676767; font-size: 17px; opacity: 1; letter-spacing: 0;'>Nombres:</label>
-                                </div>
-                                <div class='row'>
-                                    <span style='border: 1px solid #D9D4D4; height: 30px; width: 300px; border-radius: 5px;'></span>
-                                </div>
-                            </div>
-                            <div style='width: 8%;'>
-
-                            </div>
-                            <div style='width: 19%'>
-                                <div class='row'>
-                                    <label class='m-0 p-0' style='color: #676767; font-size: 17px; opacity: 1; letter-spacing: 0;'>Centro de costo:</label>
-                                </div>
-                                <div class='row'>
-                                    <span style='border: 1px solid #D9D4D4; height: 30px; width: 300px; border-radius: 5px;'></span>
-                                </div>
-                            </div>
-                            <div style='width: 8%;'>
-
-                            </div>
-                            <div style='width: 19%'>
-                                <div class='row'>
-                                    <label class='m-0 p-0' style='color: #676767; font-size: 17px; opacity: 1; letter-spacing: 0;'>Telefono:</label>
-                                </div>
-                                <div class='row'>
-                                    <span style='border: 1px solid #D9D4D4; height: 30px; width: 300px; border-radius: 5px;'></span>
-                                </div>
-                            </div>
-                            <div style='width: 8%;'>
-
-                            </div>
-                            <div style='width: 19%'>
-                                <div class='row'>
-                                    <label class='m-0 p-0' style='color: #676767; font-size: 17px; opacity: 1; letter-spacing: 0;'>Email:</label>
-                                </div>
-                                <div class='row'>
-                                    <span style='border: 1px solid #D9D4D4; height: 30px; width: 300px; border-radius: 5px;'></span>
-                                </div>
+                            <div style='width: 100%; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); padding-bottom: 2%; padding-top: 2%; border: 2px solid rgba(219, 223, 227, 0.303017);'>
+                                Nos enviaron el viernes por la noche acerca de tu convocatoria al evento de Paris
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class='row'>
+                    <div style='width: 100% !important; color: #6B253C; font-size: 20px;'>
+                        ● Se requiere la aprobacion de los siguientes pasajeros:
+                    </div>
+                </div>
+                <div class='row' style='padding-left: 3%; padding-right: 3%; padding-top: 1%; padding-bottom: 1%;'>
+                    <div style='width: 100% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017);'>
+                        <div class='row'>
+                            <div style='width: 100% !important; padding-top: 2%; padding-bottom: 2%;'>
+                                <span style='background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; border-radius: 0px 23px 23px 0px; color: #FFFFFF; padding: 7px 90px 7px 30px;'>PASAJEROS</span>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div style='width: 100%; text-align: center !important; padding-left: 2%; padding-right: 2%; padding-bottom: 2%;'>
+                                <table class='tabla'>
+                                    <thead style='color: #3D3D3D; background: #FBF6F6 0% 0% no-repeat padding-box; font-size: 14px;'>
+                                        <th>Nombres</th>
+                                        <th>DNI</th>
+                                        <th>Correo</th>
+                                        <th>Teléfono</th>
+                                    </thead>
+                                    <tbody style='color: #3D3D3D; font-size: 14px;'>
+                                        @pasajeros
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div style='width: 100%; color: #6B253C; font-size: 20px;'>
+                        ● El vuelo seleccionado por el pasajero/centralizador es:
+                    </div>
+                </div>
+                <div class='row' style='padding-top: 2%; padding-left: 2%; padding-right: 2%;'>
+                    <!--Precio adulto-->
+                    <div style='width: 30% !important;border-radius: 40px 0px 40px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white; height: 180px;'>
+                        <div class='row'>
+                            <div style='width: 100%; text-align: right;'>
+                                <img style='width: 30px' src='https://sigvplus.azurewebsites.net/sigvFront/assets/images/medal.gif'>
+                            </div>
+                        </div>
+                        <div class='row' style='padding-bottom: 10px;'>
+                            <div style='width: 100%; text-align: right;'>
+                                <span class='m-0 p-0' style='font-size: 32px; letter-spacing: 0; color: #6B253C; padding-top: 10px;'>@currency</span>
+                                <span class='m-0 p-0' style='font-size: 45px; letter-spacing: 0; color: #898989;'>@precioTotal</span>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div style='width: 100%; text-align: right;'>
+                                <span class='m-0 p-0' style='font-size: 17px; letter-spacing: 0; color: #676767; padding-right: 20px;'>Precio por Adulto</span>
+                                <span class='m-0 p-0' style='font-size: 20px; letter-spacing: 0; color: #6B253C; padding-right: 5px;'>@currency</span>
+                                <span class='m-0 p-0' style='font-size: 20px; letter-spacing: 0; color: #898989;'>@preciounitario</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style='width: 70% !important;'>
+                        <!--section-->
+                        @segmentos
+                    </div>
+                </div>
+                <div class='row'>
+                    <div style='width: 100%; padding-bottom: 1%; color: #6B253C; font-size: 20px;'>
+                        ● Políticas Infringidas
+                    </div>
+                </div>
+                <div class='row' style='padding-left: 3%; padding-right: 3%; padding-top: 1%; padding-bottom: 2%;'>
+                  <!--Politicas hacer for aca-->
+                    @politicas
+                </div>
+                <div class='row'>
+                    <div style='width: 100%; text-align: center;'>
+                        <button style='border-radius: 6px; background: #ED1C24 0% 0% no-repeat padding-box; color: #FFFFFF; width: 180px; font-size: 15px; cursor: pointer;'>Gestionar</button>
+                    </div>
+                </div>
+            </div>
+            <div style='width: 10% !important;'>
             </div>
         </div>
     </div>

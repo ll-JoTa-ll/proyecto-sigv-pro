@@ -46,6 +46,8 @@ export class ReservaCompraComponent implements OnInit {
   htmlpreciofinal;
   htmlpasajeros;
   nuevohtml;
+  fechatimelimit;
+  horatimelimit;
 
   constructor(private sessionStorageService: SessionStorageService,
               private service: AirportService, private router: Router, private http: HttpClient) {
@@ -78,7 +80,6 @@ export class ReservaCompraComponent implements OnInit {
     this.ocompany = this.dataflightavalilability.Ocompany;
     this.numberpassengers = this.dataflightavalilability.NumberPassengers;
     this.flightnational = this.dataflightavalilability.FlightNational;
-    this.Obtenerstring();
   }
 
   Obtenerstring() {
@@ -94,9 +95,6 @@ export class ReservaCompraComponent implements OnInit {
   }
 
   AddPassenger() {
-    this.PlantillaEmailSolicitud();
-   // this.PlantillaPasajeros();
-   // this.PlantillaPreciovuelo();
     let phones = [];
     let email = [];
     email.push(this.email);
@@ -107,7 +105,7 @@ export class ReservaCompraComponent implements OnInit {
     } else {
       infraction = false;
     }
-  
+    this.Obtenerstring();
     let data = {
     "UserId": this.userid,
     "GDS": this.gds,
@@ -140,120 +138,101 @@ export class ReservaCompraComponent implements OnInit {
       );
     }
 
-   PlantillaEmailSolicitud() {
-     let htmlsection = '';
-
-     for (let i = 0; i < this.Lsection.length; i++) {
-      const section = this.Lsection[i];
-      const lsegment = section.Lsegments;
-      htmlsection += "<div style='width: 60%; border-radius: 20px 20px 20px 20px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white;'>";
-
-      for (let k = 0; k < lsegment.length; k++) {
-        const itemlsegment = lsegment[k];
-        const segmentgroup = itemlsegment.LsegmentGroups;
-
-        for (let j = 0; j < segmentgroup.length; j++) {
-          const itemsegmentgroup = segmentgroup[j];
-          htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
-          htmlsection += "<div style='width: 40%;'>";
-          htmlsection += "<span class='m-0 p-0'><img style='width: 350px;' class='m-0 p-0' src='https://sigvplus.azurewebsites.net/sigvFront/assets/images/layer5.gif'></span>";
-          htmlsection += "</div>";
-          htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
-          htmlsection += "<span style='color: #676767; font-size: 14px; opacity: 100%;'>Aerolinea Operadora :";
-          htmlsection +=  "LATAM";
-          htmlsection += "</span>";
-          htmlsection += "</div>";
-          htmlsection += "<div style='width: 40%; text-align: center; padding-top: 30px; padding-left: 50px;'>";
-          htmlsection += "<label style='color: #676767; font-size: 18px; opacity: 100%; width: 40%;'>";
-          htmlsection += "Vuelo AV140 - Airbus A319";
-          htmlsection += "</label>";
-          htmlsection += "</div>";
-          htmlsection += "</div>";
-          htmlsection += "<div class='row' style='padding-top: 40px; padding-bottom: 30px;'>";
-          htmlsection += "<div style='width: 40%; text-align: center;'>";
-          htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 17px; opacity: 1;'>";
-          htmlsection += itemsegmentgroup.DepartureDateShow;
-          htmlsection += "</div>";
-          htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 38px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.TimeOfDepartureShow;
-          htmlsection += "</div>";
-          htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.Origin;
-          htmlsection += "</div>";
-          htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.CityOrigin;
-          htmlsection += "</div>";
-          htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.AirportOrigin;
-          htmlsection += "</div>";
-          htmlsection += "</div>";
-          htmlsection += "<div style='width: 20%; padding-left: 40px; padding-top: 30px; text-align: center;'>";
-          htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 17px; opacity: 1;'>";
-          htmlsection += "Duracion";
-          htmlsection += "</div>";
-          htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 38px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.TotalFlightTimeShow;
-          htmlsection += "</div>";
-          htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += "Clase: <label class='m-0 p-0 pl-3' style='color: #898989; font-size: 18px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.CabinDescription + " - " + itemsegmentgroup.ClassId;
-          htmlsection += "</label>";
-          htmlsection += "</div>";
-          htmlsection += "</div>";
-          htmlsection += "<div style='width: 40%; padding-left: 50px; text-align: center;'>";
-          htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 17px; opacity: 1;'>";
-          htmlsection += itemsegmentgroup.ArrivalDateShow;
-          htmlsection += "</div>";
-          htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 38px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.TimeOfArrivalShow;
-          htmlsection += "</div>";
-          htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.Destination;
-          htmlsection += "</div>";
-          htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.CityDestination;
-          htmlsection += "</div>";
-          htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.AirportDestination;
-          htmlsection += "</div>";
-          htmlsection += "</div>";
-          htmlsection += "</div>";
-        }
-      }
-      htmlsection += "</div>";
+    PlantillaEmailSolicitud() {
+      let htmlsection = '';
+ 
+      for (let i = 0; i < this.Lsection.length; i++) {
+       const section = this.Lsection[i];
+       const lsegment = section.Lsegments;
+       
+       for (let k = 0; k < lsegment.length; k++) {
+         const itemlsegment = lsegment[k];
+         const segmentgroup = itemlsegment.LsegmentGroups;
+         
+         for (let j = 0; j < segmentgroup.length; j++) {
+           const itemsegmentgroup = segmentgroup[j];
+           htmlsection += "<div style='width: 60%; border-radius: 20px 20px 20px 20px; background: white; padding: 1em; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);'>";
+           htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
+           htmlsection += "<div style='width: 40%;'>";
+           htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://sigvplus.azurewebsites.net/sigvFront/assets/images/Airlines/LA.png'></span>";
+           htmlsection += "</div>";
+           htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
+           htmlsection += "<span style='color: #676767; font-size: 14px; opacity: 100%;'>Aerolinea Operadora :";
+           htmlsection +=  "LATAM";
+           htmlsection += "</span>";
+           htmlsection += "</div>";
+           htmlsection += "<div style='width: 40%; text-align: center; padding-top: 30px; padding-left: 50px;'>";
+           htmlsection += "<label style='color: #676767; font-size: 18px; opacity: 100%; width: 40%;'>";
+           htmlsection += "Vuelo AV140 - Airbus A319";
+           htmlsection += "</label>";
+           htmlsection += "</div>";
+           htmlsection += "</div>";
+           htmlsection += "<div class='row' style='padding-top: 40px; padding-bottom: 30px;'>";
+           htmlsection += "<div style='width: 40%; text-align: center;'>";
+           htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 17px; opacity: 1;'>";
+           htmlsection += itemsegmentgroup.DepartureDateShow;
+           htmlsection += "</div>";
+           htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 38px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += itemsegmentgroup.TimeOfDepartureShow;
+           htmlsection += "</div>";
+           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += itemsegmentgroup.Origin;
+           htmlsection += "</div>";
+           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += itemsegmentgroup.CityOrigin;
+           htmlsection += "</div>";
+           htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += itemsegmentgroup.AirportOrigin;
+           htmlsection += "</div>";
+           htmlsection += "</div>";
+           htmlsection += "<div style='width: 20%; padding-left: 40px; padding-top: 30px; text-align: center;'>";
+           htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 17px; opacity: 1;'>";
+           htmlsection += "Duracion";
+           htmlsection += "</div>";
+           htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 38px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += itemsegmentgroup.TotalFlightTimeShow;
+           htmlsection += "</div>";
+           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += "Clase: <label class='m-0 p-0 pl-3' style='color: #898989; font-size: 18px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += itemsegmentgroup.CabinDescription + " - " + itemsegmentgroup.ClassId;
+           htmlsection += "</label>";
+           htmlsection += "</div>";
+           htmlsection += "</div>";
+           htmlsection += "<div style='width: 40%; padding-left: 50px; text-align: center;'>";
+           htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 17px; opacity: 1;'>";
+           htmlsection += itemsegmentgroup.ArrivalDateShow;
+           htmlsection += "</div>";
+           htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 38px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += itemsegmentgroup.TimeOfArrivalShow;
+           htmlsection += "</div>";
+           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 22px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += itemsegmentgroup.Destination;
+           htmlsection += "</div>";
+           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += itemsegmentgroup.CityDestination;
+           htmlsection += "</div>";
+           htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += itemsegmentgroup.AirportDestination;
+           htmlsection += "</div>";
+           htmlsection += "</div>";
+           htmlsection += "</div>";
+           htmlsection += "</div>";
+          }
+       }
+     }
+      this.htmlvuelosection = htmlsection;
+      
+      
+      this.emailsolicitud = this.emailsolicitud.replace("@segmento", this.htmlvuelosection);
     }
-     this.htmlvuelosection = htmlsection;
-     console.log(this.emailsolicitud);
-     this.nuevohtml = this.emailsolicitud.replace('@section', this.htmlvuelosection);
-     console.log(this.htmlvuelosection);
-   }
 
    PlantillaPreciovuelo() {
-     let html = '';
-     html += " <div style='width: 25%; border-radius: 40px 0px 40px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white; height: 180px;'>";
-     html += "<div class='row'>";
-     html += "<img style='padding-left: 290px; width: 50px' src='https://sigvplus.azurewebsites.net/sigvFront/assets/images/medal.gif'>";
-     html += "</div>";
-     html += "<div class='row' style='padding-bottom: 10px; padding-left: 30px;'>";
-     html += "<span class='m-0 p-0' style='text-align: center;   font-size: 45px; letter-spacing: 0; color: #898989; padding-left: 10px;'>";
-     html += this.lsflightavailability.currency;
-     html += "</span>";
-     html += "<span class='m-0 p-0' style='text-align: center;   font-size: 100px; letter-spacing: 0; color: #898989; padding-left: 20px;'>";
-     html += this.lsflightavailability.fareAmountByPassenger;
-     html += "</span>";
-     html += "</div>";
-     html += "<div class='row' style='padding-top: 15px; padding-left: 30px;'>";
-     html += "<span class='m-0 p-0' style='font-size: 17px; letter-spacing: 0; color: #676767; padding-right: 20px;'>Precio por Adulto</span>";
-     html += "<span class='m-0 p-0' style='text-align: center;   font-size: 20px; letter-spacing: 0; color: #6B253C; padding-right: 5px;'>";
-     html += this.lsflightavailability.currency;
-     html += "</span>";
-     html += "<span class='m-0 p-0' style='text-align: center;   font-size: 20px; letter-spacing: 0; color: #898989;'>";
-     html += this.lsflightavailability.totalFareAmount;
-     html += "</span>";
-     html += "</div>";
-     html += "</div>";
-     this.htmlpreciofinal = html;
-     this.nuevohtml = this.emailsolicitud.replace('@precio', this.htmlpreciofinal);
+    this.FormatearFechaPnr();
+    this.emailsolicitud = this.emailsolicitud.replace("@fechatimelimit",this.fechatimelimit);
+    this.emailsolicitud = this.emailsolicitud.replace("@horatimelimit",this.horatimelimit);
+    this.emailsolicitud = this.emailsolicitud.replace(/@currency/gi, this.lsflightavailability.currency);
+    this.emailsolicitud = this.emailsolicitud.replace("@precioTotal", this.lsflightavailability.totalFareAmount);
+    this.emailsolicitud = this.emailsolicitud.replace("@preciounitario", this.lsflightavailability.fareAmountByPassenger);
    }
 
    PlantillaPasajeros() {
@@ -269,7 +248,7 @@ export class ReservaCompraComponent implements OnInit {
     html += "<label class='m-0 p-0' style='color: #676767; font-size: 17px; opacity: 1; letter-spacing: 0;'>Nombres:</label>";
     html += "</div>";
     html += "<div class='row'>";
-    html += "<span style='border: 1px solid #D9D4D4; height: 30px; width: 500px; border-radius: 5px;'>";
+    html += "<span style='text-align: center; border: 1px solid #D9D4D4; height: 30px; width: 500px; border-radius: 5px;'>";
     html += this.lusers.firstName;
     html += "</span>";
     html += "</div>";
@@ -281,7 +260,7 @@ export class ReservaCompraComponent implements OnInit {
     html += "<label class='m-0 p-0' style='color: #676767; font-size: 17px; opacity: 1; letter-spacing: 0;'>Apellidos:</label>";
     html += "</div>";
     html += "<div class='row'>";
-    html += "<span style='border: 1px solid #D9D4D4; height: 30px; width: 500px; border-radius: 5px;'>";
+    html += "<span style='text-align: center; border: 1px solid #D9D4D4; height: 30px; width: 500px; border-radius: 5px;'>";
     html += this.lusers.lastName;
     html += "</span>";
     html += "</div>";
@@ -293,7 +272,7 @@ export class ReservaCompraComponent implements OnInit {
     html += "<label class='m-0 p-0' style='color: #676767; font-size: 17px; opacity: 1; letter-spacing: 0;'>Email:</label>";
     html += "</div>";
     html += "<div class='row'>";
-    html += "<span style='border: 1px solid #D9D4D4; height: 30px; width: 500px; border-radius: 5px;'>";
+    html += "<span style='text-align: center; border: 1px solid #D9D4D4; height: 30px; width: 500px; border-radius: 5px;'>";
     html += this.lusers.email;
     html += "</span>";
     html += "</div>";
@@ -301,11 +280,32 @@ export class ReservaCompraComponent implements OnInit {
     html += "</div>";
     html += "</div>";
     this.htmlpasajeros = html;
-    this.nuevohtml = this.emailsolicitud.replace('@pasajeros', this.htmlpasajeros);
+    this.emailsolicitud = this.emailsolicitud.replace("@NombreSolicitante",this.lusers.firstName+" "+this.lusers.lastName);
+    this.emailsolicitud = this.emailsolicitud.replace('@pasajeros', this.htmlpasajeros);
    }
 
+   FormatearFechaPnr() {
+    let data;
+    let recorte; 
+    let fecha;
+    let hora;
+    data = this.pnrresults.timeLimit;
+    recorte = data.split("T");
+    fecha = recorte[0];
+    var date = new Date(fecha);
+    hora =  recorte[1];
+    recorte = fecha.split("-");
+    fecha = (recorte[2] + " " + date.toLocaleString('default', { month: 'short' }) + " del " + recorte[0]);
+    hora = hora.substr(0,5);
+    this.fechatimelimit = fecha;
+    this.horatimelimit = hora;
+  }
 
-    SendEmail() {
+    SendEmail() {     
+      //this.PlantillaEmailSolicitud();
+      this.PlantillaPreciovuelo();
+      //this.PlantillaPasajeros();
+      console.log(this.emailsolicitud);
       let mails = [];
       this.lsapprover.forEach(function(item) {
         if (item.priority === 1) {
@@ -316,10 +316,10 @@ export class ReservaCompraComponent implements OnInit {
       let data = {
         "AgencyId": 1,
         "Recipients": mails,
-        "RecipientsCopy": ['analista8@domiruth.com'],
+        "RecipientsCopy": ['analista9@domiruth.com'],
         "RecipientsHiddenCopy": [],
         "Subject": "TEST EMAIL TEST",
-        "Message": this.nuevohtml
+        "Message": this.emailsolicitud
       }
       this.service.SendEmail(data).subscribe(
         results => {

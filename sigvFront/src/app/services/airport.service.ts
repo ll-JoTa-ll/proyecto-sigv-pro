@@ -28,14 +28,14 @@ export class AirportService {
 
   token;
 
-  private _url: string = environment.url_2 + "/Airport/";
-  private _url2: string = environment.url_2 + "/Search/";
-  private _url3: string = environment.url_2 + "/Search/";
-  private _url4: string = environment.url_2 + "/Booking/";
-  private _url5: string = environment.url_5 + "/User/";
-  private _url6: string = environment.url_5 + "/CostCenter/";
-  private _url7: string = environment.url_2 + "/ReasonFlight/";
-  private _url8: string = environment.url_6 + "/Email/";
+  private _url: string = environment.url_2 + "Airport/";
+  private _url2: string = environment.url_2 + "Search/";
+  private _url3: string = environment.url_2 + "Search/";
+  private _url4: string = environment.url_2 + "Booking/";
+  private _url5: string = environment.url_5 + "User/";
+  private _url6: string = environment.url_5 + "CostCenter/";
+  private _url7: string = environment.url_2 + "ReasonFlight/";
+  private _url8: string = environment.url_6 + "Email/";
 
   constructor(
     private http: HttpClient,
