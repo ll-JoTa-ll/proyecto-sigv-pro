@@ -1,0 +1,31 @@
+
+
+
+<div class="row m-0 p-0">
+  <div class="col-12 m-0 p-0">
+    Ordenar po
+  </div>
+
+  <div class="col-12 m-0 p-0">
+
+    <div class="btn-group" style="width: 90% !important;" dropdown>
+      <button id="button-basic"
+              dropdownToggle
+              type="button"
+              class="btn bv-texto-2 dropdown-toggle box-shadow"
+              style="padding-bottom: 10px; padding-top: 10px;"
+              aria-controls="dropdown-basic">
+        {{textoPrecio}}
+      </button>
+      <ul id="dropdown-basic"
+          *dropdownMenu
+          class="dropdown-menu bv-texto-2"
+          style="cursor: pointer"
+          role="menu" aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" (click)="seleccionarPrecio('mas', 'menor a mayor precio')">menor a mayor precio</a></li>
+        <li role="menuitem"><a class="dropdown-item" (click)="seleccionarPrecio('menos', 'mayor a menor precio')">mayor a menor precio</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>

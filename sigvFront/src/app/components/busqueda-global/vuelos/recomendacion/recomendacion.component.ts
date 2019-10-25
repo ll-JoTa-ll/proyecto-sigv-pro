@@ -70,7 +70,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
 
     const pseudoRepeat = this.pseudoRepeat;
-    console.log('pseudoRepeat: ' + pseudoRepeat);
+    //console.log('pseudoRepeat: ' + pseudoRepeat);
     if (pseudoRepeat === null) {
       this.flagPseudoRepeat = false;
     } else {
@@ -80,7 +80,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         for (let i = 0; i < lstPseudoRepeat.length; i++) {
           lstPseudoRepeat[i] = lstPseudoRepeat[i] + '.png';
         }
-        console.log('lstPseudoRepeat: ' + lstPseudoRepeat);
+        //console.log('lstPseudoRepeat: ' + lstPseudoRepeat);
         this.lstPseudoRepeat = lstPseudoRepeat;
       } else {
         let lstPseudoRepeat: any[] = [];
@@ -88,7 +88,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         for (let i = 0; i < lstPseudoRepeat.length; i++) {
           lstPseudoRepeat[i] = lstPseudoRepeat[i] + '.png';
         }
-        console.log('lstPseudoRepeat: ' + lstPseudoRepeat);
+        //console.log('lstPseudoRepeat: ' + lstPseudoRepeat);
         this.lstPseudoRepeat = lstPseudoRepeat;
       }
     }
