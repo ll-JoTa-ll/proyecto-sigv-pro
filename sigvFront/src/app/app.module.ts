@@ -82,11 +82,8 @@ import { PasajerosComponent } from './components/reserva-vuelo/reserva-generada/
 import { GestionReservasComponent } from './components/reserva-vuelo/gestion-reservas/gestion-reservas.component';
 import { ReservaTicketComponent } from './components/reserva-vuelo/reserva-ticket/reserva-ticket.component';
 import { FiltroSuperiorComponent } from './components/vuelos/filtro-superior/filtro-superior.component';
-<<<<<<< HEAD
 import { AprobacionReservaComponent } from './components/reserva-vuelo/aprobacion-reserva/aprobacion-reserva.component';
-=======
 import { FiltroPrecioComponent } from './components/vuelos/filtro-precio/filtro-precio.component';
->>>>>>> 8ec3185e82aa1310334ae0a414ee9fbd9186db20
 
 @NgModule({
   declarations: [
@@ -155,11 +152,8 @@ import { FiltroPrecioComponent } from './components/vuelos/filtro-precio/filtro-
     GestionReservasComponent,
     ReservaTicketComponent,
     FiltroSuperiorComponent,
-<<<<<<< HEAD
-    AprobacionReservaComponent
-=======
+    AprobacionReservaComponent,
     FiltroPrecioComponent
->>>>>>> 8ec3185e82aa1310334ae0a414ee9fbd9186db20
   ],
   imports: [
     BrowserModule,
