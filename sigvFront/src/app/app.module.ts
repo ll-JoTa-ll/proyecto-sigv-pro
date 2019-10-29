@@ -15,6 +15,7 @@ import { deLocale, esLocale } from 'ngx-bootstrap/locale';
 defineLocale('es', esLocale);
 defineLocale('de', deLocale);
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,7 +55,6 @@ import { MotivoViajeComponent } from './components/reserva-vuelo/motivo-viaje/mo
 import { PrecioFinalComponent } from './components/reserva-vuelo/precio-final/precio-final.component';
 import { InfoVueloSectionComponent } from './components/reserva-vuelo/info-vuelo-section/info-vuelo-section.component';
 import { InfoVueloSegmentComponent } from './components/reserva-vuelo/info-vuelo-segment/info-vuelo-segment.component';
-import { ModalResumenComponent } from './components/reserva-vuelo/modal-resumen/modal-resumen.component';
 import { ModalInfraccionPaxComponent } from './components/reserva-vuelo/modal-infraccion-pax/modal-infraccion-pax.component';
 import { VuelosExcepcionPoliticaComponent } from './components/vuelos-excepcion-politica/vuelos-excepcion-politica.component';
 import { ExVueloSectionComponent } from './components/vuelos-excepcion-politica/ex-vuelo-section/ex-vuelo-section.component';
@@ -84,6 +84,9 @@ import { ReservaTicketComponent } from './components/reserva-vuelo/reserva-ticke
 import { FiltroSuperiorComponent } from './components/vuelos/filtro-superior/filtro-superior.component';
 import { AprobacionReservaComponent } from './components/reserva-vuelo/aprobacion-reserva/aprobacion-reserva.component';
 import { FiltroPrecioComponent } from './components/vuelos/filtro-precio/filtro-precio.component';
+import { FiltroHorariosComponent } from './components/vuelos/filtro-horarios/filtro-horarios.component';
+import { FiltroAerolineasComponent } from './components/vuelos/filtro-aerolineas/filtro-aerolineas.component';
+import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/solicitud-aprobacion.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +127,6 @@ import { FiltroPrecioComponent } from './components/vuelos/filtro-precio/filtro-
     PrecioFinalComponent,
     InfoVueloSectionComponent,
     InfoVueloSegmentComponent,
-    ModalResumenComponent,
     ModalInfraccionPaxComponent,
     VuelosExcepcionPoliticaComponent,
     ExVueloSectionComponent,
@@ -153,7 +155,10 @@ import { FiltroPrecioComponent } from './components/vuelos/filtro-precio/filtro-
     ReservaTicketComponent,
     FiltroSuperiorComponent,
     AprobacionReservaComponent,
-    FiltroPrecioComponent
+    FiltroPrecioComponent,
+    FiltroHorariosComponent,
+    FiltroAerolineasComponent,
+    SolicitudAprobacionComponent
   ],
   imports: [
     BrowserModule,
@@ -169,7 +174,8 @@ import { FiltroPrecioComponent } from './components/vuelos/filtro-precio/filtro-
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    TimepickerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

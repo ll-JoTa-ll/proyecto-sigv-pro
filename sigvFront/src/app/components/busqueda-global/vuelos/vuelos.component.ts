@@ -308,6 +308,15 @@ export class VuelosComponent implements OnInit {
 
   seleccionarTipoVuelo(valor) {
     this.tipoVuelo = valor;
+    if (valor === 'RT') {
+      this.indexTramo = 2;
+    }
+    if (valor === 'OW') {
+      this.indexTramo = 1;
+    }
+    if (valor === 'MC') {
+      this.indexTramo = 2;
+    }
   }
 
   searchFlight() {
@@ -483,6 +492,7 @@ export class VuelosComponent implements OnInit {
     this.sessionStorageService.store('ss_dataRequestFlight', data);
     this.sessionStorageService.store('ss_horasFrom', horasFrom);
     this.sessionStorageService.store('ss_horasTo', horasTo);
+    this.sessionStorageService.store('ss_filterPrecio', 'mas');
 
     const flagVal = this.validarDataBusqueda(data);
     if (!flagVal) {
@@ -729,6 +739,15 @@ export class VuelosComponent implements OnInit {
     }, 500);
   }
 
+  busquedaFiltrosPrecio($event) {
+    this.searchData = [];
+    this.searchData = $event;
+    const spinner = this.spinner;
+    setTimeout(function() {
+      spinner.hide();
+    }, 500);
+  }
+
   vuelosTurno($event) {
     /*
     this.flagBuscadorLateral = false;
@@ -738,6 +757,15 @@ export class VuelosComponent implements OnInit {
     this.vueloTurnoFiltro = dataFilter.filtroTurnos;
     this.flagBuscadorLateral = true;
     */
+  }
+
+  busquedaFiltrosHoras($event) {
+    this.searchData = [];
+    this.searchData = $event;
+    const spinner = this.spinner;
+    setTimeout(function() {
+      spinner.hide();
+    }, 500);
   }
 
 }
