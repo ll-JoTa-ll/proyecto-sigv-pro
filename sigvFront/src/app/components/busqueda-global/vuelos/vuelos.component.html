@@ -329,7 +329,9 @@
                         [destinoAuto2]="destinoAuto2" [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3"
                         [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)"></app-buscador>
 
-                  <app-filtro-precio></app-filtro-precio>
+                  <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
+
+                  <app-filtro-horarios (searchFilter)="busquedaFiltrosHoras($event)" [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
 
                 </div>
 

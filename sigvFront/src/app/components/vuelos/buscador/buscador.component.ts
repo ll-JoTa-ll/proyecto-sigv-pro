@@ -536,10 +536,17 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     this.sessionStorageService.store('ss_dataRequestFlight', data);
     this.sessionStorageService.store('ss_horasFrom', horasFrom);
     this.sessionStorageService.store('ss_horasTo', horasTo);
+    const ss_filterPrecio = this.sessionStorageService.retrieve('ss_filterPrecio');
 
     this.airportService.searchFlight(data).subscribe(
       result => {
         console.log(result);
+        if (ss_filterPrecio === 'mas') {
+          result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
+        }
+        if (ss_filterPrecio === 'menos') {
+          result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
+        }
         this.lRecomendaciones.emit(result);
       },
       err => {

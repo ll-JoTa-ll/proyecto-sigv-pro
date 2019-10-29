@@ -232,13 +232,6 @@ export class ReservaVueloComponent implements OnInit {
       } else {
         prefix = 'MRS';
       }
-      let fechatotal;
-      let fecha = item.birthDate.substr(0, 10);
-      let fechaformat = fecha.split('-');
-      let año = fechaformat[0];
-      let mes = fechaformat[1];
-      let dia = fechaformat[2];
-      fechatotal = año + '/' + mes + '/' + dia;
       let nombre;
       let apellido;
       let fechanacimiento;
@@ -247,7 +240,7 @@ export class ReservaVueloComponent implements OnInit {
       nombre = $('#txtnombre_' + (index + 1)).val();
       apellido = $('#txtapellidos_' + (index + 1)).val();
       fechanacimiento = $('#txtfecha_' + (index + 1)).val();
-      typedoc = $('#cbo_tipodocumento_' + (index + 1)  + 'option:selected').val();
+      typedoc = $('#cbo_tipodocumento_' + (index + 1) + ' '  + 'option:selected').val();
       nrodoc = $('#txtnrodocumento_' + (index + 1)).val();
       let odocument = {
         description: 'Documento Nacional',
