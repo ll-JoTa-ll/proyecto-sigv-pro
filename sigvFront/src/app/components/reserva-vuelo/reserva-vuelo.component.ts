@@ -225,7 +225,7 @@ export class ReservaVueloComponent implements OnInit {
     let idmotivo = $('#cbomotivo option:selected').val();
 
     let datosusuario: any[] = [];
-    this.datosuser.forEach(function(item) {
+    this.datosuser.forEach(function(item, index) {
       let prefix;
       if (item.gender === 'M') {
         prefix = 'MR';
@@ -239,21 +239,37 @@ export class ReservaVueloComponent implements OnInit {
       let mes = fechaformat[1];
       let dia = fechaformat[2];
       fechatotal = año + '/' + mes + '/' + dia;
+      let nombre;
+      let apellido;
+      let fechanacimiento;
+      let typedoc;
+      let nrodoc;
+      nombre = $('#txtnombre_' + (index + 1)).val();
+      apellido = $('#txtapellidos_' + (index + 1)).val();
+      fechanacimiento = $('#txtfecha_' + (index + 1)).val();
+      typedoc = $('#cbo_tipodocumento_' + (index + 1)  + 'option:selected').val();
+      nrodoc = $('#txtnrodocumento_' + (index + 1)).val();
+      let odocument = {
+        description: 'Documento Nacional',
+        number: nrodoc,
+        type: typedoc
+      }
       const objuser = {
-        "PassengerId": 1,
+        "PassengerId": index + 1,
         "PersonId": item.personId,
         "Prefix": prefix,
         "Type": "ADT",
-        "Name": item.firstName,
-        "LastName": item.lastName,
+        "Name": nombre,
+        "LastName": apellido,
         "Gender": item.gender,
-        "BirthDate": fechatotal,
-        "Odocument": item.odocument,
+        "BirthDate": fechanacimiento,
+        "Odocument": odocument,
         "FrequentFlyer": item.frequentFlyer,
         "IsVIP": item.isVIP
        }
       datosusuario.push(objuser);
     });
+    console.log(datosusuario);
     this.sessionStorageService.store('datosusuario', datosusuario);
     this.sessionStorageService.store('sectioninfo', this.LSection);
     this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
