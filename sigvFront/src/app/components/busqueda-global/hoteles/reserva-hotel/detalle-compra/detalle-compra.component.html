@@ -1,0 +1,68 @@
+<div class="col-12 m-0 p-0 ">
+    <div class="row m-0 p-0">
+        <div class="detalleCompra col-12 m-0 p-0 pt-4 pb-4">Detalle de la compra</div>
+
+        <div class="row m-0 p-0 pt-2 pl-3" style="box-shadow: 0px 3px 6px #00000029;">
+            <div class="col-12 m-0 p-0 pt-1 pb-2">
+                <span><img src="./assets/images/cama.svg" alt=""> </span>
+            </div>
+            <div class="col-12 m-0 p-0 lblnombrehotel"> <span>{{lstConfirmacion.ohotel.name}}</span> <span>-Bogotá,Colombia.</span> </div>
+            <div class="col-12 m-0 p-0 lbldistancia"><span>A 11,73 km del aeropuerto</span> </div>
+
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0 pt-1 pb-3">
+                    <div class="col-6 m-0 p-0">
+                        <span> <img src="./assets/images/star.svg" alt=""></span>
+                    </div>
+                    <div class="mapa col-6 m-0 p-0 pl-4">
+                        <span class="txt-mapa pl-3" (click)="Mostrarmapa()"> Ver mapa </span>
+                    </div>
+                    <div class="PopupContainer" id="mapa">
+                        <div class="tooltipBagDiv box-shadow animated fadeIn fast">
+                            <span class="title-modal">Vista de mapa</span>
+                            <a class="btn-close" (click)="OcultarMapa()">X</a>
+                            <agm-map [latitude]="lstHabi.ohotel.oposition.latitude" [zoom]="15" [longitude]="lstHabi.ohotel.oposition.longitude">
+                                <agm-marker [latitude]="lstHabi.ohotel.oposition.latitude" [longitude]="lstHabi.ohotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
+                            </agm-map>
+                            <span class="hotel-nombre">{{lstHabi.ohotel.hotelName}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="check row m-0 p-0">
+                    <div class="col-6 m-0 p-0">
+                        Check in
+                    </div>
+                    <div class="col-6 m-0 p-0 pl-4">
+                        Check out
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="Date row m-0 p-0">
+                    <div class="col-6 m-0 p-0">
+                        <span> 07 oct 2019</span>
+                    </div>
+                    <div class="col-6 m-0 p-0 pl-4">
+                        <span> 09 oct 2019 </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0 pb-5">
+                <div class="hours row m-0 p-0">
+                    <div class="col-6 m-0 p-0">
+                        <span> 15:00</span>
+                    </div>
+                    <div class="col-6 m-0 p-0 pl-4">
+                        <span>11:00 </span>
+                    </div>
+                </div>
+            </div>
+            <div class="Informacion row m-0 p-0">
+                <div class="col-12 m-0 p-0 pt-3"><span>2 noches</span> <span> 2 adultos</span></div>
+                <div class="col-12 m-0 p-0 pb-3"><span> Kingbed, accesible shower</span></div>
+            </div>
+        </div>
+    </div>
+</div>

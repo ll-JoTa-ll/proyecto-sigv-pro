@@ -13,7 +13,7 @@ export class FiltrosComponent implements OnInit {
   @Output() messagelistado = new EventEmitter<any[]>();
   @Output() vistamapa = new EventEmitter<any>();
   @Output() vistalistado = new EventEmitter<any>();
-  textoprecio: string = 'Menor a Mayor';
+  textoprecio: string = 'Precio';
   textoestrellas: string = 'Estrellas';
 
   mostrarmapa: boolean = true;
@@ -27,7 +27,7 @@ export class FiltrosComponent implements OnInit {
   FiltrarPrecio(number) {
     if (number === 1) {
       this.ListaHotel.sort(function(a, b) {
-        return a.MinPrice - b.MinPrice;
+        return a.oprice.pricePerAllNights - b.oprice.pricePerAllNights;
        });
       this.messagelistado.emit(this.ListaHotel);
       this.textoprecio = 'Menor a Mayor';
@@ -35,7 +35,7 @@ export class FiltrosComponent implements OnInit {
 
     if (number === 2) {
       this.ListaHotel.sort(function(a, b) {
-        return b.MinPrice - a.MinPrice;
+        return b.oprice.pricePerAllNights - a.oprice.pricePerAllNights;
        });
       this.messagelistado.emit(this.ListaHotel);
       this.textoprecio = 'Mayor a Menor';
@@ -45,7 +45,7 @@ export class FiltrosComponent implements OnInit {
   FiltrarEstrella(number) {
      if (number === 1) {
       this.ListaHotel.sort(function(a, b) {
-        return parseFloat(b.HotelSegmentCategoryCode) - parseFloat(a.HotelSegmentCategoryCode);
+        return b.stars - a.stars;
        });
       this.messagelistado.emit(this.ListaHotel);
       this.textoestrellas = 'Mayor a Menor';
@@ -53,7 +53,7 @@ export class FiltrosComponent implements OnInit {
 
      if (number === 2) {
       this.ListaHotel.sort(function(a, b) {
-        return parseFloat(a.HotelSegmentCategoryCode) - parseFloat(b.HotelSegmentCategoryCode);
+        return a.stars - b.stars;
        });
       this.messagelistado.emit(this.ListaHotel);
       this.textoestrellas = 'Menor a Mayor';

@@ -1,0 +1,90 @@
+<div class="m-0 p-0 pb-5">
+    <div class="col-12 m-0 p-0 box-shadow">
+        <div class="row m-0 p-0">
+            <div class="pago col-12 m-0 p-0 pt-4 pb-2 pl-4"> PAGOS</div>
+            <div class="nombreHotel col-12 m-0 p-0 pb-3 pl-4">
+                <span></span>{{habitacion.ohotel.name}}<span>-Bogotá,Colombia.</span> <span>A 11,73 km del aeropuerto</span>
+            </div>
+
+            <div class="col-12 m-0 p-0 pb-5">
+                <div class="row m-0 p-0 pt-3">
+                    <div class="col-8 m-0 p-0 pl-4">
+                        <div class="row m-0 p-0">
+                            <div class="col-1 m-0 p-0">
+                                <img src="./assets/images/surface1.svg" class="pt-2">
+                            </div>
+                            <div class="col-11 m-0 p-0">
+                                <div class="tarjetaG col-12 m-0 p-0">
+                                    Tarjeta de garantía
+                                </div>
+                                <div class="tarjetaUsada col-12 m-0 p-0">
+                                    Tu tarjeta solo sera usada como garantía, pagaras directamente en el Hotel
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-4 m-0 p-0 pt-2 pl-5">
+                        <button class="btn btn-danger" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
+                    <span class="lblSelecciona"> Agrega tu tarjeta <img src="./assets/images/tarjeta-de-credito.svg" class="pl-2">
+                    </span>
+                                   
+                  </button>
+
+                    </div>
+                </div>
+                <div class="row m-0 p-0" id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0 pt-4">
+                            <div class="title col-6 m-0 p-0 pl-4">
+                                NUMERO DE TARJETA
+                            </div>
+                            <div class="title col-3 m-0 p-0">
+                                VENCIMIENTO
+                            </div>
+                            <div class="title col-3 m-0 p-0">
+                                COD. SEGURIDAD
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="title col-6 m-0 p-0 pl-4">
+                                <input type="text" placeholder="Ingrese el numero de tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;">
+                            </div>
+                            <div class="title col-3 m-0 p-0">
+                                <input type="text" placeholder="MM/AA" class="input-names box-shadow" style="width: 158.37px; height: 44px;">
+                            </div>
+                            <div class="title col-3 m-0 p-0">
+                                <input type="text" placeholder="XXX" class="input-names box-shadow" style="width: 158.37px; height: 44px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0 pt-4">
+                            <div class="title col-12 m-0 p-0 pl-4">
+                                TITULAR DE LA TARJETA
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="title col-6 m-0 p-0 pl-4">
+                                <input type="text" placeholder="Como figura en la tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="FormadePago col-12 m-0 p-0 pt-4 pb-4" style="background: #F8F8F8;">
+                <span class="lblFormaPago pr-3"> Formato de pago aceptada </span>
+                <span>
+              <img src="./assets/images/dinero.svg"  class="pr-3">     
+           
+              <img src="./assets/images/visa.svg" class="pr-3 pl-3">
+            </span>
+            </div>
+        </div>
+    </div>
+</div>

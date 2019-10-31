@@ -13,7 +13,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale, esLocale } from 'ngx-bootstrap/locale';
 import { AgmCoreModule } from '@agm/core';
-
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 defineLocale('es', esLocale);
 defineLocale('de', deLocale);
@@ -52,6 +53,14 @@ import { FamiliaComponent } from './components/vuelos/familias/familia/familia.c
 import { FamiliaFareComponent } from './components/vuelos/familias/familia-fare/familia-fare.component';
 import { GetmayorpricePipe } from './pipes/getmayorprice.pipe';
 import { HabitacionComponent } from './components/busqueda-global/hoteles/habitacion/habitacion.component';
+import { DetalleHabitacionComponent } from './components/busqueda-global/hoteles/habitacion/detalle-habitacion/detalle-habitacion.component';
+import { PrecioFechaComponent } from './components/busqueda-global/hoteles/habitacion/precio-fecha/precio-fecha.component';
+import { ReservaHotelComponent } from './components/busqueda-global/hoteles/reserva-hotel/reserva-hotel.component';
+import { ContactoComponent } from './components/busqueda-global/hoteles/reserva-hotel/contacto/contacto.component';
+import { DetalleCompraComponent } from './components/busqueda-global/hoteles/reserva-hotel/detalle-compra/detalle-compra.component';
+import { DetallePagoComponent } from './components/busqueda-global/hoteles/reserva-hotel/detalle-pago/detalle-pago.component';
+import { PagoComponent } from './components/busqueda-global/hoteles/reserva-hotel/pago/pago.component';
+import { TitularesReservaComponent } from './components/busqueda-global/hoteles/reserva-hotel/titulares-reserva/titulares-reserva.component';
 
 @NgModule({
   declarations: [
@@ -87,12 +96,21 @@ import { HabitacionComponent } from './components/busqueda-global/hoteles/habita
     FamiliaComponent,
     FamiliaFareComponent,
     GetmayorpricePipe,
-    HabitacionComponent
+    HabitacionComponent,
+    DetalleHabitacionComponent,
+    PrecioFechaComponent,
+    ReservaHotelComponent,
+    ContactoComponent,
+    DetalleCompraComponent,
+    DetallePagoComponent,
+    PagoComponent,
+    TitularesReservaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    CollapseModule.forRoot(),
     AlertModule.forRoot(),
     NgxWebstorageModule.forRoot(),
     HttpClientModule,
@@ -101,6 +119,7 @@ import { HabitacionComponent } from './components/busqueda-global/hoteles/habita
     NgxSpinnerModule,
     AutocompleteLibModule,
     BsDatepickerModule.forRoot(),
+    CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDaXMHgcWr4xnHihDztbEPvkzyRnRFV81A',

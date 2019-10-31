@@ -5,4 +5,5 @@ export class ISearchHotelModel {
     Quantity: string;
     Count: string;
     HotelSegmentCategoryCode: string;
+    ksdkakd:string;
 }

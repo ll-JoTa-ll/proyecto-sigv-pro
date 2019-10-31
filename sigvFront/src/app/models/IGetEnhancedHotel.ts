@@ -1,15 +1,43 @@
 export class IGetEnhancedHotel {
-    ChainCode: string;
-    HotelCityCode: string;
-    HotelCode: string;
-    Start: string;
-    End: string;
-    RatePlanCode: string;
-    BookingCode: string;
-    RoomTypeCode: string;
-    Osession: {
-    SessionId: string;
-    SecurityToken: string;
-    SequenceNumber: string;
-   } 
+    ohotel: {
+        chainCode: string;
+        code: string;
+        cityCode: string;
+        name: string;
+        businessName: string;
+    };
+    oroom: {
+        guarantee: string;
+        ratePlan: string;
+        paymentCards: [];
+        lcancelPenalties: [
+            {
+                policyCode: string;
+                nonRefundable: boolean;
+                deadline: string;
+                description: string;
+                oprice: string;
+            }
+        ];
+        checkIn: string;
+        checkOut: string;
+        bookingCode: string;
+        roomType: string;
+        ratePlanCode: string;
+        name: string;
+        lpricePerDay: [
+            {
+                startDate: string;
+                endDate: string;
+                price: number;
+                currency: string;
+            }
+        ]
+    };
+    osession: {
+        sessionId: string;
+        securityToken: string;
+        sequenceNumber: string;
+        transactionStatusCode: string;
+    }
 }

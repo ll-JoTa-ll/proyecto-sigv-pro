@@ -32,7 +32,10 @@ export class HotelesComponent implements OnInit {
   destinoText: string;
   minDateIngreso: Date;
   minDateSalida: Date;
+  maxDateIngreso: Date;
+  maxDateSalida: Date;
   fechaIngreso: string;
+  cantidadhabitaciones: string;
   fechaSalida: string;
   fechaRetorno: string;
   LlistaHotel: IHotelResultsModel[] = [];
@@ -47,9 +50,9 @@ export class HotelesComponent implements OnInit {
   divwarning: boolean;
   currency: string;
   cantidadnoche: string;
-
   mayorPrecioHotel: number;
   menorPrecioHotel: number;
+ 
 
 
 
@@ -57,7 +60,7 @@ export class HotelesComponent implements OnInit {
     private localeService: BsLocaleService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
-    private spinner: NgxSpinnerService,
+    public spinner: NgxSpinnerService,
     private service: HotelService
   ) { 
     this.minDateIngreso = new Date();
@@ -131,6 +134,7 @@ export class HotelesComponent implements OnInit {
   }
 
   onValueChangeSalida(value: Date): void {
+    this.maxDateIngreso = value;
     let mes = "";
     if ((value.getMonth() + 1) < 10) {
       mes = "0" + (value.getMonth() + 1);
@@ -152,6 +156,23 @@ export class HotelesComponent implements OnInit {
   Obtenerlistado($event) {
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
+
+    let menorValor = 1000000;
+    let mayorValor = 0;
+           
+    this.LlistaHotel.forEach(function(item) {
+            if (item.oprice.pricePerAllNights < menorValor) {
+              menorValor = item.oprice.pricePerAllNights;
+            }
+              if (item.oprice.pricePerAllNights > mayorValor) {
+                mayorValor = item.oprice.pricePerAllNights;
+              }
+            
+           });
+
+           this.menorPrecioHotel = menorValor;
+           this.mayorPrecioHotel = mayorValor;
+    this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
   }
 
   ObtenerListFiltro($event) {
@@ -210,59 +231,60 @@ export class HotelesComponent implements OnInit {
     this.flagDinData = false;
     this.dateingreso = $('#dateingreso').val();
     this.datesalida = $('#datesalida').val();
-    const SearchObj: any = { 
-      HotelCityCode: this.destinoValue,
-      Start: this.fechaSalida,
-      End: this.fechaRetorno,
-      Quantity: $('#txthabitacion').val(),
-      Count: $('#txtpersonas').val(),
-      HotelSegmentCategoryCode: this.estrellas
-    };
+    this.cantidadhabitaciones = $('#txthabitacion').val();
+    let data = {
+      "Lhotel":
+      [
+        {
+          "HotelCityCode": this.destinoValue,
+          "Stars": this.estrellas,
+          "StartDate": this.fechaSalida,
+          "EndDate": this.fechaRetorno,	
+          "LguestPerRoom":
+          [
+            {
+              "RoomQuantity": $('#txthabitacion').val(),
+              "NumberPassengers": $('#txtpersonas').val(),
+              "TypePassenger": "ADT"
+            }
+          ]
+        }
+      ],
+      "Ocompany": this.loginDataUser.ocompany
+    }
     this.habitaciones = $('#txthabitacion').val();
     this.personas = $('#txtpersonas').val();
 
-    console.log(JSON.stringify(SearchObj));
+    console.log(JSON.stringify(data));
 
-    this.service.SearchHotel(SearchObj).subscribe(
+    this.service.SearchHotel(data).subscribe(
       result => {
          console.log(this.LlistaHotel);
          if (result !== null && result.length > 0) {
           console.log('result: ' + result);
-          this.localStorageService.store('ls_search_hotel', result);
+          this.sessionStorageService.store('ls_search_hotel', result);
            this.LlistaHotel = result;
-           this.localStorageService.store('hotel', this.LlistaHotel[0]);
+           this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
            this.flagBuscar = true;
 
            let menorValor = 1000000;
            let mayorValor = 0;
            let currency;
            let cantnoche;
+           
           result.forEach(function(item, index1) {
 
             let mmm = 1000000;
 
-            item.LBeRoomStay
-
-             item.LBeRoomStay.forEach(function(item2, index2) {
-               //
-                currency = item2.CurrencyCode;
-                cantnoche = item2.NumberOfNigths;
-               /*
-              if (parseFloat(item2.AmountAfterTax) > mayorValor) {
-                mayorValor = parseFloat(item2.AmountAfterTax);
+            if (item.oprice.pricePerAllNights < menorValor) {
+              menorValor = item.oprice.pricePerAllNights;
+            }
+              if (item.oprice.pricePerAllNights > mayorValor) {
+                mayorValor = item.oprice.pricePerAllNights;
               }
-              */
-
-              if (parseFloat(item2.AmountAfterTax) < menorValor) {
-                menorValor = parseFloat(item2.AmountAfterTax);
-              }
-              if (index2 === 0) {
-                if (parseFloat(item2.AmountAfterTax) > mayorValor) {
-                  mayorValor = parseFloat(item2.AmountAfterTax);
-                }
-              }
-             });
+            
            });
+
            this.cantidadnoche = cantnoche;
            this.currency = currency;
            this.menorPrecioHotel = menorValor;
@@ -286,4 +308,6 @@ SeleccionarEstrella(codeestrella, texto) {
   this.estrellas = codeestrella;
   this.textoestrellas = texto;
 }
+
+
 }

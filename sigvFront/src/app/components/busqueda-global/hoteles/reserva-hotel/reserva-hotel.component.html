@@ -1,0 +1,68 @@
+<ng-container>
+
+    <app-header>
+        <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0">
+            </div>
+            <div class="col-8 m-0 p-0 pt-5">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0">
+                        <span class="atras"> < Volver atras</span>
+                    </div>
+                </div>
+                <div class="row m-0 p-0 pb-3">
+                    <div class="col-12 m-0 p-0">
+                        <span class="solo">Solo te falta este paso</span>
+                    </div>
+                </div>
+                <div class="row m-0 p-0">
+                    <div class="col-8 m-0 p-0 pr-4">
+                        <app-pago></app-pago>
+                        <app-titulares-reserva></app-titulares-reserva>
+                        <app-contacto></app-contacto>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0 text-center">
+                                <button class="btn btn-danger" style="width: 200px;">
+                                    <span class="lblSelecciona">
+                                        Comprar
+                                    </span>          
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-4 m-0 p-0 pl-4 box-shadow pl-3 pr-3">
+                        <app-detalle-pago></app-detalle-pago>
+                        <app-detalle-compra></app-detalle-compra>
+
+                        <div class="row m-0 p-0">
+                            <div class="tituPoli col-12 m-0 p-0 pt-4" style="text-align: center;">
+                                <span style="border-bottom: 1px solid #ED1C24">Politicas y Condiciones</span>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0 pt-3">
+                            <div class="col-12 m-0 p-0">
+                                <span class="info">✓ Se puede cancelar hasta el {{lstConfirmacion.oroom.lcancelPenalties[0].deadline}}</span>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].nonRefundable === false" class="col-12 m-0 p-0">
+                                <span class="info">✓ No Reembolsable <img style="width: 50px;" src="assets/images/no-money.png"></span>
+                            </div>
+                            <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].nonRefundable === true" class="col-12 m-0 p-0">
+                                <span class="info">✓ Reembolsable <img src="assets/images/money.png"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-2 m-0 p-0">
+
+            </div>
+
+        </div>
+
+    </app-header>
+
+</ng-container>

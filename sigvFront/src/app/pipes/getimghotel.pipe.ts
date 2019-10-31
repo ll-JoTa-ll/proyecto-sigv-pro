@@ -6,14 +6,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class GetimghotelPipe implements PipeTransform {
 
   transform(value: any): any {
-    let results;
-    let url;
-    let limageitem;
-    let imgformat;
-    let odescriptions;
-    let lmultimediadescription;
-    odescriptions = value.ODescriptions;
-
+    let img;
+    if (value.length > 0) {
+      for (let i = 0; i < value.length; i++) {
+        const element = value[i];
+        img = element.url;
+      }
+    } else {
+      img = '/assets/images/imagenotfound.jfif';
+    }
+   
+/*
     if (odescriptions === null) {
       return;
     } else {
@@ -28,5 +31,7 @@ export class GetimghotelPipe implements PipeTransform {
        }
       }
     return url;
+    */
+   return img;
     }
 }

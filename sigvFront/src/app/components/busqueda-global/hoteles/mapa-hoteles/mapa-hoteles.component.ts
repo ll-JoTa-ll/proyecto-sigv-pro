@@ -42,8 +42,8 @@ export class MapaHotelesComponent implements OnInit {
 
   ngOnInit() {
     this.hotel = this.localStorageService.retrieve('hotel');
-    this.location.latitude =  this.hotel.Latitude;
-    this.location.longitude = this.hotel.Longitude;
+    this.location.latitude =  this.hotel.oposition.latitude;
+    this.location.longitude = this.hotel.oposition.longitude;
 
     /*
     this.mapsAPILoader.load().then(() => {

@@ -7,6 +7,9 @@ import { HotelesComponent } from './components/busqueda-global/hoteles/hoteles.c
 import { BusesComponent } from './components/busqueda-global/buses/buses.component';
 import { PaquetesComponent } from './components/busqueda-global/paquetes/paquetes.component';
 import { SegurosComponent } from './components/busqueda-global/seguros/seguros.component';
+import { parse } from 'url';
+import { HabitacionComponent } from './components/busqueda-global/hoteles/habitacion/habitacion.component';
+import { ReservaHotelComponent } from './components/busqueda-global/hoteles/reserva-hotel/reserva-hotel.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -15,7 +18,9 @@ const routes: Routes = [
   { path: 'hoteles', component: HotelesComponent, runGuardsAndResolvers: 'always' },
   { path: 'buses', component: BusesComponent, runGuardsAndResolvers: 'always' },
   { path: 'paquetes', component: PaquetesComponent, runGuardsAndResolvers: 'always' },
-  { path: 'seguros', component: SegurosComponent, runGuardsAndResolvers: 'always' }
+  { path: 'seguros', component: SegurosComponent, runGuardsAndResolvers: 'always' },
+  { path: 'habitacion', component: HabitacionComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reserva-habitacion-hotel', component: ReservaHotelComponent, runGuardsAndResolvers: 'always'}
 ];
 
 @NgModule({

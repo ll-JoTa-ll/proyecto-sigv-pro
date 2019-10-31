@@ -11,7 +11,7 @@ export interface ILoginDatosModel {
   orole;
   oprofile;
   ocompany;
-  ocostCenter;
+  lcostCenter;
   lpseudo;
   token;
 }

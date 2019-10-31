@@ -19,50 +19,49 @@
                     </div>
                     <!--  <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>  -->
                     <agm-map [latitude]="location.latitude | formatoLongitud" [longitude]="location.longitude | formatoLongitud" [zoom]="zoom">
-                        <agm-marker *ngFor="let item of listado; let i = index" (markerClick)="abriModal(i + 1)" (mouseOver)="window.open()" (mouseOut)="window.close()" [iconUrl]="urlimg" [latitude]="item.Latitude | formatoLongitud" [longitude]="item.Longitude | formatoLongitud"
-                            (dragEnd)="markerDragEnd($event)">
-                            <agm-info-window #window>{{item.LBeRoomStay[0].CurrencyCode}} {{item.MinPrice}}</agm-info-window>
+                        <agm-marker *ngFor="let item of listado; let i = index" (markerClick)="abriModal(i + 1)" (mouseOver)="window.open()" (mouseOut)="window.close()" [iconUrl]="urlimg" [latitude]="item.oposition.latitude " [longitude]="item.oposition.longitude" (dragEnd)="markerDragEnd($event)">
+                            <agm-info-window #window>{{item.oprice.currency}} {{item.oprice.pricePerNight}}</agm-info-window>
                         </agm-marker>
                     </agm-map>
                     <div class="tooltipBagDiv box-shadow" *ngFor="let item of listado; let i = index" id="info_{{i + 1}}">
                         <div class="row p-0 m-0 details-hotel">
                             <div class="col-12 p-0 m-0">
-                                <span class="img-hotel"><img src="{{item.OHotelInfo | getimghotel}}" alt=""></span>
+                                <span class="img-hotel"><img src="{{item.limagens | getimghotel}}" alt=""></span>
                                 <a class="btn-close" (click)="OcultarModal(i + 1)">X</a>
                             </div>
                             <div class="col-12 p-0 m-0 pb-3">
-                                <span class="hotel-nombre">{{item.hotelName}}</span>
+                                <span class="hotel-nombre">{{item.name}}</span>
                             </div>
                             <div class="col-12 m-0 p-0 pb-3 text-center">
-                                <span class="info-hotel">{{item.CityName}}, {{item.AddressLine}}</span>
+                                <span class="info-hotel">{{item.cityName}}, {{item.address}}</span>
                             </div>
                             <div class="col-12 m-0 p-0">
-                                <span class="distance">{{item.Distance}}km aproximado al aeropuerto </span>
+                                <span class="distance">{{item.oairportDistance.distance}}km aproximado al aeropuerto </span>
                             </div>
                             <div class="col-12 m-0 p-0 estrellas">
-                                <span *ngIf="item.HotelSegmentCategoryCode === '1'" class="number-star">
+                                <span *ngIf="item.stars === 1" class="number-star">
                                     <img src="./assets/images/star.svg">
                                                 </span>
 
-                                <span *ngIf="item.HotelSegmentCategoryCode === '2'" class="number-star">
-                                    <img src="./assets/images/star.svg">
-                                    <img src="./assets/images/star.svg">
-                                                </span>
-
-                                <span *ngIf="item.HotelSegmentCategoryCode === '3'" class="number-star">
-                                    <img src="./assets/images/star.svg">
+                                <span *ngIf="item.stars === 2" class="number-star">
                                     <img src="./assets/images/star.svg">
                                     <img src="./assets/images/star.svg">
                                                 </span>
 
-                                <span *ngIf="item.HotelSegmentCategoryCode === '4'" class="number-star">
-                                    <img src="./assets/images/star.svg">
+                                <span *ngIf="item.stars === 3" class="number-star">
                                     <img src="./assets/images/star.svg">
                                     <img src="./assets/images/star.svg">
                                     <img src="./assets/images/star.svg">
                                                 </span>
 
-                                <span *ngIf="item.HotelSegmentCategoryCode === '5'" class="number-star">
+                                <span *ngIf="item.stars === 4" class="number-star">
+                                    <img src="./assets/images/star.svg">
+                                    <img src="./assets/images/star.svg">
+                                    <img src="./assets/images/star.svg">
+                                    <img src="./assets/images/star.svg">
+                                                </span>
+
+                                <span *ngIf="item.stars === 5" class="number-star">
                                     <img src="./assets/images/star.svg">
                                     <img src="./assets/images/star.svg">
                                     <img src="./assets/images/star.svg">
@@ -74,9 +73,9 @@
                         </div>
                         <div class="row m-0 p-0 info-precio">
                             <div class="col-12 m-0 p-0">
-                                <span style="margin-right: 10px;">Precio por {{cantidadnoche}} noche(s) y {{item.LBeRoomStay[0].Count}} persona(s)</span>
-                                <span style="font-weight: bold;">{{item.LBeRoomStay[0].CurrencyCode}} </span>
-                                <span style="font-weight: bold;">{{item.MinPrice}}</span>
+                                <span style="margin-right: 10px;">Precio por {{cantidadnoche}} noche(s) y {{item.numberPassenger}} persona(s)</span>
+                                <span style="font-weight: bold;">{{item.oprice.currency}} </span>
+                                <span style="font-weight: bold;">{{item.oprice.pricePerNight}}</span>
                             </div>
                         </div>
                         <div class="btn-detalle">

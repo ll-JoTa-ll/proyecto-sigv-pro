@@ -1,7 +1,201 @@
 <ng-container>
     <app-header>
-        <div class="">
+        <div class="row m-0 p-0">
+            <div class="col-3">
+                <div class="row m-0 p-0 pt-4">
+                    <!--  <app-busqueda-mini [destinoValue]="lhotel" [destinoText]="destinoText" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones"
+                        [adultos]="personas">
+                    </app-busqueda-mini>-->
+                </div>
+            </div>
 
+            <div class="col-8">
+                <div class="row m-0 p-0">
+                    <div class="m-0 p-0 col-12 pt-4">
+                        <div class="row m-0 p-0 box-shadow" style="border-radius: 20px 0px 20px 0px">
+                            <div class="col-12 m-0 p-0 pl-5 pt-3">
+                                <div class="row m-0 p-0" style="width: 70%;">
+                                    <div class="col-12 m-0 p-0">
+                                        <span class="black">{{lsthabitacion.ohotel.hotelName}}</span>
+                                        <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 5"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                                        <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 4"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                                        <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 3"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                                        <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 2"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                                        <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 1"><img src="./assets/images/star.svg"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 m-0 p-0 pl-5 pt-2">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0">
+                                        <span class="Info">{{lsthabitacion.ohotel.cityName}} </span>
+                                        <span class="Info">    .A {{lhotel.oairportDistance.distance}} km  del  aeropuerto</span>
+                                        <span class="txt-mapa pl-3" (click)="Mostrarmapa()">Ver mapa</span>
+
+                                    </div>
+                                    <div class="PopupContainer" id="mapa">
+                                        <div class="tooltipBagDiv box-shadow animated fadeIn fast">
+                                            <span class="title-modal">Vista de mapa</span>
+                                            <a class="btn-close" (click)="OcultarMapa()">X</a>
+                                            <agm-map [latitude]="lsthabitacion.ohotel.oposition.latitude" [zoom]="15" [longitude]="lsthabitacion.ohotel.oposition.longitude">
+                                                <agm-marker [latitude]="lsthabitacion.ohotel.oposition.latitude" [longitude]="lsthabitacion.ohotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
+                                            </agm-map>
+                                            <span class="hotel-nombre">{{lsthabitacion.ohotel.hotelName}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-10 m-0 p-0 pl-5 pt-2">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0">
+                                        <span class="Puntuacion col-lg-5">7.8</span>
+                                        <span class="Comentarios pl-4">Ver 0 comentarios.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 m-0 p-0 pl-5 pt-2">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0">
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 m-0 p-0 pl-4 pt-2 pb-3">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0">
+                                        <!--    <span *ngFor="let item of lsthabitacion.ohotel.lamenities" class="pl-3"><span class="pl-2"><img src="assets/images/{{item.code}}.png"></span><span class="Condition pl-3">{{item.description}}</span></span>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                                <div class="row m-0 p-0">
+                                    <div class="col-8 m-0 p-0">
+                                        <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="{{lsthabitacion.ohotel.limagens[0].url}}" (click)="openModal(template)">
+                                        <ng-template #template>
+
+                                            <div class="modal-content" style="width: 1000px;">
+                                                <div class="modal-body" style="width: 1000px;">
+                                                    <carousel [(activeSlide)]="activeSlideIndex">
+                                                        <slide *ngFor="let imga of lsthabitacion.ohotel.limagens; let index=index">
+                                                            <img style="width: 1000px; height: 600px;" src="{{imga.url}}">
+                                                            <div class="carousel-caption">
+                                                                <h4>Slide {{index}}</h4>
+                                                            </div>
+                                                        </slide>
+                                                    </carousel>
+                                                </div>
+                                            </div>
+
+
+
+                                        </ng-template>
+
+                                        <!-- <img *ngFor="let imga of lsthabitacion.ohotel.limagens" class="imagenG" src="{{imga.url}}"> -->
+                                    </div>
+                                    <div class="col-4 m-0 p-0">
+                                        <div class="row m-0 p-0">
+                                            <img class="pl-2 pt-4" style="width: 400px; height: 270px; border-radius: 15px 0px 15px 0px;" src="{{lsthabitacion.ohotel.limagens[2].url}}" (click)="openModal(template)">
+                                        </div>
+                                        <div class="row m-0 p-0 pt-3 pb-4">
+                                            <div class="col-12 m-0 p-0 box-shadow">
+                                                <div class="row m-0 p-0 pt-3">
+                                                    <div class="col-4 m-0 p-0 pt-4">
+                                                        <span class="Pricefin">Precio Final</span>
+                                                    </div>
+                                                    <div class="col-8 m-0 p-0">
+                                                        <span class="pl-4"><span class="Moneda">{{lhotel.oprice.currency}}</span><span class="Amount pl-2">{{lhotel.oprice.pricePerAllNights}}</span></span>
+                                                    </div>
+                                                </div>
+                                                <div class="row m-0 p-0">
+                                                    <div class="col-12 m-0 p-0">
+                                                        <span class="textopre">{{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} personas</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row m-0 p-0">
+                                                    <div class="col-1 m-0 p-0">
+
+                                                    </div>
+                                                    <div class="col-11 m-0 p-0 pb-3 pr-2">
+                                                        <span class="textopremin">✓ {{lsthabitacion.lroom[0].description}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-0 p-0">
+                                            <div class="col-12 m-0 p-0">
+                                                <span class="pl-0">
+                                                    <!--<button class="btn btn-danger col-lg-12" href="#id_det_hab">Ver habitaciones</button>-->
+                                                    <a href="#id_det_hab" class="btn btn-danger col-lg-12">
+                                                            Ver habitaciones
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row m-0 p-0 pt-3">
+                            <div class="col-12 m-0 p-0 box-shadow pl-4 pt-3 pb-3">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0">
+                                        <span class="textodescri">Descripción :</span>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0">
+                                        <span class="Description">{{lsthabitacion.ohotel.hotelDescription}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row m-0 p-0 pt-4">
+                            <div class="col-12 m-0 p-0 box-shadow pt-4 pl-4 pb-3">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0 pb-3">
+                                        <span class="pl-3">Condiciones:</span>
+                                        <span class="Description pl-3">El hotel permite cancelar antes del 23 Agosto 14:00</span>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0">
+                                    <div class="col-3 m-0 p-0 text-center">
+                                        <span class=""><span class="pl-2"><img src="assets/images/horarios.svg"></span><span class="Dates pl-3">Horarios</span></span>
+                                    </div>
+                                    <div class="col-3 m-0 p-0">
+                                        <span class=""><span class="pl-2"></span><span class="Dates">·Check-in: {{lsthabitacion.ohotel.checkIn}}</span></span>
+                                    </div>
+                                    <div class="col-3 m-0 p-0">
+                                        <span class=""><span class="pl-2"></span><span class="Dates">·Check-out: {{lsthabitacion.ohotel.checkOut}}</span></span>
+                                    </div>
+                                    <div class="col-3 m-0 p-0">
+                                        <span class=""><span class="pl-2"><img src="assets/images/document.svg"></span><span class="Dates pl-1">Politica de cancelación</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="id_det_hab" style="height: 1px">
+
+                        </div>
+
+
+                        <app-detalle-habitacion *ngFor="let habitacion of lsthabitacion.lroom; let i = index;" [index]="i" [lhabitaciones]="habitacion">
+
+                        </app-detalle-habitacion>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-1 ">
+
+            </div>
         </div>
     </app-header>
 </ng-container>

@@ -18,17 +18,20 @@ export class FiltroPrecioComponent implements OnInit, AfterViewInit {
   @Input() currency: string;
   @Output() filtroprecio = new EventEmitter<any[]>();
   @Input() cantnoche: string;
+  
   mostrardiv: boolean = true;
   menorprice: number;
   mayorprice: number;
   listadohotel: IHotelResultsModel[] = [];
   ls_search_hotel;
 
-  constructor(private localStorageService: LocalStorageService) {
+  constructor(private sessionStorageService: SessionStorageService) {
    }
 
   ngOnInit() {
-    this.ls_search_hotel = this.localStorageService.retrieve('ls_search_hotel');
+   
+    this.ls_search_hotel = this.sessionStorageService.retrieve('ls_search_hotel'); 
+
   }
 
   ngAfterViewInit() {
@@ -85,7 +88,7 @@ export class FiltroPrecioComponent implements OnInit, AfterViewInit {
   }
   let listado;
   listado = this.ls_search_hotel;
-  results = listado.filter(m => m.MinPrice >  parseFloat(precio1) &&  m.MinPrice < parseFloat(precio2));
+  results = listado.filter(m => m.oprice.pricePerAllNights >=  parseFloat(precio1) &&  m.oprice.pricePerAllNights <= parseFloat(precio2));
   this.listadohotel = results;
   this.filtroprecio.emit(this.listadohotel);
  }

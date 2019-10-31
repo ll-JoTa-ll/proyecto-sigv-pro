@@ -161,7 +161,7 @@ export class FiltroEstrellasComponent implements OnInit {
           this.listadohotel = this.ls_search_hotel;
     } else {
       listadoEstrellas.forEach(function(valor) {
-        let results = listado.filter(m => m.HotelSegmentCategoryCode === valor);
+        let results = listado.filter(m => parseFloat(m.stars) === parseFloat(valor));
         results.forEach(function(rrr) {
           listadohotel.push(rrr);
         });

@@ -34,6 +34,7 @@
                                        (click)="datepickerIngreso.toggle()"
                                        class="input-image">
                                 <input type="text"
+                                       id="fechaInicio"
                                        [(ngModel)]="fchingreso"
                                        placeholder="Ingreso"
                                        class="p-0 pl-2 v-texto-3"
@@ -41,6 +42,7 @@
                                        (onHidden)="handlerIngreso(datepickerIngreso)"
                                        (bsValueChange)="onValueChangeIngreso($event)"
                                        [minDate]="minDateIngreso"
+                                       [maxDate]="maxDateIngreso"
                                        bsDatepicker
                                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
                                 >
@@ -53,6 +55,7 @@
                                        (click)="datepickerSalida.toggle()"
                                        class="input-image">
                                 <input type="text"
+                                       id="fechaFin"
                                        placeholder="Salida"
                                        [(ngModel)]="fchsalida"
                                        class="p-0 pl-2 v-texto-3"

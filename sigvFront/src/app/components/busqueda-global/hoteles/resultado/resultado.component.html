@@ -14,13 +14,13 @@
         <div class="m-0 p-0 pl-4 div-result-2">
             <div class="row m-0 p-0 pt-4">
                 <div class="col-12">
-                    <span class="name-hotel">{{nombrehotel}}</span>
+                    <span class="name-hotel">{{name}}</span>
                 </div>
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 mt-3">
                     <span class="direccion-hotel">{{direccion}} ,</span>
-                    <span class="ml-2 distance">A {{distancia}} km del centro</span>
+                    <span class="ml-2 distance">A {{distancia}} km del aeropuerto</span>
                 </div>
             </div>
             <div class="row m-0 p-0">
@@ -32,20 +32,20 @@
                 <div class="tooltipBagDiv box-shadow animated fadeIn fast">
                     <span class="title-modal">Vista de mapa</span>
                     <a class="btn-close" (click)="OcultarMapa(index)">X</a>
-                    <agm-map [latitude]="latitud | formatoLongitud" [zoom]="15" [longitude]="longitud | formatoLongitud">
-                        <agm-marker [latitude]="latitud | formatoLongitud" [longitude]="longitud | formatoLongitud" [iconUrl]="urlimg"></agm-marker>
+                    <agm-map [latitude]="latitud" [zoom]="15" [longitude]="longitud">
+                        <agm-marker [latitude]="latitud" [longitude]="longitud" [iconUrl]="urlimg"></agm-marker>
                     </agm-map>
-                    <span class="hotel-nombre">{{nombrehotel}}</span>
+                    <span class="hotel-nombre">{{name}}</span>
                 </div>
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 mt-2">
                     <span class="porcentaje-trip">7.8</span>
-                    <span class="ml-3" *ngIf="estrellas === '5'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
-                    <span class="ml-3" *ngIf="estrellas === '4'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
-                    <span class="ml-3" *ngIf="estrellas === '3'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
-                    <span class="ml-3" *ngIf="estrellas === '2'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
-                    <span class="ml-3" *ngIf="estrellas === '1'"><img src="./assets/images/star.svg"></span>
+                    <span class="ml-3" *ngIf="estrellas === 5"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                    <span class="ml-3" *ngIf="estrellas === 4"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                    <span class="ml-3" *ngIf="estrellas === 3"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                    <span class="ml-3" *ngIf="estrellas === 2"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                    <span class="ml-3" *ngIf="estrellas === 1"><img src="./assets/images/star.svg"></span>
                 </div>
             </div>
             <div class="row m-0 p-0">
@@ -68,7 +68,7 @@
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 div-price-noche text-center mt-2">
-                    <span>Precio total {{cantpersonas}} adultos</span>
+                    <span>Precio final por {{cantidadnoche}} noches para {{cantpersonas}} adultos</span>
                 </div>
             </div>
             <div class="row m-0 p-0">
@@ -79,7 +79,7 @@
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 text-center mt-3">
-                    <button class="btn r-btn-2">
+                    <button class="btn r-btn-2" (click)="getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas)">
                                 Seleccionar
                               </button>
                 </div>

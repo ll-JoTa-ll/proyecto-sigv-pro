@@ -4,10 +4,11 @@
 
 export const environment = {
   production: false,
-  url: "http://sigvplussecurity.azurewebsites.net/api",
-  url_2: "http://sigvplusflight.azurewebsites.net/api",
-  url_3: 'https://sigvplusflight.azurewebsites.net/api',
-  url_hotel: "http://172.16.3.20:8080/api"
+  url: "http://sigvplussecurity.azurewebsites.net/api/",
+  url_2: "http://sigvplusflight.azurewebsites.net/api/",
+  url_3: 'https://sigvplusflight.azurewebsites.net/api/',
+  url_hotel: "http://172.16.2.101:8150/api/",
+  url_project :"http://localhost:4200"
 };
 
 /*
