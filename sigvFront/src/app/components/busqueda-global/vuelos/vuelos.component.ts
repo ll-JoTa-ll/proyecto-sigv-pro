@@ -8,6 +8,7 @@ import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import {DatepickerRenderOptions} from 'ngx-bootstrap/datepicker/models';
 import {consoleTestResultHandler} from 'tslint/lib/test';
+import { Router } from '@angular/router';
 
 declare var jquery: any;
 declare var $: any;
@@ -118,7 +119,8 @@ export class VuelosComponent implements OnInit {
     private localeService: BsLocaleService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
-    public spinner: NgxSpinnerService
+    public spinner: NgxSpinnerService,
+    private router: Router
   ) {
     this.flagBuscar = false;
     this.tipoVuelo = "RT";
@@ -140,6 +142,21 @@ export class VuelosComponent implements OnInit {
     this.vuelosNoche = false;
     this.vueloTurnoFiltro = false;
     this.flagBuscadorLateral = false;
+    const ss_login_data = this.sessionStorageService.retrieve('ss_login_data');
+    console.log(ss_login_data);
+    if (ss_login_data === '' || ss_login_data === null) {
+      this.router.navigate(['/']);
+    }
+    $('.menu-vuelo-1').show();
+    $('.menu-vuelo-2').hide();
+    $('.menu-hotel-1').hide();
+    $('.menu-hotel-2').show();
+    $('.menu-bus-1').hide();
+    $('.menu-bus-2').show();
+    $('.menu-paquete-1').hide();
+    $('.menu-paquete-2').show();
+    $('.menu-seguro-1').hide();
+    $('.menu-seguro-2').show();
   }
 
   ngOnInit() {
@@ -766,6 +783,14 @@ export class VuelosComponent implements OnInit {
     setTimeout(function() {
       spinner.hide();
     }, 500);
+  }
+
+  setOutputTipoVuelo($event) {
+    this.tipoVuelo = $event;
+  }
+
+  setOutIndexTramo($event) {
+    this.indexTramo = $event;
   }
 
 }

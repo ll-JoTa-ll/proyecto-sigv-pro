@@ -327,11 +327,12 @@
                         [fechaSalidaShow4]="fechaSalidaShow4" [fechaSalidaShow5]="fechaSalidaShow5" [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5"
                         [origenAuto6]="origenAuto6" [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2" [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1"
                         [destinoAuto2]="destinoAuto2" [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3"
-                        [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)"></app-buscador>
+                        [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo"
+                        (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)" (outTipoVuelo)="setOutputTipoVuelo($event)" (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
 
                   <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
 
-                  <app-filtro-horarios (searchFilter)="busquedaFiltrosHoras($event)" [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
+                  <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)" [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
 
                 </div>
 

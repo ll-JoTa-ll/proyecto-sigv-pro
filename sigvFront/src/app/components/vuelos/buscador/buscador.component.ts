@@ -81,6 +81,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   @Output() lRecomendaciones = new EventEmitter<ISearchFlightModel[]>();
   @Output() inicioBuscar = new EventEmitter<boolean>();
+  @Output() outTipoVuelo = new EventEmitter<string>();
+  @Output() outIndexTramo = new EventEmitter<number>();
 
   airportlist: any[] = [];
   airportlistFilter: any[] = [];
@@ -548,6 +550,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
           result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
         }
         this.lRecomendaciones.emit(result);
+        this.outTipoVuelo.emit(this.tipoVuelo);
+        this.outIndexTramo.emit(this.indexTramo);
       },
       err => {
         this.spinner.hide();

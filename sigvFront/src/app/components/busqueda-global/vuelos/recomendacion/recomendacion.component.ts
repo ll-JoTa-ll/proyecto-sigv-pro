@@ -54,6 +54,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   flagPseudoRepeat: boolean;
   lstPseudoRepeat: any[] = [];
 
+  dataRequestFamilia;
+
   constructor(
     private modalService: BsModalService,
     private sessionStorageService: SessionStorageService,
@@ -196,6 +198,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   getFareFamily(dataPost, template) {
     this.vuelosComponent.spinner.show();
+    this.ObtenerSecciones();
+    this.dataRequestFamilia = dataPost;
     let flagResultFamilias = 0;
     this.familyService.getFareFamily(dataPost).subscribe(
       result => {
@@ -423,6 +427,10 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       template,
       Object.assign({}, { class: 'gray con-politicas' })
     );
+  }
+
+  closeModalFamilia($event) {
+    this.modalRef.hide();
   }
 
 }
