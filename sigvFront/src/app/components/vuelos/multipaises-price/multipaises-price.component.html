@@ -1,0 +1,34 @@
+
+
+
+<div class="row m-0 p-0">
+  <div class="col-12 m-0 p-0" style="width: 100% !important; height: 30px !important;"></div>
+
+  <div class="col-1 m-0 p-0"></div>
+
+  <div class="col-10 m-0 p-0 box-shadow">
+    <div class="row m-0 p-0">
+      <div class="col-3 m-0 p-0 mt-3 mb-3 mp-text-1 mp-div-pxa d-flex justify-content-center align-items-center">
+        <img class="pr-1" src="./assets/images/mundo.svg" alt="">
+        Multipaises
+      </div>
+      <div class="col-9 m-0 p-0 pl-5 d-flex align-items-center">
+        <div class="row m-0 p-0">
+          <div *ngFor="let item of priceByPseudo" class="m-0 p-0" style="width: 150px !important;">
+            <div class="row m-0 p-0">
+              <div class="col-12 m-0 p-0 text-center">
+                <img src="./assets/images/pseudos/{{item.pseudo}}" style="width: 30px !important;" alt="">
+              </div>
+              <div class="col-12 m-0 p-0 text-center">
+                <span class="pr-1 mp-text-2">{{currency}}</span>
+                <span class="mp-text-3">{{item.price}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-1 m-0 p-0"></div>
+</div>

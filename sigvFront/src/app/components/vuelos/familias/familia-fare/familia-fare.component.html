@@ -1,39 +1,54 @@
+<div class="m-2" style="width: 280px; padding-bottom: 30px !important;">
 
+    <div class="row m-0 p-0 box-shadow" style="border-radius: 20px 0 20px 0 !important; border: 1px solid #ccc !important;">
 
+        <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center ff-text-size-1" [id]="idNameFamilyName+'_'+familyIndex+'_'+fareFamilyIndex" style="height: 70px; color: white; font-family: Omnes-med; border-radius: 20px 0 0 0; background-color: #C6C6C6">
+            {{fareFamily.fareFamilyName}}
+        </div>
 
+        <div class="col-12 m-0 p-0" [class]="classDivInc+familyIndex" [id]="idDivInc+fareFamilyIndex" style="border: 1px solid #ccc !important; width: 100%;">
 
-<div class="" style="width: 280px;">
+            <p *ngFor="let inc of lstInc; let i=index" class="p-0 m-0 pl-2 ff-text-size-2" style="color: #898989; font-family: Omnes-med;">
+                <span class="pr-1" style="color: #6B253C">{{i+1}}.</span> {{inc.serviceDescription}}
+            </p>
+            <p class="m-0 p-0 text-center d-flex justify-content-center align-items-center" *ngIf="lstInc.length===0" style="font-size: 28px; font-family: Omnes-med; color: #6B253C">X</p>
 
-  <div class="row m-0 p-0 box-shadow">
+        </div>
 
-    <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center" style="height: 70px;">
-      {{fareFamily.fareFamilyName}}
-    </div>
+        <div class="col-12 m-0 p-0" [class]="classDivNof+familyIndex" [id]="idDivNof+fareFamilyIndex" style="border: 1px solid #ccc !important; width: 100%;">
 
-    <div class="col-12 m-0 p-0"></div>
+            <p *ngFor="let inc of lstNof; let i=index" class="p-0 m-0 pl-2 ff-text-size-2" style="color: #898989; font-family: Omnes-med;">
+                <span class="pr-1" style="color: #6B253C">{{i+1}}.</span> {{inc.serviceDescription}}
+            </p>
+            <p class="m-0 p-0 text-center d-flex justify-content-center align-items-center" *ngIf="lstNof.length===0" style="font-size: 28px; font-family: Omnes-med; color: #6B253C">X</p>
 
-    <div class="col-12 m-0 p-0"></div>
+        </div>
 
-    <div class="col-12 m-0 p-0"></div>
+        <div class="col-12 m-0 p-0" [class]="classDivCha+familyIndex" [id]="idDivCha+fareFamilyIndex" style="border: 1px solid #ccc !important; width: 100%;">
 
-    <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center">
+            <p *ngFor="let inc of lstCha; let i=index" class="p-0 m-0 pl-2 ff-text-size-2" style="color: #898989; font-family: Omnes-med;">
+                <span class="pr-1" style="color: #6B253C">{{i+1}}.</span> {{inc.serviceDescription}}
+            </p>
+            <p class="m-0 p-0 text-center d-flex justify-content-center align-items-center" *ngIf="lstCha.length===0" style="font-size: 28px; font-family: Omnes-med; color: #6B253C">X</p>
 
-      <label>
-        <input type="radio">
-        <span class="pl-1">{{currency}}</span>
-        <span class="pl-1">{{fareFamily.fareFamilyPrice}}</span>
+        </div>
+
+        <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center" style="border: 1px solid #ccc !important; border-radius: 0 0 20px 0 !important; height: 50px !important;">
+
+            <label>
+        <input
+          type="radio"
+          *ngIf="fareFamily.fareFamilyPrice>0"
+          [name]="nameRadioBtn + '_' + familyIndex"
+          [id]="idRadioBtn + '_' + familyIndex + '_' + fareFamilyIndex"
+          (click)="selectRadioBtnFam(idRadioBtn + '_' + familyIndex + '_' + fareFamilyIndex)"
+        >
+        <span class="pl-1 ff-text-currency">{{currency}}</span>
+        <span class="pl-1 ff-text-price">{{fareFamily.fareFamilyPrice}}</span>
       </label>
 
+        </div>
+
     </div>
 
-  </div>
-
 </div>
-
-
-
-
-
-
-
-

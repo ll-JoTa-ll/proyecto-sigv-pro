@@ -1,3 +1,5 @@
+import { IFareFamilyServiceModel } from './IFareFamilyService.model';
+
 export interface IFareFamilyModel {
   origin: string;
   airportOrigin: string;
@@ -18,5 +20,5 @@ export interface IFareFamilyModel {
   flightOrtrainNumber: string;
   equipmentType: string;
   carrierId: string;
-  lfareFamilies: any[];
+  lfareFamilies: IFareFamilyServiceModel[];
 }

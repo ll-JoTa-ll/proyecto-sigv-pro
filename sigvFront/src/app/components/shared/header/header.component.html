@@ -12,7 +12,40 @@
         <div class="col-12 m-0 p-0"></div>
 
         <div class="col-12 m-0 p-0">
-          <img class="img-fluid" alt="" src="./assets/images/logoblanco_search.png">
+          <div class="row m-0 p-0">
+            <div class="col-3 m-0 p-0">
+              <img class="img-fluid" alt="" src="./assets/images/logoblanco_search.png">
+            </div>
+            <div class="col-3 m-0 p-0"></div>
+            <div class="col-3 m-0 p-0"></div>
+            <div class="col-3 m-0 p-0">
+              <div class="row m-0 p-0" style="height: 100% !important;">
+                <div class="col-6 m-0 p-0">
+                </div>
+                <div class="col-6 m-0 p-0 d-flex align-items-center" style="font-family: Omnes-sem; font-size: 15px; color: white;">
+                  <!--
+                  {{nombreUsuario}}
+                  <img style="width: 30px; padding-left: 5px; cursor: pointer;" src="./assets/images/logo-familia.png" alt="">
+                  -->
+
+                  <div class="btn-group" dropdown>
+                    <button id="button-basic" dropdownToggle type="button" class="btn"
+                            style="font-family: Omnes-sem; font-size: 15px; color: white;"
+                            aria-controls="dropdown-basic">
+                      {{nombreUsuario}}
+                      <img style="width: 30px; padding-left: 5px; cursor: pointer;" src="./assets/images/logo-familia.png" alt="">
+                      <span class="caret"></span>
+                    </button>
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                        role="menu" aria-labelledby="button-basic">
+                      <li role="menuitem"><a style="cursor: pointer;" class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesión</a></li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="col-12 m-0 p-0">
@@ -24,7 +57,14 @@
 
                 <div class="col-4 m-0 p-0">
 
-                  <button class="btn btn-menu-search">XXX</button>
+                  <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0" style="height: 35px"></div>
+                    <div class="col-12 m-0 p-0">
+                      <button class="btn btn-menu-search">
+                        <input type="image" src="./assets/images/menu.svg">
+                      </button>
+                    </div>
+                  </div>
 
                 </div>
 
@@ -42,16 +82,16 @@
 
                 <div class="col-2 m-0 p-0 pt-2 pb-2 text-center" style="cursor: pointer" (click)="cambiarTipo(1)">
                   <div class="row m-0 p-0" style="height: 42px">
-                    <div *ngIf="flagTipo!==1" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <div *ngIf="flagTipo!==1" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-vuelo-1">
                       <img src="./assets/images/home/airplane.svg" alt="">
                     </div>
-                    <div *ngIf="flagTipo!==1" class="col-6 m-0 p-0 texto-tipos">
+                    <div *ngIf="flagTipo!==1" class="col-6 m-0 p-0 texto-tipos menu-vuelo-1">
                       Vuelos
                     </div>
-                    <div *ngIf="flagTipo===1" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <div *ngIf="flagTipo===1" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-vuelo-2">
                       <img src="./assets/images/home/airplane_rojo.svg" alt="">
                     </div>
-                    <div *ngIf="flagTipo===1" class="col-6 m-0 p-0 texto-tipos-rojo">
+                    <div *ngIf="flagTipo===1" class="col-6 m-0 p-0 texto-tipos-rojo menu-vuelo-2">
                       Vuelos
                     </div>
                   </div>
@@ -59,16 +99,16 @@
 
                 <div class="col-2 m-0 p-0 pt-2 pb-2 text-center" style="cursor: pointer" (click)="cambiarTipo(2)">
                   <div class="row m-0 p-0" style="height: 42px">
-                    <div *ngIf="flagTipo!==2" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <div *ngIf="flagTipo!==2" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-hotel-1">
                       <img src="./assets/images/home/hotel.svg" alt="">
                     </div>
-                    <div *ngIf="flagTipo!==2" class="col-6 m-0 p-0 texto-tipos">
+                    <div *ngIf="flagTipo!==2" class="col-6 m-0 p-0 texto-tipos menu-hotel-1">
                       Hoteles
                     </div>
-                    <div *ngIf="flagTipo===2" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <div *ngIf="flagTipo===2" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-hotel-2">
                       <img src="./assets/images/home/hotel_rojo.svg" alt="">
                     </div>
-                    <div *ngIf="flagTipo===2" class="col-6 m-0 p-0 texto-tipos-rojo">
+                    <div *ngIf="flagTipo===2" class="col-6 m-0 p-0 texto-tipos-rojo menu-hotel-2">
                       Hoteles
                     </div>
                   </div>
@@ -76,16 +116,16 @@
 
                 <div class="col-2 m-0 p-0 pt-2 pb-2 text-center" style="cursor: pointer" (click)="cambiarTipo(3)">
                   <div class="row m-0 p-0" style="height: 42px">
-                    <div *ngIf="flagTipo!==3" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <div *ngIf="flagTipo!==3" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-bus-1">
                       <img src="./assets/images/home/tourist-bus.svg" alt="">
                     </div>
-                    <div *ngIf="flagTipo!==3" class="col-6 m-0 p-0 texto-tipos">
+                    <div *ngIf="flagTipo!==3" class="col-6 m-0 p-0 texto-tipos menu-bus-1">
                       Buses
                     </div>
-                    <div *ngIf="flagTipo===3" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <div *ngIf="flagTipo===3" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-bus-2">
                       <img src="./assets/images/home/tourist-bus-rojo.svg" alt="">
                     </div>
-                    <div *ngIf="flagTipo===3" class="col-6 m-0 p-0 texto-tipos-rojo">
+                    <div *ngIf="flagTipo===3" class="col-6 m-0 p-0 texto-tipos-rojo menu-bus-2">
                       Buses
                     </div>
                   </div>
@@ -93,16 +133,16 @@
 
                 <div class="col-2 m-0 p-0 pt-2 pb-2 text-center" style="cursor: pointer" (click)="cambiarTipo(4)">
                   <div class="row m-0 p-0" style="height: 42px">
-                    <div *ngIf="flagTipo!==4" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <div *ngIf="flagTipo!==4" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-paquete-1">
                       <img src="./assets/images/home/island.svg" alt="">
                     </div>
-                    <div *ngIf="flagTipo!==4" class="col-6 m-0 p-0 texto-tipos">
+                    <div *ngIf="flagTipo!==4" class="col-6 m-0 p-0 texto-tipos menu-paquete-1">
                       Paquetes
                     </div>
-                    <div *ngIf="flagTipo===4" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <div *ngIf="flagTipo===4" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-paquete-2">
                       <img src="./assets/images/home/island-rojo.svg" alt="">
                     </div>
-                    <div *ngIf="flagTipo===4" class="col-6 m-0 p-0 texto-tipos-rojo">
+                    <div *ngIf="flagTipo===4" class="col-6 m-0 p-0 texto-tipos-rojo menu-paquete-2">
                       Paquetes
                     </div>
                   </div>
@@ -110,16 +150,16 @@
 
                 <div class="col-2 m-0 p-0 pt-2 pb-2 text-center" style="cursor: pointer" (click)="cambiarTipo(5)">
                   <div class="row m-0 p-0" style="height: 42px">
-                    <div *ngIf="flagTipo!==5" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <div *ngIf="flagTipo!==5" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-seguro-1">
                       <img src="./assets/images/home/linea-de-vida-en-un-esquema-del-corazon.svg" alt="">
                     </div>
-                    <div *ngIf="flagTipo!==5" class="col-6 m-0 p-0 texto-tipos">
+                    <div *ngIf="flagTipo!==5" class="col-6 m-0 p-0 texto-tipos menu-seguro-1">
                       Seguros
                     </div>
-                    <div *ngIf="flagTipo===5" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <div *ngIf="flagTipo===5" class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-seguro-2">
                       <img src="./assets/images/home/linea-de-vida-en-un-esquema-del-corazon-rojo.svg" alt="">
                     </div>
-                    <div *ngIf="flagTipo===5" class="col-6 m-0 p-0 texto-tipos-rojo">
+                    <div *ngIf="flagTipo===5" class="col-6 m-0 p-0 texto-tipos-rojo menu-seguro-2">
                       Seguros
                     </div>
                   </div>

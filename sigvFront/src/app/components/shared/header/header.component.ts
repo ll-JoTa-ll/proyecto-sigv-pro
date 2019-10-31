@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,17 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   flagTipo: number;
+  nombreUsuario: string;
+  loginDataUser;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private sessionStorageService: SessionStorageService,
+    private localStorageService: LocalStorageService
   ) {
     this.flagTipo = 1;
+    this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.nombreUsuario = this.loginDataUser.userName;
   }
 
   ngOnInit() {
@@ -46,6 +53,10 @@ export class HeaderComponent implements OnInit {
         break;
 
     }
+  }
+
+  cerrarSesion() {
+    this.router.navigate(['/']);
   }
 
 }

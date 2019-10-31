@@ -1,0 +1,58 @@
+<div class="m-0 p-0"
+     [ngClass]="
+     {
+        'pl-2 pt-5': tipo === 1,
+        'pl-4': tipo === 2,
+        'pl-4': tipo === 3
+     }
+    "
+>
+    <div class="col-12 m-0 p-0 contenedor-form">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-6 m-0 p-0 pt-3">
+                        <span class="div-price pl-4 pr-4 pt-1 pb-1">Precio Final</span>
+                    </div>
+                    <div class="col-6 m-0 p-0 text-right pt-3 pr-5">
+                        <span class="pr-4"><img src="./assets/images/medalla.svg"></span>
+                        <span *ngIf="Lpolicies.length > 0" class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
+                        <span *ngIf="Lpolicies.length === 0" class="circulo-politica1"></span>
+                    </div>
+                    <ng-template #modalinfraccion let-c="close" let-d="dismiss">
+                        <div class="modal-header m-0 p-0" style="border: none;">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        <div class="modal-body m-0 p-0">
+                            <app-modal-infraccion-pax [currency]="currency" [LPolicies]="Lpolicies"></app-modal-infraccion-pax>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0 text-center pb-3">
+                                <button (click)="modalRef.hide()" class="btn btn-ok">Ok</button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12 text-right m-0 p-0 pr-5">
+                        <span class="currency">{{currency}}</span>
+                        <span class="price pl-2">{{preciototal}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12 text-right m-0 p-0 pr-5">
+                        <span class="text-precio pr-5">Precio por adulto</span>
+                        <span class="currency1">{{currency}}</span>
+                        <span class="price1 pl-1">{{precioadulto}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

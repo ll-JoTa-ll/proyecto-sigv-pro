@@ -14,11 +14,10 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale, esLocale } from 'ngx-bootstrap/locale';
 import { AgmCoreModule } from '@agm/core';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
-import { CollapseModule } from 'ngx-bootstrap/collapse';
-
 defineLocale('es', esLocale);
 defineLocale('de', deLocale);
-
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -45,7 +44,6 @@ import { GetMenorPrecioPipe } from './pipes/get-menor-precio.pipe';
 import { GetimghotelPipe } from './pipes/getimghotel.pipe';
 import { FiltroEstrellasComponent } from './components/busqueda-global/hoteles/filtro-estrellas/filtro-estrellas.component';
 import { FiltroNombrehotelComponent } from './components/busqueda-global/hoteles/filtro-nombrehotel/filtro-nombrehotel.component';
-import { FiltroPrecioComponent } from './components/busqueda-global/hoteles/filtro-precio/filtro-precio.component';
 import { MapaHotelesComponent } from './components/busqueda-global/hoteles/mapa-hoteles/mapa-hoteles.component';
 import { FormatoLongitudPipe } from './pipes/formato-longitud.pipe';
 import { FamiliasComponent } from './components/vuelos/familias/familias.component';
@@ -61,6 +59,47 @@ import { DetalleCompraComponent } from './components/busqueda-global/hoteles/res
 import { DetallePagoComponent } from './components/busqueda-global/hoteles/reserva-hotel/detalle-pago/detalle-pago.component';
 import { PagoComponent } from './components/busqueda-global/hoteles/reserva-hotel/pago/pago.component';
 import { TitularesReservaComponent } from './components/busqueda-global/hoteles/reserva-hotel/titulares-reserva/titulares-reserva.component';
+import { ReservaVueloComponent } from './components/reserva-vuelo/reserva-vuelo.component';
+import { DatosPasajeroComponent } from './components/reserva-vuelo/datos-pasajero/datos-pasajero.component';
+import { PersonaContactoComponent } from './components/reserva-vuelo/persona-contacto/persona-contacto.component';
+import { InfoAdicionalComponent } from './components/reserva-vuelo/info-adicional/info-adicional.component';
+import { MotivoViajeComponent } from './components/reserva-vuelo/motivo-viaje/motivo-viaje.component';
+import { PrecioFinalComponent } from './components/reserva-vuelo/precio-final/precio-final.component';
+import { InfoVueloSectionComponent } from './components/reserva-vuelo/info-vuelo-section/info-vuelo-section.component';
+import { InfoVueloSegmentComponent } from './components/reserva-vuelo/info-vuelo-segment/info-vuelo-segment.component';
+import { ModalInfraccionPaxComponent } from './components/reserva-vuelo/modal-infraccion-pax/modal-infraccion-pax.component';
+import { VuelosExcepcionPoliticaComponent } from './components/vuelos-excepcion-politica/vuelos-excepcion-politica.component';
+import { ExVueloSectionComponent } from './components/vuelos-excepcion-politica/ex-vuelo-section/ex-vuelo-section.component';
+import { ExVueloSegmentComponent } from './components/vuelos-excepcion-politica/ex-vuelo-segment/ex-vuelo-segment.component';
+import { ExMisVuelosComponent } from './components/vuelos-excepcion-politica/ex-mis-vuelos/ex-mis-vuelos.component';
+import { ExPoliticasInfrigidasComponent } from './components/vuelos-excepcion-politica/ex-politicas-infrigidas/ex-politicas-infrigidas.component';
+import { ExPrecioAdultoComponent } from './components/vuelos-excepcion-politica/ex-precio-adulto/ex-precio-adulto.component';
+import { InfoRecomendacionComponent } from './components/reserva-vuelo/info-recomendacion/info-recomendacion.component';
+import { FormatearfechaPipe } from './pipes/formatearfecha.pipe';
+import { ModalResumenVueloComponent } from './components/reserva-vuelo/modal-resumen-vuelo/modal-resumen-vuelo.component';
+import { VueloSectionComponent } from './components/reserva-vuelo/vuelo-section/vuelo-section.component';
+import { InfoSegmentComponent } from './components/reserva-vuelo/info-segment/info-segment.component';
+import { InfoSegmentGroupComponent } from './components/reserva-vuelo/info-segment-group/info-segment-group.component';
+import { MultipaisesComponent } from './components/busqueda-global/multipaises/multipaises.component';
+import { MultipaisesPriceComponent } from './components/vuelos/multipaises-price/multipaises-price.component';
+import { AddPaxCentralizadorComponent } from './components/vuelos/add-pax-centralizador/add-pax-centralizador.component';
+import { RecomendacionPoliticasComponent } from './components/busqueda-global/vuelos/recomendacion-politicas/recomendacion-politicas.component';
+import { ReservaCompraComponent } from './components/reserva-vuelo/reserva-compra/reserva-compra.component';
+import { ResumenPasajeroComponent } from './components/reserva-vuelo/resumen-pasajero/resumen-pasajero.component';
+import { ResumenEquipajeComponent } from './components/reserva-vuelo/resumen-equipaje/resumen-equipaje.component';
+import { ResumenRegulacionesComponent } from './components/reserva-vuelo/resumen-regulaciones/resumen-regulaciones.component';
+import { ReservaGeneradaComponent } from './components/reserva-vuelo/reserva-generada/reserva-generada.component';
+import { AutorizadoresComponent } from './components/reserva-vuelo/reserva-generada/autorizadores/autorizadores.component';
+import { PasajerosComponent } from './components/reserva-vuelo/reserva-generada/pasajeros/pasajeros.component';
+import { GestionReservasComponent } from './components/reserva-vuelo/gestion-reservas/gestion-reservas.component';
+import { ReservaTicketComponent } from './components/reserva-vuelo/reserva-ticket/reserva-ticket.component';
+import { FiltroSuperiorComponent } from './components/vuelos/filtro-superior/filtro-superior.component';
+import { AprobacionReservaComponent } from './components/reserva-vuelo/aprobacion-reserva/aprobacion-reserva.component';
+import { FiltroPrecioComponent } from './components/vuelos/filtro-precio/filtro-precio.component';
+import { FiltroHorariosComponent } from './components/vuelos/filtro-horarios/filtro-horarios.component';
+import { FiltroAerolineasComponent } from './components/vuelos/filtro-aerolineas/filtro-aerolineas.component';
+import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/solicitud-aprobacion.component';
+import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles/filtro-precio-hotel/filtro-precio-hotel.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +128,6 @@ import { TitularesReservaComponent } from './components/busqueda-global/hoteles/
     GetimghotelPipe,
     FiltroEstrellasComponent,
     FiltroNombrehotelComponent,
-    FiltroPrecioComponent,
     MapaHotelesComponent,
     FormatoLongitudPipe,
     FamiliasComponent,
@@ -104,7 +142,48 @@ import { TitularesReservaComponent } from './components/busqueda-global/hoteles/
     DetalleCompraComponent,
     DetallePagoComponent,
     PagoComponent,
-    TitularesReservaComponent
+    TitularesReservaComponent,
+    ReservaVueloComponent,
+    DatosPasajeroComponent,
+    PersonaContactoComponent,
+    InfoAdicionalComponent,
+    MotivoViajeComponent,
+    PrecioFinalComponent,
+    InfoVueloSectionComponent,
+    InfoVueloSegmentComponent,
+    ModalInfraccionPaxComponent,
+    VuelosExcepcionPoliticaComponent,
+    ExVueloSectionComponent,
+    ExVueloSegmentComponent,
+    ExMisVuelosComponent,
+    ExPoliticasInfrigidasComponent,
+    ExPrecioAdultoComponent,
+    InfoRecomendacionComponent,
+    FormatearfechaPipe,
+    ModalResumenVueloComponent,
+    VueloSectionComponent,
+    InfoSegmentComponent,
+    InfoSegmentGroupComponent,
+    MultipaisesComponent,
+    MultipaisesPriceComponent,
+    AddPaxCentralizadorComponent,
+    RecomendacionPoliticasComponent,
+    ReservaCompraComponent,
+    ResumenPasajeroComponent,
+    ResumenEquipajeComponent,
+    ResumenRegulacionesComponent,
+    ReservaGeneradaComponent,
+    AutorizadoresComponent,
+    PasajerosComponent,
+    GestionReservasComponent,
+    ReservaTicketComponent,
+    FiltroSuperiorComponent,
+    AprobacionReservaComponent,
+    FiltroPrecioComponent,
+    FiltroHorariosComponent,
+    FiltroAerolineasComponent,
+    SolicitudAprobacionComponent,
+    FiltroPrecioHotelComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +204,8 @@ import { TitularesReservaComponent } from './components/busqueda-global/hoteles/
       apiKey: 'AIzaSyDaXMHgcWr4xnHihDztbEPvkzyRnRFV81A',
       libraries: ['places']
     }),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TimepickerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

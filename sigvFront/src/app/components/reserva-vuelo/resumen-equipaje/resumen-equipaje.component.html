@@ -1,0 +1,39 @@
+<div class="m-0 p-0 pl-4 pt-5">
+    <div class="col-12 m-0 p-0 box-shadow">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 txt-title text-center pb-3 pt-3">
+                INFORMACIÓN DE EQUIPAJE
+            </div>
+        </div>
+        <div class="row m-0 p-0 pt-4 pb-4">
+            <div class="col-12 m-0 p-0 pb-2">
+                <div class="row m-0 p-0">
+                    <div class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
+                        1 Maleta de mano
+                    </div>
+                    <div class="col-6 m-0 p-0 text-center">
+                        <img class="img-bag" src="assets/images/accesorio_rojo.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 m-0 p-0">
+                <div *ngIf="Lsection[0].BagAllowed === true" class="row m-0 p-0">
+                    <div class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
+                        Permite {{Lsection[0].BagQuantity}} maleta(s)
+                    </div>
+                    <div class="col-6 m-0 p-0 text-center">
+                        <img class="img-bag" src="assets/images/equipaje_rojo.svg" alt="">
+                    </div>
+                </div>
+                <div *ngIf="Lsection[0].BagAllowed === false" class="row m-0 p-0">
+                    <div class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
+                        No permite maleta
+                    </div>
+                    <div class="col-6 m-0 p-0 text-center">
+                        <img class="img-bag" src="assets/images/equipaje_gris.svg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

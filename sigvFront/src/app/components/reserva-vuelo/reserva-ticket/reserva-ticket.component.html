@@ -1,0 +1,52 @@
+<ng-container>
+    <app-header>
+        <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0"></div>
+            <div class="col-8 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="back col-12 m-0 p-0 pb-1 pt-4">
+                        Volver atras</div>
+                    <div class="col-12 m-0 p-0">
+                        <span class="text-msj pr-4">¡Compra satisfactoria!</span>
+                        <span><img src="assets/images/check.svg"></span>
+                    </div>
+                </div>
+                <div class="row m-0 p-0 pt-4">
+                    <div class="col-1 m-0 p-0">
+
+                    </div>
+                    <div class="col-10 m-0 p-0 txt-description box-shadow pl-5 pr-5 pt-4 pb-4">
+                        Recuerda realizar tu check-in correspondiente antes de las 48 horas antes de la salida del vuelo y de verificar el horario de presentación al aeropuerto en el boarding pass
+                    </div>
+                    <div class="col-1 m-0 p-0">
+
+                    </div>
+                </div>
+                <div class="row m-0 p-0 pt-4">
+                    <div class="col-8 m-0 p-0">
+                        <span class="pb-3"><img src="assets/images/airplane_ida.svg"><label class="divVuelo pl-2">Mi vuelo</label></span>
+                        <app-vuelo-section [tipo]="1" [section]="section" *ngFor="let section of Lsection"></app-vuelo-section>
+                    </div>
+                    <div class="col-4 m-0 p-0">
+                        <app-precio-final [Lpolicies]="LPolicies" [tipo]="3" [currency]="lsflightavailability.currency" [precioadulto]="lsflightavailability.fareAmountByPassenger" [preciototal]="lsflightavailability.totalFareAmount"></app-precio-final>
+                    </div>
+                </div>
+                <div class="row m-0 p-0">
+                    <div class="col-4 m-0 p-0">
+                        <app-resumen-pasajero [lsusers]="lusers"></app-resumen-pasajero>
+                    </div>
+                    <div class="col-4 m-0 p-0">
+                        <app-resumen-equipaje [Lsection]="Lsection"></app-resumen-equipaje>
+                    </div>
+                    <div class="col-4 m-0 p-0"></div>
+                </div>
+                <div class="row m-0 p-0 pt-5">
+                    <div class="col-12 m-0 p-0 text-center">
+                        <button class="btn btn-cerrar">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 m-0 p-0"></div>
+        </div>
+    </app-header>
+</ng-container>

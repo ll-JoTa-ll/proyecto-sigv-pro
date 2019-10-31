@@ -1,0 +1,44 @@
+<div class="row m-0 p-0">
+    <div class="col-12 m-0 p-0 pl-4 pt-4">
+        <div class="row m-0 p-0">
+            <div class="col-8 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-4 m-0 p-0 text-departure pl-2">
+                        {{timeOfDepartureShow}}
+                    </div>
+                    <div class="col-4 m-0 p-0 pr-5">
+                        <div class="row m-0 p-0">
+                            <div *ngIf="lSegmentGroupsLength===1" class="col-12 m-0 p-0 text-center text-tipovuelo">
+                                Directo
+                            </div>
+                            <div *ngIf="lSegmentGroupsLength===1" class="col-12 m-0 p-0 text-center img-tipovuelo">
+                                <img class="img-fluid" src="./assets/images/home/directo.png" alt="">
+                            </div>
+                            <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center text-tipovuelo">
+                                {{lSegmentGroupsLength - 1}} escalas
+                            </div>
+                            <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center img-tipovuelo">
+                                <img class="img-fluid" src="./assets/images/home/escala.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 m-0 p-0 text-arrival pl-2">
+                        {{timeOfArrivalShow}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-6 m-0 p-0 text-totaltime pt-1">
+                        {{totalFlightTimeShow}}
+                    </div>
+                    <div class="col-6 m-0 p-0 div-bag">
+                        <span class="pr-3"><img src="./assets/images/accesorio_rojo.svg" alt=""></span>
+                        <span> <img *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
+                            <img *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt=""></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

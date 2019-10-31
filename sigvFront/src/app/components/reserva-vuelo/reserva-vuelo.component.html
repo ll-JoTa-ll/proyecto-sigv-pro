@@ -1,0 +1,43 @@
+<ng-container>
+    <app-header>
+        <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0"></div>
+            <div class="col-8 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-7 m-0 p-0">
+                        <div class="row m-0 p-0 pt-5">
+                            <div class="title-form pt-3 pb-3 pl-5">
+                                DATOS DEL PASAJERO(S)
+                            </div>
+                            <app-datos-pasajero [currency]="currency" *ngFor="let user of datosuser; let i = index;" [user]="user" [index]="i + 1" [LPolicies]="LPolicies"></app-datos-pasajero>
+                        </div>
+                        <app-persona-contacto [lsCostCenter]="lsCostCenter"></app-persona-contacto>
+                        <app-info-adicional></app-info-adicional>
+                        <app-motivo-viaje [lsReasonflight]="lsReasonFlight"></app-motivo-viaje>
+                        <div class="row m-0 p-0 pt-4 pb-5">
+                            <div class="col-12 p-0 m-0 text-center">
+                                <button class="btn bv-texto-3" (click)="Comprar()">COMPRAR</button>
+                            </div>
+                            <!--<ng-template #modalresumen let-c="close" let-d="dismiss">
+                                <div class="modal-header m-0 p-0" style="border: none;">
+                                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body m-0 p-0">
+                                    <app-modal-resumen [lSectionPassengers]="LSectionPassenger" [userid]="userid" [email]="email" [phone]="phone" [lsusuario]="datosusuario" [pseudo]="pseudo" [gds]="gds" [carrierId]="carrierId" [numberpasssengers]="numberpassengers" [ocompany]="ocompany"
+                                        [Flighavailabiltyresponse]="flightAvailability_result" [Lpolicies]="LPolicies" [LSection]="LSection" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount"></app-modal-resumen>
+                                </div>
+                            </ng-template>-->
+                        </div>
+                    </div>
+                    <div class="col-5 m-0 p-0">
+                        <app-precio-final [tipo]="1" [Lpolicies]="LPolicies" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount"></app-precio-final>
+                        <app-info-recomendacion [tipovuelo]="tipovuelo" [LSection]="LSection"></app-info-recomendacion>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 m-0 p-0"></div>
+        </div>
+    </app-header>
+</ng-container>

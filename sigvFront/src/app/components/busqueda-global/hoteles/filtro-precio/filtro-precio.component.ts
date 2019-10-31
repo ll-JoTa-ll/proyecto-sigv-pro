@@ -6,7 +6,7 @@ declare var jquery: any;
 declare var $: any;
 
 @Component({
-  selector: 'app-filtro-precio',
+  selector: 'app-filtro-hotel-precio',
   templateUrl: './filtro-precio.component.html',
   styleUrls: ['./filtro-precio.component.sass']
 })
