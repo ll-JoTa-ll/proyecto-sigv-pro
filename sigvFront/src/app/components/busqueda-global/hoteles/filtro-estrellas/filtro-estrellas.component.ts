@@ -27,7 +27,7 @@ export class FiltroEstrellasComponent implements OnInit {
   todas: boolean;
 
   constructor(
-    private localStorageService: LocalStorageService
+    private sessionStorageService: SessionStorageService
   ) {
     this.estrella5 = false;
     this.estrella4 = false;
@@ -39,7 +39,7 @@ export class FiltroEstrellasComponent implements OnInit {
 
   ngOnInit() {
     //ls_search_hotel
-    this.ls_search_hotel = this.localStorageService.retrieve('ls_search_hotel');
+    this.ls_search_hotel = this.sessionStorageService.retrieve('ls_search_hotel');
   }
 
   FiltroEstrella(estrellas) {
@@ -53,6 +53,16 @@ export class FiltroEstrellasComponent implements OnInit {
     let estrella5 = this.estrella5;
     let todas = this.todas;
     let listadoEstrellas = this.listadoEstrellas;
+
+    if (estrellas === 'todas') {
+      if (todas === true) {
+        this.estrella1 = false;
+        this.estrella2 = false;
+        this.estrella3 = false;
+        this.estrella4 = false;
+        this.estrella5 = false;
+      }
+    }
 
     switch(estrellas) {
       case "1":
@@ -141,7 +151,8 @@ export class FiltroEstrellasComponent implements OnInit {
       break;
       case "todas":
           if (todas === true) {
-            listadoEstrellas.push("1","2","3","4","5");
+            //listadoEstrellas.push("1","2","3","4","5");
+            listadoEstrellas = [];
           } else {
             let indice;
             listadoEstrellas.splice(0, 5);
@@ -155,22 +166,30 @@ export class FiltroEstrellasComponent implements OnInit {
     this.listadoEstrellas = listadoEstrellas;
 
     let listado = this.ls_search_hotel;
-    if (listadoEstrellas.length === 0) {
-          this.listadohotel = [];
-          listadohotel = [];
-          this.listadohotel = this.ls_search_hotel;
-    } else {
-      listadoEstrellas.forEach(function(valor) {
-        let results = listado.filter(m => parseFloat(m.stars) === parseFloat(valor));
-        results.forEach(function(rrr) {
-          listadohotel.push(rrr);
-        });
-      });
-  
-      console.log('listadohotel: ' + JSON.stringify(listadohotel));
-  
+
+    if (estrellas === 'todas') {
+      listadohotel = listado;
       this.listadohotel = listadohotel;
+    } else {
+      if (listadoEstrellas.length === 0) {
+        this.listadohotel = [];
+        listadohotel = [];
+        this.listadohotel = this.ls_search_hotel;
+      } else {
+        listadoEstrellas.forEach(function(valor) {
+          let results = listado.filter(m => parseFloat(m.stars) === parseFloat(valor));
+          results.forEach(function(rrr) {
+            listadohotel.push(rrr);
+          });
+        });
+
+        console.log('listadohotel: ' + JSON.stringify(listadohotel));
+
+        this.listadohotel = listadohotel;
+      }
     }
+
+    
     this.resultfiltro.emit(this.listadohotel);
 
     // tslint:disable-next-line: prefer-const

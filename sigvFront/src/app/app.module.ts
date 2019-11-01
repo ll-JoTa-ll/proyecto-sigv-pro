@@ -100,6 +100,7 @@ import { FiltroHorariosComponent } from './components/vuelos/filtro-horarios/fil
 import { FiltroAerolineasComponent } from './components/vuelos/filtro-aerolineas/filtro-aerolineas.component';
 import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/solicitud-aprobacion.component';
 import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles/filtro-precio-hotel/filtro-precio-hotel.component';
+import { ReservaGeneradaHotelComponent } from './components/busqueda-global/hoteles/reserva-generada-hotel/reserva-generada-hotel.component';
 
 @NgModule({
   declarations: [
@@ -183,7 +184,8 @@ import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles
     FiltroHorariosComponent,
     FiltroAerolineasComponent,
     SolicitudAprobacionComponent,
-    FiltroPrecioHotelComponent
+    FiltroPrecioHotelComponent,
+    ReservaGeneradaHotelComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
-import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+//import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { IHotelResultsModel } from '../../../../models/IHotelResults.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+import { Component, Input, Output, AfterViewInit, OnInit, EventEmitter } from '@angular/core';
 
 declare var jquery: any;
 declare var $: any;

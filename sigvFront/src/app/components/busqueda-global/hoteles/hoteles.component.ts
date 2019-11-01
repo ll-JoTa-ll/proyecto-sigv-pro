@@ -191,6 +191,7 @@ export class HotelesComponent implements OnInit {
   }
 
   ObtenerListaFiltroEstrella($event) {
+    this.divwarning = false;
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
     if (this.LlistaHotel.length === 0) {
@@ -199,6 +200,7 @@ export class HotelesComponent implements OnInit {
   }
 
   ObtenerListaFiltroPrecio($event) {
+    this.divwarning = false;
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
 

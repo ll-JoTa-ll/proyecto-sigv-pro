@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone, ElementRef, ViewChildren } from '@angular/core';
+import { Component, OnInit, Input, NgZone, ElementRef, ViewChildren, AfterViewInit } from '@angular/core';
 import { MapsAPILoader, MouseEvent} from '@agm/core';
 import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -10,7 +10,7 @@ declare var $: any;
   templateUrl: './mapa-hoteles.component.html',
   styleUrls: ['./mapa-hoteles.component.sass']
 })
-export class MapaHotelesComponent implements OnInit {
+export class MapaHotelesComponent implements OnInit, AfterViewInit {
 
   @Input() listado: IHotelResultsModel[];
   @Input() hoteldatos: any[];
@@ -21,7 +21,7 @@ export class MapaHotelesComponent implements OnInit {
   hotel: IHotelResultsModel;
   latitud: number;
   longitud: number;
-  zoom = 12;
+  zoom = 15;
   cantidadnoche: string;
 
   public location = {
@@ -38,12 +38,21 @@ export class MapaHotelesComponent implements OnInit {
     private ngZone: NgZone,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService
-  ) { }
+  ) {
+    console.log('MapaHotelesComponent constructor');
+  }
 
   ngOnInit() {
-    this.hotel = this.localStorageService.retrieve('hotel');
+    console.log('MapaHotelesComponent ngOnInit');
+    this.hotel = this.sessionStorageService.retrieve('hotel');
+
+    console.log('this.hotel: ' + JSON.stringify(this.hotel));
+
     this.location.latitude =  this.hotel.oposition.latitude;
     this.location.longitude = this.hotel.oposition.longitude;
+
+    console.log('this.location.latitude: ' + this.location.latitude);
+    console.log('this.location.longitude: ' + this.location.longitude);
 
     /*
     this.mapsAPILoader.load().then(() => {
@@ -72,6 +81,21 @@ export class MapaHotelesComponent implements OnInit {
         });
       });
     });*/
+  }
+
+  ngAfterViewInit() {
+    /*
+    console.log('MapaHotelesComponent ngAfterViewInit');
+    this.hotel = this.sessionStorageService.retrieve('hotel');
+
+    console.log('this.hotel: ' + JSON.stringify(this.hotel));
+
+    this.location.latitude =  this.hotel.oposition.latitude;
+    this.location.longitude = this.hotel.oposition.longitude;
+
+    console.log('this.location.latitude: ' + this.location.latitude);
+    console.log('this.location.longitude: ' + this.location.longitude);
+    */
   }
 
   /*

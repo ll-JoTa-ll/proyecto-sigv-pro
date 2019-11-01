@@ -16,10 +16,10 @@ export class FiltroNombrehotelComponent implements OnInit {
   ls_search_hotel;
   listadohotel: IHotelResultsModel[] = [];
 
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(private sessionStorageService: SessionStorageService) { }
 
   ngOnInit() {
-    this.ls_search_hotel = this.localStorageService.retrieve('ls_search_hotel');
+    this.ls_search_hotel = this.sessionStorageService.retrieve('ls_search_hotel');
   }
 
 
