@@ -10,4 +10,6 @@ export class IReservaModel {
             stateId: number;
             stateDescription: string;
         }
+        numberAuthorizers: number;
+        numberApproved: number;
 }

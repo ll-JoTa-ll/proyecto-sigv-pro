@@ -79,7 +79,7 @@ import { ResumenRegulacionesComponent } from './components/reserva-vuelo/resumen
 import { ReservaGeneradaComponent } from './components/reserva-vuelo/reserva-generada/reserva-generada.component';
 import { AutorizadoresComponent } from './components/reserva-vuelo/reserva-generada/autorizadores/autorizadores.component';
 import { PasajerosComponent } from './components/reserva-vuelo/reserva-generada/pasajeros/pasajeros.component';
-import { GestionReservasComponent } from './components/reserva-vuelo/gestion-reservas/gestion-reservas.component';
+import { MisReservasVueloComponent } from './components/reserva-vuelo/mis-reservas-vuelos/misreservas.component';
 import { ReservaTicketComponent } from './components/reserva-vuelo/reserva-ticket/reserva-ticket.component';
 import { FiltroSuperiorComponent } from './components/vuelos/filtro-superior/filtro-superior.component';
 import { AprobacionReservaComponent } from './components/reserva-vuelo/aprobacion-reserva/aprobacion-reserva.component';
@@ -87,6 +87,13 @@ import { FiltroPrecioComponent } from './components/vuelos/filtro-precio/filtro-
 import { FiltroHorariosComponent } from './components/vuelos/filtro-horarios/filtro-horarios.component';
 import { FiltroAerolineasComponent } from './components/vuelos/filtro-aerolineas/filtro-aerolineas.component';
 import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/solicitud-aprobacion.component';
+import { FormatfechareservaPipe } from './pipes/formatfechareserva.pipe';
+import { GestionReservaVueloComponent } from './components/reserva-vuelo/gestion-reserva-vuelo/gestion-reserva-vuelo.component';
+import { FormatfechareservacreacionPipe } from './pipes/formatfechareservacreacion.pipe';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { DetallevueloComponent } from './components/reserva-vuelo/aprobacion-reserva/detallevuelo/detallevuelo.component';
+import { FechaformatPipe } from './pipes/fechaformat.pipe';
+import { EmailformatPipe } from './pipes/emailformat.pipe';
 
 @NgModule({
   declarations: [
@@ -151,14 +158,20 @@ import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/
     ReservaGeneradaComponent,
     AutorizadoresComponent,
     PasajerosComponent,
-    GestionReservasComponent,
+    MisReservasVueloComponent,
     ReservaTicketComponent,
     FiltroSuperiorComponent,
     AprobacionReservaComponent,
     FiltroPrecioComponent,
     FiltroHorariosComponent,
     FiltroAerolineasComponent,
-    SolicitudAprobacionComponent
+    SolicitudAprobacionComponent,
+    FormatfechareservaPipe,
+    GestionReservaVueloComponent,
+    FormatfechareservacreacionPipe,
+    DetallevueloComponent,
+    FechaformatPipe,
+    EmailformatPipe
   ],
   imports: [
     BrowserModule,
@@ -175,7 +188,8 @@ import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     CollapseModule.forRoot(),
-    TimepickerModule.forRoot()
+    TimepickerModule.forRoot(),
+    PaginationModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

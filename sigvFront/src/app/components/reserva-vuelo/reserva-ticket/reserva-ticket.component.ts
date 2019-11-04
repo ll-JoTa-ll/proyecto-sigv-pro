@@ -20,7 +20,15 @@ export class ReservaTicketComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.bloquearBotonAtras();
     this.LPolicies = this.sessionStorageService.retrieve('politicas');
+  }
+
+  bloquearBotonAtras() {
+      history.pushState(null, null, location.href);
+      window.onpopstate = function() {
+        history.go(1);
+    };
   }
 
 }

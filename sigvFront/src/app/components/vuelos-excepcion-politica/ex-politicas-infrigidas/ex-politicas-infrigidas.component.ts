@@ -12,7 +12,7 @@ export class ExPoliticasInfrigidasComponent implements OnInit {
   listUsers: Pruebas[] = [];
   @Input() LPolicies;
   @Input() Currency;
-  @Input() lsapprovers: IGetApprovers[];
+  @Input() lsapprovers;
   @Input() tipo;
 
 

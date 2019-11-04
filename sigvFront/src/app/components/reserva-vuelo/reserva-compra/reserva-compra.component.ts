@@ -11,6 +11,9 @@ import { IGenerateTicket } from '../../../models/IGenerateTicket.model';
 import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+declare var jquery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-reserva-compra',
   templateUrl: './reserva-compra.component.html',
@@ -51,6 +54,7 @@ export class ReservaCompraComponent implements OnInit {
   fechatimelimit;
   horatimelimit;
   loginDataUser;
+  contacto;
 
   constructor(private sessionStorageService: SessionStorageService,
               private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService) {
@@ -69,6 +73,7 @@ export class ReservaCompraComponent implements OnInit {
     this.sessionStorageService.store('idmotivo', null);
     this.plantilla = 'assets/plantillasEmail/plantillaaprobacion.html';
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.contacto = this.sessionStorageService.retrieve('contacto');
    }
 
   ngOnInit() {
@@ -99,9 +104,11 @@ export class ReservaCompraComponent implements OnInit {
     this.spinner.show();
     let phones = [];
     let email = [];
-    this.lusers.forEach(function(item){
-      email.push(item.email);
-      phones.push(item.phone);
+    this.contacto.email.forEach(function(item, index) {
+      email.push(item);
+    });
+    this.contacto.telefonos.forEach(function(item, index) {
+      phones.push(item);
     });
     let infraction;
     if (this.LPolicies.length > 0) {
@@ -125,12 +132,16 @@ export class ReservaCompraComponent implements OnInit {
     "ReasonFlightId": parseFloat(this.idmotivo),
     "CarrierId": this.carrierId,
     "Lpolicies": this.LPolicies,
-    "Lauthorizer": this.lsapprover
+    "Lauthorizer": this.lsapprover,
+    "Comment": $('#motivoviaje').val()
     };
     this.service.AddPassenger(data).subscribe(
         results => {
         // tslint:disable-next-line: indent
         this.pnrresults = results;
+        if (this.lsapprover.length === 0 && this.LPolicies.length === 0 || this.lsapprover.length === 0 && this.LPolicies.length > 0) {
+          this.router.navigate(['/reserva-generada-vuelo']);
+        }
         this.sessionStorageService.store('datapnr', this.pnrresults);
         },
         err => {
@@ -238,6 +249,8 @@ export class ReservaCompraComponent implements OnInit {
 
    PlantillaPreciovuelo() {
     this.FormatearFechaPnr();
+    let motivo = $('#motivoviaje').val();
+    this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
     this.emailsolicitud = this.emailsolicitud.replace("@fechatimelimit",this.fechatimelimit);
     this.emailsolicitud = this.emailsolicitud.replace("@horatimelimit",this.horatimelimit);
     this.emailsolicitud = this.emailsolicitud.replace(/@currency/gi, this.lsflightavailability.currency);
@@ -341,20 +354,19 @@ export class ReservaCompraComponent implements OnInit {
            mails.push(item.email);
         }
       });
-
       let data = {
         "AgencyId": 1,
         "Recipients": mails,
-        "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com'],
+        "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com', 'gerentedeinnovacion@domiruth.com'],
         "RecipientsHiddenCopy": [],
-        "Subject": "TEST EMAIL TEST",
+        "Subject": "TEST SOLICITUD APROBACION DE EXCEPCION",
         "Message": this.emailsolicitud
       }
       this.service.SendEmail(data).subscribe(
         results => {
              if (results === true) {
                alert('Se envio correctamente');
-               this.router.navigate(['/reserva-generada']);
+               this.router.navigate(['/reserva-generada-vuelo']);
              } else {
                alert('Error al envio');
              }
@@ -402,7 +414,7 @@ export class ReservaCompraComponent implements OnInit {
         results => {
           this.ticketresults = results;
           if (this.ticketresults.oerror === null) {
-            this.router.navigate(['/reserva-ticket']);
+            this.router.navigate(['/reserva-ticket-vuelo']);
           }
         },
         err => {

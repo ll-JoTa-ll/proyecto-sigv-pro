@@ -13,6 +13,7 @@ export class PrecioFinalComponent implements OnInit {
   @Input() currency: string;
   @Input() Lpolicies: string;
   @Input() tipo: number;
+  @Input() LSection;
 
   modalRef: BsModalRef;
   config = {

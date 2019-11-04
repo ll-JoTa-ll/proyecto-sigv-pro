@@ -30,6 +30,7 @@ export class ReservaGeneradaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.bloquearBotonAtras();
     this.LPolicies = this.sessionStorageService.retrieve('politicas');
     this.lsapprover = this.sessionStorageService.retrieve('lsapprover');
     this.FormatearFechaPnr();
@@ -37,13 +38,28 @@ export class ReservaGeneradaComponent implements OnInit {
 
   FormatearFechaPnr() {
     let data;
+    let recorte; 
     let fecha;
     let hora;
     data = this.lspnrresults.timeLimit;
-    fecha = data.substr(0, 10);
-    hora =  data.substr(11, 16);
+    recorte = data.split("T");
+    fecha = recorte[0];
+    var date = new Date(fecha);
+    hora =  recorte[1];
+    recorte = fecha.split("-");
+    fecha = (recorte[2] + " " + date.toLocaleString('default', { month: 'short' }) + " del " + recorte[0]);
+    hora = hora.substr(0,5);
     this.fechatimelimit = fecha;
     this.horatimelimit = hora;
+  }
+
+  bloquearBotonAtras() {
+    if (this.lspnrresults.pnr != null) {
+      history.pushState(null, null, location.href);
+      window.onpopstate = function() {
+        history.go(1);
+    };
+    }
   }
 
 }

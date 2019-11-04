@@ -35,7 +35,7 @@
                                 <span class="divColor">Codigo de Reserva</span>
                             </div>
                             <div class="divCodigo col-6 m-0 p-0 pr-5">
-                                {{lspnrresults.pnr}}
+                                {{reserva.pnr}}
                             </div>
                         </div>
                     </div>
@@ -64,10 +64,26 @@
             <div class="col-8 m-0 p-0">
                 <div class="row m-0 p-0">
                     <div class="col-8 m-0 p-0">
+                        <div *ngIf="reserva.lauthorizers.length > 0" class="row m-0 p-0 pb-5">
+                            <div class="col-12 m-0 p-0 contenedor-form">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0 title-form pt-3 pb-3 pl-5">
+                                        MOTIVO DE APROBACIÓN
+                                    </div>
+                                    <div class="col-12 m-0 p-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-12 div-info">
+                                                <input type="text" class="input-pasajero" maxlength="1000" id="motivoviaje" value="{{reserva.comment}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <img src="assets/images/airplane_ida.svg"><label class="divVuelo pl-2">Mi vuelo</label>
-                        <app-vuelo-section [tipo]="1" *ngFor="let section of Lsection" [section]="section">
+                        <app-detallevuelo *ngFor="let segmentgroup of reserva.litineraries; let i = index" [totalFlightTimeShow]="segmentgroup.totalFlightTime" [segmentgroupLength]="reserva.litineraries.length" [segmentgroupindex]="i + 1" [itemgroup]="segmentgroup">
 
-                        </app-vuelo-section>
+                        </app-detallevuelo>
                     </div>
                     <div class="col-4 m-0 p-0">
                         <div class="row m-0 p-0">
@@ -76,12 +92,11 @@
                         </div>
                         <div class="rowAdulto">
                             <div class="col-12 m-0 p-0">
-                                <app-precio-final [tipo]="3" [Lpolicies]="LPolicies" [currency]="lsflightavailability.currency" [precioadulto]="lsflightavailability.fareAmountByPassenger" [preciototal]="lsflightavailability.totalFareAmount">
+                                <app-precio-final [tipo]="3" [Lpolicies]="LPolicies" [currency]="reserva.currency" [precioadulto]="reserva.totalAmountByPassenger" [preciototal]="reserva.totalAmount">
 
                                 </app-precio-final>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -141,24 +156,55 @@
                         </button>
                 </div>
                 <div class="modal-body m-0 p-0">
-                    <div class="row m-0 p-0 text-center pt-4 pb-4">
+                    <div *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && reserva.isAuthorizer === true" class="row m-0 p-0 text-center pt-4 pb-4 pl-2 pr-2">
                         <div class="col-12 m-0 p-0 text-1">
-                            Al aprobar el vuelo, este será emitido.
+                            No existen mas aprobadores pendientes en el vuelo, al aprobar el vuelo este será emitido.
                         </div>
+                        <div class="col-12 m-0 p-0 text-1">
+                            ¿Desea emitir el vuelo?
+                        </div>
+                    </div>
+                    <div *ngIf="reserva.isAuthorizer === false" class="row m-0 p-0 text-center pt-4 pb-4 pl-2 pr-2">
                         <div class="col-12 m-0 p-0 text-1">
                             ¿Desea emitir el vuelo?
                         </div>
                     </div>
                 </div>
                 <div class="row m-0 p-0 pb-5">
-                    <div class="col-6 m-0 p-0 text-center">
-                        <button (click)="modalRef.hide()" class="btn btn-emitir">Emitir</button>
+                    <div class="col-6 m-0 p-0 text-center" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && reserva.isAuthorizer === true">
+                        <button (click)="AprobarReserva(modalconfirmacion)" class="btn btn-emitir">Emitir</button>
+                    </div>
+                    <div class="col-6 m-0 p-0 text-center" *ngIf="reserva.isAuthorizer === false">
+                        <button (click)="EncolarReserva()" class="btn btn-emitir">Emitir</button>
                     </div>
                     <div class="col-6 m-0 p-0 text-center">
                         <button (click)="modalRef.hide()" class="btn btn-close">Cerrar</button>
                     </div>
                 </div>
             </ng-template>
+            <ng-template #modalconfirmacion let-c="close" let-d="dismiss">
+                <div class="modal-header m-0 p-0" style="border: none;">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                </div>
+                <div class="modal-body m-0 p-0">
+                    <div class="row m-0 p-0 text-center pt-4 pb-4 pl-2 pr-2">
+                        <div *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false" class="col-12 m-0 p-0 text-1">
+                            El vuelo ha sido aprobado satisfactoriamente , el vuelo ha sido enviado a emision
+                        </div>
+                        <div *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false" class="col-12 m-0 p-0 text-1">
+                            El vuelo ha sido aprobado satisfactoriamente sin embargo quedan aprobadores pendientes.
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0 p-0 pb-5">
+                    <div class="col-12 m-0 p-0 text-center">
+                        <button (click)="SendMailVueloAprobado()" class="btn btn-emitir">Cerrar</button>
+                    </div>
+                </div>
+            </ng-template>
+
             <ng-template #modalrechazar let-c="close" let-d="dismiss">
                 <div class="modal-header m-0 p-0" style="border: none;">
                     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -166,7 +212,15 @@
                         </button>
                 </div>
                 <div class="modal-body m-0 p-0">
-                    <div class="row m-0 p-0 text-center pt-4 pb-4">
+                    <div *ngIf="reserva.isAuthorizer === false" class="row m-0 p-0 text-center pt-4 pb-4">
+                        <div class="col-12 m-0 p-0 text-1">
+                            Estás apunto de cancelar el vuelo
+                        </div>
+                        <div class="col-12 m-0 p-0 text-1">
+                            La reserva será anulada
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0 text-center pt-4 pb-4" *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false || reserva.allowedApproved === true && reserva.allowedIssue === true || reserva.isAuthorizer === true">
                         <div class="col-12 m-0 p-0 text-1">
                             Estás apunto de rechazar el vuelo
                         </div>
@@ -174,20 +228,35 @@
                             La reserva será anulada
                         </div>
                     </div>
+                    <div class="row m-0 p-0 pl-5 pr-5 pb-2">
+                        <div class="col-12 m-0 p-0 lblmotivo" *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false || reserva.allowedApproved === true && reserva.allowedIssue === true || reserva.isAuthorizer === true">
+                            Motivo de rechazo
+                        </div>
+                        <div class="col-12 m-0 p-0 lblmotivo" *ngIf="reserva.isAuthorizer === false">
+                            Motivo de cancelacion
+                        </div>
+                        <div class="col-12 m-0 p-0">
+                            <textarea name="" id="motivorechazo" cols="30" rows="10" class="txt-motivo"></textarea>
+                        </div>
+                    </div>
                 </div>
                 <div class="row m-0 p-0 pb-5">
                     <div class="col-6 m-0 p-0 text-center">
-                        <button (click)="modalRef.hide()" class="btn btn-emitir">Rechazar</button>
+                        <!--  <button *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === true" (click)="RechazarReserva()" class="btn btn-emitir">Rechazar</button> -->
+                        <button *ngIf="reserva.isAuthorizer === false" (click)="CancelarReserva()" class="btn btn-emitir">Cancelar</button>
+                        <button *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false || reserva.allowedApproved === true && reserva.allowedIssue === true || reserva.isAuthorizer === true" (click)="RechazarReserva()" class="btn btn-emitir">Rechazar</button>
+
                     </div>
                     <div class="col-6 m-0 p-0 text-center">
                         <button (click)="modalRef.hide()" class="btn btn-close">Cerrar</button>
                     </div>
                 </div>
             </ng-template>
+
             <div class="col-8 m-0 p-0">
-                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;">
+                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false">
                     <div class="col-4 m-0 p-0">
-                        <button class="btn btn-aceptar" (click)="openModal(modalaprobacionconfirmacion)">Aceptar</button>
+                        <button class="btn btn-aceptar" (click)="AprobarReserva(modalconfirmacion)">Aprobar</button>
                     </div>
                     <div class="col-4 m-0 p-0">
                         <button class="btn btn-cerrar" (click)="openModal(modalrechazar)">Rechazar</button>
@@ -196,10 +265,30 @@
                         <button class="btn btn-salir">Salir</button>
                     </div>
                 </div>
+                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === true">
+                    <div class="col-4 m-0 p-0">
+                        <button class="btn btn-aceptar" (click)="AprobarReserva(modalconfirmacion)">Aprobar</button>
+                    </div>
+                    <div class="col-4 m-0 p-0">
+                        <button class="btn btn-cerrar" (click)="openModal(modalrechazar)">Rechazar</button>
+                    </div>
+                    <div class="col-4 m-0 p-0">
+                        <button class="btn btn-salir">Salir</button>
+                    </div>
+                </div>
+                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false">
+                    <div class="col-6 m-0 p-0">
+                        <button class="btn btn-aceptar" (click)="openModal(modalaprobacionconfirmacion)">Emitir</button>
+                    </div>
+                    <div class="col-6 m-0 p-0">
+                        <button class="btn btn-cerrar" (click)="openModal(modalrechazar)">Rechazar</button>
+                    </div>
+                </div>
             </div>
             <div class="col-2 m-0 p-0">
 
             </div>
         </div>
+        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
     </app-header>
 </ng-container>

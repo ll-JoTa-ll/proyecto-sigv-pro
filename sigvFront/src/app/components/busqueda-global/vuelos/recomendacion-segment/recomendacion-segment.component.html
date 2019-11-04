@@ -1,11 +1,8 @@
-
-
-
 <div *ngIf="segment.isVisible" class="m-0 p-0 pt-2 pb-2" style="width: 100%">
 
-  <div class="row m-0 p-0">
+    <div class="row m-0 p-0">
 
-    <!--
+        <!--
 
     <div class="col-3 m-0 p-0 pl-3">
       <input class="vertical-center" type="radio" name="marketingCarrier" value="male">
@@ -46,121 +43,108 @@
     -->
 
 
-    <div class="col-9 m-0 p-0" style="border-right: 1px solid #898989;">
+        <div class="col-9 m-0 p-0" style="border-right: 1px solid #898989;">
 
-      <div class="row m-0 p-0">
+            <div class="row m-0 p-0">
 
-        <div class="col-3 m-0 p-0 pl-3 d-flex align-items-center">
-          <div class="row m-0 p-0">
-            <div class="col-4 m-0 p-0">
-              <input
-                class=""
-                type="radio"
-                [id]="radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment"
-                [name]="radioButtonName+recommendationId+sectionId"
-                (click)="selectRadioButton(radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment)"
-                value="male">
+                <div class="col-3 m-0 p-0 pl-3 d-flex align-items-center">
+                    <div class="row m-0 p-0">
+                        <div class="col-4 m-0 p-0">
+                            <input class="" type="radio" [id]="radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment" [name]="radioButtonName+recommendationId+sectionId" (click)="selectRadioButton(radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment)"
+                                value="male">
+                        </div>
+                        <div class="col-4 m-0 p-0">
+                            <img style="width: 30px !important;" class="pl-1" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+                        </div>
+                        <div class="col-4 m-0 p-0"></div>
+                    </div>
+
+                </div>
+
+                <div class="col-3 m-0 p-0 text-center sm-text-1 d-flex justify-content-center align-items-center">
+                    {{timeOfDepartureShow}}
+                </div>
+
+                <div class="col-6 m-0 p-0">
+                    <div class="row m-0 p-0">
+                        <div class="col-4 m-0 p-0">
+                            <div class="row m-0 p-0">
+                                <div *ngIf="lSegmentGroupsLength===1" class="col-12 m-0 p-0 text-center sm-text-2">
+                                    Directo
+                                </div>
+                                <div *ngIf="lSegmentGroupsLength===1" class="col-12 m-0 p-0 text-center">
+                                    <img src="./assets/images/home/directo.png" alt="">
+                                </div>
+                                <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center sm-text-2">
+                                    {{lSegmentGroupsLength - 1}} escalas
+                                </div>
+                                <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center">
+                                    <img src="./assets/images/home/escala.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 m-0 p-0 text-center sm-text-1 d-flex justify-content-center align-items-center">
+                            {{timeOfArrivalShow}} <span *ngIf="segment.dateVariation>0" style="color: #ED1C24 !important; padding-left: 5px !important; font-size: 14px">+ {{segment.dateVariation}}</span>
+                        </div>
+                        <div class="col-4 m-0 p-0 text-center sm-text-3 d-flex justify-content-center align-items-center">
+                            {{totalFlightTimeShow}}
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="col-4 m-0 p-0">
-              <img style="width: 30px !important;" class="pl-1" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
-            </div>
-            <div class="col-4 m-0 p-0"></div>
-          </div>
 
         </div>
 
-        <div class="col-3 m-0 p-0 text-center sm-text-1 d-flex justify-content-center align-items-center">
-          {{timeOfDepartureShow}}
-        </div>
+        <div class="col-3 m-0 p-0">
 
-        <div class="col-6 m-0 p-0">
-          <div class="row m-0 p-0">
-            <div class="col-4 m-0 p-0">
-              <div class="row m-0 p-0">
-                <div *ngIf="lSegmentGroupsLength===1" class="col-12 m-0 p-0 text-center sm-text-2">
-                  Directo
-                </div>
-                <div *ngIf="lSegmentGroupsLength===1" class="col-12 m-0 p-0 text-center">
-                  <img src="./assets/images/home/directo.png" alt="">
-                </div>
-                <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center sm-text-2">
-                  {{lSegmentGroupsLength - 1}} escalas
-                </div>
-                <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center">
-                  <img src="./assets/images/home/escala.png" alt="">
-                </div>
-              </div>
-            </div>
-            <div class="col-4 m-0 p-0 text-center sm-text-1 d-flex justify-content-center align-items-center">
-              {{timeOfArrivalShow}} <span
-              *ngIf="segment.dateVariation>0"
-              style="color: #ED1C24 !important; padding-left: 5px !important; font-size: 14px">+ {{segment.dateVariation}}</span>
-            </div>
-            <div class="col-4 m-0 p-0 text-center sm-text-3 d-flex justify-content-center align-items-center">
-              {{totalFlightTimeShow}}
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="col-3 m-0 p-0">
-
-      <div class="row m-0 p-0">
+            <div class="row m-0 p-0">
 
 
-          <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
-            <img src="./assets/images/accesorio_rojo.svg" alt="">
-            <!--
+                <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
+                    <img src="./assets/images/accesorio_rojo.svg" alt="">
+                    <!--
             <img *ngIf="!bagAllowed" src="./assets/images/accesorio_gris.svg" alt="">
             -->
-          </div>
+                </div>
 
-          <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
-            <img *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
-            <img *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt="">
-          </div>
+                <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
+                    <img *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
+                    <img *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt="">
+                </div>
 
-          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-            <img *ngIf="lSegmentGroups.length === 0" style="width: 20px; cursor: pointer;" (click)="listSegmentGroups(flagSegmentId, segment.lSegmentGroups)" src="./assets/images/arrow-down.svg" alt="">
-            <img *ngIf="lSegmentGroups.length > 0" style="width: 20px; cursor: pointer;" (click)="hideSegmentGroups(flagSegmentId)" src="./assets/images/arrow-up.svg" alt="">
-          </div>
+                <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+                    <img *ngIf="lSegmentGroups.length === 0" style="width: 20px; cursor: pointer;" (click)="listSegmentGroups(flagSegmentId, segment.lSegmentGroups)" src="./assets/images/arrow-down.svg" alt="">
+                    <img *ngIf="lSegmentGroups.length > 0" style="width: 20px; cursor: pointer;" (click)="hideSegmentGroups(flagSegmentId)" src="./assets/images/arrow-up.svg" alt="">
+                </div>
 
 
 
-      </div>
+            </div>
 
-    </div>
-
-  </div>
-
-  <div class="row m-0 p-0 pb-5 animated fadeIn fast" [id]="flagSegmentId" *ngIf="lSegmentGroups.length > 0">
-
-    <div class="col-12 m-0 p-0">
-
-      <app-recomendacion-segment-group
-        [lSegmentGroupsLength]="segment.lSegmentGroups.length"
-        [totalFlightTimeShow]="segment.totalFlightTimeShow"
-        [segmentGroup]="segmentGroup"
-        [lSegmentGroupsIndex]="i+1"
-        [sectionGroup]="lSectionGroups[i]"
-        *ngFor="let segmentGroup of lSegmentGroups; let i=index"></app-recomendacion-segment-group>
-
-    </div>
-
-    <div class="col-12 m-0 p-0 p-4">
-      <div class="row m-0 p-0 box-shadow p-3">
-        <div class="col-2 m-0 p-0 s-texto-4" style="border-right: 1px solid #898989;">
-          Equipaje
         </div>
 
-        <div class="col-10 m-0 p-0">
+    </div>
 
-          <div class="row m-0 p-0">
+    <div class="row m-0 p-0 pb-5 animated fadeIn fast" [id]="flagSegmentId" *ngIf="lSegmentGroups.length > 0">
 
-            <!--
+        <div class="col-12 m-0 p-0">
+
+            <app-recomendacion-segment-group [lSegmentGroupsLength]="segment.lSegmentGroups.length" [totalFlightTimeShow]="segment.totalFlightTimeShow" [segmentGroup]="segmentGroup" [lSegmentGroupsIndex]="i+1" [sectionGroup]="lSectionGroups[i]" *ngFor="let segmentGroup of lSegmentGroups; let i=index"></app-recomendacion-segment-group>
+
+        </div>
+
+        <div class="col-12 m-0 p-0 p-4">
+            <div class="row m-0 p-0 box-shadow p-3">
+                <div class="col-2 m-0 p-0 s-texto-4" style="border-right: 1px solid #898989;">
+                    Equipaje
+                </div>
+
+                <div class="col-10 m-0 p-0">
+
+                    <div class="row m-0 p-0">
+
+                        <!--
             <div class="col-12 m-0 p-0">
               <div class="row m-0 p-0">
                 <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
@@ -180,52 +164,59 @@
             </div>
             -->
 
-            <div class="col-12 m-0 p-0 pt-3">
-              <div class="row m-0 p-0">
-                <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
-                  <img src="./assets/images/accesorio5.svg" alt="">
-                </div>
-                <div class="col-10 m-0 p-0">
-                  <div class="row m-0 p-0">
-                    <div class="col-12 m-0 p-0 s-texto-5">
-                      Incluye equipaje de mano
+                        <div class="col-12 m-0 p-0 pt-3">
+                            <div class="row m-0 p-0">
+                                <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
+                                    <img src="./assets/images/accesorio5.svg" alt="">
+                                </div>
+                                <div class="col-10 m-0 p-0">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-12 m-0 p-0 s-texto-5">
+                                            Incluye equipaje de mano
+                                        </div>
+                                        <div class="col-12 m-0 p-0 s-texto-6">
+                                            Debe caber en el compartimiento superior del avión.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 m-0 p-0 pt-3">
+                            <div class="row m-0 p-0">
+                                <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
+                                    <img *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
+                                    <img *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt="">
+                                </div>
+                                <div *ngIf="bagQuantity > 0" class="col-10 m-0 p-0">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-12 m-0 p-0 s-texto-5">
+                                            Incluye equipaje para documentar
+                                        </div>
+                                        <div class="col-12 m-0 p-0 s-texto-6">
+                                            {{bagQuantity}} maleta(s) por adulto.
+                                        </div>
+                                        <div class="col-12 m-0 p-0 s-texto-6">
+                                            Se documenta en el aeropuerto durante el Check-in.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="bagQuantity == 0" class="col-10 m-0 p-0">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-12 m-0 p-0 s-texto-5">
+                                            No incluye maleta
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="col-12 m-0 p-0 s-texto-6">
-                      Debe caber en el compartimiento superior del avión.
-                    </div>
-                  </div>
+
                 </div>
-              </div>
             </div>
-
-            <div class="col-12 m-0 p-0 pt-3">
-              <div class="row m-0 p-0">
-                <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
-                  <img *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
-                  <img *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt="">
-                </div>
-                <div class="col-10 m-0 p-0">
-                  <div class="row m-0 p-0">
-                    <div class="col-12 m-0 p-0 s-texto-5">
-                      Incluye equipaje para documentar
-                    </div>
-                    <div class="col-12 m-0 p-0 s-texto-6">
-                      1 maleta por adulto.
-                    </div>
-                    <div class="col-12 m-0 p-0 s-texto-6">
-                      Se documenta en el aeropuerto durante el Check-in.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
         </div>
-      </div>
-    </div>
 
-  </div>
+    </div>
 
 </div>

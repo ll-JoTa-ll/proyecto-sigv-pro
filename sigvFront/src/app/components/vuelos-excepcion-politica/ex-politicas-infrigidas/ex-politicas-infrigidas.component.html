@@ -40,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row m-0 p-0">
+                <div class="row m-0 p-0" *ngIf="lsapprovers.length > 0">
                     <div class="col-12 m-0 p-0">
                         <div class="col-12 m-0 p-0 pt-5">
                             <span class="spanAutorizador">Autorizadores</span>
@@ -93,16 +93,19 @@
                                 <tr>
                                     <th>N°</th>
                                     <th>Nombres</th>
-                                    <th>Perfil</th>
+                                    <th>Correo</th>
                                     <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody class="body-table">
                                 <tr *ngFor="let item of lsapprovers; let i = index">
                                     <td>#{{i + 1}}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{item.firstName}}</td>
+                                    <td>{{item.email}}</td>
+                                    <td>{{item.ostatus.description}}</td>
+                                    <td *ngIf="item.ostatus.id === 1"><img src="assets/images/img-validation/pendiente.svg"></td>
+                                    <td *ngIf="item.ostatus.id === 2"><img src="assets/images/img-validation/aprobado.svg"></td>
+                                    <td *ngIf="item.ostatus.id === 3"><img src="assets/images/img-validation/rechazado.svg"></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -64,12 +64,12 @@
         <div class='row'>
             <div class='fondo'>
                 <div class='row'>
-                    <div style='width: 100%; margin: 0px; padding: 0px; height: 200px; text-align: center; padding-top: 30px;'>
+                    <div style='width: 100% !important; margin: 0px; padding: 0px; height: 200px; text-align: center; padding-top: 30px;'>
                         <div style='width: 100% !important;'>
                             <img src='https://sigvplus.azurewebsites.net/sigv/assets/images/logoblanco.png' style='width: 150px;'>
                         </div>
                         <div style='width: 100% !important; padding-top: 20px;'>
-                            <span style='color: #FFFFFF; font-size: 25px; border-bottom: 2px solid #fff;'>SOLICITUD DE APROBACIÓN DE EXCEPCIÓN</span>
+                            <span style='color: #FFFFFF; font-size: 25px;border-bottom: 2px solid #fff;'>VUELO RECHAZADO</span>
                         </div>
                     </div>
                     <!--  <div style='width: 100%; margin: 0px; padding: 0px; height: 100px;'>
@@ -88,43 +88,76 @@
         <div class='row'>
             <div style='width: 10% !important;'>
             </div>
-            <div style='width: 80% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017); padding-left: 1%; padding-right: 1%; padding-top: 3%; padding-bottom: 1%; background: white; position: relative !important; bottom: 50px; border-radius: 20px 20px 0 0;'>
+            <div style='width: 80% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017); padding-left: 1%; padding-right: 1%; padding-top: 1%; padding-bottom: 1%;'>
                 <div class='row'>
-                    <div style='width: 50% !important;'>
-                        El vuelo seleccionado está infringiendo las políticas de viaje de su empresa
-                    </div>
-                    <div style='width: 50% !important; border-radius: 40px 0px 40px 0px; padding: 1em; background: white; border: 2px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); padding-left: 30px; padding-top: 30px; padding-bottom: 30px;'>
+                    <div style='width: 100%; padding-bottom: 2%; padding-top: 2%;'>
                         <div class='row'>
-                            <div>
-                                <span><img style='width: 40px;' src='https://sigvplus.azurewebsites.net/sigv/assets/images/time.png'></span><label style='font-family: Omnes-sem; color: #6B253C; font-size: 25px; opacity: 1; padding-left: 10px;'>Solo tienes hasta:</label>
+                            <div style='width: 50%; text-align: right; padding-right: 50px;'>
+                                <img src='https://sigvplus.azurewebsites.net/sigv/assets/images/transporte-aereo.png'>
                             </div>
-                        </div>
-                        <div class='row'>
-                            <label style='color: #676767; font-size: 21px; opacity: 1; letter-spacing: 0; padding-left: 50px;'>Las @horatimelimit del @fechatimelimit para gestionar la Reserva</label>
+                            <div style='width: 50%;'>
+                                <div style='font-size: 22px;'>!FELICIDADES¡</div>
+                                <div>El vuelo ha sido rechazado a las @hora</div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class='row'>
                     <div style='width: 100% !important; color: #6B253C; font-size: 20px;'>
-                        ● Motivos de Aprobación
+                        ● Motivos de Rechazo
                     </div>
                 </div>
                 <div class='row'>
                     <div style='width: 100% !important; padding-left: 10%; padding-right: 10%; text-align: center !important; padding-bottom: 2%; padding-top: 2%;'>
                         <div class='row'>
                             <div style='width: 100%; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); padding-bottom: 2%; padding-top: 2%; border: 2px solid rgba(219, 223, 227, 0.303017);'>
-                                @motivoaprobacion
+                                @motivorechazo
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class='row'>
                     <div style='width: 100% !important; color: #6B253C; font-size: 20px;'>
-                        ● Se requiere la aprobacion de los siguientes pasajeros:
+                        ● Autorizadores
                     </div>
                 </div>
                 <div class='row' style='padding-left: 3%; padding-right: 3%; padding-top: 1%; padding-bottom: 1%;'>
-                    <div style='width: 100% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017); border-radius: 40px 0 40px 0;'>
+                    <div style='width: 100% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017);'>
+                        <div class='row'>
+                            <div style='width: 100% !important; padding-top: 2%; padding-bottom: 2%;'>
+                                <span style='background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; border-radius: 0px 23px 23px 0px; color: #FFFFFF; padding: 7px 90px 7px 30px;'>AUTORIZADORES</span>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div style='width: 100%; text-align: center !important; padding-left: 2%; padding-right: 2%; padding-bottom: 2%;'>
+                                <table class='tabla'>
+                                    <thead style='color: #3D3D3D; background: #FBF6F6 0% 0% no-repeat padding-box; font-size: 14px;'>
+                                        <th>Nombres</th>
+                                        <!--   <th>DNI</th> -->
+                                        <th>Correo</th>
+                                        <!--   <th>Teléfono</th> -->
+                                    </thead>
+                                    <tbody style='color: #3D3D3D; font-size: 14px;'>
+                                        @autorizadores
+                                        <!-- <tr>
+                                            <td>Juan Caro Salazar</td>
+                                            <td>74545455</td>
+                                            <td>jcaro@gmail.com</td>
+                                            <td>215454545</td>
+                                        </tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div style='width: 100% !important; color: #6B253C; font-size: 20px;'>
+                        ● Rechazado para los siguientes pasajeros
+                    </div>
+                </div>
+                <div class='row' style='padding-left: 3%; padding-right: 3%; padding-top: 1%; padding-bottom: 1%;'>
+                    <div style='width: 100% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017);'>
                         <div class='row'>
                             <div style='width: 100% !important; padding-top: 2%; padding-bottom: 2%;'>
                                 <span style='background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; border-radius: 0px 23px 23px 0px; color: #FFFFFF; padding: 7px 90px 7px 30px;'>PASAJEROS</span>
@@ -189,6 +222,7 @@
                     </div>
                 </div>
                 <div class='row' style='padding-left: 3%; padding-right: 3%; padding-top: 1%; padding-bottom: 2%;'>
+                    <!--Politicas hacer for aca-->
                     <div style='width: 100%; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017);'>
                         <div class='row'>
                             <span style='background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; border-radius: 0px 23px 23px 0px; color: #FFFFFF; padding: 7px 90px 7px 30px;'>Politicas Infringidas</span>
@@ -196,13 +230,9 @@
                         @politicas
                     </div>
                 </div>
-                <div class='row'>
-                    <div style='width: 100%; text-align: center;'>
-                        <a type="button" href="http://localhost:4200" style='border-radius: 6px; background: #ED1C24 0% 0% no-repeat padding-box; color: #FFFFFF;font-size: 15px; cursor: pointer; padding: 15px 60px 15px 60px;text-decoration: none;' [href]="url" hr>Gestionar</a>
-                    </div>
-                </div>
             </div>
             <div style='width: 10% !important;'>
+
             </div>
         </div>
     </div>

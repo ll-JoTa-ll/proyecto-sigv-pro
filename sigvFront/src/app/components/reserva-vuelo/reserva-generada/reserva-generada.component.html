@@ -48,7 +48,11 @@
                                 <span class="m-0 p-0"><img src="assets/images/time.svg" style="width: 40px;"></span> <label class="txtGestion pl-2">Los aprobadores solo tienen hasta:</label>
                                 <label class="txtSolicitud m-0 p-0 pl-5">Las {{horatimelimit}} del {{fechatimelimit}} para gestionar la Reserva</label>
                             </div>
-                            <div *ngIf="LPolicies.length === 0 && lsapprover.length === 0" class="col-12 m-0 p-0 box-shadow pl-5 pt-2" style="border-radius: 0px 0px 20px 0px">
+                            <div *ngIf="LPolicies.length === 0 && lsapprover.length === 0 || LPolicies.length > 0 && lsapprover.length === 0" class="col-12 m-0 p-0 box-shadow pl-3 pt-3 pb-2" style="border-radius: 20px 0px 0px 0px">
+                                <span class="m-0 p-0"><img src="assets/images/time.svg" style="width: 40px;"></span> <label class="txtGestion pl-2">Solo tienes hasta:</label>
+                                <label class="txtSolicitud m-0 p-0 pl-5">Las {{horatimelimit}} del {{fechatimelimit}} para gestionar la Reserva</label>
+                            </div>
+                            <div *ngIf="LPolicies.length === 0 && lsapprover.length === 0 || LPolicies.length > 0 && lsapprover.length === 0" class="col-12 m-0 p-0 box-shadow pl-5 pt-2" style="border-radius: 0px 0px 20px 0px">
                                 <span class="img"><img src="assets/images/information.svg"></span><label class="txtPregunta pl-4 pb-2">¿Cómo gestiono mi reserva?</label>
                             </div>
                         </div>
@@ -99,7 +103,7 @@
             </div>
             <div class="col-8 m-0 p-0">
                 <div class="row m-0 p-0 pt-5">
-                    <div class="col-8 m-0 p-0">
+                    <div *ngIf="lsapprover.length > 0" class="col-8 m-0 p-0">
                         <app-autorizadores [lsapprovers]="lsapprover">
 
                         </app-autorizadores>

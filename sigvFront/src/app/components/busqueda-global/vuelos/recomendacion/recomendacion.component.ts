@@ -153,9 +153,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Gds: this.gds,
       PSeudo: this.pseudo
     };
-
-    console.log("dataFamilias: " + JSON.stringify(dataFamilias));
-
     this.getFareFamily(dataFamilias, template);
   }
 
@@ -235,8 +232,12 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   getFlightAvailability(recommendationId, template: TemplateRef<any>) {
+    console.log("getFlightAvailability");
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
+    console.log(JSON.stringify(lstRadioCheck));
+    lstRadioCheck.sort((a, b) => a.sectionId_ - b.sectionId_);
+    this.lstRadioCheck = lstRadioCheck;
     lstRadioCheck.forEach(function(item) {
       const sectionId = item.sectionId_;
       const segmentId = item.segmentId_;
@@ -250,6 +251,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       segment.lSegmentGroups.forEach(function(group, i) {
         const dataGroup = {
           ClassId: section.lSectionGroups[i].classId,
+          CabinId: section.lSectionGroups[i].cabinId,
+          CabinDescription: section.lSectionGroups[i].cabinDescription,
           DepartureDate: group.departureDate,
           TimeOfDeparture: group.timeOfDeparture,
           ArrivalDate: group.arrivalDate,
@@ -259,7 +262,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           MarketingCarrier: group.marketingCarrier,
           FlightOrtrainNumber: group.flightOrtrainNumber,
           EquipmentType: group.equipmentType,
-          FareBasis: section.lSectionGroups[i].fareBasis
+          FareBasis: section.lSectionGroups[i].fareBasis,
+          TimeWaitAirport: group.timeWaitAirport
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -293,6 +297,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Gds: this.gds,
       PSeudo: this.pseudo
     };
+    console.log(JSON.stringify(dataFamilias));
     this.sessionStorageService.store('ss_FlightAvailability_request1', dataFamilias);
     this.flightAvailability(dataFamilias, template);
   }
@@ -334,7 +339,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           AirportOrigin: group.airportOrigin,
           AirportDestination: group.airportDestination,
           CabinDescription: section.lSectionGroups[i].cabinDescription,
-          TimeWaitAirport: group.timeWaitAirport
+          TimeWaitAirport: group.timeWaitAirport,
+          DateVariation: group.dateVariation
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -378,8 +384,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Pseudo: this.pseudo,
       FlightNational: this.flightNational
     };
-    console.log('mi seccion');
-    console.log(dataFamilias);
     this.sessionStorageService.store('ss_FlightAvailability_request2', dataFamilias);
 
   }
@@ -388,10 +392,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     this.vuelosComponent.spinner.show();
     this.airportService.fligthAvailibility(data).subscribe(
       results => {
-        console.log('fligthAvailibility results: ' + results);
         if (results.oerror === null) {
           this.lsFlightAvailabilty = results;
-          console.log('results :', JSON.stringify(this.lsFlightAvailabilty));
           this.sessionStorageService.store('ss_FlightAvailability_result', results);
           this.ObtenerSecciones();
           this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
@@ -408,7 +410,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         this.vuelosComponent.spinner.hide();
       },
       () => {
-        console.log('flight availability completado');
         this.vuelosComponent.spinner.hide();
       }
     );

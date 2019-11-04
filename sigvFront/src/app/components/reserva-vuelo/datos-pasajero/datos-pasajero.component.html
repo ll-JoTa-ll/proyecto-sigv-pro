@@ -58,6 +58,21 @@
                     <div class="col-6 m-0 p-0 pl-4 pr-4">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 label-pasajero">
+                                <label for="">Tratamiento:</label>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                                <select class="input-pasajero" type="text" id="cbotratamiento_{{index}}" [(ngModel)]="tratamiento">
+                                                        <option value="MR">Sr.</option>
+                                                        <option value="MRS">Sra.</option>
+                                                        </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0 p-0 pr-5 pl-4">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0 label-pasajero">
                                 <label for="">Nombre:</label>
                             </div>
                         </div>
@@ -67,7 +82,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0 p-0 pr-5 pl-4">
+                </div>
+                <div class="row m-0 p-0 pb-3">
+                    <div class="col-6 m-0 p-0 pl-4 pr-4">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 label-pasajero">
                                 <label for="">Apellidos:</label>
@@ -79,9 +96,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row m-0 p-0 pb-3">
-                    <div class="col-6 m-0 p-0 pl-4 pr-4">
+                    <div class="col-6 m-0 p-0 pr-5 pl-4">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 label-pasajero">
                                 <label for="">Tipo de Documento:</label>
@@ -90,13 +105,15 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <select class="input-pasajero" type="text" [(ngModel)]="user.odocument.type" id="cbo_tipodocumento_{{index}}">
-                                    <option value="NI">DNI</option>
-                                    <option value="PP">PASAPORTE</option>
-                                    </select>
+                                            <option value="NI">DNI</option>
+                                            <option value="PP">PASAPORTE</option>
+                                            </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0 p-0 pr-5 pl-4">
+                </div>
+                <div class="row m-0 p-0 pb-3">
+                    <div class="col-6 m-0 p-0 pl-4 pr-4">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 label-pasajero">
                                 <label for="">Numero de Documento:</label>
@@ -108,9 +125,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row m-0 p-0 pb-3">
-                    <div class="col-6 m-0 p-0 pl-4 pr-4">
+                    <div class="col-6 m-0 p-0 pr-5 pl-4">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 label-pasajero">
                                 <label for="">Nacionalidad:</label>
@@ -119,18 +134,6 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <input class="input-pasajero" type="text" [(ngModel)]="user.nationality" id="txtnacionalidad_{{index}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 m-0 p-0 pr-5 pl-4">
-                        <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0 label-pasajero">
-                                <label for="">Fecha de Nacimiento:</label>
-                            </div>
-                        </div>
-                        <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" id="txtfecha_{{index}}" value="{{user.birthDate | formatearfecha}}">
                             </div>
                         </div>
                     </div>
@@ -151,12 +154,12 @@
                     <div class="col-6 m-0 p-0 pr-5 pl-4">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 label-pasajero">
-                                <label for="">Telefono:</label>
+                                <label for="">Fecha de Nacimiento:</label>
                             </div>
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}">
+                                <input class="input-pasajero" type="text" id="txtfecha_{{index}}" value="{{user.birthDate | fechaformat}}">
                             </div>
                         </div>
                     </div>
@@ -174,7 +177,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0 p-0">
+                    <div class="col-6 m-0 p-0 pl-4 pr-5">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0 label-pasajero">
+                                <label for="">Telefono:</label>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                                <input class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

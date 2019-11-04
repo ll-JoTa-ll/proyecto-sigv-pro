@@ -32,6 +32,7 @@ export class ReservaVueloComponent implements OnInit {
   tipovuelo;
   loginDataUser;
   lst_rol_autogestion;
+  lst_rol_autorizador;
   LSection;
   LPolicies;
   datosuser: any[] = [];
@@ -68,10 +69,12 @@ export class ReservaVueloComponent implements OnInit {
     //this.sessionStorageService.store('ss_FlightAvailability_result', null);
     this.sessionStorageService.store('tipovuelo', null);
     this.lst_rol_autogestion = environment.cod_rol_autogestion;
+    this.lst_rol_autorizador = environment.cod_rol_autorizador;
   }
 
   ngOnInit() {
-    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0]) {
+    // tslint:disable-next-line: max-line-length
+    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
       this.GetUsers();
   } else {
      this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
@@ -183,21 +186,6 @@ export class ReservaVueloComponent implements OnInit {
          };
          datosusuario.push(objuser);
     });
-   /* let datosusuario =
-    [{
-      "PassengerId": 1,
-			"PersonId": this.datosuser.personId,
-			"Prefix": prefix,
-			"Type": "ADT",
-			"Name": this.datosuser.firstName,
-			"LastName": this.datosuser.lastName,
-			"Gender": this.datosuser.gender,
-			"BirthDate": fechatotal,
-			"Odocument": this.datosuser.odocument,
-			"FrequentFlyer": this.datosuser.frequentFlyer,
-      "IsVIP": this.datosuser.isVIP,
-      "lcostCenter": this.datosuser.lcostCenter
-    }];*/
 
     let data = {
       "Ocompany": this.ocompany,
@@ -218,6 +206,7 @@ export class ReservaVueloComponent implements OnInit {
     ) 
   }
 
+
   Comprar() {
    /* this.email = this.datosuser.email;
     this.phone = this.datosuser.phone;
@@ -225,28 +214,53 @@ export class ReservaVueloComponent implements OnInit {
     let idmotivo = $('#cbomotivo option:selected').val();
 
     let datosusuario: any[] = [];
+    let contacto: any;
+    let mail : any = [];
+    let phone: any = [];
+    let email2;
+    let telefono2;
+    email2 = $('#contactocorreo').val();
+    telefono2 = $('#contactotelefono').val();
     this.datosuser.forEach(function(item, index) {
       let prefix;
-      if (item.gender === 'M') {
-        prefix = 'MR';
-      } else {
-        prefix = 'MRS';
-      }
       let nombre;
       let apellido;
       let fechanacimiento;
       let typedoc;
       let nrodoc;
+      let email1 : any;
+      let telefono1;
+
+      let fechatotal;
+      let fecha = item.birthDate.substr(0, 10);
+      let fechaformat = fecha.split('-');
+      let año = fechaformat[0];
+      let mes = fechaformat[1];
+      let dia = fechaformat[2];
+      fechatotal = año + '/' + mes + '/' + dia;
+
       nombre = $('#txtnombre_' + (index + 1)).val();
       apellido = $('#txtapellidos_' + (index + 1)).val();
-      fechanacimiento = $('#txtfecha_' + (index + 1)).val();
+      fechanacimiento = fechatotal,
       typedoc = $('#cbo_tipodocumento_' + (index + 1) + ' '  + 'option:selected').val();
       nrodoc = $('#txtnrodocumento_' + (index + 1)).val();
+      prefix = $('#cbotratamiento_' + (index + 1) + ' '  + 'option:selected').val();
+      email1 = $('#txtcorreo_' + (index + 1)).val();
+      telefono1 = $('#txttelefono_' + (index + 1)).val();
       let odocument = {
         description: 'Documento Nacional',
         number: nrodoc,
         type: typedoc
       }
+
+      mail.push(email1);
+      phone.push(telefono1);
+
+      contacto = {
+        email : mail,
+        telefonos : phone
+      }
+     
       const objuser = {
         "PassengerId": index + 1,
         "PersonId": item.personId,
@@ -262,7 +276,18 @@ export class ReservaVueloComponent implements OnInit {
        }
       datosusuario.push(objuser);
     });
+
+    if (email2 != '' && telefono2 != '') {
+      mail.push(email2);
+      phone.push(telefono2);
+    }
+    contacto = {
+      email : mail,
+      telefonos : phone
+    }
+    console.log(contacto);
     console.log(datosusuario);
+    this.sessionStorageService.store('contacto', contacto);
     this.sessionStorageService.store('datosusuario', datosusuario);
     this.sessionStorageService.store('sectioninfo', this.LSection);
     this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
