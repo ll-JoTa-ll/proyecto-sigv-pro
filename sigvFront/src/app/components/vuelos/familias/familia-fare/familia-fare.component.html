@@ -38,13 +38,14 @@
             <label>
         <input
           type="radio"
-          *ngIf="fareFamily.fareFamilyPrice>0"
+          *ngIf="fareFamily.oprice.basePrice>0"
           [name]="nameRadioBtn + '_' + familyIndex"
           [id]="idRadioBtn + '_' + familyIndex + '_' + fareFamilyIndex"
           (click)="selectRadioBtnFam(idRadioBtn + '_' + familyIndex + '_' + fareFamilyIndex)"
         >
-        <span class="pl-1 ff-text-currency">{{currency}}</span>
-        <span class="pl-1 ff-text-price">{{fareFamily.fareFamilyPrice}}</span>
+        <span class="pl-1 ff-text-currency">{{fareFamily.oprice.currency}}</span>
+        <span class="pl-1 ff-text-price">{{fareFamily.oprice.basePrice}}</span>
+        <!--fareFamily.fareFamilyPrice-->
       </label>
 
         </div>
