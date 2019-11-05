@@ -8,6 +8,7 @@ import { IFareFamilyModel } from '../../../../models/IFareFamily.model';
 import { AirportService } from '../../../../services/airport.service';
 import { IFlightAvailability } from 'src/app/models/IFlightAvailability';
 import { Router } from '@angular/router';
+import { IFamilyResultModel } from '../../../../models/IFamilyResult.model';
 
 @Component({
   selector: 'app-recomendacion',
@@ -47,7 +48,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   loginDataUser;
   outSegmentCheck;
 
-  lstFamilyResult: IFareFamilyModel[] = [];
+  //lstFamilyResult: IFareFamilyModel[] = [];
+  lstFamilyResult: IFamilyResultModel;
   lsFlightAvailabilty: IFlightAvailability;
   flagResultFamilias: number;
 
@@ -147,6 +149,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Lsections_.push(lsection);
     });
 
+    Lsections_ = Lsections_.sort((a, b) => a.sectionId - b.sectionId);
+
     let dataFamilias = {
       NumberPassengers: this.numberPassengers,
       CarrierId: this.carrierId,
@@ -208,7 +212,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           flagResultFamilias = 0;
         } else {
           this.lstFamilyResult = result;
-          if (this.lstFamilyResult.length === 0) {
+          if (this.lstFamilyResult.lsections.length === 0) {
             flagResultFamilias = 0;
           } else {
             flagResultFamilias = 1;

@@ -1,11 +1,10 @@
 export interface IFareFamilyServiceModel {
-  classId: string;
   fareFamilyId: number;
   fareFamilyName: string;
   fareFamilyCode: string;
   fareBasis: string;
+  classId: string;
   fareType: string;
-  fareFamilyPrice: number;
-  carrierId: string;
+  oprice;
   lfamilyServices: any[];
 }

@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SessionStorageService } from 'ngx-webstorage';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { IFareFamilyModel } from '../models/IFareFamily.model';
+//import { IFareFamilyModel } from '../models/IFareFamily.model';
+import { IFamilyResultModel } from '../models/IFamilyResult.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -34,7 +35,7 @@ export class FamilyService {
     });
   }
 
-  getFareFamily(dataPost): Observable<IFareFamilyModel[]> {
-    return this.http.post<IFareFamilyModel[]>(this._url3 + 'GetFareFamily', dataPost, httpOptions);
+  getFareFamily(dataPost): Observable<IFamilyResultModel> {
+    return this.http.post<IFamilyResultModel>(this._url3 + 'GetFareFamily', dataPost, httpOptions);
   }
 }

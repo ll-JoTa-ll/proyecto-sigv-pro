@@ -50,12 +50,10 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     let precioTotal = 0;
     let lstSumaFam: any[] = [];
+    /*
     this.lstFamilyResult.forEach(function(fam, indexFam_) {
-      //console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-      //console.log('fam: ' + JSON.stringify(fam));
       fam.lfareFamilies.forEach(function(item, index) {
         if (index === 0) {
-          //console.log('item: ' + JSON.stringify(item));
           precioTotal += item.fareFamilyPrice;
           const dataSum = {
             indexFam: indexFam_,
@@ -65,12 +63,12 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
           lstSumaFam.push(dataSum);
         }
       });
-      //console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
     });
     this.lstSumaFam = lstSumaFam;
     console.log('precioTotal: ' + precioTotal);
     this.precioTotal = precioTotal;
     this.precioPersona = this.precioTotal / this.nroPersonas;
+    */
   }
 
   sumTotal($event) {
@@ -98,6 +96,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
 
     let precioTotal = this.precioTotal;
 
+    /*
     this.lstSumaFam.forEach(function(item) {
       if (item.indexFam === indexFam) {
         precioTotal = precioTotal - item.fareFamilyPrice;
@@ -106,6 +105,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
         item.fareFamilyPrice = fareFamilyPrice;
       }
     });
+    */
 
     this.precioTotal = precioTotal;
     this.precioPersona = this.precioTotal / this.nroPersonas;

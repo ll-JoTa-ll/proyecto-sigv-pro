@@ -100,6 +100,8 @@ import { FiltroHorariosComponent } from './components/vuelos/filtro-horarios/fil
 import { FiltroAerolineasComponent } from './components/vuelos/filtro-aerolineas/filtro-aerolineas.component';
 import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/solicitud-aprobacion.component';
 import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles/filtro-precio-hotel/filtro-precio-hotel.component';
+import { VueloFamiliaSectionComponent } from './components/vuelos/familias/vuelo-familia-section/vuelo-familia-section.component';
+import { VueloFamiliaSegmentComponent } from './components/vuelos/familias/vuelo-familia-segment/vuelo-familia-segment.component';
 
 @NgModule({
   declarations: [
@@ -183,7 +185,9 @@ import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles
     FiltroHorariosComponent,
     FiltroAerolineasComponent,
     SolicitudAprobacionComponent,
-    FiltroPrecioHotelComponent
+    FiltroPrecioHotelComponent,
+    VueloFamiliaSectionComponent,
+    VueloFamiliaSegmentComponent
   ],
   imports: [
     BrowserModule,
