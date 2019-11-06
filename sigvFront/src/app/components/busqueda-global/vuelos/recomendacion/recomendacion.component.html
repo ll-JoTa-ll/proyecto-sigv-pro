@@ -56,7 +56,7 @@
                 <div class="col-1 m-0 p-0"></div>
 
                 <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 30px !important;">
-                    <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId)">
+                    <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId, modalerror)">
             Ver familias
           </button>
 
@@ -77,6 +77,8 @@
                               [dataRequestFamilia]="dataRequestFamilia"
                               [tipoVuelo]="tipoVuelo"
                               (flagCloseModal)="closeModalFamilia($event)"
+                              [famFareAmountByPassenger]="famFareAmountByPassenger"
+                              [famTotalFareAmount]="famTotalFareAmount"
                             ></app-familias>
 
                             <div *ngIf="flagResultFamilias===0" class="row m-0 p-0">

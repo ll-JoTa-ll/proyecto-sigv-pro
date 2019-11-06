@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-vuelo-familia-section',
@@ -10,6 +10,8 @@ export class VueloFamiliaSectionComponent implements OnInit {
   @Input() sectionFamily;
   @Input() sectionFamilyIndex;
   @Input() lstFamilyResultLength;
+
+  @Output() idRadioBtnFareFam = new EventEmitter<string>();
 
   imgIdaVuelta;
   textoTipo;
@@ -51,6 +53,10 @@ export class VueloFamiliaSectionComponent implements OnInit {
   hideSegments() {
     const isCollapsed = this.isCollapsed;
     this.isCollapsed = !isCollapsed;
+  }
+
+  selectRadioBtnFam($event) {
+    this.idRadioBtnFareFam.emit($event);
   }
 
 }

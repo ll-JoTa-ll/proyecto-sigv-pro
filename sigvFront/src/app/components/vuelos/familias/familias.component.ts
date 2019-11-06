@@ -17,11 +17,13 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   @Input() currency: string;
   @Input() dataRequestFamilia;
   @Input() tipoVuelo;
+  @Input() famTotalFareAmount;
+  @Input() famFareAmountByPassenger;
 
   @Output() flagCloseModal = new EventEmitter<boolean>();
 
-  precioTotal: number;
-  precioPersona: number;
+  precioTotal = 0;
+  precioPersona = 0;
   idRadioBtnFareFam: string;
   lstSumaFam: any[] = [];
   lsFlightAvailabilty;
@@ -39,17 +41,32 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     private modalService: BsModalService,
     private spinner: NgxSpinnerService,
   ) {
-    this.precioTotal = 0;
-    this.precioPersona = 0;
+    console.log('modal familia constructor');
+    //this.precioTotal = 0;
+    //this.precioPersona = 0;
     this.flagMsgErrorSelFam = false;
   }
 
   ngOnInit() {
+    console.log('modal familia ngOnInit');
+    this.precioTotal = this.famTotalFareAmount;
+    this.precioPersona = this.famFareAmountByPassenger;
+    console.log('this.famFareAmountByPassenger: ' + this.famFareAmountByPassenger);
+    console.log('this.famTotalFareAmount: ' + this.famTotalFareAmount);
+    console.log('this.precioPersona: ' + this.precioPersona);
+    console.log('this.precioTotal: ' + this.precioTotal);
   }
 
   ngAfterViewInit() {
+    console.log('modal familia ngAfterViewInit');
     let precioTotal = 0;
     let lstSumaFam: any[] = [];
+    this.precioTotal = this.famTotalFareAmount;
+    this.precioPersona = this.famFareAmountByPassenger;
+    console.log('this.famFareAmountByPassenger: ' + this.famFareAmountByPassenger);
+    console.log('this.famTotalFareAmount: ' + this.famTotalFareAmount);
+    console.log('this.precioPersona: ' + this.precioPersona);
+    console.log('this.precioTotal: ' + this.precioTotal);
     /*
     this.lstFamilyResult.forEach(function(fam, indexFam_) {
       fam.lfareFamilies.forEach(function(item, index) {
@@ -107,8 +124,8 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     });
     */
 
-    this.precioTotal = precioTotal;
-    this.precioPersona = this.precioTotal / this.nroPersonas;
+    //this.precioTotal = precioTotal;
+    //this.precioPersona = this.precioTotal / this.nroPersonas;
     this.setListFareFamily($event);
   }
 

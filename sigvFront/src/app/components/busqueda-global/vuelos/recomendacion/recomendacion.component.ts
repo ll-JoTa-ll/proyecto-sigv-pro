@@ -57,6 +57,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   lstPseudoRepeat: any[] = [];
 
   dataRequestFamilia;
+  famTotalFareAmount;
+  famFareAmountByPassenger;
 
   constructor(
     private modalService: BsModalService,
@@ -98,7 +100,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openModal(template: TemplateRef<any>, recommendationId) {
+  openModal(template: TemplateRef<any>, recommendationId, modalerror) {
 
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
@@ -159,7 +161,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Gds: this.gds,
       PSeudo: this.pseudo
     };
-    this.getFareFamily(dataFamilias, template);
+    this.getFareFamily(dataFamilias, template, modalerror);
   }
 
   setearRadioId($event) {
@@ -197,7 +199,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getFareFamily(dataPost, template) {
+  getFareFamily(dataPost, template, modalerror) {
+    console.log('familia dataPost: ' + JSON.stringify(dataPost));
     this.vuelosComponent.spinner.show();
     this.ObtenerSecciones();
     this.dataRequestFamilia = dataPost;
@@ -225,10 +228,13 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         console.log('getFareFamily completado');
         this.vuelosComponent.spinner.hide();
         if (flagResultFamilias === 1) {
+          this.flightAvailability(dataPost, modalerror, 2, template);
+          /*
           this.modalRef = this.modalService.show(
             template,
             Object.assign({}, { class: 'gray modal-lg' })
           );
+          */
         } else {
           this.modalRef = this.modalService.show(
             template,
@@ -307,7 +313,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     };
     console.log(JSON.stringify(dataFamilias));
     this.sessionStorageService.store('ss_FlightAvailability_request1', dataFamilias);
-    this.flightAvailability(dataFamilias, template);
+    this.flightAvailability(dataFamilias, template, 1, null);
   }
 
   ObtenerSecciones() {
@@ -396,8 +402,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   }
 
-  flightAvailability(data, template) {
+  flightAvailability(data, template, tipo, modalFam) {
     this.vuelosComponent.spinner.show();
+    let flagResult = 0;
     this.airportService.fligthAvailibility(data).subscribe(
       results => {
         if (results.oerror === null) {
@@ -405,7 +412,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           this.sessionStorageService.store('ss_FlightAvailability_result', results);
           this.ObtenerSecciones();
           this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
-          this.router.navigate(['/reserva-vuelo']);
+          //this.router.navigate(['/reserva-vuelo']);
+          flagResult = 1;
         } else {
           this.modalRef = this.modalService.show(
             template,
@@ -419,6 +427,24 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       },
       () => {
         this.vuelosComponent.spinner.hide();
+        if (flagResult === 1) {
+          if (tipo === 1) {
+            this.router.navigate(['/reserva-vuelo']);
+          }
+
+          if (tipo === 2) {
+            console.log('this.lsFlightAvailabilty.fareAmountByPassenger: ' + this.lsFlightAvailabilty.fareAmountByPassenger);
+            console.log('this.lsFlightAvailabilty.totalFareAmount: ' + this.lsFlightAvailabilty.totalFareAmount);
+            this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
+            this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
+            this.modalRef = this.modalService.show(
+              modalFam,
+              Object.assign({}, { class: 'gray modal-lg' })
+            );
+          }
+
+          if (tipo === 3) {}
+        }
       }
     );
   }

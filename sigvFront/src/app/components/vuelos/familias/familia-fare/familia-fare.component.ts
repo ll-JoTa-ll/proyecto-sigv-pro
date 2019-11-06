@@ -17,8 +17,9 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   @Input() flagCountInc;
   @Input() flagCountNof;
   @Input() flagCountCha;
-  @Input() familyIndex;
+  @Input() segmentIndex;
   @Input() familyLength;
+  @Input() sectionIndex;
 
   @Output() idRadioBtnFareFam = new EventEmitter<string>();
 
@@ -103,26 +104,30 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     console.log('heightDivNof: ' + heightDivNof);
     console.log('heightDivCha: ' + heightDivCha);
     */
-    $("." + this.classDivInc + this.familyIndex).height(heightDivInc);
-    $("." + this.classDivNof + this.familyIndex).height(heightDivNof);
-    $("." + this.classDivCha + this.familyIndex).height(heightDivCha);
+    $("." + this.classDivInc + this.segmentIndex).height(heightDivInc);
+    $("." + this.classDivNof + this.segmentIndex).height(heightDivNof);
+    $("." + this.classDivCha + this.segmentIndex).height(heightDivCha);
 
     if (this.fareFamilyIndex === 1) {
-      $('#' + this.idRadioBtn + '_' + this.familyIndex + '_' + this.fareFamilyIndex).prop("checked", true);
-      $('#' + this.idNameFamilyName + '_' + this.familyIndex + '_' + this.fareFamilyIndex).css({'background-color': this.colorsFare[this.fareFamilyIndex]});
+      $('#' + this.idRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex + '_' + this.fareFamilyIndex).prop("checked", true);
+      $('#' + this.idNameFamilyName + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + this.fareFamilyIndex).css({'background-color': this.colorsFare[this.fareFamilyIndex]});
     }
   }
 
   selectRadioBtnFam(id) {
+    console.log('id: ' + id);
     const familyLength = this.familyLength;
+    console.log('familyLength: ' + familyLength);
     for (let i = 1; i <= familyLength; i++) {
-      $('#' + this.idNameFamilyName + '_' + this.familyIndex + '_' + i).css({'background-color': '#C6C6C6'});
+      const idCab = '#' + this.idNameFamilyName + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + i;
+      $(idCab).css({'background-color': '#C6C6C6'});
     }
 
     const selRadio = id.split('_');
-    const familyIndex = selRadio[1];
-    const fareFamilyIndex = selRadio[2];
-    $('#' + this.idNameFamilyName + '_' + familyIndex + '_' + fareFamilyIndex).css({'background-color': this.colorsFare[fareFamilyIndex]});
+    const sectionIndex = selRadio[1];
+    const segmentIndex = selRadio[2];
+    const fareFamilyIndex = selRadio[3];
+    $('#' + this.idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).css({'background-color': this.colorsFare[fareFamilyIndex]});
     this.idRadioBtnFareFam.emit(id);
   }
 
