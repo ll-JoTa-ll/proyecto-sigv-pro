@@ -2,62 +2,68 @@
 
 
 
-<div class="row m-0 p-0 pb-5">
-  <div class="col-12 m-0 p-0">
+<div class="row m-0 p-0 pb-5 pt-5">
+  <div class="col-2 m-0 p-0"></div>
+  <div class="col-8 m-0 p-0 box-shadow">
     <div class="row m-0 p-0">
+      <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+            <img style="width: 60px;" class="img-fluid vertical-center pl-4" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+          </div>
+          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+            {{segment.oairline.carrierName}}
+          </div>
+          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+            Vuelo {{segment.oairline.flightOrtrainNumber}} - {{segment.oairline.equipmentType}}
+          </div>
+        </div>
+      </div>
       <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-        <img style="width: 60px;" class="img-fluid vertical-center pl-4" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+        <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0">
+            {{segment.odeparture.dateShow}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.odeparture.timeShow}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.oorigin.city}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.oorigin.airportCity}}
+          </div>
+        </div>
       </div>
       <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-        {{segment.oairline.carrierName}}
+        <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0">
+            Duración
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.otime.totalFlightTimeShow}}
+          </div>
+        </div>
       </div>
       <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-        Vuelo {{segment.oairline.flightOrtrainNumber}} - {{segment.oairline.equipmentType}}
+        <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0">
+            {{segment.oarrival.dateShow}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.oarrival.timeShow}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.odestination.city}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.odestination.airportCity}}
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-    <div class="row m-0 p-0">
-      <div class="col-12 m-0 p-0">
-        {{segment.odeparture.dateShow}}
-      </div>
-      <div class="col-12 m-0 p-0">
-        {{segment.odeparture.timeShow}}
-      </div>
-      <div class="col-12 m-0 p-0">
-        {{segment.oorigin.city}}
-      </div>
-      <div class="col-12 m-0 p-0">
-        {{segment.oorigin.airportCity}}
-      </div>
-    </div>
-  </div>
-  <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-    <div class="row m-0 p-0">
-      <div class="col-12 m-0 p-0">
-        Duración
-      </div>
-      <div class="col-12 m-0 p-0">
-        {{segment.otime.totalFlightTimeShow}}
-      </div>
-    </div>
-  </div>
-  <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-    <div class="row m-0 p-0">
-      <div class="col-12 m-0 p-0">
-        {{segment.oarrival.dateShow}}
-      </div>
-      <div class="col-12 m-0 p-0">
-        {{segment.oarrival.timeShow}}
-      </div>
-      <div class="col-12 m-0 p-0">
-        {{segment.odestination.city}}
-      </div>
-      <div class="col-12 m-0 p-0">
-        {{segment.odestination.airportCity}}
-      </div>
-    </div>
-  </div>
+  <div class="col-2 m-0 p-0"></div>
 </div>
 
 <div class="row m-0 p-0" style="width: 100%;">
