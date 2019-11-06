@@ -1,0 +1,57 @@
+<div class="m-0 p-0 pt-5">
+    <div class="row m-0 p-0 box-shadow">
+        <div class="col-12 m-0 p-0 pt-3 pl-4 txt-precio">
+            Precio Total por {{cantnoche}} noche(s)
+        </div>
+        <div class="col-12 m-0 p-0">
+            <div class="row p-0 m-0">
+                <div class="col-6 m-0 p-0 pt-2 pl-4">
+                    <span class="pr-2 txt-min">Min</span>
+                    <span class="currency pr-1">{{currency}}</span>
+                    <span class="price" id="menorprice">{{menorprecio}}</span>
+                </div>
+                <div class="col-6 m-0 p-0 pt-2 pr-4 text-right">
+                    <span class="pr-2 txt-max">Max</span>
+                    <span class="currency pr-1">{{currency}}</span>
+                    <span class="price" id="mayorprice">{{mayorprecio}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 m-0 p-0 pt-3 pb-3 pl-4 pr-4">
+            <div class="slider-price" id="slider-container"></div>
+        </div>
+        <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-6 m-0 p-0 pl-4 pt-3">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 txt-rango">
+                            Desde
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0">
+                            <input type="text" class="input-price box-shadow" id="precio1" (keyup)="RangoPrecio()" (keypress)="validateNumber($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 m-0 p-0 pr-4 pt-3">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 txt-rango">
+                            Hasta
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0">
+                            <input type="text" class="input-price box-shadow" id="precio2" (keyup)="RangoPrecio()" (keypress)="validateNumber($event)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
+            <button class="btn v-btn-buscar" (click)="FiltrarPrecio()">
+                Aplicar
+              </button>
+        </div>
+    </div>
+</div>

@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.sessionStorageService.store('ss_login_data', '');
+    this.sessionStorageService.store('ss_token', '');
   }
 
   login() {

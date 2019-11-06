@@ -61,7 +61,7 @@
                                 </tr>
                             </thead>
                             <tbody class="body-table">
-                                <tr *ngFor="let item of lsreservas">
+                                <tr *ngFor="let item of lsreservas | paginate: { itemsPerPage: 5, currentPage: p}">
                                     <td>{{item.createdDate | formatfechareservacreacion}}</td>
                                     <td>{{item.pnr}}</td>
                                     <td>{{item.timeLimit | formatfechareserva}}</td>
@@ -77,10 +77,13 @@
                                         <img style="width: 21px;" *ngIf="item.ostate.stateId === 5" src="assets/images/img-validation/anulado.png">
                                         <img style="width: 21px;" *ngIf="item.ostate.stateId === 4" src="assets/images/img-validation/process.png"></td>
                                     <td *ngIf="item.numberAuthorizers === 0 && item.ostate.stateId === 1" (click)="GetReserva(item.pnr, item.pseudo)" style="color: #176FC7; cursor: pointer;">Gestionar <i class="fas fa-chevron-right"></i></td>
-                                    <td><span *ngIf="item.numberAuthorizers > 0 && item.ostate.stateId !== 5 && item.ostate.stateId !== 7" (click)="GetReserva(item.pnr, item.pseudo)" style="color: #176FC7; cursor: pointer;">Ver reserva <i class="fas fa-chevron-right"></i></span></td>
+                                    <td *ngIf="item.ostate.stateId !== 1"><span (click)="GetReserva(item.pnr, item.pseudo)" style="color: #176FC7; cursor: pointer;">Ver reserva <i class="fas fa-chevron-right"></i></span></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="col-12 m-0 p-0 text-center pt-5">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
                     </div>
                 </div>
             </div>

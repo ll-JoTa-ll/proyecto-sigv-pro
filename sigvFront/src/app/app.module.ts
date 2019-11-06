@@ -12,11 +12,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale, esLocale } from 'ngx-bootstrap/locale';
+import { AgmCoreModule } from '@agm/core';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 defineLocale('es', esLocale);
 defineLocale('de', deLocale);
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -39,14 +40,25 @@ import { MultidestinosXsComponent } from './components/shared/multidestinos-xs/m
 import { FiltrosComponent } from './components/busqueda-global/hoteles/filtros/filtros.component';
 import { BusquedaMiniComponent } from './components/busqueda-global/hoteles/busqueda-mini/busqueda-mini.component';
 import { ResultadoComponent } from './components/busqueda-global/hoteles/resultado/resultado.component';
+import { GetMenorPrecioPipe } from './pipes/get-menor-precio.pipe';
+import { GetimghotelPipe } from './pipes/getimghotel.pipe';
+import { FiltroEstrellasComponent } from './components/busqueda-global/hoteles/filtro-estrellas/filtro-estrellas.component';
+import { FiltroNombrehotelComponent } from './components/busqueda-global/hoteles/filtro-nombrehotel/filtro-nombrehotel.component';
+import { MapaHotelesComponent } from './components/busqueda-global/hoteles/mapa-hoteles/mapa-hoteles.component';
+import { FormatoLongitudPipe } from './pipes/formato-longitud.pipe';
 import { FamiliasComponent } from './components/vuelos/familias/familias.component';
 import { FamiliaComponent } from './components/vuelos/familias/familia/familia.component';
 import { FamiliaFareComponent } from './components/vuelos/familias/familia-fare/familia-fare.component';
-import { ReservaHotelComponent } from './components/reserva-hotel/reserva-hotel.component';
-import { PagoComponent } from './components/reserva-hotel/pago/pago.component';
-import { DetallePagoComponent } from './components/reserva-hotel/detalle-pago/detalle-pago.component';
-import { TitularesReservaComponent } from './components/reserva-hotel/titulares-reserva/titulares-reserva.component';
-import { DetalleCompraComponent } from './components/reserva-hotel/detalle-compra/detalle-compra.component';
+import { GetmayorpricePipe } from './pipes/getmayorprice.pipe';
+import { HabitacionComponent } from './components/busqueda-global/hoteles/habitacion/habitacion.component';
+import { DetalleHabitacionComponent } from './components/busqueda-global/hoteles/habitacion/detalle-habitacion/detalle-habitacion.component';
+import { PrecioFechaComponent } from './components/busqueda-global/hoteles/habitacion/precio-fecha/precio-fecha.component';
+import { ReservaHotelComponent } from './components/busqueda-global/hoteles/reserva-hotel/reserva-hotel.component';
+import { ContactoComponent } from './components/busqueda-global/hoteles/reserva-hotel/contacto/contacto.component';
+import { DetalleCompraComponent } from './components/busqueda-global/hoteles/reserva-hotel/detalle-compra/detalle-compra.component';
+import { DetallePagoComponent } from './components/busqueda-global/hoteles/reserva-hotel/detalle-pago/detalle-pago.component';
+import { PagoComponent } from './components/busqueda-global/hoteles/reserva-hotel/pago/pago.component';
+import { TitularesReservaComponent } from './components/busqueda-global/hoteles/reserva-hotel/titulares-reserva/titulares-reserva.component';
 import { ReservaVueloComponent } from './components/reserva-vuelo/reserva-vuelo.component';
 import { DatosPasajeroComponent } from './components/reserva-vuelo/datos-pasajero/datos-pasajero.component';
 import { PersonaContactoComponent } from './components/reserva-vuelo/persona-contacto/persona-contacto.component';
@@ -94,6 +106,10 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { DetallevueloComponent } from './components/reserva-vuelo/aprobacion-reserva/detallevuelo/detallevuelo.component';
 import { FechaformatPipe } from './pipes/fechaformat.pipe';
 import { EmailformatPipe } from './pipes/emailformat.pipe';
+import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles/filtro-precio-hotel/filtro-precio-hotel.component';
+import { VueloFamiliaSectionComponent } from './components/vuelos/familias/vuelo-familia-section/vuelo-familia-section.component';
+import { VueloFamiliaSegmentComponent } from './components/vuelos/familias/vuelo-familia-segment/vuelo-familia-segment.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -118,14 +134,25 @@ import { EmailformatPipe } from './pipes/emailformat.pipe';
     FiltrosComponent,
     BusquedaMiniComponent,
     ResultadoComponent,
+    GetMenorPrecioPipe,
+    GetimghotelPipe,
+    FiltroEstrellasComponent,
+    FiltroNombrehotelComponent,
+    MapaHotelesComponent,
+    FormatoLongitudPipe,
     FamiliasComponent,
     FamiliaComponent,
     FamiliaFareComponent,
+    GetmayorpricePipe,
+    HabitacionComponent,
+    DetalleHabitacionComponent,
+    PrecioFechaComponent,
     ReservaHotelComponent,
-    PagoComponent,
-    DetallePagoComponent,
-    TitularesReservaComponent,
+    ContactoComponent,
     DetalleCompraComponent,
+    DetallePagoComponent,
+    PagoComponent,
+    TitularesReservaComponent,
     ReservaVueloComponent,
     DatosPasajeroComponent,
     PersonaContactoComponent,
@@ -171,12 +198,16 @@ import { EmailformatPipe } from './pipes/emailformat.pipe';
     FormatfechareservacreacionPipe,
     DetallevueloComponent,
     FechaformatPipe,
-    EmailformatPipe
+    EmailformatPipe,
+    FiltroPrecioHotelComponent,
+    VueloFamiliaSectionComponent,
+    VueloFamiliaSegmentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    CollapseModule.forRoot(),
     AlertModule.forRoot(),
     NgxWebstorageModule.forRoot(),
     HttpClientModule,
@@ -185,11 +216,17 @@ import { EmailformatPipe } from './pipes/emailformat.pipe';
     NgxSpinnerModule,
     AutocompleteLibModule,
     BsDatepickerModule.forRoot(),
+    CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDaXMHgcWr4xnHihDztbEPvkzyRnRFV81A',
+      libraries: ['places']
+    }),
     ModalModule.forRoot(),
     CollapseModule.forRoot(),
     TimepickerModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

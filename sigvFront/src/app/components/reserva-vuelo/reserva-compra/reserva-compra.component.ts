@@ -40,7 +40,7 @@ export class ReservaCompraComponent implements OnInit {
   pnrresults: IPnrConfirm;
   userid;
   currency;
-  lsapprover: IGetApprovers[];
+  lsapprover: IGetApprovers[] = [];
   flightnational;
   idmotivo;
   plantilla;
@@ -55,10 +55,16 @@ export class ReservaCompraComponent implements OnInit {
   horatimelimit;
   loginDataUser;
   contacto;
+  plantillareserva;
+  emailreserva;
+  fechaexpiracion;
+  fechacreacion;
 
   constructor(private sessionStorageService: SessionStorageService,
               private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService) {
     console.log("Constructor compra");
+    this.LPolicies = [];
+    this.lsapprover = [];
     this.Lsection = this.sessionStorageService.retrieve('sectioninfo');
     this.Lsectionpassenger = this.sessionStorageService.retrieve('sectionservice');
     this.lsusuario = this.sessionStorageService.retrieve('datosusuario');
@@ -72,6 +78,7 @@ export class ReservaCompraComponent implements OnInit {
     this.idmotivo = this.sessionStorageService.retrieve('idmotivo');
     this.sessionStorageService.store('idmotivo', null);
     this.plantilla = 'assets/plantillasEmail/plantillaaprobacion.html';
+    this.plantillareserva = 'assets/plantillasEmail/plantillareservagenerada.html';
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.contacto = this.sessionStorageService.retrieve('contacto');
    }
@@ -100,6 +107,18 @@ export class ReservaCompraComponent implements OnInit {
     )
   }
 
+  ObtenerstringReserva() {
+    this.http.get(this.plantillareserva, {responseType: 'text'}).subscribe(
+      data => {
+        console.log(data);
+        this.emailreserva = data;
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
   AddPassenger() {
     this.spinner.show();
     let phones = [];
@@ -117,6 +136,7 @@ export class ReservaCompraComponent implements OnInit {
       infraction = false;
     }
     this.Obtenerstring();
+    this.ObtenerstringReserva();
     let data = {
     "UserId": this.loginDataUser.userId,
     "GDS": this.gds,
@@ -148,6 +168,9 @@ export class ReservaCompraComponent implements OnInit {
            console.log(err);
       },
       () => {
+        if (this.lsapprover.length === 0 && this.LPolicies.length === 0) {
+          this.SendEmailReservaGenerada();
+        }
         if (this.lsapprover.length > 0 && this.pnrresults.oerror === null) {
           this.SendEmail();
         } else {
@@ -380,6 +403,41 @@ export class ReservaCompraComponent implements OnInit {
       );
     }
 
+    SendEmailReservaGenerada() {
+      this.PlantillaItinerarioReserva();
+      this.PlantillaPrecioReserva();
+      this.PlantillaPasajeroReserva();
+      console.log(this.emailreserva);
+      let mails = [];
+      this.lusers.forEach(function(item) {
+           mails.push(item.email);
+      });
+      let data = {
+        "AgencyId": 1,
+        "Recipients": mails,
+        "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com', 'gerentedeinnovacion@domiruth.com'],
+        "RecipientsHiddenCopy": [],
+        "Subject": "TEST RESERVA GENERADA",
+        "Message": this.emailreserva
+      }
+      this.service.SendEmail(data).subscribe(
+        results => {
+             if (results === true) {
+               alert('Se envio correctamente');
+               this.router.navigate(['/reserva-generada-vuelo']);
+             } else {
+               alert('Error al envio');
+             }
+        },
+        err => {
+         console.log(err);
+        },
+        () => {
+          this.spinner.hide();
+        }
+      );
+    }
+
     Emitir () {
       let phones = [];
       let email = [];
@@ -426,4 +484,211 @@ export class ReservaCompraComponent implements OnInit {
       )
     }
 
+    FormatearFechaReserva() {
+      let data;
+      let recorte; 
+      let fecha;
+      let hora;
+      let fechaexpiracion;
+      data = this.pnrresults.timeLimit;
+      recorte = data.split("T");
+      fecha = recorte[0];
+      var date = new Date(fecha);
+      hora =  recorte[1];
+      recorte = fecha.split("-");
+      fecha = (recorte[2] + "/" + date.toLocaleString('default', { month: 'short' }) + "/" + recorte[0]);
+      hora = hora.substr(0,5);
+      this.fechaexpiracion = fecha + ' ' + hora;
+    }
+
+    FormatearFechaReserva2() {
+      let data;
+      let recorte; 
+      let fecha;
+      let hora;
+      let fechaexpiracion;
+      data = this.pnrresults.createdDate;
+      recorte = data.split("T");
+      fecha = recorte[0];
+      var date = new Date(fecha);
+      hora =  recorte[1];
+      recorte = fecha.split("-");
+      fecha = (recorte[2] + "/" + date.toLocaleString('default', { month: 'short' }) + "/" + recorte[0]);
+      hora = hora.substr(0,5);
+      this.fechacreacion = fecha + ' ' + hora;
+    }
+
+    PlantillaPrecioReserva() {
+    this.FormatearFechaReserva();
+    this.FormatearFechaReserva2();
+    this.emailreserva = this.emailreserva.replace(/@currency/gi, this.lsflightavailability.currency);
+    this.emailreserva = this.emailreserva.replace(/@preciototal/gi, this.lsflightavailability.totalFareAmount);
+    this.emailreserva = this.emailreserva.replace(/@precioadulto/gi, this.lsflightavailability.fareAmountByPassenger);
+    this.emailreserva = this.emailreserva.replace('@solicitadopor', this.loginDataUser.userName + ' ' + this.loginDataUser.userLastName);
+    this.emailreserva = this.emailreserva.replace('@reservadopor', this.loginDataUser.userName + ' ' + this.loginDataUser.userLastName);
+    this.emailreserva = this.emailreserva.replace('@fechacreacion', this.fechacreacion);
+    this.emailreserva = this.emailreserva.replace('@fechaexpiracion', this.fechaexpiracion);
+    this.emailreserva = this.emailreserva.replace('@pnr', this.pnrresults.pnr);
+    }
+
+    PlantillaItinerarioReserva() {
+      let htmlsection = '';
+      let texttramo = '';
+      let htmltotal = '';
+ 
+      for (let i = 0; i < this.Lsection.length; i++) {
+       const section = this.Lsection[i];
+       const lsegment = section.Lsegments;
+       
+       for (let k = 0; k < lsegment.length; k++) {
+         const itemlsegment = lsegment[k];
+         const segmentgroup = itemlsegment.LsegmentGroups;
+         
+         for (let j = 0; j < segmentgroup.length; j++) {
+           const itemsegmentgroup = segmentgroup[j];
+           htmlsection+="<div style='width: 100% !important;'>";
+           htmlsection+="<div style='width: 100% !important; padding-top: 1%; padding-bottom: 1%;padding-left: 2%;'>";
+           htmlsection+="<span><img style='width: 30px; ' src='https://sigvplus.azurewebsites.net/sigv/assets/images/airplaneida.png '></span>";
+           htmlsection+="<span style'padding-left: 10px;'>";
+           if (segmentgroup.length === 1) {
+               texttramo = 'Ida';
+         }
+           if (segmentgroup.length === 2) {
+              if (j === 0) {
+                texttramo = 'Ida';
+              } else {
+                texttramo = 'Vuelta';
+              }
+           }
+           if (segmentgroup.length > 2) {
+              texttramo = 'Tramo ';
+              texttramo += (j + 1).toString();
+           }
+           htmlsection+= texttramo
+           htmlsection+= "</span>";
+           htmlsection+="</div>";
+           htmlsection+="<div style='width: 100% !important;padding-left: 2%; color: #6A243B; font-size: 18px;'>";
+           htmlsection+="<span>";
+           htmlsection+='●' + itemsegmentgroup.Origin + '/';
+           htmlsection+="</span>";
+           htmlsection+="<span>";
+           htmlsection+= itemsegmentgroup.Destination;
+           htmlsection+="</span>";
+           htmlsection+="</div>";
+           htmlsection+="<div style='width: 100% !important;padding-left: 2%; padding-top: 1%; padding-bottom: 2%;'>";
+           htmlsection+="<div class='row'>";
+           htmlsection+="<div style='width: 50%;'>";
+           htmlsection+="<span style='color: #676767; padding-right: 10px;'>Salida: </span><span style='color: #898989;font-size: 15px;'>";
+           htmlsection+= itemsegmentgroup.DepartureDateShow + ' ' + itemsegmentgroup.TimeOfDepartureShow;
+           htmlsection+="</span>";
+           htmlsection+="</div>";
+           htmlsection+="<div style='width: 50%;'>";
+           htmlsection+="<span style='color: #676767; padding-right: 10px;'>Llegada: </span><span style='color: #898989;font-size: 15px;'>";
+           htmlsection+=itemsegmentgroup.ArrivalDateShow + ' ' + itemsegmentgroup.TimeOfArrivalShow;
+           htmlsection+="</span>";
+           htmlsection+="</div>";
+           htmlsection+="</div>";
+           htmlsection+="</div>";
+           htmlsection+="<div style='width: 100%; text-align: center !important; padding-left: 2%; padding-right: 2%; padding-bottom: 2%;'>";
+           htmlsection+="<table class='tabla'>";
+           htmlsection+="<thead style='color: #676767; background: #FBF6F6 0% 0% no-repeat padding-box; font-size: 14px;'>";
+           htmlsection+="<th>Aerolinea</th>";
+           htmlsection+="<th>Vuelo</th>";
+           htmlsection+="<th>Duración</th>";
+           htmlsection+="<th>Clase</th>";
+           htmlsection+="</thead>";
+           htmlsection+="<tbody style='color: #898989; font-size: 14px;'>";
+           htmlsection+="<tr>";
+           htmlsection+="<td>";
+           htmlsection+= itemsegmentgroup.CarrierName;
+           htmlsection+="</td>";
+           htmlsection+="<td>";
+           htmlsection+=itemsegmentgroup.FlightOrtrainNumber;
+           htmlsection+="</td>";
+           htmlsection+="<td>";
+           htmlsection+=itemsegmentgroup.TotalFlightTimeShow;
+           htmlsection+="</td>";
+           htmlsection+="<td>";
+           htmlsection+=itemsegmentgroup.ClassId;
+           htmlsection+="</td>";
+           htmlsection+="</tr>";
+           htmlsection+="</tbody>";
+           htmlsection+="</table>";
+           htmlsection+="</div>";
+           htmlsection+="</div>";
+         }
+        }
+      }
+      htmltotal = htmlsection;
+      this.emailreserva = this.emailreserva.replace("@segmento", htmltotal);
+    }
+
+    PlantillaPasajeroReserva() {
+      let html = '';
+      let htmltotal = '';
+      for (let j = 0; j < this.lusers.length; j++) {
+        const item = this.lusers[j];
+        html +="<div style='width: 100% !important;'>";
+        html +="<div class='row ' style='padding-left: 2%; padding-bottom: 1%;'>";
+        html +="<div style='width: 100% !important;'>";
+        html +="<span style='color: #676767;'>Tipo de pasajero:  </span>";
+        html +="<span style='color: #898989;'>Adulto</span>"
+        html +="</div>";
+        html +="</div>";
+        html +="<div class='row ' style='padding-left: 2%; padding-bottom: 1%;'>";
+        html +="<div style='width: 50% !important;'>";
+        html +="<span style='color: #676767;'>Nombre:  </span>";
+        html +="<span style='color: #898989;'>";
+        html += item.firstName + ' ' + item.lastName;
+        html += "</span>";
+        html +="</div>";
+        html +="<div style='width: 50% !important;'>";
+        html +="<span style='color: #676767;'>Teléfono:  </span>";
+        html +="<span style='color: #898989;'>";
+        html += item.phone;
+        html +="</span>";
+        html +="</div>";
+        html +="</div>";
+        html +="<div class='row ' style='padding-left: 2%; border-bottom: 1px solid #707070;padding-bottom: 1%;'>";
+        html +="<div style='width: 50% !important;'>";
+        html +="<span style='color: #676767;'>Nacionalidad:  </span>";
+        html +="<span style='color: #898989;'>";
+        html += item.nationality;
+        html +="</span>";
+        html +="</div>";
+        html +="<div style='width: 50% !important;'>";
+        html +="<span style='color: #676767;'>Cargo:  </span>";
+        html +="<span style='color: #898989;'>";
+        html += '';
+        html +="</span>";
+        html +="</div>";
+        html +="</div>";
+        html +="<div class='row ' style='padding-left: 2%; padding-bottom: 1%; padding-top: 1%;'>";
+        html +="<div style='width:100% !important;'>";
+        html +="<span style='color: #676767;'>Email:  </span>";
+        html +="<span style='color: #898989;'>";
+        html += item.email;
+        html +="</span>";
+        html +="</div>";
+        html +="</div>";
+        html +="<div class='row ' style='padding-left: 2%; padding-bottom: 3%;'>";
+        html +="<div style='width: 50% !important;'>";
+        html +="<span style='color: #676767;'>Tipo de documento:  </span>";
+        html +="<span style='color: #898989;'>";
+        html += item.odocument.description;
+        html +="</span>";
+        html +="</div>";
+        html +="<div style='width: 50% !important;'>";
+        html +="<span style='color: #676767;'>Número de documento:  </span>";
+        html +="<span style='color: #898989;'>";
+        html += item.odocument.number;
+        html +="</span>";
+        html +="</div>";
+        html +="</div>";
+        html +="</div>";
+      }
+
+      htmltotal = html;
+      this.emailreserva = this.emailreserva.replace("@pasajeros", htmltotal);
+    }
 }

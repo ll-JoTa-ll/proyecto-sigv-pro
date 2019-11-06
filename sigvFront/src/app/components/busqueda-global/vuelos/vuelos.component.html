@@ -119,44 +119,44 @@
 
                             <div class="m-0 p-0 pr-2" style="width: 42%">
                                 <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
-                        <input type="image"
-                               src="./assets/images/home/calendario.svg"
-                               (click)="datepickerSalida.toggle()"
-                               style="outline: none; border: 0; width: 20% !important;">
-                        <input type="text"
-                               readonly
-                               placeholder="Salida"
-                               class="p-0 pl-2 v-texto-3"
-                               style="outline: none; border: 0; width: 80%"
-                               #datepickerSalida="bsDatepicker"
-                               (onHidden)="handlerSalida(datepickerSalida)"
-                               (bsValueChange)="onValueChangeSalida($event)"
-                               [minDate]="minDateSalida"
-                               bsDatepicker
-                               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-                        >
-                      </label>
+                            <input type="image"
+                                   src="./assets/images/home/calendario.svg"
+                                   (click)="datepickerSalida.toggle()"
+                                   style="outline: none; border: 0; width: 20% !important;">
+                            <input type="text"
+                                   readonly
+                                   placeholder="Salida"
+                                   class="p-0 pl-2 v-texto-3"
+                                   style="outline: none; border: 0; width: 80%"
+                                   #datepickerSalida="bsDatepicker"
+                                   (onHidden)="handlerSalida(datepickerSalida)"
+                                   (bsValueChange)="onValueChangeSalida($event)"
+                                   [minDate]="minDateSalida"
+                                   bsDatepicker
+                                   [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                            >
+                          </label>
                             </div>
 
                             <div *ngIf="tipoVuelo!=='OW'" class=" m-0 p-0" style="width: 40%">
                                 <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
-                        <input type="image"
-                               src="./assets/images/home/calendario.svg"
-                               (click)="datepickerRetorno.toggle()"
-                               style="outline: none; border: 0; width: 20% !important;">
-                        <input type="text"
-                               readonly
-                               placeholder="Retorno"
-                               class="p-0 pl-2 v-texto-3"
-                               style="outline: none; border: 0; width: 80%"
-                               #datepickerRetorno="bsDatepicker"
-                               (onHidden)="handlerSalida(datepickerRetorno)"
-                               (bsValueChange)="onValueChangeRetorno($event)"
-                               [minDate]="minDateRetorno"
-                               bsDatepicker
-                               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-                        >
-                      </label>
+                            <input type="image"
+                                   src="./assets/images/home/calendario.svg"
+                                   (click)="datepickerRetorno.toggle()"
+                                   style="outline: none; border: 0; width: 20% !important;">
+                            <input type="text"
+                                   readonly
+                                   placeholder="Retorno"
+                                   class="p-0 pl-2 v-texto-3"
+                                   style="outline: none; border: 0; width: 80%"
+                                   #datepickerRetorno="bsDatepicker"
+                                   (onHidden)="handlerSalida(datepickerRetorno)"
+                                   (bsValueChange)="onValueChangeRetorno($event)"
+                                   [minDate]="minDateRetorno"
+                                   bsDatepicker
+                                   [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                            >
+                          </label>
                             </div>
 
                         </div>
@@ -192,8 +192,8 @@
 
                                 <div class="btn-group" style="width: 90% !important;" dropdown>
                                     <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                          {{textoCabina}}
-                        </button>
+                              {{textoCabina}}
+                            </button>
                                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
                                         <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
                                         <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('E', 'Económica')">Económica</a></li>
@@ -220,8 +220,8 @@
 
                                 <div class="btn-group" style="width: 90% !important;" dropdown>
                                     <button id="button-basic-2" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                          {{textoEscala}}
-                        </button>
+                              {{textoEscala}}
+                            </button>
                                     <ul id="dropdown-basic-2" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic-2">
                                         <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('', 'Todas')">Todas</a></li>
                                         <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('D', 'Directo')">Directo</a></li>
@@ -244,22 +244,22 @@
                             </div>
 
                             <div class="m-0 p-0 d-flex align-items-center justify-content-center" style="width: 65%; padding: 6px !important;">
-                              <label for="" style="padding: 0px; margin: 0px;" class=" d-inline-flex justify-content-center align-items-center box-shadow">
-                                <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
-                                <input readonly type="text" class="text-center v-texto-3" style="width: 60px; outline: none; border: 0" [value]="pasajeros">
-                                <span
-                                *ngIf="flagPaxMasMenos"
-                                class="text-center"
-                                (click)="pasajeroOperacion(false)"
-                                style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-right-style: solid; border-right-color: white">
-                                -</span>
-                                <span
-                                *ngIf="flagPaxMasMenos"
-                                class="text-center"
-                                (click)="pasajeroOperacion(true)"
-                                style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-radius: 0 10px 10px 0"
-                                >+</span>
-                              </label>
+                                <label for="" style="padding: 0px; margin: 0px;" class=" d-inline-flex justify-content-center align-items-center box-shadow">
+                                    <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
+                                    <input readonly type="text" class="text-center v-texto-3" style="width: 60px; outline: none; border: 0" [value]="pasajeros">
+                                    <span
+                                    *ngIf="flagPaxMasMenos"
+                                    class="text-center"
+                                    (click)="pasajeroOperacion(false)"
+                                    style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-right-style: solid; border-right-color: white">
+                                    -</span>
+                                    <span
+                                    *ngIf="flagPaxMasMenos"
+                                    class="text-center"
+                                    (click)="pasajeroOperacion(true)"
+                                    style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-radius: 0 10px 10px 0"
+                                    >+</span>
+                                  </label>
 
                             </div>
 
@@ -273,9 +273,9 @@
 
                             <div class="col-12 text-center">
                                 <button (click)="searchFlight()" class="btn v-btn-buscar">
-                        <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-                        Buscar
-                      </button>
+                            <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                            Buscar
+                          </button>
                             </div>
 
                         </div>
@@ -321,17 +321,18 @@
 
                 <div class="col-3 m-0 p-0 pr-3 pl-5">
 
-                    <app-buscador [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto" [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros"
-                        [fechaSalida]="fechaSalida" [fechaRetorno]="fechaRetorno" [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2"
-                        [fechaSalida3]="fechaSalida3" [fechaSalida4]="fechaSalida4" [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3"
-                        [fechaSalidaShow4]="fechaSalidaShow4" [fechaSalidaShow5]="fechaSalidaShow5" [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5"
-                        [origenAuto6]="origenAuto6" [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2" [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1"
-                        [destinoAuto2]="destinoAuto2" [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3"
-                        [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)"></app-buscador>
+                    <app-buscador [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto" [destinoAuto]="destinoAuto"
+                        [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida" [fechaRetorno]="fechaRetorno" [minDateSalida]="minDateSalida"
+                        [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2" [fechaSalida3]="fechaSalida3" [fechaSalida4]="fechaSalida4" [fechaSalida5]="fechaSalida5"
+                        [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3" [fechaSalidaShow4]="fechaSalidaShow4" [fechaSalidaShow5]="fechaSalidaShow5" [fechaSalidaShow6]="fechaSalidaShow6"
+                        [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5" [origenAuto6]="origenAuto6" [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2"
+                        [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1" [destinoAuto2]="destinoAuto2" [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4"
+                        [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3" [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6"
+                        [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)" (outTipoVuelo)="setOutputTipoVuelo($event)" (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
 
-                  <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
+                    <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
 
-                  <app-filtro-horarios (searchFilter)="busquedaFiltrosHoras($event)" [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
+                    <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)" [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
 
                 </div>
 
@@ -343,14 +344,11 @@
                         </div>
                     </div>
 
-                  <div class="row m-0 p-0 pt-5">
-                    <div class="col-12 m-0 p-0">
-                      <app-filtro-superior
-                        [tipoEscala]="escala"
-                        (searchFilter)="busquedaFiltros($event)"
-                      ></app-filtro-superior>
+                    <div class="row m-0 p-0 pt-5">
+                        <div class="col-12 m-0 p-0">
+                            <app-filtro-superior [tipoEscala]="escala" (searchFilter)="busquedaFiltros($event)"></app-filtro-superior>
+                        </div>
                     </div>
-                  </div>
 
                     <app-recomendacion *ngFor="let recomendacion of searchData" [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency" [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount" [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
                         [taxAmountByPassenger]="recomendacion.taxAmountByPassenger" [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger" [carrierId]="recomendacion.carrierId" [numberPassengers]="recomendacion.numberPassengers" [pseudo]="recomendacion.pseudo"

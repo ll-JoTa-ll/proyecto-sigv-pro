@@ -69,7 +69,15 @@
                         </div>
 
                         <div class="modal-body m-0 p-0">
-                            <app-familias *ngIf="flagResultFamilias===1" [lstFamilyResult]="lstFamilyResult" [nroPersonas]="numberPassengers" [currency]="currency"></app-familias>
+                            <app-familias
+                              *ngIf="flagResultFamilias===1"
+                              [lstFamilyResult]="lstFamilyResult.lsections"
+                              [nroPersonas]="numberPassengers"
+                              [currency]="currency"
+                              [dataRequestFamilia]="dataRequestFamilia"
+                              [tipoVuelo]="tipoVuelo"
+                              (flagCloseModal)="closeModalFamilia($event)"
+                            ></app-familias>
 
                             <div *ngIf="flagResultFamilias===0" class="row m-0 p-0">
                                 <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">

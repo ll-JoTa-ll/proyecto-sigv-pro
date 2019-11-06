@@ -123,6 +123,7 @@ export class FiltroHorariosComponent implements OnInit, AfterViewInit {
       "Ocompany": dataRequestFlight.Ocompany
     };
 
+    const ss_filterPrecio = this.sessionStorageService.retrieve('ss_filterPrecio');
     const indexTramo = this.indexTramo;
     const departureArrivalTimeFrom_ = dataRequestFlight.DepartureArrivalTimeFrom;
     const departureArrivalTimeTo_ = dataRequestFlight.DepartureArrivalTimeTo;
@@ -203,6 +204,12 @@ export class FiltroHorariosComponent implements OnInit, AfterViewInit {
     console.log('dataRequestFlight: ' + JSON.stringify(data));
     this.airportService.searchFlight(data).subscribe(
       result => {
+        if (ss_filterPrecio === 'mas') {
+          result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
+        }
+        if (ss_filterPrecio === 'menos') {
+          result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
+        }
         console.log(result);
         this.sessionStorageService.store('ss_searchFlight', result);
         this.searchFilter.emit(result);

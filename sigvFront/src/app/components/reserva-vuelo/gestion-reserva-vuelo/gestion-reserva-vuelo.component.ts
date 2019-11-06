@@ -66,17 +66,9 @@ GetReserva(pnr, pseudo ,template) {
   }
   this.service.GetReservation(data).subscribe(
     result => {
-     this.getreserva = result;
-     if (this.getreserva.oerror != null) {
-       this.omessage = this.getreserva.oerror.message;
-       this.modalRef = this.modalservice.show(
-        template,
-        Object.assign({}, { class: 'gray modal-lg m-infraccion' })
-      );
-     } else {
+      this.getreserva = result;
       this.sessionstorage.store('getreserva', this.getreserva);
       this.router.navigate(['/aprobar-reserva-vuelo']);
-     }
     },
     err => {
     },

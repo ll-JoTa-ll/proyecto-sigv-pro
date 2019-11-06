@@ -81,7 +81,5 @@ export class iGetReservation {
             comment: string;
         }
     ];
-    oerror: {
-        message: string;
-    };
+    message: string;
 }

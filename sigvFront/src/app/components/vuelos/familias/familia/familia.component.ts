@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { IFareFamilyModel } from '../../../../models/IFareFamily.model';
+import { IFamilyResultSectionModel } from '../../../../models/IFamilyResultSection.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -11,7 +12,7 @@ declare var $: any;
 })
 export class FamiliaComponent implements OnInit {
 
-  @Input() familia: IFareFamilyModel;
+  @Input() familia: IFamilyResultSectionModel;
   @Input() familiasCount;
   @Input() familyIndex;
 
@@ -87,7 +88,8 @@ export class FamiliaComponent implements OnInit {
     let flagCountNof = 0;
     let flagCountCha = 0;
     let sumTotal = 0;
-    this.familia.lfareFamilies.forEach(function(fare, index) {
+    /*
+    this.familia.lsegments.forEach(function(segment, index) {
       if (index === 0) {
         sumTotal += fare.fareFamilyPrice;
       }
@@ -107,19 +109,17 @@ export class FamiliaComponent implements OnInit {
         flagCountCha = lstCha.length;
       }
     });
-    this.sumTotal.emit(sumTotal);
+    */
     this.flagCountInc = flagCountInc;
     this.flagCountNof = flagCountNof;
     this.flagCountCha = flagCountCha;
-
   }
 
   listFareFamilies(fareFamilyId) {
-    const isCollapsed = this.isCollapsed
+    const isCollapsed = this.isCollapsed;
     this.isCollapsed = !isCollapsed;
 
-    this.lfareFamilies = this.familia.lfareFamilies;
-    //$("#" + fareFamilyId).show();
+    //this.lfareFamilies = this.familia.lfareFamilies;
 
     const flagCountInc = this.flagCountInc;
     const flagCountNof = this.flagCountNof;

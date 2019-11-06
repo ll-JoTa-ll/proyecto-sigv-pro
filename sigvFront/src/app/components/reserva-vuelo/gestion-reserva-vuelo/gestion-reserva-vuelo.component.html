@@ -62,7 +62,8 @@
                         </ng-template>
                         <table class="table-reservas">
                             <thead class="cabecera-tabla">
-                                <tr>
+                                <tr style="border: none;">
+                                    <th></th>
                                     <th>Fecha de Creación</th>
                                     <th>Reserva</th>
                                     <th>Expira</th>
@@ -74,7 +75,8 @@
                                 </tr>
                             </thead>
                             <tbody class="body-table">
-                                <tr *ngFor="let item of lsreservas">
+                                <tr *ngFor="let item of lsreservas | paginate: { itemsPerPage: 5, currentPage: p}">
+                                    <td style="border: none;"><span *ngIf="item.ostate.stateId === 1"><img style="width: 30px;" src="assets/images/iconpendiente.png"></span></td>
                                     <td>{{item.createdDate | formatfechareserva}}</td>
                                     <td>{{item.pnr}}</td>
                                     <td>{{item.timeLimit | formatfechareserva}}</td>
@@ -84,11 +86,14 @@
                                     <td><img *ngIf="item.ostate.stateId === 1" src="assets/images/img-validation/pendiente.svg">
                                         <img *ngIf="item.ostate.stateId === 2" src="assets/images/img-validation/aprobado.svg">
                                         <img *ngIf="item.ostate.stateId === 3" src="assets/images/img-validation/rechazado.svg"></td>
-                                    <td *ngIf="item.numberAuthorizers === 0 && item.ostate.stateId === 1" (click)="GetReserva(item.pnr, item.pseudo, modalerror)" style="color: #176FC7; cursor: pointer;">Gestionar <i class="fas fa-chevron-right"></i></td>
-                                    <td *ngIf="item.numberAuthorizers > 0" (click)="GetReserva(item.pnr,item.pseudo, modalerror)" style="color: #176FC7; cursor: pointer;">Ver reserva <i class="fas fa-chevron-right"></i></td>
+                                    <td *ngIf="item.ostate.stateId === 1" (click)="GetReserva(item.pnr, item.pseudo, modalerror)" style="color: #176FC7; cursor: pointer;">Gestionar <i class="fas fa-chevron-right"></i></td>
+                                    <td *ngIf="item.ostate.stateId !== 1" (click)="GetReserva(item.pnr,item.pseudo, modalerror)" style="color: #176FC7; cursor: pointer;">Ver reserva <i class="fas fa-chevron-right"></i></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="col-12 m-0 p-0 text-center pt-5">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
                     </div>
                 </div>
             </div>

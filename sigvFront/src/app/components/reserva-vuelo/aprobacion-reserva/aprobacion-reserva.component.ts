@@ -40,9 +40,11 @@ export class AprobacionReservaComponent implements OnInit {
   resultAprobacion: IResultAprobacionReserva;
   plantillavueloaprobado;
   plantillavuelorechazado;
+  plantillavuelocancelado;
   emailvueloaprobado;
   hora;
   emailvuelorechazado;
+  emailvuelocancelado;
   resultscola: IQueuePnr;
 
   modalRef: BsModalRef;
@@ -62,6 +64,7 @@ export class AprobacionReservaComponent implements OnInit {
     this.plantilla = 'assets/plantillasEmail/plantillaaprobacion.html';
     this.plantillavueloaprobado = 'assets/plantillasEmail/plantilla_vueloaprobado.html';
     this.plantillavuelorechazado = 'assets/plantillasEmail/plantilla_vuelorechazado.html';
+    this.plantillavuelocancelado = 'assets/plantillasEmail/plnatilla_vuelocancelado.html';
   }
 
   ngOnInit() {
@@ -69,6 +72,7 @@ export class AprobacionReservaComponent implements OnInit {
     this.Obtenerstring();
     this.ObtenerstringVueloAprobado();
     this.ObtenerstringVueloRechazado();
+    this.ObtenerstringVueloCancelado();
   }
 
   Obtenerstring() {
@@ -100,6 +104,18 @@ export class AprobacionReservaComponent implements OnInit {
       data => {
         console.log(data);
         this.emailvuelorechazado = data;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  ObtenerstringVueloCancelado() {
+    this.http.get(this.plantillavuelocancelado, {responseType: 'text'}).subscribe(
+      data => {
+        console.log(data);
+        this.emailvuelocancelado = data;
       },
       err => {
         console.log(err);
@@ -328,6 +344,49 @@ SendMailVueloRechazado() {
   );
 }
 
+SendMailVueloCancelado() {
+  this.spinner.show();
+  this.PlantillaEmailSolicitudVueloCancelado();
+  this.PlantillaPreciovueloCancelado();
+  this.PlantillaPasajerosVueloCancelado();
+  console.log(this.resultAprobacion);
+  console.log(this.emailvuelorechazado);
+  let mails = [];
+  this.reserva.lpassenger.forEach(function(item) {
+    if (item.email != null && item.email != '') {
+      let mail = item.email.split(';');
+      mail.forEach(function(item) {
+        mails.push(item);
+      });
+    }
+  });
+  let data = {
+    "AgencyId": 1,
+    "Recipients": mails,
+    "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com'],
+    "RecipientsHiddenCopy": [],
+    "Subject": "TEST VUELO CANCELADO",
+    "Message": this.emailvuelocancelado
+  }
+  this.service.SendEmail(data).subscribe(
+    results => {
+         if (results === true) {
+           this.modalRef.hide();
+           alert('Se envio correctamente');
+           this.router.navigate(['/mis-reservas-vuelo']);
+         } else {
+           alert('Error al envio');
+         }
+    },
+    err => {
+     console.log(err);
+    },
+    () => {
+      this.spinner.hide();
+    }
+  );
+}
+
 
 RechazarReserva() {
   this.spinner.show();
@@ -365,15 +424,17 @@ CancelarReserva() {
    }
   this.service.CancelPnr(data).subscribe(
      result => {
-      if (result === 1) {
-        this.router.navigate(['/mis-reservas-vuelo']);
+      if (result != 1) {
+        return;
+      } else {
+        this.CapturarHoraAprobacion();
       }
      },
      err => {
 
      },
      () => {
-        this.spinner.hide();
+        this.SendMailVueloCancelado();
      }
    );
 }
@@ -698,8 +759,8 @@ PlantillaPreciovuelo() {
 }
 
 PlantillaAutorizadores() {
-  let bloquehtml;
-  let htmlautorizador;
+  let bloquehtml = '';
+  let htmlautorizador = '';
   for (let i = 0; i < this.reserva.lauthorizers.length; i++) {
     const element = this.reserva.lauthorizers[i];
     htmlautorizador += "<tr>";
@@ -873,8 +934,8 @@ PlantillaPasajerosVueloRechazado() {
 }
 
 PlantillaAutorizadoresRechazo() {
-  let bloquehtml;
-  let htmlautorizador;
+  let bloquehtml = '';
+  let htmlautorizador = '';
   for (let i = 0; i < this.reserva.lauthorizers.length; i++) {
     const element = this.reserva.lauthorizers[i];
     htmlautorizador += "<tr>";
@@ -888,5 +949,119 @@ PlantillaAutorizadoresRechazo() {
   }
   bloquehtml = htmlautorizador;
   this.emailvuelorechazado = this.emailvuelorechazado.replace("@autorizadores", bloquehtml);
+}
+
+//VUELO CANCELADO
+PlantillaPasajerosVueloCancelado() {
+  let html = '';
+  for (let j = 0; j < this.reserva.lpassenger.length; j++) {
+    const item = this.reserva.lpassenger[j];
+    html+="<tr>";
+    html+="<td>";
+    html+= item.firstName + " " + item.lastName;
+    html+="</td>";
+    html+="<td>";
+    html+= item.documentNumber;
+    html+="</td>";
+    html+="<td>";
+    html+= item.email;
+    html+="</td>";
+    html+="<td>";
+    html+= item.phone;
+    html+= "</td>";
+    html+="</tr>";
+  }
+  this.htmlpasajeros = html;
+  this.emailvuelocancelado = this.emailvuelocancelado.replace('@pasajeros', this.htmlpasajeros);
+ }
+
+ PlantillaPreciovueloCancelado() {
+ // this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
+  let motivo = $('#motivorechazo').val();
+  this.emailvuelocancelado = this.emailvuelocancelado.replace(/@currency/gi, this.reserva.currency);
+  this.emailvuelocancelado = this.emailvuelocancelado.replace("@precioTotal", this.reserva.totalAmount);
+  this.emailvuelocancelado = this.emailvuelocancelado.replace("@preciounitario", this.reserva.totalAmountByPassenger);
+  this.emailvuelocancelado = this.emailvuelocancelado.replace("@hora", this.hora);
+  this.emailvuelocancelado = this.emailvuelocancelado.replace("@motivocancelacion", motivo);
+ }
+
+
+ PlantillaEmailSolicitudVueloCancelado() {
+  let htmlsection = '';    
+  for (let j = 0; j < this.reserva.litineraries.length; j++) {
+       const itemsegmentgroup = this.reserva.litineraries[j];
+       htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
+       htmlsection += "<div style='width: 100%; border-radius: 20px 20px 20px 20px; background: white; padding: 1em; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);'>";
+       htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
+       htmlsection += "<div style='width: 40%;'>";
+       htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://sigvplus.azurewebsites.net/sigv/assets/images/Airlines/";
+       htmlsection += itemsegmentgroup.carrier + ".png'></span>";
+       htmlsection += "</div>";
+       htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
+       htmlsection += "<span style='color: #676767; font-size: 12px; opacity: 100%;'>Aerolinea Operadora :";
+       htmlsection += itemsegmentgroup.carrierName;
+       htmlsection += "</span>";
+       htmlsection += "</div>";
+       htmlsection += "<div style='width: 40%; text-align: center; padding-top: 30px; padding-left: 50px;'>";
+       htmlsection += "<label style='color: #676767; font-size: 14px; opacity: 100%; width: 40%;'>";
+       htmlsection += "Vuelo AV140 - Airbus A319";
+       htmlsection += "</label>";
+       htmlsection += "</div>";
+       htmlsection += "</div>";
+       htmlsection += "<div class='row' style='padding-top: 40px; padding-bottom: 30px;'>";
+       htmlsection += "<div style='width: 40%; text-align: center;'>";
+       htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 14px; opacity: 1;'>";
+       htmlsection += itemsegmentgroup.departureDate;
+       htmlsection += "</div>";
+       htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 28px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += itemsegmentgroup.departureTime;
+       htmlsection += "</div>";
+       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 18px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += itemsegmentgroup.origin;
+       htmlsection += "</div>";
+       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 12px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += itemsegmentgroup.cityOrigin;
+       htmlsection += "</div>";
+       htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 10px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += itemsegmentgroup.airportOrigin;
+       htmlsection += "</div>";
+       htmlsection += "</div>";
+       htmlsection += "<div style='width: 20%; padding-left: 40px; padding-top: 30px; text-align: center;'>";
+       htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 14px; opacity: 1;'>";
+       htmlsection += "Duracion";
+       htmlsection += "</div>";
+       htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 22px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += itemsegmentgroup.totalFlightTime;
+       htmlsection += "</div>";
+       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 20px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += "Clase: <label class='m-0 p-0 pl-3' style='color: #898989; font-size: 14px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += itemsegmentgroup.cabinDescription + " - " + itemsegmentgroup.cabinId;
+       htmlsection += "</label>";
+       htmlsection += "</div>";
+       htmlsection += "</div>";
+       htmlsection += "<div style='width: 40%; padding-left: 50px; text-align: center;'>";
+       htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 14px; opacity: 1;'>";
+       htmlsection += itemsegmentgroup.arrivalDate;
+       htmlsection += "</div>";
+       htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 28px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += itemsegmentgroup.arrivalTime;
+       htmlsection += "</div>";
+       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 18px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += itemsegmentgroup.destination;
+       htmlsection += "</div>";
+       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 12px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += itemsegmentgroup.cityDestination;
+       htmlsection += "</div>";
+       htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 10px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += itemsegmentgroup.airportDestination;
+       htmlsection += "</div>";
+       htmlsection += "</div>";
+       htmlsection += "</div>";
+       htmlsection += "</div>";
+       htmlsection += "</div>";
+      }
+  this.htmlvuelosection = htmlsection;
+       
+  this.emailvuelocancelado = this.emailvuelocancelado.replace("@segmentos", this.htmlvuelosection);
 }
 }

@@ -11,6 +11,14 @@
                 </div>
                 <p class="txtSolicitud m-0 p-0 pb-3">Gestionar Reserva</p>
 
+                <div *ngIf="reserva.message != null" class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0">
+                        <alert type="warning" class="text-center">
+                            <strong>{{reserva.message}}</strong>
+                        </alert>
+                    </div>
+                </div>
+
             </div>
             <div class="col-2 m-0 p-0">
 
@@ -193,7 +201,7 @@
                         <div *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false" class="col-12 m-0 p-0 text-1">
                             El vuelo ha sido aprobado satisfactoriamente , el vuelo ha sido enviado a emision
                         </div>
-                        <div *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false" class="col-12 m-0 p-0 text-1">
+                        <div *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === true" class="col-12 m-0 p-0 text-1">
                             El vuelo ha sido aprobado satisfactoriamente sin embargo quedan aprobadores pendientes.
                         </div>
                     </div>

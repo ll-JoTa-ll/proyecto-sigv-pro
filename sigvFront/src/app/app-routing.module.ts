@@ -7,8 +7,11 @@ import { HotelesComponent } from './components/busqueda-global/hoteles/hoteles.c
 import { BusesComponent } from './components/busqueda-global/buses/buses.component';
 import { PaquetesComponent } from './components/busqueda-global/paquetes/paquetes.component';
 import { SegurosComponent } from './components/busqueda-global/seguros/seguros.component';
+import { parse } from 'url';
+import { HabitacionComponent } from './components/busqueda-global/hoteles/habitacion/habitacion.component';
+import { ReservaHotelComponent } from './components/busqueda-global/hoteles/reserva-hotel/reserva-hotel.component';
 import { ReservaVueloComponent } from './components/reserva-vuelo/reserva-vuelo.component';
-import {VuelosExcepcionPoliticaComponent} from './components/vuelos-excepcion-politica/vuelos-excepcion-politica.component';
+import { VuelosExcepcionPoliticaComponent } from './components/vuelos-excepcion-politica/vuelos-excepcion-politica.component';
 import { ReservaCompraComponent } from './components/reserva-vuelo/reserva-compra/reserva-compra.component';
 import { ReservaGeneradaComponent } from './components/reserva-vuelo/reserva-generada/reserva-generada.component';
 import { ReservaTicketComponent } from './components/reserva-vuelo/reserva-ticket/reserva-ticket.component';
@@ -24,6 +27,8 @@ const routes: Routes = [
   { path: 'buses', component: BusesComponent, runGuardsAndResolvers: 'always' },
   { path: 'paquetes', component: PaquetesComponent, runGuardsAndResolvers: 'always' },
   { path: 'seguros', component: SegurosComponent, runGuardsAndResolvers: 'always' },
+  { path: 'habitacion', component: HabitacionComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reserva-habitacion-hotel', component: ReservaHotelComponent, runGuardsAndResolvers: 'always'},
   { path: 'reserva-vuelo', component: ReservaVueloComponent, runGuardsAndResolvers: 'always' },
   { path: 'excepcion-vuelo', component: VuelosExcepcionPoliticaComponent, runGuardsAndResolvers: 'always' },
   { path: 'reserva-vuelo-compra', component: ReservaCompraComponent, runGuardsAndResolvers: 'always' },
