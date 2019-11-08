@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 
+
 @Component({
   selector: 'app-familias',
   templateUrl: './familias.component.html',
@@ -20,6 +21,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   @Input() famTotalFareAmount;
   @Input() famFareAmountByPassenger;
   @Input() flagMsgErrorSelFam: boolean;
+  @Input() modalRef: BsModalRef;
 
   @Output() flagCloseModal = new EventEmitter<boolean>();
   @Output() outIdRadioBtnFareFam = new EventEmitter<string>();
@@ -29,7 +31,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   idRadioBtnFareFam: string;
   lstSumaFam: any[] = [];
   lsFlightAvailabilty;
-  modalRef: BsModalRef;
+  //modalRef: BsModalRef;
   flagChangeFare = 0;
   lstFareFamily: any[] = [];
   ss_FlightAvailability_request2;
@@ -99,6 +101,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   selectRadioBtnFam($event) {
+    //this.modalRef.hide();
     this.outIdRadioBtnFareFam.emit($event);
     /*
     this.flagChangeFare = 1;
@@ -167,6 +170,8 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   seleccionarFamilia(template) {
+    this.flagCloseModal.emit(true);
+    this.router.navigate(['/reserva-vuelo']);
     /*
     const flagChangeFare = this.flagChangeFare;
     let ss_FlightAvailability_request2 = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
