@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { IResultAprobacionReserva } from '../../../models/iResultAprobacion.model';
 import { IQueuePnr } from '../../../models/IQueuePnr.model';
+import { ToastrService } from 'ngx-toastr';
 
 declare var jquery: any;
 declare var $: any;
@@ -54,7 +55,7 @@ export class AprobacionReservaComponent implements OnInit {
   };
 
   constructor(private sessionStorageService: SessionStorageService, private modalservice: BsModalService, private service: AirportService,
-              private spinner: NgxSpinnerService, private router: Router, private http: HttpClient) {
+              private spinner: NgxSpinnerService, private router: Router, private http: HttpClient, private toastr: ToastrService) {
     this.reserva = this.sessionStorageService.retrieve('getreserva');
     console.log(this.reserva);
     this.lusers = this.reserva.lpassenger;
@@ -167,7 +168,7 @@ AprobarReserva(template) {
   }
    let data = {
     "Pnr": this.reserva.pnr,
-    "Pseudo": "LIMPE2235",
+    "Pseudo": this.reserva.pseudo,
     "AuthorizerId": this.loginDataUser.userId,
     "Comment": "Aprobacion de vuelo con emision",
     "Ocompany": this.loginDataUser.ocompany
@@ -197,7 +198,7 @@ EncolarReserva() {
   this.modalRef.hide();
   let data = {
   "PNR": this.reserva.pnr,
-	"Pseudo": "LIMPE2235",
+	"Pseudo": this.reserva.pseudo,
 	"ocompany": this.loginDataUser.ocompany
   }
   this.service.QueuePnr(data).subscribe(
@@ -246,10 +247,14 @@ SendMailVueloAprobado() {
   this.service.SendEmail(data).subscribe(
     results => {
          if (results === true) {
-           alert('Se envio correctamente');
+          this.toastr.success('', 'Se envio correctamente', {
+            timeOut: 3000
+           });
            this.router.navigate(['/gestion-reserva-vuelo']);
          } else {
-           alert('Error al envio');
+          this.toastr.error('', 'Error al envio', {
+            timeOut: 3000
+          });
          }
     },
     err => {
@@ -284,10 +289,14 @@ SendMail() {
   this.service.SendEmail(data).subscribe(
     results => {
          if (results === true) {
-           alert('Se envio correctamente');
+          this.toastr.success('', 'Se envio correctamente', {
+            timeOut: 3000
+           });
            this.router.navigate(['/gestion-reserva-vuelo']);
          } else {
-           alert('Error al envio');
+          this.toastr.error('', 'Error al envio', {
+            timeOut: 3000
+          });
          }
     },
     err => {
@@ -329,10 +338,14 @@ SendMailVueloRechazado() {
     results => {
          if (results === true) {
            this.modalRef.hide();
-           alert('Se envio correctamente');
+           this.toastr.success('', 'Se envio correctamente', {
+            timeOut: 3000
+           });
            this.router.navigate(['/gestion-reserva-vuelo']);
          } else {
-           alert('Error al envio');
+          this.toastr.error('', 'Error al envio', {
+            timeOut: 3000
+          });
          }
     },
     err => {
@@ -372,10 +385,14 @@ SendMailVueloCancelado() {
     results => {
          if (results === true) {
            this.modalRef.hide();
-           alert('Se envio correctamente');
+           this.toastr.success('', 'Se envio correctamente', {
+            timeOut: 3000
+           });
            this.router.navigate(['/mis-reservas-vuelo']);
          } else {
-           alert('Error al envio');
+          this.toastr.error('', 'Error al envio', {
+            timeOut: 3000
+          });
          }
     },
     err => {
@@ -392,7 +409,7 @@ RechazarReserva() {
   this.spinner.show();
   let data = {
     "Pnr": this.reserva.pnr,
-    "Pseudo": "LIMPE2235",
+    "Pseudo": this.reserva.pseudo,
     "AuthorizerId": this.loginDataUser.userId,
     "Comment": "Rechazar reserva",
     "Ocompany": this.loginDataUser.ocompany
@@ -413,11 +430,10 @@ RechazarReserva() {
 
 CancelarReserva() {
   this.spinner.show();
-  this.modalRef.hide();
   let data = {
     "UserId": this.loginDataUser.userId,
     "Pnr": this.reserva.pnr,
-    "Pseudo": "LIMPE2235",
+    "Pseudo": this.reserva.pseudo,
     "StatusReservation": 5,
     "Comment": "",
     "Ocompany": this.loginDataUser.ocompany
@@ -977,7 +993,8 @@ PlantillaPasajerosVueloCancelado() {
 
  PlantillaPreciovueloCancelado() {
  // this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
-  let motivo = $('#motivorechazo').val();
+  let motivo; 
+  motivo = $('#motivorechazo').val();
   this.emailvuelocancelado = this.emailvuelocancelado.replace(/@currency/gi, this.reserva.currency);
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@precioTotal", this.reserva.totalAmount);
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@preciounitario", this.reserva.totalAmountByPassenger);

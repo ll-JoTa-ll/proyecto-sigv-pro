@@ -34,7 +34,7 @@
                     <div class="col-8 m-0 p-0">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 box-shadow pl-5 pr-3 text-center" style="border-radius: 15px 0px 0px 0px">
-                                <label *ngIf="LPolicies.length > 0 && lsapprover.length > 0" class="txtReserva pb-3 pt-4 pr-5 pl-5">Está gestionando la solicitud de compra. Ud puede aprobar o rechazar la misma</label>
+                                <label *ngIf="loginDataUser.orole.roleDescription === 'Centralizador' || loginDataUser.orole.roleDescription === 'Autorizador'" class="txtReserva pb-3 pt-4 pr-5 pl-5">Está gestionando la solicitud de compra. Ud puede aprobar o rechazar la misma</label>
                             </div>
                         </div>
                         <div class="row m-0 p-0 box-shadow pl-5 pb-5 pt-5 pr-5" style="border-radius: 0px 0px 15px 0px">
@@ -100,7 +100,7 @@
                         </div>
                         <div class="rowAdulto">
                             <div class="col-12 m-0 p-0">
-                                <app-precio-final [tipo]="3" [Lpolicies]="LPolicies" [currency]="reserva.currency" [precioadulto]="reserva.totalAmountByPassenger" [preciototal]="reserva.totalAmount">
+                                <app-precio-final [tipo]="4" [Lpolicies]="LPolicies" [Litineraries]="reserva.litineraries" [currency]="reserva.currency" [precioadulto]="reserva.totalAmountByPassenger" [preciototal]="reserva.totalAmount">
 
                                 </app-precio-final>
                             </div>

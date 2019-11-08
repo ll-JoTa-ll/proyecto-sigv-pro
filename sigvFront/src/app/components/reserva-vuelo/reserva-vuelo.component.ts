@@ -9,6 +9,7 @@ import { IReasonFlight } from 'src/app/models/IReasonFlight';
 import { Router } from '@angular/router';
 import { IGetApprovers } from '../../models/IGetApprovers.model';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { fromStringWithSourceMap } from 'source-list-map';
 
 declare var jquery: any;
 declare var $: any;
@@ -74,11 +75,6 @@ export class ReservaVueloComponent implements OnInit {
 
   ngOnInit() {
     // tslint:disable-next-line: max-line-length
-    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
-      this.GetUsers();
-  } else {
-     this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-  }
     this.LSection = this.flightAvailability_request.Lsections;
     this.LSectionPassenger = this.datarequest.Lsections;
     this.LPolicies = this.flightAvailability_request.lpolicies;
@@ -90,6 +86,12 @@ export class ReservaVueloComponent implements OnInit {
     this.pseudo = this.flightAvailability_request.Pseudo;
     this.gds = this.flightAvailability_request.Gds;
     this.flightNational = this.flightAvailability_request.FlightNational;
+    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
+      this.GetUsers();
+  } else {
+     this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+     this.TraerAutorizador();
+  }
    // this.CostCenter();
     this.ReasonFlight();
   }
@@ -104,7 +106,6 @@ export class ReservaVueloComponent implements OnInit {
         results => {
           objuser = results;
           this.datosuser.push(objuser);
-          console.log(this.datosuser);
         },
         err => {
              console.log("error results", err);
@@ -206,6 +207,42 @@ export class ReservaVueloComponent implements OnInit {
     ) 
   }
 
+  ValidarCampos() {
+    let val = true;
+    this.datosuser.forEach(function(item, index) {
+        if ($('#txtnombre_' + (index + 1)).val().length <= 0) {
+          val = false;
+        }
+        if ($('#txtapellidos_' + (index + 1)).val().length <= 0) {
+          val = false;
+        }
+        if ($('#txtnrodocumento_' + (index + 1)).val().length <= 0) {
+          val = false;
+        }
+        if ($('#cbo_tipodocumento_' + (index + 1)).val().trim() === '') {
+          val = false;
+        }
+        if ($('#cbotratamiento_' + (index + 1)).val().trim() === '') {
+          val = false;
+        }
+        if ($('#txtcorreo_' + (index + 1)).val().length <= 0) {
+          val = false;
+        }
+        if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
+          val = false;
+        }
+    });
+    if ($('#contactocorreo').val().length <= 0) {
+      val = false;
+    }
+
+    if ($('#contactotelefono').val().length <= 0) {
+      val = false;
+    }
+
+    return val;
+  }
+
 
   Comprar() {
    /* this.email = this.datosuser.email;
@@ -285,15 +322,18 @@ export class ReservaVueloComponent implements OnInit {
       email : mail,
       telefonos : phone
     }
-    console.log(contacto);
-    console.log(datosusuario);
-    this.sessionStorageService.store('contacto', contacto);
-    this.sessionStorageService.store('datosusuario', datosusuario);
-    this.sessionStorageService.store('sectioninfo', this.LSection);
-    this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
-    this.sessionStorageService.store('politicas', this.LPolicies);
-    this.sessionStorageService.store('lsuser', this.datosuser);
-    this.sessionStorageService.store('idmotivo', idmotivo);
-    this.router.navigate(['/reserva-vuelo-compra']);
+    const val = this.ValidarCampos();
+    if (!val) {
+      return val;
+    } else {
+      this.sessionStorageService.store('contacto', contacto);
+      this.sessionStorageService.store('datosusuario', datosusuario);
+      this.sessionStorageService.store('sectioninfo', this.LSection);
+      this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
+      this.sessionStorageService.store('politicas', this.LPolicies);
+      this.sessionStorageService.store('lsuser', this.datosuser);
+      this.sessionStorageService.store('idmotivo', idmotivo);
+      this.router.navigate(['/reserva-vuelo-compra']);
+    }
   }
 }

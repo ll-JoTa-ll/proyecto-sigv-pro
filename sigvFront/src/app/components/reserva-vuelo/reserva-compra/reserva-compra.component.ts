@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { IGenerateTicket } from '../../../models/IGenerateTicket.model';
 import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 declare var jquery: any;
 declare var $: any;
@@ -60,18 +62,29 @@ export class ReservaCompraComponent implements OnInit {
   fechaexpiracion;
   fechacreacion;
 
+  modalRef: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
+
   constructor(private sessionStorageService: SessionStorageService,
-              private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService) {
+              private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService, 
+              private toastr: ToastrService, private modalservice: BsModalService) {
     console.log("Constructor compra");
-    this.LPolicies = [];
-    this.lsapprover = [];
     this.Lsection = this.sessionStorageService.retrieve('sectioninfo');
     this.Lsectionpassenger = this.sessionStorageService.retrieve('sectionservice');
     this.lsusuario = this.sessionStorageService.retrieve('datosusuario');
-    this.lsapprover = this.sessionStorageService.retrieve('lsapprover');
-    console.log(this.lsapprover);
-    this.LPolicies = this.sessionStorageService.retrieve('politicas');
-    console.log(this.LPolicies);
+    if (this.sessionStorageService.retrieve('lsapprover') === null) {
+      this.lsapprover = [];
+    } else {
+      this.lsapprover = this.sessionStorageService.retrieve('lsapprover');
+    }
+    if (this.sessionStorageService.retrieve('politicas') === null) {
+      this.LPolicies = [];
+    } else {
+      this.LPolicies = this.sessionStorageService.retrieve('politicas');
+    }
     this.lsflightavailability = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
     this.dataflightavalilability = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
     this.lusers = this.sessionStorageService.retrieve('lsuser');
@@ -119,7 +132,7 @@ export class ReservaCompraComponent implements OnInit {
     )
   }
 
-  AddPassenger() {
+  AddPassenger(template) {
     this.spinner.show();
     let phones = [];
     let email = [];
@@ -159,7 +172,7 @@ export class ReservaCompraComponent implements OnInit {
         results => {
         // tslint:disable-next-line: indent
         this.pnrresults = results;
-        if (this.lsapprover.length === 0 && this.LPolicies.length === 0 || this.lsapprover.length === 0 && this.LPolicies.length > 0) {
+        if (this.lsapprover.length === 0 && this.LPolicies.length === 0) {
           this.router.navigate(['/reserva-generada-vuelo']);
         }
         this.sessionStorageService.store('datapnr', this.pnrresults);
@@ -168,13 +181,22 @@ export class ReservaCompraComponent implements OnInit {
            console.log(err);
       },
       () => {
-        if (this.lsapprover.length === 0 && this.LPolicies.length === 0) {
+        if (this.lsapprover.length > 0 && this.loginDataUser.orole.roleDescription === 'Autorizador') {
+          this.SendEmail();
+        }
+        if (this.lsapprover.length === 0 && this.LPolicies.length === 0 && this.loginDataUser.orole.roleDescription !== 'Autorizador') {
           this.SendEmailReservaGenerada();
         }
         if (this.lsapprover.length > 0 && this.pnrresults.oerror === null) {
           this.SendEmail();
         } else {
           this.spinner.hide();
+          if (this.pnrresults.oerror != null) {
+            this.modalRef = this.modalservice.show(
+              template,
+              Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+            );
+          }
         }
       }
       );
@@ -348,6 +370,24 @@ export class ReservaCompraComponent implements OnInit {
      this.emailsolicitud = this.emailsolicitud.replace('@politicas', this.htmlpoliticas);
    }
 
+   PlantillaAutorizadores() {
+    let bloquehtml = '';
+    let htmlautorizador = '';
+    for (let i = 0; i < this.lsapprover.length; i++) {
+      const element = this.lsapprover[i];
+      htmlautorizador += "<tr>";
+      htmlautorizador += "<td>";
+      htmlautorizador += element.firstName + ' ' + element.lastName;
+      htmlautorizador += "</td>";
+      htmlautorizador += "<td>";
+      htmlautorizador += element.email;
+      htmlautorizador += "</td>";
+      htmlautorizador += "</tr>";
+    }
+    bloquehtml = htmlautorizador;
+    this.emailsolicitud = this.emailsolicitud.replace("@autorizadores", bloquehtml);
+  }
+
    FormatearFechaPnr() {
     let data;
     let recorte; 
@@ -370,6 +410,7 @@ export class ReservaCompraComponent implements OnInit {
       this.PlantillaPreciovuelo();
       this.PlantillaPasajeros();
       this.PlantillaPoliticas();
+      this.PlantillaAutorizadores();
       console.log(this.emailsolicitud);
       let mails = [];
       this.lsapprover.forEach(function(item) {
@@ -388,10 +429,14 @@ export class ReservaCompraComponent implements OnInit {
       this.service.SendEmail(data).subscribe(
         results => {
              if (results === true) {
-               alert('Se envio correctamente');
+               this.toastr.success('','Se envio correctamente', {
+                timeOut: 3000
+               });
                this.router.navigate(['/reserva-generada-vuelo']);
              } else {
-               alert('Error al envio');
+              this.toastr.error('', 'Error al envio', {
+                timeOut: 3000
+              });
              }
         },
         err => {
@@ -423,10 +468,14 @@ export class ReservaCompraComponent implements OnInit {
       this.service.SendEmail(data).subscribe(
         results => {
              if (results === true) {
-               alert('Se envio correctamente');
+               this.toastr.success('', 'Se envio correctamente', {
+                timeOut: 3000
+               });
                this.router.navigate(['/reserva-generada-vuelo']);
              } else {
-               alert('Error al envio');
+              this.toastr.error('', 'Error al envio', {
+                timeOut: 3000
+              });
              }
         },
         err => {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import * as crypto from 'crypto-js';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { AirportService } from '../../services/airport.service';
 //import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     private airportService: AirportService,
+    private rutaActiva: ActivatedRoute
     //private location: Location
   ) {
     this.checkedRecuerdame = true;
@@ -120,9 +121,14 @@ export class LoginComponent implements OnInit {
 
       () => {
         this.spinner.hide();
+        let id = this.rutaActiva.snapshot.params.id;
         //console.log("Service airportList complete");
         //$(location).attr("href", "/vuelos");
-        this.router.navigate(['/vuelos']);
+        if (id == 1) {
+          this.router.navigate(['/gestion-reserva-vuelo']);
+        } else {
+          this.router.navigate(['/vuelos']);
+        }
       }
     );
   }

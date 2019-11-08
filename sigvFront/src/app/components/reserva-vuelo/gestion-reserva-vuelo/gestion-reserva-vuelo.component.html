@@ -13,7 +13,7 @@
 
                     <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
                         <label class="container" (click)="FiltrarPendientes()">
-                                    <input type="radio" checked name="radio"> Pendientes
+                                    <input type="radio" name="radio"> Pendientes
                                     <span class="checkmark"></span>
                             </label>
                     </div>
@@ -27,7 +27,7 @@
 
                     <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
                         <label class="container" (click)="FiltrarTodos()">
-                                    <input type="radio" name="radio"> Todos
+                                    <input type="radio" name="radio" checked> Todos
                                     <span class="checkmark"></span>
                             </label>
                     </div>
@@ -75,8 +75,8 @@
                                 </tr>
                             </thead>
                             <tbody class="body-table">
-                                <tr *ngFor="let item of lsreservas | paginate: { itemsPerPage: 5, currentPage: p}">
-                                    <td style="border: none;"><span *ngIf="item.ostate.stateId === 1"><img style="width: 30px;" src="assets/images/iconpendiente.png"></span></td>
+                                <tr *ngFor="let item of lsreservas | paginate: { itemsPerPage: 7, currentPage: p}">
+                                    <td style="border: none;"><span *ngIf="item.ostate.stateId === 1"><img style="width: 20px;" src="assets/images/iconpendiente.png"></span></td>
                                     <td>{{item.createdDate | formatfechareserva}}</td>
                                     <td>{{item.pnr}}</td>
                                     <td>{{item.timeLimit | formatfechareserva}}</td>
