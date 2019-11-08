@@ -80,7 +80,9 @@
                               [famFareAmountByPassenger]="famFareAmountByPassenger"
                               [famTotalFareAmount]="famTotalFareAmount"
                               [flagMsgErrorSelFam]="flagMsgErrorSelFam"
+                              [modalRef]="modalRef"
                               (outIdRadioBtnFareFam)="famFlightAvailability($event)"
+                              (flagCloseModal)="flagCloseModal($event)"
                             ></app-familias>
 
                             <div *ngIf="flagResultFamilias===0" class="row m-0 p-0">

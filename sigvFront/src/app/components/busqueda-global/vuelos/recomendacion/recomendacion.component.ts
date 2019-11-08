@@ -435,6 +435,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           }
 
           if (tipo === 2) {
+            this.sessionStorageService.store('ss_FlightAvailability_request1', data);
             console.log('this.lsFlightAvailabilty.fareAmountByPassenger: ' + this.lsFlightAvailabilty.fareAmountByPassenger);
             console.log('this.lsFlightAvailabilty.totalFareAmount: ' + this.lsFlightAvailabilty.totalFareAmount);
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
@@ -453,6 +454,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
             this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
             this.flagMsgErrorSelFam = false;
+            this.sessionStorageService.store('ss_FlightAvailability_request1', data);
             console.log('this.lsFlightAvailabilty: ' + this.lsFlightAvailabilty);
           }
         } else {
@@ -529,6 +531,10 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     console.log('requestFamilia FIN: ' + JSON.stringify(requestFamilia));
 
     this.flightAvailability(requestFamilia, null, 3, null);
+  }
+
+  flagCloseModal($event) {
+    this.modalRef.hide();
   }
 
 }
