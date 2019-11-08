@@ -14,7 +14,7 @@
 
         <div class="row m-0 p-0">
 
-          <div class="col-12 m-0 p-0 f-text-1">
+          <div class="col-12 m-0 p-0 f-text-1" style="text-align: justify">
             Las tarifas que te mostraremos en las familias corresponden a 1 pasajero y no incluye tasas de embargue. Estas están incluídas dentro al momento de seleccionar la combinación requerida en el Precio Base.
           </div>
 
@@ -62,11 +62,11 @@
             <div class="row m-0 p-0" style="width: 100%;">
 
               <div class="col-6 m-0 p-0 d-flex justify-content-center align-items-center">
-                Precio por adulto <span class="f-text-3 pl-1">{{currency}}</span> <span class="f-text-4 pl-1">{{precioPersona | number}}</span>
+                Precio por adulto <span class="f-text-3 pl-1">{{currency}}</span> <span class="f-text-4 pl-1">{{famFareAmountByPassenger | number}}</span>
               </div>
 
               <div class="col-6 m-0 p-0 text-center">
-                <span class="f-text-5">{{currency}}</span> <span class="f-text-6 pl-1">{{precioTotal | number}}</span>
+                <span class="f-text-5">{{currency}}</span> <span class="f-text-6 pl-1">{{famTotalFareAmount | number}}</span>
               </div>
 
             </div>
@@ -106,6 +106,7 @@
     [sectionFamily]="sectionFamily"
     [sectionFamilyIndex]="i"
     [lstFamilyResultLength]="lstFamilyResult.length"
+    (idRadioBtnFareFam)="selectRadioBtnFam($event)"
   ></app-vuelo-familia-section>
 
 </div>
@@ -118,7 +119,7 @@
   </div>
 </div>
 
-<div class="row m-0 p-0 pb-4">
+<div class="row m-0 p-0 pb-4" *ngIf="!flagMsgErrorSelFam">
   <div class="col-12 m-0 p-0 text-center">
     <button (click)="seleccionarFamilia(modalerror)" class="btn btn-seleccionar">Seleccionar</button>
   </div>

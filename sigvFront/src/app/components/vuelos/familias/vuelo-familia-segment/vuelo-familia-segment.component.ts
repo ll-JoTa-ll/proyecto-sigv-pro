@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 declare var jquery: any;
 declare var $: any;
@@ -13,6 +13,9 @@ export class VueloFamiliaSegmentComponent implements OnInit {
   @Input() segment;
   @Input() segmentIndex;
   @Input() segmentsLength;
+  @Input() sectionFamilyIndex;
+
+  @Output() idRadioBtnFareFam = new EventEmitter<string>();
 
   marketingCarrier;
   flagCountInc: number;
@@ -89,6 +92,8 @@ export class VueloFamiliaSegmentComponent implements OnInit {
     }, 50);
   }
 
-  selectRadioBtnFam($event) {}
+  selectRadioBtnFam($event) {
+    this.idRadioBtnFareFam.emit($event);
+  }
 
 }
