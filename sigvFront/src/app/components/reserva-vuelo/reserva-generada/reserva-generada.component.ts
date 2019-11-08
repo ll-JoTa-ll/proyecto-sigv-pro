@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IPnrConfirm } from '../../../models/IPnrConfirm.model';
 import { SessionStorageService } from 'ngx-webstorage';
 import { AirportService } from '../../../services/airport.service';
-import { Router } from '@angular/router';
+import { Router, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-reserva-generada',
@@ -20,6 +20,7 @@ export class ReservaGeneradaComponent implements OnInit {
   lsapprover;
   fechatimelimit;
   horatimelimit;
+  loginDataUser;
 
   constructor(private sessionStorageService: SessionStorageService, private service: AirportService, private router: Router) {
      this.lspnrresults = this.sessionStorageService.retrieve('datapnr');
@@ -27,6 +28,7 @@ export class ReservaGeneradaComponent implements OnInit {
      this.lsflightavailability = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
      this.dataflightavalilability = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
      this.lusers = this.sessionStorageService.retrieve('lsuser');
+     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
   }
 
   ngOnInit() {
@@ -60,6 +62,20 @@ export class ReservaGeneradaComponent implements OnInit {
         history.go(1);
     };
     }
+  }
+
+  Cerrar() {
+  if (this.loginDataUser.orole.roleDescription === 'Centralizador') {
+    this.router.navigate(['/gestion-reserva-vuelo']);
+  }
+
+  if (this.loginDataUser.orole.roleDescription === 'Autorizador') {
+    this.router.navigate(['/mis-reservas-vuelo']);
+  }
+
+  if (this.loginDataUser.orole.roleDescription === 'Usuario') {
+    this.router.navigate(['/mis-reservas-vuelo']);
+  }
   }
 
 }

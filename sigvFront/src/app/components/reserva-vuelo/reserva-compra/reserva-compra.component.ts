@@ -172,7 +172,7 @@ export class ReservaCompraComponent implements OnInit {
         results => {
         // tslint:disable-next-line: indent
         this.pnrresults = results;
-        if (this.lsapprover.length === 0 && this.LPolicies.length === 0) {
+        if (this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length > 0 || this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length === 0) {
           this.router.navigate(['/reserva-generada-vuelo']);
         }
         this.sessionStorageService.store('datapnr', this.pnrresults);

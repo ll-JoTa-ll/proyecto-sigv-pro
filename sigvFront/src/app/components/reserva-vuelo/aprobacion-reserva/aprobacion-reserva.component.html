@@ -34,7 +34,7 @@
                     <div class="col-8 m-0 p-0">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 box-shadow pl-5 pr-3 text-center" style="border-radius: 15px 0px 0px 0px">
-                                <label *ngIf="loginDataUser.orole.roleDescription === 'Centralizador' || loginDataUser.orole.roleDescription === 'Autorizador'" class="txtReserva pb-3 pt-4 pr-5 pl-5">Está gestionando la solicitud de compra. Ud puede aprobar o rechazar la misma</label>
+                                <label *ngIf="loginDataUser.orole.roleDescription === 'Centralizador' && reserva.ostatus.description === 'Pendiente de aprobación' || loginDataUser.orole.roleDescription === 'Autorizador' && reserva.ostatus.description === 'Pendiente de aprobación'" class="txtReserva pb-3 pt-4 pr-5 pl-5">Está gestionando la solicitud de compra. Ud puede aprobar o rechazar la misma</label>
                             </div>
                         </div>
                         <div class="row m-0 p-0 box-shadow pl-5 pb-5 pt-5 pr-5" style="border-radius: 0px 0px 15px 0px">
@@ -281,7 +281,7 @@
                         <button class="btn btn-cerrar" (click)="openModal(modalrechazar)">Rechazar</button>
                     </div>
                     <div class="col-4 m-0 p-0">
-                        <button class="btn btn-salir">Salir</button>
+                        <button class="btn btn-salir" (click)="Regresar()">Salir</button>
                     </div>
                 </div>
                 <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false">

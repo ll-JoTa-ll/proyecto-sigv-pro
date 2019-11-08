@@ -1081,4 +1081,8 @@ PlantillaPasajerosVueloCancelado() {
        
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@segmentos", this.htmlvuelosection);
 }
+
+Regresar() {
+  this.router.navigate(['/gestion-reserva-vuelo']);
+}
 }
