@@ -19,11 +19,13 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   @Input() tipoVuelo;
   @Input() famTotalFareAmount;
   @Input() famFareAmountByPassenger;
+  @Input() flagMsgErrorSelFam: boolean;
 
   @Output() flagCloseModal = new EventEmitter<boolean>();
+  @Output() outIdRadioBtnFareFam = new EventEmitter<string>();
 
-  precioTotal = 0;
-  precioPersona = 0;
+  //precioTotal = 0;
+  //precioPersona = 0;
   idRadioBtnFareFam: string;
   lstSumaFam: any[] = [];
   lsFlightAvailabilty;
@@ -31,7 +33,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   flagChangeFare = 0;
   lstFareFamily: any[] = [];
   ss_FlightAvailability_request2;
-  flagMsgErrorSelFam: boolean;
+  //flagMsgErrorSelFam: boolean;
 
   constructor(
     private airportService: AirportService,
@@ -44,20 +46,23 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     console.log('modal familia constructor');
     //this.precioTotal = 0;
     //this.precioPersona = 0;
-    this.flagMsgErrorSelFam = false;
+    //this.flagMsgErrorSelFam = false;
   }
 
   ngOnInit() {
     console.log('modal familia ngOnInit');
-    this.precioTotal = this.famTotalFareAmount;
-    this.precioPersona = this.famFareAmountByPassenger;
+    //this.precioTotal = this.famTotalFareAmount;
+    //this.precioPersona = this.famFareAmountByPassenger;
     console.log('this.famFareAmountByPassenger: ' + this.famFareAmountByPassenger);
     console.log('this.famTotalFareAmount: ' + this.famTotalFareAmount);
-    console.log('this.precioPersona: ' + this.precioPersona);
-    console.log('this.precioTotal: ' + this.precioTotal);
+    //console.log('this.precioPersona: ' + this.precioPersona);
+    //console.log('this.precioTotal: ' + this.precioTotal);
+    console.log('this.flagMsgErrorSelFam: ' + this.flagMsgErrorSelFam);
   }
 
   ngAfterViewInit() {
+    console.log('modal familia ngAfterViewInit');
+    /*
     console.log('modal familia ngAfterViewInit');
     let precioTotal = 0;
     let lstSumaFam: any[] = [];
@@ -67,6 +72,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     console.log('this.famTotalFareAmount: ' + this.famTotalFareAmount);
     console.log('this.precioPersona: ' + this.precioPersona);
     console.log('this.precioTotal: ' + this.precioTotal);
+    */
     /*
     this.lstFamilyResult.forEach(function(fam, indexFam_) {
       fam.lfareFamilies.forEach(function(item, index) {
@@ -93,6 +99,8 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   selectRadioBtnFam($event) {
+    this.outIdRadioBtnFareFam.emit($event);
+    /*
     this.flagChangeFare = 1;
     console.log('idRadioBtnFareFam: ' + $event);
     this.idRadioBtnFareFam = $event;
@@ -112,6 +120,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     });
 
     let precioTotal = this.precioTotal;
+    */
 
     /*
     this.lstSumaFam.forEach(function(item) {
@@ -126,7 +135,8 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
 
     //this.precioTotal = precioTotal;
     //this.precioPersona = this.precioTotal / this.nroPersonas;
-    this.setListFareFamily($event);
+
+    //this.setListFareFamily($event);
   }
 
   setListFareFamily(valor) {
@@ -157,6 +167,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   seleccionarFamilia(template) {
+    /*
     const flagChangeFare = this.flagChangeFare;
     let ss_FlightAvailability_request2 = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
     if (flagChangeFare === 0) {
@@ -177,12 +188,6 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
         console.log('fareBasis: ' + fareBasis);
         console.log('fareIndexFam: ' + fareIndexFam);
         console.log('fareIndexFare: ' + fareIndexFare);
-        /*
-        dataRequestFamilia.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups[fareIndexFare].ClassId = classId;
-        dataRequestFamilia.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups[fareIndexFare].FareBasis = fareBasis;
-        ss_FlightAvailability_request2.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups[fareIndexFare].ClassId = classId;
-        ss_FlightAvailability_request2.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups[fareIndexFare].FareBasis = fareBasis;
-        */
         for (let i = 0; i < dataRequestFamilia.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups.length; i++) {
           dataRequestFamilia.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups[i].ClassId = classId;
           dataRequestFamilia.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups[i].FareBasis = fareBasis;
@@ -195,6 +200,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
       this.ss_FlightAvailability_request2 = ss_FlightAvailability_request2;
       this.flightAvailability(dataRequestFamilia, template);
     }
+    */
   }
 
   flightAvailability(data, template) {

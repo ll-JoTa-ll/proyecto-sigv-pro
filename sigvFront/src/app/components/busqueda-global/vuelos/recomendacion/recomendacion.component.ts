@@ -59,6 +59,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   dataRequestFamilia;
   famTotalFareAmount;
   famFareAmountByPassenger;
+  requestFamilia;
+  flagMsgErrorSelFam: boolean;
 
   constructor(
     private modalService: BsModalService,
@@ -70,6 +72,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     private router: Router
   ) {
     this.flagResultFamilias = 0;
+    this.flagMsgErrorSelFam = false;
   }
 
   ngOnInit() {
@@ -161,6 +164,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Gds: this.gds,
       PSeudo: this.pseudo
     };
+    this.requestFamilia = dataFamilias;
     this.getFareFamily(dataFamilias, template, modalerror);
   }
 
@@ -193,9 +197,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       });
 
       this.lstRadioCheck.push(dataRadioSel);
-      //console.log("ANTES: " + JSON.stringify(this.lstRadioCheck));
       this.lstRadioCheck = this.lstRadioCheck.filter(x => x.flag === 1);
-      ///console.log("DESPUES: " + JSON.stringify(this.lstRadioCheck));
     }
   }
 
@@ -437,20 +439,35 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
             console.log('this.lsFlightAvailabilty.totalFareAmount: ' + this.lsFlightAvailabilty.totalFareAmount);
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
             this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
+            this.flagMsgErrorSelFam = false;
+            console.log('this.flagMsgErrorSelFam: ' + this.flagMsgErrorSelFam);
             this.modalRef = this.modalService.show(
               modalFam,
               Object.assign({}, { class: 'gray modal-lg' })
             );
           }
 
-          if (tipo === 3) {}
+          if (tipo === 3) {
+            console.log('this.lsFlightAvailabilty.fareAmountByPassenger: ' + this.lsFlightAvailabilty.fareAmountByPassenger);
+            console.log('this.lsFlightAvailabilty.totalFareAmount: ' + this.lsFlightAvailabilty.totalFareAmount);
+            this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
+            this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
+            this.flagMsgErrorSelFam = false;
+            console.log('this.lsFlightAvailabilty: ' + this.lsFlightAvailabilty);
+          }
+        } else {
+          if (tipo === 3) {
+            console.log('TIPO 3');
+            this.famTotalFareAmount = 0;
+            this.famFareAmountByPassenger = 0;
+            this.flagMsgErrorSelFam = true;
+          }
         }
       }
     );
   }
 
   ngAfterViewInit() {
-
   }
 
   openModalPoliticas(template) {
@@ -462,6 +479,56 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   closeModalFamilia($event) {
     this.modalRef.hide();
+  }
+
+  famFlightAvailability($event) {
+    const obj = $event.split('_');
+    const section_ = obj[1];
+    const segment_ = obj[2];
+    const index_ = obj[3];
+    console.log('section_: ' + section_);
+    console.log('segment_: ' + segment_);
+    console.log('index_: ' + index_);
+    const requestFamilia = this.requestFamilia;
+    const lstFamilyResult = this.lstFamilyResult;
+    let fareBasis = "";
+    let classId = "";
+    console.log('lstFamilyResult INI: ' + JSON.stringify(lstFamilyResult));
+    console.log('requestFamilia INI: ' + JSON.stringify(requestFamilia));
+    lstFamilyResult.lsections.forEach(function(section, indexSection) {
+      section.lsegments.forEach(function(segment, indexSegment) {
+        segment.lfareFamilies.forEach(function(fare, indexFare) {
+          if (indexSection == section_) {
+            if (indexSegment == segment_) {
+              if (indexFare == index_ - 1) {
+                fareBasis = fare.fareBasis;
+                classId = fare.classId;
+              }
+            }
+          }
+        });
+      });
+    });
+    console.log('fareBasis: ' + fareBasis);
+    console.log('classId: ' + classId);
+    requestFamilia.Lsections.forEach(function(section, indexSection) {
+      section.Lsegments.forEach(function(segment, indexSegment) {
+        segment.LsegmentGroups.forEach(function(group, indexGroup) {
+          if (indexSection == section_) {
+            if (indexSegment == 0) {
+              if (indexGroup == segment_) {
+                group.ClassId = classId;
+                group.FareBasis = fareBasis;
+              }
+            }
+          }
+        });
+      });
+    });
+
+    console.log('requestFamilia FIN: ' + JSON.stringify(requestFamilia));
+
+    this.flightAvailability(requestFamilia, null, 3, null);
   }
 
 }
