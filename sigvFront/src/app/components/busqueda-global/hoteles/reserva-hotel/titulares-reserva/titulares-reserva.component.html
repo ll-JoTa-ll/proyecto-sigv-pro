@@ -17,7 +17,23 @@
         </div>
         <div class="row m-0 p-0 pt-3">
             <div class="col-6 m-0 p-0">
-                <span class="title">NOMBRE COMPLETO</span>
+                <span class="title">NOMBRES</span>
+            </div>
+            <div class="col-6 m-0 p-0">
+                <span class="title">APELLIDOS</span>
+            </div>
+        </div>
+        <div class="row m-0 p-0">
+            <div class="col-6 m-0 p-0">
+                <input disabled="" type="text" value="" class="input-names box-shadow" style="width: 380px; height: 38px;">
+            </div>
+            <div class="col-6 m-0 p-0">
+                <input disabled="" type="text" value="" class="input-names box-shadow" style="width: 380px; height: 38px;">
+            </div>
+        </div>
+        <div class="row m-0 p-0 pt-3">
+            <div class="col-6 m-0 p-0">
+                <span class="title">CORREO ELECTRONICO</span>
             </div>
             <div class="col-6 m-0 p-0">
                 <span class="title">TELEFONO</span>
@@ -25,10 +41,10 @@
         </div>
         <div class="row m-0 p-0">
             <div class="col-6 m-0 p-0">
-                <input type="text" placeholder="Ana Salazar Rodriguez" class="input-names box-shadow" style="width: 380px; height: 38px;">
+                <input type="text" value="" (keyup)="validarCorreo()" class="input-names box-shadow" [(ngModel)]="correo" style="width: 380px; height: 38px;">
             </div>
             <div class="col-6 m-0 p-0">
-                <input type="text" placeholder="999778444" class="input-names box-shadow" style="width: 380px; height: 38px;">
+                <input type="text" value="" (keyup)="validarTelefono()" (keypress)="validarNumeros($event)" class="input-names box-shadow" [(ngModel)]="telefono" style="width: 380px; height: 38px;">
             </div>
         </div>
 

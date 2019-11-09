@@ -8,6 +8,8 @@ import { IHabitacionResults } from '../models/IHabitacionResults';
 import { SessionStorageService } from 'ngx-webstorage';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { IGetEnhancedHotel } from '../models/IGetEnhancedHotel';
+import { IGetPnrHotel } from '../models/IGetPnrHotel.model';
+import { IGetUserById } from '../models/IGetUserById.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -22,11 +24,14 @@ export class HotelService {
   private url_search: string = environment.url_hotel + 'HotelSearch/SearchHotel';
   private url_habitacion: string = environment.url_hotel + 'HotelSearch/SearchRoom';
   private url_confirmacion: string = environment.url_hotel + 'Booking/SelectRoom';
+  private url_reserva: string = environment.url_hotel + 'Booking/GenerateReservation';
+  private url_user: string = environment.url_usuario + 'User/';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) { }
 
   SearchHotel(data): Observable<IHotelResultsModel[]> {
-    this.token = this.sessionSt.retrieve('ss_token');
+    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMzMTA5ODcsImV4cCI6MTU3MzMzOTc4NywiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.CT0mmrK8TZgrxXYRwkT0vdddedLzYXViQ0cFs_KGagMYFk0FiyyiNB-TFaV_mx6CCSnPmdonHNPSZMx0G6FmEktRS7ttpmaOBCXo96uv1dsGrRvUxgWZcPZk6m-yb0JODK-4zlGQptKsFyKkP9fYpl4ansF7NC1el7xQVncVOUKRCU61zY4m9zX254qLZO4iSQVpi3bLnlpxUnt_hfJY2Vfgr8VHfNs9yLaE-Qhd0b9vLWBtMswiWmVGkkSnFF9Ip5jySzQOzaYieboZrjNqfcsBiDZ8f809c-JHGo5iHDtb8sTL2Quc9bOWBVlARNHiSVVtt0TBHBT01ve5IvEKcg';
+    //this.token = this.sessionSt.retrieve('ss_token');
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -35,7 +40,8 @@ export class HotelService {
 }
 
 GetHabitacion(data): Observable<IHabitacionResults> {
-  this.token = this.sessionSt.retrieve('ss_token');
+  this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMzMTA5ODcsImV4cCI6MTU3MzMzOTc4NywiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.CT0mmrK8TZgrxXYRwkT0vdddedLzYXViQ0cFs_KGagMYFk0FiyyiNB-TFaV_mx6CCSnPmdonHNPSZMx0G6FmEktRS7ttpmaOBCXo96uv1dsGrRvUxgWZcPZk6m-yb0JODK-4zlGQptKsFyKkP9fYpl4ansF7NC1el7xQVncVOUKRCU61zY4m9zX254qLZO4iSQVpi3bLnlpxUnt_hfJY2Vfgr8VHfNs9yLaE-Qhd0b9vLWBtMswiWmVGkkSnFF9Ip5jySzQOzaYieboZrjNqfcsBiDZ8f809c-JHGo5iHDtb8sTL2Quc9bOWBVlARNHiSVVtt0TBHBT01ve5IvEKcg';
+  //this.token = this.sessionSt.retrieve('ss_token');
   httpOptions.headers = new HttpHeaders({
     'Authorization': "Bearer " + this.token,
     'Content-Type': "application/json",
@@ -44,7 +50,8 @@ GetHabitacion(data): Observable<IHabitacionResults> {
 }
 
   GetConfirmacion(data): Observable<IGetEnhancedHotel>{
-    this.token = this.sessionSt.retrieve('ss_token');
+    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMzMTA5ODcsImV4cCI6MTU3MzMzOTc4NywiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.CT0mmrK8TZgrxXYRwkT0vdddedLzYXViQ0cFs_KGagMYFk0FiyyiNB-TFaV_mx6CCSnPmdonHNPSZMx0G6FmEktRS7ttpmaOBCXo96uv1dsGrRvUxgWZcPZk6m-yb0JODK-4zlGQptKsFyKkP9fYpl4ansF7NC1el7xQVncVOUKRCU61zY4m9zX254qLZO4iSQVpi3bLnlpxUnt_hfJY2Vfgr8VHfNs9yLaE-Qhd0b9vLWBtMswiWmVGkkSnFF9Ip5jySzQOzaYieboZrjNqfcsBiDZ8f809c-JHGo5iHDtb8sTL2Quc9bOWBVlARNHiSVVtt0TBHBT01ve5IvEKcg';
+    //this.token = this.sessionSt.retrieve('ss_token');
     console.log("token: " + this.token);
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
@@ -53,5 +60,28 @@ GetHabitacion(data): Observable<IHabitacionResults> {
     console.log(httpOptions);
     //return this.http.post<IGetEnhancedHotel>(`${this.url_confirmacion}`, data, httpOptions);
     return this.http.post<IGetEnhancedHotel>(this.url_confirmacion, data, httpOptions);
+  }
+
+  GetReserva(data): Observable<IGetPnrHotel>{
+    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMzMTA5ODcsImV4cCI6MTU3MzMzOTc4NywiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.CT0mmrK8TZgrxXYRwkT0vdddedLzYXViQ0cFs_KGagMYFk0FiyyiNB-TFaV_mx6CCSnPmdonHNPSZMx0G6FmEktRS7ttpmaOBCXo96uv1dsGrRvUxgWZcPZk6m-yb0JODK-4zlGQptKsFyKkP9fYpl4ansF7NC1el7xQVncVOUKRCU61zY4m9zX254qLZO4iSQVpi3bLnlpxUnt_hfJY2Vfgr8VHfNs9yLaE-Qhd0b9vLWBtMswiWmVGkkSnFF9Ip5jySzQOzaYieboZrjNqfcsBiDZ8f809c-JHGo5iHDtb8sTL2Quc9bOWBVlARNHiSVVtt0TBHBT01ve5IvEKcg';
+    //this.token = this.sessionSt.retrieve('ss_token');
+    console.log("token: " + this.token);
+    httpOptions.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    console.log(httpOptions);
+    //return this.http.post<IGetEnhancedHotel>(`${this.url_confirmacion}`, data, httpOptions);
+    return this.http.post<IGetPnrHotel>(this.url_reserva, data, httpOptions);
+  }
+
+  GetUser(data): Observable<IGetUserById> {
+    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMzMTA5ODcsImV4cCI6MTU3MzMzOTc4NywiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.CT0mmrK8TZgrxXYRwkT0vdddedLzYXViQ0cFs_KGagMYFk0FiyyiNB-TFaV_mx6CCSnPmdonHNPSZMx0G6FmEktRS7ttpmaOBCXo96uv1dsGrRvUxgWZcPZk6m-yb0JODK-4zlGQptKsFyKkP9fYpl4ansF7NC1el7xQVncVOUKRCU61zY4m9zX254qLZO4iSQVpi3bLnlpxUnt_hfJY2Vfgr8VHfNs9yLaE-Qhd0b9vLWBtMswiWmVGkkSnFF9Ip5jySzQOzaYieboZrjNqfcsBiDZ8f809c-JHGo5iHDtb8sTL2Quc9bOWBVlARNHiSVVtt0TBHBT01ve5IvEKcg';
+    httpOptions.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    const url = `${this.url_user + 'GetUserById'}?${'userId=' + data}`;
+    return this.http.get<IGetUserById>(url, httpOptions);
   }
 }

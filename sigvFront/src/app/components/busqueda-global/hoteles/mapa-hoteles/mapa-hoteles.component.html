@@ -10,10 +10,13 @@
                                     src="./assets/images/search.png"
                                     class="input-img"
                                     >
+                                    <!--
                                     <input type="text"
                                     class="txtbusqueda"
                                     placeholder="Buscar por lugares de interes"
                                     autocorrect="off" autocapitalize="off" spellcheck="off">
+                                    -->
+                                    <input type="text" class="form-control txtbusqueda" (keydown.enter)="$event.preventDefault()" placeholder="Buscar por lugares de interes" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
                                     </label>
                         </div>
                     </div>
@@ -22,6 +25,7 @@
                         <agm-marker *ngFor="let item of listado; let i = index" (markerClick)="abriModal(i + 1)" (mouseOver)="window.open()" (mouseOut)="window.close()" [iconUrl]="urlimg" [latitude]="item.oposition.latitude " [longitude]="item.oposition.longitude" (dragEnd)="markerDragEnd($event)">
                             <agm-info-window #window>{{item.oprice.currency}} {{item.oprice.pricePerNight}}</agm-info-window>
                         </agm-marker>
+                        <agm-marker [latitude]="searchLatitude" [longitude]="searchLongitude"></agm-marker>
                     </agm-map>
                     <div class="tooltipBagDiv box-shadow" *ngFor="let item of listado; let i = index" id="info_{{i + 1}}">
                         <div class="row p-0 m-0 details-hotel">
@@ -79,7 +83,7 @@
                             </div>
                         </div>
                         <div class="btn-detalle">
-                            <button class="btn v-btn-buscar">Ver detalle</button>
+                            <button class="btn v-btn-buscar" (click)="getHotel(item.code,fechasalida,fecharetorno,item.numberPassenger)">Ver detalle</button>
                         </div>
                     </div>
                 </div>

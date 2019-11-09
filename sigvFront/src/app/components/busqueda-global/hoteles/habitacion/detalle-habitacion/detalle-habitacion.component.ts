@@ -9,6 +9,7 @@ import { HotelService } from '../../../../../services/hotel.service';
 import { environment } from '../../../../../../environments/environment';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { IGetUserById } from 'src/app/models/IGetUserById.model';
 
 @Component({
   selector: 'app-detalle-habitacion',
@@ -19,10 +20,13 @@ export class DetalleHabitacionComponent implements OnInit {
 
   @Input() lhabitaciones;
   @Input() index;
+  @Input() breakFast;
+  @Input() hotel;
 
   lsthabitacion : IHabitacionResults;
   Confirmacion : IGetEnhancedHotel;
   loginDataUser: ILoginDatosModel;
+  User : IGetUserById;
   lhotel;
   habitacion;
 
@@ -35,10 +39,13 @@ export class DetalleHabitacionComponent implements OnInit {
     ) {
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-      this.habitacion = this.sessionStorageService.retrieve("lstHabication");
+      
    }
 
   ngOnInit() {
+    console.log("ROOM: " + JSON.stringify(this.lhabitaciones));
+    this.habitacion = this.sessionStorageService.retrieve("lstHabication");
+    this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
   }
 
   getReservaHabitacion(RoomType,BookingCode,PlanCode){
@@ -75,10 +82,35 @@ export class DetalleHabitacionComponent implements OnInit {
       console.log("ERROR: " + JSON.stringify(err));
     },
    () => {
-    this.spinner.hide();
+     this.getUser();
+    //this.spinner.hide();
     
    }
     )
+  }
+
+  getUser(){
+    let data = {
+      userId: this.loginDataUser.userId
+      }
+
+      this.service.GetUser(data.userId).subscribe(
+        data => {
+  
+          this.User = data;
+          
+          this.sessionStorageService.store("ss_user", this.User);
+          //this.router.navigate(['/reserva-habitacion-hotel']);
+        },
+        err => {
+          this.spinner.hide();
+        console.log("ERROR: " + JSON.stringify(err));
+      },
+     () => {
+      this.spinner.hide();
+      
+     }
+      )
   }
 
 }

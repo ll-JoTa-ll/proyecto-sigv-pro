@@ -33,7 +33,7 @@
                                         <span class="txt-mapa pl-3" (click)="Mostrarmapa()">Ver mapa</span>
 
                                     </div>
-                                    <div class="PopupContainer" id="mapa">
+                                    <div *ngIf="lsthabitacion.ohotel.oposition != null" class="PopupContainer" id="mapa">
                                         <div class="tooltipBagDiv box-shadow animated fadeIn fast">
                                             <span class="title-modal">Vista de mapa</span>
                                             <a class="btn-close" (click)="OcultarMapa()">X</a>
@@ -63,16 +63,16 @@
                             </div>
                             <div class="col-12 m-0 p-0 pl-4 pt-2 pb-3">
                                 <div class="row m-0 p-0">
-                                    <div class="col-12 m-0 p-0">
-                                        <!--    <span *ngFor="let item of lsthabitacion.ohotel.lamenities" class="pl-3"><span class="pl-2"><img src="assets/images/{{item.code}}.png"></span><span class="Condition pl-3">{{item.description}}</span></span>-->
+                                    <div *ngIf="lsthabitacion.ohotel.lamenities != null && lsthabitacion.ohotel.lamenities.length > 0" class="col-12 m-0 p-0">
+                                        <span *ngFor="let item of lsthabitacion.ohotel.lamenities" class="pl-3"><span class="pl-2"><img style="width: 30px;" src="assets/images/{{item.code}}.png"></span><span class="Condition pl-3">{{item.description}}</span></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <div class="row m-0 p-0">
-                                    <div class="col-8 m-0 p-0">
+                                <div *ngIf="lsthabitacion.ohotel.lamenities != null && lsthabitacion.ohotel.lamenities.length > 0 " class="row m-0 p-0">
+                                    <div *ngIf="lsthabitacion.ohotel.limagens[0].url != null && lsthabitacion.ohotel.limagens[0].url != '' && lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0" class="col-8 m-0 p-0">
                                         <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="{{lsthabitacion.ohotel.limagens[0].url}}" (click)="openModal(template)">
                                         <ng-template #template>
 
@@ -82,7 +82,7 @@
                                                         <slide *ngFor="let imga of lsthabitacion.ohotel.limagens; let index=index">
                                                             <img style="width: 1000px; height: 600px;" src="{{imga.url}}">
                                                             <div class="carousel-caption">
-                                                                <h4>Slide {{index}}</h4>
+                                                                <!--      <h4>Slide {{index}}</h4>-->
                                                             </div>
                                                         </slide>
                                                     </carousel>
@@ -96,8 +96,8 @@
                                         <!-- <img *ngFor="let imga of lsthabitacion.ohotel.limagens" class="imagenG" src="{{imga.url}}"> -->
                                     </div>
                                     <div class="col-4 m-0 p-0">
-                                        <div class="row m-0 p-0">
-                                            <img class="pl-2 pt-4" style="width: 400px; height: 270px; border-radius: 15px 0px 15px 0px;" src="{{lsthabitacion.ohotel.limagens[2].url}}" (click)="openModal(template)">
+                                        <div *ngIf="lsthabitacion.ohotel.limagens[1].url != null && lsthabitacion.ohotel.limagens[1].url != '' && lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0" class="row m-0 p-0">
+                                            <img class="pl-2 pt-4" style="width: 400px; height: 270px; border-radius: 15px 0px 15px 0px;" src="{{lsthabitacion.ohotel.limagens[1].url}}" (click)="openModal(template)">
                                         </div>
                                         <div class="row m-0 p-0 pt-3 pb-4">
                                             <div class="col-12 m-0 p-0 box-shadow">
@@ -111,7 +111,7 @@
                                                 </div>
                                                 <div class="row m-0 p-0">
                                                     <div class="col-12 m-0 p-0">
-                                                        <span class="textopre">{{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} personas</span>
+                                                        <span class="textopre">{{lhotel.numberNights}} noche(s) para {{lhotel.numberPassenger}} persona(s)</span>
                                                     </div>
                                                 </div>
                                                 <div class="row m-0 p-0">
@@ -128,10 +128,11 @@
                                         <div class="row m-0 p-0">
                                             <div class="col-12 m-0 p-0">
                                                 <span class="pl-0">
-                                                    <!--<button class="btn btn-danger col-lg-12" href="#id_det_hab">Ver habitaciones</button>-->
-                                                    <a href="#id_det_hab" class="btn btn-danger col-lg-12">
+                                                    <!--<button class="botonver" class="btn btn-danger col-lg-12" href="#id_det_hab">Ver habitaciones</button>-->
+                                                    <a href="#ancla" class="btn btn-danger col-lg-12">
                                                             Ver habitaciones
                                                     </a>
+                                                    
                                                 </span>
                                             </div>
                                         </div>
@@ -147,10 +148,31 @@
                                         <span class="textodescri">Descripción :</span>
                                     </div>
                                 </div>
-                                <div class="row m-0 p-0">
-                                    <div class="col-12 m-0 p-0">
-                                        <span class="Description">{{lsthabitacion.ohotel.hotelDescription}}</span>
-                                    </div>
+                                <div class="row m-0 p-0 contenido" style="width: 1170px;">
+                                    <!--     <div *ngIf="lsthabitacion.ohotel.hotelDescription.length > 300" class="col-12 m-0 p-0" style="text-align: justify">
+                                        <p>
+                                            <span class="Description">{{texto1}}</span>
+                                            <span class="Description" id="collapseBasic" [collapse]="!isCollapsed" [isAnimated]="true">{{texto2}}</span>
+                                            <span class="pl-1" style="cursor: pointer; color: blue;" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Mostrar Mas</span>
+                                        </p>
+                                    </div>-->
+                                    <ng-container class="conten col-12 m-0 p-0" *ngIf="lsthabitacion.ohotel.hotelDescription.length > 300; else elseTemplate">
+                                        <p id="description" class="Description">{{texto1}}</p>
+                                        <p class="p1" id="p1" (click)="mostrarmas();" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Mostrar Mas</p>
+                                        <p class="p2" id="p2" (click)="mostrarmenos()">Mostrar Menos</p>
+                                        <span style="display: contents !important;" [collapse]="!isCollapsed" [isAnimated]="true">{{texto3}} </span>
+
+
+                                        <!--   <p class="pl-1" style="cursor: pointer; color: blue;" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Mostrar Mas</p>-->
+
+
+
+                                    </ng-container>
+                                    <ng-template class="col-12 m-0 p-0" #elseTemplate>
+                                        <p class="Description">{{lsthabitacion.ohotel.hotelDescription}}</p>
+                                    </ng-template>
+
+
                                 </div>
                             </div>
                         </div>
@@ -160,7 +182,7 @@
                                 <div class="row m-0 p-0">
                                     <div class="col-12 m-0 p-0 pb-3">
                                         <span class="pl-3">Condiciones:</span>
-                                        <span class="Description pl-3">El hotel permite cancelar antes del 23 Agosto 14:00</span>
+                                        <span class="Description pl-3"></span>
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0">
@@ -174,18 +196,18 @@
                                         <span class=""><span class="pl-2"></span><span class="Dates">·Check-out: {{lsthabitacion.ohotel.checkOut}}</span></span>
                                     </div>
                                     <div class="col-3 m-0 p-0">
-                                        <span class=""><span class="pl-2"><img src="assets/images/document.svg"></span><span class="Dates pl-1">Politica de cancelación</span></span>
+                                        <!--  <span class=""><span class="pl-2"><img src="assets/images/document.svg"></span><span class="Dates pl-1">Politica de cancelación</span></span>-->
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div id="id_det_hab" style="height: 1px">
+                        <div class="ancla" style="height: 1px">
 
                         </div>
 
 
-                        <app-detalle-habitacion *ngFor="let habitacion of lsthabitacion.lroom; let i = index;" [index]="i" [lhabitaciones]="habitacion">
+                        <app-detalle-habitacion *ngFor="let habitacion of lsthabitacion.lroom; let i = index;" [index]="i" [lhabitaciones]="habitacion" [breakFast]="habitacion.breakFast" [hotel]="lsthabitacion.ohotel.lguestPerRoom">
 
                         </app-detalle-habitacion>
 

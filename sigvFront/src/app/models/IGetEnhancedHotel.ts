@@ -21,6 +21,8 @@ export class IGetEnhancedHotel {
         ];
         checkIn: string;
         checkOut: string;
+        startDate: string;
+        endDate: string;
         bookingCode: string;
         roomType: string;
         ratePlanCode: string;
@@ -32,7 +34,11 @@ export class IGetEnhancedHotel {
                 price: number;
                 currency: string;
             }
-        ]
+        ];
+        oprice: {
+            totalPrice: number;
+            currency: string;
+        }
     };
     osession: {
         sessionId: string;

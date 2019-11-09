@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { VuelosComponent } from '../../vuelos/vuelos.component';
 import { HotelesComponent } from '../hoteles.component';
+
 declare var jquery: any;
 declare var $: any;
 
@@ -24,6 +25,7 @@ export class ResultadoComponent implements OnInit {
   @Input() LHoteles: IHotelResultsModel[];
   @Input() name: string;
   @Input() direccion: string;
+  @Input() tipoPago: string;
   @Input() distancia: string;
   @Input() estrellas: number;
   @Input() precioxnoche: string;
@@ -77,6 +79,7 @@ export class ResultadoComponent implements OnInit {
     let hotel;
     for (let i = 0; i < this.lstHotel.length; i++) {
       const element = this.lstHotel[i];
+      console.log("lstHotel[i].guaranteeType" + this.lstHotel[i].guaranteeType)
       if (element.code === hotelcode) {
         hotel = this.lstHotel[i];
       }

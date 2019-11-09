@@ -11,6 +11,7 @@ export class IHabitacionResults {
     hotelDescription: string;
     startDate: string;
     endDate: string;
+    numberNights: number;
     lguestPerRoom: [
         {
             roomQuantity: string;

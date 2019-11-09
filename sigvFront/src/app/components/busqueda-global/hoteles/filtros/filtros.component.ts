@@ -30,7 +30,7 @@ export class FiltrosComponent implements OnInit {
         return a.oprice.pricePerAllNights - b.oprice.pricePerAllNights;
        });
       this.messagelistado.emit(this.ListaHotel);
-      this.textoprecio = 'Menor a Mayor';
+      this.textoprecio = 'Precio: Menor a Mayor';
     }
 
     if (number === 2) {
@@ -38,7 +38,7 @@ export class FiltrosComponent implements OnInit {
         return b.oprice.pricePerAllNights - a.oprice.pricePerAllNights;
        });
       this.messagelistado.emit(this.ListaHotel);
-      this.textoprecio = 'Mayor a Menor';
+      this.textoprecio = 'Precio: Mayor a Menor';
     }
   }
 
@@ -48,7 +48,7 @@ export class FiltrosComponent implements OnInit {
         return b.stars - a.stars;
        });
       this.messagelistado.emit(this.ListaHotel);
-      this.textoestrellas = 'Mayor a Menor';
+      this.textoestrellas = 'Estrellas: Mayor a Menor';
      }
 
      if (number === 2) {
@@ -56,7 +56,7 @@ export class FiltrosComponent implements OnInit {
         return a.stars - b.stars;
        });
       this.messagelistado.emit(this.ListaHotel);
-      this.textoestrellas = 'Menor a Mayor';
+      this.textoestrellas = 'Estrellas: Menor a Mayor';
     }
   }
 

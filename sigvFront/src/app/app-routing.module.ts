@@ -17,6 +17,7 @@ import { ReservaGeneradaComponent } from './components/reserva-vuelo/reserva-gen
 import { ReservaTicketComponent } from './components/reserva-vuelo/reserva-ticket/reserva-ticket.component';
 import { GestionReservasComponent } from './components/reserva-vuelo/gestion-reservas/gestion-reservas.component';
 import { AprobacionReservaComponent } from './components/reserva-vuelo/aprobacion-reserva/aprobacion-reserva.component';
+import { ReservaGeneradaHotelComponent } from './components/busqueda-global/hoteles/reserva-generada-hotel/reserva-generada-hotel.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -35,7 +36,8 @@ const routes: Routes = [
   { path: 'reserva-generada', component: ReservaGeneradaComponent, runGuardsAndResolvers: 'always' },
   { path: 'reserva-ticket', component: ReservaTicketComponent, runGuardsAndResolvers: 'always' },
   { path: 'gestion-reserva', component: GestionReservasComponent, runGuardsAndResolvers: 'always' },
-  { path: 'aprobar-reserva', component: AprobacionReservaComponent, runGuardsAndResolvers: 'always' }
+  { path: 'aprobar-reserva', component: AprobacionReservaComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reserva-generada-hotel', component: ReservaGeneradaHotelComponent, runGuardsAndResolvers: 'always' }
 ];
 
 @NgModule({

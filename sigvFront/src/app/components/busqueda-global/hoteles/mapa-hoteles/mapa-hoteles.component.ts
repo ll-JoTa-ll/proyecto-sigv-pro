@@ -1,7 +1,12 @@
-import { Component, OnInit, Input, NgZone, ElementRef, ViewChildren, AfterViewInit } from '@angular/core';
-import { MapsAPILoader, MouseEvent} from '@agm/core';
+import { Component, OnInit, Input, NgZone, ElementRef, ViewChildren, AfterViewInit, ViewChild } from '@angular/core';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+import { HotelesComponent } from '../hoteles.component';
+import { ILoginDatosModel } from '../../../../models/ILoginDatos.model';
+import { HotelService } from '../../../../services/hotel.service';
+import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
+import { environment } from '../../../../../environments/environment';
 declare var jquery: any;
 declare var $: any;
 
@@ -11,9 +16,14 @@ declare var $: any;
   styleUrls: ['./mapa-hoteles.component.sass']
 })
 export class MapaHotelesComponent implements OnInit, AfterViewInit {
+  loginDataUser: ILoginDatosModel;
 
   @Input() listado: IHotelResultsModel[];
   @Input() hoteldatos: any[];
+  @Input() hotelcode: string;
+  @Input() fechasalida: string;
+  @Input() fecharetorno: string;
+  @Input() cantpersonas: string;
   urlimg = '/assets/images/hotel-icon.png';
   show: boolean;
   address: string;
@@ -24,25 +34,36 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
   zoom = 15;
   cantidadnoche: string;
 
+  lstHabication: IHabitacionResults;
+  lstHotel : IHotelResultsModel[];
+
   public location = {
     latitude: 0,
     longitude: 0
   };
 
-  @ViewChildren('search')
+  searchLatitude: number;
+  searchLongitude: number;
+
+  @ViewChild('search', { static: false })
   public searchElementRef: ElementRef;
 
 
   constructor(
+    private service: HotelService,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private sessionStorageService: SessionStorageService,
+    private Hotels: HotelesComponent,
     private localStorageService: LocalStorageService
   ) {
     console.log('MapaHotelesComponent constructor');
   }
 
   ngOnInit() {
+    this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
+    
     console.log('MapaHotelesComponent ngOnInit');
     this.hotel = this.sessionStorageService.retrieve('hotel');
 
@@ -54,33 +75,86 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
     console.log('this.location.latitude: ' + this.location.latitude);
     console.log('this.location.longitude: ' + this.location.longitude);
 
-    /*
+    //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      // tslint:disable-next-line: new-parens
+      //this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
- 
+
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ['address']
+        types: ["address"]
       });
-      autocomplete.addListener('place_changed', () => {
+      autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
- 
+
           //verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
- 
+
           //set latitude, longitude and zoom
-          this.latitud = place.geometry.location.lat();
-          this.longitud = place.geometry.location.lng();
-          this.location.latitude = this.latitud;
-          this.location.longitude = this.longitud;
+          this.location.latitude = place.geometry.location.lat();
+          this.location.longitude = place.geometry.location.lng();
+          this.searchLatitude = place.geometry.location.lat();
+          this.searchLongitude = place.geometry.location.lng();
+          this.zoom = 12;
         });
       });
-    });*/
+    });
+  }
+
+  getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
+    this.Hotels.spinner.show();
+    let data = {
+      "Pseudo": "LIMPE2235",
+      "Lhotel":
+      [
+        {
+          "HotelCode": hotelcode,
+          "StartDate": fechasalida,
+          "EndDate": fecharetorno,
+          "LguestPerRoom":
+          [
+            {
+              "RoomQuantity": $('#txthabitacion').val(),
+              "NumberPassengers": cantpersonas,
+              "TypePassenger": "ADT"
+            }
+          ]
+        }
+      ],
+      "Ocompany": this.loginDataUser.ocompany
+    }
+
+    let hotel;
+    for (let i = 0; i < this.lstHotel.length; i++) {
+      const element = this.lstHotel[i];
+      if (element.code === hotelcode) {
+        hotel = this.lstHotel[i];
+      }
+      
+    }
+    this.sessionStorageService.store("lhotel",hotel);
+
+    this.service.GetHabitacion(data).subscribe(
+      data => {
+
+        this.lstHabication = data;
+        
+        this.sessionStorageService.store("lstHabication", this.lstHabication);
+
+        window.open(environment.url_project + "/habitacion");
+      },
+      err => {
+      this.Hotels.spinner.hide();
+      console.log("ERROR: " + JSON.stringify(err));
+    },
+   () => {
+     this.Hotels.spinner.hide();
+    
+   }
+    )
   }
 
   ngAfterViewInit() {

@@ -6,13 +6,17 @@
             <div class="col-12 m-0 p-0 pt-1 pb-2">
                 <span><img src="./assets/images/cama.svg" alt=""> </span>
             </div>
-            <div class="col-12 m-0 p-0 lblnombrehotel"> <span>{{lstConfirmacion.ohotel.name}}</span> <span>-Bogotá,Colombia.</span> </div>
-            <div class="col-12 m-0 p-0 lbldistancia"><span>A 11,73 km del aeropuerto</span> </div>
+            <div class="col-12 m-0 p-0 lblnombrehotel"> <span>{{lstConfirmacion.ohotel.name}}</span> <span>{{lstHabi.ohotel.cityName}}</span> </div>
+            <div class="col-12 m-0 p-0 lbldistancia"><span>A {{lhotel.oairportDistance.distance}} km del aeropuerto</span> </div>
 
             <div class="col-12 m-0 p-0">
                 <div class="row m-0 p-0 pt-1 pb-3">
                     <div class="col-6 m-0 p-0">
-                        <span> <img src="./assets/images/star.svg" alt=""></span>
+                        <span class="ml-3" *ngIf="lstHabi.ohotel.stars  === 5"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                        <span class="ml-3" *ngIf="lstHabi.ohotel.stars  === 4"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                        <span class="ml-3" *ngIf="lstHabi.ohotel.stars  === 3"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                        <span class="ml-3" *ngIf="lstHabi.ohotel.stars  === 2"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                        <span class="ml-3" *ngIf="lstHabi.ohotel.stars  === 1"><img src="./assets/images/star.svg"></span>
                     </div>
                     <div class="mapa col-6 m-0 p-0 pl-4">
                         <span class="txt-mapa pl-3" (click)="Mostrarmapa()"> Ver mapa </span>
@@ -42,26 +46,26 @@
             <div class="col-12 m-0 p-0">
                 <div class="Date row m-0 p-0">
                     <div class="col-6 m-0 p-0">
-                        <span> 07 oct 2019</span>
+                        <span>{{lstConfirmacion.oroom.startDate}}</span>
                     </div>
                     <div class="col-6 m-0 p-0 pl-4">
-                        <span> 09 oct 2019 </span>
+                        <span>{{lstConfirmacion.oroom.endDate}}</span>
                     </div>
                 </div>
             </div>
             <div class="col-12 m-0 p-0 pb-5">
                 <div class="hours row m-0 p-0">
                     <div class="col-6 m-0 p-0">
-                        <span> 15:00</span>
+                        <span>{{lstConfirmacion.oroom.checkIn}}</span>
                     </div>
                     <div class="col-6 m-0 p-0 pl-4">
-                        <span>11:00 </span>
+                        <span>{{lstConfirmacion.oroom.checkOut}}</span>
                     </div>
                 </div>
             </div>
             <div class="Informacion row m-0 p-0">
-                <div class="col-12 m-0 p-0 pt-3"><span>2 noches</span> <span> 2 adultos</span></div>
-                <div class="col-12 m-0 p-0 pb-3"><span> Kingbed, accesible shower</span></div>
+                <div class="col-12 m-0 p-0 pt-3"><span>{{lstHabi.ohotel.lguestPerRoom[0].roomQuantity}} habitacion</span> <span class="pl-2">{{lstHabi.ohotel.lguestPerRoom[0].numberPassengers}} adultos</span></div>
+                <div class="col-12 m-0 p-0 pb-3"><span>{{lstConfirmacion.oroom.name}}</span></div>
             </div>
         </div>
     </div>

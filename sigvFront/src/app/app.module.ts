@@ -101,6 +101,7 @@ import { FiltroAerolineasComponent } from './components/vuelos/filtro-aerolineas
 import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/solicitud-aprobacion.component';
 import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles/filtro-precio-hotel/filtro-precio-hotel.component';
 import { ReservaGeneradaHotelComponent } from './components/busqueda-global/hoteles/reserva-generada-hotel/reserva-generada-hotel.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -185,7 +186,8 @@ import { ReservaGeneradaHotelComponent } from './components/busqueda-global/hote
     FiltroAerolineasComponent,
     SolicitudAprobacionComponent,
     FiltroPrecioHotelComponent,
-    ReservaGeneradaHotelComponent
+    ReservaGeneradaHotelComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

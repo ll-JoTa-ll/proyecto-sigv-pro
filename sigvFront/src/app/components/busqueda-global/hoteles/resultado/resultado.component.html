@@ -3,12 +3,12 @@
     <div class="row p-0 m-0">
         <div class="m-0 p-0 div-result-1">
             <!--
-            <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0">
-                    <img *ngIf="urlHotel" class="img-fluid img-hotel" src="{{urlHotel}}" alt="">
-                </div>
-            </div>
-        -->
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                                <img *ngIf="urlHotel" class="img-fluid img-hotel" src="{{urlHotel}}" alt="">
+                            </div>
+                        </div>
+                    -->
             <img *ngIf="urlHotel" class="img-fluid img-hotel" src="{{urlHotel}}" alt="">
         </div>
         <div class="m-0 p-0 pl-4 div-result-2">
@@ -46,6 +46,7 @@
                     <span class="ml-3" *ngIf="estrellas === 3"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
                     <span class="ml-3" *ngIf="estrellas === 2"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
                     <span class="ml-3" *ngIf="estrellas === 1"><img src="./assets/images/star.svg"></span>
+
                 </div>
             </div>
             <div class="row m-0 p-0">
@@ -80,8 +81,8 @@
             <div class="row m-0 p-0">
                 <div class="col-12 text-center mt-3">
                     <button class="btn r-btn-2" (click)="getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas)">
-                                Seleccionar
-                              </button>
+                                            Seleccionar
+                                          </button>
                 </div>
             </div>
         </div>

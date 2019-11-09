@@ -17,7 +17,7 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
 
-                                <div class="ng-autocomplete div-autocomplete">
+                                <div class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
                                     <ng-autocomplete style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
 
@@ -44,13 +44,14 @@
                                 <label for="" class="d-inline-flex box-shadow label-fecha">
                                             <input type="image"
                                                    src="./assets/images/home/calendario.svg"
-                                                   (click)="datepickerIngreso.toggle()"
+                                                   (click)="datepickerIngreso.toggle()"                                              
                                                    class="input-img">
                                             <input type="text"
                                                    placeholder="Ingreso"
                                                    class="p-0 pl-2 input-date"
+                                                   (keypress)="validarTodo($event)"
                                                    #datepickerIngreso="bsDatepicker"
-                                                   (onHidden)="handlerIngreso(datepickerIngreso)"
+                                                   (onHidden)="handlerIngreso($event)"
                                                    (bsValueChange)="onValueChangeIngreso($event)"
                                                    [minDate]="minDateIngreso"
                                                    [maxDate]="maxDateIngreso"
@@ -70,6 +71,7 @@
                                                    placeholder="Salida"
                                                    class="p-0 pl-2 input-date"
                                                    #datepickerSalida="bsDatepicker"
+                                                   (keypress)="validarTodo($event)"
                                                    (bsValueChange)="onValueChangeSalida($event)"
                                                    [minDate]="minDateSalida"
                                                    bsDatepicker
@@ -92,7 +94,7 @@
                                   src="./assets/images/cama.svg"
                                   class="input-img"
                                   >
-                                  <input type="text"
+                                  <input (keypress)="validarNumeros($event)" type="text"
                                   id="txthabitacion"
                                   class="input-text2"
                                   value="1">
@@ -102,10 +104,10 @@
                                 src="./assets/images/pasajero.svg"
                                 class="input-img"
                                 >
-                                <input type="text"
+                                <input (keypress)="validarNumeros($event)" type="text"
                                 id="txtpersonas"
                                 class="input-text2"
-                                value="2">
+                                value="1">
                                 </label>
                         </div>
                         <div class="modal-info tooltipBagDiv box-shadow" id="pop1" style="display: none;">
@@ -161,23 +163,23 @@
                                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3 list-star pl-3 pr-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
                                         <li role="menuitem"><a class="dropdown-item" (click)="SeleccionarEstrella('', 'Todas')">Todas</a></li>
                                         <li role="menuitem" class="row m-0 p-0">
-                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('8', '5')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('5', '5')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
                                             <div class="col-1 m-0 p-0 number-star">5</div>
                                         </li>
                                         <li role="menuitem" class="row m-0 p-0">
-                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('7', '4')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('4', '4')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
                                             <div class="col-1 m-0 p-0 number-star">4</div>
                                         </li>
                                         <li role="menuitem" class="row m-0 p-0">
-                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('16', '3')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('3', '3')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
                                             <div class="col-1 m-0 p-0 number-star">3</div>
                                         </li>
                                         <li role="menuitem" class="row m-0 p-0">
-                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('13', '2')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('2', '2')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
                                             <div class="col-1 m-0 p-0 number-star">2</div>
                                         </li>
                                         <li role="menuitem" class="row m-0 p-0">
-                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('13', '1')"><img src="./assets/images/estrellas.svg"></div>
+                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('1', '1')"><img src="./assets/images/estrellas.svg"></div>
                                             <div class="col-1 m-0 p-0 number-star">1</div>
                                         </li>
                                     </ul>
@@ -239,12 +241,12 @@
                 <div class="col-9 m-0 p-0 pt-4 pl-4 pr-5">
                     <app-filtros [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)" (vistalistado)="MostrarListado($event)"></app-filtros>
                     <div *ngIf="vistalistado">
-                        <app-resultado *ngFor="let lHotel of LlistaHotel; let i = index" [name]="lHotel.name" [direccion]="lHotel.address" [distancia]="lHotel.oairportDistance.distance" [estrellas]="lHotel.stars" [currency]="lHotel.oprice.currency" [precioxnoche]="lHotel.oprice.pricePerAllNights"
-                            [precioprom]="lHotel.oprice.pricePerNight" [urlHotel]="lHotel.limagens | getimghotel" [index]="i + 1" [latitud]="lHotel.oposition.latitude" [longitud]="lHotel.oposition.longitude" [cantidadnoche]="lHotel.numberNights" [cantpersonas]="lHotel.numberPassenger"
-                            [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida" [hotelcode]="lHotel.code" [cantidadhabitaciones]="cantidadhabitaciones">
+                        <app-resultado *ngFor="let lHotel of LlistaHotel; let i = index" [name]="lHotel.name" [tipoPago]="lHotel.guaranteeType" [direccion]="lHotel.address" [distancia]="lHotel.oairportDistance.distance" [estrellas]="lHotel.stars" [currency]="lHotel.oprice.currency"
+                            [precioxnoche]="lHotel.oprice.pricePerAllNights" [precioprom]="lHotel.oprice.pricePerNight" [urlHotel]="lHotel.limagens | getimghotel" [index]="i + 1" [latitud]="lHotel.oposition.latitude" [longitud]="lHotel.oposition.longitude"
+                            [cantidadnoche]="lHotel.numberNights" [cantpersonas]="lHotel.numberPassenger" [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida" [hotelcode]="lHotel.code" [cantidadhabitaciones]="cantidadhabitaciones">
                         </app-resultado>
                     </div>
-                    <app-mapa-hoteles *ngIf="vistamapa" [listado]="LlistaHotel"></app-mapa-hoteles>
+                    <app-mapa-hoteles *ngIf="vistamapa" [listado]="LlistaHotel" [fechasalida]="fechaSalida" [fecharetorno]="fechaRetorno"></app-mapa-hoteles>
 
                     <div *ngIf="divwarning" class="col-12">
 

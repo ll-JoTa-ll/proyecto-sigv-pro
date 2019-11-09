@@ -7,23 +7,11 @@
             <div class="col-12 m-0 p-0 box-shadow pt-2 pb-2 pl-3">
                 <div class="row m-0 p-0">
                     <div class="col-8 m-0 p-0">
-                        <span> <img src="./assets/images/pasajero.svg" class="pb-2 pr-1"></span>
-                        <span class="lblAlojamiento pt-3"> Alojamiento para 2 personas</span>
-                    </div>
-                    <div class="col-4 m-0 p-0">
-                        <span class="lblmoneda">USD</span>
-                        <span class="PrecioAlojamiento pl-1">1,004</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 m-0 p-0 box-shadow pt-2 pb-2 pl-3">
-                <div class="row m-0 p-0">
-                    <div class="col-8 m-0 p-0">
                         <span class="lblpagoAlojamiento">A PAGAR EL ALOJAMIENTO</span>
                     </div>
                     <div class="col-4 m-0 p-0">
-                        <span class="lblmoneda">USD </span>
-                        <span class="PagoAlojamiento pl-2">1,174</span>
+                        <span class="lblmoneda">{{lstConfirmacion.oroom.oprice.currency}}</span>
+                        <span class="PagoAlojamiento pl-2">{{lstConfirmacion.oroom.oprice.totalPrice}}</span>
                     </div>
                 </div>
             </div>

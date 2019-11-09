@@ -1,6 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { listLocales } from 'ngx-bootstrap/chronos';
+import { listLocales, getDay } from 'ngx-bootstrap/chronos';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
@@ -68,6 +68,8 @@ export class HotelesComponent implements OnInit {
     this.flagBuscar = false;
     this.flagDinData = false;
     this.divwarning = false
+    this.minDateSalida = new Date();
+    this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
   }
 
   ngOnInit() {
@@ -109,12 +111,11 @@ export class HotelesComponent implements OnInit {
   }
 
   handlerIngreso(datepickerSalida) {
+    console.log("handlerIngreso");
     console.log(datepickerSalida);
   }
 
   onValueChangeIngreso(value: Date): void {
-    this.minDateSalida = value;
-
     let mes = "";
     if ((value.getMonth() + 1) < 10) {
       mes = "0" + (value.getMonth() + 1);
@@ -131,10 +132,24 @@ export class HotelesComponent implements OnInit {
 
     this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
     console.log(this.fechaSalida);
+
+
+    this.minDateSalida = value;
+    //this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
+    /*
+    let value2 = value;
+    this.minDateSalida = value;
+    console.log('value: ' + value);
+    console.log('value2: ' + value2);
+    let minDateSalida = this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
+    console.log('minDateSalida: ' + minDateSalida);
+    console.log('value: ' + value);
+    console.log('value2: ' + value2);
+    */
   }
 
   onValueChangeSalida(value: Date): void {
-    this.maxDateIngreso = value;
+    this.maxDateIngreso  = value;
     let mes = "";
     if ((value.getMonth() + 1) < 10) {
       mes = "0" + (value.getMonth() + 1);
@@ -260,7 +275,11 @@ export class HotelesComponent implements OnInit {
     console.log(JSON.stringify(data));
 
     this.service.SearchHotel(data).subscribe(
+      
       result => {
+        if (result.length == 0 || result == null) {
+          alert("HOTELES NO DISPONIBLES");
+        }
          console.log(this.LlistaHotel);
          if (result !== null && result.length > 0) {
           console.log('result: ' + result);
@@ -293,6 +312,7 @@ export class HotelesComponent implements OnInit {
            this.mayorPrecioHotel = mayorValor;
          } else {
            this.flagDinData = true;
+           
       }
       },
     err => {
@@ -311,5 +331,27 @@ SeleccionarEstrella(codeestrella, texto) {
   this.textoestrellas = texto;
 }
 
+validarNumeros(e){
+  var tecla = (document.all) ? e.keyCode : e.which;
+   if (tecla == 8) return true;
+    var patron = /^([0-9])*$/;
+     var teclaFinal = String.fromCharCode(tecla);
+      return patron.test(teclaFinal);
+};
 
+validarTodo(e){
+  var tecla = (document.all) ? e.keyCode : e.which;
+   if (tecla == 8) return true;
+    var patron = /^([])*$/;
+     var teclaFinal = String.fromCharCode(tecla);
+      return patron.test(teclaFinal);
+};
+
+validarLetras(e){
+  var tecla = (document.all) ? e.keyCode : e.which;
+   if (tecla == 8) return true;
+    var patron = /^([a-zA-Z ])*$/;
+     var teclaFinal = String.fromCharCode(tecla);
+      return patron.test(teclaFinal);
+};
 }

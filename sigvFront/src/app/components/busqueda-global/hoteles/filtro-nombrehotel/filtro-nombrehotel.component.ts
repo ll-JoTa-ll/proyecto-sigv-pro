@@ -29,7 +29,8 @@ export class FiltroNombrehotelComponent implements OnInit {
     let listado;
     listado = this.ls_search_hotel;
     nombre = $('#nombrehotel').val();
-    results = listado.filter(m => m.hotelName === nombre);
+    results = listado.filter(m => m.name.toUpperCase().includes(nombre.toUpperCase()))
+    //results = listado.filter(m => m.name === nombre);
     this.listadohotel = results;
     this.resultFiltro.emit(this.listadohotel);
   }

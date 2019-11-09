@@ -13,6 +13,7 @@ declare var $: any;
 export class DetalleCompraComponent implements OnInit {
   lstConfirmacion : IGetEnhancedHotel;
   lstHabi : IHabitacionResults;
+  lhotel;
 
   urlimg = '/assets/images/hotel-icon.png';
 
@@ -23,6 +24,7 @@ export class DetalleCompraComponent implements OnInit {
   
 
     this.lstHabi = this.sessionStorageService.retrieve("lstHabication");
+    this.lhotel = this.sessionStorageService.retrieve("lhotel");
   }
 
   Mostrarmapa() {
