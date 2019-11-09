@@ -552,8 +552,12 @@ PlantillaPreciovuelo() {
 
  PlantillaPasajeros() {
   let html = '';
+  let mail: any;
+  let email = '';
   for (let j = 0; j < this.reserva.lpassenger.length; j++) {
     const item = this.reserva.lpassenger[j];
+    mail = item.email.split(';');
+    email = mail[0];
     html+="<tr>";
     html+="<td>";
     html+= item.firstName + " " + item.lastName;
@@ -562,7 +566,7 @@ PlantillaPreciovuelo() {
     html+= item.documentNumber;
     html+="</td>";
     html+="<td>";
-    html+= item.email;
+    html+= email;
     html+="</td>";
     html+="<td>";
     html+= item.phone;
@@ -620,8 +624,13 @@ PlantillaPreciovuelo() {
  //VUELO APROBADO
  PlantillaPasajerosVueloAprobado() {
   let html = '';
+  let mail : any;
+  let email = '';
   for (let j = 0; j < this.reserva.lpassenger.length; j++) {
     const item = this.reserva.lpassenger[j];
+    mail = item.email.split(';');
+    email = mail[0];
+
     html+="<tr>";
     html+="<td>";
     html+= item.firstName + " " + item.lastName;
@@ -630,7 +639,7 @@ PlantillaPreciovuelo() {
     html+= item.documentNumber;
     html+="</td>";
     html+="<td>";
-    html+= item.email;
+    html+= email;
     html+="</td>";
     html+="<td>";
     html+= item.phone;
@@ -796,8 +805,12 @@ PlantillaAutorizadores() {
 
 PlantillaPasajerosVueloRechazado() {
   let html = '';
+  let mail: any;
+  let email = '';
   for (let j = 0; j < this.reserva.lpassenger.length; j++) {
     const item = this.reserva.lpassenger[j];
+    mail = item.email.split(';');
+    email = mail[0];
     html+="<tr>";
     html+="<td>";
     html+= item.firstName + " " + item.lastName;
@@ -806,7 +819,7 @@ PlantillaPasajerosVueloRechazado() {
     html+= item.documentNumber;
     html+="</td>";
     html+="<td>";
-    html+= item.email;
+    html+= email;
     html+="</td>";
     html+="<td>";
     html+= item.phone;
@@ -970,8 +983,12 @@ PlantillaAutorizadoresRechazo() {
 //VUELO CANCELADO
 PlantillaPasajerosVueloCancelado() {
   let html = '';
+  let mail: any;
+  let email = '';
   for (let j = 0; j < this.reserva.lpassenger.length; j++) {
     const item = this.reserva.lpassenger[j];
+    mail = item.email.split(';');
+    email = mail[0];
     html+="<tr>";
     html+="<td>";
     html+= item.firstName + " " + item.lastName;
@@ -980,7 +997,7 @@ PlantillaPasajerosVueloCancelado() {
     html+= item.documentNumber;
     html+="</td>";
     html+="<td>";
-    html+= item.email;
+    html+= email;
     html+="</td>";
     html+="<td>";
     html+= item.phone;
@@ -993,7 +1010,7 @@ PlantillaPasajerosVueloCancelado() {
 
  PlantillaPreciovueloCancelado() {
  // this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
-  let motivo; 
+  let motivo;
   motivo = $('#motivorechazo').val();
   this.emailvuelocancelado = this.emailvuelocancelado.replace(/@currency/gi, this.reserva.currency);
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@precioTotal", this.reserva.totalAmount);
@@ -1084,5 +1101,13 @@ PlantillaPasajerosVueloCancelado() {
 
 Regresar() {
   this.router.navigate(['/gestion-reserva-vuelo']);
+}
+
+Back() {
+  if (this.loginDataUser.orole.roleDescription === 'Usuario') {
+    this.router.navigate(['/mis-reservas-vuelo']);
+  } else {
+    this.router.navigate(['/gestion-reserva-vuelo']);
+  }
 }
 }

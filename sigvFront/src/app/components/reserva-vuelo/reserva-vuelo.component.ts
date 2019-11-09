@@ -162,7 +162,6 @@ export class ReservaVueloComponent implements OnInit {
       } else {
         prefix = 'MRS';
       }
-  
       let fechatotal;
       let fecha = item.birthDate.substr(0, 10);
       let fechaformat = fecha.split('-');
@@ -170,7 +169,6 @@ export class ReservaVueloComponent implements OnInit {
       let mes = fechaformat[1];
       let dia = fechaformat[2];
       fechatotal = año + '/' + mes + '/' + dia;
-      
       const objuser = {
           "PassengerId": 1,
           "PersonId": item.personId,
@@ -297,7 +295,6 @@ export class ReservaVueloComponent implements OnInit {
         email : mail,
         telefonos : phone
       }
-     
       const objuser = {
         "PassengerId": index + 1,
         "PersonId": item.personId,

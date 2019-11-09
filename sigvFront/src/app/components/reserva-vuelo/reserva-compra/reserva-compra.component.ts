@@ -97,7 +97,7 @@ export class ReservaCompraComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log("Nginit compra");
+    window.scrollTo(0, 0);
     this.currency = this.dataflightavalilability.Currency;
     this.pseudo = this.dataflightavalilability.Pseudo;
     this.gds = this.dataflightavalilability.Gds;
@@ -739,5 +739,9 @@ export class ReservaCompraComponent implements OnInit {
 
       htmltotal = html;
       this.emailreserva = this.emailreserva.replace("@pasajeros", htmltotal);
+    }
+
+    Back() {
+      this.router.navigate(['/reserva-vuelo']);
     }
 }

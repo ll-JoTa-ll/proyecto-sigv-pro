@@ -32,6 +32,7 @@ export class ReservaGeneradaComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.bloquearBotonAtras();
     this.LPolicies = this.sessionStorageService.retrieve('politicas');
     this.lsapprover = this.sessionStorageService.retrieve('lsapprover');

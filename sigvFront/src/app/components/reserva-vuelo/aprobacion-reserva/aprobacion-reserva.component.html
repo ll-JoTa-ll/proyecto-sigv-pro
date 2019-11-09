@@ -6,8 +6,7 @@
             </div>
             <div class="col-8 m-0 p-0">
                 <div class="row m-0 p-0">
-                    <div class="back col-12 m-0 p-0 pb-1 pt-4">
-                        Volver atras</div>
+                    <div class="back col-12 m-0 p-0 pb-1 pt-4" (click)="Back()"><i class="fas fa-chevron-left"></i> Volver atras</div>
                 </div>
                 <p class="txtSolicitud m-0 p-0 pb-3">Gestionar Reserva</p>
 
@@ -199,10 +198,10 @@
                 <div class="modal-body m-0 p-0">
                     <div class="row m-0 p-0 text-center pt-4 pb-4 pl-2 pr-2">
                         <div *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false" class="col-12 m-0 p-0 text-1">
-                            El vuelo ha sido aprobado satisfactoriamente , el vuelo ha sido enviado a emision
+                            El vuelo a sido aprobado satisfactoriamente , el vuelo a sido enviado a emision
                         </div>
                         <div *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === true" class="col-12 m-0 p-0 text-1">
-                            El vuelo ha sido aprobado satisfactoriamente sin embargo quedan aprobadores pendientes.
+                            El vuelo a sido aprobado satisfactoriamente sin embargo quedan aprobadores pendientes.
                         </div>
                     </div>
                 </div>
@@ -241,7 +240,7 @@
                             Motivo de rechazo
                         </div>
                         <div class="col-12 m-0 p-0 lblmotivo" *ngIf="reserva.isAuthorizer === false">
-                            Motivo de cancelacion
+                            Motivo de cancelación
                         </div>
                         <div class="col-12 m-0 p-0">
                             <textarea name="" id="motivorechazo" cols="30" rows="10" class="txt-motivo"></textarea>
@@ -251,7 +250,7 @@
                 <div class="row m-0 p-0 pb-5">
                     <div class="col-6 m-0 p-0 text-center">
                         <!--  <button *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === true" (click)="RechazarReserva()" class="btn btn-emitir">Rechazar</button> -->
-                        <button *ngIf="reserva.isAuthorizer === false" (click)="CancelarReserva()" class="btn btn-emitir">Cancelar</button>
+                        <button *ngIf="reserva.isAuthorizer === false" (click)="CancelarReserva()" class="btn btn-emitir">Cancelar reserva</button>
                         <button *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false || reserva.allowedApproved === true && reserva.allowedIssue === true || reserva.isAuthorizer === true" (click)="RechazarReserva()" class="btn btn-emitir">Rechazar</button>
 
                     </div>
@@ -284,12 +283,20 @@
                         <button class="btn btn-salir" (click)="Regresar()">Salir</button>
                     </div>
                 </div>
-                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false">
+                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && loginDataUser.orole.roleDescription !== 'Usuario'">
                     <div class="col-6 m-0 p-0">
                         <button class="btn btn-aceptar" (click)="openModal(modalaprobacionconfirmacion)">Emitir</button>
                     </div>
                     <div class="col-6 m-0 p-0">
                         <button class="btn btn-cerrar" (click)="openModal(modalrechazar)">Rechazar</button>
+                    </div>
+                </div>
+                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && loginDataUser.orole.roleDescription === 'Usuario'">
+                    <div class="col-6 m-0 p-0">
+                        <button class="btn btn-aceptar" (click)="openModal(modalaprobacionconfirmacion)">Emitir</button>
+                    </div>
+                    <div class="col-6 m-0 p-0">
+                        <button class="btn btn-cerrar" (click)="openModal(modalrechazar)">Cancelar</button>
                     </div>
                 </div>
             </div>

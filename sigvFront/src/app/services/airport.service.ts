@@ -56,8 +56,7 @@ export class AirportService {
   }
 
   airportList(token) {
-   // this.token = this.sessionSt.retrieve('ss_token');
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
+    this.token = this.sessionSt.retrieve('ss_token');
     console.log('token' + this.token);
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
@@ -67,9 +66,8 @@ export class AirportService {
   }
 
   searchFlight(data): Observable<ISearchFlightModel[]> {
-  //  this.token = this.sessionSt.retrieve('ss_token');
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    httpOptions2.headers = new HttpHeaders({
+   this.token = this.sessionSt.retrieve('ss_token');
+   httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
     });
@@ -78,8 +76,7 @@ export class AirportService {
   }
 
   fligthAvailibility(data): Observable<IFlightAvailability> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -88,8 +85,7 @@ export class AirportService {
   }
 
   GetUser(data): Observable<IDatosUser> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -99,8 +95,7 @@ export class AirportService {
   }
 
   getCostCenter(data): Observable<ICostCenter[]> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -109,8 +104,7 @@ export class AirportService {
   }
 
   getReasonFlight(data): Observable<IReasonFlight[]> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -120,8 +114,7 @@ export class AirportService {
   }
 
   AddPassenger(data): Observable<IPnrConfirm> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -130,8 +123,7 @@ export class AirportService {
   }
 
   GetApprovers(data): Observable<IGetApprovers[]> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -140,8 +132,7 @@ export class AirportService {
   }
 
   SendEmail(data) {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -150,8 +141,7 @@ export class AirportService {
   }
 
   GenerateTicket(data): Observable<IGenerateTicket> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -160,8 +150,7 @@ export class AirportService {
   }
 
   ListaReservas(data): Observable<IReservaModel[]> {
-    //this.token = this.sessionSt.retrieve('ss_token');
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -171,8 +160,7 @@ export class AirportService {
   }
 
   ListaReservasAutorizador(data): Observable<IReservaModel[]> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -182,8 +170,7 @@ export class AirportService {
   }
 
   GetReservation(data): Observable<iGetReservation> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -192,8 +179,7 @@ export class AirportService {
   }
 
   AprobarReserva(data): Observable<IResultAprobacionReserva> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -202,8 +188,7 @@ export class AirportService {
   }
 
   RechazarReserva(data): Observable<IResultAprobacionReserva> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -212,8 +197,7 @@ export class AirportService {
   }
 
   CancelPnr(data) {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -222,8 +206,7 @@ export class AirportService {
   }
 
   QueuePnr(data): Observable<IQueuePnr>  {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImM2ZjJmZDQzODI3NGUzYjE2ZmRiZjI2MDYzMGJkOGNlIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzMxMzg5OTUsImV4cCI6MTU3MzE2Nzc5NSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.fNiWVmS9OH9_FVa-ae8mrxVgEzwLQYa1XH_Grot5vQhQuMk6OnwQgfnzwdakn7TB74JSze45ZPJhGDLSDCUhx1_ncoZBrT52kE1A5ZEGDiW0pXojhVL3evkpc5gHKbPd9OKJNLqmeEU9Mqwi_r9gLsvdz0wtLXO6HDyK7OnM-itMfsW6y0pIeELdWrXvo1J8miC49fvzd2ZnY893UKJrlOPvOAfoFb9xX4S4bwodJKAMZbts7ZwugJG3jkHU-OzBdQPXpL-JPYYYiGHl0vkMZKQ5rBab5PT9HrHZvlTDk3FMAdznNISRbiqkX3R5iSEfQP0bOYlnvgK3aJ1SA7PUmw';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",

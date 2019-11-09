@@ -17,7 +17,7 @@ export class DetallevueloComponent implements OnInit {
 
   ngOnInit() {
     if (this.segmentgroupLength === this.segmentgroupindex) {
-      this.textFlightTimeShow = "Duracion total: " + this.totalFlightTimeShow;
+      this.textFlightTimeShow = "Duración total: " + this.totalFlightTimeShow;
     } else {
       this.textFlightTimeShow = "Espera en aeropuerto: " + this.itemgroup.timeWaitAirport.replace("00d ", "");
     }
