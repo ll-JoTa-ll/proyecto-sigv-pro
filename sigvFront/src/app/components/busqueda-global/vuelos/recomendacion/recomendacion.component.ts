@@ -104,7 +104,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   openModal(template: TemplateRef<any>, recommendationId, modalerror) {
-
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
     lstRadioCheck.forEach(function(item) {
