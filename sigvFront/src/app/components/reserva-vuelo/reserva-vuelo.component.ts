@@ -75,6 +75,7 @@ export class ReservaVueloComponent implements OnInit {
 
   ngOnInit() {
     // tslint:disable-next-line: max-line-length
+    window.scrollTo(0, 0);
     this.LSection = this.flightAvailability_request.Lsections;
     this.LSectionPassenger = this.datarequest.Lsections;
     this.LPolicies = this.flightAvailability_request.lpolicies;
@@ -210,32 +211,59 @@ export class ReservaVueloComponent implements OnInit {
     this.datosuser.forEach(function(item, index) {
         if ($('#txtnombre_' + (index + 1)).val().length <= 0) {
           val = false;
+          $('#txtnombre_' + (index + 1)).addClass('campo-invalido');
+        } else {
+          $('#txtnombre_' + (index + 1)).removeClass('campo-invalido');
         }
         if ($('#txtapellidos_' + (index + 1)).val().length <= 0) {
+          $('#txtapellidos_' + (index + 1)).addClass('campo-invalido');
           val = false;
+        } else {
+          $('#txtapellidos_' + (index + 1)).removeClass('campo-invalido');
         }
         if ($('#txtnrodocumento_' + (index + 1)).val().length <= 0) {
+          $('#txtnrodocumento_' + (index + 1)).addClass('campo-invalido');
           val = false;
+        } else {
+          $('#txtnrodocumento_' + (index + 1)).removeClass('campo-invalido');
         }
         if ($('#cbo_tipodocumento_' + (index + 1)).val().trim() === '') {
+          $('#cbo_tipodocumento_' + (index + 1)).addClass('campo-invalido');
           val = false;
+        } else {
+          $('#cbo_tipodocumento_' + (index + 1)).removeClass('campo-invalido');
         }
         if ($('#cbotratamiento_' + (index + 1)).val().trim() === '') {
+          $('#cbotratamiento_' + (index + 1)).addClass('campo-invalido');
           val = false;
+        } else {
+          $('#cbotratamiento_' + (index + 1)).removeClass('campo-invalido');
         }
         if ($('#txtcorreo_' + (index + 1)).val().length <= 0) {
+          $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
           val = false;
+        } else {
+          $('#txtcorreo_' + (index + 1)).removeClass('campo-invalido');
         }
         if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
+          $('#txttelefono_' + (index + 1)).addClass('campo-invalido');
           val = false;
+        } else {
+          $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
         }
     });
     if ($('#contactocorreo').val().length <= 0) {
+      $('#contactocorreo').addClass('campo-invalido');
       val = false;
+    } else {
+      $('#contactocorreo').removeClass('campo-invalido');
     }
 
     if ($('#contactotelefono').val().length <= 0) {
+      $('#contactotelefono').addClass('campo-invalido');
       val = false;
+    } else {
+      $('#contactotelefono').removeClass('campo-invalido');
     }
 
     return val;

@@ -57,7 +57,6 @@ export class AprobacionReservaComponent implements OnInit {
   constructor(private sessionStorageService: SessionStorageService, private modalservice: BsModalService, private service: AirportService,
               private spinner: NgxSpinnerService, private router: Router, private http: HttpClient, private toastr: ToastrService) {
     this.reserva = this.sessionStorageService.retrieve('getreserva');
-    console.log(this.reserva);
     this.lusers = this.reserva.lpassenger;
     this.LPolicies = this.reserva.lpolicies;
     this.lsapprover = this.reserva.lauthorizers;
@@ -79,7 +78,6 @@ export class AprobacionReservaComponent implements OnInit {
   Obtenerstring() {
     this.http.get(this.plantilla, {responseType: 'text'}).subscribe(
       data => {
-        console.log(data);
         this.emailsolicitud = data;
       },
       err => {
@@ -91,7 +89,6 @@ export class AprobacionReservaComponent implements OnInit {
   ObtenerstringVueloAprobado() {
     this.http.get(this.plantillavueloaprobado, {responseType: 'text'}).subscribe(
       data => {
-        console.log(data);
         this.emailvueloaprobado = data;
       },
       err => {
@@ -103,7 +100,6 @@ export class AprobacionReservaComponent implements OnInit {
   ObtenerstringVueloRechazado() {
     this.http.get(this.plantillavuelorechazado, {responseType: 'text'}).subscribe(
       data => {
-        console.log(data);
         this.emailvuelorechazado = data;
       },
       err => {
@@ -115,7 +111,6 @@ export class AprobacionReservaComponent implements OnInit {
   ObtenerstringVueloCancelado() {
     this.http.get(this.plantillavuelocancelado, {responseType: 'text'}).subscribe(
       data => {
-        console.log(data);
         this.emailvuelocancelado = data;
       },
       err => {
@@ -224,8 +219,6 @@ SendMailVueloAprobado() {
   this.PlantillaPasajerosVueloAprobado();
   this.PlantillaPoliticasVueloAprobado();
   this.PlantillaAutorizadores();
-  console.log(this.resultAprobacion);
-  console.log(this.emailvueloaprobado);
   let mails = [];
   this.reserva.lpassenger.forEach(function(item) {
       if (item.email != null && item.email != '') {
@@ -272,8 +265,6 @@ SendMail() {
   this.PlantillaPreciovuelo();
   this.PlantillaPasajeros();
   this.PlantillaPoliticas();
-  console.log(this.resultAprobacion);
-  console.log(this.emailsolicitud);
   let mails = [];
   this.resultAprobacion.lauthorizers.forEach(function(item) {
        mails.push(item.authorizerEmail);
@@ -315,8 +306,6 @@ SendMailVueloRechazado() {
   this.PlantillaPasajerosVueloRechazado();
   this.PlantillaPoliticasVueloRechazado();
   this.PlantillaAutorizadoresRechazo();
-  console.log(this.resultAprobacion);
-  console.log(this.emailvuelorechazado);
   let mails = [];
   this.reserva.lpassenger.forEach(function(item) {
     if (item.email != null && item.email != '') {
@@ -362,8 +351,6 @@ SendMailVueloCancelado() {
   this.PlantillaEmailSolicitudVueloCancelado();
   this.PlantillaPreciovueloCancelado();
   this.PlantillaPasajerosVueloCancelado();
-  console.log(this.resultAprobacion);
-  console.log(this.emailvuelorechazado);
   let mails = [];
   this.reserva.lpassenger.forEach(function(item) {
     if (item.email != null && item.email != '') {
@@ -416,7 +403,6 @@ RechazarReserva() {
    }
   this.service.RechazarReserva(data).subscribe(
      result => {
-      console.log(result);
       this.CapturarHoraAprobacion();
      },
      err => {

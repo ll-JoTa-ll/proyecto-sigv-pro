@@ -19,7 +19,7 @@ textFlightTimeShow: string;
 
   ngOnInit() {
     if (this.lSegmentGroupsLength === this.lSegmentGroupsIndex) {
-      this.textFlightTimeShow = "Duracion total: " + this.totalFlightTimeShow;
+      this.textFlightTimeShow = "Duración total: " + this.totalFlightTimeShow;
     } else {
       this.textFlightTimeShow = "Espera en aeropuerto: " + this.segmentGroup.TimeWaitAirport.replace("00d ", "");
     }

@@ -71,7 +71,6 @@ export class ReservaCompraComponent implements OnInit {
   constructor(private sessionStorageService: SessionStorageService,
               private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService, 
               private toastr: ToastrService, private modalservice: BsModalService) {
-    console.log("Constructor compra");
     this.Lsection = this.sessionStorageService.retrieve('sectioninfo');
     this.Lsectionpassenger = this.sessionStorageService.retrieve('sectionservice');
     this.lsusuario = this.sessionStorageService.retrieve('datosusuario');
@@ -108,10 +107,10 @@ export class ReservaCompraComponent implements OnInit {
     this.flightnational = this.dataflightavalilability.FlightNational;
   }
 
+
   Obtenerstring() {
     this.http.get(this.plantilla, {responseType: 'text'}).subscribe(
       data => {
-        console.log(data);
         this.emailsolicitud = data;
       },
       err => {
@@ -123,7 +122,6 @@ export class ReservaCompraComponent implements OnInit {
   ObtenerstringReserva() {
     this.http.get(this.plantillareserva, {responseType: 'text'}).subscribe(
       data => {
-        console.log(data);
         this.emailreserva = data;
       },
       err => {
@@ -189,15 +187,15 @@ export class ReservaCompraComponent implements OnInit {
         }
         if (this.lsapprover.length > 0 && this.pnrresults.oerror === null) {
           this.SendEmail();
-        } else {
-          this.spinner.hide();
-          if (this.pnrresults.oerror != null) {
+        } 
+        if (this.pnrresults.oerror != null) {
+            this.spinner.hide();
             this.modalRef = this.modalservice.show(
               template,
               Object.assign({}, { class: 'gray modal-lg m-infraccion' })
             );
           }
-        }
+    
       }
       );
     }
@@ -411,7 +409,6 @@ export class ReservaCompraComponent implements OnInit {
       this.PlantillaPasajeros();
       this.PlantillaPoliticas();
       this.PlantillaAutorizadores();
-      console.log(this.emailsolicitud);
       let mails = [];
       this.lsapprover.forEach(function(item) {
         if (item.priority === 1) {
@@ -452,7 +449,6 @@ export class ReservaCompraComponent implements OnInit {
       this.PlantillaItinerarioReserva();
       this.PlantillaPrecioReserva();
       this.PlantillaPasajeroReserva();
-      console.log(this.emailreserva);
       let mails = [];
       this.lusers.forEach(function(item) {
            mails.push(item.email);
@@ -584,11 +580,11 @@ export class ReservaCompraComponent implements OnInit {
       let htmlsection = '';
       let texttramo = '';
       let htmltotal = '';
- 
+
       for (let i = 0; i < this.Lsection.length; i++) {
        const section = this.Lsection[i];
        const lsegment = section.Lsegments;
-       
+
        for (let k = 0; k < lsegment.length; k++) {
          const itemlsegment = lsegment[k];
          const segmentgroup = itemlsegment.LsegmentGroups;

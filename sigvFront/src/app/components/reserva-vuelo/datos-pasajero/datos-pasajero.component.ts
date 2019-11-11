@@ -45,11 +45,9 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
 
   constructor(private modalService: BsModalService) {
-    this.flagValDatosPAsajeros = false;
   }
 
   ngOnInit() {
-    console.log(this.user);
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
     }
@@ -60,8 +58,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.flagValDatosPAsajeros = true;
-    console.log('ngAfterViewInit DatosPasajeroComponent');
   }
 
   openModal(template: TemplateRef<any>, template2: TemplateRef<any>) {
