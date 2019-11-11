@@ -109,9 +109,10 @@ import { EmailformatPipe } from './pipes/emailformat.pipe';
 import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles/filtro-precio-hotel/filtro-precio-hotel.component';
 import { VueloFamiliaSectionComponent } from './components/vuelos/familias/vuelo-familia-section/vuelo-familia-section.component';
 import { VueloFamiliaSegmentComponent } from './components/vuelos/familias/vuelo-familia-segment/vuelo-familia-segment.component';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 
+import {NgxPaginationModule} from 'ngx-pagination';
+import { NavHeaderComponent } from './components/shared/nav-header/nav-header.component';
 
 @NgModule({
   declarations: [
@@ -203,7 +204,8 @@ import { ToastrModule } from 'ngx-toastr';
     EmailformatPipe,
     FiltroPrecioHotelComponent,
     VueloFamiliaSectionComponent,
-    VueloFamiliaSegmentComponent
+    VueloFamiliaSegmentComponent,
+    NavHeaderComponent
   ],
   imports: [
     BrowserModule,

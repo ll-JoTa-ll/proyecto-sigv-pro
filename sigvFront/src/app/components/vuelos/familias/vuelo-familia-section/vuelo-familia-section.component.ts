@@ -42,7 +42,11 @@ export class VueloFamiliaSectionComponent implements OnInit {
       this.imgIdaVuelta = 'airplane_ida.svg';
     }
 
-    this.idSectionSegment += this.sectionFamily.sectionId
+    this.idSectionSegment += this.sectionFamily.sectionId;
+
+    if (this.sectionFamilyIndex === 0) {
+      this.isCollapsed = false;
+    }
   }
 
   showSegments() {
