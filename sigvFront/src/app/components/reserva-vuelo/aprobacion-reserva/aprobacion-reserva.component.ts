@@ -626,11 +626,14 @@ PlantillaPreciovuelo() {
   let html = '';
   let mail : any;
   let email = '';
+  let phone: any;
+  let telefono = '';
   for (let j = 0; j < this.reserva.lpassenger.length; j++) {
     const item = this.reserva.lpassenger[j];
     mail = item.email.split(';');
     email = mail[0];
-
+    phone = item.phone.split(';');
+    telefono = phone[0];
     html+="<tr>";
     html+="<td>";
     html+= item.firstName + " " + item.lastName;
@@ -642,7 +645,7 @@ PlantillaPreciovuelo() {
     html+= email;
     html+="</td>";
     html+="<td>";
-    html+= item.phone;
+    html+= telefono;
     html+= "</td>";
     html+="</tr>";
   }
@@ -807,10 +810,14 @@ PlantillaPasajerosVueloRechazado() {
   let html = '';
   let mail: any;
   let email = '';
+  let phone: any;
+  let telefono = '';
   for (let j = 0; j < this.reserva.lpassenger.length; j++) {
     const item = this.reserva.lpassenger[j];
     mail = item.email.split(';');
     email = mail[0];
+    phone = item.phone.split(';');
+    telefono = phone[0];
     html+="<tr>";
     html+="<td>";
     html+= item.firstName + " " + item.lastName;
@@ -822,7 +829,7 @@ PlantillaPasajerosVueloRechazado() {
     html+= email;
     html+="</td>";
     html+="<td>";
-    html+= item.phone;
+    html+= telefono;
     html+= "</td>";
     html+="</tr>";
   }
@@ -985,10 +992,14 @@ PlantillaPasajerosVueloCancelado() {
   let html = '';
   let mail: any;
   let email = '';
+  let phone: any;
+  let telefono = '';
   for (let j = 0; j < this.reserva.lpassenger.length; j++) {
     const item = this.reserva.lpassenger[j];
     mail = item.email.split(';');
     email = mail[0];
+    phone = item.phone.split(';');
+    telefono = phone[0];
     html+="<tr>";
     html+="<td>";
     html+= item.firstName + " " + item.lastName;
@@ -1000,7 +1011,7 @@ PlantillaPasajerosVueloCancelado() {
     html+= email;
     html+="</td>";
     html+="<td>";
-    html+= item.phone;
+    html+= telefono;
     html+= "</td>";
     html+="</tr>";
   }
