@@ -101,6 +101,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   data10: any[] = [];
   indexTramo: number;
 
+  origenValue;
+  origenText;
+  destinoValue;
+  destinoText;
+  fechaValue;
+  fechaText;
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
@@ -108,6 +115,11 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     private airportService: AirportService
   ) {
     console.log('buscador constructor');
+    console.log('tipoVuelo: ' + this.tipoVuelo);
+    console.log('origenAuto: ' + this.origenAuto);
+    console.log('destinoAuto: ' + this.destinoAuto);
+    console.log('origenAuto1: ' + this.origenAuto1);
+    console.log('destinoAuto1: ' + this.destinoAuto1);
   }
 
   ngOnInit() {
@@ -118,10 +130,31 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     setTimeout(function() {
       $(".x").hide();
     }, 1000);
+    console.log('tipoVuelo: ' + this.tipoVuelo);
+    console.log('origenAuto: ' + this.origenAuto);
+    console.log('destinoAuto: ' + this.destinoAuto);
+    console.log('origenAuto1: ' + this.origenAuto1);
+    console.log('destinoAuto1: ' + this.destinoAuto1);
+    if (this.tipoVuelo === 'MC') {
+      this.origenValue = this.origenAuto1;
+      this.origenText = this.origentTexto1;
+      this.destinoValue = this.destinoAuto1;
+      this.destinoText = this.destinoTexto1;
+    } else {
+      this.origenValue = this.origenAuto;
+      this.origenText = this.origentTexto;
+      this.destinoValue = this.destinoAuto;
+      this.destinoText = this.destinoTexto;
+    }
   }
 
   ngAfterViewInit() {
     console.log('buscador ngAfterViewInit');
+    console.log('tipoVuelo: ' + this.tipoVuelo);
+    console.log('origenAuto: ' + this.origenAuto);
+    console.log('destinoAuto: ' + this.destinoAuto);
+    console.log('origenAuto1: ' + this.origenAuto1);
+    console.log('destinoAuto1: ' + this.destinoAuto1);
     setTimeout(function() {
       $(".x").hide();
     }, 1000);
@@ -540,14 +573,22 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     this.sessionStorageService.store('ss_horasTo', horasTo);
     const ss_filterPrecio = this.sessionStorageService.retrieve('ss_filterPrecio');
 
+    const flagVal = this.validarDataBusqueda(data);
+    if (!flagVal) {
+      this.spinner.hide();
+      return flagVal;
+    }
+
     this.airportService.searchFlight(data).subscribe(
       result => {
         console.log(result);
-        if (ss_filterPrecio === 'mas') {
-          result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
-        }
-        if (ss_filterPrecio === 'menos') {
-          result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
+        if (result !== null && result.length > 0) {
+          if (ss_filterPrecio === 'mas') {
+            result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
+          }
+          if (ss_filterPrecio === 'menos') {
+            result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
+          }
         }
         this.lRecomendaciones.emit(result);
         this.outTipoVuelo.emit(this.tipoVuelo);
@@ -562,6 +603,439 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         console.log("this.airportService.searchFlight completado");
       }
     );
+  }
+
+  validarDataBusqueda(data) {
+    console.log('this.origentTexto: ' + this.origentTexto);
+    console.log('this.destinoTexto: ' + this.destinoTexto);
+    const tipoVuelo = this.tipoVuelo;
+    const indexTramo = this.indexTramo;
+    let flagVal = true;
+
+    if (tipoVuelo === 'RT') {
+      if ($.trim(this.origentTexto) === '' || $.trim(this.origentTexto) === undefined) {
+        $("#txtOrigen").addClass("campo-invalido");
+        flagVal = false;
+      } else {
+        $("#txtOrigen").removeClass("campo-invalido");
+      }
+      if ($.trim(this.destinoTexto) === '' || $.trim(this.destinoTexto) === undefined) {
+        $("#txtDestino").addClass("campo-invalido");
+        flagVal = false;
+      } else {
+        $("#txtDestino").removeClass("campo-invalido");
+      }
+      if ($.trim(this.fechaSalida) === '') {
+        $("#txtFechaSalida").addClass("campo-invalido");
+        flagVal = false;
+      } else {
+        $("#txtFechaSalida").removeClass("campo-invalido");
+      }
+      if ($.trim(this.fechaRetorno) === '') {
+        $("#txtFechaDestino").addClass("campo-invalido");
+        flagVal = false;
+      } else {
+        $("#txtFechaDestino").removeClass("campo-invalido");
+      }
+    }
+
+    if (tipoVuelo === 'OW') {
+      if ($.trim(this.origentTexto) === '' || $.trim(this.origentTexto) === undefined) {
+        $("#txtOrigen").addClass("campo-invalido");
+        flagVal = false;
+      } else {
+        $("#txtOrigen").removeClass("campo-invalido");
+      }
+      if ($.trim(this.destinoTexto) === '' || $.trim(this.destinoTexto) === undefined) {
+        $("#txtDestino").addClass("campo-invalido");
+        flagVal = false;
+      } else {
+        $("#txtDestino").removeClass("campo-invalido");
+      }
+      if ($.trim(this.fechaSalida) === '') {
+        $("#txtFechaSalida").addClass("campo-invalido");
+        flagVal = false;
+      } else {
+        $("#txtFechaSalida").removeClass("campo-invalido");
+      }
+    }
+
+    if (tipoVuelo === 'MC') {
+      if (indexTramo === 2) {
+        if ($.trim(this.origenAuto1) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto2) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto1) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto2) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida1) === '') {
+          $("#txtFechaSalida1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida2) === '') {
+          $("#txtFechaSalida2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida2").removeClass("campo-invalido");
+        }
+      }
+      if (indexTramo === 3) {
+        if ($.trim(this.origenAuto1) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto2) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto3) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto1) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto2) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto3) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida1) === '') {
+          $("#txtFechaSalida1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida2) === '') {
+          $("#txtFechaSalida2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida3) === '') {
+          $("#txtFechaSalida3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida3").removeClass("campo-invalido");
+        }
+      }
+      if (indexTramo === 4) {
+        if ($.trim(this.origenAuto1) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto2) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto3) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto4) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen4").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen4").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto1) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto2) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto3) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto4) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino4").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino4").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida1) === '') {
+          $("#txtFechaSalida1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida2) === '') {
+          $("#txtFechaSalida2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida3) === '') {
+          $("#txtFechaSalida3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida4) === '') {
+          $("#txtFechaSalida4").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida4").removeClass("campo-invalido");
+        }
+      }
+      if (indexTramo === 5) {
+        if ($.trim(this.origenAuto1) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto2) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto3) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto4) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen4").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen4").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto5) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen5").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen5").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto1) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto2) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto3) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto4) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino4").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino4").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto5) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino5").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino5").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida1) === '') {
+          $("#txtFechaSalida1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida2) === '') {
+          $("#txtFechaSalida2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida3) === '') {
+          $("#txtFechaSalida3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida4) === '') {
+          $("#txtFechaSalida4").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida4").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida5) === '') {
+          $("#txtFechaSalida5").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida5").removeClass("campo-invalido");
+        }
+      }
+      if (indexTramo === 6) {
+        if ($.trim(this.origenAuto1) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto2) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto3) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto4) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen4").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen4").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto5) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen5").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen5").removeClass("campo-invalido");
+        }
+        if ($.trim(this.origenAuto6) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtOrigen6").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtOrigen6").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto1) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto2) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto3) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto4) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino4").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino4").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto5) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino5").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino5").removeClass("campo-invalido");
+        }
+        if ($.trim(this.destinoAuto6) === '' || $.trim(this.origenAuto1) === undefined) {
+          $("#txtDestino6").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtDestino6").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida1) === '') {
+          $("#txtFechaSalida1").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida1").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida2) === '') {
+          $("#txtFechaSalida2").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida2").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida3) === '') {
+          $("#txtFechaSalida3").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida3").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida4) === '') {
+          $("#txtFechaSalida4").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida4").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida5) === '') {
+          $("#txtFechaSalida5").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida5").removeClass("campo-invalido");
+        }
+        if ($.trim(this.fechaSalida6) === '') {
+          $("#txtFechaSalida6").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtFechaSalida6").removeClass("campo-invalido");
+        }
+      }
+    }
+
+    if (data) {}
+
+    return flagVal;
   }
 
   //TRAMO

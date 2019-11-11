@@ -104,7 +104,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   openModal(template: TemplateRef<any>, recommendationId, modalerror) {
-
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
     lstRadioCheck.forEach(function(item) {
@@ -129,7 +128,10 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           MarketingCarrier: group.marketingCarrier,
           FlightOrtrainNumber: group.flightOrtrainNumber,
           EquipmentType: group.equipmentType,
-          FareBasis: section.lSectionGroups[i].fareBasis
+          FareBasis: section.lSectionGroups[i].fareBasis,
+          CabinId: section.lSectionGroups[i].cabinId,
+          CabinDescription: section.lSectionGroups[i].cabinDescription,
+          TimeWaitAirport: group.timeWaitAirport
         };
         LsegmentGroups_.push(dataGroup);
       });

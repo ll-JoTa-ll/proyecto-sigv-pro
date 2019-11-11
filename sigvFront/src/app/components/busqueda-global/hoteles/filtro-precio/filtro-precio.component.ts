@@ -10,7 +10,7 @@ declare var $: any;
   templateUrl: './filtro-precio.component.html',
   styleUrls: ['./filtro-precio.component.sass']
 })
-export class FiltroPrecioComponent implements OnInit, AfterViewInit {
+export class FiltroPrecio1Component implements OnInit, AfterViewInit {
 
   @Input() listado: IHotelResultsModel[];
   @Input() menorprecio: number;

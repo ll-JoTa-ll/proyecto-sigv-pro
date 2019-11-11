@@ -113,6 +113,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NavHeaderComponent } from './components/shared/nav-header/nav-header.component';
+import { FiltroPrecio1Component } from './components/busqueda-global/hoteles/filtro-precio/filtro-precio.component';
 
 @NgModule({
   declarations: [
@@ -205,7 +206,8 @@ import { NavHeaderComponent } from './components/shared/nav-header/nav-header.co
     FiltroPrecioHotelComponent,
     VueloFamiliaSectionComponent,
     VueloFamiliaSegmentComponent,
-    NavHeaderComponent
+    NavHeaderComponent,
+    FiltroPrecio1Component
   ],
   imports: [
     BrowserModule,
