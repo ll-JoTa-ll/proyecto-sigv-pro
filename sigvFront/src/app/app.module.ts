@@ -110,6 +110,7 @@ import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles
 import { VueloFamiliaSectionComponent } from './components/vuelos/familias/vuelo-familia-section/vuelo-familia-section.component';
 import { VueloFamiliaSegmentComponent } from './components/vuelos/familias/vuelo-familia-segment/vuelo-familia-segment.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NavHeaderComponent } from './components/shared/nav-header/nav-header.component';
 
 @NgModule({
   declarations: [
@@ -201,7 +202,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     EmailformatPipe,
     FiltroPrecioHotelComponent,
     VueloFamiliaSectionComponent,
-    VueloFamiliaSegmentComponent
+    VueloFamiliaSegmentComponent,
+    NavHeaderComponent
   ],
   imports: [
     BrowserModule,
