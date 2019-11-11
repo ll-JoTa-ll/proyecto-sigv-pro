@@ -151,6 +151,7 @@
                          [minDate]="minDateSalida"
                          bsDatepicker
                          [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                         [(ngModel)]="model.salida"
                   >
                 </label>
               </div>
@@ -172,6 +173,7 @@
                          [minDate]="minDateRetorno"
                          bsDatepicker
                          [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                         [(ngModel)]="model.retorno"
                   >
                 </label>
               </div>
@@ -189,6 +191,8 @@
             [inOrigenText]="origentTexto"
             [inDestinoValue]="destinoAuto"
             [inDestinoText]="destinoTexto"
+            [inFechaSalidaValue]="fechaSalida"
+            [inFechaSalidaText]="fechaSalidaShow"
             (outIndexTramo)="updateIndexTramo($event)"
             (outOrigenValue1)="updateOrigenTramoValue1($event)"
             (outOrigenValue2)="updateOrigenTramoValue2($event)"

@@ -573,7 +573,7 @@ export class VuelosComponent implements OnInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if ($.trim(this.fechaSalida) === '') {
+      if ($.trim(this.fechaSalida) === '' || this.model.salida === null || this.model.salida === '') {
         $("#txtFechaSalida").addClass("campo-invalido");
         flagVal = false;
       } else {
@@ -1102,6 +1102,7 @@ export class VuelosComponent implements OnInit {
 
   updateFechaSalida1($event) {
     this.fechaSalida1 = $event;
+    this.fechaSalida = $event;
   }
   updateFechaSalida2($event) {
     this.fechaSalida2 = $event;
@@ -1121,6 +1122,8 @@ export class VuelosComponent implements OnInit {
 
   updateFechaSalidaShow1($event) {
     this.fechaSalidaShow1 = $event;
+    this.fechaSalidaShow = $event;
+    this.model.salida = $event;
   }
   updateFechaSalidaShow2($event) {
     this.fechaSalidaShow2 = $event;

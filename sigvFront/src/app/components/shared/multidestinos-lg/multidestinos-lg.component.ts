@@ -168,6 +168,32 @@ export class MultidestinosLgComponent implements OnInit {
     this.model.destinoTexto1 = this.inDestinoText;
     this.outDestinoValue1.emit(this.inDestinoValue);
     this.outDestinoText1.emit(this.inDestinoText);
+
+    console.log("this.inFechaSalidaValue: " + this.inFechaSalidaValue);
+    console.log("this.inFechaSalidaText: " + this.inFechaSalidaText);
+    this.fechaSalida1 = this.inFechaSalidaValue;
+    this.model.salida1 = this.inFechaSalidaText;
+    this.outFechaSalida1.emit(this.inFechaSalidaValue);
+    this.outFechaSalidaShow1.emit(this.inFechaSalidaText);
+
+    if (this.inFechaSalidaText != null || this.inFechaSalidaText != undefined) {
+      const fechaSplit = this.inFechaSalidaText.split('/');
+      const dia = fechaSplit[0];
+      const mes = fechaSplit[1];
+      const anho = fechaSplit[2];
+      this.minDateSalida1 = new Date();
+      this.minDateSalida1.setDate(this.minDateSalida1.getDate());
+      this.minDateSalida2 = new Date(anho, mes, dia);
+      this.minDateSalida2.setDate(this.minDateSalida2.getDate());
+      this.minDateSalida3 = new Date(anho, mes, dia);
+      this.minDateSalida3.setDate(this.minDateSalida3.getDate());
+      this.minDateSalida4 = new Date(anho, mes, dia);
+      this.minDateSalida4.setDate(this.minDateSalida4.getDate());
+      this.minDateSalida5 = new Date(anho, mes, dia);
+      this.minDateSalida5.setDate(this.minDateSalida5.getDate());
+      this.minDateSalida6 = new Date(anho, mes, dia);
+      this.minDateSalida6.setDate(this.minDateSalida6.getDate());
+    }
   }
 
   selectEvent(flag, item) {
