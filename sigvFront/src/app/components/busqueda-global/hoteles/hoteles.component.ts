@@ -79,14 +79,13 @@ export class HotelesComponent implements OnInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     //this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     //this.token = this.sessionStorageService.retrieve('ss_token');
-    console.log(this.locales);
+    
     this.localeService.use(this.locale);
   }
 
   selectEvent(item) {
     // do something with selected item
-    console.log("selectEvent");
-    console.log(item);
+ 
     this.destinoValue = item.iataCode;
     this.destinoText = item.name;
     setTimeout(function() {
@@ -108,13 +107,11 @@ export class HotelesComponent implements OnInit {
 
   onFocused(e) {
     // do something when input is focused
-    console.log("onFocused");
-    console.log(e);
+    
   }
 
   handlerIngreso(datepickerSalida) {
-    console.log("handlerIngreso");
-    console.log(datepickerSalida);
+   
   }
 
   onValueChangeIngreso(value: Date): void {
@@ -133,7 +130,7 @@ export class HotelesComponent implements OnInit {
     }
 
     this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
-    console.log(this.fechaSalida);
+    
 
 
     this.minDateSalida = value;
@@ -167,7 +164,7 @@ export class HotelesComponent implements OnInit {
     }
 
     this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
-    console.log(this.fechaRetorno);
+    
   }
 
   Obtenerlistado($event) {
@@ -239,14 +236,7 @@ export class HotelesComponent implements OnInit {
   }
 
   SeachHotel() {
-    console.log('SeachHotel');
-    console.log('SeachHotel');
-    console.log('SeachHotel');
-    console.log('SeachHotel');
-    console.log('SeachHotel');
-    console.log('SeachHotel');
-    console.log('SeachHotel');
-    console.log('SeachHotel');
+  
     this.spinner.show();
     this.flagDinData = false;
     this.dateingreso = $('#dateingreso').val();
@@ -275,7 +265,7 @@ export class HotelesComponent implements OnInit {
     this.habitaciones = $('#txthabitacion').val();
     this.personas = $('#txtpersonas').val();
 
-    console.log(JSON.stringify(data));
+   
 
     this.service.SearchHotel(data).subscribe(
       
@@ -284,9 +274,9 @@ export class HotelesComponent implements OnInit {
           alert("HOTELES NO DISPONIBLES");
         }
         else{
-          console.log(this.LlistaHotel);
+          
           if (result !== null && result.length > 0) {
-           console.log('result: ' + result);
+      
            this.sessionStorageService.store('ls_search_hotel', result);
             this.LlistaHotel = result;
             this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
@@ -323,11 +313,11 @@ export class HotelesComponent implements OnInit {
       },
     err => {
       this.spinner.hide();
-      console.log("ERROR: " + JSON.stringify(err));
+     
     },
    () => {
      this.spinner.hide();
-     console.log("this.airportService.searchFlight completado");
+    
    }
   );
 }

@@ -57,26 +57,22 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
     private Hotels: HotelesComponent,
     private localStorageService: LocalStorageService
   ) {
-    console.log('MapaHotelesComponent constructor');
+    
   }
 
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
     
-    console.log('MapaHotelesComponent ngOnInit');
+    
     this.hotel = this.sessionStorageService.retrieve('hotel');
 
-    console.log('this.hotel: ' + JSON.stringify(this.hotel));
-
-    console.log("this.lstHotel: " + JSON.stringify(this.lstHotel));
-    console.log("this.hotel: " + JSON.stringify(this.hotel));
+   
 
     this.location.latitude =  this.hotel.oposition.latitude;
     this.location.longitude = this.hotel.oposition.longitude;
 
-    console.log('this.location.latitude: ' + this.location.latitude);
-    console.log('this.location.longitude: ' + this.location.longitude);
+    
 
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
@@ -151,7 +147,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
       },
       err => {
       this.Hotels.spinner.hide();
-      console.log("ERROR: " + JSON.stringify(err));
+ 
     },
    () => {
      this.Hotels.spinner.hide();

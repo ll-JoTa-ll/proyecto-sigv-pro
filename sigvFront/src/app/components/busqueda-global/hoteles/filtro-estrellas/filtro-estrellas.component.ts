@@ -161,7 +161,7 @@ export class FiltroEstrellasComponent implements OnInit {
           break;
     }
 
-    console.log('listadoEstrellas: ' + JSON.stringify(listadoEstrellas));
+    
 
     this.listadoEstrellas = listadoEstrellas;
 
@@ -183,7 +183,7 @@ export class FiltroEstrellasComponent implements OnInit {
           });
         });
 
-        console.log('listadohotel: ' + JSON.stringify(listadohotel));
+        
 
         this.listadohotel = listadohotel;
       }

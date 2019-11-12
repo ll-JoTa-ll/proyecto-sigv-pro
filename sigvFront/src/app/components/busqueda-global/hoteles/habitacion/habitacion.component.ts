@@ -119,7 +119,7 @@ export class HabitacionComponent implements OnInit {
     this.texto1 = this.lsthabitacion.ohotel.hotelDescription.substring(0,250);
     this.texto2 = this.lsthabitacion.ohotel.hotelDescription.substring(250,this.lsthabitacion.ohotel.hotelDescription.length);
     this.texto3 = this.lsthabitacion.ohotel.hotelDescription;
-    console.log(this.lsthabitacion);
+    
   }
 
  mostrarmas(){

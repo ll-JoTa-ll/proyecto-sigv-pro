@@ -43,7 +43,7 @@ export class DetalleHabitacionComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log("ROOM: " + JSON.stringify(this.lhabitaciones));
+    
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
   }
@@ -65,7 +65,7 @@ export class DetalleHabitacionComponent implements OnInit {
       "osession": this.habitacion.osession
     }
 
-    console.log("dataRequest: " + JSON.stringify(data));
+    
 
     this.service.GetConfirmacion(data).subscribe(
       data => {
@@ -79,7 +79,7 @@ export class DetalleHabitacionComponent implements OnInit {
       },
       err => {
         this.spinner.hide();
-      console.log("ERROR: " + JSON.stringify(err));
+      
     },
    () => {
      this.getUser();
@@ -104,7 +104,7 @@ export class DetalleHabitacionComponent implements OnInit {
         },
         err => {
           this.spinner.hide();
-        console.log("ERROR: " + JSON.stringify(err));
+       
       },
      () => {
       this.spinner.hide();

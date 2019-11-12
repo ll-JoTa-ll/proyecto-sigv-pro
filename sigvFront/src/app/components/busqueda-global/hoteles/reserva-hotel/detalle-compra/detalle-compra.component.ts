@@ -18,7 +18,7 @@ export class DetalleCompraComponent implements OnInit {
   urlimg = '/assets/images/hotel-icon.png';
 
   constructor(private sessionStorageService: SessionStorageService) {  this.lstConfirmacion = this.sessionStorageService.retrieve("confirmacion");
-  console.log(this.lstConfirmacion); }
+   }
 
   ngOnInit() {
   

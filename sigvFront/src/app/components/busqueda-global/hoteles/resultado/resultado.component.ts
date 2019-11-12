@@ -79,7 +79,7 @@ export class ResultadoComponent implements OnInit {
     let hotel;
     for (let i = 0; i < this.lstHotel.length; i++) {
       const element = this.lstHotel[i];
-      console.log("lstHotel[i].guaranteeType" + this.lstHotel[i].guaranteeType)
+      
       if (element.code === hotelcode) {
         hotel = this.lstHotel[i];
       }
@@ -97,7 +97,7 @@ export class ResultadoComponent implements OnInit {
       },
       err => {
       this.Hotels.spinner.hide();
-      console.log("ERROR: " + JSON.stringify(err));
+      
     },
    () => {
      this.Hotels.spinner.hide();

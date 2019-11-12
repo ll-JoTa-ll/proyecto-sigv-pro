@@ -123,7 +123,7 @@ export class ReservaHotelComponent implements OnInit {
       }
     }
 
-    console.log("dataRequest: " + JSON.stringify(data));
+    
 
 
     this.service.GetReserva(data).subscribe(
@@ -140,7 +140,7 @@ export class ReservaHotelComponent implements OnInit {
       },
       err => {
         this.spinner.hide();
-      console.log("ERROR: " + JSON.stringify(err));
+      
     },
    () => {
     if (message != null) {
@@ -171,7 +171,7 @@ export class ReservaHotelComponent implements OnInit {
         this.emailsolicitud = data;
       },
       err => {
-        console.log(err);
+      
       }
     )
   }
@@ -179,7 +179,7 @@ export class ReservaHotelComponent implements OnInit {
   SendMailHotelAprobado() {
     this.spinner.show();
     this.getAmenities();
-    console.log(this.emailsolicitud);
+  
     let mails = [];
    
     this.Reserva.email.forEach(function(item){
@@ -193,7 +193,7 @@ export class ReservaHotelComponent implements OnInit {
       "Recipients": mails,
       "RecipientsCopy": ['analista6@domiruth.com', 'juan.caro.1987@gmail.com'],
       "RecipientsHiddenCopy": [],
-      "Subject": "TEST VUELO APROBADO",
+      "Subject": "HOTEL APROBADO",
       "Message": this.emailsolicitud
     }
     this.services.SendEmail(data).subscribe(
@@ -209,7 +209,7 @@ export class ReservaHotelComponent implements OnInit {
            }
       },
       err => {
-       console.log(err);
+       
       },
       () => {
         this.spinner.hide();

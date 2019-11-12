@@ -54,7 +54,7 @@ export class PagoComponent implements OnInit {
 
   validarTarjeta() {
     const numTarjeta = this.numTarjeta;
-    console.log('numTarjeta: ' + numTarjeta);
+    
     if (numTarjeta.substring(0,1) == "4") {
       this.tipoTarjeta = 4;
       this.nombreTarjeta = "VI";
@@ -92,7 +92,7 @@ export class PagoComponent implements OnInit {
 
   tarjeta(){
     let numTarjeta = this.numTarjeta;
-    console.log('fecVencimiento: ' + numTarjeta);
+    
     if (numTarjeta.length == 4) {
       numTarjeta += ' ' ;
       this.numTarjeta = numTarjeta;
@@ -110,7 +110,7 @@ export class PagoComponent implements OnInit {
 
   validarVencimiento() {
     let fechVencimiento = this.fechVencimiento;
-    console.log('fecVencimiento: ' + fechVencimiento);
+  
     if (fechVencimiento.length == 2) {
       fechVencimiento += '' ;
       this.fechVencimiento = fechVencimiento;
@@ -120,7 +120,7 @@ export class PagoComponent implements OnInit {
 
   validarCodSeguridad() {
     let codSeguridad = this.codSeguridad;
-    console.log('codSeguridad: ' + codSeguridad);
+   
     if (codSeguridad.length == 3) {
       codSeguridad += '' ;
       this.codSeguridad = codSeguridad;
@@ -130,7 +130,7 @@ export class PagoComponent implements OnInit {
 
   validarNombre() {
     let titular = this.titular;
-    console.log('titular: ' + titular);
+    
     if (titular.length == 3) {
       titular += '' ;
       this.titular = titular;

@@ -79,15 +79,13 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
    // this.sessionStorageService.store('ss_token', this.loginDataUser.token);
   //  this.token = this.sessionStorageService.retrieve('ss_token');
-    console.log(this.locales);
+  
     this.localeService.use(this.locale);
   }
 
   ngAfterViewInit() {
     //cantidadnoches
-    console.log('mini busqueda hoteles ngAfterViewInit');
-    console.log("this.fchingreso: " + this.fchingreso);
-    console.log("this.fchsalida: " + this.fchsalida);
+    
     //this.fechaSalida = this.fchingreso;
     //this.fechaRetorno = this.fchsalida;
     this.ObtenerDias(this.fchingreso, this.fchsalida);
@@ -101,8 +99,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
 
   selectEvent(item) {
     // do something with selected item
-    console.log("selectEvent");
-    console.log(item);
+    
     this.destinoValue = item.iataCode;
     this.destinoText = item.name;
     setTimeout(function() {
@@ -124,16 +121,15 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
 
   onFocused(e) {
     // do something when input is focused
-    console.log("onFocused");
-    console.log(e);
+    
   }
 
   handlerIngreso(datepickerSalida) {
-    console.log(datepickerSalida);
+    
   }
 
   onValueChangeIngreso(value: Date): void {
-    console.log("onValueChangeIngreso");
+    
     this.minDateSalida = value;
     if (value === null) {
       return;
@@ -151,14 +147,13 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
         dia = "" + value.getDate();
       }
       this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
-      console.log("this.fechaSalida" + this.fechaSalida);
-      console.log("this.fechaRetorno" + this.fechaRetorno);
+     
       this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
     }
   }
 
   onValueChangeSalida(value: Date): void {
-    console.log("onValueChangeSalida");
+    
     this.maxDateIngreso = value;
     if (value === null) {
       return;
@@ -176,8 +171,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
         dia = "" + value.getDate();
       }
       this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
-      console.log("this.fechaSalida" + this.fechaSalida);
-      console.log("this.fechaRetorno" + this.fechaRetorno);
+    
       this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
     }
   }
@@ -207,19 +201,19 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     }
     this.habitaciones = $('#txthabitacion').val();
     this.adultos = $('#txtpersonas').val();
-    console.log('data: ' + JSON.stringify(data));
+   
     this.service.SearchHotel(data).subscribe(
        result => {
           if (result[0].oerror != null) {
             alert("HOTELES NO DISPONIBLES");
           }
           else {
-            console.log(this.LResultshotel);
+            
           this.sessionStorageService.store('ls_search_hotel', result);
 
           //this.sessionStorageService.store('ls_search_hotel', result);
           //this.LlistaHotel = result;
-          console.log("this.result[0]: " + result[0]);
+          
           this.sessionStorageService.store('hotel', null);
           this.sessionStorageService.store('hotel', result[0]);
 
@@ -231,11 +225,11 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
        },
        err => {
         this.spinner.hide();
-        console.log("ERROR: " + JSON.stringify(err));
+        
        },
        () => {
          this.spinner.hide();
-         console.log("this.airportService.searchFlight completado");
+        
        }
    );
  }
@@ -254,14 +248,13 @@ ObtenerDias(fecha1, fecha2) {
   let nuevafecha2 = new Date(parseInt(n2[2]), parseInt(n2[1]) - 1, parseInt(n2[0]));
   //const dias = nuevafecha2.diff(nuevafecha, 'days');
   //let dias = nuevafecha2 - nuevafecha;
-  console.log("nuevafecha: " + nuevafecha);
-  console.log("nuevafecha2: " + nuevafecha2);
+  
 
   const r1 = nuevafecha.getTime();
   const r2 = nuevafecha2.getTime();
 
   const r = r2 - r1;
-  console.log("r: " + r);
+  
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
 
@@ -278,14 +271,13 @@ ObtenerDias2(fecha1, fecha2) {
   let nuevafecha2 = new Date(parseInt(n2[0]), parseInt(n2[1]) - 1, parseInt(n2[2]));
   //const dias = nuevafecha2.diff(nuevafecha, 'days');
   //let dias = nuevafecha2 - nuevafecha;
-  console.log("nuevafecha: " + nuevafecha);
-  console.log("nuevafecha2: " + nuevafecha2);
+  
 
   const r1 = nuevafecha.getTime();
   const r2 = nuevafecha2.getTime();
 
   const r = r2 - r1;
-  console.log("r: " + r);
+ 
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
 }

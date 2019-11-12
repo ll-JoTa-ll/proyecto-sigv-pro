@@ -30,7 +30,7 @@ export class TitularesReservaComponent implements OnInit {
 
   validarCorreo() {
     let correo = this.correo;
-    console.log('correo: ' + correo);
+   
     if (correo.length == 3) {
       correo += '' ;
       this.correo = correo;
@@ -40,7 +40,7 @@ export class TitularesReservaComponent implements OnInit {
 
   validarTelefono() {
     let telefono = this.telefono;
-    console.log('correo: ' + telefono);
+   
     if (telefono.length == 3) {
       telefono += '' ;
       this.telefono = telefono;
