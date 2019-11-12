@@ -16,10 +16,11 @@ export class MisReservasVueloComponent implements OnInit {
   getreserva: iGetReservation;
   loginDataUser;
   listadoreserva;
+  p: number[] = [];
 
-  constructor(private service: AirportService, 
-              private sessionstorage: SessionStorageService, 
-              private router: Router, 
+  constructor(private service: AirportService,
+              private sessionstorage: SessionStorageService,
+              private router: Router,
               private spinner: NgxSpinnerService) {
     this.loginDataUser = this.sessionstorage.retrieve('ss_login_data');
   }

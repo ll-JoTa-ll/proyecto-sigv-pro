@@ -25,8 +25,9 @@ export class GestionReservaVueloComponent implements OnInit {
     ignoreBackdropClick: true
   };
   listadoreserva;
+  p: number[] = [];
 
-  constructor(private service: AirportService, 
+  constructor(private service: AirportService,
               private sessionstorage: SessionStorageService,
               private router: Router,
               private spinner: NgxSpinnerService,
