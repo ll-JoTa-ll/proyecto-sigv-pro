@@ -7,6 +7,8 @@ import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { AirportService } from '../../services/airport.service';
 //import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { environment } from '../../../environments/environment';
+import { ILoginDatosModel } from '../../models/ILoginDatos.model';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 declare var jquery: any;
 declare var $: any;
@@ -23,6 +25,14 @@ export class LoginComponent implements OnInit {
   airportlist: any[] = [];
   flagLogin: number;
   token;
+  datoslogin: ILoginDatosModel;
+  msjerrorr: boolean = false;
+
+  modalRef: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
 
   constructor(
     private loginService: LoginService,
@@ -31,7 +41,8 @@ export class LoginComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     private airportService: AirportService,
-    private rutaActiva: ActivatedRoute
+    private rutaActiva: ActivatedRoute,
+    private modalService: BsModalService
     //private location: Location
   ) {
     this.checkedRecuerdame = true;
@@ -57,51 +68,42 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(datos).subscribe(
       (result) => {
+        this.datoslogin = result;
         if (result != null) {
-          this.flagLogin = 1;
-          //console.log('login result: ' + JSON.stringify(result));
-          let flagCentralizador = false;
-          const roleId = result.orole.roleId;
-          console.log('roleId: ' + roleId);
-          lstCentralizador.forEach(function(cent) {
-            console.log('cent: ' + cent);
-            if (cent === roleId) {
-              flagCentralizador = true;
-            }
-          });
-          this.sessionStorageService.store('ss_login_data', result);
-          this.token = result.token;
-          this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
-          this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
+          if (this.datoslogin.oerror === null) {
+            this.flagLogin = 1;
+            //console.log('login result: ' + JSON.stringify(result));
+            let flagCentralizador = false;
+            const roleId = result.orole.roleId;
+            console.log('roleId: ' + roleId);
+            lstCentralizador.forEach(function(cent) {
+              console.log('cent: ' + cent);
+              if (cent === roleId) {
+                flagCentralizador = true;
+              }
+            });
+            this.sessionStorageService.store('ss_login_data', result);
+            this.token = result.token;
+            this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
+            this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
           //console.log(result);
         } else {
-          console.log("NULL");
+          return;
         }
-
+      }
       },
-
       (error) => {
         this.spinner.hide();
         //console.log('ERROR' + JSON.stringify(error));
       },
 
       () => {
-        /*
-        console.log("flagLogin = " + this.flagLogin);
-        if (this.flagLogin === 1) {
-          const ls_airportlist = this.localStorageService.retrieve('ls_airportlist');
-          if (ls_airportlist === null) {
-            this.airportList();
-          } else {
-            this.spinner.hide();
-            this.router.navigate(['/vuelos']);
-          }
-        } else {
+        if (this.datoslogin.oerror != null) {
+          this.msjerrorr = true;
           this.spinner.hide();
+        } else {
+          this.airportList();
         }
-        */
-        //console.log("LOGIN Completado")
-        this.airportList();
       }
     );
   }

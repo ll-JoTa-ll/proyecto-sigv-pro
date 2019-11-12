@@ -16,6 +16,7 @@ export class MisReservasVueloComponent implements OnInit {
   getreserva: iGetReservation;
   loginDataUser;
   listadoreserva;
+  p: number[] = [];
 
   constructor(private service: AirportService, 
               private sessionstorage: SessionStorageService, 

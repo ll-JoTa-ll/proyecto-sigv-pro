@@ -14,4 +14,7 @@ export interface ILoginDatosModel {
   lcostCenter;
   lpseudo;
   token;
+  oerror: {
+    message: string;
+  }
 }

@@ -6,7 +6,7 @@
                     <div class="col-6 m-0 p-0">
                         <div class="row m-0 p-0 div-section-trip">
                             <div class="col-6 m-0 p-0 pt-2 pl-5">
-                                <span><img class="img-airplane" src="/assets/images/{{imgIdaVuelta}}" alt=""></span>
+                                <span><img class="img-airplane" src="./assets/images/{{imgIdaVuelta}}" alt=""></span>
                             </div>
                             <div class="col-6 m-0 p-0">
                                 <div class="row m-0 p-0">
@@ -24,7 +24,7 @@
                     </div>
                     <div *ngIf="posicion === 1" class="col-6 m-0 p-0 text-right txt-detalle pr-4 pt-2">
                         <span (click)="openModal(modalresumen)" class="pr-3" style="cursor: pointer">Ver detalle</span>
-                        <span><img src="/assets/images/info-button.svg" alt=""></span>
+                        <span><img src="./assets/images/info-button.svg" alt=""></span>
                     </div>
                     <ng-template #modalresumen let-c="close" let-d="dismiss">
                         <div class="modal-header m-0 p-0" style="border: none;">
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="col-12 m-0 p-0 pt-4 pl-3 pb-4">
-                <span><img src="/assets/images/airlines/{{marketingcarrier}}" style="width: 30px;"></span>
+                <span><img src="./assets/images/airlines/{{marketingcarrier}}" style="width: 30px;"></span>
             </div>
             <div class="col-12 m-0 p-0">
                 <div class="row p-0 m-0">

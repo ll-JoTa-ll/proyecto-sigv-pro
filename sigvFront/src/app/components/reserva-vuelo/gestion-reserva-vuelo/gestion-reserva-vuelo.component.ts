@@ -18,6 +18,7 @@ export class GestionReservaVueloComponent implements OnInit {
   getreserva: iGetReservation;
   loginDataUser;
   omessage;
+  p: number[] = [];
 
   modalRef: BsModalRef;
   config = {
