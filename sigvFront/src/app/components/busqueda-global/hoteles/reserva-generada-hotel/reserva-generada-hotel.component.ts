@@ -21,6 +21,7 @@ export class ReservaGeneradaHotelComponent implements OnInit {
   user: IGetUserById;
   lhotel;
 
+  phone;
   urlimg = '/assets/images/hotel-icon.png';
 
   constructor(private sessionStorageService: SessionStorageService) { 
@@ -33,6 +34,9 @@ export class ReservaGeneradaHotelComponent implements OnInit {
     this.confirmacion = this.sessionStorageService.retrieve("confirmacion");
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
     this.user = this.sessionStorageService.retrieve("ss_user");
+    this.reserva.numberPhone.forEach(function(item){
+      this.phone = item;
+    })
   }
 
   Mostrarmapa() {

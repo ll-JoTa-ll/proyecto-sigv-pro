@@ -30,8 +30,7 @@ export class HotelService {
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) { }
 
   SearchHotel(data): Observable<IHotelResultsModel[]> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ2NTk1NTI4Mjk5NzMzNmU3NDI5YzIwNTE0YjlmNjE0IiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzM1NzIwMDksImV4cCI6MTU3MzU3NTYwOSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.D7dFirFD2XSvHpaIMagBlDCfmOt8uI3_o2mpkveWUEVLl-qR28Uo5-yf2Cm-98Y1xBsU4k_3XljUL0ni3-PwR6flGlHI4ksYgvByqV2IlaXkVgMzS_J40MOnXwmxGLHoDLeAOVs4SN18k29ZcM3y-21MK9UVwX3kj2jJhhXNM352Oz0ZHs3hl_DBVk2GGFIbFea_QaIsniSW9aSr4pJCi5C2DPigR1lqwbwOw6nASj9pyTaYZf945_IhKI1X5TGEB4o3nyzeuS_0vKXcKbzShbenAj6vNxW0Rt_36_0qMnN4zecER2BCZTqouOtFBOzT5xoWQv0xd0O-h7IGlvWGfA';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -40,8 +39,7 @@ export class HotelService {
 }
 
 GetHabitacion(data): Observable<IHabitacionResults> {
-  this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ2NTk1NTI4Mjk5NzMzNmU3NDI5YzIwNTE0YjlmNjE0IiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzM1NzIwMDksImV4cCI6MTU3MzU3NTYwOSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.D7dFirFD2XSvHpaIMagBlDCfmOt8uI3_o2mpkveWUEVLl-qR28Uo5-yf2Cm-98Y1xBsU4k_3XljUL0ni3-PwR6flGlHI4ksYgvByqV2IlaXkVgMzS_J40MOnXwmxGLHoDLeAOVs4SN18k29ZcM3y-21MK9UVwX3kj2jJhhXNM352Oz0ZHs3hl_DBVk2GGFIbFea_QaIsniSW9aSr4pJCi5C2DPigR1lqwbwOw6nASj9pyTaYZf945_IhKI1X5TGEB4o3nyzeuS_0vKXcKbzShbenAj6vNxW0Rt_36_0qMnN4zecER2BCZTqouOtFBOzT5xoWQv0xd0O-h7IGlvWGfA';
-  //this.token = this.sessionSt.retrieve('ss_token');
+  this.token = this.sessionSt.retrieve('ss_token');
   httpOptions.headers = new HttpHeaders({
     'Authorization': "Bearer " + this.token,
     'Content-Type': "application/json",
@@ -50,8 +48,7 @@ GetHabitacion(data): Observable<IHabitacionResults> {
 }
 
   GetConfirmacion(data): Observable<IGetEnhancedHotel>{
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ2NTk1NTI4Mjk5NzMzNmU3NDI5YzIwNTE0YjlmNjE0IiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzM1NzIwMDksImV4cCI6MTU3MzU3NTYwOSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.D7dFirFD2XSvHpaIMagBlDCfmOt8uI3_o2mpkveWUEVLl-qR28Uo5-yf2Cm-98Y1xBsU4k_3XljUL0ni3-PwR6flGlHI4ksYgvByqV2IlaXkVgMzS_J40MOnXwmxGLHoDLeAOVs4SN18k29ZcM3y-21MK9UVwX3kj2jJhhXNM352Oz0ZHs3hl_DBVk2GGFIbFea_QaIsniSW9aSr4pJCi5C2DPigR1lqwbwOw6nASj9pyTaYZf945_IhKI1X5TGEB4o3nyzeuS_0vKXcKbzShbenAj6vNxW0Rt_36_0qMnN4zecER2BCZTqouOtFBOzT5xoWQv0xd0O-h7IGlvWGfA';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     console.log("token: " + this.token);
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
@@ -63,8 +60,7 @@ GetHabitacion(data): Observable<IHabitacionResults> {
   }
 
   GetReserva(data): Observable<IGetPnrHotel>{
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ2NTk1NTI4Mjk5NzMzNmU3NDI5YzIwNTE0YjlmNjE0IiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzM1NzIwMDksImV4cCI6MTU3MzU3NTYwOSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.D7dFirFD2XSvHpaIMagBlDCfmOt8uI3_o2mpkveWUEVLl-qR28Uo5-yf2Cm-98Y1xBsU4k_3XljUL0ni3-PwR6flGlHI4ksYgvByqV2IlaXkVgMzS_J40MOnXwmxGLHoDLeAOVs4SN18k29ZcM3y-21MK9UVwX3kj2jJhhXNM352Oz0ZHs3hl_DBVk2GGFIbFea_QaIsniSW9aSr4pJCi5C2DPigR1lqwbwOw6nASj9pyTaYZf945_IhKI1X5TGEB4o3nyzeuS_0vKXcKbzShbenAj6vNxW0Rt_36_0qMnN4zecER2BCZTqouOtFBOzT5xoWQv0xd0O-h7IGlvWGfA';
-    //this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.sessionSt.retrieve('ss_token');
     console.log("token: " + this.token);
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
@@ -76,7 +72,7 @@ GetHabitacion(data): Observable<IHabitacionResults> {
   }
 
   GetUser(data): Observable<IGetUserById> {
-    this.token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ2NTk1NTI4Mjk5NzMzNmU3NDI5YzIwNTE0YjlmNjE0IiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NzM1NzIwMDksImV4cCI6MTU3MzU3NTYwOSwiaXNzIjoiaHR0cHM6Ly9zaWd2cGx1c3NlY3VyaXR5LmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vc2lndnBsdXNzZWN1cml0eS5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJTZXJ2aWNpb3NTaWd2UGx1cyJdLCJjbGllbnRfaWQiOiJTaWd2UGx1cyIsInNjb3BlIjpbIlNlcnZpY2lvc1NpZ3ZQbHVzIl19.D7dFirFD2XSvHpaIMagBlDCfmOt8uI3_o2mpkveWUEVLl-qR28Uo5-yf2Cm-98Y1xBsU4k_3XljUL0ni3-PwR6flGlHI4ksYgvByqV2IlaXkVgMzS_J40MOnXwmxGLHoDLeAOVs4SN18k29ZcM3y-21MK9UVwX3kj2jJhhXNM352Oz0ZHs3hl_DBVk2GGFIbFea_QaIsniSW9aSr4pJCi5C2DPigR1lqwbwOw6nASj9pyTaYZf945_IhKI1X5TGEB4o3nyzeuS_0vKXcKbzShbenAj6vNxW0Rt_36_0qMnN4zecER2BCZTqouOtFBOzT5xoWQv0xd0O-h7IGlvWGfA';
+    this.token = this.sessionSt.retrieve('ss_token');
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",

@@ -7,4 +7,7 @@ export const environment = {
   cod_rol_autogestion: [3],
   cod_rol_centralizador: [5, 2],
   max_pax: 8,
+  url_hotel: "http://172.16.3.20:8084/api/",
+  url_usuario : "http://172.16.2.101:8110/api/",
+  url_project :"http://localhost:4200",
 };
