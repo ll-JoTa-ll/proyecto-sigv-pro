@@ -27,7 +27,7 @@ export class GestionReservaVueloComponent implements OnInit {
   };
   listadoreserva;
 
-  constructor(private service: AirportService, 
+  constructor(private service: AirportService,
               private sessionstorage: SessionStorageService,
               private router: Router,
               private spinner: NgxSpinnerService,
