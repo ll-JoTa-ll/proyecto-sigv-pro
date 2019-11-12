@@ -1,0 +1,94 @@
+<ng-container>
+    <app-header>
+
+        <div class="row m-0 p-0">
+            <div class="col-1 m-0 p-0"></div>
+            <div class="col-10 m-0 p-0">
+                <div class="row m-0 p-0 pt-5 pb-3">
+                    <div class="col-12 m-0 p-0 txt-titulo">
+                        Mis reservas
+                    </div>
+                </div>
+                <div class="row m-0 p-0">
+
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container" (click)="FiltrarPendientes()">
+                                    <input type="radio" name="radio"> Pendientes
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container" (click)="FiltrarEmitidos()">
+                                    <input type="radio" name="radio"> Emitidos
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container" (click)="FiltrarCancelados()">
+                                    <input type="radio" name="radio"> Cancelados
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container" (click)="FiltrarTodos()">
+                                    <input type="radio" name="radio" checked> Todos
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                    <div class="col-2 m-0 p-0">
+                        <button class="btn btn-buscar">Buscar</button>
+                    </div>
+                    <div class="col-2 m-0 p-0"></div>
+                </div>
+                <div class="row m-0 p-0 pt-5 pb-5">
+                    <div class="col-12 m-0 p-0">
+                        <table class="table-reservas">
+                            <thead class="cabecera-tabla">
+                                <tr>
+                                    <th>Fecha de Creación</th>
+                                    <th>Reserva</th>
+                                    <th>Expira</th>
+                                    <th>Aprobadores</th>
+                                    <th>Ruta</th>
+                                    <th>Solicitante</th>
+                                    <th>Estado</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="body-table">
+                                <tr *ngFor="let item of lsreservas | paginate: { itemsPerPage: 7, currentPage: p}">
+                                    <td>{{item.createdDate | formatfechareservacreacion}}</td>
+                                    <td>{{item.pnr}}</td>
+                                    <td>{{item.timeLimit | formatfechareserva}}</td>
+                                    <td>{{item.numberApproved}}/{{item.numberAuthorizers}}</td>
+                                    <td>{{item.travelRoute}}</td>
+                                    <td>{{item.userName}}</td>
+                                    <td>{{item.ostate.stateDescription}}</td>
+                                    <td><img style="width: 21px;" *ngIf="item.ostate.stateId === 3" src="assets/images/img-validation/rechazado.svg">
+                                        <img style="width: 21px;" *ngIf="item.ostate.stateId === 1" src="assets/images/img-validation/pendiente.svg">
+                                        <img style="width: 21px;" *ngIf="item.ostate.stateId === 2" src="assets/images/img-validation/pendiente.svg">
+                                        <img style="width: 21px;" *ngIf="item.ostate.stateId === 6" src="assets/images/img-validation/aprobado.svg">
+                                        <img style="width: 21px;" *ngIf="item.ostate.stateId === 7" src="assets/images/img-validation/expire.png">
+                                        <img style="width: 21px;" *ngIf="item.ostate.stateId === 5" src="assets/images/img-validation/anulado.png">
+                                        <img style="width: 21px;" *ngIf="item.ostate.stateId === 4" src="assets/images/img-validation/process.png"></td>
+                                    <td *ngIf="item.numberAuthorizers === 0 && item.ostate.stateId === 1" (click)="GetReserva(item.pnr, item.pseudo)" style="color: #176FC7; cursor: pointer;">Gestionar <i class="fas fa-chevron-right"></i></td>
+                                    <td *ngIf="item.ostate.stateId !== 1"><span (click)="GetReserva(item.pnr, item.pseudo)" style="color: #176FC7; cursor: pointer;">Ver reserva <i class="fas fa-chevron-right"></i></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="col-12 m-0 p-0 text-center pt-5">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1 m-0 p-0"></div>
+        </div>
+        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+    </app-header>
+</ng-container>

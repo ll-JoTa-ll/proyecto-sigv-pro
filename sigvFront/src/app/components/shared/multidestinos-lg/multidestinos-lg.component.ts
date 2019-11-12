@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -16,6 +16,13 @@ declare var $: any;
 export class MultidestinosLgComponent implements OnInit {
 
   model: any = {};
+
+  @Input() inOrigenValue;
+  @Input() inOrigenText;
+  @Input() inDestinoValue;
+  @Input() inDestinoText;
+  @Input() inFechaSalidaValue;
+  @Input() inFechaSalidaText;
 
   @Output() outIndexTramo = new EventEmitter<number>();
 
@@ -149,6 +156,44 @@ export class MultidestinosLgComponent implements OnInit {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.outIndexTramo.emit(this.indexTramo);
+
+    this.origenAuto1 = this.inOrigenValue;
+    this.origentTexto1 = this.inOrigenText;
+    this.model.origentTexto1 = this.inOrigenText;
+    this.outOrigenValue1.emit(this.inOrigenValue);
+    this.outOrigenText1.emit(this.inOrigenText);
+
+    this.destinoAuto1 = this.inDestinoValue;
+    this.destinoTexto1 = this.inDestinoText;
+    this.model.destinoTexto1 = this.inDestinoText;
+    this.outDestinoValue1.emit(this.inDestinoValue);
+    this.outDestinoText1.emit(this.inDestinoText);
+
+    console.log("this.inFechaSalidaValue: " + this.inFechaSalidaValue);
+    console.log("this.inFechaSalidaText: " + this.inFechaSalidaText);
+    this.fechaSalida1 = this.inFechaSalidaValue;
+    this.model.salida1 = this.inFechaSalidaText;
+    this.outFechaSalida1.emit(this.inFechaSalidaValue);
+    this.outFechaSalidaShow1.emit(this.inFechaSalidaText);
+
+    if (this.inFechaSalidaText != null || this.inFechaSalidaText != undefined) {
+      const fechaSplit = this.inFechaSalidaText.split('/');
+      const dia = fechaSplit[0];
+      const mes = fechaSplit[1];
+      const anho = fechaSplit[2];
+      this.minDateSalida1 = new Date();
+      this.minDateSalida1.setDate(this.minDateSalida1.getDate());
+      this.minDateSalida2 = new Date(anho, mes, dia);
+      this.minDateSalida2.setDate(this.minDateSalida2.getDate());
+      this.minDateSalida3 = new Date(anho, mes, dia);
+      this.minDateSalida3.setDate(this.minDateSalida3.getDate());
+      this.minDateSalida4 = new Date(anho, mes, dia);
+      this.minDateSalida4.setDate(this.minDateSalida4.getDate());
+      this.minDateSalida5 = new Date(anho, mes, dia);
+      this.minDateSalida5.setDate(this.minDateSalida5.getDate());
+      this.minDateSalida6 = new Date(anho, mes, dia);
+      this.minDateSalida6.setDate(this.minDateSalida6.getDate());
+    }
   }
 
   selectEvent(flag, item) {
@@ -172,8 +217,7 @@ export class MultidestinosLgComponent implements OnInit {
         this.origentTexto1 = item.name;
         this.outOrigenValue1.emit(this.origenAuto1);
         this.outOrigenText1.emit(this.origentTexto1);
-        console.log("case 1");
-        console.log("this.origenAuto1: " + this.origenAuto1);
+        $("#txtOrigen1").removeClass("campo-invalido");
         break;
       case 2:
         this.destinoAuto1 = item.iataCode;
@@ -188,12 +232,15 @@ export class MultidestinosLgComponent implements OnInit {
 
         this.model.origentTexto2 = this.destinoTexto1;
 
+        $("#txtDestino1").removeClass("campo-invalido");
+        $("#txtOrigen2").removeClass("campo-invalido");
         break;
       case 3:
         this.origenAuto2 = item.iataCode;
         this.origentTexto2 = item.name;
         this.outOrigenValue2.emit(this.origenAuto2);
         this.outOrigenText2.emit(this.origentTexto2);
+        $("#txtOrigen2").removeClass("campo-invalido");
         break;
       case 4:
         this.destinoAuto2 = item.iataCode;
@@ -208,12 +255,15 @@ export class MultidestinosLgComponent implements OnInit {
 
         this.model.origentTexto3 = this.destinoTexto2;
 
+        $("#txtDestino2").removeClass("campo-invalido");
+        $("#txtOrigen3").removeClass("campo-invalido");
         break;
       case 5:
         this.origenAuto3 = item.iataCode;
         this.origentTexto3 = item.name;
         this.outOrigenValue3.emit(this.origenAuto3);
         this.outOrigenText3.emit(this.origentTexto3);
+        $("#txtOrigen3").removeClass("campo-invalido");
         break;
       case 6:
         this.destinoAuto3 = item.iataCode;
@@ -228,12 +278,15 @@ export class MultidestinosLgComponent implements OnInit {
 
         this.model.origentTexto4 = this.destinoTexto3;
 
+        $("#txtDestino3").removeClass("campo-invalido");
+        $("#txtOrigen4").removeClass("campo-invalido");
         break;
       case 7:
         this.origenAuto4 = item.iataCode;
         this.origentTexto4 = item.name;
         this.outOrigenValue4.emit(this.origenAuto4);
         this.outOrigenText4.emit(this.origentTexto4);
+        $("#txtOrigen4").removeClass("campo-invalido");
         break;
       case 8:
         this.destinoAuto4 = item.iataCode;
@@ -248,12 +301,15 @@ export class MultidestinosLgComponent implements OnInit {
 
         this.model.origentTexto5 = this.destinoTexto4;
 
+        $("#txtDestino4").removeClass("campo-invalido");
+        $("#txtOrigen5").removeClass("campo-invalido");
         break;
       case 9:
         this.origenAuto5 = item.iataCode;
         this.origentTexto5 = item.name;
         this.outOrigenValue5.emit(this.origenAuto5);
         this.outOrigenText5.emit(this.origentTexto5);
+        $("#txtOrigen5").removeClass("campo-invalido");
         break;
       case 10:
         this.destinoAuto5 = item.iataCode;
@@ -268,18 +324,22 @@ export class MultidestinosLgComponent implements OnInit {
 
         this.model.origentTexto6 = this.destinoTexto5;
 
+        $("#txtDestino5").removeClass("campo-invalido");
+        $("#txtOrigen6").removeClass("campo-invalido");
         break;
       case 11:
         this.origenAuto6 = item.iataCode;
         this.origentTexto6 = item.name;
         this.outOrigenValue6.emit(this.origenAuto6);
         this.outOrigenText6.emit(this.origentTexto6);
+        $("#txtOrigen6").removeClass("campo-invalido");
         break;
       case 12:
         this.destinoAuto6 = item.iataCode;
         this.destinoTexto6 = item.name;
         this.outDestinoValue6.emit(this.destinoAuto6);
         this.outDestinoText6.emit(this.destinoTexto6);
+        $("#txtDestino6").removeClass("campo-invalido");
         break;
     }
 
@@ -469,6 +529,7 @@ export class MultidestinosLgComponent implements OnInit {
   }
 
   onValueChangeSalida1(value: Date): void {
+    $("#txtFechaSalida1").removeClass("campo-invalido");
     this.minDateSalida2 = value;
     this.minDateSalida3 = value;
     this.minDateSalida4 = value;
@@ -498,6 +559,7 @@ export class MultidestinosLgComponent implements OnInit {
   }
 
   onValueChangeSalida2(value: Date): void {
+    $("#txtFechaSalida2").removeClass("campo-invalido");
     this.minDateSalida3 = value;
     this.minDateSalida4 = value;
     this.minDateSalida5 = value;
@@ -526,6 +588,7 @@ export class MultidestinosLgComponent implements OnInit {
   }
 
   onValueChangeSalida3(value: Date): void {
+    $("#txtFechaSalida3").removeClass("campo-invalido");
     this.minDateSalida4 = value;
     this.minDateSalida5 = value;
     this.minDateSalida6 = value;
@@ -553,6 +616,7 @@ export class MultidestinosLgComponent implements OnInit {
   }
 
   onValueChangeSalida4(value: Date): void {
+    $("#txtFechaSalida4").removeClass("campo-invalido");
     this.minDateSalida5 = value;
     this.minDateSalida6 = value;
 
@@ -579,6 +643,7 @@ export class MultidestinosLgComponent implements OnInit {
   }
 
   onValueChangeSalida5(value: Date): void {
+    $("#txtFechaSalida5").removeClass("campo-invalido");
     this.minDateSalida6 = value;
 
     let mes = "";
@@ -604,6 +669,7 @@ export class MultidestinosLgComponent implements OnInit {
   }
 
   onValueChangeSalida6(value: Date): void {
+    $("#txtFechaSalida6").removeClass("campo-invalido");
     let mes = "";
     let getMonth = value.getMonth() + 1;
     if (getMonth < 10) {

@@ -13,6 +13,9 @@ import { IPnrConfirm } from '../models/IPnrConfirm.model';
 import { IGetApprovers } from '../models/IGetApprovers.model';
 import { IGenerateTicket } from '../models/IGenerateTicket.model';
 import { IReservaModel } from '../models/iReserva.model';
+import { iGetReservation } from '../models/IGetReservation.model';
+import { IResultAprobacionReserva } from '../models/iResultAprobacion.model';
+import { IQueuePnr } from '../models/IQueuePnr.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -38,6 +41,8 @@ export class AirportService {
   private _url7: string = environment.url_2 + "ReasonFlight/";
   private _url8: string = environment.url_6 + "Email/";
   private _url9: string = environment.url_2 + "Reservation/";
+  private _url10: string = environment.url_2 + "Authorization/";
+  private _url11: string = environment.url_2 + "Cancel/";
 
   constructor(
     private http: HttpClient,
@@ -52,17 +57,17 @@ export class AirportService {
 
   airportList(token) {
     this.token = this.sessionSt.retrieve('ss_token');
-    console.log('token' + token);
+    console.log('token' + this.token);
     httpOptions2.headers = new HttpHeaders({
-      'Authorization': "Bearer " + token,
+      'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
     });
     return this.http.get(this._url + "GetAirports", httpOptions2);
   }
 
   searchFlight(data): Observable<ISearchFlightModel[]> {
-    this.token = this.sessionSt.retrieve('ss_token');
-    httpOptions2.headers = new HttpHeaders({
+   this.token = this.sessionSt.retrieve('ss_token');
+   httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
     });
@@ -152,5 +157,60 @@ export class AirportService {
     });
     const url = `${this._url9 + 'GetReservationList'}?${'userId=' + data}`;
     return this.http.get<IReservaModel[]>(url, httpOptions2);
+  }
+
+  ListaReservasAutorizador(data): Observable<IReservaModel[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    const url = `${this._url9 + 'GetReservationByAuthorizer'}?${'userId=' + data}`;
+    return this.http.get<IReservaModel[]>(url, httpOptions2);
+  }
+
+  GetReservation(data): Observable<iGetReservation> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<iGetReservation>(this._url9 + "GetReservation", data, httpOptions2);
+  }
+
+  AprobarReserva(data): Observable<IResultAprobacionReserva> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IResultAprobacionReserva>(this._url10 + "ApproveReservation", data, httpOptions2);
+  }
+
+  RechazarReserva(data): Observable<IResultAprobacionReserva> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IResultAprobacionReserva>(this._url10 + "RefuseReservation", data, httpOptions2);
+  }
+
+  CancelPnr(data) {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post(this._url11  + "CancelPNR", data, httpOptions2);
+  }
+
+  QueuePnr(data): Observable<IQueuePnr>  {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IQueuePnr>(this._url4  + "QueuePnr", data, httpOptions2);
   }
 }

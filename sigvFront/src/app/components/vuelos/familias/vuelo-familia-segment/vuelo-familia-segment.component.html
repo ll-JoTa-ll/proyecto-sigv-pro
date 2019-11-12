@@ -1,0 +1,131 @@
+
+
+
+
+<div class="row m-0 p-0 pb-5 pt-5">
+  <div class="col-2 m-0 p-0"></div>
+  <div class="col-8 m-0 p-0 box-shadow">
+    <div class="row m-0 p-0">
+      <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+            <img style="width: 60px;" class="img-fluid vertical-center pl-4" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+          </div>
+          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+            {{segment.oairline.carrierName}}
+          </div>
+          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+            Vuelo {{segment.oairline.flightOrtrainNumber}} - {{segment.oairline.equipmentType}}
+          </div>
+        </div>
+      </div>
+      <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+        <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0">
+            {{segment.odeparture.dateShow}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.odeparture.timeShow}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.oorigin.city}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.oorigin.airportCity}}
+          </div>
+        </div>
+      </div>
+      <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+        <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0">
+            Duración
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.otime.totalFlightTimeShow}}
+          </div>
+        </div>
+      </div>
+      <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+        <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0">
+            {{segment.oarrival.dateShow}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.oarrival.timeShow}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.odestination.city}}
+          </div>
+          <div class="col-12 m-0 p-0">
+            {{segment.odestination.airportCity}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2 m-0 p-0"></div>
+</div>
+
+<div class="row m-0 p-0" style="width: 100%;">
+  <div class="col-12 m-0 p-0">
+
+
+    <div class="row m-0 p-0 d-flex justify-content-center">
+
+      <div class="col-2 m-0 p-0 pl-4">
+
+        <div class="row m-0 p-0" style="">
+
+          <div class="col-12 m-0 p-0" style="height: 80px;"></div>
+
+          <div
+            style="width: 100% !important; border: 1px solid #ccc !important; border-radius: 20px 0 0 0 !important; border: 1px solid #ccc !important;"
+            class="box-shadow col-12 m-0 p-0 d-flex justify-content-center align-items-center" [class]="classDivInc+segmentIndex">
+            INCLUYE
+          </div>
+
+          <div style="width: 100% !important; border: 1px solid #ccc !important;" class="box-shadow col-12 m-0 p-0 d-flex justify-content-center align-items-center" [class]="classDivNof+segmentIndex">
+            NO INCLUYE
+          </div>
+
+          <div
+            style="width: 100% !important; border: 1px solid #ccc !important; border-radius: 0 0 20px 0 !important; border: 1px solid #ccc !important;"
+            class="box-shadow col-12 m-0 p-0 d-flex justify-content-center align-items-center" [class]="classDivCha+segmentIndex">
+            PAGA POR
+          </div>
+
+          <div class="col-12 m-0 p-0"></div>
+
+        </div>
+
+      </div>
+
+      <div class="col-10 m-0 p-0 pr-4">
+
+        <div class="row m-0 p-0" style="width: 100%; display: flex; flex-wrap: nowrap; overflow-x: auto">
+
+          <app-familia-fare
+            [fareFamily]="fareFamily"
+            [currency]=""
+            [fareFamilyIndex]="i+1"
+            [flagCountInc]="flagCountInc"
+            [flagCountNof]="flagCountNof"
+            [flagCountCha]="flagCountCha"
+            [segmentIndex]="segmentIndex"
+            [sectionIndex]="sectionFamilyIndex"
+            [familyLength]="segment.lfareFamilies.length"
+            (idRadioBtnFareFam)="selectRadioBtnFam($event)"
+            *ngFor="let fareFamily of segment.lfareFamilies; let i=index"
+          ></app-familia-fare>
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+
+  </div>
+</div>

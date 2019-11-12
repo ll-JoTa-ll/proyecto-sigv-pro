@@ -21,10 +21,11 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtOrigen1" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
+              [(ngModel)]="model.origentTexto1"
               style="color: #898989 !important;"
               [data]="data"
               [searchKeyword]="keyword"
@@ -60,10 +61,11 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtDestino1" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
+              [(ngModel)]="model.destinoTexto1"
               style="color: #898989 !important;"
               [data]="data2"
               [searchKeyword]="keyword"
@@ -89,9 +91,9 @@
 
     </div>
 
-    <div class="col-2 m-0 p-0">
+    <div class="col-2 m-0 p-0 pl-2">
 
-      <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+      <label id="txtFechaSalida1" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida1.toggle()"
@@ -105,6 +107,7 @@
                (bsValueChange)="onValueChangeSalida1($event)"
                bsDatepicker
                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+               [(ngModel)]="model.salida1"
         >
       </label>
 
@@ -137,9 +140,9 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtOrigen2" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
               style="color: #898989 !important;"
               [(ngModel)]="model.origentTexto2"
@@ -177,9 +180,9 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtDestino2" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
               style="color: #898989 !important;"
               [data]="data4"
@@ -206,9 +209,9 @@
 
     </div>
 
-    <div class="col-2 m-0 p-0">
+    <div class="col-2 m-0 p-0 pl-2">
 
-      <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+      <label id="txtFechaSalida2" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida2.toggle()"
@@ -257,9 +260,9 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtOrigen3" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
               style="color: #898989 !important;"
               [(ngModel)]="model.origentTexto3"
@@ -297,9 +300,9 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtDestino3" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
               style="color: #898989 !important;"
               [data]="data6"
@@ -326,9 +329,9 @@
 
     </div>
 
-    <div class="col-2 m-0 p-0">
+    <div class="col-2 m-0 p-0 pl-2">
 
-      <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+      <label id="txtFechaSalida3" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida3.toggle()"
@@ -378,9 +381,9 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtOrigen4" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
               style="color: #898989 !important;"
               [(ngModel)]="model.origentTexto4"
@@ -418,9 +421,9 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtDestino4" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
               style="color: #898989 !important;"
               [data]="data8"
@@ -447,9 +450,9 @@
 
     </div>
 
-    <div class="col-2 m-0 p-0">
+    <div class="col-2 m-0 p-0 pl-2">
 
-      <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+      <label id="txtFechaSalida4" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida4.toggle()"
@@ -499,9 +502,9 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtOrigen5" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
               style="color: #898989 !important;"
               [(ngModel)]="model.origentTexto5"
@@ -539,9 +542,9 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtDestino5" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
               style="color: #898989 !important;"
               [data]="data10"
@@ -568,9 +571,9 @@
 
     </div>
 
-    <div class="col-2 m-0 p-0">
+    <div class="col-2 m-0 p-0 pl-2">
 
-      <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+      <label id="txtFechaSalida5" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida5.toggle()"
@@ -620,9 +623,9 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtOrigen6" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
               style="color: #898989 !important;"
               [(ngModel)]="model.origentTexto6"
@@ -660,9 +663,9 @@
 
         </div>
 
-        <div class="col-10 m-0 p-0">
+        <div id="txtDestino6" class="col-10 m-0 p-0">
 
-          <div class="ng-autocomplete" style="width: 95%;">
+          <div class="ng-autocomplete" style="width: 100%;">
             <ng-autocomplete
               style="color: #898989 !important;"
               [data]="data12"
@@ -689,9 +692,9 @@
 
     </div>
 
-    <div class="col-2 m-0 p-0">
+    <div class="col-2 m-0 p-0 pl-2">
 
-      <label for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+      <label id="txtFechaSalida6" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida6.toggle()"

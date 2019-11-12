@@ -1,0 +1,104 @@
+<ng-container>
+    <app-header>
+
+        <div class="row m-0 p-0">
+            <div class="col-1 m-0 p-0"></div>
+            <div class="col-10 m-0 p-0">
+                <div class="row m-0 p-0 pt-5 pb-3">
+                    <div class="col-12 m-0 p-0 txt-titulo">
+                        Gestion de reservas
+                    </div>
+                </div>
+                <div class="row m-0 p-0">
+
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container" (click)="FiltrarPendientes()">
+                                    <input type="radio" name="radio"> Pendientes
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container" (click)="FiltrarAprobados()">
+                                    <input type="radio" name="radio"> Aprobados
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container" (click)="FiltrarTodos()">
+                                    <input type="radio" name="radio" checked> Todos
+                                    <span class="checkmark"></span>
+                            </label>
+                    </div>
+
+                    <div class="col-2 m-0 p-0">
+                        <button class="btn btn-buscar">Buscar</button>
+                    </div>
+
+                    <div class="col-2 m-0 p-0"></div>
+                    <div class="col-2 m-0 p-0"></div>
+                </div>
+                <div class="row m-0 p-0 pt-5 pb-5">
+                    <div class="col-12 m-0 p-0">
+                        <ng-template #modalerror let-c="close" let-d="dismiss">
+                            <div class="modal-header m-0 p-0" style="border: none;">
+                                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                            </div>
+                            <div class="modal-body m-0 p-0">
+                                <div class="row m-0 p-0 text-center pt-4 pb-4">
+                                    <div class="col-12 m-0 p-0 text-1">
+                                        {{omessage}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-0 p-0 pb-5">
+                                <div class="col-12 m-0 p-0 text-center">
+                                    <button (click)="modalRef.hide()" class="btn btn-close">Cerrar</button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <table class="table-reservas">
+                            <thead class="cabecera-tabla">
+                                <tr style="border: none;">
+                                    <th></th>
+                                    <th>Fecha de Creación</th>
+                                    <th>Reserva</th>
+                                    <th>Expira</th>
+                                    <th>Ruta</th>
+                                    <th>Solicitante</th>
+                                    <th>Estado</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="body-table">
+                                <tr *ngFor="let item of lsreservas | paginate: { itemsPerPage: 7, currentPage: p}">
+                                    <td style="border: none;border-right: 1px solid #ddd; border-bottom: none;"><span *ngIf="item.ostate.stateId === 1"><img style="width: 20px;" src="assets/images/iconpendiente.png"></span></td>
+                                    <td>{{item.createdDate | formatfechareserva}}</td>
+                                    <td>{{item.pnr}}</td>
+                                    <td>{{item.timeLimit | formatfechareserva}}</td>
+                                    <td>{{item.travelRoute}}</td>
+                                    <td>{{item.userName}}</td>
+                                    <td>{{item.ostate.stateDescription}}</td>
+                                    <td><img *ngIf="item.ostate.stateId === 1" src="assets/images/img-validation/pendiente.svg">
+                                        <img *ngIf="item.ostate.stateId === 2" src="assets/images/img-validation/aprobado.svg">
+                                        <img *ngIf="item.ostate.stateId === 3" src="assets/images/img-validation/rechazado.svg"></td>
+                                    <td *ngIf="item.ostate.stateId === 1" (click)="GetReserva(item.pnr, item.pseudo, modalerror)" style="color: #176FC7; cursor: pointer;">Gestionar <i class="fas fa-chevron-right"></i></td>
+                                    <td *ngIf="item.ostate.stateId !== 1" (click)="GetReserva(item.pnr,item.pseudo, modalerror)" style="color: #176FC7; cursor: pointer;">Ver reserva <i class="fas fa-chevron-right"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="col-12 m-0 p-0 text-center pt-5">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1 m-0 p-0"></div>
+        </div>
+        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+    </app-header>
+</ng-container>

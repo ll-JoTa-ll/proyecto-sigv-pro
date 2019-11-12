@@ -1,12 +1,11 @@
-<div class="m-0 p-0"
-     [ngClass]="
-     {
-        'pl-2 pt-5': tipo === 1,
-        'pl-4': tipo === 2,
-        'pl-4': tipo === 3
-     }
-    "
->
+<div class="m-0 p-0" [ngClass]="
+{
+   'pl-2 pt-5': tipo === 1,
+   'padding1': tipo === 2,
+   'padding2': tipo === 3,
+   'padding3 pb-5' : tipo === 4
+}
+">
     <div class="col-12 m-0 p-0 contenedor-form">
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0">
@@ -14,8 +13,13 @@
                     <div class="col-6 m-0 p-0 pt-3">
                         <span class="div-price pl-4 pr-4 pt-1 pb-1">Precio Final</span>
                     </div>
-                    <div class="col-6 m-0 p-0 text-right pt-3 pr-5">
-                        <span class="pr-4"><img src="./assets/images/medalla.svg"></span>
+                    <div *ngIf="tipo === 1 || tipo === 2 || tipo === 3" class="col-6 m-0 p-0 text-right pt-3 pr-5">
+                        <span *ngIf="LSection[0].Lsegments[0].FareType==='RB'" class="pr-4"><img src="./assets/images/medalla.svg"></span>
+                        <span *ngIf="Lpolicies.length > 0" class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
+                        <span *ngIf="Lpolicies.length === 0" class="circulo-politica1"></span>
+                    </div>
+                    <div *ngIf="tipo === 4" class="col-6 m-0 p-0 text-right pt-3 pr-5">
+                        <span *ngIf="Litineraries[0].fareType ==='RB' && tipo === 4" class="pr-4"><img src="./assets/images/medalla.svg"></span>
                         <span *ngIf="Lpolicies.length > 0" class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
                         <span *ngIf="Lpolicies.length === 0" class="circulo-politica1"></span>
                     </div>

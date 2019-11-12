@@ -16,15 +16,7 @@
 
         <div class="col-9 m-0 p-0" style="">
             <!-- border-right: 1px solid #898989; -->
-            <app-recomendacion-section
-              [sectionLength]="lsectionLength"
-              [posicion]="i+1"
-              [recommendationId]="recommendationId"
-              [recommendationIndex]="i+1"
-              [tipoVuelo]="tipoVuelo"
-              (outSegmentCheck)="setearRadioId($event)"
-              [section]="section"
-              *ngFor="let section of lsections; let i=index">
+            <app-recomendacion-section [sectionLength]="lsectionLength" [posicion]="i+1" [recommendationId]="recommendationId" [recommendationIndex]="i+1" [tipoVuelo]="tipoVuelo" (outSegmentCheck)="setearRadioId($event)" [section]="section" *ngFor="let section of lsections; let i=index">
             </app-recomendacion-section>
         </div>
         <div class="col-3 m-0 p-0 pt-4">
@@ -41,8 +33,8 @@
 
                         <div class="col-5 m-0 p-0 text-right">
                             <img *ngIf="lsections[0].lSectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 22px;">
-                            <span style="cursor: pointer" (click)="openModalPoliticas(modalPolitica)" *ngIf="lpolicies.length>0" class="pl-1 r-span-1">●</span>
-                            <span *ngIf="lpolicies.length===0" class="pl-1 r-span-2">●</span>
+                            <span style="cursor: pointer" (click)="openModalPoliticas(modalPolitica)" *ngIf="lpolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
+                            <span *ngIf="lpolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
                         </div>
 
                         <div class="col-1 m-0 p-0"></div>
@@ -64,28 +56,21 @@
                 <div class="col-1 m-0 p-0"></div>
 
                 <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 30px !important;">
-                    <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId)">
+                    <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId, modalerror)">
             Ver familias
           </button>
 
                     <ng-template #modalFamilias let-c="close" let-d="dismiss">
 
                         <div class="modal-header pb-0" style="border: none;">
-                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalFamilia($event)">
                 <span aria-hidden="true">&times;</span>
               </button>
                         </div>
 
                         <div class="modal-body m-0 p-0">
-                            <app-familias
-                              *ngIf="flagResultFamilias===1"
-                              [lstFamilyResult]="lstFamilyResult"
-                              [nroPersonas]="numberPassengers"
-                              [currency]="currency"
-                              [dataRequestFamilia]="dataRequestFamilia"
-                              [tipoVuelo]="tipoVuelo"
-                              (flagCloseModal)="closeModalFamilia($event)"
-                            ></app-familias>
+                            <app-familias *ngIf="flagResultFamilias===1" [lstFamilyResult]="lstFamilyResult.lsections" [nroPersonas]="numberPassengers" [currency]="currency" [dataRequestFamilia]="dataRequestFamilia" [tipoVuelo]="tipoVuelo" (flagCloseModal)="closeModalFamilia($event)"
+                                [famFareAmountByPassenger]="famFareAmountByPassenger" [famTotalFareAmount]="famTotalFareAmount" [flagMsgErrorSelFam]="flagMsgErrorSelFam" [modalRef]="modalRef" (outIdRadioBtnFareFam)="famFlightAvailability($event)" (flagCloseModal)="flagCloseModal($event)"></app-familias>
 
                             <div *ngIf="flagResultFamilias===0" class="row m-0 p-0">
                                 <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
@@ -159,30 +144,26 @@
 
 <ng-template #modalPolitica let-c="close" let-d="dismiss">
 
-  <div class="modal-header pb-0" style="border: none;">
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
+    <div class="modal-header pb-0" style="border: none;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>
-
-  <div class="modal-body m-0 p-0">
-
-    <div class="row m-0 p-0 pb-3">
-      <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
-        <u>Infracción de Políticas de Viaje</u>
-      </div>
     </div>
 
-    <div class="row m-0 p-0">
+    <div class="modal-body m-0 p-0">
 
-      <app-recomendacion-politicas
-        [politica]="politica"
-        [politicaIndex]="i+1"
-        [politicaslength]="lpolicies.length"
-        *ngFor="let politica of lpolicies; let i=index"></app-recomendacion-politicas>
+        <div class="row m-0 p-0 pb-3">
+            <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+                <u>Infracción de Políticas de Viaje</u>
+            </div>
+        </div>
+
+        <div class="row m-0 p-0">
+
+            <app-recomendacion-politicas [politica]="politica" [politicaIndex]="i+1" [politicaslength]="lpolicies.length" *ngFor="let politica of lpolicies; let i=index"></app-recomendacion-politicas>
+
+        </div>
 
     </div>
-
-  </div>
 
 </ng-template>

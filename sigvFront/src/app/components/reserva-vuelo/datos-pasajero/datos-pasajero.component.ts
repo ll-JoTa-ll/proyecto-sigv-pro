@@ -40,38 +40,24 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     ignoreBackdropClick: true
   };
   datos;
+  tratamiento;
+  fecha;
 
 
   constructor(private modalService: BsModalService) {
-    this.flagValDatosPAsajeros = false;
-    /*
-    console.log('constructor');
-    console.log('this.datosuser: ' + JSON.stringify(this.datosuser));
-
-      this.datosuser.name = '';
-      this.datosuser.lastName = '';
-      this.datosuser.documentType = '';
-      this.datosuser.documentNumber = '';
-      this.datosuser.nationality = '';
-      //this.datosuser.birthDate = '';
-      this.datosuser.email = '';
-      this.datosuser.phone = '';
-      this.datosuser.frequentFlyer = '';
-    */
   }
 
   ngOnInit() {
-    /*
-    console.log('ngOnInit');
-    this.datosPax = this.datosuser;
-    console.log('this.datosPax: ' + JSON.stringify(this.datosPax));
-    console.log('this.datosuser: ' + JSON.stringify(this.datosuser));
-    */
+    if (this.user.gender === 'M') {
+      this.tratamiento = 'MR';
+    }
+    if (this.user === 'F') {
+      this.tratamiento = 'MRS';
+    }
+    this.fecha = this.user.birthDate;
   }
 
   ngAfterViewInit() {
-    this.flagValDatosPAsajeros = true;
-    console.log('ngAfterViewInit DatosPasajeroComponent');
   }
 
   openModal(template: TemplateRef<any>, template2: TemplateRef<any>) {

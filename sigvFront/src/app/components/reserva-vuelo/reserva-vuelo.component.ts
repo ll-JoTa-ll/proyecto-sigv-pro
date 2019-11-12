@@ -9,6 +9,7 @@ import { IReasonFlight } from 'src/app/models/IReasonFlight';
 import { Router } from '@angular/router';
 import { IGetApprovers } from '../../models/IGetApprovers.model';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { fromStringWithSourceMap } from 'source-list-map';
 
 declare var jquery: any;
 declare var $: any;
@@ -32,6 +33,7 @@ export class ReservaVueloComponent implements OnInit {
   tipovuelo;
   loginDataUser;
   lst_rol_autogestion;
+  lst_rol_autorizador;
   LSection;
   LPolicies;
   datosuser: any[] = [];
@@ -68,14 +70,12 @@ export class ReservaVueloComponent implements OnInit {
     //this.sessionStorageService.store('ss_FlightAvailability_result', null);
     this.sessionStorageService.store('tipovuelo', null);
     this.lst_rol_autogestion = environment.cod_rol_autogestion;
+    this.lst_rol_autorizador = environment.cod_rol_autorizador;
   }
 
   ngOnInit() {
-    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0]) {
-      this.GetUsers();
-  } else {
-     this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-  }
+    // tslint:disable-next-line: max-line-length
+    window.scrollTo(0, 0);
     this.LSection = this.flightAvailability_request.Lsections;
     this.LSectionPassenger = this.datarequest.Lsections;
     this.LPolicies = this.flightAvailability_request.lpolicies;
@@ -87,6 +87,12 @@ export class ReservaVueloComponent implements OnInit {
     this.pseudo = this.flightAvailability_request.Pseudo;
     this.gds = this.flightAvailability_request.Gds;
     this.flightNational = this.flightAvailability_request.FlightNational;
+    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
+      this.GetUsers();
+  } else {
+     this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+     this.TraerAutorizador();
+  }
    // this.CostCenter();
     this.ReasonFlight();
   }
@@ -101,7 +107,6 @@ export class ReservaVueloComponent implements OnInit {
         results => {
           objuser = results;
           this.datosuser.push(objuser);
-          console.log(this.datosuser);
         },
         err => {
              console.log("error results", err);
@@ -158,7 +163,6 @@ export class ReservaVueloComponent implements OnInit {
       } else {
         prefix = 'MRS';
       }
-  
       let fechatotal;
       let fecha = item.birthDate.substr(0, 10);
       let fechaformat = fecha.split('-');
@@ -166,7 +170,6 @@ export class ReservaVueloComponent implements OnInit {
       let mes = fechaformat[1];
       let dia = fechaformat[2];
       fechatotal = año + '/' + mes + '/' + dia;
-      
       const objuser = {
           "PassengerId": 1,
           "PersonId": item.personId,
@@ -183,21 +186,6 @@ export class ReservaVueloComponent implements OnInit {
          };
          datosusuario.push(objuser);
     });
-   /* let datosusuario =
-    [{
-      "PassengerId": 1,
-			"PersonId": this.datosuser.personId,
-			"Prefix": prefix,
-			"Type": "ADT",
-			"Name": this.datosuser.firstName,
-			"LastName": this.datosuser.lastName,
-			"Gender": this.datosuser.gender,
-			"BirthDate": fechatotal,
-			"Odocument": this.datosuser.odocument,
-			"FrequentFlyer": this.datosuser.frequentFlyer,
-      "IsVIP": this.datosuser.isVIP,
-      "lcostCenter": this.datosuser.lcostCenter
-    }];*/
 
     let data = {
       "Ocompany": this.ocompany,
@@ -218,6 +206,70 @@ export class ReservaVueloComponent implements OnInit {
     ) 
   }
 
+  ValidarCampos() {
+    let val = true;
+    this.datosuser.forEach(function(item, index) {
+        if ($('#txtnombre_' + (index + 1)).val().length <= 0) {
+          val = false;
+          $('#txtnombre_' + (index + 1)).addClass('campo-invalido');
+        } else {
+          $('#txtnombre_' + (index + 1)).removeClass('campo-invalido');
+        }
+        if ($('#txtapellidos_' + (index + 1)).val().length <= 0) {
+          $('#txtapellidos_' + (index + 1)).addClass('campo-invalido');
+          val = false;
+        } else {
+          $('#txtapellidos_' + (index + 1)).removeClass('campo-invalido');
+        }
+        if ($('#txtnrodocumento_' + (index + 1)).val().length <= 0) {
+          $('#txtnrodocumento_' + (index + 1)).addClass('campo-invalido');
+          val = false;
+        } else {
+          $('#txtnrodocumento_' + (index + 1)).removeClass('campo-invalido');
+        }
+        if ($('#cbo_tipodocumento_' + (index + 1)).val().trim() === '') {
+          $('#cbo_tipodocumento_' + (index + 1)).addClass('campo-invalido');
+          val = false;
+        } else {
+          $('#cbo_tipodocumento_' + (index + 1)).removeClass('campo-invalido');
+        }
+        if ($('#cbotratamiento_' + (index + 1)).val().trim() === '') {
+          $('#cbotratamiento_' + (index + 1)).addClass('campo-invalido');
+          val = false;
+        } else {
+          $('#cbotratamiento_' + (index + 1)).removeClass('campo-invalido');
+        }
+        if ($('#txtcorreo_' + (index + 1)).val().length <= 0) {
+          $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
+          val = false;
+        } else {
+          $('#txtcorreo_' + (index + 1)).removeClass('campo-invalido');
+        }
+        if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
+          $('#txttelefono_' + (index + 1)).addClass('campo-invalido');
+          val = false;
+        } else {
+          $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
+        }
+    });
+    if ($('#contactocorreo').val().length <= 0) {
+      $('#contactocorreo').addClass('campo-invalido');
+      val = false;
+    } else {
+      $('#contactocorreo').removeClass('campo-invalido');
+    }
+
+    if ($('#contactotelefono').val().length <= 0) {
+      $('#contactotelefono').addClass('campo-invalido');
+      val = false;
+    } else {
+      $('#contactotelefono').removeClass('campo-invalido');
+    }
+
+    return val;
+  }
+
+
   Comprar() {
    /* this.email = this.datosuser.email;
     this.phone = this.datosuser.phone;
@@ -225,13 +277,23 @@ export class ReservaVueloComponent implements OnInit {
     let idmotivo = $('#cbomotivo option:selected').val();
 
     let datosusuario: any[] = [];
-    this.datosuser.forEach(function(item) {
+    let contacto: any;
+    let mail : any = [];
+    let phone: any = [];
+    let email2;
+    let telefono2;
+    email2 = $('#contactocorreo').val();
+    telefono2 = $('#contactotelefono').val();
+    this.datosuser.forEach(function(item, index) {
       let prefix;
-      if (item.gender === 'M') {
-        prefix = 'MR';
-      } else {
-        prefix = 'MRS';
-      }
+      let nombre;
+      let apellido;
+      let fechanacimiento;
+      let typedoc;
+      let nrodoc;
+      let email1 : any;
+      let telefono1;
+
       let fechatotal;
       let fecha = item.birthDate.substr(0, 10);
       let fechaformat = fecha.split('-');
@@ -239,27 +301,64 @@ export class ReservaVueloComponent implements OnInit {
       let mes = fechaformat[1];
       let dia = fechaformat[2];
       fechatotal = año + '/' + mes + '/' + dia;
+
+      nombre = $('#txtnombre_' + (index + 1)).val();
+      apellido = $('#txtapellidos_' + (index + 1)).val();
+      fechanacimiento = fechatotal,
+      typedoc = $('#cbo_tipodocumento_' + (index + 1) + ' '  + 'option:selected').val();
+      nrodoc = $('#txtnrodocumento_' + (index + 1)).val();
+      prefix = $('#cbotratamiento_' + (index + 1) + ' '  + 'option:selected').val();
+      email1 = $('#txtcorreo_' + (index + 1)).val();
+      telefono1 = $('#txttelefono_' + (index + 1)).val();
+      let odocument = {
+        description: 'Documento Nacional',
+        number: nrodoc,
+        type: typedoc
+      }
+
+      mail.push(email1);
+      phone.push(telefono1);
+
+      contacto = {
+        email : mail,
+        telefonos : phone
+      }
       const objuser = {
-        "PassengerId": 1,
+        "PassengerId": index + 1,
         "PersonId": item.personId,
         "Prefix": prefix,
         "Type": "ADT",
-        "Name": item.firstName,
-        "LastName": item.lastName,
+        "Name": nombre,
+        "LastName": apellido,
         "Gender": item.gender,
-        "BirthDate": fechatotal,
-        "Odocument": item.odocument,
+        "BirthDate": fechanacimiento,
+        "Odocument": odocument,
         "FrequentFlyer": item.frequentFlyer,
         "IsVIP": item.isVIP
        }
       datosusuario.push(objuser);
     });
-    this.sessionStorageService.store('datosusuario', datosusuario);
-    this.sessionStorageService.store('sectioninfo', this.LSection);
-    this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
-    this.sessionStorageService.store('politicas', this.LPolicies);
-    this.sessionStorageService.store('lsuser', this.datosuser);
-    this.sessionStorageService.store('idmotivo', idmotivo);
-    this.router.navigate(['/reserva-vuelo-compra']);
+
+    if (email2 != '' && telefono2 != '') {
+      mail.push(email2);
+      phone.push(telefono2);
+    }
+    contacto = {
+      email : mail,
+      telefonos : phone
+    }
+    const val = this.ValidarCampos();
+    if (!val) {
+      return val;
+    } else {
+      this.sessionStorageService.store('contacto', contacto);
+      this.sessionStorageService.store('datosusuario', datosusuario);
+      this.sessionStorageService.store('sectioninfo', this.LSection);
+      this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
+      this.sessionStorageService.store('politicas', this.LPolicies);
+      this.sessionStorageService.store('lsuser', this.datosuser);
+      this.sessionStorageService.store('idmotivo', idmotivo);
+      this.router.navigate(['/reserva-vuelo-compra']);
+    }
   }
 }

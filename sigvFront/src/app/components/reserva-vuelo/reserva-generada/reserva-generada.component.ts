@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IPnrConfirm } from '../../../models/IPnrConfirm.model';
 import { SessionStorageService } from 'ngx-webstorage';
 import { AirportService } from '../../../services/airport.service';
-import { Router } from '@angular/router';
+import { Router, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-reserva-generada',
@@ -20,6 +20,7 @@ export class ReservaGeneradaComponent implements OnInit {
   lsapprover;
   fechatimelimit;
   horatimelimit;
+  loginDataUser;
 
   constructor(private sessionStorageService: SessionStorageService, private service: AirportService, private router: Router) {
      this.lspnrresults = this.sessionStorageService.retrieve('datapnr');
@@ -27,9 +28,12 @@ export class ReservaGeneradaComponent implements OnInit {
      this.lsflightavailability = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
      this.dataflightavalilability = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
      this.lusers = this.sessionStorageService.retrieve('lsuser');
+     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
   }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
+    this.bloquearBotonAtras();
     this.LPolicies = this.sessionStorageService.retrieve('politicas');
     this.lsapprover = this.sessionStorageService.retrieve('lsapprover');
     this.FormatearFechaPnr();
@@ -37,13 +41,42 @@ export class ReservaGeneradaComponent implements OnInit {
 
   FormatearFechaPnr() {
     let data;
+    let recorte; 
     let fecha;
     let hora;
     data = this.lspnrresults.timeLimit;
-    fecha = data.substr(0, 10);
-    hora =  data.substr(11, 16);
+    recorte = data.split("T");
+    fecha = recorte[0];
+    var date = new Date(fecha);
+    hora =  recorte[1];
+    recorte = fecha.split("-");
+    fecha = (recorte[2] + " " + date.toLocaleString('default', { month: 'short' }) + " del " + recorte[0]);
+    hora = hora.substr(0,5);
     this.fechatimelimit = fecha;
     this.horatimelimit = hora;
+  }
+
+  bloquearBotonAtras() {
+    if (this.lspnrresults.pnr != null) {
+      history.pushState(null, null, location.href);
+      window.onpopstate = function() {
+        history.go(1);
+    };
+    }
+  }
+
+  Cerrar() {
+  if (this.loginDataUser.orole.roleDescription === 'Centralizador') {
+    this.router.navigate(['/gestion-reserva-vuelo']);
+  }
+
+  if (this.loginDataUser.orole.roleDescription === 'Autorizador') {
+    this.router.navigate(['/mis-reservas-vuelo']);
+  }
+
+  if (this.loginDataUser.orole.roleDescription === 'Usuario') {
+    this.router.navigate(['/mis-reservas-vuelo']);
+  }
   }
 
 }

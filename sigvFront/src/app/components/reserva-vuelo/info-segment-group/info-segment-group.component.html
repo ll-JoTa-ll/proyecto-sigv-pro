@@ -2,7 +2,7 @@
     <div class="col-12 m-0 p-0">
         <div class="row m-0 p-0 pt-3 pb-3 div-air">
             <div *ngIf="tipo==1" class="col-6 m-0 p-0 text-center">
-                <span *ngIf="tipo==1" class="pr-5"><img class="img-airlane" src="/assets/images/airlines/{{marketingCarrier}}"></span>
+                <span *ngIf="tipo == 1" class="pr-5"><img class="img-airlane" src="./assets/images/airlines/{{marketingCarrier}}"></span>
                 <span [ngClass]="{
                     'text-airlane': tipo == 1,
                     'text-airlane-2': tipo == 2
@@ -72,8 +72,10 @@
     </div>
     <div class="col-4 m-0 p-0">
         <div class="row m-0 p-0 div-city1 pr-5">
-            <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-1': tipo == 1,
+            <div *ngIf="segmentGroup.DateVariation === 0" class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-1': tipo == 1,
             'texto1-1': tipo == 2}">{{segmentGroup.ArrivalDateShow}}</div>
+            <div *ngIf="segmentGroup.DateVariation > 0" style="color: #ED1C24 !important;" class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-1': tipo == 1,
+            'texto1-1': tipo == 2}"> <span style="padding-right: 5px !important;">(+{{segmentGroup.DateVariation}})</span> {{segmentGroup.ArrivalDateShow}}</div>
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-2': tipo == 1,
             'texto2-1': tipo == 2}">{{segmentGroup.TimeOfArrivalShow}}</div>
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-3': tipo == 1,

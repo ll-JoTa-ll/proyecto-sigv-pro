@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
+    <style>
+        @font-face {
+            font-family: 'Omnes-bold';
+            src: url('https://sigvplus.azurewebsites.net/sigvFront/assets/fonts/Omnes/OmnesBold.ttf');
+        }
+        
+        @font-face {
+            font-family: 'Omnes-reg';
+            src: url('https://sigvplus.azurewebsites.net/sigvFront/assets/fonts/Omnes/OmnesReg.ttf');
+        }
+        
+        @font-face {
+            font-family: 'Omnes-sem';
+            src: url('https://sigvplus.azurewebsites.net/sigvFront/assets/fonts/Omnes/OmnesSem.ttf');
+        }
+        
+        @font-face {
+            font-family: 'Omnes-med';
+            src: url('https://sigvplus.azurewebsites.net/sigvFront/assets/fonts/Omnes/OmnesMedium.otf');
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        .tabla {
+            border-collapse: separate !important;
+            border-spacing: 0;
+            width: 100%;
+            -moz-border-radius: 6px;
+            -webkit-border-radius: 6px;
+            border-radius: 6px;
+        }
+        
+        .tabla,
+        td,
+        th {
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        .fondo {
+            width: 100% !important;
+            background-image: url('https://sigvplus.azurewebsites.net/sigv/assets/images/header.png');
+            height: 250px;
+            background-repeat: no-repeat;
+            border-radius: 0 0 20px 20px;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        th,
+        td {
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div style='width: 100%;'>
+        <div class='row'>
+            <div class='fondo'>
+                <div class='row'>
+                    <div style='width: 100% !important; margin: 0px; padding: 0px; height: 200px; text-align: center; padding-top: 30px;'>
+                        <div style='width: 100% !important;'>
+                            <img src='https://sigvplus.azurewebsites.net/sigv/assets/images/logoblanco.png' style='width: 150px;'>
+                        </div>
+                        <div style='width: 100% !important; padding-top: 20px;'>
+                            <span style='color: #FFFFFF; font-size: 25px;border-bottom: 2px solid #fff;'>RESERVA GENERADA</span>
+                        </div>
+                    </div>
+                    <!--  <div style='width: 100%; margin: 0px; padding: 0px; height: 100px;'>
+
+                        <div class='row'>
+                            <div style='width: 10%;'></div>
+                            <div style='width: 80%; background-color: white !important; height: 100px; border-radius: 20px 20px 0 0;'></div>
+                            <div style='width: 10%;'></div>
+                        </div>
+
+                    </div>-->
+                </div>
+
+            </div>
+        </div>
+        <div class='row'>
+            <div style='width: 10% !important;'>
+            </div>
+            <div style='width: 80% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017); padding-left: 1%; padding-right: 1%; padding-top: 1%; padding-bottom: 1%;'>
+                <div class='row'>
+                    <div style='width: 100%; padding-bottom: 2%; padding-top: 2%;'>
+                        <div class='row'>
+                            <div style='width: 50%; text-align: right; padding-right: 50px;'>
+                                <img src='https://sigvplus.azurewebsites.net/sigv/assets/images/transporte-aereo.png'>
+                            </div>
+                            <div style='width: 50%;'>
+                                <div style='font-size: 22px;'>!FELICIDADES¡</div>
+                                <div>Tu reserva ha sido generada.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div style='width: 100% !important; padding-top: 5%; padding-bottom: 5%;'>
+                        <div class='row'>
+                            <div style='width: 50%; text-align: right;'>
+                                <span style='border-radius: 10px 0px 0px 10px;background: #6B253C;color: #FDFDFD;padding-left: 35px;padding-right: 35px;padding-top: 24px;padding-bottom: 24px;font-size: 24px;'>Codigo de reserva</span>
+                            </div>
+                            <div style='width: 50%;'>
+                                <span style='border-radius: 10px 0px 0px 10px;background: #FBF6F6 ;padding-left: 90px;padding-right: 90px;padding-top: 24px;padding-bottom: 24px; font-size: 24px;color: #898989;text-align: center;'>@pnr</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div style='width: 100%; padding-bottom: 1%;'>
+                    <div style='width: 100% !important; padding-bottom: 5px;' '>
+                      <span style='color: #6A243B;font-size: 20px; padding-right: 2%; '>● Solicitado por:</span>
+                      <span style='color: #676767; font-size: 18px; '>@solicitadopor</span>
+                  </div>
+                  <div style='width: 100% !important; border-bottom: 1px solid #707070;padding-bottom: 1%; ' '>
+                        <span style='color: #6A243B;font-size: 20px; padding-right: 2%; '>● Fecha de creación:</span>
+                        <span style='color: #676767; font-size: 18px; '>@fechacreacion</span>
+                    </div>
+                    <div style='width: 100% !important; padding-bottom: 5px; padding-top: 1%;'>
+                        <span style='color: #6A243B;font-size: 20px; padding-right: 2%; '>● Fecha de expiración:</span>
+                        <span style='color: #676767; font-size: 18px; '>@fechaexpiracion</span>
+                    </div>
+                    <div style='width: 100% !important; padding-bottom: 5px; ' '>
+                        <span style='color: #6A243B;font-size: 20px; padding-right: 2%; '>● Reservado por:</span>
+                        <span style='color: #676767; font-size: 18px; '>@reservadopor</span>
+                    </div>
+                    <div style='width: 100% !important; ' '>
+                        <span style='color: #6A243B;font-size: 20px; padding-right: 2%; '>● Motivo:</span>
+                        <!--  <span style='color: #676767; font-size: 18px; '>@motivo</span> -->
+                    </div>
+                </div>
+
+                <div class='row ' style='padding-left: 3%; padding-right: 3%; padding-top: 1%; padding-bottom: 1%; '>
+                    <div style='width: 100% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017); '>
+                        <div class='row '>
+                            <div style='width: 100% !important; padding-top: 2%; padding-bottom: 2%; '>
+                                <span style='background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; border-radius: 0px 23px 23px 0px; color: #FFFFFF; padding: 7px 90px 7px 30px; '>RESUMEN DE PRECIOS</span>
+                            </div>
+                        </div>
+                        <div class='row '>
+                            <div style='width: 100%; text-align: center !important; padding-left: 2%; padding-right: 2%; padding-bottom: 2%; '>
+                                <table class='tabla '>
+                                    <thead style='color: #676767; background: #FBF6F6 0% 0% no-repeat padding-box; font-size: 14px; '>
+                                        <th>Tipo Pasajero</th>
+                                        <th>Precio por pasajero</th>
+                                        <th>Sub. total</th>
+                                    </thead>
+                                    <tbody style='color: #898989; font-size: 14px; '>
+                                        <tr>
+                                            <td>1 Adulto(s)</td>
+                                            <td>@precioadulto</td>
+                                            <td>@preciototal</td>
+                                        </tr>
+                                        <tr>
+                                            <td>0 Niños(s)</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>0 Infante(s)</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class='row ' style='text-align: right; padding-bottom: 1%; color: #505050; '>
+                            <div style='width: 50%; '>
+
+                            </div>
+                            <div style='width: 50%; '>
+                                <div class='row '>
+                                    <div style='width: 50%; text-align: right; '>
+                                        <div style='width: 100%; '>
+                                            Total Tarifa Normal @currency
+                                        </div>
+                                        <div style='width: 100%; '>
+                                            Descuento Aplicado @currency
+                                        </div>
+                                        <div style='width: 100%; '>
+                                            Total Tarifa Final @currency
+                                        </div>
+                                    </div>
+                                    <div style='width: 50%;text-align: center; '>
+                                        <div style='width: 100%; '>
+                                            @precioadulto @currency
+                                        </div>
+                                        <div style='width: 100%; '>
+                                            0.0 USD
+                                        </div>
+                                        <div style='width: 100%; '>
+                                            @preciototal @currency
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class='row ' style='padding-left: 3%; padding-right: 3%; padding-top: 1%; padding-bottom: 1%; '>
+                    <div style='width: 100% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017); '>
+                        <div class='row '>
+                            <div style='width: 100% !important; padding-top: 2%; padding-bottom: 2%; '>
+                                <span style='background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; border-radius: 0px 23px 23px 0px; color: #FFFFFF; padding: 7px 90px 7px 30px; '>ITINERARIO</span>
+                            </div>
+                        </div>
+                        <div class='row '>
+                            <div style='width: 100% !important; padding-left: 2%; '>
+                                <!--  <span style='color: #3D3D3D; font-size: 20px;'>Clase de vuelo: @clasevuelo</span> -->
+                            </div>
+                        </div>
+                        @segmento
+                    </div>
+                </div>
+
+                <div class='row ' style='padding-left: 3%; padding-right: 3%; padding-top: 1%; padding-bottom: 1%; '>
+                    <div style='width: 100% !important; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border: 2px solid rgba(219, 223, 227, 0.303017); '>
+                        <div class='row '>
+                            <div style='width: 100% !important; padding-top: 2%; padding-bottom: 2%; '>
+                                <span style='background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; border-radius: 0px 23px 23px 0px; color: #FFFFFF; padding: 7px 90px 7px 30px; '>PASAJEROS</span>
+                            </div>
+                        </div>
+                        @pasajeros
+                    </div>
+
+                </div>
+            </div>
+            <div style='width: 10% !important; '>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

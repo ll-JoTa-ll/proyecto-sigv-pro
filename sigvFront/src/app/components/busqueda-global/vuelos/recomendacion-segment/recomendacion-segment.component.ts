@@ -18,6 +18,7 @@ export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
   @Input() sectionId;
   @Input() lSectionGroups;
   @Input() recommendationIndex;
+  @Input() bagQuantity;
 
   //@Output() segmentRadioCheckId = new EventEmitter<string>();
   //@Output() outSegment = new EventEmitter<any>();

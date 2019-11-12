@@ -69,18 +69,8 @@
             <div class="row m-0 p-0">
                 <!-- style="border-right: 1px solid #898989;" -->
                 <div class="col-12 m-0 p-0 pt-4 pb-4">
-                    <app-recomendacion-segment
-                      [section]="section"
-                      [segment]="segment"
-                      [bagAllowed]="section.bagAllowed"
-                      [indexSegment]="i+1"
-                      [recommendationIndex]="recommendationIndex"
-                      [recommendationId]="recommendationId"
-                      [sectionId]="section.sectionId"
-                      [lSectionGroups]="section.lSectionGroups"
-                      (outSegmentCheck)="setSegmentCheck($event)"
-                      *ngFor="let segment of section.lSegments; let i=index"
-                    ></app-recomendacion-segment>
+                    <app-recomendacion-segment [section]="section" [segment]="segment" [bagAllowed]="section.bagAllowed" [bagQuantity]="section.bagQuantity" [indexSegment]="i+1" [recommendationIndex]="recommendationIndex" [recommendationId]="recommendationId" [sectionId]="section.sectionId"
+                        [lSectionGroups]="section.lSectionGroups" (outSegmentCheck)="setSegmentCheck($event)" *ngFor="let segment of section.lSegments; let i=index"></app-recomendacion-segment>
                 </div>
 
                 <!--

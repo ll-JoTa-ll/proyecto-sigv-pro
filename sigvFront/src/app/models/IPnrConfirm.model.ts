@@ -61,5 +61,7 @@ export class IPnrConfirm {
             }
         ];
     }
-    oerror: string;
+    oerror: {
+        message: string;
+    };
 }

@@ -33,7 +33,7 @@
                             style="font-family: Omnes-sem; font-size: 15px; color: white;"
                             aria-controls="dropdown-basic">
                       {{nombreUsuario}}
-                      <img style="width: 30px; padding-left: 5px; cursor: pointer;" src="./assets/images/logo-familia.png" alt="">
+                      <img style="width: 30px; padding-left: 5px; cursor: pointer;" src="./assets/images/user_male.svg" alt="">
                       <span class="caret"></span>
                     </button>
                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
@@ -53,22 +53,50 @@
             <div class="col-2 m-0 p-0">
 
               <div class="row m-0 p-0">
-                <div class="col-4 m-0 p-0"></div>
+                <div class="col-3 m-0 p-0"></div>
 
-                <div class="col-4 m-0 p-0">
+                <div class="col-6 m-0 p-0">
 
                   <div class="row m-0 p-0">
-                    <div class="col-12 m-0 p-0" style="height: 35px"></div>
+                    <div class="col-12 m-0 p-0" style="height: 15px"></div>
                     <div class="col-12 m-0 p-0">
+                      <!--
                       <button class="btn btn-menu-search">
                         <input type="image" src="./assets/images/menu.svg">
                       </button>
+                      -->
+
+
+
+                      <!--
+                      <div class="btn-group" dropdown>
+                        <button id="button-basic_2" dropdownToggle type="button" class="btn btn-menu-search"
+                                style="font-family: Omnes-sem; font-size: 15px; color: white;"
+                                aria-controls="dropdown-basic">
+                          <img style="padding-left: 5px; cursor: pointer;" src="./assets/images/menu.svg" alt="">
+                          <span class="caret"></span>
+                        </button>
+                        <ul id="dropdown-basic_2" *dropdownMenu class="dropdown-menu"
+                            role="menu" aria-labelledby="button-basic">
+                          <li style="cursor: pointer" role="menuitem" *ngFor="let menu of loginDataUser.lmenu">
+                            <a style="cursor: pointer;" class="dropdown-item" routerLink="{{menu.urlMenu}}">
+                              {{menu.nameMenu}}
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      -->
+
+                      <app-nav-header></app-nav-header>
+
+
+
                     </div>
                   </div>
 
                 </div>
 
-                <div class="col-4 m-0 p-0"></div>
+                <div class="col-3 m-0 p-0"></div>
               </div>
 
             </div>

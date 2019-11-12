@@ -1,0 +1,84 @@
+<div class="row m-0 p-0">
+    <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0 pt-3 pb-3 div-air">
+            <div class="col-6 m-0 p-0 text-center">
+                <span class="pr-5"><img class="img-airlane" src="/assets/images/airlines/{{itemgroup.carrier}}.png"></span>
+                <span class="text-airlane">Aerolinea Operadores: {{itemgroup.CarrierName}} </span>
+            </div>
+            <div class="col-6 m-0 p-0 text-center">
+                <span class="text-plane">Vuelo {{itemgroup.flightNumber}} - {{itemgroup.equipmentType}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row m-0 p-0 pt-4">
+    <div class="col-4 m-0 p-0">
+        <div class="row m-0 p-0 div-city1 pl-5">
+            <div class="col-12 m-0 p-0 text-center texto-1">{{itemgroup.departureDate}}</div>
+            <div class="col-12 m-0 p-0 text-center texto-2">{{itemgroup.departureTime}}</div>
+            <div class="col-12 m-0 p-0 text-center texto-3">{{itemgroup.origin}}</div>
+            <div class="col-12 m-0 p-0 text-center texto-4">{{itemgroup.cityOrigin}}</div>
+            <div class="col-12 m-0 p-0 text-center texto-5">{{itemgroup.airportOrigin}}</div>
+        </div>
+    </div>
+    <div class="col-4 m-0 p-0">
+        <div class="row m-0 p-0 pt-5">
+            <div class="col-12 m-0 p-0 text-center">
+                <div class="row m-0 p-0">
+                    <div class="col-3 m-0 p-0"></div>
+                    <div class="col-1 m-0 p-0">
+                        <hr style="background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box" class="div-separator1">
+                    </div>
+                    <div class="col-4 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0 text-duracion">
+                                Duración
+                            </div>
+                            <div class="col-12 m-0 p-0 text-timetotal">
+                                {{itemgroup.totalFlightTime}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1 m-0 p-0">
+                        <hr style="background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box" class="div-separator2">
+                    </div>
+                    <div class="col-3 m-0 p-0"></div>
+                </div>
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0">
+                        <span class="pr-2 txt-clase">Clase:</span>
+                        <span class="txt-desclase">{{itemgroup.cabinDescription}} - {{itemgroup.cabinId}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 m-0 p-0">
+        <div class="row m-0 p-0 div-city1 pr-5">
+            <div class="col-12 m-0 p-0 text-center texto-1">{{itemgroup.arrivalDate}}</div>
+            <div class="col-12 m-0 p-0 text-center texto-2">{{itemgroup.arrivalTime}}</div>
+            <div class="col-12 m-0 p-0 text-center texto-3">{{itemgroup.destination}}</div>
+            <div class="col-12 m-0 p-0 text-center texto-4">{{itemgroup.cityDestination}}</div>
+            <div class="col-12 m-0 p-0 text-center texto-5">{{itemgroup.airportDestination}}</div>
+        </div>
+    </div>
+</div>
+<div class="row m-0 p-0">
+    <div class="col-12 m-0 p-0 pt-3 text-center g-text-5">
+        <div class="row m-0 p-0" style="display: flex !important;
+            justify-content: center !important;
+            align-items: center;">
+
+            <div class="col-4 m-0 p-0">
+                <hr style="height: 7px; border-radius: 20px 0 0 20px; background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box">
+            </div>
+            <div class="col-4 m-0 p-0 g-text-5 d-flex justify-content-center align-items-center" style="border-radius: 20px 20px 20px 20px; background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; height: 32px">
+                {{textFlightTimeShow}}
+            </div>
+            <div class="col-4 m-0 p-0">
+                <hr style="height: 7px; border-radius: 0 20px 20px 0;background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box">
+            </div>
+        </div>
+    </div>
+
+</div>

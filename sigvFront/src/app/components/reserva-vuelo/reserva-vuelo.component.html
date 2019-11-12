@@ -6,8 +6,11 @@
                 <div class="row m-0 p-0">
                     <div class="col-7 m-0 p-0">
                         <div class="row m-0 p-0 pt-5">
-                            <div class="title-form pt-3 pb-3 pl-5">
-                                DATOS DEL PASAJERO(S)
+                            <div *ngIf="datosuser.length === 1" class="title-form pt-3 pb-3 pl-5">
+                                DATOS DEL PASAJERO
+                            </div>
+                            <div *ngIf="datosuser.length > 1" class="title-form pt-3 pb-3 pl-5">
+                                DATOS DE LOS PASAJEROS
                             </div>
                             <app-datos-pasajero [currency]="currency" *ngFor="let user of datosuser; let i = index;" [user]="user" [index]="i + 1" [LPolicies]="LPolicies"></app-datos-pasajero>
                         </div>
@@ -32,7 +35,7 @@
                         </div>
                     </div>
                     <div class="col-5 m-0 p-0">
-                        <app-precio-final [tipo]="1" [Lpolicies]="LPolicies" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount"></app-precio-final>
+                        <app-precio-final [LSection]="LSection" [tipo]="1" [Lpolicies]="LPolicies" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount"></app-precio-final>
                         <app-info-recomendacion [tipovuelo]="tipovuelo" [LSection]="LSection"></app-info-recomendacion>
                     </div>
                 </div>
