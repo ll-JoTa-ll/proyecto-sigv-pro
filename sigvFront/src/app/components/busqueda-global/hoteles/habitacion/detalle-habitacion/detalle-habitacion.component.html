@@ -1,28 +1,22 @@
-<div *ngIf="lhabitaciones.guaranteeType != 'Deposit' || lhabitaciones.guaranteeType === '' " class="col-12 m-0 p-0 pb-3">
+<div *ngIf="lhabitaciones.guaranteeType !='Deposit' && lhabitaciones.guaranteeType != '' " class="col-12 m-0 p-0 pb-3">
     <div class="row m-0 p-0 pt-4 pb-2">
         <div class="col-8 m-0 p-0 pr-4">
             <div class="row m-0 p-0 box-shadow" style="border-radius: 10px 0px 10px 0px">
                 <div class="col-6 m-0 p-0" style="background-color: #FBF6F6">
                     <div class="row m-0 p-0 pb-3">
-                        <div class="col-12 m-0 p-0 text-center" style="background-color: #FFFFFF">
+
+                        <!--<div class="col-12 m-0 p-0 text-center" style="background-color: #FFFFFF">
                             <span class="tituhabi">Habitacion</span>
                             <img class="imagenMi" src="assets/images/motel.jpg">
-                        </div>
-                        <div class="col-12 m-0 p-0 text-center pt-4">
+                        </div>-->
+                        <div class="col-12 m-0 p-0 text-center pt-4 pb-4">
                             <span class="habidesc">{{lhabitaciones.name}}</span>
                         </div>
-                        <div class="col-12 m-0 p-0">
-                            <span class="pl-3"><span class="imgben"><img src="assets/images/snow.png "></span><span class="Condition">Aire acondicionado</span></span>
+                        <div *ngIf="lhabitaciones.lamenities != null && lhabitaciones.lamenities.length > 0" class="col-12 m-0 p-0" style="
+                                display: inline-grid;">
+                            <span *ngFor="let item of lhabitaciones.lamenities" style="padding-bottom: 20px;"><span class="imgben"><img style="width: 30px;" src="assets/images/{{item.code}}.png"></span><span class="Condition">{{item.description}}</span></span>
                         </div>
-                        <div class="col-12 m-0 p-0">
-                            <span class="pl-3"><span class="imgben"><img src="assets/images/pool.png "></span><span class="Condition">Piscina</span></span>
-                        </div>
-                        <div class="col-12 m-0 p-0">
-                            <span class="pl-3"><span class="imgben"><img src="assets/images/wifi.svg "></span><span class="Condition">Wifi-gratis en zonas comunes</span></span>
-                        </div>
-                        <div class="col-12 m-0 p-0">
-                            <span class="pl-3"><span class="imgben"><img src="assets/images/parking.png "></span><span class="Condition">Estacionamiento gratis</span></span>
-                        </div>
+
                     </div>
                 </div>
                 <div class="col-6 m-0 p-0" style="border-left: 1px solid #707070;">
@@ -64,7 +58,7 @@
                     </div>
                     <div class="row m-0 p-0 pb-4" style="background-color: #FBF6F6">
                         <div class="col-12 m-0 p-0 text-center pt-3">
-                            <div class="row m-0 p-0">
+                            <div *ngIf="breakFast != null" class="row m-0 p-0">
 
                                 <div *ngIf="breakFast" class="col-12 m-0 p-0 pb-3">
 
@@ -75,7 +69,7 @@
                                     <span class="Description pl-2">✓ No incluye desayuno<img style="width: 30px;" class="pl-1" src="assets/images/bread.png"></span>
                                 </div>
                             </div>
-                            <div class="row m-0 p-0">
+                            <div *ngIf="lhabitaciones.lcancelPenalties.length > 0 && lhabitaciones.lcancelPenalties != '' " class="row m-0 p-0">
 
                                 <div *ngIf="lhabitaciones.lcancelPenalties[0].nonRefundable" class="col-12 m-0 p-0 pb-3">
 
@@ -86,7 +80,7 @@
                                     <span class="Description pl-2">✓No Reembolsable<img style="width: 30px;" class="pl-1" src="assets/images/no-money.png"></span>
                                 </div>
                             </div>
-                            <div class="row m-0 p-0">
+                            <div *ngIf="lhabitaciones.guaranteeType != '' && lhabitaciones.guaranteeType.length > 0" class="row m-0 p-0">
 
                                 <div *ngIf="lhabitaciones.guaranteeType === 'GuaranteeRequired' " class="col-12 m-0 p-0 pb-3">
 

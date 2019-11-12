@@ -69,6 +69,9 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
 
     console.log('this.hotel: ' + JSON.stringify(this.hotel));
 
+    console.log("this.lstHotel: " + JSON.stringify(this.lstHotel));
+    console.log("this.hotel: " + JSON.stringify(this.hotel));
+
     this.location.latitude =  this.hotel.oposition.latitude;
     this.location.longitude = this.hotel.oposition.longitude;
 

@@ -35,6 +35,9 @@ export class IHotelResultsModel {
                 caption: string;
             }
         ];
+        oerror:{
+            message:string;
+        };
         lpolicies: string;
         gds: string;
         pseudo: string;

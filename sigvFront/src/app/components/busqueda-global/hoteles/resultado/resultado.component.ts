@@ -89,7 +89,6 @@ export class ResultadoComponent implements OnInit {
 
     this.service.GetHabitacion(data).subscribe(
       data => {
-
         this.lstHabication = data;
         
         this.sessionStorageService.store("lstHabication", this.lstHabication);
@@ -106,8 +105,6 @@ export class ResultadoComponent implements OnInit {
    }
     )
   }
-
-   
 
 
   Mostrarmapa(position) {

@@ -17,7 +17,7 @@
                 </div>
                 <div class="row m-0 p-0">
                     <div class="col-8 m-0 p-0 pr-4">
-                        <app-pago (outNumTarjeta)="setNumTarjeta($event)" (outVencimiento)="setFechVencimiento($event)" (outTitular)="setTitular($event)" (outCodSeguridad)="setCodSeguridad($event)"></app-pago>
+                        <app-pago (outNumTarjeta)="setNumTarjeta($event)" (outVencimiento)="setFechVencimiento($event)" (outTitular)="setTitular($event)" (outCodSeguridad)="setCodSeguridad($event)" (outNomTarjeta)="setNombreTarjeta($event)"></app-pago>
                         <app-titulares-reserva (outTelefono)="setTelefono($event)" (outCorreo)="setCorreo($event)"></app-titulares-reserva>
                         <app-contacto></app-contacto>
                         <div class="row m-0 p-0">
@@ -51,12 +51,12 @@
                                 <span style="border-bottom: 1px solid #ED1C24">Politicas y Condiciones</span>
                             </div>
                         </div>
-                        <div class="row m-0 p-0 pt-3">
+                        <div *ngIf="lstConfirmacion.oroom.lcancelPenalties.length > 0 && lstConfirmacion.oroom.lcancelPenalties != null" class="row m-0 p-0 pt-3">
                             <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].deadline != null && lstConfirmacion.oroom.lcancelPenalties[0].deadline != '' " class="col-12 m-0 p-0">
                                 <span class="info">✓ Se puede cancelar hasta el {{lstConfirmacion.oroom.lcancelPenalties[0].deadline}}</span>
                             </div>
                         </div>
-                        <div class="row m-0 p-0">
+                        <div *ngIf="lstConfirmacion.oroom.lcancelPenalties.length > 0 && lstConfirmacion.oroom.lcancelPenalties != null " class="row m-0 p-0">
                             <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].nonRefundable === false" class="col-12 m-0 p-0">
                                 <span class="info">✓ No Reembolsable <img style="width: 50px;" src="assets/images/no-money.png"></span>
                             </div>

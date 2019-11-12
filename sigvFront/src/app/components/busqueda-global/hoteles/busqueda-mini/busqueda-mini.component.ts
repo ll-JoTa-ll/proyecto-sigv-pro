@@ -28,7 +28,8 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   @Input() cantidadnoches;
   @Output() messagelistado = new EventEmitter<any[]>();
   @Output() mayorPrecio = new EventEmitter<number>();
-  @Output() menorPrecio = new EventEmitter<number>();;
+  @Output() menorPrecio = new EventEmitter<number>();
+  @Output() flagShowMap = new EventEmitter<boolean>();
 
   @Input() destinoValue: string;
   @Input() destinoText: string;
@@ -183,6 +184,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
 
   SeachHotel() {
     this.spinner.show();
+    this.flagShowMap.emit(false);
     let data = {
       "Lhotel":
       [
@@ -207,13 +209,34 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.adultos = $('#txtpersonas').val();
     console.log('data: ' + JSON.stringify(data));
     this.service.SearchHotel(data).subscribe(
-       data => {
-          console.log(this.LResultshotel);
-          this.sessionStorageService.store('ls_search_hotel', data);
-          this.LResultshotel = data;
+       result => {
+          if (result[0].oerror != null) {
+            alert("HOTELES NO DISPONIBLES");
+          }
+          else {
+            console.log(this.LResultshotel);
+          this.sessionStorageService.store('ls_search_hotel', result);
+
+          //this.sessionStorageService.store('ls_search_hotel', result);
+          //this.LlistaHotel = result;
+          console.log("this.result[0]: " + result[0]);
+          this.sessionStorageService.store('hotel', null);
+          this.sessionStorageService.store('hotel', result[0]);
+
+          this.LResultshotel = result;
+          //this.flagShowMap.emit(true);
           this.messagelistado.emit(this.LResultshotel);
           this.spinner.hide();
+          }
        },
+       err => {
+        this.spinner.hide();
+        console.log("ERROR: " + JSON.stringify(err));
+       },
+       () => {
+         this.spinner.hide();
+         console.log("this.airportService.searchFlight completado");
+       }
    );
  }
 
@@ -266,5 +289,29 @@ ObtenerDias2(fecha1, fecha2) {
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
 }
+
+validarNumeros(e){
+  var tecla = (document.all) ? e.keyCode : e.which;
+   if (tecla == 8) return true;
+    var patron = /^([0-9])*$/;
+     var teclaFinal = String.fromCharCode(tecla);
+      return patron.test(teclaFinal);
+};
+
+validarTodo(e){
+  var tecla = (document.all) ? e.keyCode : e.which;
+   if (tecla == 8) return true;
+    var patron = /^([])*$/;
+     var teclaFinal = String.fromCharCode(tecla);
+      return patron.test(teclaFinal);
+};
+
+validarLetras(e){
+  var tecla = (document.all) ? e.keyCode : e.which;
+   if (tecla == 8) return true;
+    var patron = /^([a-zA-Z ])*$/;
+     var teclaFinal = String.fromCharCode(tecla);
+      return patron.test(teclaFinal);
+};
 
 }

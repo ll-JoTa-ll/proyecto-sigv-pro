@@ -52,6 +52,7 @@ export class HotelesComponent implements OnInit {
   cantidadnoche: string;
   mayorPrecioHotel: number;
   menorPrecioHotel: number;
+  mapafiltro: boolean;
  
 
 
@@ -70,6 +71,7 @@ export class HotelesComponent implements OnInit {
     this.divwarning = false
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
+    this.mapafiltro = true;
   }
 
   ngOnInit() {
@@ -188,6 +190,7 @@ export class HotelesComponent implements OnInit {
            this.menorPrecioHotel = menorValor;
            this.mayorPrecioHotel = mayorValor;
     this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
+    this.mapafiltro = true;
   }
 
   ObtenerListFiltro($event) {
@@ -277,43 +280,46 @@ export class HotelesComponent implements OnInit {
     this.service.SearchHotel(data).subscribe(
       
       result => {
-        if (result.length == 0 || result == null) {
+        if (result.length == 0 || result == null || result[0].oerror != null) {
           alert("HOTELES NO DISPONIBLES");
         }
-         console.log(this.LlistaHotel);
-         if (result !== null && result.length > 0) {
-          console.log('result: ' + result);
-          this.sessionStorageService.store('ls_search_hotel', result);
-           this.LlistaHotel = result;
-           this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
-           this.flagBuscar = true;
-
-           let menorValor = 1000000;
-           let mayorValor = 0;
-           let currency;
-           let cantnoche;
-           
-          result.forEach(function(item, index1) {
-
-            let mmm = 1000000;
-
-            if (item.oprice.pricePerAllNights < menorValor) {
-              menorValor = item.oprice.pricePerAllNights;
-            }
-              if (item.oprice.pricePerAllNights > mayorValor) {
-                mayorValor = item.oprice.pricePerAllNights;
-              }
+        else{
+          console.log(this.LlistaHotel);
+          if (result !== null && result.length > 0) {
+           console.log('result: ' + result);
+           this.sessionStorageService.store('ls_search_hotel', result);
+            this.LlistaHotel = result;
+            this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
+            this.flagBuscar = true;
+ 
+            let menorValor = 1000000;
+            let mayorValor = 0;
+            let currency;
+            let cantnoche;
             
-           });
-
-           this.cantidadnoche = cantnoche;
-           this.currency = currency;
-           this.menorPrecioHotel = menorValor;
-           this.mayorPrecioHotel = mayorValor;
-         } else {
-           this.flagDinData = true;
-           
-      }
+           result.forEach(function(item, index1) {
+ 
+             let mmm = 1000000;
+ 
+             if (item.oprice.pricePerAllNights < menorValor) {
+               menorValor = item.oprice.pricePerAllNights;
+             }
+               if (item.oprice.pricePerAllNights > mayorValor) {
+                 mayorValor = item.oprice.pricePerAllNights;
+               }
+             
+            });
+ 
+            this.cantidadnoche = cantnoche;
+            this.currency = currency;
+            this.menorPrecioHotel = menorValor;
+            this.mayorPrecioHotel = mayorValor;
+          } else {
+            this.flagDinData = true;
+            
+       }
+        }
+         
       },
     err => {
       this.spinner.hide();
@@ -354,4 +360,10 @@ validarLetras(e){
      var teclaFinal = String.fromCharCode(tecla);
       return patron.test(teclaFinal);
 };
+
+
+showHideMap($event) {
+  this.mapafiltro = $event;
+}
+  
 }

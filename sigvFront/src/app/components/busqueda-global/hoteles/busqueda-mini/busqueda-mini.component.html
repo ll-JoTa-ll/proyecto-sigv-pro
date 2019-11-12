@@ -6,7 +6,7 @@
         </div>
 
         <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3">
-            <div class="ng-autocomplete div-autocomplete">
+            <div class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
                 <ng-autocomplete [(ngModel)]="destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate">
                 </ng-autocomplete>
@@ -38,6 +38,7 @@
                                        [(ngModel)]="fchingreso"
                                        placeholder="Ingreso"
                                        class="p-0 pl-2 v-texto-3"
+                                       (keypress)="validarTodo($event)"
                                        #datepickerIngreso="bsDatepicker"
                                        (onHidden)="handlerIngreso(datepickerIngreso)"
                                        (bsValueChange)="onValueChangeIngreso($event)"
@@ -60,6 +61,7 @@
                                        [(ngModel)]="fchsalida"
                                        class="p-0 pl-2 v-texto-3"
                                        #datepickerSalida="bsDatepicker"
+                                       (keypress)="validarTodo($event)"
                                        (bsValueChange)="onValueChangeSalida($event)"
                                        [minDate]="minDateSalida"
                                        bsDatepicker
@@ -129,7 +131,7 @@
                     <input type="image"
                     src="./assets/images/cama.svg"
                     class="input-img2">
-                    <input type="text"
+                    <input (keypress)="validarNumeros($event)" type="text"
                     [(ngModel)]="habitaciones"
                     id="txthabitacion"
                     class="input-habitacion"
@@ -139,7 +141,7 @@
                   <input type="image"
                   src="./assets/images/pasajero.svg"
                   class="input-img2">
-                  <input type="text"
+                  <input (keypress)="validarNumeros($event)" type="text"
                   [(ngModel)]="adultos"
                   id="txtpersonas"
                   class="input-habitacion"

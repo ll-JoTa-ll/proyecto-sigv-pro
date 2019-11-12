@@ -71,8 +71,8 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <div *ngIf="lsthabitacion.ohotel.lamenities != null && lsthabitacion.ohotel.lamenities.length > 0 " class="row m-0 p-0">
-                                    <div *ngIf="lsthabitacion.ohotel.limagens[0].url != null && lsthabitacion.ohotel.limagens[0].url != '' && lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0" class="col-8 m-0 p-0">
+                                <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0 " class="row m-0 p-0">
+                                    <div *ngIf="lsthabitacion.ohotel.limagens[0].url != null && lsthabitacion.ohotel.limagens[0].url != '' " class="col-8 m-0 p-0">
                                         <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="{{lsthabitacion.ohotel.limagens[0].url}}" (click)="openModal(template)">
                                         <ng-template #template>
 
@@ -95,8 +95,8 @@
 
                                         <!-- <img *ngFor="let imga of lsthabitacion.ohotel.limagens" class="imagenG" src="{{imga.url}}"> -->
                                     </div>
-                                    <div class="col-4 m-0 p-0">
-                                        <div *ngIf="lsthabitacion.ohotel.limagens[1].url != null && lsthabitacion.ohotel.limagens[1].url != '' && lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0" class="row m-0 p-0">
+                                    <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0" class="col-4 m-0 p-0">
+                                        <div *ngIf="lsthabitacion.ohotel.limagens[1].url != null && lsthabitacion.ohotel.limagens[1].url != '' " class="row m-0 p-0">
                                             <img class="pl-2 pt-4" style="width: 400px; height: 270px; border-radius: 15px 0px 15px 0px;" src="{{lsthabitacion.ohotel.limagens[1].url}}" (click)="openModal(template)">
                                         </div>
                                         <div class="row m-0 p-0 pt-3 pb-4">

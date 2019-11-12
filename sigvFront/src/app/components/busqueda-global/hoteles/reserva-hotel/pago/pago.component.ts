@@ -16,6 +16,7 @@ declare var $: any;
 export class PagoComponent implements OnInit {
 
   @Output() outNumTarjeta = new EventEmitter<string>();
+  @Output() outNomTarjeta = new EventEmitter<string>();
   @Output() outVencimiento = new EventEmitter<string>();
   @Output() outCodSeguridad = new EventEmitter<string>();
   @Output() outTitular = new EventEmitter<string>();
@@ -30,6 +31,7 @@ export class PagoComponent implements OnInit {
   fechVencimiento: string;
   codSeguridad: string;
   titular: string;
+  nombreTarjeta: string;
   
   tipoTarjeta: number;
   slash: number;
@@ -55,23 +57,29 @@ export class PagoComponent implements OnInit {
     console.log('numTarjeta: ' + numTarjeta);
     if (numTarjeta.substring(0,1) == "4") {
       this.tipoTarjeta = 4;
+      this.nombreTarjeta = "VI";
     }
     else if (numTarjeta.substring(0,2) == "51" || numTarjeta.substring(0,2) == "52" || numTarjeta.substring(0,2) == "53" || numTarjeta.substring(0,2) == "54" || numTarjeta.substring(0,2) == "55") {
       this.tipoTarjeta = 1;
+      this.nombreTarjeta = "CA";
     }
     else if (numTarjeta.substring(0,2) == "60" || numTarjeta.substring(0,2) == "64" || numTarjeta.substring(0,2) == "65") {
       this.tipoTarjeta = 2;
+      this.nombreTarjeta = "DS";
     }
     else if (numTarjeta.substring(0,2) == "34" || numTarjeta.substring(0,2) == "37") {
       this.tipoTarjeta = 3;
+      this.nombreTarjeta = "AX";
     }
     else if (numTarjeta.substring(0,4) == "2131" || numTarjeta.substring(0,4) == "1800" || numTarjeta.substring(0,2) == "35") {
       this.tipoTarjeta = 5;
+      this.nombreTarjeta = "JC";
     }
     else if(numTarjeta == ""){
       this.tipoTarjeta = 0;
     }
     this.outNumTarjeta.emit(this.numTarjeta);
+    this.outNomTarjeta.emit(this.nombreTarjeta);
   }
 
   validarLetras(e){

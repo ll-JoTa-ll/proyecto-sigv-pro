@@ -102,6 +102,8 @@ import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/
 import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles/filtro-precio-hotel/filtro-precio-hotel.component';
 import { ReservaGeneradaHotelComponent } from './components/busqueda-global/hoteles/reserva-generada-hotel/reserva-generada-hotel.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -209,7 +211,8 @@ import { FilterPipe } from './pipes/filter.pipe';
       libraries: ['places']
     }),
     ModalModule.forRoot(),
-    TimepickerModule.forRoot()
+    TimepickerModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
