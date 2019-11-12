@@ -206,6 +206,28 @@ export class ReservaVueloComponent implements OnInit {
     ) 
   }
 
+  ValidarCorreo() {
+    let val;
+    let regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+    this.datosuser.forEach(function(item, index) {
+      if (regex.test($('#txtcorreo_' + (index + 1)).val().trim())) {
+           val = true;
+      } else {
+          $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
+          val = false;
+          alert('la direccion de correo no es valida');
+          return;
+      }
+    });
+    if (regex.test($('#contactocorreo').val().trim())) {
+      val = true;
+    } else {
+     alert('la direccion de correo no es valida');
+     val = false;
+    }
+     return val;
+  } 
+
   ValidarCampos() {
     let val = true;
     this.datosuser.forEach(function(item, index) {
@@ -347,8 +369,9 @@ export class ReservaVueloComponent implements OnInit {
       email : mail,
       telefonos : phone
     }
+    const valcorreo = this.ValidarCorreo();
     const val = this.ValidarCampos();
-    if (!val) {
+    if (!val || !valcorreo) {
       return val;
     } else {
       this.sessionStorageService.store('contacto', contacto);
