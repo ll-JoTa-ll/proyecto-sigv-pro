@@ -9,6 +9,8 @@ import { AirportService } from '../../../../services/airport.service';
 import { IFlightAvailability } from 'src/app/models/IFlightAvailability';
 import { Router } from '@angular/router';
 import { IFamilyResultModel } from '../../../../models/IFamilyResult.model';
+import { environment } from '../../../../../environments/environment';
+import { IGetApprovers } from '../../../../models/IGetApprovers.model';
 
 @Component({
   selector: 'app-recomendacion',
@@ -62,6 +64,11 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   famFareAmountByPassenger;
   requestFamilia;
   flagMsgErrorSelFam: boolean;
+  lst_rol_autogestion;
+  lst_rol_autorizador;
+  datosuser: any[] = [];
+  LPolicies;
+  lsapprovers: IGetApprovers[] = [];
 
   constructor(
     private modalService: BsModalService,
@@ -74,6 +81,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   ) {
     this.flagResultFamilias = 0;
     this.flagMsgErrorSelFam = false;
+    this.lst_rol_autogestion = environment.cod_rol_autogestion;
+    this.lst_rol_autorizador = environment.cod_rol_autorizador;
   }
 
   ngOnInit() {
@@ -401,8 +410,95 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   }
 
+  GetUsers() {
+    let data = {
+      Id: this.loginDataUser.userId
+    }
+    let objuser;
+    this.airportService.GetUser(data.Id).subscribe(
+      results => {
+        objuser = results;
+        this.datosuser.push(objuser);
+        this.sessionStorageService.store('objusuarios', this.datosuser);
+      },
+      err => {
+           console.log("error results", err);
+      },
+      () => {
+        this.TraerAutorizador();
+      }
+    );
+}
+
+TraerAutorizador() {
+  let infraction;
+  if (this.lpolicies.length > 0) {
+    infraction = true;
+  } else {
+    infraction = false;
+  }
+
+  let datosusuario: any[] = [];
+  this.datosuser.forEach(function(item) {
+    let prefix;
+    if (item.gender === 'M') {
+      prefix = 'MR';
+    } else {
+      prefix = 'MRS';
+    }
+    let fechatotal;
+    let fecha = item.birthDate.substr(0, 10);
+    let fechaformat = fecha.split('-');
+    let año = fechaformat[0];
+    let mes = fechaformat[1];
+    let dia = fechaformat[2];
+    fechatotal = año + '/' + mes + '/' + dia;
+    const objuser = {
+        "PassengerId": 1,
+        "PersonId": item.personId,
+        "Prefix": prefix,
+        "Type": "ADT",
+        "Name": item.firstName,
+        "LastName": item.lastName,
+        "Gender": item.gender,
+        "BirthDate": fechatotal,
+        "Odocument": item.odocument,
+        "FrequentFlyer": item.frequentFlyer,
+        "IsVIP": item.isVIP,
+        "lcostCenter": item.lcostCenter
+       };
+       datosusuario.push(objuser);
+  });
+
+  let data = {
+    "Ocompany": this.loginDataUser.ocompany,
+    "FlightNational": this.flightNational,
+    'Infraction': infraction,
+    "Lpassenger": datosusuario
+  }
+
+  this.airportService.GetApprovers(data).subscribe(
+    results => {
+      this.lsapprovers = results;
+      this.sessionStorageService.store('lsapprover', null);
+      this.sessionStorageService.store('lsapprover', this.lsapprovers);
+    },
+    err => {
+      console.log(err);
+    }
+  )
+}
+
   flightAvailability(data, template, tipo, modalFam) {
     this.vuelosComponent.spinner.show();
+    // tslint:disable-next-line: max-line-length
+    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
+      this.GetUsers();
+  } else {
+     this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+     this.sessionStorageService.store('objusuarios', this.datosuser);
+     this.TraerAutorizador();
+  }
     let flagResult = 0;
     this.airportService.fligthAvailibility(data).subscribe(
       results => {
@@ -428,6 +524,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         this.vuelosComponent.spinner.hide();
         if (flagResult === 1) {
           if (tipo === 1) {
+            // tslint:disable-next-line: max-line-length
             this.router.navigate(['/reserva-vuelo']);
           }
 

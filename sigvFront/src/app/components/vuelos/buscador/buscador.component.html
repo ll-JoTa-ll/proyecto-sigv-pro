@@ -51,7 +51,7 @@
                     <ng-autocomplete [(ngModel)]="origentTexto" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent(1, $event)' (inputChanged)='onChangeSearch(1, $event)' (inputFocused)='onFocused(1, $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
 
-                    <ng-template #itemTemplate let-item style="z-index: 1000;">
+                    <ng-template #itemTemplate let-item style="z-index: 1000 !important;">
                         <a [innerHTML]="item.name"></a>
                     </ng-template>
 
@@ -70,7 +70,7 @@
                     <ng-autocomplete [(ngModel)]="destinoTexto" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent(2, $event)' (inputChanged)='onChangeSearch(2, $event)' (inputFocused)='onFocused(2, $event)' [itemTemplate]="itemTemplate2" [notFoundTemplate]="notFoundTemplate2">
                     </ng-autocomplete>
 
-                    <ng-template #itemTemplate2 let-item style="z-index: 1000;">
+                    <ng-template #itemTemplate2 let-item style="z-index: 1000 !important;">
                         <a [innerHTML]="item.name"></a>
                     </ng-template>
 
