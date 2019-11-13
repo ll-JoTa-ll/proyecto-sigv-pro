@@ -56,6 +56,7 @@ export class HeaderComponent implements OnInit {
   }
 
   cerrarSesion() {
+    this.sessionStorageService.clear();
     this.router.navigate(['/']);
   }
 

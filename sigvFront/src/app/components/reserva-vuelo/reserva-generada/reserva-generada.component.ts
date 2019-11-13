@@ -27,7 +27,7 @@ export class ReservaGeneradaComponent implements OnInit {
      this.Lsection = this.sessionStorageService.retrieve('sectioninfo');
      this.lsflightavailability = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
      this.dataflightavalilability = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
-     this.lusers = this.sessionStorageService.retrieve('lsuser');
+     this.lusers = this.sessionStorageService.retrieve('objusuarios');
      this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
   }
 

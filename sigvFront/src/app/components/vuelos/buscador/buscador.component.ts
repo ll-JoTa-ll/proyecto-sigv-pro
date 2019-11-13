@@ -579,28 +579,35 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       return flagVal;
     }
 
+    console.log("data request mini busqueda: " + JSON.stringify(data))
+
     this.airportService.searchFlight(data).subscribe(
       result => {
         console.log(result);
         if (result !== null && result.length > 0) {
+          console.log("resultado optimo");
           if (ss_filterPrecio === 'mas') {
             result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
           }
           if (ss_filterPrecio === 'menos') {
             result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
           }
+        } else {
+          console.log("resultado null o vacio");
+          this.spinner.hide();
         }
         this.lRecomendaciones.emit(result);
         this.outTipoVuelo.emit(this.tipoVuelo);
         this.outIndexTramo.emit(this.indexTramo);
       },
       err => {
+        console.log("ERROR MINI BUSQUEDA: " + JSON.stringify(err));
         this.spinner.hide();
         console.log("ERROR: " + err);
       },
       () => {
         this.spinner.hide();
-        console.log("this.airportService.searchFlight completado");
+        console.log("MINI BUSQUEDA this.airportService.searchFlight completado");
       }
     );
   }

@@ -47,11 +47,11 @@
             </div>
 
             <div id="txtOrigen" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
-                <div class="ng-autocomplete" style="width: 100%; z-index: 1 !important;">
+                <div class="ng-autocomplete" style="width: 100%;">
                     <ng-autocomplete [(ngModel)]="origentTexto" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent(1, $event)' (inputChanged)='onChangeSearch(1, $event)' (inputFocused)='onFocused(1, $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
 
-                    <ng-template #itemTemplate let-item>
+                    <ng-template #itemTemplate let-item style="z-index: 1000;">
                         <a [innerHTML]="item.name"></a>
                     </ng-template>
 
@@ -66,11 +66,11 @@
             </div>
 
             <div id="txtDestino" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
-                <div class="ng-autocomplete" style="width: 100%; z-index: 1 !important;">
+                <div class="ng-autocomplete" style="width: 100%;">
                     <ng-autocomplete [(ngModel)]="destinoTexto" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent(2, $event)' (inputChanged)='onChangeSearch(2, $event)' (inputFocused)='onFocused(2, $event)' [itemTemplate]="itemTemplate2" [notFoundTemplate]="notFoundTemplate2">
                     </ng-autocomplete>
 
-                    <ng-template #itemTemplate2 let-item>
+                    <ng-template #itemTemplate2 let-item style="z-index: 1000;">
                         <a [innerHTML]="item.name"></a>
                     </ng-template>
 

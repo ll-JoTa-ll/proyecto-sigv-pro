@@ -66,15 +66,11 @@ export class ReservaVueloComponent implements OnInit {
     this.flightAvailability_result = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
-    //this.sessionStorageService.store('ss_FlightAvailability_request', null);
-    //this.sessionStorageService.store('ss_FlightAvailability_result', null);
     this.sessionStorageService.store('tipovuelo', null);
-    this.lst_rol_autogestion = environment.cod_rol_autogestion;
-    this.lst_rol_autorizador = environment.cod_rol_autorizador;
+    this.datosuser = sessionStorageService.retrieve('objusuarios');
   }
 
   ngOnInit() {
-    // tslint:disable-next-line: max-line-length
     window.scrollTo(0, 0);
     this.LSection = this.flightAvailability_request.Lsections;
     this.LSectionPassenger = this.datarequest.Lsections;
@@ -87,35 +83,11 @@ export class ReservaVueloComponent implements OnInit {
     this.pseudo = this.flightAvailability_request.Pseudo;
     this.gds = this.flightAvailability_request.Gds;
     this.flightNational = this.flightAvailability_request.FlightNational;
-    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
-      this.GetUsers();
-  } else {
-     this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-     this.TraerAutorizador();
-  }
-   // this.CostCenter();
+
+    //this.CostCenter();
     this.ReasonFlight();
   }
 
-
-  GetUsers() {
-      let data = {
-        Id: this.loginDataUser.userId
-      }
-      let objuser;
-      this.service.GetUser(data.Id).subscribe(
-        results => {
-          objuser = results;
-          this.datosuser.push(objuser);
-        },
-        err => {
-             console.log("error results", err);
-        },
-        () => {
-          this.TraerAutorizador();
-        }
-      );
-  }
 
   CostCenter() {
     let data = {
@@ -147,64 +119,28 @@ export class ReservaVueloComponent implements OnInit {
     );
   }
 
-  TraerAutorizador() {
-    let infraction;
-    if (this.LPolicies.length > 0) {
-      infraction = true;
-    } else {
-      infraction = false;
-    }
 
-    let datosusuario: any[] = [];
-    this.datosuser.forEach(function(item) {
-      let prefix;
-      if (item.gender === 'M') {
-        prefix = 'MR';
+  ValidarCorreo() {
+    let val;
+    let regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+    this.datosuser.forEach(function(item, index) {
+      if (regex.test($('#txtcorreo_' + (index + 1)).val().trim())) {
+           val = true;
       } else {
-        prefix = 'MRS';
+          $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
+          val = false;
+          alert('la direccion de correo no es valida');
+          return;
       }
-      let fechatotal;
-      let fecha = item.birthDate.substr(0, 10);
-      let fechaformat = fecha.split('-');
-      let año = fechaformat[0];
-      let mes = fechaformat[1];
-      let dia = fechaformat[2];
-      fechatotal = año + '/' + mes + '/' + dia;
-      const objuser = {
-          "PassengerId": 1,
-          "PersonId": item.personId,
-          "Prefix": prefix,
-          "Type": "ADT",
-          "Name": item.firstName,
-          "LastName": item.lastName,
-          "Gender": item.gender,
-          "BirthDate": fechatotal,
-          "Odocument": item.odocument,
-          "FrequentFlyer": item.frequentFlyer,
-          "IsVIP": item.isVIP,
-          "lcostCenter": item.lcostCenter
-         };
-         datosusuario.push(objuser);
     });
-
-    let data = {
-      "Ocompany": this.ocompany,
-	    "FlightNational": this.flightNational,
-    	'Infraction': infraction,
-	    "Lpassenger": datosusuario
+    if (regex.test($('#contactocorreo').val().trim())) {
+      val = true;
+    } else {
+     alert('la direccion de correo no es valida');
+     val = false;
     }
-
-    this.service.GetApprovers(data).subscribe(
-      results => {
-        this.lsapprovers = results;
-        this.sessionStorageService.store('lsapprover', null);
-        this.sessionStorageService.store('lsapprover', this.lsapprovers);
-      },
-      err => {
-        console.log(err);
-      }
-    ) 
-  }
+     return val;
+  } 
 
   ValidarCampos() {
     let val = true;
@@ -271,9 +207,6 @@ export class ReservaVueloComponent implements OnInit {
 
 
   Comprar() {
-   /* this.email = this.datosuser.email;
-    this.phone = this.datosuser.phone;
-    this.userid = this.datosuser.userId;*/
     let idmotivo = $('#cbomotivo option:selected').val();
 
     let datosusuario: any[] = [];
@@ -347,8 +280,9 @@ export class ReservaVueloComponent implements OnInit {
       email : mail,
       telefonos : phone
     }
+    const valcorreo = this.ValidarCorreo();
     const val = this.ValidarCampos();
-    if (!val) {
+    if (!val || !valcorreo) {
       return val;
     } else {
       this.sessionStorageService.store('contacto', contacto);
@@ -356,7 +290,6 @@ export class ReservaVueloComponent implements OnInit {
       this.sessionStorageService.store('sectioninfo', this.LSection);
       this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
       this.sessionStorageService.store('politicas', this.LPolicies);
-      this.sessionStorageService.store('lsuser', this.datosuser);
       this.sessionStorageService.store('idmotivo', idmotivo);
       this.router.navigate(['/reserva-vuelo-compra']);
     }

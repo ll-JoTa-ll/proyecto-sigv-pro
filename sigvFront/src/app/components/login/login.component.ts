@@ -84,6 +84,8 @@ export class LoginComponent implements OnInit {
             });
             this.sessionStorageService.store('ss_login_data', result);
             this.token = result.token;
+            this.sessionStorageService.store('ss_token', result.token);
+            console.log(this.token);
             this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
             this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
           //console.log(result);

@@ -17,6 +17,8 @@
                             <span *ngFor="let item of lhabitaciones.lamenities" style="padding-bottom: 20px;"><span class="imgben"><img *ngIf="item.code != null && item.code != '' " style="width: 30px;" src="./assets/images/{{item.code}}.png"></span>
                             <span *ngIf="item.description != null && item.description != '' " class="Condition">{{item.description}}</span>
                             </span>
+                            <span *ngFor="let item of lhabitaciones.lamenities" style="padding-bottom: 20px;"><span class="imgben"><img style="width: 30px;" src="./assets/images/{{item.code}}.png"></span><span class="Condition">{{item.description}}</span></span>
+
                         </div>
 
                     </div>

@@ -15,7 +15,7 @@ export class DetalleCompraComponent implements OnInit {
   lstHabi : IHabitacionResults;
   lhotel;
 
-  urlimg = '/assets/images/hotel-icon.png';
+  urlimg = './assets/images/hotel-icon.png';
 
   constructor(private sessionStorageService: SessionStorageService) {  this.lstConfirmacion = this.sessionStorageService.retrieve("confirmacion");
    }

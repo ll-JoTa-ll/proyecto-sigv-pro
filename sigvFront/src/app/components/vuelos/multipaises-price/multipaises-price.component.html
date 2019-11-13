@@ -1,11 +1,11 @@
 <div class="row m-0 p-0">
     <div class="col-12 m-0 p-0" style="width: 100% !important; height: 30px !important;"></div>
 
-    <div class="col-1 m-0 p-0"></div>
+    <!--<div class="col-1 m-0 p-0"></div>-->
 
     <div class="col-10 m-0 p-0 box-shadow">
         <div class="row m-0 p-0">
-            <div class="col-3 m-0 p-0 mt-3 mb-3 mp-text-1 mp-div-pxa d-flex justify-content-center align-items-center">
+            <div style="cursor:pointer;" (click)="openModal(templateMultipaises)" class="col-3 m-0 p-0 mt-3 mb-3 mp-text-1 mp-div-pxa d-flex justify-content-center align-items-center">
                 <img class="pr-1" src="./assets/images/mundo.svg" alt=""> Multipaises
             </div>
             <div class="col-9 m-0 p-0 pl-5 d-flex align-items-center">
@@ -27,3 +27,22 @@
     </div>
     <div class="col-1 m-0 p-0"></div>
 </div>
+
+
+<ng-template #templateMultipaises>
+  <div class="modal-header d-flex align-items-center">
+    <img src="./assets/images/multipaises_icon.svg" alt="" style="width: 50px">
+    <h4 class="modal-title pull-left" style="font-family: Omnes-med !important;">Multipaíses</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefMultiPaises.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="font-family: Omnes-med; font-size: 16px; text-align: justify">
+    Encuentre tarifas en oficinas extranjeras alrededor del mundo, generalmente los precios son mucho más económicos si las rutas internas o salidas son emitidas directamente desde el país de origen.
+  </div>
+  <div class="modal-footer text-right">
+    <button (click)="modalRefMultiPaises.hide()" class="btn" style="color: white; background-color: #ED1C24; font-family: Omnes-med; font-size: 16px;">
+      Entendido
+    </button>
+  </div>
+</ng-template>

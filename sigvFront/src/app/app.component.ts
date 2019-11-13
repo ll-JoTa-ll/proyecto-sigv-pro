@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
   title = 'SIVG PLUS';
 
   ngOnInit() {
-    $("#divLoaderLogin").hide();
+    setTimeout(function() {
+      $("#divLoaderLogin").hide();
+    }, 3000);
   }
 }

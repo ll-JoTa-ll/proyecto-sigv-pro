@@ -86,7 +86,7 @@ export class ReservaCompraComponent implements OnInit {
     }
     this.lsflightavailability = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
     this.dataflightavalilability = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
-    this.lusers = this.sessionStorageService.retrieve('lsuser');
+    this.lusers = this.sessionStorageService.retrieve('objusuarios');
     this.idmotivo = this.sessionStorageService.retrieve('idmotivo');
     this.sessionStorageService.store('idmotivo', null);
     this.plantilla = 'assets/plantillasEmail/plantillaaprobacion.html';
