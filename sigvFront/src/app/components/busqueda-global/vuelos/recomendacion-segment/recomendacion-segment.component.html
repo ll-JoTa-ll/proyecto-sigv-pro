@@ -102,15 +102,19 @@
 
 
                 <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
-                    <img src="./assets/images/accesorio_rojo.svg" alt="">
+                    <img tooltip="Permite equipaje de mano." src="./assets/images/accesorio_rojo.svg" alt="">
                     <!--
             <img *ngIf="!bagAllowed" src="./assets/images/accesorio_gris.svg" alt="">
             -->
                 </div>
 
                 <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
-                    <img *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
-                    <img *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt="">
+                    <img
+                      tooltip="Incluye equipaje para documentar. {{bagQuantity}} maleta(s) por adulto."
+                      *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg"
+                      alt=""
+                    >
+                    <img tooltip="No incluye maleta." *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt="">
                 </div>
 
                 <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">

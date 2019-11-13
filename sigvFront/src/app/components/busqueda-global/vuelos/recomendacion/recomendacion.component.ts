@@ -19,6 +19,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   modalRef: BsModalRef;
   modalRefPoliticas: BsModalRef;
+  modalRefDsctCorp: BsModalRef;
   config = {
     backdrop: true,
     ignoreBackdropClick: true
@@ -516,6 +517,10 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   flagCloseModal($event) {
     this.modalRef.hide();
+  }
+
+  openModalDsctCop(template: TemplateRef<any>) {
+    this.modalRefDsctCorp = this.modalService.show(template);
   }
 
 }

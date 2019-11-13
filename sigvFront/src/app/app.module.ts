@@ -117,6 +117,7 @@ import { VueloFamiliaSegmentComponent } from './components/vuelos/familias/vuelo
 
 import { NavHeaderComponent } from './components/shared/nav-header/nav-header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 @NgModule({
   declarations: [
@@ -237,7 +238,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     TimepickerModule.forRoot(),
     PaginationModule.forRoot(),
     NgxPaginationModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    TooltipModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

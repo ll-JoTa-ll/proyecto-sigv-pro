@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-multipaises-price',
@@ -7,10 +8,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MultipaisesPriceComponent implements OnInit {
 
+  modalRefMultiPaises: BsModalRef;
+
   @Input() priceByPseudo;
   @Input() currency;
 
-  constructor() { }
+  constructor(
+    private modalService: BsModalService
+  ) { }
 
   ngOnInit() {
     console.log('priceByPseudo: ' + JSON.stringify(this.priceByPseudo));
@@ -19,6 +24,10 @@ export class MultipaisesPriceComponent implements OnInit {
     priceByPseudo.forEach(function(price) {
       price.pseudo = price.pseudo + '.png';
     });
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRefMultiPaises = this.modalService.show(template);
   }
 
 }

@@ -32,9 +32,9 @@
                         </div>
 
                         <div class="col-5 m-0 p-0 text-right">
-                            <img *ngIf="lsections[0].lSectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 22px;">
-                            <span style="cursor: pointer" (click)="openModalPoliticas(modalPolitica)" *ngIf="lpolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
-                            <span *ngIf="lpolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
+                            <img (click)="openModalDsctCop(templateDsctCorp)" class="pr-2" tooltip="Vuelo con descuento corporativo." *ngIf="lsections[0].lSectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 30px; cursor:pointer;">
+                            <span tooltip="Vuelo con infracción de políticas." style="cursor: pointer" (click)="openModalPoliticas(modalPolitica)" *ngIf="lpolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
+                            <span tooltip="El vuelo cumple las políticas de viaje de la empresa." *ngIf="lpolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
                         </div>
 
                         <div class="col-1 m-0 p-0"></div>
@@ -63,8 +63,9 @@
                     <ng-template #modalFamilias let-c="close" let-d="dismiss">
 
                         <div class="modal-header pb-0" style="border: none;">
-                            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalFamilia($event)">
-                <span aria-hidden="true">&times;</span>
+                          <!-- (click)="closeModalFamilia($event)" -->
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
               </button>
                         </div>
 
@@ -166,4 +167,28 @@
 
     </div>
 
+</ng-template>
+
+<ng-template #templateDsctCorp>
+  <div class="modal-header d-flex align-items-center">
+    <img src="./assets/images/medalla.svg" alt="" style="width: 30px; margin-right: 10px;">
+    <h4 class="modal-title pull-left" style="font-family: Omnes-med !important;">Convenio Corporativo</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefDsctCorp.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" style="font-family: Omnes-med; font-size: 16px; text-align: justify">
+    <p>
+      La medalla indica que el vuelo tiene un descuento especial para su empresa, el cual no encontrará en vuelos publicados.
+    </p>
+
+    <p>
+      Comunmente son los acuerdos iniciales que se realizan con cada aerolínea.
+    </p>
+  </div>
+  <div class="modal-footer text-right">
+    <button (click)="modalRefDsctCorp.hide()" class="btn" style="color: white; background-color: #ED1C24; font-family: Omnes-med; font-size: 16px;">
+      Entendido
+    </button>
+  </div>
 </ng-template>

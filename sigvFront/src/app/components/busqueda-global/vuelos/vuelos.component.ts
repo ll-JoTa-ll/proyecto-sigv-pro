@@ -987,16 +987,25 @@ export class VuelosComponent implements OnInit {
   }
 
   searchFlightBuscador($event) {
-    this.flagPseudoRepeat = false;
     this.searchData = [];
-    this.searchData = $event;
+    if ($event === null) {
+      console.log("this.spinner.hide()");
+      this.spinner.hide();
+    } else {
+      this.searchData = $event;
+    }
+    console.log("searchFlightBuscador");
+    console.log("$event: " + $event);
+    this.flagPseudoRepeat = false;
     this.flagPseudoRepeat = true;
     this.sessionStorageService.store('ss_searchFlight', this.searchData);
     this.inicioBuscador = true;
-    if (this.searchData == null) {
+    if (this.searchData.length === 0) {
       this.flagDinData = true;
+      this.spinner.hide();
     } else {
       this.flagDinData = false;
+      this.spinner.hide();
     }
   }
 
@@ -1154,7 +1163,9 @@ export class VuelosComponent implements OnInit {
 
   busquedaFiltros($event) {
     this.searchData = [];
-    this.searchData = $event;
+    if ($event != null) {
+      this.searchData = $event;
+    }
     const spinner = this.spinner;
     setTimeout(function() {
       spinner.hide();
@@ -1163,7 +1174,9 @@ export class VuelosComponent implements OnInit {
 
   busquedaFiltrosPrecio($event) {
     this.searchData = [];
-    this.searchData = $event;
+    if ($event != null) {
+      this.searchData = $event;
+    }
     const spinner = this.spinner;
     setTimeout(function() {
       spinner.hide();
@@ -1183,7 +1196,9 @@ export class VuelosComponent implements OnInit {
 
   busquedaFiltrosHoras($event) {
     this.searchData = [];
-    this.searchData = $event;
+    if ($event != null) {
+      this.searchData = $event;
+    }
     const spinner = this.spinner;
     setTimeout(function() {
       spinner.hide();
