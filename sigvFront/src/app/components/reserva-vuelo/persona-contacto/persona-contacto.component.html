@@ -41,7 +41,7 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <input class="input-pasajero" type="text" id="contactocorreo" (keypress)="ValidarCampos()">
-                                <div>La direccion de correo es invalida</div>
+                                <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La direccion de correo es invalida</div>
                             </div>
                         </div>
                     </div>

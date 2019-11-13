@@ -25,8 +25,8 @@
                         <div class="tooltipBagDiv box-shadow animated fadeIn fast">
                             <span class="title-modal">Vista de mapa</span>
                             <a class="btn-close" (click)="OcultarMapa()">X</a>
-                            <agm-map [latitude]="lstHabi.ohotel.oposition.latitude" [zoom]="15" [longitude]="lstHabi.ohotel.oposition.longitude">
-                                <agm-marker [latitude]="lstHabi.ohotel.oposition.latitude" [longitude]="lstHabi.ohotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
+                            <agm-map [latitude]="lhotel.oposition.latitude" [zoom]="15" [longitude]="lhotel.oposition.longitude">
+                                <agm-marker [latitude]="lhotel.oposition.latitude" [longitude]="lhotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
                             </agm-map>
                             <span class="hotel-nombre">{{lstHabi.ohotel.hotelName}}</span>
                         </div>
@@ -56,10 +56,10 @@
             <div class="col-12 m-0 p-0 pb-5">
                 <div class="hours row m-0 p-0">
                     <div class="col-6 m-0 p-0">
-                        <span>{{lstConfirmacion.oroom.checkIn}}</span>
+                        <span>{{lstHabi.ohotel.checkIn}}</span>
                     </div>
                     <div class="col-6 m-0 p-0 pl-4">
-                        <span>{{lstConfirmacion.oroom.checkOut}}</span>
+                        <span>{{lstHabi.ohotel.checkOut}}</span>
                     </div>
                 </div>
             </div>

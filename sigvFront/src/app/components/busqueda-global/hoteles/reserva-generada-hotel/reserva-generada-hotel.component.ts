@@ -22,7 +22,7 @@ export class ReservaGeneradaHotelComponent implements OnInit {
   lhotel;
 
   phone;
-  urlimg = '/assets/images/hotel-icon.png';
+  urlimg = './assets/images/hotel-icon.png';
 
   constructor(private sessionStorageService: SessionStorageService) { 
 
