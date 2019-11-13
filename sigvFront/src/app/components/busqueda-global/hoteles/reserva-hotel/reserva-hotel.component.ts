@@ -43,7 +43,7 @@ export class ReservaHotelComponent implements OnInit {
   correo;
   nombreTarjeta;
 
-  plantilla = '/assets/plantillashoteles/enviocorreo.html';
+  plantilla = './assets/plantillashoteles/enviocorreo.html';
   
   
 
