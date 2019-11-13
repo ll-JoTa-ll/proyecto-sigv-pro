@@ -36,8 +36,8 @@
                                                 <div class="tooltipBagDiv box-shadow animated fadeIn fast">
                                                     <span class="title-modal">Vista de mapa</span>
                                                     <a class="btn-close" (click)="OcultarMapa()">X</a>
-                                                    <agm-map [latitude]="habitacion.ohotel.oposition.latitude" [zoom]="15" [longitude]="habitacion.ohotel.oposition.longitude">
-                                                        <agm-marker [latitude]="habitacion.ohotel.oposition.latitude" [longitude]="habitacion.ohotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
+                                                    <agm-map [latitude]="lhotel.oposition.latitude" [zoom]="15" [longitude]="lhotel.oposition.longitude">
+                                                        <agm-marker [latitude]="lhotel.oposition.latitude" [longitude]="lhotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
                                                     </agm-map>
                                                     <span class="hotel-nombre">{{habitacion.ohotel.hotelName}}</span>
                                                 </div>
@@ -55,7 +55,7 @@
                                     <div class="col-12 pt-4 pb-4">
                                         <div class="row m-0 p-0">
                                             <div *ngIf="habitacion.ohotel.lamenities != null && habitacion.ohotel.lamenities.length > 0" class="col-12 m-0 p-0">
-                                                <span *ngFor="let item of habitacion.ohotel.lamenities" class="pl-3"><span class="pl-2"><img style="width: 30px;" src="assets/images/{{item.code}}.png"></span><span class="Condition pl-3">{{item.description}}</span></span>
+                                                <span *ngFor="let item of habitacion.ohotel.lamenities" class="pl-3"><span class="pl-2"><img style="width: 30px;" src="./assets/images/{{item.code}}.png"></span><span class="Condition pl-3">{{item.description}}</span></span>
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +96,7 @@
                                             </div>
                                         </div>
                                         <div class="row m-0 p-0">
-                                            <span> <img style="width: 30px;" src="assets/images/calendar.png"> </span><span class="txtphono pl-3">FECHAS:</span>
+                                            <span> <img style="width: 30px;" src="./assets/images/calendar.png"> </span><span class="txtphono pl-3">FECHAS:</span>
                                         </div>
                                         <div class="row m-0 p-0 pl-5">
                                             <div class="col-12 m-0 p-0">
@@ -122,16 +122,16 @@
                                             <div class="col-12 m-0 p-0 pb-5">
                                                 <div class="hours row m-0 p-0">
                                                     <div class="col-6 m-0 p-0">
-                                                        <span>{{confirmacion.oroom.checkIn}}</span>
+                                                        <span>{{habitacion.ohotel.checkIn}}</span>
                                                     </div>
                                                     <div class="col-6 m-0 p-0 pl-4">
-                                                        <span>{{confirmacion.oroom.checkOut}}</span>
+                                                        <span>{{habitacion.ohotel.checkOut}}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row m-0 p-0">
-                                            <span> <img style="width: 30px;" src="assets/images/telephone.png"></span><span class="txtphono">TELÉFONO DE CONTACTO:</span>
+                                            <span> <img style="width: 30px;" src="./assets/images/telephone.png"></span><span class="txtphono">TELÉFONO DE CONTACTO:</span>
                                         </div>
                                         <div class="row m-0 p-0">
                                             <div class="col-12 m-0 p-0 pt-3 pl-5">
@@ -162,7 +162,7 @@
                                 </div>
                                 <div class="row m-0 p-0">
                                     <div class="col-3 m-0 p-0 text-center">
-                                        <span class=""><span class="pl-2"><img src="assets/images/horarios.svg"></span><span class="Dates pl-3">Horarios</span></span>
+                                        <span class=""><span class="pl-2"><img src="./assets/images/horarios.svg"></span><span class="Dates pl-3">Horarios</span></span>
                                     </div>
                                     <div class="col-3 m-0 p-0">
                                         <span class=""><span class="pl-2"></span><span class="Dates">Chek in: {{confirmacion.oroom.checkIn}}</span></span>

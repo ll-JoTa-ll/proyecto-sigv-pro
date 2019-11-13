@@ -41,7 +41,7 @@ export class ResultadoComponent implements OnInit {
   @Input() fechasalida: string;
   @Input() cantidadhabitaciones: string;
   @Input() fecharetorno: string;
-  urlimg = '/assets/images/hotel-icon.png';
+  urlimg = './assets/images/hotel-icon.png';
   lstHabication: IHabitacionResults;
   lstHotel : IHotelResultsModel[];
 

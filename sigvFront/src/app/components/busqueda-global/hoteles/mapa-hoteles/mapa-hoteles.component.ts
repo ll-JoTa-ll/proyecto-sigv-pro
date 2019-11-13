@@ -24,7 +24,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
   @Input() fechasalida: string;
   @Input() fecharetorno: string;
   @Input() cantpersonas: string;
-  urlimg = '/assets/images/hotel-icon.png';
+  urlimg = './assets/images/hotel-icon.png';
   show: boolean;
   address: string;
   private geoCoder;

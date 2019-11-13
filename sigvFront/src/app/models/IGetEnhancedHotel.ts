@@ -23,6 +23,8 @@ export class IGetEnhancedHotel {
         checkOut: string;
         startDate: string;
         endDate: string;
+        endDateShow: string;
+        startDateShow: string;
         bookingCode: string;
         roomType: string;
         ratePlanCode: string;

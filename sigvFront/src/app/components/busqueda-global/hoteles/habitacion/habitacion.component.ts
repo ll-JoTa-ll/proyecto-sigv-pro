@@ -36,7 +36,7 @@ export class HabitacionComponent implements OnInit {
   @Input() LlistaHotel: IHotelResultsModel[] = [];
   @Input() personas: string;
   urlhotel: string;
-  urlimg = '/assets/images/hotel-icon.png';
+  urlimg = './assets/images/hotel-icon.png';
   vistamapa: boolean = false;
   vistalistado: boolean = true;
 

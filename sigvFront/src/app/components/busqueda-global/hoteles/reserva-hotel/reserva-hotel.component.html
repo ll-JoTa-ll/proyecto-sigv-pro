@@ -58,10 +58,10 @@
                         </div>
                         <div *ngIf="lstConfirmacion.oroom.lcancelPenalties.length > 0 && lstConfirmacion.oroom.lcancelPenalties != null " class="row m-0 p-0">
                             <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].nonRefundable === false" class="col-12 m-0 p-0">
-                                <span class="info">✓ No Reembolsable <img style="width: 50px;" src="assets/images/no-money.png"></span>
+                                <span class="info">✓ No Reembolsable <img style="width: 50px;" src="./assets/images/no-money.png"></span>
                             </div>
                             <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].nonRefundable === true" class="col-12 m-0 p-0">
-                                <span class="info">✓ Reembolsable <img src="assets/images/money.png"></span>
+                                <span class="info">✓ Reembolsable <img src="./assets/images/money.png"></span>
                             </div>
                             <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].description != null && lstConfirmacion.oroom.lcancelPenalties[0].description != '' " class="col-12 m-0 p-0">
                                 <span class="info">✓ {{lstConfirmacion.oroom.lcancelPenalties[0].description}}</span>
