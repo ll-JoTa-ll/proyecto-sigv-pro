@@ -492,13 +492,6 @@ TraerAutorizador() {
   flightAvailability(data, template, tipo, modalFam) {
     this.vuelosComponent.spinner.show();
     // tslint:disable-next-line: max-line-length
-    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
-      this.GetUsers();
-  } else {
-     this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-     this.sessionStorageService.store('objusuarios', this.datosuser);
-     this.TraerAutorizador();
-  }
     let flagResult = 0;
     this.airportService.fligthAvailibility(data).subscribe(
       results => {
@@ -525,10 +518,26 @@ TraerAutorizador() {
         if (flagResult === 1) {
           if (tipo === 1) {
             // tslint:disable-next-line: max-line-length
+            if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
+              this.GetUsers();
+          } else {
+             this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+             this.sessionStorageService.store('objusuarios', this.datosuser);
+             this.TraerAutorizador();
+          }
+            // tslint:disable-next-line: max-line-length
             this.router.navigate(['/reserva-vuelo']);
           }
 
           if (tipo === 2) {
+            // tslint:disable-next-line: max-line-length
+            if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
+              this.GetUsers();
+          } else {
+             this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+             this.sessionStorageService.store('objusuarios', this.datosuser);
+             this.TraerAutorizador();
+          }
             this.sessionStorageService.store('ss_FlightAvailability_request1', data);
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
             this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
