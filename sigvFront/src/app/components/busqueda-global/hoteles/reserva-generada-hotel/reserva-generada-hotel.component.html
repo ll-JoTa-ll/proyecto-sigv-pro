@@ -167,9 +167,16 @@
                                     <div class="col-3 m-0 p-0">
                                         <span class=""><span class="pl-2"></span><span class="Dates">Chek in: {{habitacion.ohotel.checkIn}}</span></span>
                                     </div>
-                                    <div class="col-3 m-0 p-0">
+                                    <!--   <div class="col-3 m-0 p-0">
                                         <span class=""><span class="pl-2"></span><span class="Dates">Check out: {{habitacion.ohotel.checkOut}}</span></span>
-                                    </div>
+                                    </div>-->
+                                    <ng-container *ngIf="habitacion.ohotel.checkOut != null && habitacion.ohotel.checkOut != ''; else elseTemplate" class="col-3 m-0 p-0">
+                                        <span class=""><span class="pl-2"></span><span class="Dates">Check out: {{habitacion.ohotel.checkOut}}</span></span>
+                                    </ng-container>
+                                    <ng-template #elseTemplate class="col-3 m-0 p-0">
+                                        <span class=""><span class="pl-2"></span><span class="Dates">Check out: Sin informacion</span></span>
+                                    </ng-template>
+
                                     <div class="col-3 m-0 p-0">
                                         <!--  <span class=""><span class="pl-2"><img src="assets/images/document.svg"></span><span class="Dates pl-1">Politica de cancelación</span></span>-->
                                     </div>

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { AirportService } from '../../../../services/airport.service';
+import { IGetUserById } from '../../../../models/IGetUserById.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -32,6 +33,7 @@ export class ReservaHotelComponent implements OnInit {
   habitacion : IHabitacionResults;
   lstConfirmacion : IGetEnhancedHotel;
   Reserva : IGetPnrHotel;
+  user;
 
   emailsolicitud;
   lsthabitacion;
@@ -42,19 +44,22 @@ export class ReservaHotelComponent implements OnInit {
   telefono;
   correo;
   nombreTarjeta;
+  
 
   plantilla = './assets/plantillashoteles/enviocorreo.html';
   
   
 
   constructor(private toastr: ToastrService,private http: HttpClient,private router: Router,private sessionStorageService: SessionStorageService,public spinner: NgxSpinnerService,private service: HotelService,private modalService: BsModalService,private services: AirportService) {
-    
-   }
-
-  ngOnInit() {
     this.lstConfirmacion = this.sessionStorageService.retrieve("confirmacion");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.user = this.sessionStorageService.retrieve("ss_user");
+   }
+
+  ngOnInit() {
+    
+    
     this.Obtenerstring();
   }
 
@@ -64,7 +69,12 @@ export class ReservaHotelComponent implements OnInit {
 
   
   getPnrHotel(){
+    console.log(this.user);
     let message;
+    let cumple;
+    cumple = this.user.birthDate;
+    cumple = cumple.substring(0,10);
+    cumple = cumple.replace(/-/gi,"/");
     const val= this.ValidarCampos();
     if (!val) {
       alert("Hay campos vacios")
@@ -89,18 +99,18 @@ export class ReservaHotelComponent implements OnInit {
       [
         {
           "PassengerId": 1,
-          "PersonId": 149,
+          "PersonId": this.user.personId,
           "Prefix": "MR",
           "Type": "ADT",
-          "Name":"Manuel",
-          "LastName":"Masias",
-          "Gender": "M",
-          "BirthDate":"1999/08/18",
-          "IsVIP": false,
+          "Name": this.loginDataUser.userName,
+          "LastName":this.loginDataUser.userLastName,
+          "Gender": this.user.gender,
+          "BirthDate": cumple,
+          "IsVIP": this.user.isVIP,
           "Odocument":
             {
-              "Type": "NI",
-              "Number": "73470506"
+              "Type": this.user.odocument.type,
+              "Number": this.user.odocument.number
             }
         }
       ],
@@ -120,6 +130,12 @@ export class ReservaHotelComponent implements OnInit {
         "SecurityId": this.codSeguridad,
         "ExpiryDate": this.fechVencimiento,
         "HolderName": this.titular
+      },
+      "OInformationContact":
+      {
+        "Area":"01",
+        "Name": "Anthony",
+        "Numberphone":"954125654"
       }
     }
 
@@ -221,6 +237,7 @@ export class ReservaHotelComponent implements OnInit {
   getAmenities(){
     let imgNotFound = '/assets/images/imagenotfound.jfif'
     let html ='';
+    let SinInfo = '';
     let amenities: any;
     let htmlGlobal = '';
     amenities = this.lsthabitacion.ohotel.lamenities
@@ -236,6 +253,7 @@ export class ReservaHotelComponent implements OnInit {
       html += "</div>";
     }
     htmlGlobal = html;
+    SinInfo = "Sin Información";
     this.emailsolicitud = this.emailsolicitud.replace('@amenities', htmlGlobal);
     this.emailsolicitud = this.emailsolicitud.replace('@priceTotal', this.Reserva.litineraryInfos[0].priceTotal);
     this.emailsolicitud = this.emailsolicitud.replace('@pnr', this.Reserva.pnr);
@@ -244,10 +262,18 @@ export class ReservaHotelComponent implements OnInit {
     this.emailsolicitud = this.emailsolicitud.replace('@descripcionHabitacion', this.Reserva.litineraryInfos[0].descriptionRoom);
     this.emailsolicitud = this.emailsolicitud.replace('@fechaentrada', this.lstConfirmacion.oroom.startDate);
     this.emailsolicitud = this.emailsolicitud.replace('@fechasalida', this.lstConfirmacion.oroom.endDate);
-    this.emailsolicitud = this.emailsolicitud.replace('@checkin', this.lstConfirmacion.oroom.checkIn);
-    this.emailsolicitud = this.emailsolicitud.replace('@checkout', this.lstConfirmacion.oroom.checkOut);
+    if (this.lsthabitacion.ohotel.checkIn != null && this.lsthabitacion.ohotel.checkIn != '') {
+      this.emailsolicitud = this.emailsolicitud.replace('@checkin', this.lsthabitacion.ohotel.checkIn);
+    }else{
+      this.emailsolicitud = this.emailsolicitud.replace('@checkin', SinInfo);
+    }
+    if (this.lsthabitacion.ohotel.checkOut != null && this.lsthabitacion.ohotel.checkOut != '') {
+      this.emailsolicitud = this.emailsolicitud.replace('@checkout', this.lsthabitacion.ohotel.checkOut);
+    }else{
+      this.emailsolicitud = this.emailsolicitud.replace('@checkout', SinInfo);
+    }
     this.emailsolicitud = this.emailsolicitud.replace('@politicacancelacion', this.Reserva.litineraryInfos[0].penality);
-    this.emailsolicitud = this.emailsolicitud.replace('@nombreusuario', this.Reserva.lpassengers[0].lastname);
+    this.emailsolicitud = this.emailsolicitud.replace('@nombreusuario', this.Reserva.lpassengers[0].name + this.Reserva.lpassengers[0].lastName);
     this.emailsolicitud = this.emailsolicitud.replace('@telefono', this.Reserva.numberPhone);
     if(this.lsthabitacion.ohotel.limagens != null && this.lsthabitacion.ohotel.limagens.length > 0){
       this.emailsolicitud = this.emailsolicitud.replace('@imagen',this.lsthabitacion.ohotel.limagens[0].url)

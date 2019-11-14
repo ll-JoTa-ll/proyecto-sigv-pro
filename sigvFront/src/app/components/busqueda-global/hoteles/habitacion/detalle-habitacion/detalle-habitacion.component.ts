@@ -46,6 +46,8 @@ export class DetalleHabitacionComponent implements OnInit {
     
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
+    this.getUser();
+
   }
 
   getReservaHabitacion(RoomType,BookingCode,PlanCode){
@@ -73,17 +75,15 @@ export class DetalleHabitacionComponent implements OnInit {
         this.Confirmacion = data;
         
         this.sessionStorageService.store("confirmacion", this.Confirmacion);
-
-        window.open(environment.url_project + "/reserva-habitacion-hotel");
-        //this.router.navigate(['/reserva-habitacion-hotel']);
       },
       err => {
         this.spinner.hide();
       
     },
    () => {
-     this.getUser();
-    //this.spinner.hide();
+    //window.open(environment.url_project + "/reserva-habitacion-hotel");
+    this.router.navigate(['/reserva-habitacion-hotel']);
+    this.spinner.hide();
     
    }
     )
@@ -95,9 +95,9 @@ export class DetalleHabitacionComponent implements OnInit {
       }
 
       this.service.GetUser(data.userId).subscribe(
-        data => {
+        result => {
   
-          this.User = data;
+          this.User = result;
           
           this.sessionStorageService.store("ss_user", this.User);
           //this.router.navigate(['/reserva-habitacion-hotel']);
@@ -107,7 +107,7 @@ export class DetalleHabitacionComponent implements OnInit {
        
       },
      () => {
-      this.spinner.hide();
+
       
      }
       )

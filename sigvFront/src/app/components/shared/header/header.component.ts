@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
 
   flagTipo: number;
   nombreUsuario: string;
+  gender: string;
   loginDataUser;
 
   constructor(
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
     this.flagTipo = 1;
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.nombreUsuario = this.loginDataUser.userName;
+    this.gender = this.loginDataUser.gender;
   }
 
   ngOnInit() {

@@ -16,8 +16,9 @@ export class IGetPnrHotel {
         }
     ];
     lpassengers:[{
-        lastname: string;
+        lastName: string;
         name: string;
+        phone: string;
     }];
     oerror:{
         message:string;
