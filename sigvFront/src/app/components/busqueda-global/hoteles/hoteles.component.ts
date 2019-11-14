@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales, getDay } from 'ngx-bootstrap/chronos';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -16,7 +16,7 @@ declare var $: any;
   templateUrl: './hoteles.component.html',
   styleUrls: ['./hoteles.component.sass']
 })
-export class HotelesComponent implements OnInit {
+export class HotelesComponent implements OnInit, AfterViewInit {
 
   locale = 'es';
   locales = listLocales();
@@ -53,7 +53,7 @@ export class HotelesComponent implements OnInit {
   mayorPrecioHotel: number;
   menorPrecioHotel: number;
   mapafiltro: boolean;
- 
+
 
 
 
@@ -63,7 +63,18 @@ export class HotelesComponent implements OnInit {
     private localStorageService: LocalStorageService,
     public spinner: NgxSpinnerService,
     private service: HotelService
-  ) { 
+  ) {
+    console.log('constructor hoteles');
+    $('.menu-vuelo-1').show();
+    $('.menu-vuelo-2').hide();
+    $('.menu-hotel-1').hide();
+    $('.menu-hotel-2').show();
+    $('.menu-bus-1').show();
+    $('.menu-bus-2').hide();
+    $('.menu-paquete-1').show();
+    $('.menu-paquete-2').hide();
+    $('.menu-seguro-1').show();
+    $('.menu-seguro-2').hide();
     this.minDateIngreso = new Date();
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
     this.flagBuscar = false;
@@ -75,17 +86,42 @@ export class HotelesComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('ngOnInit hoteles');
+    $('#menu-vuelo-1').show();
+    $('#menu-vuelo-2').hide();
+    $('#menu-hotel-1').hide();
+    $('#menu-hotel-2').show();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     //this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     //this.token = this.sessionStorageService.retrieve('ss_token');
-    
+
     this.localeService.use(this.locale);
+  }
+
+  ngAfterViewInit() {
+    console.log('ngOnInit hoteles');
+    $('#menu-vuelo-1').show();
+    $('#menu-vuelo-2').hide();
+    $('#menu-hotel-1').hide();
+    $('#menu-hotel-2').show();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
   }
 
   selectEvent(item) {
     // do something with selected item
- 
+
     this.destinoValue = item.iataCode;
     this.destinoText = item.name;
     setTimeout(function() {
@@ -107,11 +143,11 @@ export class HotelesComponent implements OnInit {
 
   onFocused(e) {
     // do something when input is focused
-    
+
   }
 
   handlerIngreso(datepickerSalida) {
-   
+
   }
 
   onValueChangeIngreso(value: Date): void {
@@ -130,7 +166,7 @@ export class HotelesComponent implements OnInit {
     }
 
     this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
-    
+
 
 
     this.minDateSalida = value;
@@ -164,7 +200,7 @@ export class HotelesComponent implements OnInit {
     }
 
     this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
-    
+
   }
 
   Obtenerlistado($event) {
@@ -173,7 +209,7 @@ export class HotelesComponent implements OnInit {
 
     let menorValor = 1000000;
     let mayorValor = 0;
-           
+
     this.LlistaHotel.forEach(function(item) {
             if (item.oprice.pricePerAllNights < menorValor) {
               menorValor = item.oprice.pricePerAllNights;
@@ -181,7 +217,7 @@ export class HotelesComponent implements OnInit {
               if (item.oprice.pricePerAllNights > mayorValor) {
                 mayorValor = item.oprice.pricePerAllNights;
               }
-            
+
            });
 
            this.menorPrecioHotel = menorValor;
@@ -236,7 +272,7 @@ export class HotelesComponent implements OnInit {
   }
 
   SeachHotel() {
-  
+
     this.spinner.show();
     this.flagDinData = false;
     this.dateingreso = $('#dateingreso').val();
@@ -249,7 +285,7 @@ export class HotelesComponent implements OnInit {
           "HotelCityCode": this.destinoValue,
           "Stars": this.estrellas,
           "StartDate": this.fechaSalida,
-          "EndDate": this.fechaRetorno,	
+          "EndDate": this.fechaRetorno,
           "LguestPerRoom":
           [
             {
@@ -265,59 +301,59 @@ export class HotelesComponent implements OnInit {
     this.habitaciones = $('#txthabitacion').val();
     this.personas = $('#txtpersonas').val();
 
-   
+
 
     this.service.SearchHotel(data).subscribe(
-      
+
       result => {
         if (result.length == 0 || result == null || result[0].oerror != null) {
           alert("HOTELES NO DISPONIBLES");
         }
         else{
-          
+
           if (result !== null && result.length > 0) {
-      
+
            this.sessionStorageService.store('ls_search_hotel', result);
             this.LlistaHotel = result;
             this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
             this.flagBuscar = true;
- 
+
             let menorValor = 1000000;
             let mayorValor = 0;
             let currency;
             let cantnoche;
-            
+
            result.forEach(function(item, index1) {
- 
+
              let mmm = 1000000;
- 
+
              if (item.oprice.pricePerAllNights < menorValor) {
                menorValor = item.oprice.pricePerAllNights;
              }
                if (item.oprice.pricePerAllNights > mayorValor) {
                  mayorValor = item.oprice.pricePerAllNights;
                }
-             
+
             });
- 
+
             this.cantidadnoche = cantnoche;
             this.currency = currency;
             this.menorPrecioHotel = menorValor;
             this.mayorPrecioHotel = mayorValor;
           } else {
             this.flagDinData = true;
-            
+
        }
         }
-         
+
       },
     err => {
       this.spinner.hide();
-     
+
     },
    () => {
      this.spinner.hide();
-    
+
    }
   );
 }
@@ -357,5 +393,5 @@ validarLetras(e){
 showHideMap($event) {
   this.mapafiltro = $event;
 }
-  
+
 }

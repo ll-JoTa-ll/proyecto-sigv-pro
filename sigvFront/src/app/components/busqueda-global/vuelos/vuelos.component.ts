@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit} from '@angular/core';
 import { AirportService } from '../../../services/airport.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
@@ -18,7 +18,7 @@ declare var $: any;
   templateUrl: './vuelos.component.html',
   styleUrls: ['./vuelos.component.sass']
 })
-export class VuelosComponent implements OnInit {
+export class VuelosComponent implements OnInit, AfterViewInit {
 
   locale = 'es';
   locales = listLocales();
@@ -122,6 +122,17 @@ export class VuelosComponent implements OnInit {
     public spinner: NgxSpinnerService,
     private router: Router
   ) {
+    console.log('constructor vuelos');
+    $('#menu-vuelo-1').hide();
+    $('#menu-vuelo-2').show();
+    $('.menu-hotel-1').show();
+    $('.menu-hotel-2').hide();
+    $('.menu-bus-1').show();
+    $('.menu-bus-2').hide();
+    $('.menu-paquete-1').show();
+    $('.menu-paquete-2').hide();
+    $('.menu-seguro-1').show();
+    $('.menu-seguro-2').hide();
     this.flagBuscar = false;
     this.tipoVuelo = "RT";
     this.origenAuto = "";
@@ -147,19 +158,20 @@ export class VuelosComponent implements OnInit {
     if (ss_login_data === '' || ss_login_data === null) {
       this.router.navigate(['/']);
     }
-    $('.menu-vuelo-1').show();
-    $('.menu-vuelo-2').hide();
-    $('.menu-hotel-1').hide();
-    $('.menu-hotel-2').show();
-    $('.menu-bus-1').hide();
-    $('.menu-bus-2').show();
-    $('.menu-paquete-1').hide();
-    $('.menu-paquete-2').show();
-    $('.menu-seguro-1').hide();
-    $('.menu-seguro-2').show();
   }
 
   ngOnInit() {
+    console.log('ngOnInit vuelos');
+    $('#menu-vuelo-1').hide();
+    $('#menu-vuelo-2').show();
+    $('.menu-hotel-1').show();
+    $('.menu-hotel-2').hide();
+    $('.menu-bus-1').show();
+    $('.menu-bus-2').hide();
+    $('.menu-paquete-1').show();
+    $('.menu-paquete-2').hide();
+    $('.menu-seguro-1').show();
+    $('.menu-seguro-2').hide();
     //$(".x").hide();
     //this.localeService.use("es");
     //this.airportList();
@@ -177,6 +189,20 @@ export class VuelosComponent implements OnInit {
     } else {
       this.flagPaxMasMenos = false;
     }
+  }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit vuelos');
+    $('#menu-vuelo-1').hide();
+    $('#menu-vuelo-2').show();
+    $('#menu-hotel-1').show();
+    $('#menu-hotel-2').hide();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
   }
 
   /*
@@ -202,52 +228,58 @@ export class VuelosComponent implements OnInit {
   }
 
   onValueChangeSalida(value: Date): void {
+    console.log("onValueChangeSalida");
+    console.log("value: " + value);
     $("#txtFechaSalida").removeClass("campo-invalido");
     this.minDateRetorno = value;
     //console.log("dpSalida: " + this.dpSalida);
 
-    let mes = "";
-    let getMonth = value.getMonth() + 1;
-    if (getMonth < 10) {
-      getMonth = value.getMonth() + 1;
-      mes = "0" + getMonth;
-    } else {
-      mes = "" + getMonth;
-    }
+    if (value != null) {
+      let mes = "";
+      let getMonth = value.getMonth() + 1;
+      if (getMonth < 10) {
+        getMonth = value.getMonth() + 1;
+        mes = "0" + getMonth;
+      } else {
+        mes = "" + getMonth;
+      }
 
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
 
-    this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
-    this.fechaSalidaShow = dia + "/" + mes + "/" + value.getFullYear();
-    console.log(this.fechaSalida);
+      this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
+      this.fechaSalidaShow = dia + "/" + mes + "/" + value.getFullYear();
+      console.log(this.fechaSalida);
+    }
   }
 
   onValueChangeRetorno(value: Date): void {
-    $("#txtFechaDestino").removeClass("campo-invalido");
-    let mes = "";
-    let getMonth = value.getMonth() + 1;
-    if (getMonth < 10) {
-      getMonth = value.getMonth() + 1;
-      mes = "0" + getMonth;
-    } else {
-      mes = "" + getMonth;
-    }
+    if (value != null) {
+      $("#txtFechaDestino").removeClass("campo-invalido");
+      let mes = "";
+      let getMonth = value.getMonth() + 1;
+      if (getMonth < 10) {
+        getMonth = value.getMonth() + 1;
+        mes = "0" + getMonth;
+      } else {
+        mes = "" + getMonth;
+      }
 
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
 
-    this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
-    this.fechaRetornoShow = dia + "/" + mes + "/" + value.getFullYear();
-    console.log(this.fechaRetorno);
+      this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
+      this.fechaRetornoShow = dia + "/" + mes + "/" + value.getFullYear();
+      console.log(this.fechaRetorno);
+    }
   }
 
   selectEvent(item) {
