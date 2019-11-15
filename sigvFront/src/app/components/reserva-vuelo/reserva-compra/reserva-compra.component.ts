@@ -484,6 +484,7 @@ export class ReservaCompraComponent implements OnInit {
     }
 
     Emitir () {
+      this.spinner.show();
       let phones = [];
       let email = [];
       this.lusers.forEach(function(item) {
@@ -524,7 +525,7 @@ export class ReservaCompraComponent implements OnInit {
 
         },
         () => {
-
+        this.spinner.hide();
         }
       )
     }

@@ -50,8 +50,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
-    }
-    if (this.user === 'F') {
+    } else {
       this.tratamiento = 'MRS';
     }
     this.fecha = this.user.birthDate;
