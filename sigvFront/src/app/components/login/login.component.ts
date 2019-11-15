@@ -110,6 +110,14 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  onKeydown(event) {
+    if (event.key === "Enter") {
+      if ($('#txtpass').val().length > 0) {
+        this.login();
+      }
+    }
+  }
+
   airportList() {
     this.airportService.airportList(this.token).subscribe(
       (result: any) => {

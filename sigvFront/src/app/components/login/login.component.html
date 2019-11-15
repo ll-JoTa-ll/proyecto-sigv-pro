@@ -47,7 +47,7 @@
                                                         Contraseña
                                                     </div>
                                                     <div class="col-8 m-0 pl-0 div-pr-1">
-                                                        <input class="text-3" type="password" [(ngModel)]="model.Password">
+                                                        <input id="txtpass" class="text-3" type="password" [(ngModel)]="model.Password" (keydown)="onKeydown($event)">
                                                     </div>
                                                 </div>
                                             </div>

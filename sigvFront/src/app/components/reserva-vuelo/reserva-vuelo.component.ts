@@ -129,14 +129,12 @@ export class ReservaVueloComponent implements OnInit {
       } else {
           $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
           val = false;
-          alert('la direccion de correo no es valida');
           return;
       }
     });
     if (regex.test($('#contactocorreo').val().trim())) {
       val = true;
     } else {
-     alert('la direccion de correo no es valida');
      val = false;
     }
      return val;

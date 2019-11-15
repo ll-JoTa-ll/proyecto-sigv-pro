@@ -1,227 +1,218 @@
-
 <div class="row m-0 p-0">
 
-  <div class="col-12 m-0 p-0" style="width: 100%; height: 30px !important; border: none !important;"></div>
+    <div class="col-12 m-0 p-0" style="width: 100%; height: 30px !important; border: none !important;"></div>
 
-  <div class="col-12 m-0 p-0">
+    <div class="col-12 m-0 p-0">
 
-    <div class="row m-0 p-0 box-shadow" style="padding: 10px !important;">
+        <div class="row m-0 p-0 box-shadow" style="padding: 10px !important;">
 
-      <div class="col-12 m-0 p-0 ho-text-1">
-        Horarios
-      </div>
-
-      <div *ngIf="indexTramo>=horario1" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
-        <div class="row m-0 p-0">
-          <div class="col-12 m-0 p-0 pb-1">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0 div-color-1">
-                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta1}}" alt="" class="pr-1 pl-2">
-                {{texto1}}
-              </div>
+            <div class="col-12 m-0 p-0 ho-text-1">
+                Horarios
             </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                Hora de salida
-              </div>
-              <div class="col-6 m-0 p-0">
-                Hora de llegada
-              </div>
-            </div>
-          </div>
-          <div class="col-12 m-0 p-0 ho-text-3">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                <!--<timepicker [(ngModel)]="myTime1" [showMeridian]="isMeridian" [showSpinners]="showSpinners"></timepicker>
+
+            <div *ngIf="indexTramo>=horario1" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 pb-1">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0 div-color-1">
+                                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta1}}" alt="" class="pr-1 pl-2"> {{texto1}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                Hora de salida
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                Hora de llegada
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0 ho-text-3">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                <!--<timepicker [(ngModel)]="myTime1" [showMeridian]="isMeridian" [showSpinners]="showSpinners"></timepicker>
                 {{myTime1.getHours()}}:{{myTime1.getMinutes()}}-->
-                <input type="text" name="timepicker1" class="timepicker1 width-timer"/>
-              </div>
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker2" class="timepicker2 width-timer"/>
-              </div>
+                                <input type="text" name="timepicker1" class="timepicker1 width-timer" />
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker2" class="timepicker2 width-timer" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div *ngIf="indexTramo>=horario2" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
-        <div class="row m-0 p-0">
-          <div class="col-12 m-0 p-0 pb-1">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0 div-color-1">
-                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta2}}" alt="" class="pr-1 pl-2">
-                {{texto2}}
-              </div>
+            <div *ngIf="indexTramo>=horario2" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 pb-1">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0 div-color-1">
+                                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta2}}" alt="" class="pr-1 pl-2"> {{texto2}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                Hora de salida
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                Hora de llegada
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker3" class="timepicker3 width-timer" />
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker4" class="timepicker4 width-timer" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                Hora de salida
-              </div>
-              <div class="col-6 m-0 p-0">
-                Hora de llegada
-              </div>
-            </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker3" class="timepicker3 width-timer"/>
-              </div>
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker4" class="timepicker4 width-timer"/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div *ngIf="indexTramo>=horario3" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
-        <div class="row m-0 p-0">
-          <div class="col-12 m-0 p-0 pb-1">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0 div-color-1">
-                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta3}}" alt="" class="pr-1 pl-2">
-                {{texto3}}
-              </div>
+            <div *ngIf="indexTramo>=horario3" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 pb-1">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0 div-color-1">
+                                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta3}}" alt="" class="pr-1 pl-2"> {{texto3}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                Hora de salida
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                Hora de llegada
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker5" class="timepicker5 width-timer" />
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker6" class="timepicker6 width-timer" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                Hora de salida
-              </div>
-              <div class="col-6 m-0 p-0">
-                Hora de llegada
-              </div>
-            </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker5" class="timepicker5 width-timer"/>
-              </div>
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker6" class="timepicker6 width-timer"/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div *ngIf="indexTramo>=horario4" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
-        <div class="row m-0 p-0">
-          <div class="col-12 m-0 p-0 pb-1">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0 div-color-1">
-                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta4}}" alt="" class="pr-1 pl-2">
-                {{texto4}}
-              </div>
+            <div *ngIf="indexTramo>=horario4" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 pb-1">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0 div-color-1">
+                                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta4}}" alt="" class="pr-1 pl-2"> {{texto4}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                Hora de salida
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                Hora de llegada
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker7" class="timepicker7 width-timer" />
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker8" class="timepicker8 width-timer" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                Hora de salida
-              </div>
-              <div class="col-6 m-0 p-0">
-                Hora de llegada
-              </div>
-            </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker7" class="timepicker7 width-timer"/>
-              </div>
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker8" class="timepicker8 width-timer"/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div *ngIf="indexTramo>=horario5" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
-        <div class="row m-0 p-0">
-          <div class="col-12 m-0 p-0 pb-1">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0 div-color-1">
-                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta5}}" alt="" class="pr-1 pl-2">
-                {{texto5}}
-              </div>
+            <div *ngIf="indexTramo>=horario5" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 pb-1">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0 div-color-1">
+                                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta5}}" alt="" class="pr-1 pl-2"> {{texto5}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                Hora de salida
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                Hora de llegada
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker9" class="timepicker9 width-timer" />
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker10" class="timepicker10 width-timer" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                Hora de salida
-              </div>
-              <div class="col-6 m-0 p-0">
-                Hora de llegada
-              </div>
-            </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker9" class="timepicker9 width-timer"/>
-              </div>
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker10" class="timepicker10 width-timer"/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div *ngIf="indexTramo>=horario6" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
-        <div class="row m-0 p-0 pb-1">
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0 div-color-1">
-                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta6}}" alt="" class="pr-1 pl-2">
-                {{texto6}}
-              </div>
+            <div *ngIf="indexTramo>=horario6" class="col-12 m-0 p-0 padding-top-1 ho-text-2">
+                <div class="row m-0 p-0 pb-1">
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0 div-color-1">
+                                <img style="width: 40px" src="./assets/images/{{imgIdaVuelta6}}" alt="" class="pr-1 pl-2"> {{texto6}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                Hora de salida
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                Hora de llegada
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker11" class="timepicker11 width-timer" />
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <input type="text" name="timepicker12" class="timepicker12 width-timer" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                Hora de salida
-              </div>
-              <div class="col-6 m-0 p-0">
-                Hora de llegada
-              </div>
-            </div>
-          </div>
-          <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0">
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker11" class="timepicker11 width-timer"/>
-              </div>
-              <div class="col-6 m-0 p-0">
-                <input type="text" name="timepicker12" class="timepicker12 width-timer"/>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="col-12 m-0 p-0 pb-3 text-center padding-top-3">
-        <button class="btn ho-btn-buscar" (click)="setHorarios()">
+            <div class="col-12 m-0 p-0 pb-3 text-center padding-top-3">
+                <button class="btn ho-btn-buscar" (click)="setHorarios()">
           <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-          Buscar
+          Filtrar
         </button>
-      </div>
+            </div>
+
+        </div>
 
     </div>
 
-  </div>
-
 </div>
-
-
