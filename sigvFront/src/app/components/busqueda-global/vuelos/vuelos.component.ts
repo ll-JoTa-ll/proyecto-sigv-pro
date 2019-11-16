@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { AirportService } from '../../../services/airport.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
@@ -191,6 +191,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
+
   ngAfterViewInit() {
     console.log('ngAfterViewInit vuelos');
     $('#menu-vuelo-1').hide();
@@ -204,6 +205,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
   }
+
+
 
   /*
   airportList() {
@@ -583,6 +586,15 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         console.log("this.airportService.searchFlight completado");
       }
     );
+  }
+
+  ValidarDestinos() {
+    if (this.model.origentTexto.length < 5) {
+      this.model.origentTexto = '';
+    }
+    if (this.model.destinoTexto.length < 5) {
+      this.model.destinoTexto = '';
+    }
   }
 
   validarDataBusqueda(data) {

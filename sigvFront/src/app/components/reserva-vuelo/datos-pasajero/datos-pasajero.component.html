@@ -147,7 +147,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" [(ngModel)]="user.email" id="txtcorreo_{{index}}">
+                                <input class="input-pasajero" type="text" [(ngModel)]="user.email" id="txtcorreo_{{index}}" maxlength="100">
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" id="txtpasajerofrecuente_{{index}}" [(ngModel)]="user.frequentFlyer">
+                                <input class="input-pasajero" type="number" id="txtpasajerofrecuente_{{index}}" [(ngModel)]="user.frequentFlyer" maxlength="20">
                             </div>
                         </div>
                     </div>
@@ -185,7 +185,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}">
+                                <input class="input-pasajero" type="number" [(ngModel)]="user.phone" id="txttelefono_{{index}}" maxlength="12">
                             </div>
                         </div>
                     </div>
