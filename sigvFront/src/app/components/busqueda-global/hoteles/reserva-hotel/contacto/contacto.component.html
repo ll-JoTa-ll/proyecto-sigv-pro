@@ -2,7 +2,7 @@
     <div class="col-12 m-0 p-0 box-shadow pl-4 pb-5">
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 pt-4">
-                <span class="pregunta">¿A que número podemos llamarte?</span>
+                <span class="pregunta">¿Como podemos contactarte?</span>
             </div>
         </div>
         <div class="row m-0 p-0">
@@ -12,22 +12,22 @@
         </div>
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 pt-4">
-                <span class="title">TELÉFONO</span>
+                <span class="title">Nombres</span>
             </div>
         </div>
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0">
-                <input type="text" placeholder="Celular" class="input-names box-shadow" style="width: 329px; height: 44px;">
+                <input type="text" (keyup)="validarNombre()" (keypress)="validarLetras($event)" [(ngModel)]="nombre" placeholder="Nombre de contacto" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
             </div>
         </div>
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 pt-4">
-                <span class="title">CÓDIGO DE PAÍS</span>
+                <span class="title">CORREO ELECTRONICO</span>
             </div>
         </div>
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0">
-                <input type="text" placeholder="Peru(51)" class="input-names box-shadow" style="width: 329px; height: 44px;">
+                <input type="email" placeholder="" (keyup)="validarCorreo()" [(ngModel)]="correo" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
             </div>
         </div>
         <div class="row m-0 p-0">
@@ -40,10 +40,10 @@
         </div>
         <div class="row m-0 p-0">
             <div class="col-5 m-0 p-0">
-                <input type="text" placeholder="01" class="input-names box-shadow" style="width: 139,06px; height: 44px;">
+                <input type="text" placeholder="01" (keyup)="validarArea()" (keypress)="validarNumeros($event)" [(ngModel)]="area" class="input-names box-shadow" style="width: 139,06px; height: 44px;" (paste)="false">
             </div>
             <div class="col-7 m-0 p-0">
-                <input type="text" placeholder="Ingresa un número" class="input-names box-shadow" style="width: 329px; height: 44px;">
+                <input type="text" placeholder="Ingresa un número" (keyup)="validarTelefono()" (keypress)="validarNumeros($event)" [(ngModel)]="telefono" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
             </div>
         </div>
 

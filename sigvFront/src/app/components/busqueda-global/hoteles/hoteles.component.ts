@@ -54,8 +54,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   menorPrecioHotel: number;
   mapafiltro: boolean;
 
-
-
+  
 
   constructor(
     private localeService: BsLocaleService,

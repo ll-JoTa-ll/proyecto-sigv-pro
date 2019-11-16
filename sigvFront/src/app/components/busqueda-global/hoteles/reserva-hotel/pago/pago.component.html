@@ -71,7 +71,7 @@
                     <div class="col-12 m-0 p-0">
                         <div class="row m-0 p-0">
                             <div class="title col-6 m-0 p-0 pl-4">
-                                <input type="text" (keyup)="validarLetras($event);validarNombre()" id="titularTarjeta" [(ngModel)]="titular" placeholder="Como figura en la tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;">
+                                <input type="text" (keyup)="validarNombre()" (keypress)="validarLetras($event)" id="titularTarjeta" [(ngModel)]="titular" placeholder="Como figura en la tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;">
                             </div>
                         </div>
                     </div>

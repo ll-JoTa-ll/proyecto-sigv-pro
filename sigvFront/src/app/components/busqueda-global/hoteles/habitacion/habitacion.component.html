@@ -3,9 +3,9 @@
         <div class="row m-0 p-0">
             <div class="col-3">
                 <div class="row m-0 p-0 pt-4">
-                    <!--  <app-busqueda-mini [destinoValue]="lhotel" [destinoText]="destinoText" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones"
-                        [adultos]="personas">
-                    </app-busqueda-mini>-->
+                    <app-busqueda-mini [destinoValue]="destinoValue" [destinoText]="destinoText" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones"
+                        [adultos]="personas" (flagShowMap)="showHideMap($event)">
+                    </app-busqueda-mini>
                 </div>
             </div>
 
@@ -109,11 +109,20 @@
                                                         <span class="pl-4"><span class="Moneda">{{lhotel.oprice.currency}}</span><span class="Amount pl-2">{{lhotel.oprice.pricePerAllNights}}</span></span>
                                                     </div>
                                                 </div>
-                                                <div class="row m-0 p-0">
+
+                                                <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate" class="row m-0 p-0">
                                                     <div class="col-12 m-0 p-0">
-                                                        <span class="textopre">{{lhotel.numberNights}} noche(s) para {{lhotel.numberPassenger}} persona(s)</span>
+                                                        <span class="textopre">{{lhotel.numberNights}} noche para {{lhotel.numberPassenger}} persona</span>
                                                     </div>
-                                                </div>
+                                                </ng-container>
+                                                <ng-template #elseTemplate class="row m-0 p-0">
+                                                    <div class="col-12 m-0 p-0">
+                                                        <span class="textopre">{{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} persona</span>
+                                                    </div>
+                                                </ng-template>
+
+
+
                                                 <div class="row m-0 p-0">
                                                     <div class="col-1 m-0 p-0">
 
@@ -128,10 +137,11 @@
                                         <div class="row m-0 p-0">
                                             <div class="col-12 m-0 p-0">
                                                 <span class="pl-0">
-                                                    <!--<button class="botonver" class="btn btn-danger col-lg-12" href="#id_det_hab">Ver habitaciones</button>-->
-                                                    <a class="btn btn-danger col-lg-12">
+                                                    <button class="botonver" class="btn btn-danger col-lg-12" (click)="getChatMessages()">Ver habitaciones</button>
+                                                    <!--<a class="btn btn-danger col-lg-12">
                                                          <span class="ver">Ver habitaciones</span>
-                                                </a>
+                                                </a>-->
+
                                                 </span>
                                             </div>
                                         </div>
@@ -155,7 +165,7 @@
                                             <span class="pl-1" style="cursor: pointer; color: blue;" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Mostrar Mas</span>
                                         </p>
                                     </div>-->
-                                    <ng-container class="conten col-12 m-0 p-0" *ngIf="lsthabitacion.ohotel.hotelDescription.length > 300; else elseTemplate">
+                                    <ng-container class="conten col-12 m-0 p-0" *ngIf="lsthabitacion.ohotel.hotelDescription.length > 400; else elseTemplate">
                                         <p id="description" class="Description">{{texto1}}</p>
                                         <p class="p1" id="p1" (click)="mostrarmas();" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Mostrar Mas</p>
                                         <p class="p2" id="p2" (click)="mostrarmenos()">Mostrar Menos</p>
@@ -206,7 +216,7 @@
                         </div>
 
 
-                        <app-detalle-habitacion *ngFor="let habitacion of lsthabitacion.lroom; let i = index;" [index]="i" [lhabitaciones]="habitacion" [breakFast]="habitacion.breakFast" [hotel]="lsthabitacion.ohotel.lguestPerRoom">
+                        <app-detalle-habitacion id="destination" *ngFor="let habitacion of lsthabitacion.lroom; let i = index;" [index]="i" [lhabitaciones]="habitacion" [breakFast]="habitacion.breakFast" [hotel]="lsthabitacion.ohotel.lguestPerRoom">
 
                         </app-detalle-habitacion>
 

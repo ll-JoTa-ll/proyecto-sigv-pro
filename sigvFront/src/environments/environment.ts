@@ -10,7 +10,7 @@ export const environment = {
   //url_2: "http://apis-uat.domiruth.com/flight/api/",
  // url_hotel: "http://172.16.3.20:8084/api/",
   url_hotel: "https://sigvplushotel.azurewebsites.net/api/",
-  url_usuario : "http://172.16.2.101:8110/api/",
+  url_usuario : "https://sigvpluscustomer.azurewebsites.net/api/",
   url_project :"http://localhost:4200",
   url_5: 'https://sigvpluscustomer.azurewebsites.net/api/',
  // url_5: 'http://apis-uat.domiruth.com/customer/api/',

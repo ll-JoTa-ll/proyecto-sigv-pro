@@ -44,9 +44,13 @@ export class ReservaHotelComponent implements OnInit {
   telefono;
   correo;
   nombreTarjeta;
-  
+  plantilla;
 
-  plantilla = './assets/plantillashoteles/enviocorreo.html';
+  telefonoContacto;
+  correoContacto;
+  nombreContacto;
+  areaContacto;
+  
   
   
 
@@ -55,6 +59,7 @@ export class ReservaHotelComponent implements OnInit {
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.user = this.sessionStorageService.retrieve("ss_user");
+    this.plantilla = 'assets/plantillashoteles/enviocorreo.html';
    }
 
   ngOnInit() {
@@ -83,6 +88,7 @@ export class ReservaHotelComponent implements OnInit {
     else{
       //let fechVencimiento = this.fechVencimiento;
     //this.fechVencimiento = fechVencimiento.substring(0,2) + fechVencimiento.substring(3,5);
+    //this.fechVencimiento = this.fechVencimiento.substring(0,2) + this.fechVencimiento.substring(3,5);
     let phone = [this.telefono];
     phone.push();
     let email = [this.correo];
@@ -133,9 +139,10 @@ export class ReservaHotelComponent implements OnInit {
       },
       "OInformationContact":
       {
-        "Area":"01",
-        "Name": "Anthony",
-        "Numberphone":"954125654"
+        "Area": this.areaContacto,
+        "Name": this.nombreContacto,
+        "EmailAddress" : this.correoContacto,
+        "Numberphone": this.telefonoContacto
       }
     }
 
@@ -235,7 +242,7 @@ export class ReservaHotelComponent implements OnInit {
   }
 
   getAmenities(){
-    let imgNotFound = '/assets/images/imagenotfound.jfif'
+    let imgNotFound = './assets/images/imagenotfound.jfif'
     let html ='';
     let SinInfo = '';
     let amenities: any;
@@ -315,6 +322,23 @@ export class ReservaHotelComponent implements OnInit {
 
   setCorreo($event){
     this.correo = $event;
+  }
+  
+
+  setCorreoContacto($event){
+    this.correoContacto = $event;
+  }
+
+  setTelefonoContacto($event){
+    this.telefonoContacto = $event;
+  }
+
+  setNombreContacto($event){
+    this.nombreContacto = $event;
+  }
+
+  setAreaContacto($event){
+    this.areaContacto = $event;
   }
   
   ValidarCampos() {

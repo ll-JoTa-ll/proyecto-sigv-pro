@@ -119,6 +119,8 @@ import { NavHeaderComponent } from './components/shared/nav-header/nav-header.co
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -229,6 +231,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     BsDatepickerModule.forRoot(),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ScrollToModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDaXMHgcWr4xnHihDztbEPvkzyRnRFV81A',
       libraries: ['places']
