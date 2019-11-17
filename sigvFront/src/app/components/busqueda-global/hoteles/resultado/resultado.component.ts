@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { VuelosComponent } from '../../vuelos/vuelos.component';
 import { HotelesComponent } from '../hoteles.component';
+import { IGetUserById } from 'src/app/models/IGetUserById.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -44,12 +45,14 @@ export class ResultadoComponent implements OnInit {
   urlimg = './assets/images/hotel-icon.png';
   lstHabication: IHabitacionResults;
   lstHotel : IHotelResultsModel[];
+  
 
   constructor(private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router,private Hotels: HotelesComponent) { }
 
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
+    
   }
 
 

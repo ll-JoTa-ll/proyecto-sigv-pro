@@ -4,8 +4,10 @@
 
         <div *ngIf="!flagBuscar" class="row m-0 p-0 animated fadeIn fast" style="width: 100% !important;">
 
-            <div class="col-2 m-0 p-0"></div>
+            <div class="col-2 m-0 p-0">
+ 
 
+            </div>
             <div class="col-8 m-0 p-0 pl-2 pr-2 pb-5 pt-4 box-shadow animated fadeIn fast" style="background-color: white;">
                 <div class="row m-0 p-0">
                     <div class="m-0 p-0 v-texto-2 div-destino">
@@ -88,28 +90,60 @@
                                 <label for="">Habitaciones</label>
                             </div>
                         </div>
-                        <div class="row m-0 p-0" onclick="MostrarModal()" id="habitacion">
-                            <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
-                                  <input type="image"
-                                  src="./assets/images/cama.svg"
-                                  class="input-img"
-                                  >
-                                  <input (keypress)="validarNumeros($event)" type="text"
-                                  id="txthabitacion"
-                                  class="input-text2"
-                                  value="1">
-                                </label>
-                            <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
-                                <input type="image"
-                                src="./assets/images/pasajero.svg"
-                                class="input-img"
-                                >
-                                <input (keypress)="validarNumeros($event)" type="text"
-                                id="txtpersonas"
-                                class="input-text2"
-                                value="1">
-                                </label>
+                        <div *ngIf="user.orole.description == 'Centralizador'; else elseTemplate">
+                            <div  class="row m-0 p-0" onclick="MostrarModal()" id="habitacion">
+                                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                                      <input type="image"
+                                      src="./assets/images/cama.svg"
+                                      class="input-img"
+                                      
+                                      >
+                                      <input (keypress)="validarNumeros($event)" type="text"
+                                      id="txthabitacion"
+                                      class="input-text2"
+                                      value="1"
+                                      >
+                                    </label>
+                                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                                    <input type="image"
+                                    src="./assets/images/pasajero.svg"
+                                    class="input-img"
+                                    >
+                                    <input (keypress)="validarNumeros($event)" type="text"
+                                    id="txtpersonas"
+                                    class="input-text2"
+                                    value="1"
+                                    >
+                                    </label>
+                            </div>
                         </div>
+                        <ng-template #elseTemplate class="row m-0 p-0">
+                            <div  class="row m-0 p-0" id="habitacion">
+                                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                                      <input type="image"
+                                      src="./assets/images/cama.svg"
+                                      class="input-img"
+                                      
+                                      >
+                                      <input (keypress)="validarNumerosN($event)" type="text"
+                                      id="txthabitacion"
+                                      class="input-text2"
+                                      value="1"
+                                      >
+                                    </label>
+                                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                                    <input type="image"
+                                    src="./assets/images/pasajero.svg"
+                                    class="input-img"
+                                    >
+                                    <input (keypress)="validarNumerosN($event)" type="text"
+                                    id="txtpersonas"
+                                    class="input-text2"
+                                    value="1"
+                                    >
+                                    </label>
+                            </div>
+                        </ng-template>
                         <div class="modal-info tooltipBagDiv box-shadow" id="pop1" style="display: none;">
                             <div id="habitacion_1">
                                 <div id="seccion_habitacion">

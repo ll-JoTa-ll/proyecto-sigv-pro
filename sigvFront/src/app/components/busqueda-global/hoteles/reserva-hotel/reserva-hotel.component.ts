@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { AirportService } from '../../../../services/airport.service';
 import { IGetUserById } from '../../../../models/IGetUserById.model';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 declare var jquery: any;
 declare var $: any;
@@ -54,12 +55,26 @@ export class ReservaHotelComponent implements OnInit {
   
   
 
-  constructor(private toastr: ToastrService,private http: HttpClient,private router: Router,private sessionStorageService: SessionStorageService,public spinner: NgxSpinnerService,private service: HotelService,private modalService: BsModalService,private services: AirportService) {
+  constructor(private bnIdle: BnNgIdleService,private toastr: ToastrService,private http: HttpClient,private router: Router,private sessionStorageService: SessionStorageService,public spinner: NgxSpinnerService,private service: HotelService,private modalService: BsModalService,private services: AirportService) {
     this.lstConfirmacion = this.sessionStorageService.retrieve("confirmacion");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.user = this.sessionStorageService.retrieve("ss_user");
     this.plantilla = 'assets/plantillashoteles/enviocorreo.html';
+    this.bnIdle.startWatching(480).subscribe((res) => {
+      if(res) {
+          console.log("session expired");
+          alert("session expired")
+          this.router.navigate(['hoteles'])
+      }
+    })
+    this.bnIdle.startWatching(1740).subscribe((res) => {
+      if(res) {
+          console.log("session expired");
+          alert("session expired")
+          this.router.navigate([''])
+      }
+    })
    }
 
   ngOnInit() {

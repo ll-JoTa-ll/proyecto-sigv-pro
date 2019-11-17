@@ -12,6 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { IGetPnrHotel } from 'src/app/models/IGetPnrHotel.model';
 import { Router } from '@angular/router';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+import { BnNgIdleService } from 'bn-ng-idle';
 declare var jquery: any;
 declare var $: any;
 
@@ -67,10 +68,24 @@ export class HabitacionComponent implements OnInit {
   texto2: string;
   texto3: string;
 
-  constructor(private sessionStorageService: SessionStorageService, private modalService: BsModalService,private service: HotelService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
+  constructor(private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private service: HotelService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
     for (let i = 0; i < 4; i++) {
       this.addSlide();
     }
+    this.bnIdle.startWatching(480).subscribe((res) => {
+      if(res) {
+          console.log("session expired");
+          alert("Session expired")
+          this.router.navigate(['hoteles'])
+      }
+    })
+    this.bnIdle.startWatching(1740).subscribe((res) => {
+      if(res) {
+          console.log("session expired");
+          alert("session expired")
+          this.router.navigate([''])
+      }
+    })
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
     console.log(this.LHoteles);

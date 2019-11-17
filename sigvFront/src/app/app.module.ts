@@ -118,7 +118,7 @@ import { VueloFamiliaSegmentComponent } from './components/vuelos/familias/vuelo
 import { NavHeaderComponent } from './components/shared/nav-header/nav-header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-
+import { BnNgIdleService } from 'bn-ng-idle';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 @NgModule({
@@ -244,7 +244,7 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     ToastrModule.forRoot(),
     TooltipModule.forRoot()
   ],
-  providers: [],
+  providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

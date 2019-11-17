@@ -7,6 +7,9 @@ import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
 import { HotelService } from '../../../services/hotel.service';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { IGetUserById } from 'src/app/models/IGetUserById.model';
+import { BnNgIdleService } from 'bn-ng-idle';
+import { Router } from '@angular/router';
 
 declare var jquery: any;
 declare var $: any;
@@ -20,7 +23,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
   locale = 'es';
   locales = listLocales();
-
+  user : IGetUserById;
   flagBuscar: boolean;
   flagDinData: boolean;
   airportlist: any[] = [];
@@ -57,12 +60,22 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   
 
   constructor(
+    private router: Router,
     private localeService: BsLocaleService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     public spinner: NgxSpinnerService,
-    private service: HotelService
+    private service: HotelService,
+    private bnIdle: BnNgIdleService
+    
   ) {
+    this.bnIdle.startWatching(1740).subscribe((res) => {
+      if(res) {
+          console.log("session expired");
+          alert("session expired")
+          this.router.navigate([''])
+      }
+    })
     console.log('constructor hoteles');
     $('.menu-vuelo-1').show();
     $('.menu-vuelo-2').hide();
@@ -85,6 +98,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.user = this.sessionStorageService.retrieve('ss_user');
     console.log('ngOnInit hoteles');
     $('#menu-vuelo-1').show();
     $('#menu-vuelo-2').hide();
@@ -357,6 +371,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   );
 }
 
+
+
 SeleccionarEstrella(codeestrella, texto) {
   this.estrellas = codeestrella;
   this.textoestrellas = texto;
@@ -369,6 +385,16 @@ validarNumeros(e){
      var teclaFinal = String.fromCharCode(tecla);
       return patron.test(teclaFinal);
 };
+
+validarNumerosN(e){
+  var tecla = (document.all) ? e.keyCode : e.which;
+   if (tecla == 8) return true;
+    var patron = /^([])*$/;
+     var teclaFinal = String.fromCharCode(tecla);
+     if(tecla == 505) return false;
+      return patron.test(teclaFinal);
+};
+
 
 validarTodo(e){
   var tecla = (document.all) ? e.keyCode : e.which;
