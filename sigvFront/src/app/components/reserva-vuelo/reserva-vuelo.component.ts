@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, AfterViewInit } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { environment } from '../../../environments/environment';
@@ -53,6 +53,8 @@ export class ReservaVueloComponent implements OnInit {
   LSectionPassenger;
   lsapprovers: IGetApprovers[] = [];
   flightNational;
+  @Output() enviarvaltelefono = new EventEmitter<any>();
+  @Output() enviarcorreo = new EventEmitter<any>();
 
   constructor(
     private modalService: BsModalService,
@@ -142,6 +144,8 @@ export class ReservaVueloComponent implements OnInit {
 
   ValidarCampos() {
     let val = true;
+    let valtelefono;
+    let valcorreo;
     this.datosuser.forEach(function(item, index) {
         if ($('#txtnombre_' + (index + 1)).val().length <= 0) {
           val = false;
@@ -175,12 +179,16 @@ export class ReservaVueloComponent implements OnInit {
         }
         if ($('#txtcorreo_' + (index + 1)).val().length <= 0) {
           $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
+          valcorreo = true;
+          this.enviarcorreo.emit(valcorreo);
           val = false;
         } else {
           $('#txtcorreo_' + (index + 1)).removeClass('campo-invalido');
         }
         if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
           $('#txttelefono_' + (index + 1)).addClass('campo-invalido');
+          valtelefono = true;
+          this.enviarvaltelefono.emit(valtelefono);
           val = false;
         } else {
           $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');

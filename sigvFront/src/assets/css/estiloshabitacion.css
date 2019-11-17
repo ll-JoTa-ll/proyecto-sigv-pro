@@ -75,3 +75,11 @@
     margin-left: -170px;
     display: block;
 }
+
+:host >>> .popover {
+  background-color: #009688;
+  color: #fff;
+}
+:host >>> .popover>.arrow:after {
+  border-top-color: #009688;
+}

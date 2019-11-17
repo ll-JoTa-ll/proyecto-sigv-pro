@@ -111,6 +111,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   vuelosNoche: boolean;
   vueloTurnoFiltro: boolean;
   flagBuscadorLateral: boolean;
+  isOpen = false;
+  valdestino = false;
+  valfechasalida = false;
+  valfechadestino = false;
 
   model: any = {};
 
@@ -233,6 +237,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   onValueChangeSalida(value: Date): void {
     console.log("onValueChangeSalida");
     console.log("value: " + value);
+    this.valfechasalida = false;
     $("#txtFechaSalida").removeClass("campo-invalido");
     this.minDateRetorno = value;
     //console.log("dpSalida: " + this.dpSalida);
@@ -262,6 +267,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   onValueChangeRetorno(value: Date): void {
     if (value != null) {
+      this.valfechadestino = false;
       $("#txtFechaDestino").removeClass("campo-invalido");
       let mes = "";
       let getMonth = value.getMonth() + 1;
@@ -291,6 +297,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     console.log(item);
     this.origenAuto = item.iataCode;
     this.origentTexto = item.name;
+    this.isOpen = false;
     $("#txtOrigen").removeClass("campo-invalido");
     setTimeout(function() {
       $(".x").hide();
@@ -318,6 +325,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   selectEvent2(item) {
     this.destinoAuto = item.iataCode;
     this.destinoTexto = item.name;
+    this.valdestino = false;
     $("#txtDestino").removeClass("campo-invalido");
   }
 
@@ -607,26 +615,34 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if (tipoVuelo === 'RT') {
       if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
         $("#txtOrigen").addClass("campo-invalido");
+        this.isOpen = true;
         flagVal = false;
       } else {
+        this.isOpen = false;
         $("#txtOrigen").removeClass("campo-invalido");
       }
       if ($.trim(this.model.destinoTexto) === '' || $.trim(this.model.destinoTexto) === undefined) {
         $("#txtDestino").addClass("campo-invalido");
+        this.valdestino = true;
         flagVal = false;
       } else {
+        this.valdestino = false;
         $("#txtDestino").removeClass("campo-invalido");
       }
       if ($.trim(this.fechaSalida) === '' || this.model.salida === null || this.model.salida === '') {
         $("#txtFechaSalida").addClass("campo-invalido");
+        this.valfechasalida = true;
         flagVal = false;
       } else {
+        this.valfechasalida = false;
         $("#txtFechaSalida").removeClass("campo-invalido");
       }
       if ($.trim(this.fechaRetorno) === '') {
         $("#txtFechaDestino").addClass("campo-invalido");
+        this.valfechadestino = true;
         flagVal = false;
       } else {
+        this.valfechadestino = false;
         $("#txtFechaDestino").removeClass("campo-invalido");
       }
     }
@@ -634,18 +650,21 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if (tipoVuelo === 'OW') {
       if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
         $("#txtOrigen").addClass("campo-invalido");
+        this.isOpen = true;
         flagVal = false;
       } else {
         $("#txtOrigen").removeClass("campo-invalido");
       }
       if ($.trim(this.model.destinoTexto) === '' || $.trim(this.model.destinoTexto) === undefined) {
         $("#txtDestino").addClass("campo-invalido");
+        this.valdestino = true;
         flagVal = false;
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
       if ($.trim(this.fechaSalida) === '') {
         $("#txtFechaSalida").addClass("campo-invalido");
+        this.valfechasalida = true;
         flagVal = false;
       } else {
         $("#txtFechaSalida").removeClass("campo-invalido");

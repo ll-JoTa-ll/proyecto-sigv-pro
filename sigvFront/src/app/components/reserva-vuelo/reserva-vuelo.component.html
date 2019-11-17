@@ -12,7 +12,7 @@
                             <div *ngIf="datosuser.length > 1" class="title-form pt-3 pb-3 pl-5">
                                 DATOS DE LOS PASAJEROS
                             </div>
-                            <app-datos-pasajero [currency]="currency" *ngFor="let user of datosuser; let i = index;" [user]="user" [index]="i + 1" [LPolicies]="LPolicies"></app-datos-pasajero>
+                            <app-datos-pasajero (enviarvaltelefono)="validartelefono($event)" (enviarcorreo)="validarcorreo($event)" [currency]="currency" *ngFor="let user of datosuser; let i = index;" [user]="user" [index]="i + 1" [LPolicies]="LPolicies"></app-datos-pasajero>
                         </div>
                         <app-persona-contacto [lsCostCenter]="lsCostCenter"></app-persona-contacto>
                         <app-info-adicional></app-info-adicional>
