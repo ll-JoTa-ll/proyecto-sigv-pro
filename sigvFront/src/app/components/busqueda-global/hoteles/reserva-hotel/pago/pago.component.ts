@@ -35,6 +35,7 @@ export class PagoComponent implements OnInit {
   
   tipoTarjeta: number;
   slash: number;
+  model: any = {};
 
   constructor(private sessionStorageService: SessionStorageService) {
     this.tipoTarjeta = 0;
@@ -137,41 +138,39 @@ export class PagoComponent implements OnInit {
     }
     this.outTitular.emit(this.titular)
   }
-
   ValidarCampos() {
     let val = true;
-        if ($('#numeroTarjeta').val().length <= 0) {
-          val = false;
-        }
-        if ($('#fechaVencimiento').val().length <= 0) {
-          val = false;
-        }
-        if ($('#codSeguridad').val().length <= 0) {
-          val = false;
-        }
-        if ($('#cbo_tipodocumento_').val().trim() === '') {
-          val = false;
-        }
-        if ($('#cbotratamiento_').val().trim() === '') {
-          val = false;
-        }
-        if ($('#titularTarjeta').val().length <= 0) {
-          val = false;
-        }
-        if ($('#txttelefono_').val().length <= 0) {
-          val = false;
-        }
-  
-    if ($('#contactocorreo').val().length <= 0) {
-      val = false;
-    }
-
-    if ($('#contactotelefono').val().length <= 0) {
-      val = false;
-    }
-
+     
+      if ($.trim(this.numTarjeta) === '' || $.trim(this.numTarjeta) === undefined) {
+        $("#numeroTarjeta").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#numeroTarjeta").removeClass("campo-invalido");
+      }
+      if ($.trim(this.fechVencimiento) === '' || $.trim(this.fechVencimiento) === undefined) {
+        $("#fechaVencimiento").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#fechaVencimiento").removeClass("campo-invalido");
+      }
+      if ($.trim(this.codSeguridad) === '' || $.trim(this.codSeguridad) === undefined) {
+        $("#codSeguridad").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#codSeguridad").removeClass("campo-invalido");
+      }
+      if ($.trim(this.titular) === '' || $.trim(this.titular) === undefined) {
+        $("#titularTarjeta").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#titularTarjeta").removeClass("campo-invalido");
+      }
+      
+        
     return val;
   }
+
+  
   
 
   validarNumeros(e){

@@ -120,6 +120,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 @NgModule({
   declarations: [
@@ -231,6 +232,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
     BsDatepickerModule.forRoot(),
     CarouselModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ScrollToModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDaXMHgcWr4xnHihDztbEPvkzyRnRFV81A',
       libraries: ['places']

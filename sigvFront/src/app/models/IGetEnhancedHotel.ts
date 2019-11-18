@@ -29,6 +29,7 @@ export class IGetEnhancedHotel {
         roomType: string;
         ratePlanCode: string;
         name: string;
+        description: string;
         lpricePerDay: [
             {
                 startDate: string;

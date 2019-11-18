@@ -4,6 +4,8 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { IGetEnhancedHotel } from 'src/app/models/IGetEnhancedHotel';
 import { IHabitacionResults } from '../../../../models/IHabitacionResults';
 import { IGetUserById } from '../../../../models/IGetUserById.model';
+import { Router } from '@angular/router';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 declare var jquery: any;
 declare var $: any;
@@ -24,9 +26,16 @@ export class ReservaGeneradaHotelComponent implements OnInit {
   phone;
   urlimg = './assets/images/hotel-icon.png';
 
-  constructor(private sessionStorageService: SessionStorageService) { 
+  constructor(private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService) { 
 
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
+    this.bnIdle.startWatching(600).subscribe((res) => {
+      if(res) {
+          console.log("session expired");
+          alert("session expired")
+          this.router.navigate(['hoteles'])
+      }
+    })
   }
 
   ngOnInit() {

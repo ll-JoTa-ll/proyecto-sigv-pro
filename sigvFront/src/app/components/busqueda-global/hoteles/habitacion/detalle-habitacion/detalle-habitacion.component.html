@@ -14,10 +14,10 @@
                         </div>
                         <div *ngIf="lhabitaciones.lamenities != null && lhabitaciones.lamenities.length > 0" class="col-12 m-0 p-0" style="
                                 display: inline-grid;">
-                            <span *ngFor="let item of lhabitaciones.lamenities" style="padding-bottom: 20px;"><span class="imgben"><img *ngIf="item.code != null && item.code != '' " style="width: 30px;" src="./assets/images/{{item.code}}.png"></span>
+                            <span *ngFor="let item of lhabitaciones.lamenities" style="padding-bottom: 20px;"><span class="imgben"><img *ngIf="item.code != null && item.code != '' " style="width: 15px;" src="./assets/images/{{item.code}}.png"></span>
                             <span *ngIf="item.description != null && item.description != '' " class="Condition">{{item.description}}</span>
                             </span>
-                            <span *ngFor="let item of lhabitaciones.lamenities" style="padding-bottom: 20px;"><span class="imgben"><img style="width: 30px;" src="./assets/images/{{item.code}}.png"></span><span class="Condition">{{item.description}}</span></span>
+
 
                         </div>
 
@@ -49,7 +49,7 @@
                     </div>
                     <div class="row m-0 p-0 pt-3 pb-3" style="background-color: #FBF6F6">
                         <div class="col-12 m-0 p-0 text-center">
-                            <span class=""><img src="./assets/images/pasajero.svg "></span>
+
                             <span class="pl-1"><img src="./assets/images/pasajero.svg "></span>
                             <span class="pl-3">{{lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers}} x habitacion</span>
                         </div>
@@ -103,18 +103,25 @@
         </div>
 
         <div class="col-4 m-0 p-0 box-shadow" style="border-radius: 20px 0px 20px 0px">
-            <div class="row p-0 m-0 ">
+            <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate" class="row p-0 m-0">
                 <div class="col-12 m-0 p-0 pt-3">
-                    <span class="Price">Precio final por {{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} personas</span>
+                    <span class="Price">Precio final por {{lhotel.numberNights}} noche para {{lhotel.numberPassenger}} persona</span>
                 </div>
-            </div>
-            <div class="row p-0 m-0 ">
+            </ng-container>
+            <ng-template #elseTemplate class="row p-0 m-0">
+                <div class="col-12 m-0 p-0 pt-3">
+                    <span class="Price">Precio final por {{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} persona</span>
+                </div>
+            </ng-template>
+
+
+            <div class="row p-0 m-0">
                 <div class="col-12 p-0 m-0 ">
                     <span class="currency">{{lhabitaciones.oprice.currency}} </span>
                     <span class="Amount"> {{lhabitaciones.oprice.totalPrice}}</span>
                 </div>
             </div>
-            <div class="row p-0 m-0 ">
+            <div class="row p-0 m-0">
                 <div class="col-12 p-0 m-0 text-center">
                     <span class="txtPagoDestino">Pago en destino<span><img class="pl-3" src="./assets/images/campana.svg "></span></span>
                 </div>

@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { AirportService } from '../../../../services/airport.service';
+import { IGetUserById } from '../../../../models/IGetUserById.model';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 declare var jquery: any;
 declare var $: any;
@@ -32,6 +34,7 @@ export class ReservaHotelComponent implements OnInit {
   habitacion : IHabitacionResults;
   lstConfirmacion : IGetEnhancedHotel;
   Reserva : IGetPnrHotel;
+  user;
 
   emailsolicitud;
   lsthabitacion;
@@ -42,19 +45,34 @@ export class ReservaHotelComponent implements OnInit {
   telefono;
   correo;
   nombreTarjeta;
+  plantilla;
 
-  plantilla = './assets/plantillashoteles/enviocorreo.html';
+  telefonoContacto;
+  correoContacto;
+  nombreContacto;
+  areaContacto;
   
   
+  
 
-  constructor(private toastr: ToastrService,private http: HttpClient,private router: Router,private sessionStorageService: SessionStorageService,public spinner: NgxSpinnerService,private service: HotelService,private modalService: BsModalService,private services: AirportService) {
-    
-   }
-
-  ngOnInit() {
+  constructor(private bnIdle: BnNgIdleService,private toastr: ToastrService,private http: HttpClient,private router: Router,private sessionStorageService: SessionStorageService,public spinner: NgxSpinnerService,private service: HotelService,private modalService: BsModalService,private services: AirportService) {
     this.lstConfirmacion = this.sessionStorageService.retrieve("confirmacion");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.user = this.sessionStorageService.retrieve("ss_user");
+    this.plantilla = 'assets/plantillashoteles/enviocorreo.html';
+    this.bnIdle.startWatching(600).subscribe((res) => {
+      if(res) {
+          console.log("session expired");
+          alert("session expired")
+          this.router.navigate(['hoteles'])
+      }
+    })
+   }
+
+  ngOnInit() {
+    
+    
     this.Obtenerstring();
   }
 
@@ -64,15 +82,20 @@ export class ReservaHotelComponent implements OnInit {
 
   
   getPnrHotel(){
+    console.log(this.user);
     let message;
+    let cumple;
+    cumple = this.user.birthDate;
+    cumple = cumple.substring(0,10);
+    cumple = cumple.replace(/-/gi,"/");
     const val= this.ValidarCampos();
     if (!val) {
-      alert("Hay campos vacios")
       return val;
     }
     else{
       //let fechVencimiento = this.fechVencimiento;
     //this.fechVencimiento = fechVencimiento.substring(0,2) + fechVencimiento.substring(3,5);
+    //this.fechVencimiento = this.fechVencimiento.substring(0,2) + this.fechVencimiento.substring(3,5);
     let phone = [this.telefono];
     phone.push();
     let email = [this.correo];
@@ -89,18 +112,18 @@ export class ReservaHotelComponent implements OnInit {
       [
         {
           "PassengerId": 1,
-          "PersonId": 149,
+          "PersonId": this.user.personId,
           "Prefix": "MR",
           "Type": "ADT",
-          "Name":"Manuel",
-          "LastName":"Masias",
-          "Gender": "M",
-          "BirthDate":"1999/08/18",
-          "IsVIP": false,
+          "Name": this.loginDataUser.userName,
+          "LastName":this.loginDataUser.userLastName,
+          "Gender": this.user.gender,
+          "BirthDate": cumple,
+          "IsVIP": this.user.isVIP,
           "Odocument":
             {
-              "Type": "NI",
-              "Number": "73470506"
+              "Type": this.user.odocument.type,
+              "Number": this.user.odocument.number
             }
         }
       ],
@@ -120,6 +143,13 @@ export class ReservaHotelComponent implements OnInit {
         "SecurityId": this.codSeguridad,
         "ExpiryDate": this.fechVencimiento,
         "HolderName": this.titular
+      },
+      "OInformationContact":
+      {
+        "Area": this.areaContacto,
+        "Name": this.nombreContacto,
+        "EmailAddress" : this.correoContacto,
+        "Numberphone": this.telefonoContacto
       }
     }
 
@@ -219,8 +249,9 @@ export class ReservaHotelComponent implements OnInit {
   }
 
   getAmenities(){
-    let imgNotFound = '/assets/images/imagenotfound.jfif'
+    let imgNotFound = './assets/images/imagenotfound.jfif'
     let html ='';
+    let SinInfo = '';
     let amenities: any;
     let htmlGlobal = '';
     amenities = this.lsthabitacion.ohotel.lamenities
@@ -236,6 +267,7 @@ export class ReservaHotelComponent implements OnInit {
       html += "</div>";
     }
     htmlGlobal = html;
+    SinInfo = "Sin Información";
     this.emailsolicitud = this.emailsolicitud.replace('@amenities', htmlGlobal);
     this.emailsolicitud = this.emailsolicitud.replace('@priceTotal', this.Reserva.litineraryInfos[0].priceTotal);
     this.emailsolicitud = this.emailsolicitud.replace('@pnr', this.Reserva.pnr);
@@ -244,10 +276,18 @@ export class ReservaHotelComponent implements OnInit {
     this.emailsolicitud = this.emailsolicitud.replace('@descripcionHabitacion', this.Reserva.litineraryInfos[0].descriptionRoom);
     this.emailsolicitud = this.emailsolicitud.replace('@fechaentrada', this.lstConfirmacion.oroom.startDate);
     this.emailsolicitud = this.emailsolicitud.replace('@fechasalida', this.lstConfirmacion.oroom.endDate);
-    this.emailsolicitud = this.emailsolicitud.replace('@checkin', this.lstConfirmacion.oroom.checkIn);
-    this.emailsolicitud = this.emailsolicitud.replace('@checkout', this.lstConfirmacion.oroom.checkOut);
+    if (this.lsthabitacion.ohotel.checkIn != null && this.lsthabitacion.ohotel.checkIn != '') {
+      this.emailsolicitud = this.emailsolicitud.replace('@checkin', this.lsthabitacion.ohotel.checkIn);
+    }else{
+      this.emailsolicitud = this.emailsolicitud.replace('@checkin', SinInfo);
+    }
+    if (this.lsthabitacion.ohotel.checkOut != null && this.lsthabitacion.ohotel.checkOut != '') {
+      this.emailsolicitud = this.emailsolicitud.replace('@checkout', this.lsthabitacion.ohotel.checkOut);
+    }else{
+      this.emailsolicitud = this.emailsolicitud.replace('@checkout', SinInfo);
+    }
     this.emailsolicitud = this.emailsolicitud.replace('@politicacancelacion', this.Reserva.litineraryInfos[0].penality);
-    this.emailsolicitud = this.emailsolicitud.replace('@nombreusuario', this.Reserva.lpassengers[0].lastname);
+    this.emailsolicitud = this.emailsolicitud.replace('@nombreusuario', this.Reserva.lpassengers[0].name + this.Reserva.lpassengers[0].lastName);
     this.emailsolicitud = this.emailsolicitud.replace('@telefono', this.Reserva.numberPhone);
     if(this.lsthabitacion.ohotel.limagens != null && this.lsthabitacion.ohotel.limagens.length > 0){
       this.emailsolicitud = this.emailsolicitud.replace('@imagen',this.lsthabitacion.ohotel.limagens[0].url)
@@ -291,22 +331,88 @@ export class ReservaHotelComponent implements OnInit {
     this.correo = $event;
   }
   
+
+  setCorreoContacto($event){
+    this.correoContacto = $event;
+  }
+
+  setTelefonoContacto($event){
+    this.telefonoContacto = $event;
+  }
+
+  setNombreContacto($event){
+    this.nombreContacto = $event;
+  }
+
+  setAreaContacto($event){
+    this.areaContacto = $event;
+  }
+  
   ValidarCampos() {
     let val = true;
-        if ($('#numeroTarjeta').val().length <= 0) {
-          val = false;
-        }
-        if ($('#fechaVencimiento').val().length <= 0) {
-          val = false;
-        }
-        if ($('#codSeguridad').val().length <= 0) {
-          val = false;
-        }
-        if ($('#titularTarjeta').val().length <= 0) {
-          val = false;
-        }
-
-
+     
+      if ($.trim(this.numeroTarjeta) === '' || $.trim(this.numeroTarjeta) === undefined) {
+        $("#numeroTarjeta").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#numeroTarjeta").removeClass("campo-invalido");
+      }
+      if ($.trim(this.fechVencimiento) === '' || $.trim(this.fechVencimiento) === undefined) {
+        $("#fechaVencimiento").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#fechaVencimiento").removeClass("campo-invalido");
+      }
+      if ($.trim(this.codSeguridad) === '' || $.trim(this.codSeguridad) === undefined) {
+        $("#codSeguridad").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#codSeguridad").removeClass("campo-invalido");
+      }
+      if ($.trim(this.titular) === '' || $.trim(this.titular) === undefined) {
+        $("#titularTarjeta").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#titularTarjeta").removeClass("campo-invalido");
+      }
+      if ($.trim(this.telefonoContacto) === '' || $.trim(this.telefonoContacto) === undefined) {
+        $("#numero").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#numero").removeClass("campo-invalido");
+      }
+      if ($.trim(this.correoContacto) === '' || $.trim(this.correoContacto) === undefined) {
+        $("#correo").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#correo").removeClass("campo-invalido");
+      }
+      if ($.trim(this.nombreContacto) === '' || $.trim(this.nombreContacto) === undefined) {
+        $("#nombre").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#nombre").removeClass("campo-invalido");
+      }
+      if ($.trim(this.areaContacto) === '' || $.trim(this.areaContacto) === undefined) {
+        $("#area").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#area").removeClass("campo-invalido");
+      }
+      if ($.trim(this.correo) === '' || $.trim(this.correo) === undefined) {
+        $("#correoTitu").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#correoTitu").removeClass("campo-invalido");
+      }
+      if ($.trim(this.telefono) === '' || $.trim(this.telefono) === undefined) {
+        $("#fonoTitu").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#fonoTitu").removeClass("campo-invalido");
+      }
+      
+        
     return val;
   }
   

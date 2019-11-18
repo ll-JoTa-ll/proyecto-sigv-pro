@@ -41,10 +41,10 @@
         </div>
         <div class="row m-0 p-0">
             <div class="col-6 m-0 p-0">
-                <input type="text" value="" (keyup)="validarCorreo()" class="input-names box-shadow" [(ngModel)]="correo" style="width: 380px; height: 38px;">
+                <input type="text" value="{{this.user.email}}" id="correoTitu" (keyup)="validarCorreo()" class="input-names box-shadow" [(ngModel)]="correo" style="width: 380px; height: 38px;">
             </div>
             <div class="col-6 m-0 p-0">
-                <input type="text" value="" (keyup)="validarTelefono()" (keypress)="validarNumeros($event)" class="input-names box-shadow" [(ngModel)]="telefono" style="width: 380px; height: 38px;">
+                <input type="text" value="" id="fonoTitu" (keyup)="validarTelefono()" (keypress)="validarNumeros($event)" class="input-names box-shadow" [(ngModel)]="telefono" style="width: 380px; height: 38px;">
             </div>
         </div>
 

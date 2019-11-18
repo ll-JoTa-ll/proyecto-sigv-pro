@@ -5,11 +5,11 @@
             <div class="col-2 m-0 p-0">
             </div>
             <div class="col-8 m-0 p-0 pt-5">
-                <div class="row m-0 p-0">
+                <!-- <div class="row m-0 p-0">
                     <div class="col-12 m-0 p-0">
                         <span class="atras"> < Volver atras</span>
                     </div>
-                </div>
+                </div>-->
                 <div class="row m-0 p-0 pb-3">
                     <div class="col-12 m-0 p-0">
                         <span class="solo">Solo te falta este paso</span>
@@ -19,7 +19,7 @@
                     <div class="col-8 m-0 p-0 pr-4">
                         <app-pago (outNumTarjeta)="setNumTarjeta($event)" (outVencimiento)="setFechVencimiento($event)" (outTitular)="setTitular($event)" (outCodSeguridad)="setCodSeguridad($event)" (outNomTarjeta)="setNombreTarjeta($event)"></app-pago>
                         <app-titulares-reserva (outTelefono)="setTelefono($event)" (outCorreo)="setCorreo($event)"></app-titulares-reserva>
-                        <app-contacto></app-contacto>
+                        <app-contacto (outArea)="setAreaContacto($event)" (outTelefono)="setTelefonoContacto($event)" (outCorreo)="setCorreoContacto($event)" (outNombre)="setNombreContacto($event)"></app-contacto>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 text-center">
                                 <button class="btn btn-danger" (click)="getPnrHotel()" style="width: 200px;">

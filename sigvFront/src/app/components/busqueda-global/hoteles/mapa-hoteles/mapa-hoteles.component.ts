@@ -97,7 +97,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
           this.location.longitude = place.geometry.location.lng();
           this.searchLatitude = place.geometry.location.lat();
           this.searchLongitude = place.geometry.location.lng();
-          this.zoom = 12;
+          this.zoom = 18;
         });
       });
     });

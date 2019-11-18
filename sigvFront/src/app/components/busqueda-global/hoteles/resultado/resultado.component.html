@@ -1,4 +1,6 @@
-<div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+<div class="col-12 m-0 p-0" style="height: 30px !important;">
+
+</div>
 <div class="col-12 m-0 p-0" style="background: white; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5)">
     <div class="row p-0 m-0">
         <div class="m-0 p-0 div-result-1">
@@ -25,8 +27,9 @@
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12">
-                    <span class="txt-mapa" (click)="Mostrarmapa(index)">Ver mapa</span>
+                    <label class="txt-mapa" (click)="Mostrarmapa(index)">Ver mapa</label>
                 </div>
+
             </div>
             <div class="PopupContainer" id="mapa_{{index}}">
                 <div class="tooltipBagDiv box-shadow animated fadeIn fast">
@@ -67,11 +70,19 @@
                     <span class="precionoche">{{precioprom}}</span>
                 </div>
             </div>
-            <div class="row m-0 p-0">
+            <ng-container *ngIf="cantidadnoche == '1'; else elseTemplate" class="row m-0 p-0">
                 <div class="col-12 div-price-noche text-center mt-2">
-                    <span>Precio final por {{cantidadnoche}} noches para {{cantpersonas}} adultos</span>
+                    <span>Precio final por {{cantidadnoche}} noche para {{cantpersonas}} adulto</span>
                 </div>
-            </div>
+            </ng-container>
+            <ng-template #elseTemplate class="row m-0 p-0">
+                <div class="col-12 div-price-noche text-center mt-2">
+                    <span>Precio final por {{cantidadnoche}} noches para {{cantpersonas}} adulto</span>
+                </div>
+            </ng-template>
+
+
+
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0 text-center">
                     <span class="price-currency pr-2">{{currency}}</span>

@@ -20,7 +20,7 @@ declare var $: any;
   templateUrl: './reserva-vuelo.component.html',
   styleUrls: ['./reserva-vuelo.component.sass']
 })
-export class ReservaVueloComponent implements OnInit {
+export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
   modalRef: BsModalRef;
   config = {
@@ -96,6 +96,20 @@ export class ReservaVueloComponent implements OnInit {
 
     //this.CostCenter();
     this.ReasonFlight();
+  }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit vuelos');
+    $('#menu-vuelo-1').hide();
+    $('#menu-vuelo-2').show();
+    $('#menu-hotel-1').show();
+    $('#menu-hotel-2').hide();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
   }
 
   VolverHome() {

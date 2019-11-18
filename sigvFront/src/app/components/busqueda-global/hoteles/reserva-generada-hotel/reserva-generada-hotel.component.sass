@@ -28,6 +28,15 @@
     font-size: 20px
     cursor: pointer
 
+.option-happy
+    cursor: pointer
+    color: #ED1C24
+    font-family: Omnes-med
+    font-size: 20px
+
+.option-happy:hover
+    cursor: url("https://sigvplus.azurewebsites.net/sigv/assets/images/map.svg"), auto
+
 .ameni
     text-align: center
     font-family: Omnes-med
@@ -217,3 +226,59 @@ agm-map
     bottom: 30px
     font-family: Omnes-med
     color: #3D3D3D
+
+
+
+
+.container 
+  width: 400px
+  height: 400px
+  position: absolute
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%)
+  display: flex
+  justify-content: center
+  align-items: center
+
+
+.center 
+  width: 180px
+  height: 60px
+  position: absolute
+
+
+.btn 
+  width: 423px
+  height: 60px
+  cursor: pointer
+  background: #ED1C24
+  border: 0px solid #6B253C
+  outline: none
+  transition: 1s ease-in-out
+
+
+svg 
+  position: absolute
+  left: 0
+  top: 0
+  fill: none
+  stroke: #fff
+  stroke-dasharray: 150 480
+  stroke-dashoffset: 150
+  transition: 1s ease-in-out
+
+
+.btn:hover 
+  transition: 1s ease-in-out
+  background: #ED1C24
+
+
+.btn:hover svg 
+  stroke-dashoffset: -380
+
+
+.btn span 
+  color: #6B253C
+  font-size: 18px
+  font-weight: 100

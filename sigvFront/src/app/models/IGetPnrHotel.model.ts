@@ -9,15 +9,16 @@ export class IGetPnrHotel {
             cityCode: string;
             hotelName: string;
             currency: string;
-            priceTotal: [];
+            priceTotal: string;
             numberPhone: [];
             descriptionRoom: [];
             penality: [];
         }
     ];
     lpassengers:[{
-        lastname: string;
+        lastName: string;
         name: string;
+        phone: string;
     }];
     oerror:{
         message:string;

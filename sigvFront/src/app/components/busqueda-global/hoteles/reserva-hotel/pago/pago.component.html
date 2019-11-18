@@ -49,14 +49,14 @@
                     <div class="col-12 m-0 p-0">
                         <div class="row m-0 p-0">
                             <div class="title col-6 m-0 p-0 pl-4">
-                                <input type="text" id="numeroTarjeta" maxlength="19" (keyup)="validarTarjeta()" (keypress)="tarjeta();validarNumeros($event)" [(ngModel)]="numTarjeta" placeholder="Ingrese el numero de tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;"
+                                <input type="text" id="numeroTarjeta"  maxlength="19" (keyup)="validarTarjeta()" (keypress)="tarjeta();validarNumeros($event)" [(ngModel)]="numTarjeta" placeholder="Ingrese el numero de tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;"
                                     (paste)="false">
                             </div>
-                            <div class="title col-3 m-0 p-0">
-                                <input type="text" id="fechaVencimiento" maxlength="4" (keyup)="validarVencimiento()" (keypress)="validarNumeros($event)" [(ngModel)]="fechVencimiento" placeholder="MM/AA" class="input-names box-shadow" style="width: 158.37px; height: 44px;" (paste)="false">
+                            <div class="title col-3 m-0 p-0" >
+                                <input type="text" id="fechaVencimiento"  maxlength="4" (keyup)="validarVencimiento()" (keypress)="validarNumeros($event)" [(ngModel)]="fechVencimiento" placeholder="MMAA" class="input-names box-shadow" style="width: 158.37px; height: 44px;" (paste)="false">
                             </div>
-                            <div class="title col-3 m-0 p-0">
-                                <input type="password" id="codSeguridad" maxlength="3" (keyup)="validarCodSeguridad()" (keypress)="validarNumeros($event)" [(ngModel)]="codSeguridad" placeholder="XXX" class="input-names box-shadow" style="width: 158.37px; height: 44px;" (paste)="false">
+                            <div class="title col-3 m-0 p-0" >
+                                <input type="password" id="codSeguridad"  maxlength="3" (keyup)="validarCodSeguridad()" (keypress)="validarNumeros($event)" [(ngModel)]="codSeguridad" placeholder="XXX" class="input-names box-shadow" style="width: 158.37px; height: 44px;" (paste)="false">
                             </div>
                         </div>
 
@@ -70,8 +70,8 @@
                     </div>
                     <div class="col-12 m-0 p-0">
                         <div class="row m-0 p-0">
-                            <div class="title col-6 m-0 p-0 pl-4">
-                                <input type="text" (keyup)="validarLetras($event);validarNombre()" id="titularTarjeta" [(ngModel)]="titular" placeholder="Como figura en la tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;">
+                            <div class="title col-6 m-0 p-0 pl-4" >
+                                <input type="text" id="titularTarjeta" (keyup)="validarNombre()" (keypress)="validarLetras($event)"  [(ngModel)]="titular" placeholder="Como figura en la tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;">
                             </div>
                         </div>
                     </div>

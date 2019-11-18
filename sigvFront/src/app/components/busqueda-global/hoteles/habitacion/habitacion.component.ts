@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild} from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { HotelService } from '../../../../services/hotel.service';
 import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
 import { ReservaHotelComponent } from '../reserva-hotel/reserva-hotel.component';
@@ -11,6 +11,8 @@ import { IGetEnhancedHotel } from 'src/app/models/IGetEnhancedHotel';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IGetPnrHotel } from 'src/app/models/IGetPnrHotel.model';
 import { Router } from '@angular/router';
+import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+import { BnNgIdleService } from 'bn-ng-idle';
 declare var jquery: any;
 declare var $: any;
 
@@ -20,6 +22,7 @@ declare var $: any;
   styleUrls: ['./habitacion.component.sass']
 })
 export class HabitacionComponent implements OnInit {
+  @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
 
   lsthabitacion : IHabitacionResults;
   loginDataUser: ILoginDatosModel;
@@ -27,14 +30,10 @@ export class HabitacionComponent implements OnInit {
   
 
   LHoteles: IHotelResultsModel;
-  @Input() destinoValue: string;
-  @Input() destinoText: string;
-  @Input() dateingreso: string;
-  @Input() datesalida: string;
-  @Input() textoestrellas: string = 'Todas';
-  @Input() habitaciones: string;
+ 
+  
+  
   @Input() LlistaHotel: IHotelResultsModel[] = [];
-  @Input() personas: string;
   urlhotel: string;
   urlimg = './assets/images/hotel-icon.png';
   vistamapa: boolean = false;
@@ -48,6 +47,16 @@ export class HabitacionComponent implements OnInit {
   modalRef: BsModalRef;
   isCollapsed = false;
 
+  destinoValue: string;
+  destinoText: string;
+  cantidadnoche: string;
+  textoestrellas: string = 'Todas';
+  dateingreso: string;
+  datesalida: string;
+  habitaciones: string;
+  personas: number;
+  mapafiltro: boolean;
+
   
   @Input() urlHotel: string;
   @Input() estrellas: number;
@@ -59,11 +68,21 @@ export class HabitacionComponent implements OnInit {
   texto2: string;
   texto3: string;
 
-  constructor(private sessionStorageService: SessionStorageService, private modalService: BsModalService,private service: HotelService,private spinner: NgxSpinnerService) { 
+  constructor(private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private service: HotelService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
     for (let i = 0; i < 4; i++) {
       this.addSlide();
     }
+    this.bnIdle.startWatching(600).subscribe((res) => {
+      if(res) {
+          console.log("session expired");
+          alert("Session expired")
+          this.router.navigate(['hoteles'])
+      }
+    })
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
+    this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
+    console.log(this.LHoteles);
+    this.personas = this.LHoteles.numberPassenger;
   }
 
   openModal(template: TemplateRef<any>) {
@@ -72,11 +91,38 @@ export class HabitacionComponent implements OnInit {
       Object.assign({}, { class: 'modal-lg m-galeria' })
     )
   }
+  showHideMap($event) {
+    this.mapafiltro = $event;
+  }
+
+  getChatMessages(){
+    const config: ScrollToConfigOptions = {
+      target: 'destination'
+    };
+    this._scrollToService.scrollTo(config);
+  }
 
   Obtenerlistado($event) {
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
+
+    let menorValor = 1000000;
+    let mayorValor = 0;
+
+    this.LlistaHotel.forEach(function(item) {
+            if (item.oprice.pricePerAllNights < menorValor) {
+              menorValor = item.oprice.pricePerAllNights;
+            }
+              if (item.oprice.pricePerAllNights > mayorValor) {
+                mayorValor = item.oprice.pricePerAllNights;
+              }
+
+           });
+
+           this.menorPrecioHotel = menorValor;
+           this.mayorPrecioHotel = mayorValor;
     this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
+    this.mapafiltro = true;
   }
 
   addSlide(): void {
@@ -119,6 +165,7 @@ export class HabitacionComponent implements OnInit {
     this.texto1 = this.lsthabitacion.ohotel.hotelDescription.substring(0,250);
     this.texto2 = this.lsthabitacion.ohotel.hotelDescription.substring(250,this.lsthabitacion.ohotel.hotelDescription.length);
     this.texto3 = this.lsthabitacion.ohotel.hotelDescription;
+    
     
   }
 

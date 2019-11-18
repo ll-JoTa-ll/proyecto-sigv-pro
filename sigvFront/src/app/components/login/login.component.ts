@@ -9,6 +9,8 @@ import { AirportService } from '../../services/airport.service';
 import { environment } from '../../../environments/environment';
 import { ILoginDatosModel } from '../../models/ILoginDatos.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { IGetUserById } from 'src/app/models/IGetUserById.model';
+import { HotelService } from 'src/app/services/hotel.service';
 
 declare var jquery: any;
 declare var $: any;
@@ -23,10 +25,13 @@ export class LoginComponent implements OnInit {
   model: any = {};
   checkedRecuerdame: boolean;
   airportlist: any[] = [];
+  User : IGetUserById;
   flagLogin: number;
   token;
   datoslogin: ILoginDatosModel;
   msjerrorr: boolean = false;
+
+  userid;
 
   modalRef: BsModalRef;
   config = {
@@ -35,6 +40,7 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(
+    private service: HotelService,
     private loginService: LoginService,
     private spinner: NgxSpinnerService,
     private router: Router,
@@ -52,6 +58,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.sessionStorageService.store('ss_login_data', '');
     this.sessionStorageService.store('ss_token', '');
+
   }
 
   login() {
@@ -102,8 +109,11 @@ export class LoginComponent implements OnInit {
       () => {
         if (this.datoslogin.oerror != null) {
           this.msjerrorr = true;
+
           this.spinner.hide();
         } else {
+          this.userid = this.datoslogin.userId;
+          this.getUser();
           this.airportList();
         }
       }
@@ -116,6 +126,29 @@ export class LoginComponent implements OnInit {
         this.login();
       }
     }
+  }
+  getUser(){
+    let data = {
+      userId: this.userid
+      }
+
+      this.service.GetUser(data.userId).subscribe(
+        result => {
+
+          this.User = result;
+
+          this.sessionStorageService.store("ss_user", this.User);
+          //this.router.navigate(['/reserva-habitacion-hotel']);
+        },
+        err => {
+          this.spinner.hide();
+
+      },
+     () => {
+
+
+     }
+      )
   }
 
   airportList() {

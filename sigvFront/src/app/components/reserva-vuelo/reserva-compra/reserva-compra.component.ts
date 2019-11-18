@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { AirportService } from '../../../services/airport.service';
 import { IFlightAvailability } from '../../../models/IFlightAvailability';
@@ -22,7 +22,7 @@ declare var $: any;
   templateUrl: './reserva-compra.component.html',
   styleUrls: ['./reserva-compra.component.sass']
 })
-export class ReservaCompraComponent implements OnInit {
+export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   Lsection;
@@ -95,7 +95,7 @@ export class ReservaCompraComponent implements OnInit {
     this.plantillareserva = 'assets/plantillasEmail/plantillareservagenerada.html';
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.contacto = this.sessionStorageService.retrieve('contacto');
-    this.bnIdle.startWatching(3).subscribe((res) => {
+    this.bnIdle.startWatching(600).subscribe((res) => {
       if(res) {
         this.modal.show();
       }
@@ -121,6 +121,19 @@ export class ReservaCompraComponent implements OnInit {
     this.flightnational = this.dataflightavalilability.FlightNational;
   }
 
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit vuelos');
+    $('#menu-vuelo-1').hide();
+    $('#menu-vuelo-2').show();
+    $('#menu-hotel-1').show();
+    $('#menu-hotel-2').hide();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
+  }
 
   Obtenerstring() {
     this.http.get(this.plantilla, {responseType: 'text'}).subscribe(

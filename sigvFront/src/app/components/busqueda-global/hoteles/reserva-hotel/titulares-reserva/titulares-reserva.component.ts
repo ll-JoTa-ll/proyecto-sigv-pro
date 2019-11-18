@@ -18,6 +18,7 @@ export class TitularesReservaComponent implements OnInit {
 
   correo: string;
   telefono: string;
+  corr: string;
 
   constructor(private sessionStorageService: SessionStorageService) {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -25,7 +26,11 @@ export class TitularesReservaComponent implements OnInit {
    }
 
   ngOnInit() {
-  
+    console.log("this.user.email ==>"+this.user.email);
+    console.log("this.user.email ==>"+this.user.email);
+    console.log("this.user.email ==>"+this.user.email);
+    console.log("this.user.email ==>"+this.user.email);
+    console.log("this.user.email ==>"+this.user.email);
   }
 
   validarCorreo() {
