@@ -55,8 +55,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   LSectionPassenger;
   lsapprovers: IGetApprovers[] = [];
   flightNational;
-  @Output() enviarvaltelefono = new EventEmitter<any>();
-  @Output() enviarcorreo = new EventEmitter<any>();
 
   constructor(
     private modalService: BsModalService,
@@ -73,12 +71,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
     this.sessionStorageService.store('tipovuelo', null);
     this.datosuser = sessionStorageService.retrieve('objusuarios');
-    this.bnIdle.startWatching(600).subscribe((res) => {
-      if(res) {
-        alert('Expiro el tiempo de la sesión');
-        this.router.navigate(['/vuelos']);
-      }
-    })
   }
 
   ngOnInit() {
@@ -210,7 +202,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         if ($('#txtcorreo_' + (index + 1)).val().length <= 0) {
           $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
           valcorreo = true;
-          this.enviarcorreo.emit(valcorreo);
           val = false;
         } else {
           $('#txtcorreo_' + (index + 1)).removeClass('campo-invalido');
@@ -218,7 +209,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
           $('#txttelefono_' + (index + 1)).addClass('campo-invalido');
           valtelefono = true;
-          this.enviarvaltelefono.emit(valtelefono);
           val = false;
         } else {
           $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');

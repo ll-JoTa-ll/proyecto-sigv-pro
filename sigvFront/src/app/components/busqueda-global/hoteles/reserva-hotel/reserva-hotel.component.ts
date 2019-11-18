@@ -63,16 +63,13 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     this.plantilla = 'assets/plantillashoteles/enviocorreo.html';
     this.bnIdle.startWatching(600).subscribe((res) => {
       if(res) {
-          console.log("session expired");
-          alert("session expired")
-          this.router.navigate(['hoteles'])
+          alert("session expired");
+          this.router.navigate(['hoteles']);
       }
     })
    }
 
   ngOnInit() {
-    
-    
     this.Obtenerstring();
   }
 

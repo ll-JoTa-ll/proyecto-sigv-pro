@@ -96,6 +96,7 @@
                      (click)="datepickerSalida.toggle()"
                      style="outline: none; border: 0; width: 20% !important;">
               <input type="text"
+                     readonly
                      id="datepickerSalida"
                      placeholder="Salida"
                      class="p-0 pl-2 bv-texto-2"
@@ -104,7 +105,8 @@
                      (bsValueChange)="onValueChangeSalida($event)"
                      [minDate]="minDateSalida"
                      bsDatepicker
-                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+                     [(ngModel)]="model.salida"
+                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
               >
             </label>
 
@@ -118,6 +120,7 @@
                      (click)="datepickerRetorno.toggle()"
                      style="outline: none; border: 0; width: 20% !important;">
               <input type="text"
+                     readonly
                      id="datepickerRetorno"
                      placeholder="Retorno"
                      class="p-0 pl-2 bv-texto-2"
@@ -126,7 +129,8 @@
                      (bsValueChange)="onValueChangeRetorno($event)"
                      [minDate]="minDateRetorno"
                      bsDatepicker
-                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+                     [(ngModel)]="model.destino"
+                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
               >
             </label>
 

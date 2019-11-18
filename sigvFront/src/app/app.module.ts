@@ -121,6 +121,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { FormattimeairportPipe } from './pipes/formattimeairport.pipe';
+import { SessionExpirationAlert, SessionInteruptService } from 'session-expiration-alert';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -215,7 +218,8 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     FiltroPrecioHotelComponent,
     VueloFamiliaSectionComponent,
     VueloFamiliaSegmentComponent,
-    NavHeaderComponent
+    NavHeaderComponent,
+    FormattimeairportPipe
   ],
   imports: [
     BrowserModule,
@@ -244,7 +248,9 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     NgxPaginationModule,
     ToastrModule.forRoot(),
     TooltipModule.forRoot(),
-    PopoverModule.forRoot()
+    PopoverModule.forRoot(),
+    SessionExpirationAlert.forRoot(),
+    NgbModule
   ],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]

@@ -95,15 +95,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.plantillareserva = 'assets/plantillasEmail/plantillareservagenerada.html';
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.contacto = this.sessionStorageService.retrieve('contacto');
-    this.bnIdle.startWatching(600).subscribe((res) => {
-      if(res) {
-        alert('Expiro el tiempo de la sesión');
-        this.router.navigate(['/vuelos']);
-
-      }
-    })
-
-
    }
 
    /*
@@ -229,6 +220,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       }
       );
     }
+
+    
 
     PlantillaEmailSolicitud() {
       let htmlsection = '';

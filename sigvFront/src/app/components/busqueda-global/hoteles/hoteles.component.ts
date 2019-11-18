@@ -75,8 +75,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.bnIdle.startWatching(1740).subscribe((res) => {
       if(res) {
           console.log("session expired");
-          alert("session expired")
-          this.router.navigate([''])
+          alert("session expired");
+          this.router.navigate(['']);
       }
     })
     console.log('constructor hoteles');

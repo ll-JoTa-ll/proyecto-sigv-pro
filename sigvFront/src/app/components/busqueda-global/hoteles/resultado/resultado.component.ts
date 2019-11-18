@@ -51,8 +51,8 @@ export class ResultadoComponent implements OnInit {
   constructor(private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router,private Hotels: HotelesComponent) {
     this.bnIdle.startWatching(1740).subscribe((res) => {
       if(res) {
-          alert("session expired")
-          this.router.navigate(['hoteles'])
+          alert("session expired");
+          this.router.navigate(['hoteles']);
       }
     })
    }

@@ -34,7 +34,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   @Input() user;
   @Input() index;
   @Input() valtelefono;
-  @Input() 
   selectedvalue;
   fechanacimiento;
   datosPax;

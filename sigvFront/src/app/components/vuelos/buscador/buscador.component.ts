@@ -107,6 +107,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   destinoText;
   fechaValue;
   fechaText;
+  model: any = {};
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -632,13 +633,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if ($.trim(this.fechaSalida) === '') {
+      if ($.trim(this.fechaSalida) === '' || this.model.salida === null || this.model.salida === '') {
         $("#txtFechaSalida").addClass("campo-invalido");
         flagVal = false;
       } else {
         $("#txtFechaSalida").removeClass("campo-invalido");
       }
-      if ($.trim(this.fechaRetorno) === '') {
+      if ($.trim(this.fechaRetorno) === '' || this.model.retorno === null || this.model.retorno === '') {
         $("#txtFechaDestino").addClass("campo-invalido");
         flagVal = false;
       } else {
@@ -659,7 +660,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if ($.trim(this.fechaSalida) === '') {
+      if ($.trim(this.fechaSalida) === '' || this.model.salida === null || this.model.salida === '') {
         $("#txtFechaSalida").addClass("campo-invalido");
         flagVal = false;
       } else {

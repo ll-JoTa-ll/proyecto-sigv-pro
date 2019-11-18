@@ -68,13 +68,13 @@ export class FiltroHorariosComponent implements OnInit, AfterViewInit {
       this.indexTramo = 2;
       this.texto1 = 'Ida';
       this.texto2 = 'Vuelta';
-      this.imgIdaVuelta1 = 'airplane_ida.svg';
-      this.imgIdaVuelta2 = 'airplane_vuelta.svg';
+      this.imgIdaVuelta1 = 'avion_ida_blanco.svg';
+      this.imgIdaVuelta2 = 'avion_vuelta_blanco.svg';
     }
     if (tipoVuelo === 'OW') {
       this.indexTramo = 1;
       this.texto1 = 'Ida';
-      this.imgIdaVuelta1 = 'airplane_ida.svg';
+      this.imgIdaVuelta1 = 'avion_ida_blanco.svg';
     }
     if (tipoVuelo === 'MC') {
       this.texto1 = 'Tramo 1';
@@ -83,21 +83,23 @@ export class FiltroHorariosComponent implements OnInit, AfterViewInit {
       this.texto4 = 'Tramo 4';
       this.texto5 = 'Tramo 5';
       this.texto6 = 'Tramo 6';
-      this.imgIdaVuelta1 = 'airplane_ida.svg';
-      this.imgIdaVuelta2 = 'airplane_ida.svg';
-      this.imgIdaVuelta3 = 'airplane_ida.svg';
-      this.imgIdaVuelta4 = 'airplane_ida.svg';
-      this.imgIdaVuelta5 = 'airplane_ida.svg';
-      this.imgIdaVuelta6 = 'airplane_ida.svg';
+      this.imgIdaVuelta1 = 'avion_ida_blanco.svg';
+      this.imgIdaVuelta2 = 'avion_ida_blanco.svg';
+      this.imgIdaVuelta3 = 'avion_ida_blanco.svg';
+      this.imgIdaVuelta4 = 'avion_ida_blanco.svg';
+      this.imgIdaVuelta5 = 'avion_ida_blanco.svg';
+      this.imgIdaVuelta6 = 'avion_ida_blanco.svg';
     }
   }
 
   ngAfterViewInit() {
     const indexTramo = this.indexTramo;
+    /*
     for (let i = 1; i <= (indexTramo * 2); i++) {
       $('.timepicker' + i).wickedpicker({twentyFour: true});
       $('.timepicker' + i).val('');
     }
+    */
   }
 
   setHorarios() {
@@ -128,73 +130,76 @@ export class FiltroHorariosComponent implements OnInit, AfterViewInit {
     const departureArrivalTimeFrom_ = dataRequestFlight.DepartureArrivalTimeFrom;
     const departureArrivalTimeTo_ = dataRequestFlight.DepartureArrivalTimeTo;
 
-    const time1 = $('.timepicker1').val();
-    const time2 = $('.timepicker2').val();
-    const time3 = $('.timepicker3').val();
-    const time4 = $('.timepicker4').val();
-    const time5 = $('.timepicker5').val();
-    const time6 = $('.timepicker6').val();
-    const time7 = $('.timepicker7').val();
-    const time8 = $('.timepicker8').val();
-    const time9 = $('.timepicker9').val();
-    const time10 = $('.timepicker10').val();
-    const time11 = $('.timepicker11').val();
-    const time12 = $('.timepicker12').val();
+    const time1 = $('#timepicker1').val();
+    const time2 = $('#timepicker2').val();
+    const time3 = $('#timepicker3').val();
+    const time4 = $('#timepicker4').val();
+    const time5 = $('#timepicker5').val();
+    const time6 = $('#timepicker6').val();
+    const time7 = $('#timepicker7').val();
+    const time8 = $('#timepicker8').val();
+    const time9 = $('#timepicker9').val();
+    const time10 = $('#timepicker10').val();
+    const time11 = $('#timepicker11').val();
+    const time12 = $('#timepicker12').val();
+
+    console.log("time1: " + time1);
+    console.log("time2: " + time2);
 
     switch (indexTramo) {
       case 1:
-        departureArrivalTimeFrom_[0] = this.getHoraMinuto(time1);
-        departureArrivalTimeTo_[0] = this.getHoraMinuto(time2);
+        departureArrivalTimeFrom_[0] = time1;//this.getHoraMinuto(time1);
+        departureArrivalTimeTo_[0] = time2;//this.getHoraMinuto(time2);
         break;
       case 2:
-        departureArrivalTimeFrom_[0] = this.getHoraMinuto(time1);
-        departureArrivalTimeTo_[0] = this.getHoraMinuto(time2);
-        departureArrivalTimeFrom_[1] = this.getHoraMinuto(time3);
-        departureArrivalTimeTo_[1] = this.getHoraMinuto(time4);
+        departureArrivalTimeFrom_[0] = time1;//this.getHoraMinuto(time1);
+        departureArrivalTimeTo_[0] = time2;//this.getHoraMinuto(time2);
+        departureArrivalTimeFrom_[1] = time3;//this.getHoraMinuto(time3);
+        departureArrivalTimeTo_[1] = time4;//this.getHoraMinuto(time4);
         break;
       case 3:
-        departureArrivalTimeFrom_[0] = this.getHoraMinuto(time1);
-        departureArrivalTimeTo_[0] = this.getHoraMinuto(time2);
-        departureArrivalTimeFrom_[1] = this.getHoraMinuto(time3);
-        departureArrivalTimeTo_[1] = this.getHoraMinuto(time4);
-        departureArrivalTimeFrom_[3] = this.getHoraMinuto(time5);
-        departureArrivalTimeTo_[3] = this.getHoraMinuto(time6);
+        departureArrivalTimeFrom_[0] = time1;//this.getHoraMinuto(time1);
+        departureArrivalTimeTo_[0] = time2;//this.getHoraMinuto(time2);
+        departureArrivalTimeFrom_[1] = time3;//this.getHoraMinuto(time3);
+        departureArrivalTimeTo_[1] = time4;//this.getHoraMinuto(time4);
+        departureArrivalTimeFrom_[2] = time5;//this.getHoraMinuto(time5);
+        departureArrivalTimeTo_[2] = time6;//this.getHoraMinuto(time6);
         break;
       case 4:
-        departureArrivalTimeFrom_[0] = this.getHoraMinuto(time1);
-        departureArrivalTimeTo_[0] = this.getHoraMinuto(time2);
-        departureArrivalTimeFrom_[1] = this.getHoraMinuto(time3);
-        departureArrivalTimeTo_[1] = this.getHoraMinuto(time4);
-        departureArrivalTimeFrom_[3] = this.getHoraMinuto(time5);
-        departureArrivalTimeTo_[3] = this.getHoraMinuto(time6);
-        departureArrivalTimeFrom_[4] = this.getHoraMinuto(time7);
-        departureArrivalTimeTo_[4] = this.getHoraMinuto(time8);
+        departureArrivalTimeFrom_[0] = time1;//this.getHoraMinuto(time1);
+        departureArrivalTimeTo_[0] = time2;//this.getHoraMinuto(time2);
+        departureArrivalTimeFrom_[1] = time3;//this.getHoraMinuto(time3);
+        departureArrivalTimeTo_[1] = time4;//this.getHoraMinuto(time4);
+        departureArrivalTimeFrom_[2] = time5;//this.getHoraMinuto(time5);
+        departureArrivalTimeTo_[2] = time6;//this.getHoraMinuto(time6);
+        departureArrivalTimeFrom_[3] = time7;//this.getHoraMinuto(time7);
+        departureArrivalTimeTo_[3] = time8;//this.getHoraMinuto(time8);
         break;
       case 5:
-        departureArrivalTimeFrom_[0] = this.getHoraMinuto(time1);
-        departureArrivalTimeTo_[0] = this.getHoraMinuto(time2);
-        departureArrivalTimeFrom_[1] = this.getHoraMinuto(time3);
-        departureArrivalTimeTo_[1] = this.getHoraMinuto(time4);
-        departureArrivalTimeFrom_[3] = this.getHoraMinuto(time5);
-        departureArrivalTimeTo_[3] = this.getHoraMinuto(time6);
-        departureArrivalTimeFrom_[4] = this.getHoraMinuto(time7);
-        departureArrivalTimeTo_[4] = this.getHoraMinuto(time8);
-        departureArrivalTimeFrom_[5] = this.getHoraMinuto(time9);
-        departureArrivalTimeTo_[5] = this.getHoraMinuto(time10);
+        departureArrivalTimeFrom_[0] = time1;//this.getHoraMinuto(time1);
+        departureArrivalTimeTo_[0] = time2;//this.getHoraMinuto(time2);
+        departureArrivalTimeFrom_[1] = time3;//this.getHoraMinuto(time3);
+        departureArrivalTimeTo_[1] = time4;//this.getHoraMinuto(time4);
+        departureArrivalTimeFrom_[2] = time5;//this.getHoraMinuto(time5);
+        departureArrivalTimeTo_[2] = time6;//this.getHoraMinuto(time6);
+        departureArrivalTimeFrom_[3] = time7;//this.getHoraMinuto(time7);
+        departureArrivalTimeTo_[3] = time8;//this.getHoraMinuto(time8);
+        departureArrivalTimeFrom_[4] = time9;//this.getHoraMinuto(time9);
+        departureArrivalTimeTo_[4] = time10;//this.getHoraMinuto(time10);
         break;
       case 6:
-        departureArrivalTimeFrom_[0] = this.getHoraMinuto(time1);
-        departureArrivalTimeTo_[0] = this.getHoraMinuto(time2);
-        departureArrivalTimeFrom_[1] = this.getHoraMinuto(time3);
-        departureArrivalTimeTo_[1] = this.getHoraMinuto(time4);
-        departureArrivalTimeFrom_[3] = this.getHoraMinuto(time5);
-        departureArrivalTimeTo_[3] = this.getHoraMinuto(time6);
-        departureArrivalTimeFrom_[4] = this.getHoraMinuto(time7);
-        departureArrivalTimeTo_[4] = this.getHoraMinuto(time8);
-        departureArrivalTimeFrom_[5] = this.getHoraMinuto(time9);
-        departureArrivalTimeTo_[5] = this.getHoraMinuto(time10);
-        departureArrivalTimeFrom_[6] = this.getHoraMinuto(time11);
-        departureArrivalTimeTo_[6] = this.getHoraMinuto(time12);
+        departureArrivalTimeFrom_[0] = time1;//this.getHoraMinuto(time1);
+        departureArrivalTimeTo_[0] = time2;//this.getHoraMinuto(time2);
+        departureArrivalTimeFrom_[1] = time3;//this.getHoraMinuto(time3);
+        departureArrivalTimeTo_[1] = time4;//this.getHoraMinuto(time4);
+        departureArrivalTimeFrom_[2] = time5;//this.getHoraMinuto(time5);
+        departureArrivalTimeTo_[2] = time6;//this.getHoraMinuto(time6);
+        departureArrivalTimeFrom_[3] = time7;//this.getHoraMinuto(time7);
+        departureArrivalTimeTo_[3] = time8;//this.getHoraMinuto(time8);
+        departureArrivalTimeFrom_[4] = time9;//this.getHoraMinuto(time9);
+        departureArrivalTimeTo_[4] = time10;//this.getHoraMinuto(time10);
+        departureArrivalTimeFrom_[5] = time11;//this.getHoraMinuto(time11);
+        departureArrivalTimeTo_[5] = time12;//this.getHoraMinuto(time12);
         break;
     }
 

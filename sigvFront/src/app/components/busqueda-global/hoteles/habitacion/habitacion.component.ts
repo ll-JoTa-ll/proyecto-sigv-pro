@@ -74,9 +74,8 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     }
     this.bnIdle.startWatching(600).subscribe((res) => {
       if(res) {
-          console.log("session expired");
-          alert("Session expired")
-          this.router.navigate(['hoteles'])
+          alert("Session expired");
+          this.router.navigate(['hoteles']);
       }
     })
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
