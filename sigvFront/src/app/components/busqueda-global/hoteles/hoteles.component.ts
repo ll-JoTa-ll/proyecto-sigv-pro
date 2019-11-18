@@ -386,22 +386,22 @@ ValidarCampos() {
   let val = true;
    
     if ($.trim(this.model.origentTextos) === '' || $.trim(this.model.origentTextos) === undefined) {
+      $("#txtOrigen").addClass("campo-invalido");
+      val = false;
+    } else {
+      $("#txtOrigen").removeClass("campo-invalido");
+    }
+    if ($.trim(this.model.origentTextos1) === '' || $.trim(this.model.origentTextos1) === undefined) {
       $("#ingreso").addClass("campo-invalido");
       val = false;
     } else {
       $("#ingreso").removeClass("campo-invalido");
     }
-    if ($.trim(this.model.origentTextos1) === '' || $.trim(this.model.origentTextos1) === undefined) {
+    if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
       $("#salida").addClass("campo-invalido");
       val = false;
     } else {
       $("#salida").removeClass("campo-invalido");
-    }
-    if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
-      $("#txtOrigen").addClass("campo-invalido");
-      val = false;
-    } else {
-      $("#txtOrigen").removeClass("campo-invalido");
     }
       
   return val;

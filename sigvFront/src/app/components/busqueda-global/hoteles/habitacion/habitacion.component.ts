@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, TemplateRef} from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild} from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { HotelService } from '../../../../services/hotel.service';
 import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
 import { ReservaHotelComponent } from '../reserva-hotel/reserva-hotel.component';
@@ -22,7 +22,7 @@ declare var $: any;
   styleUrls: ['./habitacion.component.sass']
 })
 export class HabitacionComponent implements OnInit {
-  
+  @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
 
   lsthabitacion : IHabitacionResults;
   loginDataUser: ILoginDatosModel;

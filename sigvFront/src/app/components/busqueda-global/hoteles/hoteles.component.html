@@ -17,13 +17,13 @@
                             </div>
                         </div>
                         <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0" id="txtOrigen">
+                            <div class="col-12 m-0 p-0">
 
-                                <div class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
+                                <div id="txtOrigen" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
                                     <ng-autocomplete [(ngModel)]="model.origentTexto"  style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
 
-                                    <ng-template #itemTemplate let-item>
+                                    <ng-template  #itemTemplate let-item>
                                         <a [innerHTML]="item.name"></a>
                                     </ng-template>
 
@@ -42,8 +42,8 @@
                             </div>
                         </div>
                         <div class="row m-0 p-0">
-                            <div class="col-6 m-0 p-0 pr-3" id="ingreso">
-                                <label for="" class="d-inline-flex box-shadow label-fecha">
+                            <div class="col-6 m-0 p-0 pr-3" >
+                                <label  id="ingreso" for="" class="d-inline-flex box-shadow label-fecha">
                                             <input type="image"
                                                    src="./assets/images/home/calendario.svg"
                                                    (click)="datepickerIngreso.toggle()"
@@ -64,8 +64,8 @@
                                             >
                                           </label>
                             </div>
-                            <div class="col-6 m-0 p-0 pr-3" id="salida">
-                                <label for="" class="d-inline-flex box-shadow label-fecha">
+                            <div class="col-6 m-0 p-0 pr-3" >
+                                <label id="salida" for="" class="d-inline-flex box-shadow label-fecha">
                                             <input type="image"
                                                    src="./assets/images/home/calendario.svg"
                                                    (click)="datepickerSalida.toggle()"
