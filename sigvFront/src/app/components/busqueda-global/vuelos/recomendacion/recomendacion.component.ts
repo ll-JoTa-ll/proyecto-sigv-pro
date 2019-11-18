@@ -659,18 +659,26 @@ TraerAutorizador() {
     console.log("flagFareBasisVal: " + flagFareBasisVal);
     //$('#' + this.idRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex + '_' + this.fareFamilyIndex).prop("checked", true);
     if (flagFareBasisVal === 1) {
+
+      console.log("Todas las cabeceras del section blancas");
       lstFamilyResult.lsections.forEach(function(section, indexSection) {
-        section.lsegments.forEach(function(segment, indexSegment) {
-          segment.lfareFamilies.forEach(function(fare, indexFare) {
-            if (indexSection == section_) {
-              $("#idRadioFam_" + indexSection + "_" + indexSegment + "_" + indexFare).prop("checked", false);
-              const idCab = '#idNameFamilyName_' + indexSection + '_' + indexSegment  + '_' + indexFare;
-              $(idCab).css({'background-color': '#C6C6C6'});
-            }
+        if (indexSection == section_) {
+          section.lsegments.forEach(function(segment, indexSegment) {
+            segment.lfareFamilies.forEach(function(fare, indexFare) {
+              //$("#idRadioFam_" + indexSection + "_" + indexSegment + "_" + indexFare).prop("checked", false);
+              //const idCab = '#idNameFamilyName_' + indexSection + '_' + indexSegment  + '_' + indexFare;
+              //$(idCab).css({'background-color': '#C6C6C6'});
+
+              let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+              console.log("idSecuencial: " + idSecuencial);
+              $("#idRadioFam_" + idSecuencial).prop("checked", false);
+              $('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
+            });
           });
-        });
+        }
       });
 
+      console.log("pintar las cabeceras correspondientes");
       lstFamilyResult.lsections.forEach(function(section, indexSection) {
 
         if (indexSection == section_) {
@@ -688,6 +696,7 @@ TraerAutorizador() {
         }
       });
     } else {
+      console.log("cuando son diferentes fareBasis")
       $("#idRadioFam_" + section_ + "_" + segment_ + "_" + index_).prop("checked", true);
     }
 
