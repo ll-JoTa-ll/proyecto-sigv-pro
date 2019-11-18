@@ -119,6 +119,7 @@ import { NavHeaderComponent } from './components/shared/nav-header/nav-header.co
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @NgModule({
   declarations: [
@@ -243,7 +244,7 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
     TooltipModule.forRoot(),
     PopoverModule.forRoot()
   ],
-  providers: [],
+  providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, AfterViewInit } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Component, OnInit, Input,ViewChild, Output, EventEmitter, TemplateRef, AfterViewInit } from '@angular/core';
+import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { environment } from '../../../environments/environment';
 import { AirportService } from '../../services/airport.service';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { IGetApprovers } from '../../models/IGetApprovers.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { fromStringWithSourceMap } from 'source-list-map';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 declare var jquery: any;
 declare var $: any;
@@ -27,6 +28,7 @@ export class ReservaVueloComponent implements OnInit {
     ignoreBackdropClick: true
   };
 
+  @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   flightAvailability_request;
   datarequest;
   flightAvailability_result;
@@ -61,7 +63,8 @@ export class ReservaVueloComponent implements OnInit {
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     private service: AirportService,
-    private router: Router
+    private router: Router,
+    private bnIdle: BnNgIdleService
   ) {
     this.datarequest = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
     this.flightAvailability_request = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
@@ -70,6 +73,11 @@ export class ReservaVueloComponent implements OnInit {
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
     this.sessionStorageService.store('tipovuelo', null);
     this.datosuser = sessionStorageService.retrieve('objusuarios');
+    this.bnIdle.startWatching(600).subscribe((res) => {
+      if(res) {
+        this.modal.show();
+      }
+    })
   }
 
   ngOnInit() {
@@ -89,6 +97,12 @@ export class ReservaVueloComponent implements OnInit {
     //this.CostCenter();
     this.ReasonFlight();
   }
+
+  VolverHome() {
+    this.modal.hide();
+    this.router.navigate(['/vuelos']);
+  }
+
 
 
   CostCenter() {
@@ -140,7 +154,7 @@ export class ReservaVueloComponent implements OnInit {
      val = false;
     }
      return val;
-  } 
+  }
 
   ValidarCampos() {
     let val = true;

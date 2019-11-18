@@ -33,6 +33,8 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   @Input() currency;
   @Input() user;
   @Input() index;
+  @Input() valtelefono;
+  @Input() 
   selectedvalue;
   fechanacimiento;
   datosPax;
@@ -47,8 +49,8 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datos;
   tratamiento;
   fecha;
-  valtelefono = false;
-  valcorreo = false;
+  //valtelefono = false;
+  //valcorreo = false;
 
 
   constructor(private modalService: BsModalService, private sessionStorageService : SessionStorageService) {
@@ -65,14 +67,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-  }
-
-  validartelefono($event) {
-    this.valtelefono = $event;
-  }
-
-  validarcorreo($event) {
-    this.valcorreo = $event;
   }
 
   openModal(template: TemplateRef<any>, template2: TemplateRef<any>) {

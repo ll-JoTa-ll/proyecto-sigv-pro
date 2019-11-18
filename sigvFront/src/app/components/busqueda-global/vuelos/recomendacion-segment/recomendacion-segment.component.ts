@@ -34,6 +34,7 @@ export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
   lSegmentGroups: any[] = [];
   radioButtonName: string;
   segmentRadioSel;
+  stringscalas: string;
 
   constructor() {
     this.radioButtonName = 'radioSection';
@@ -51,6 +52,7 @@ export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
       this.timeOfArrivalShow = this.segment.lSegmentGroups[lSegmentGroupsLength - 1].timeOfArrivalShow;
     }
   }
+
 
   ngAfterViewInit(): void {
     if (this.indexSegment === 1) {

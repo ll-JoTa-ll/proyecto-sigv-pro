@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { AirportService } from '../../../services/airport.service';
 import { IFlightAvailability } from '../../../models/IFlightAvailability';
@@ -11,7 +11,8 @@ import { IGenerateTicket } from '../../../models/IGenerateTicket.model';
 import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 declare var jquery: any;
 declare var $: any;
@@ -23,6 +24,7 @@ declare var $: any;
 })
 export class ReservaCompraComponent implements OnInit {
 
+  @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   Lsection;
   Lsectionpassenger;
   lsusuario;
@@ -69,8 +71,8 @@ export class ReservaCompraComponent implements OnInit {
   };
 
   constructor(private sessionStorageService: SessionStorageService,
-              private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService, 
-              private toastr: ToastrService, private modalservice: BsModalService) {
+              private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService,
+              private toastr: ToastrService, private modalservice: BsModalService, private bnIdle: BnNgIdleService) {
     this.Lsection = this.sessionStorageService.retrieve('sectioninfo');
     this.Lsectionpassenger = this.sessionStorageService.retrieve('sectionservice');
     this.lsusuario = this.sessionStorageService.retrieve('datosusuario');
@@ -93,7 +95,19 @@ export class ReservaCompraComponent implements OnInit {
     this.plantillareserva = 'assets/plantillasEmail/plantillareservagenerada.html';
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.contacto = this.sessionStorageService.retrieve('contacto');
+    this.bnIdle.startWatching(3).subscribe((res) => {
+      if(res) {
+        this.modal.show();
+      }
+    })
+
+
    }
+
+  VolverHome() {
+    this.modal.hide();
+    this.router.navigate(['/vuelos']);
+  }
 
   ngOnInit() {
     window.scrollTo(0, 0);
@@ -187,7 +201,7 @@ export class ReservaCompraComponent implements OnInit {
         }
         if (this.lsapprover.length > 0 && this.pnrresults.oerror === null) {
           this.SendEmail();
-        } 
+        }
         if (this.pnrresults.oerror != null) {
             this.spinner.hide();
             this.modalRef = this.modalservice.show(
@@ -195,22 +209,22 @@ export class ReservaCompraComponent implements OnInit {
               Object.assign({}, { class: 'gray modal-lg m-infraccion' })
             );
           }
-    
+
       }
       );
     }
 
     PlantillaEmailSolicitud() {
       let htmlsection = '';
- 
+
       for (let i = 0; i < this.Lsection.length; i++) {
        const section = this.Lsection[i];
        const lsegment = section.Lsegments;
-       
+
        for (let k = 0; k < lsegment.length; k++) {
          const itemlsegment = lsegment[k];
          const segmentgroup = itemlsegment.LsegmentGroups;
-         
+
          for (let j = 0; j < segmentgroup.length; j++) {
            const itemsegmentgroup = segmentgroup[j];
            htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
@@ -286,7 +300,7 @@ export class ReservaCompraComponent implements OnInit {
        }
      }
       this.htmlvuelosection = htmlsection;
-           
+
       this.emailsolicitud = this.emailsolicitud.replace("@segmentos", this.htmlvuelosection);
     }
 
@@ -388,7 +402,7 @@ export class ReservaCompraComponent implements OnInit {
 
    FormatearFechaPnr() {
     let data;
-    let recorte; 
+    let recorte;
     let fecha;
     let hora;
     data = this.pnrresults.timeLimit;
@@ -497,7 +511,7 @@ export class ReservaCompraComponent implements OnInit {
       } else {
       infraction = false;
     }
-  
+
       let data = {
     "UserId": this.userid,
     "GDS": this.gds,
@@ -532,7 +546,7 @@ export class ReservaCompraComponent implements OnInit {
 
     FormatearFechaReserva() {
       let data;
-      let recorte; 
+      let recorte;
       let fecha;
       let hora;
       let fechaexpiracion;
@@ -549,7 +563,7 @@ export class ReservaCompraComponent implements OnInit {
 
     FormatearFechaReserva2() {
       let data;
-      let recorte; 
+      let recorte;
       let fecha;
       let hora;
       let fechaexpiracion;
@@ -589,7 +603,7 @@ export class ReservaCompraComponent implements OnInit {
        for (let k = 0; k < lsegment.length; k++) {
          const itemlsegment = lsegment[k];
          const segmentgroup = itemlsegment.LsegmentGroups;
-         
+
          for (let j = 0; j < segmentgroup.length; j++) {
            const itemsegmentgroup = segmentgroup[j];
            htmlsection+="<div style='width: 100% !important;'>";

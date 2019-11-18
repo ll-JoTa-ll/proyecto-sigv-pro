@@ -104,6 +104,28 @@
                         </div>
 
                     </div>
+                    <div class="modal fade" bsModal #modal="bs-modal"
+                    tabindex="-1" role="dialog" aria-labelledby="dialog-events-name">
+                 <div class="modal-dialog modal-sm">
+                   <div class="modal-content">
+                      <div class="modal-header m-0 p-0" style="border: none;">
+                          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                      </div>
+                     <div class="modal-body">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0 text-center text-sesion">
+                                Expiro la sesión
+                            </div>
+                            <div class="col-12 m-0 p-0 text-center pt-4">
+                               <button (click)="VolverHome()" class="btn btn-ok">ok</button>
+                            </div>
+                        </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
                     <div class="col-4 m-0 p-0">
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
