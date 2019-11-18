@@ -56,6 +56,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   mayorPrecioHotel: number;
   menorPrecioHotel: number;
   mapafiltro: boolean;
+  model: any = {};
+  isOpen = false;
+  flagVal: boolean;
 
   
 
@@ -117,6 +120,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
     this.localeService.use(this.locale);
   }
+
+  
 
   ngAfterViewInit() {
     console.log('ngOnInit hoteles');
@@ -285,8 +290,12 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   }
 
   SeachHotel() {
-
-    this.spinner.show();
+    const val= this.ValidarCampos();
+    if (!val) {
+      return val;
+    }
+    else{
+      this.spinner.show();
     this.flagDinData = false;
     this.dateingreso = $('#dateingreso').val();
     this.datesalida = $('#datesalida').val();
@@ -369,10 +378,34 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
    }
   );
+    }
+    
 }
 
-
-
+ValidarCampos() {
+  let val = true;
+   
+    if ($.trim(this.model.origentTextos) === '' || $.trim(this.model.origentTextos) === undefined) {
+      $("#ingreso").addClass("campo-invalido");
+      val = false;
+    } else {
+      $("#ingreso").removeClass("campo-invalido");
+    }
+    if ($.trim(this.model.origentTextos1) === '' || $.trim(this.model.origentTextos1) === undefined) {
+      $("#salida").addClass("campo-invalido");
+      val = false;
+    } else {
+      $("#salida").removeClass("campo-invalido");
+    }
+    if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
+      $("#txtOrigen").addClass("campo-invalido");
+      val = false;
+    } else {
+      $("#txtOrigen").removeClass("campo-invalido");
+    }
+      
+  return val;
+}
 SeleccionarEstrella(codeestrella, texto) {
   this.estrellas = codeestrella;
   this.textoestrellas = texto;

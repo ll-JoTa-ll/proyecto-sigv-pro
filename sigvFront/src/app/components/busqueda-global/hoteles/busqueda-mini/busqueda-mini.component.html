@@ -5,7 +5,7 @@
             Destino
         </div>
 
-        <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3">
+        <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3" id="destinos">
             <div class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
                 <ng-autocomplete [(ngModel)]="destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate">
@@ -27,7 +27,7 @@
 
         <div class="col-12 mt-3 p-0 pl-4 pr-4">
             <div class="row m-0 p-0">
-                <div class="col-6 m-0 p-0">
+                <div class="col-6 m-0 p-0" id="ingreso">
                     <label for="" class="d-inline-flex box-shadow label-fechas">
                                 <input type="image"
                                        src="./assets/images/home/calendario.svg"
@@ -49,7 +49,7 @@
                                 >
                               </label>
                 </div>
-                <div class="col-6 m-0 p-0">
+                <div class="col-6 m-0 p-0" id="destino">
                     <label for="" class="d-inline-flex box-shadow label-fechas">
                                 <input type="image"
                                        src="./assets/images/home/calendario.svg"

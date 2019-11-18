@@ -39,6 +39,7 @@ export class DetalleHabitacionComponent implements OnInit {
     ) {
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.User = this.sessionStorageService.retrieve("ss_user");
       
    }
 
@@ -46,7 +47,7 @@ export class DetalleHabitacionComponent implements OnInit {
     
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
-    this.getUser();
+    
 
   }
 
@@ -89,28 +90,6 @@ export class DetalleHabitacionComponent implements OnInit {
     )
   }
 
-  getUser(){
-    let data = {
-      userId: this.loginDataUser.userId
-      }
-
-      this.service.GetUser(data.userId).subscribe(
-        result => {
   
-          this.User = result;
-          
-          this.sessionStorageService.store("ss_user", this.User);
-          //this.router.navigate(['/reserva-habitacion-hotel']);
-        },
-        err => {
-          this.spinner.hide();
-       
-      },
-     () => {
-
-      
-     }
-      )
-  }
 
 }

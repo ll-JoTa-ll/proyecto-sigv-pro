@@ -72,18 +72,11 @@ export class HabitacionComponent implements OnInit {
     for (let i = 0; i < 4; i++) {
       this.addSlide();
     }
-    this.bnIdle.startWatching(480).subscribe((res) => {
+    this.bnIdle.startWatching(600).subscribe((res) => {
       if(res) {
           console.log("session expired");
           alert("Session expired")
           this.router.navigate(['hoteles'])
-      }
-    })
-    this.bnIdle.startWatching(1740).subscribe((res) => {
-      if(res) {
-          console.log("session expired");
-          alert("session expired")
-          this.router.navigate([''])
       }
     })
     this.lhotel = this.sessionStorageService.retrieve("lhotel");

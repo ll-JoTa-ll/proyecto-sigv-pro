@@ -61,18 +61,11 @@ export class ReservaHotelComponent implements OnInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.user = this.sessionStorageService.retrieve("ss_user");
     this.plantilla = 'assets/plantillashoteles/enviocorreo.html';
-    this.bnIdle.startWatching(480).subscribe((res) => {
+    this.bnIdle.startWatching(600).subscribe((res) => {
       if(res) {
           console.log("session expired");
           alert("session expired")
           this.router.navigate(['hoteles'])
-      }
-    })
-    this.bnIdle.startWatching(1740).subscribe((res) => {
-      if(res) {
-          console.log("session expired");
-          alert("session expired")
-          this.router.navigate([''])
       }
     })
    }
@@ -97,7 +90,6 @@ export class ReservaHotelComponent implements OnInit {
     cumple = cumple.replace(/-/gi,"/");
     const val= this.ValidarCampos();
     if (!val) {
-      alert("Hay campos vacios")
       return val;
     }
     else{
@@ -358,20 +350,69 @@ export class ReservaHotelComponent implements OnInit {
   
   ValidarCampos() {
     let val = true;
-        if ($('#numeroTarjeta').val().length <= 0) {
-          val = false;
-        }
-        if ($('#fechaVencimiento').val().length <= 0) {
-          val = false;
-        }
-        if ($('#codSeguridad').val().length <= 0) {
-          val = false;
-        }
-        if ($('#titularTarjeta').val().length <= 0) {
-          val = false;
-        }
-
-
+     
+      if ($.trim(this.numeroTarjeta) === '' || $.trim(this.numeroTarjeta) === undefined) {
+        $("#numeroTarjeta").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#numeroTarjeta").removeClass("campo-invalido");
+      }
+      if ($.trim(this.fechVencimiento) === '' || $.trim(this.fechVencimiento) === undefined) {
+        $("#fechaVencimiento").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#fechaVencimiento").removeClass("campo-invalido");
+      }
+      if ($.trim(this.codSeguridad) === '' || $.trim(this.codSeguridad) === undefined) {
+        $("#codSeguridad").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#codSeguridad").removeClass("campo-invalido");
+      }
+      if ($.trim(this.titular) === '' || $.trim(this.titular) === undefined) {
+        $("#titularTarjeta").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#titularTarjeta").removeClass("campo-invalido");
+      }
+      if ($.trim(this.telefonoContacto) === '' || $.trim(this.telefonoContacto) === undefined) {
+        $("#numero").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#numero").removeClass("campo-invalido");
+      }
+      if ($.trim(this.correoContacto) === '' || $.trim(this.correoContacto) === undefined) {
+        $("#correo").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#correo").removeClass("campo-invalido");
+      }
+      if ($.trim(this.nombreContacto) === '' || $.trim(this.nombreContacto) === undefined) {
+        $("#nombre").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#nombre").removeClass("campo-invalido");
+      }
+      if ($.trim(this.areaContacto) === '' || $.trim(this.areaContacto) === undefined) {
+        $("#area").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#area").removeClass("campo-invalido");
+      }
+      if ($.trim(this.correo) === '' || $.trim(this.correo) === undefined) {
+        $("#correoTitu").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#correoTitu").removeClass("campo-invalido");
+      }
+      if ($.trim(this.telefono) === '' || $.trim(this.telefono) === undefined) {
+        $("#fonoTitu").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#fonoTitu").removeClass("campo-invalido");
+      }
+      
+        
     return val;
   }
   

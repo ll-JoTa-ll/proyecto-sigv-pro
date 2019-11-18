@@ -47,6 +47,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   data: any[] = [];
   LResultshotel: IHotelResultsModel[];
   estrellas: string;
+  model: any = {};
 
   SearchObj: any = { 
     HotelCityCode: '',
@@ -177,7 +178,12 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   }
 
   SeachHotel() {
-    this.spinner.show();
+    const val= this.ValidarCampos();
+    if (!val) {
+      return val;
+    }
+    else{
+      this.spinner.show();
     this.flagShowMap.emit(false);
     let data = {
       "Lhotel":
@@ -232,11 +238,39 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
         
        }
    );
+    }
+    
  }
 
  SeleccionarEstrella(codeestrella, texto) {
   this.estrellas = codeestrella;
   this.textoestrellas = texto;
+}
+
+ValidarCampos() {
+  let val = true;
+   
+    if ($.trim(this.destino) === '' || $.trim(this.destino) === undefined) {
+      $("#destinos").addClass("campo-invalido");
+      val = false;
+    } else {
+      $("#destinos").removeClass("campo-invalido");
+    }
+    if ($.trim(this.fchingreso) === '' || $.trim(this.fchingreso) === undefined) {
+      $("#ingreso").addClass("campo-invalido");
+      val = false;
+    } else {
+      $("#ingreso").removeClass("campo-invalido");
+    }
+    if ($.trim(this.fchsalida) === '' || $.trim(this.fchsalida) === undefined) {
+      $("#destino").addClass("campo-invalido");
+      val = false;
+    } else {
+      $("#destino").removeClass("campo-invalido");
+    }
+    
+      
+  return val;
 }
 
 ObtenerDias(fecha1, fecha2) {

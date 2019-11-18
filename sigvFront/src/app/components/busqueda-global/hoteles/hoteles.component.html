@@ -17,10 +17,10 @@
                             </div>
                         </div>
                         <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0">
+                            <div class="col-12 m-0 p-0" id="txtOrigen">
 
                                 <div class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
-                                    <ng-autocomplete style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                                    <ng-autocomplete [(ngModel)]="model.origentTexto"  style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
 
                                     <ng-template #itemTemplate let-item>
@@ -42,13 +42,14 @@
                             </div>
                         </div>
                         <div class="row m-0 p-0">
-                            <div class="col-6 m-0 p-0 pr-3">
+                            <div class="col-6 m-0 p-0 pr-3" id="ingreso">
                                 <label for="" class="d-inline-flex box-shadow label-fecha">
                                             <input type="image"
                                                    src="./assets/images/home/calendario.svg"
                                                    (click)="datepickerIngreso.toggle()"
                                                    class="input-img">
                                             <input type="text"
+                                                   [(ngModel)]="model.origentTextos"
                                                    placeholder="Ingreso"
                                                    class="p-0 pl-2 input-date"
                                                    (keypress)="validarTodo($event)"
@@ -63,13 +64,14 @@
                                             >
                                           </label>
                             </div>
-                            <div class="col-6 m-0 p-0 pr-3">
+                            <div class="col-6 m-0 p-0 pr-3" id="salida">
                                 <label for="" class="d-inline-flex box-shadow label-fecha">
                                             <input type="image"
                                                    src="./assets/images/home/calendario.svg"
                                                    (click)="datepickerSalida.toggle()"
                                                    class="input-img">
                                             <input type="text"
+                                                   [(ngModel)]="model.origentTextos1"
                                                    placeholder="Salida"
                                                    class="p-0 pl-2 input-date"
                                                    #datepickerSalida="bsDatepicker"

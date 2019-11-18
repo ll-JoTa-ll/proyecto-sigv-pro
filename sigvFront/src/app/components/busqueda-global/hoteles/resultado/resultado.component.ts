@@ -10,6 +10,7 @@ import { environment } from '../../../../../environments/environment';
 import { VuelosComponent } from '../../vuelos/vuelos.component';
 import { HotelesComponent } from '../hoteles.component';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 declare var jquery: any;
 declare var $: any;
@@ -47,7 +48,14 @@ export class ResultadoComponent implements OnInit {
   lstHotel : IHotelResultsModel[];
   
 
-  constructor(private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router,private Hotels: HotelesComponent) { }
+  constructor(private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router,private Hotels: HotelesComponent) {
+    this.bnIdle.startWatching(1740).subscribe((res) => {
+      if(res) {
+          alert("session expired")
+          this.router.navigate(['hoteles'])
+      }
+    })
+   }
 
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
