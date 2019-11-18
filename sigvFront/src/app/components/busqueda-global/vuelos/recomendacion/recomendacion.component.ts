@@ -12,6 +12,9 @@ import { IFamilyResultModel } from '../../../../models/IFamilyResult.model';
 import { environment } from '../../../../../environments/environment';
 import { IGetApprovers } from '../../../../models/IGetApprovers.model';
 
+declare var jquery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-recomendacion',
   templateUrl: './recomendacion.component.html',
@@ -69,6 +72,27 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   datosuser: any[] = [];
   LPolicies;
   lsapprovers: IGetApprovers[] = [];
+
+  colorsFare = [
+    "white",
+    "#3D5DBB",
+    "#FF560D",
+    "#E8A40C",
+    "#FFCD0D",
+    "#65E29C",
+    "#71FC86",
+    "#71D7FC",
+    "#9BC53D",
+    "#5F1A37",
+    "#274C77",
+    "#BE95C4",
+    "#8EA604",
+    "#3C1518",
+    "#D90368",
+    "#00CC66",
+    "#4C2C69",
+    "#C33C54"
+  ];
 
   constructor(
     private modalService: BsModalService,
@@ -503,10 +527,12 @@ TraerAutorizador() {
           //this.router.navigate(['/reserva-vuelo']);
           flagResult = 1;
         } else {
-          this.modalRef = this.modalService.show(
-            template,
-            Object.assign({}, { class: 'gray modal-lg sin-familias' })
-          );
+          if (tipo === 1 || tipo === 2) {
+            this.modalRef = this.modalService.show(
+              template,
+              Object.assign({}, { class: 'gray modal-lg sin-familias' })
+            );
+          }
         }
       },
       err => {
@@ -586,12 +612,39 @@ TraerAutorizador() {
     const index_ = obj[3];
     const requestFamilia = this.requestFamilia;
     const lstFamilyResult = this.lstFamilyResult;
+    const colorsFare = this.colorsFare;
     let fareBasis = "";
     let classId = "";
+    let fareBasisVal = "";
+    let classIdVal = "";
+    let flagFareBasisVal = 1;
+    //aumentar validacion de misma aerolinea tbm
     lstFamilyResult.lsections.forEach(function(section, indexSection) {
       section.lsegments.forEach(function(segment, indexSegment) {
+
+        if (indexSection == section_) {
+          if (indexSegment === 0) {
+            fareBasisVal = segment.lfareFamilies[index_ - 1].fareBasis;
+            console.log(fareBasisVal);
+          } else {
+            console.log(fareBasisVal);
+            console.log(segment.lfareFamilies[index_ - 1].fareBasis);
+            if (fareBasisVal != segment.lfareFamilies[index_ - 1].fareBasis) {
+              console.log("flagFareBasisVal = 0");
+              flagFareBasisVal = 0;
+            } else {
+              console.log("flagFareBasisVal = 1");
+            }
+          }
+        }
+
         segment.lfareFamilies.forEach(function(fare, indexFare) {
           if (indexSection == section_) {
+            /*
+            $("#idRadioFam_" + indexSection + "_" + indexSegment + "_" + indexFare).prop("checked", false);
+            const idCab = '#idNameFamilyName_' + indexSection + '_' + indexSegment  + '_' + indexFare;
+            $(idCab).css({'background-color': '#C6C6C6'});
+            */
             if (indexSegment == segment_) {
               if (indexFare == index_ - 1) {
                 fareBasis = fare.fareBasis;
@@ -602,6 +655,42 @@ TraerAutorizador() {
         });
       });
     });
+
+    console.log("flagFareBasisVal: " + flagFareBasisVal);
+    //$('#' + this.idRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex + '_' + this.fareFamilyIndex).prop("checked", true);
+    if (flagFareBasisVal === 1) {
+      lstFamilyResult.lsections.forEach(function(section, indexSection) {
+        section.lsegments.forEach(function(segment, indexSegment) {
+          segment.lfareFamilies.forEach(function(fare, indexFare) {
+            if (indexSection == section_) {
+              $("#idRadioFam_" + indexSection + "_" + indexSegment + "_" + indexFare).prop("checked", false);
+              const idCab = '#idNameFamilyName_' + indexSection + '_' + indexSegment  + '_' + indexFare;
+              $(idCab).css({'background-color': '#C6C6C6'});
+            }
+          });
+        });
+      });
+
+      lstFamilyResult.lsections.forEach(function(section, indexSection) {
+
+        if (indexSection == section_) {
+          section.lsegments.forEach(function(segment, indexSegment) {
+
+            segment.lfareFamilies[index_ - 1].fareBasis = fareBasis;
+            segment.lfareFamilies[index_ - 1].fareBasis = classId;
+
+            let idSecuencial = indexSection + "_" + indexSegment + "_" + index_;
+            console.log("idSecuencial: " + idSecuencial);
+            $("#idRadioFam_" + idSecuencial).prop("checked", true);
+            $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
+
+          });
+        }
+      });
+    } else {
+      $("#idRadioFam_" + section_ + "_" + segment_ + "_" + index_).prop("checked", true);
+    }
+
     requestFamilia.Lsections.forEach(function(section, indexSection) {
       section.Lsegments.forEach(function(segment, indexSegment) {
         segment.LsegmentGroups.forEach(function(group, indexGroup) {
@@ -617,6 +706,7 @@ TraerAutorizador() {
       });
     });
 
+    console.log("requestFamiliaRadio: " + JSON.stringify(requestFamilia));
 
     this.flightAvailability(requestFamilia, null, 3, null);
   }
