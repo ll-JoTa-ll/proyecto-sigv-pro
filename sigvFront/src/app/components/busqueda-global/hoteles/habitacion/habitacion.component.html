@@ -3,7 +3,14 @@
         <div class="row m-0 p-0">
             <div class="col-3">
                 <div class="row m-0 p-0 pt-4">
-                  <!--  <app-busqueda-mini [destinoValue]="destinoValue" [destinoText]="destinoText" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones"
+                    <session-expiration-alert [alertAt]="alertAt" [startTimer]="startTimer"></session-expiration-alert>
+
+                    <button (click)="increase()">change alert at</button> {{alertAt}}
+                    <br>
+                    <button (click)="toggletimer()">toggle timer</button> {{startTimer}}
+
+                    <h2 *ngIf="sessionTimer.remainSeconds$ | async; let time">Session Remains {{time}} seconds.</h2>
+                    <!--  <app-busqueda-mini [destinoValue]="destinoValue" [destinoText]="destinoText" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones"
                         [adultos]="personas" (flagShowMap)="showHideMap($event)">
                     </app-busqueda-mini>-->
                 </div>
@@ -228,6 +235,6 @@
 
             </div>
         </div>
-        
+
     </app-header>
 </ng-container>

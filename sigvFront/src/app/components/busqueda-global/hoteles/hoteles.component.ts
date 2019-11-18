@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales, getDay } from 'ngx-bootstrap/chronos';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -10,6 +10,7 @@ import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 declare var jquery: any;
 declare var $: any;
@@ -20,6 +21,7 @@ declare var $: any;
   styleUrls: ['./hoteles.component.sass']
 })
 export class HotelesComponent implements OnInit, AfterViewInit {
+@ViewChild('chilModal',{static: false}) childModal: ModalDirective;
 
   locale = 'es';
   locales = listLocales();
@@ -72,10 +74,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     private bnIdle: BnNgIdleService
     
   ) {
-    this.bnIdle.startWatching(1740).subscribe((res) => {
+    this.bnIdle.startWatching(120).subscribe((res) => {
       if(res) {
-          console.log("session expired");
-          alert("session expired")
+          alert("Session expired")
           this.router.navigate([''])
       }
     })
@@ -98,6 +99,14 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
     this.mapafiltro = true;
+  }
+
+  showChildModal(): void {
+    this.childModal.show();
+  }
+ 
+  hideChildModal(): void {
+    this.childModal.hide();
   }
 
   ngOnInit() {

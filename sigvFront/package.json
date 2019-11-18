@@ -23,6 +23,7 @@
         "@avas/ngx-autocomplete": "^2.0.0",
         "@fortawesome/fontawesome-svg-core": "^1.2.25",
         "@fortawesome/free-solid-svg-icons": "^5.11.2",
+        "@ng-bootstrap/ng-bootstrap": "^5.1.4",
         "@nicky-lenaers/ngx-scroll-to": "^3.0.1",
         "angular-ng-autocomplete": "^1.1.14",
         "bn-ng-idle": "^1.0.1",
@@ -36,6 +37,7 @@
         "ngx-toastr": "^11.2.1",
         "ngx-webstorage": "^4.0.1",
         "rxjs": "~6.4.0",
+        "session-expiration-alert": "^6.0.3",
         "tslib": "^1.9.0",
         "zone.js": "~0.9.1"
     },

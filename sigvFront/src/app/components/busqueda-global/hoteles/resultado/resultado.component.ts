@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
 import { HotelService } from '../../../../services/hotel.service';
 import { datepickerAnimation } from 'ngx-bootstrap/datepicker/datepicker-animations';
@@ -12,6 +12,7 @@ import { HotelesComponent } from '../hoteles.component';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
 
+
 declare var jquery: any;
 declare var $: any;
 
@@ -21,7 +22,6 @@ declare var $: any;
   styleUrls: ['./resultado.component.sass']
 })
 export class ResultadoComponent implements OnInit {
-
   loginDataUser: ILoginDatosModel;
 
   @Input() LHoteles: IHotelResultsModel[];
@@ -49,12 +49,7 @@ export class ResultadoComponent implements OnInit {
   
 
   constructor(private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router,private Hotels: HotelesComponent) {
-    this.bnIdle.startWatching(1740).subscribe((res) => {
-      if(res) {
-          alert("session expired")
-          this.router.navigate(['hoteles'])
-      }
-    })
+    
    }
 
   ngOnInit() {
@@ -63,6 +58,7 @@ export class ResultadoComponent implements OnInit {
     
   }
 
+ 
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
     this.Hotels.spinner.show();

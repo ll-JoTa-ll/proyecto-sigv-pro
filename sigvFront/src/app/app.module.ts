@@ -120,6 +120,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { SessionExpirationAlert, SessionInteruptService } from 'session-expiration-alert';
+
+
 
 @NgModule({
   declarations: [
@@ -242,9 +245,12 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     PaginationModule.forRoot(),
     NgxPaginationModule,
     ToastrModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    SessionExpirationAlert.forRoot({totalMinutes: 0.6})
   ],
-  providers: [BnNgIdleService],
+  providers: [{
+    provide: SessionInteruptService
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
