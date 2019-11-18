@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { IGetPnrHotel } from '../../../../models/IGetPnrHotel.model';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IGetEnhancedHotel } from 'src/app/models/IGetEnhancedHotel';
@@ -15,7 +15,7 @@ declare var $: any;
   templateUrl: './reserva-generada-hotel.component.html',
   styleUrls: ['./reserva-generada-hotel.component.sass']
 })
-export class ReservaGeneradaHotelComponent implements OnInit {
+export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
 
   reserva : IGetPnrHotel;
   habitacion : IHabitacionResults;
@@ -46,6 +46,20 @@ export class ReservaGeneradaHotelComponent implements OnInit {
     this.reserva.numberPhone.forEach(function(item){
       this.phone = item;
     })
+  }
+
+  ngAfterViewInit() {
+    console.log('ngOnInit hoteles');
+    $('#menu-vuelo-1').show();
+    $('#menu-vuelo-2').hide();
+    $('#menu-hotel-1').hide();
+    $('#menu-hotel-2').show();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
   }
 
   Mostrarmapa() {

@@ -97,17 +97,20 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.contacto = this.sessionStorageService.retrieve('contacto');
     this.bnIdle.startWatching(600).subscribe((res) => {
       if(res) {
-        this.modal.show();
+        alert('Expiro el tiempo de la sesión');
+        this.router.navigate(['/vuelos']);
+
       }
     })
 
 
    }
 
+   /*
   VolverHome() {
     this.router.navigate(['/vuelos']);
     this.modal.hide();
-  }
+  }*/
 
   ngOnInit() {
     window.scrollTo(0, 0);

@@ -127,7 +127,7 @@ export class LoginComponent implements OnInit {
       }
     }
   }
-  getUser(){
+  getUser() {
     let data = {
       userId: this.userid
       }

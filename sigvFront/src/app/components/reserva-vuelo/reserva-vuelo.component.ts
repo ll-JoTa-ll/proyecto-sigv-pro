@@ -75,7 +75,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.bnIdle.startWatching(600).subscribe((res) => {
       if(res) {
-        this.modal.show();
+        alert('Expiro el tiempo de la sesión');
+        this.router.navigate(['/vuelos']);
       }
     })
   }
@@ -112,12 +113,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
   }
 
+  /*
   VolverHome() {
     this.modal.hide();
     this.router.navigate(['/vuelos']);
   }
 
-
+*/
 
   CostCenter() {
     let data = {

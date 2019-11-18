@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef, ViewChild} from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
@@ -21,7 +21,7 @@ declare var $: any;
   templateUrl: './habitacion.component.html',
   styleUrls: ['./habitacion.component.sass']
 })
-export class HabitacionComponent implements OnInit {
+export class HabitacionComponent implements OnInit, AfterViewInit {
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
 
   lsthabitacion : IHabitacionResults;
@@ -83,6 +83,22 @@ export class HabitacionComponent implements OnInit {
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
     console.log(this.LHoteles);
     this.personas = this.LHoteles.numberPassenger;
+  }
+
+  
+
+  ngAfterViewInit() {
+    console.log('ngOnInit hoteles');
+    $('#menu-vuelo-1').show();
+    $('#menu-vuelo-2').hide();
+    $('#menu-hotel-1').hide();
+    $('#menu-hotel-2').show();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
   }
 
   openModal(template: TemplateRef<any>) {
