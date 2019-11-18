@@ -105,8 +105,8 @@ export class ReservaCompraComponent implements OnInit {
    }
 
   VolverHome() {
-    this.modal.hide();
     this.router.navigate(['/vuelos']);
+    this.modal.hide();
   }
 
   ngOnInit() {
