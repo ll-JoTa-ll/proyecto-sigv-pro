@@ -61,7 +61,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   model: any = {};
   isOpen = false;
   flagVal: boolean;
-
+  contador: number;
   
 
   constructor(
@@ -74,12 +74,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     private bnIdle: BnNgIdleService
     
   ) {
-    this.bnIdle.startWatching(120).subscribe((res) => {
-      if(res) {
-          alert("Session expired")
-          this.router.navigate([''])
-      }
-    })
+    
     console.log('constructor hoteles');
     $('.menu-vuelo-1').show();
     $('.menu-vuelo-2').hide();
@@ -99,6 +94,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
     this.mapafiltro = true;
+    this.contador = 600;
+    
   }
 
   showChildModal(): void {

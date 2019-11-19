@@ -13,8 +13,6 @@ import { IGetPnrHotel } from 'src/app/models/IGetPnrHotel.model';
 import { Router } from '@angular/router';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { Observable, Subscription, Subject } from 'rxjs';
-import { SessionTimerService } from 'session-expiration-alert';
 declare var jquery: any;
 declare var $: any;
 
@@ -71,29 +69,25 @@ export class HabitacionComponent implements OnInit {
   texto1: string;
   texto2: string;
   texto3: string;
+  contador: number;
 
-  constructor(public sessionTimer: SessionTimerService,private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private service: HotelService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
+  constructor(private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private service: HotelService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
 
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
     console.log(this.LHoteles);
     this.personas = this.LHoteles.numberPassenger;
-    
+    this.contador = 600;
+ 
+    this.bnIdle.startWatching(this.contador).subscribe((res) => {
+      if(res) {
+          alert("Session expired")
+          this.router.navigate(['hoteles'])
+      }
+    })
   }
   
-  increase() {
-    this.alertAt++;
-  }
-  toggletimer() {
-    this.startTimer = !this.startTimer;
-  }
 
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'modal-lg m-galeria' })
-    )
-  }
 
 
     
@@ -172,8 +166,9 @@ export class HabitacionComponent implements OnInit {
     this.texto1 = this.lsthabitacion.ohotel.hotelDescription.substring(0,250);
     this.texto2 = this.lsthabitacion.ohotel.hotelDescription.substring(250,this.lsthabitacion.ohotel.hotelDescription.length);
     this.texto3 = this.lsthabitacion.ohotel.hotelDescription;
-
-    
+    this.lsthabitacion.contador = this.contador;
+    console.log("this.contador ====>" +this.contador)
+    console.log("this.contador ====>" +this.contador)
   }
 
  mostrarmas(){

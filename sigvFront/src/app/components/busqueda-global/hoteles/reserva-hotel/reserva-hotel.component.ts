@@ -61,13 +61,6 @@ export class ReservaHotelComponent implements OnInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.user = this.sessionStorageService.retrieve("ss_user");
     this.plantilla = 'assets/plantillashoteles/enviocorreo.html';
-    this.bnIdle.startWatching(600).subscribe((res) => {
-      if(res) {
-          console.log("session expired");
-          alert("session expired")
-          this.router.navigate(['hoteles'])
-      }
-    })
    }
 
   ngOnInit() {

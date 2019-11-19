@@ -121,6 +121,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { SessionExpirationAlert, SessionInteruptService } from 'session-expiration-alert';
+import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/hoteles/busqueda-mini-habitacion/busqueda-mini-habitacion.component';
 
 
 
@@ -217,7 +218,8 @@ import { SessionExpirationAlert, SessionInteruptService } from 'session-expirati
     FiltroPrecioHotelComponent,
     VueloFamiliaSectionComponent,
     VueloFamiliaSegmentComponent,
-    NavHeaderComponent
+    NavHeaderComponent,
+    BusquedaMiniHabitacionComponent
   ],
   imports: [
     BrowserModule,
@@ -245,8 +247,7 @@ import { SessionExpirationAlert, SessionInteruptService } from 'session-expirati
     PaginationModule.forRoot(),
     NgxPaginationModule,
     ToastrModule.forRoot(),
-    TooltipModule.forRoot(),
-    SessionExpirationAlert.forRoot({totalMinutes: 0.6})
+    TooltipModule.forRoot()
   ],
   providers: [{
     provide: SessionInteruptService
