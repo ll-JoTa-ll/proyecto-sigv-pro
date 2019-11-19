@@ -353,6 +353,8 @@
 
             <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)" [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
 
+            <app-filtro-aerolineas [lstAerolineas]="aerolineas" (searchFlightFilter)="busquedaFiltros($event)"></app-filtro-aerolineas>
+
           </div>
 
           <div class="col-9 m-0 p-0 pr-5" *ngIf="inicioBuscador">
