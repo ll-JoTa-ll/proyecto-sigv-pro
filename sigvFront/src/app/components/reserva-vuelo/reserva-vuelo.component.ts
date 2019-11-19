@@ -241,8 +241,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let phone: any = [];
     let email2;
     let telefono2;
+    let nombrecontacto;
     email2 = $('#contactocorreo').val();
     telefono2 = $('#contactotelefono').val();
+    nombrecontacto = $('#nombrecontacto').val();
     this.datosuser.forEach(function(item, index) {
       let prefix;
       let nombre;
@@ -275,13 +277,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         type: typedoc
       }
 
-      mail.push(email1);
-      phone.push(telefono1);
-
-      contacto = {
-        email : mail,
-        telefonos : phone
-      }
       const objuser = {
         "PassengerId": index + 1,
         "PersonId": item.personId,
@@ -290,6 +285,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         "Name": nombre,
         "LastName": apellido,
         "Gender": item.gender,
+        "PhoneNumber": telefono1,
+        "Email": email1,
         "BirthDate": fechanacimiento,
         "Odocument": odocument,
         "FrequentFlyer": item.frequentFlyer,
@@ -298,13 +295,11 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       datosusuario.push(objuser);
     });
 
-    if (email2 != '' && telefono2 != '') {
-      mail.push(email2);
-      phone.push(telefono2);
-    }
+
     contacto = {
-      email : mail,
-      telefonos : phone
+      "ContactName": nombrecontacto,
+      "ContactEmail": email2,
+      "ContactPhone": telefono2
     }
     const valcorreo = this.ValidarCorreo();
     const val = this.ValidarCampos();

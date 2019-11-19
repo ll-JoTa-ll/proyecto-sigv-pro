@@ -155,12 +155,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.spinner.show();
     let phones = [];
     let email = [];
-    this.contacto.email.forEach(function(item, index) {
-      email.push(item);
-    });
-    this.contacto.telefonos.forEach(function(item, index) {
-      phones.push(item);
-    });
     let infraction;
     if (this.LPolicies.length > 0) {
       infraction = true;
@@ -178,19 +172,19 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "Lsections": this.Lsectionpassenger,
     "Ocompany": this.ocompany,
     "osession": this.osession,
-    "Phones": phones,
-    "Emails": email,
     "Lpassenger": this.lsusuario,
     "ReasonFlightId": parseFloat(this.idmotivo),
     "CarrierId": this.carrierId,
     "Lpolicies": this.LPolicies,
     "Lauthorizer": this.lsapprover,
-    "Comment": $('#motivoviaje').val()
+    "Comment": $('#motivoviaje').val(),
+    "OContactInfo": this.contacto
     };
     this.service.AddPassenger(data).subscribe(
         results => {
         // tslint:disable-next-line: indent
         this.pnrresults = results;
+        // tslint:disable-next-line: max-line-length
         if (this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length > 0 || this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length === 0) {
           this.router.navigate(['/reserva-generada-vuelo']);
         }
@@ -326,7 +320,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
    PlantillaPasajeros() {
     let html = '';
-    for (let j = 0; j < this.lusers.length; j++) {
+    for (let j = 0; j < this.lsusuario.length; j++) {
       const item = this.lusers[j];
     html+="<tr>"
     html+="<td>"
@@ -473,7 +467,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       this.PlantillaPrecioReserva();
       this.PlantillaPasajeroReserva();
       let mails = [];
-      this.lusers.forEach(function(item) {
+      this.lsusuario.forEach(function(item) {
            mails.push(item.email);
       });
       let data = {
@@ -510,10 +504,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       this.spinner.show();
       let phones = [];
       let email = [];
-      this.lusers.forEach(function(item) {
-        email.push(item.email);
-        phones.push(item.phone);
-      });
       let infraction;
       if (this.LPolicies.length > 0) {
       infraction = true;
@@ -530,12 +520,11 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "Lsections": this.Lsectionpassenger,
     "Ocompany": this.ocompany,
     "osession": this.osession,
-    "Phones": phones,
-    "Emails": email,
     "Lpassenger": this.lsusuario,
     "ReasonFlightId": parseFloat(this.idmotivo),
     "CarrierId": this.carrierId,
-    "Lpolicies": this.LPolicies
+    "Lpolicies": this.LPolicies,
+    "OContactInfo": this.contacto
     };
       this.service.GenerateTicket(data).subscribe(
         results => {
