@@ -1,1 +1,30 @@
-<p>filtro-aerolineas works!</p>
+
+
+<div class="row m-0 p-0">
+
+  <div class="col-12 m-0 p-0" style="width: 100%; height: 30px !important; border: none !important;"></div>
+
+  <div class="col-12 m-0 p-0">
+
+    <div class="row m-0 p-0 box-shadow" style="padding: 10px !important;">
+
+      <div class="col-12 m-0 p-0">
+        Aerolíneas
+      </div>
+
+      <div class="col-12 m-0 p-0 pt-2">
+        <label>
+          <input [(ngModel)]="checkAll" type="checkbox" name="" (change)="filtrarAerolinea('all', $event)" value="all"> Todas<br>
+        </label>
+        <label *ngFor="let aerolinea of lstAerolineas" class="pl-2">
+          <input [id]="aerolinea.carrierId" class="checkuno" type="checkbox" (change)="filtrarAerolinea(aerolinea.carrierId, $event)" name="checkuno" [value]="aerolinea.carrierId"> {{aerolinea.carrierId}}<br>
+        </label>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-12 m-0 p-0"></div>
+
+</div>
