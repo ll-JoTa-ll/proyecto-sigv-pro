@@ -78,22 +78,22 @@ export class HabitacionComponent implements OnInit {
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
     console.log(this.LHoteles);
     this.personas = this.LHoteles.numberPassenger;
-    this.contador = 600;
+    //this.contador = 600;
  
-    this.bnIdle.startWatching(this.contador).subscribe((res) => {
-      console.log("res"+res);
-      console.log("res"+res);
-      console.log("res"+res);
-      console.log("res"+res);
-      console.log("res"+res);
-      console.log("res"+res);
+   // this.bnIdle.startWatching(this.contador).subscribe((res) => {
+      //console.log("res"+res);
+      //console.log("res"+res);
+      //console.log("res"+res);
+      //console.log("res"+res);
+     // console.log("res"+res);
+     // console.log("res"+res);
 
-      if(res) {
+     // if(res) {
 
-          alert("Session expired")
-          this.router.navigate(['hoteles'])
-      }
-    });
+      //    alert("Session expired")
+     //     this.router.navigate(['hoteles'])
+     // }
+   // });
 
     this.t = 0;
     let tt = this.t;

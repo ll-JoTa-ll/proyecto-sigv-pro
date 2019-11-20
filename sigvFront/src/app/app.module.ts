@@ -121,6 +121,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/hoteles/busqueda-mini-habitacion/busqueda-mini-habitacion.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 
 
@@ -246,7 +247,8 @@ import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/ho
     PaginationModule.forRoot(),
     NgxPaginationModule,
     ToastrModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    PopoverModule.forRoot()
   ],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]

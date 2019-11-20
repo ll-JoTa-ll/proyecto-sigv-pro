@@ -108,7 +108,7 @@
                                 <label for="">Habitaciones</label>
                             </div>
                         </div>
-                        <div *ngIf="user.orole.description == 'Centralizador'; else elseTemplate">
+                        <div *ngIf="loginDataUser.orole.roleDescription == 'Centralizador'; else elseTemplate">
                             <div class="row m-0 p-0" onclick="MostrarModal()" id="habitacion">
                                 <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
                                       <input type="image"
