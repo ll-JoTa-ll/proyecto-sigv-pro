@@ -25,7 +25,7 @@ export class PersonaContactoComponent implements OnInit {
 
 
   ValidarCampos() {
-    let regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+    let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if ($('#contactocorreo').val().length <= 0) {
       $('#contactocorreo').addClass('campo-invalido');
     } else {

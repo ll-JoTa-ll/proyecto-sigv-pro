@@ -105,14 +105,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
   }
 
-  /*
-  VolverHome() {
-    this.modal.hide();
-    this.router.navigate(['/vuelos']);
-  }
-
-*/
-
   CostCenter() {
     let data = {
       Id: this.ocompany.companyId
@@ -146,7 +138,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
   ValidarCorreo() {
     let val;
-    let regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+    let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     this.datosuser.forEach(function(item, index) {
       if (regex.test($('#txtcorreo_' + (index + 1)).val().trim())) {
            val = true;
