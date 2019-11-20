@@ -500,7 +500,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       );
     }
 
-    Emitir () {
+    Emitir() {
       this.spinner.show();
       let phones = [];
       let email = [];
@@ -510,7 +510,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       } else {
       infraction = false;
     }
-
       let data = {
     "UserId": this.userid,
     "GDS": this.gds,
