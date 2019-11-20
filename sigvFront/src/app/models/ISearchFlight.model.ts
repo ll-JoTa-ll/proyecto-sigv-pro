@@ -18,4 +18,5 @@ export interface ISearchFlightModel {
   gds;
   flightNational;
   isVisible;
+  carrierName;
 }
