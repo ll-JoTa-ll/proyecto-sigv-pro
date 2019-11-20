@@ -62,6 +62,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   isOpen = false;
   flagVal: boolean;
   contador: number;
+  t: number;
   
 
   constructor(
@@ -95,6 +96,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
     this.mapafiltro = true;
     this.contador = 600;
+    this.t = 0;
     
   }
 

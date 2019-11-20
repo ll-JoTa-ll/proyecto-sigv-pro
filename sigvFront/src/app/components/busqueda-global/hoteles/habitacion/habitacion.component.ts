@@ -70,6 +70,7 @@ export class HabitacionComponent implements OnInit {
   texto2: string;
   texto3: string;
   contador: number;
+  t: number;
 
   constructor(private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private service: HotelService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
 
@@ -80,11 +81,26 @@ export class HabitacionComponent implements OnInit {
     this.contador = 600;
  
     this.bnIdle.startWatching(this.contador).subscribe((res) => {
+      console.log("res"+res);
+      console.log("res"+res);
+      console.log("res"+res);
+      console.log("res"+res);
+      console.log("res"+res);
+      console.log("res"+res);
+
       if(res) {
+
           alert("Session expired")
           this.router.navigate(['hoteles'])
       }
-    })
+    });
+
+    this.t = 0;
+    let tt = this.t;
+    setInterval(function(){
+      console.log(tt++);
+      sessionStorageService.store("ss_timer_hoteles_v1", tt);
+    },1000);
   }
   
 

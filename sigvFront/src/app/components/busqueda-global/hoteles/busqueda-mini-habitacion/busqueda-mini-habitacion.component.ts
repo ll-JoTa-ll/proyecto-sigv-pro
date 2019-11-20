@@ -24,13 +24,6 @@ export class BusquedaMiniHabitacionComponent implements OnInit {
 
   constructor(private sessionStorageService: SessionStorageService) { 
     this.lhotel = this.sessionStorageService.retrieve("ls_search_hotel");
-    console.log("this.lhotel.cityName " + this.lhotel.cityName);
-    console.log("this.lhotel.cityName " + this.lhotel.cityName);
-    console.log("this.lhotel.cityName " + this.lhotel.cityName);
-    console.log("this.lhotel.cityName " + this.lhotel.cityName);
-    console.log("this.lhotel.cityName " + this.lhotel.cityName);
-    console.log("this.lhotel.cityName " + this.lhotel.cityName);
-    console.log("this.lhotel.cityName " + this.lhotel.cityName);
 
   }
   

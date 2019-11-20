@@ -65,6 +65,24 @@ export class ReservaHotelComponent implements OnInit {
 
   ngOnInit() {
     
+    let ss_timer_hoteles = this.sessionStorageService.retrieve("ss_timer_hoteles_v1");
+    console.log("ss_timer_hoteles: " + ss_timer_hoteles);
+    let newCount = 60 - ss_timer_hoteles;
+    console.log("newCount: " + newCount);
+    this.bnIdle.startWatching(newCount).subscribe((res) => {
+      console.log("res"+res);
+      console.log("res"+res);
+      console.log("res"+res);
+      console.log("res"+res);
+      console.log("res"+res);
+      console.log("res"+res);
+
+      if(res) {
+
+          alert("Session expired")
+          this.router.navigate(['hoteles'])
+      }
+    });
     
     this.Obtenerstring();
   }

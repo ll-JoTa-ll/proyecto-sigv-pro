@@ -120,7 +120,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { SessionExpirationAlert, SessionInteruptService } from 'session-expiration-alert';
 import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/hoteles/busqueda-mini-habitacion/busqueda-mini-habitacion.component';
 
 
@@ -249,9 +248,7 @@ import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/ho
     ToastrModule.forRoot(),
     TooltipModule.forRoot()
   ],
-  providers: [{
-    provide: SessionInteruptService
-  }],
+  providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
