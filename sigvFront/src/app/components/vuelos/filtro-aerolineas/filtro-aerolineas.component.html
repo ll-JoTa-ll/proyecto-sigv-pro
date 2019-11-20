@@ -8,17 +8,22 @@
 
     <div class="row m-0 p-0 box-shadow" style="padding: 10px !important;">
 
-      <div class="col-12 m-0 p-0">
-        Aerolíneas
+      <div class="col-12 m-0 p-0 fae-text-1">
+        <u class="fae-text-1">Aerolíneas</u>
       </div>
 
       <div class="col-12 m-0 p-0 pt-2">
         <label>
-          <input [(ngModel)]="checkAll" type="checkbox" name="" (change)="filtrarAerolinea('all', $event)" value="all"> Todas<br>
+          <input class="fae-text-2" [(ngModel)]="checkAll" type="checkbox" name="" (change)="filtrarAerolinea('all', $event)" value="all"> Todas<br>
         </label>
-        <label *ngFor="let aerolinea of lstAerolineas" class="pl-2">
-          <input [id]="aerolinea.carrierId" class="checkuno" type="checkbox" (change)="filtrarAerolinea(aerolinea.carrierId, $event)" name="checkuno" [value]="aerolinea.carrierId"> {{aerolinea.carrierId}}<br>
+      </div>
+
+      <div class="col-12 m-0 p-0" *ngFor="let aerolinea of lstAerolineas">
+
+        <label class="">
+          <input class="checkuno fae-text-2" [id]="aerolinea.carrierId" type="checkbox" (change)="filtrarAerolinea(aerolinea.carrierId, $event)" name="checkuno" [value]="aerolinea.carrierId"> {{aerolinea.carrierName}}<br>
         </label>
+
       </div>
 
     </div>

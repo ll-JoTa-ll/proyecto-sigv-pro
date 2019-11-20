@@ -584,11 +584,13 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           this.flagBuscadorLateral = true;
 
           //aerolineas
+          this.setLstAerolineas(result);
+          /*
           result.forEach(function(reco, indexreco) {
             if (indexreco === 0) {
               const dataAero = {
                 carrierId: reco.carrierId,
-                carrierName: '',
+                carrierName: reco.carrierName,
                 filter: 0
               };
               aerolineas.push(dataAero);
@@ -602,7 +604,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
               if (flagAero === 1) {
                 const dataAeroN = {
                   carrierId: reco.carrierId,
-                  carrierName: '',
+                  carrierName: reco.carrierName,
                   filter: 0
                 };
                 aerolineas.push(dataAeroN);
@@ -610,6 +612,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
             }
           });
           this.aerolineas = aerolineas;
+          */
         } else {
           this.sessionStorageService.store('ss_searchFlight', null);
           this.flagDinData = true;
@@ -1317,7 +1320,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       if (indexreco === 0) {
         const dataAero = {
           carrierId: reco.carrierId,
-          carrierName: '',
+          carrierName: reco.carrierName,
           filter: 0
         };
         aerolineas.push(dataAero);
@@ -1331,7 +1334,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         if (flagAero === 1) {
           const dataAeroN = {
             carrierId: reco.carrierId,
-            carrierName: '',
+            carrierName: reco.carrierName,
             filter: 0
           };
           aerolineas.push(dataAeroN);
