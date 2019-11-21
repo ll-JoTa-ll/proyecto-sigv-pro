@@ -114,6 +114,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   model: any = {};
 
+  aerolineas: any[] = [];
+
   constructor(
     private airportService: AirportService,
     private localeService: BsLocaleService,
@@ -558,6 +560,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
     console.log("data: " + JSON.stringify(data));
 
+    let aerolineas = this.aerolineas;
+
     this.airportService.searchFlight(data).subscribe(
       result => {
         console.log(result);
@@ -567,6 +571,37 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           this.sessionStorageService.store('ss_searchFlight', result);
           this.flagBuscar = true;
           this.flagBuscadorLateral = true;
+
+          //aerolineas
+          this.setLstAerolineas(result);
+          /*
+          result.forEach(function(reco, indexreco) {
+            if (indexreco === 0) {
+              const dataAero = {
+                carrierId: reco.carrierId,
+                carrierName: reco.carrierName,
+                filter: 0
+              };
+              aerolineas.push(dataAero);
+            } else {
+              let flagAero = 1;
+              aerolineas.forEach(function(aerolinea, indexaero) {
+                if (aerolinea.carrierId === reco.carrierId) {
+                  flagAero = 0;
+                }
+              });
+              if (flagAero === 1) {
+                const dataAeroN = {
+                  carrierId: reco.carrierId,
+                  carrierName: reco.carrierName,
+                  filter: 0
+                };
+                aerolineas.push(dataAeroN);
+              }
+            }
+          });
+          this.aerolineas = aerolineas;
+          */
         } else {
           this.sessionStorageService.store('ss_searchFlight', null);
           this.flagDinData = true;
@@ -1038,6 +1073,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     } else {
       this.flagDinData = false;
       this.spinner.hide();
+      this.setLstAerolineas(this.searchData);
     }
   }
 
@@ -1230,6 +1266,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.searchData = [];
     if ($event != null) {
       this.searchData = $event;
+      this.setLstAerolineas(this.searchData);
     }
     const spinner = this.spinner;
     setTimeout(function() {
@@ -1243,6 +1280,37 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   setOutIndexTramo($event) {
     this.indexTramo = $event;
+  }
+
+  setLstAerolineas(searchData) {
+    this.aerolineas = [];
+    let aerolineas = this.aerolineas;
+    searchData.forEach(function(reco, indexreco) {
+      if (indexreco === 0) {
+        const dataAero = {
+          carrierId: reco.carrierId,
+          carrierName: reco.carrierName,
+          filter: 0
+        };
+        aerolineas.push(dataAero);
+      } else {
+        let flagAero = 1;
+        aerolineas.forEach(function(aerolinea, indexaero) {
+          if (aerolinea.carrierId === reco.carrierId) {
+            flagAero = 0;
+          }
+        });
+        if (flagAero === 1) {
+          const dataAeroN = {
+            carrierId: reco.carrierId,
+            carrierName: reco.carrierName,
+            filter: 0
+          };
+          aerolineas.push(dataAeroN);
+        }
+      }
+    });
+    this.aerolineas = aerolineas;
   }
 
 }
