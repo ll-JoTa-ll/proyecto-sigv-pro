@@ -122,6 +122,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/hoteles/busqueda-mini-habitacion/busqueda-mini-habitacion.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
+import { ModalSesionExpiradaComponent } from './components/shared/modal-sesion-expirada/modal-sesion-expirada.component';
 
 
 
@@ -219,7 +220,8 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
     VueloFamiliaSectionComponent,
     VueloFamiliaSegmentComponent,
     NavHeaderComponent,
-    BusquedaMiniHabitacionComponent
+    BusquedaMiniHabitacionComponent,
+    ModalSesionExpiradaComponent
   ],
   imports: [
     BrowserModule,

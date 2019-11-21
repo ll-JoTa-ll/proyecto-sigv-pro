@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
 import { HotelService } from '../../../../services/hotel.service';
 import { datepickerAnimation } from 'ngx-bootstrap/datepicker/datepicker-animations';
@@ -11,6 +11,8 @@ import { VuelosComponent } from '../../vuelos/vuelos.component';
 import { HotelesComponent } from '../hoteles.component';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+
 
 
 declare var jquery: any;
@@ -22,6 +24,7 @@ declare var $: any;
   styleUrls: ['./resultado.component.sass']
 })
 export class ResultadoComponent implements OnInit {
+  @ViewChild(ModalDirective,{static:false}) modal: ModalDirective;
   loginDataUser: ILoginDatosModel;
 
   @Input() LHoteles: IHotelResultsModel[];
@@ -47,6 +50,7 @@ export class ResultadoComponent implements OnInit {
   lstHabication: IHabitacionResults;
   lstHotel : IHotelResultsModel[];
   
+  t: number;
 
   constructor(private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router,private Hotels: HotelesComponent) {
     
@@ -117,6 +121,11 @@ export class ResultadoComponent implements OnInit {
   Mostrarmapa(position) {
     $('#mapa_' + position).show();
  }
+
+
+VolverHome(){
+  this.router.navigate[('')]
+}
  
  OcultarMapa(position) {
    $('#mapa_' + position).hide();

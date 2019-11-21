@@ -10,9 +10,10 @@ export class IGetPnrHotel {
             hotelName: string;
             currency: string;
             priceTotal: string;
-            numberPhone: [];
-            descriptionRoom: [];
-            penality: [];
+            numberPhone: string;
+            descriptionRoom: string;
+            penality: string;
+            CodeConfirmation: string;
         }
     ];
     lpassengers:[{

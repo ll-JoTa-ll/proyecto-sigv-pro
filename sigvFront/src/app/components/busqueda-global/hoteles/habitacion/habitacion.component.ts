@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef, ViewChild, Injectable} from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, Injectable, ViewChild, ViewChildren, AfterViewInit } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
@@ -13,6 +13,8 @@ import { IGetPnrHotel } from 'src/app/models/IGetPnrHotel.model';
 import { Router } from '@angular/router';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { Status } from 'tslint/lib/runner';
+
 declare var jquery: any;
 declare var $: any;
 
@@ -22,7 +24,7 @@ declare var $: any;
   styleUrls: ['./habitacion.component.sass']
 })
 @Injectable()
-export class HabitacionComponent implements OnInit {
+export class HabitacionComponent implements OnInit, AfterViewInit {
   alertAt = 15;
   startTimer = true;
 
@@ -71,6 +73,11 @@ export class HabitacionComponent implements OnInit {
   texto3: string;
   contador: number;
   t: number;
+  modalRefSessionExpired: BsModalRef;
+
+  @ViewChild("modalexpired", {static: false}) modalexpired;
+  
+
 
   constructor(private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private service: HotelService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
 
@@ -78,34 +85,55 @@ export class HabitacionComponent implements OnInit {
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
     console.log(this.LHoteles);
     this.personas = this.LHoteles.numberPassenger;
-    //this.contador = 600;
- 
+    
+
+   // this.contador = 600;
+    
    // this.bnIdle.startWatching(this.contador).subscribe((res) => {
-      //console.log("res"+res);
-      //console.log("res"+res);
-      //console.log("res"+res);
-      //console.log("res"+res);
-     // console.log("res"+res);
-     // console.log("res"+res);
 
-     // if(res) {
 
-      //    alert("Session expired")
-     //     this.router.navigate(['hoteles'])
+   //   if(res) {
+
+     //    alert("Session expired")
+     //    this.router.navigate(['hoteles'])
      // }
-   // });
+  // });
 
-    this.t = 0;
-    let tt = this.t;
-    setInterval(function(){
-      console.log(tt++);
-      sessionStorageService.store("ss_timer_hoteles_v1", tt);
-    },1000);
+  //  this.t = 0;
+  //  let tt = this.t;
+  //  setInterval(function(){
+   //   console.log(tt++);
+   //   sessionStorageService.store("ss_timer_hoteles_v1", tt);
+  //  },1000);
   }
+
+  ngAfterViewInit() {
+    console.log("(this.modalexpired: "+this.modalexpired);
+    this.startCountDown(40, this.modalexpired);
+  }
+
   
+  
+    startCountDown(seconds, template){
+      var counter = seconds;
+      var interval = setInterval(() => {
+        console.log(counter);
+        counter--;
+        if (counter < 0 ) {
+          clearInterval(interval);
+          //alert("SI FUCIONA")
+          this.modalRefSessionExpired = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray con-session-expired' })
+          );
+          //this.router.navigate(['login'])
+        }	
+      }, 1000);
+    }
 
-
-
+  VolverHome(){
+    this.router.navigate(['hoteles'])
+  }
     
 
   showHideMap($event) {

@@ -95,7 +95,9 @@ export class ReservaHotelComponent implements OnInit {
 
   
 
-  
+  VolverHome(){
+    this.router.navigate(['hoteles'])
+  }
 
   
   getPnrHotel(){
