@@ -118,17 +118,13 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       }
       if ($('#txtcorreo_' + (index + 1)).val().length <= 0) {
         $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
-        this.valcorreo = true;
       } else {
         $('#txtcorreo_' + (index + 1)).removeClass('campo-invalido');
-        this.valcorreo = false;
       }
-      if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
+      if ($('#txttelefono_' + (index + 1)).val().length === 0) {
         $('#txttelefono_' + (index + 1)).addClass('campo-invalido');
-        this.valtelefono = true;
       } else {
         $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
-        this.valtelefono = false;
       }
   });
   }

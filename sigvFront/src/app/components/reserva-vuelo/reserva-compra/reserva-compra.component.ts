@@ -468,7 +468,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       this.PlantillaPasajeroReserva();
       let mails = [];
       this.lsusuario.forEach(function(item) {
-           mails.push(item.email);
+           mails.push(item.Email);
       });
       let data = {
         "AgencyId": 1,

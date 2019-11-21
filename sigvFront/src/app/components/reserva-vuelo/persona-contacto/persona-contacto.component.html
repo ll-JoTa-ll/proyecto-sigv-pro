@@ -26,7 +26,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keydown)="ValidarSoloNumero($event)" class="input-pasajero" type="number" id="contactotelefono" maxlength="12" (keypress)="ValidarCampos()">
+                                <input (keydown)="ValidarSoloNumero($event)" class="input-pasajero" type="number" id="contactotelefono" maxlength="12" (keypress)="ValidarCampos(2)" (keydown)="ValidarCampos(2)" (keyup)="ValidarCampos(2)">
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" id="contactocorreo" maxlength="100" (keypress)="ValidarCampos()">
+                                <input class="input-pasajero" type="text" id="contactocorreo" maxlength="100" (keypress)="ValidarCampos(1)" (keydown)="ValidarCampos(1)" (keyup)="ValidarCampos(1)">
                                 <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La direccion de correo es invalida</div>
                             </div>
                         </div>

@@ -13,9 +13,15 @@
 
                     <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
                         <label class="container" (click)="FiltrarPendientes()">
-                                    <input type="radio" name="radio"> Pendientes
+                                    <input type="radio" name="radio"> Pendientes de aprobación
                                     <span class="checkmark"></span>
                             </label>
+                    </div>
+                    <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <label class="container" (click)="filtrarProcEmision()">
+                            <input type="radio" name="radio"> Proceso de emisión
+                            <span class="checkmark"></span>
+                    </label>
                     </div>
 
                     <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
@@ -38,11 +44,13 @@
                                     <span class="checkmark"></span>
                             </label>
                     </div>
+                    <div class="col-2 m-0 p-0">
+
+                    </div>
                     <!--
                     <div class="col-2 m-0 p-0">
                         <button class="btn btn-buscar">Buscar</button>
                     </div> -->
-                    <div class="col-2 m-0 p-0"></div>
                 </div>
                 <div class="row m-0 p-0 pt-5 pb-5">
                     <div class="col-12 m-0 p-0">
@@ -65,7 +73,7 @@
                                     <td>{{item.createdDate | formatfechareservacreacion}}</td>
                                     <td>{{item.pnr}}</td>
                                     <td>{{item.timeLimit | formatfechareserva}}</td>
-                                    <td>{{item.numberApproved}}/{{item.numberAuthorizers}}</td>
+                                    <td><span tooltip="Por aprobar: {{item.numberApproved}} / Total aprobadores: {{item.numberAuthorizers}}">{{item.numberApproved}}/{{item.numberAuthorizers}}</span></td>
                                     <td>{{item.travelRoute}}</td>
                                     <td>{{item.userName}}</td>
                                     <td>{{item.ostate.stateDescription}}</td>

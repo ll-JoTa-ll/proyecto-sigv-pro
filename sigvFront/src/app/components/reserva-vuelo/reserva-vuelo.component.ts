@@ -23,12 +23,13 @@ declare var $: any;
 export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
   modalRef: BsModalRef;
+  modalRefSessionExpired: BsModalRef;
   config = {
     backdrop: true,
     ignoreBackdropClick: true
   };
 
-  @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
+  @ViewChild("modalexpired", {static: false}) modalexpired;
   flightAvailability_request;
   datarequest;
   flightAvailability_result;
@@ -92,6 +93,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+   // this.startCountDown(40, this.modalexpired);
     console.log('ngAfterViewInit vuelos');
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
@@ -155,6 +157,24 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     }
      return val;
   }
+
+  /*
+  startCountDown(seconds, template) {
+    var counter = seconds;
+    var interval = setInterval(() => {
+    console.log(counter);
+    counter--;
+    if (counter < 0 ) {
+    clearInterval(interval);
+    //alert("SI FUCIONA")
+    this.modalRefSessionExpired = this.modalService.show(
+    template,
+    Object.assign({}, { class: 'gray con-session-expired' })
+    );
+    //this.router.navigate(['login'])
+    } 
+    }, 1000);
+    }*/
 
   ValidarCampos() {
     let val = true;

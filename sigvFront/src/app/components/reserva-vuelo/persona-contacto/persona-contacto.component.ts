@@ -24,24 +24,28 @@ export class PersonaContactoComponent implements OnInit {
   }
 
 
-  ValidarCampos() {
+  ValidarCampos(tipo) {
     let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if ($('#contactocorreo').val().length <= 0) {
-      $('#contactocorreo').addClass('campo-invalido');
-    } else {
-      $('#contactocorreo').removeClass('campo-invalido');
+    if (tipo === 1) {
+      if ($('#contactocorreo').val().length <= 0) {
+        $('#contactocorreo').addClass('campo-invalido');
+      } else {
+        $('#contactocorreo').removeClass('campo-invalido');
+      }
+
+      if (regex.test($('#contactocorreo').val().trim())) {
+        this.inderror = false;
+      } else {
+       this.inderror = true;
+      }
     }
 
-    if ($('#contactotelefono').val().length <= 0) {
-      $('#contactotelefono').addClass('campo-invalido');
-    } else {
-      $('#contactotelefono').removeClass('campo-invalido');
-    }
-
-    if (regex.test($('#contactocorreo').val().trim())) {
-      this.inderror = false;
-    } else {
-     this.inderror = true;
+    if (tipo === 2) {
+      if ($('#contactotelefono').val().length <= 0) {
+        $('#contactotelefono').addClass('campo-invalido');
+      } else {
+        $('#contactotelefono').removeClass('campo-invalido');
+      }
     }
   }
 
