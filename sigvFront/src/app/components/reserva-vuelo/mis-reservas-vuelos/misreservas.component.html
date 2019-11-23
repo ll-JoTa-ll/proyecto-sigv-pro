@@ -74,10 +74,14 @@
                             </thead>
                             <tbody class="body-table">
                                 <tr *ngFor="let item of lsreservas | paginate: { itemsPerPage: 7, currentPage: p}">
+                                    <ng-template #pop>
+                                        <div>Por aprobar: {{item.numberApproved}}</div>
+                                        <div>Total aprobadores: {{item.numberAuthorizers}}</div>
+                                    </ng-template>
                                     <td>{{item.createdDate | formatfechareservacreacion}}</td>
                                     <td>{{item.pnr}}</td>
                                     <td>{{item.timeLimit | formatfechareserva}}</td>
-                                    <td><span tooltip="Por aprobar: {{item.numberApproved}} / Total aprobadores: {{item.numberAuthorizers}}">{{item.numberApproved}}/{{item.numberAuthorizers}}</span></td>
+                                    <td><span [tooltip]="pop">{{item.numberApproved}}/{{item.numberAuthorizers}}</span></td>
                                     <td>{{item.travelRoute}}</td>
                                     <td>{{item.userName}}</td>
                                     <td>{{item.ostate.stateDescription}}</td>
