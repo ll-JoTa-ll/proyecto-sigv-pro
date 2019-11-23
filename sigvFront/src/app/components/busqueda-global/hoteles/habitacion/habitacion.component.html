@@ -1,14 +1,14 @@
 <ng-container>
+
     <app-header>
         <div class="row m-0 p-0">
             <div class="col-3">
                 <div class="row m-0 p-0 pt-4">
 
-                    <ng-template #modalexpired>
-                        <app-modal-sesion-expirada>
 
-                        </app-modal-sesion-expirada>
-                    </ng-template>
+                    <app-busqueda-mini-habitacion [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones"
+                        [adultos]="personas" (flagShowMap)="showHideMap($event)">
+                    </app-busqueda-mini-habitacion>
 
                 </div>
             </div>
@@ -20,7 +20,7 @@
                             <div class="col-12 m-0 p-0 pl-5 pt-3">
                                 <div class="row m-0 p-0" style="width: 70%;">
                                     <div class="col-12 m-0 p-0">
-                                        <span class="black">{{lsthabitacion.ohotel.hotelName}}</span>
+                                        <span class="hotelname">{{lsthabitacion.ohotel.hotelName}}</span>
                                         <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 5"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
                                         <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 4"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
                                         <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 3"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>

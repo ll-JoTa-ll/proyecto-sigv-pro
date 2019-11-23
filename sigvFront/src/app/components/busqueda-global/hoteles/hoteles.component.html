@@ -6,22 +6,6 @@
 
             <div class="col-2 m-0 p-0">
 
-                <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 id="dialog-child-name" class="modal-title pull-left">Child modal</h4>
-                                <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                            </div>
-                            <div class="modal-body">
-                                I am a child modal, opened from parent component!
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
             <div class="col-8 m-0 p-0 pl-2 pr-2 pb-5 pt-4 box-shadow animated fadeIn fast" style="background-color: white;">
                 <div class="row m-0 p-0">
@@ -284,8 +268,8 @@
         <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
             <div class="row m-0 p-0">
                 <div class="col-3 m-0 p-0 pt-4 pr-4 pl-5">
-                    <app-busqueda-mini [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida"
-                        [habitaciones]="habitaciones" [adultos]="personas" (flagShowMap)="showHideMap($event)"></app-busqueda-mini>
+                    <app-busqueda-mini [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event);searchFlightBuscador($event);" [destino]="destinoText" [fchingreso]="dateingreso"
+                        [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas" (flagShowMap)="showHideMap($event)"></app-busqueda-mini>
                     <app-filtro-estrellas [listado]="LlistaHotel" (resultfiltro)="ObtenerListaFiltroEstrella($event)"></app-filtro-estrellas>
                     <app-filtro-precio-hotel [cantnoche]="cantidadnoche" [currency]="currency" (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio-hotel>
                     <app-filtro-nombrehotel (resultFiltro)="ObtenerListaFiltroNombre($event)" [listado]="LlistaHotel"></app-filtro-nombrehotel>

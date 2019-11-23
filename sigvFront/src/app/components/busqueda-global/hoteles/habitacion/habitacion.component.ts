@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { Status } from 'tslint/lib/runner';
+import { ModalSesionExpiradaComponent } from '../../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -25,6 +26,7 @@ declare var $: any;
 })
 @Injectable()
 export class HabitacionComponent implements OnInit, AfterViewInit {
+
   alertAt = 15;
   startTimer = true;
 
@@ -79,7 +81,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   
 
 
-  constructor(private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private service: HotelService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
+  constructor(private router: Router,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
 
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
@@ -109,7 +111,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     console.log("(this.modalexpired: "+this.modalexpired);
-    this.startCountDown(40, this.modalexpired);
+    this.startCountDown(600, this.modalexpired);
   }
 
   
@@ -122,10 +124,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
         if (counter < 0 ) {
           clearInterval(interval);
           //alert("SI FUCIONA")
-          this.modalRefSessionExpired = this.modalService.show(
-            template,
-            Object.assign({}, { class: 'gray con-session-expired' })
-          );
+          this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent)
           //this.router.navigate(['login'])
         }	
       }, 1000);
@@ -133,8 +132,16 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   VolverHome(){
     this.router.navigate(['hoteles'])
+    this.modalexpired.hide();
   }
-    
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+    template,
+    Object.assign({}, { class: 'modal-lg m-galeria' })
+    )
+  }
+
 
   showHideMap($event) {
     this.mapafiltro = $event;

@@ -5,7 +5,7 @@
             Destino
         </div>
 
-        <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3" >
+        <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3">
             <div id="destinos" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
                 <ng-autocomplete [(ngModel)]="destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate">
@@ -27,7 +27,7 @@
 
         <div class="col-12 mt-3 p-0 pl-4 pr-4">
             <div class="row m-0 p-0">
-                <div class="col-6 m-0 p-0" >
+                <div class="col-6 m-0 p-0">
                     <label id="ingreso" for="" class="d-inline-flex box-shadow label-fechas">
                                 <input type="image"
                                        src="./assets/images/home/calendario.svg"
@@ -50,7 +50,7 @@
                               </label>
                 </div>
                 <div class="col-6 m-0 p-0">
-                    <label  id="destino" for="" class="d-inline-flex box-shadow label-fechas">
+                    <label id="destino" for="" class="d-inline-flex box-shadow label-fechas">
                                 <input type="image"
                                        src="./assets/images/home/calendario.svg"
                                        (click)="datepickerSalida.toggle()"
@@ -194,7 +194,26 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="flagDinData" class="col-12">
 
+            <div class="row m-0 p-0">
+
+                <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+                <div class="col-3 m-0 p-0"></div>
+
+                <div class="col-6 m-0 p-0">
+                    <div class="col-12 m-0 p-0 text-center">
+
+                        <alert type="warning">
+                            No se encontraron itinerarios para esta búsqueda
+                        </alert>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 </div>

@@ -123,7 +123,7 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/hoteles/busqueda-mini-habitacion/busqueda-mini-habitacion.component';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ModalSesionExpiradaComponent } from './components/shared/modal-sesion-expirada/modal-sesion-expirada.component';
-
+import { ModalHotelesVaciosComponent } from './components/shared/modal-hoteles-vacios/modal-hoteles-vacios.component';
 
 
 @NgModule({
@@ -221,7 +221,8 @@ import { ModalSesionExpiradaComponent } from './components/shared/modal-sesion-e
     VueloFamiliaSegmentComponent,
     NavHeaderComponent,
     BusquedaMiniHabitacionComponent,
-    ModalSesionExpiradaComponent
+    ModalSesionExpiradaComponent,
+    ModalHotelesVaciosComponent
   ],
   imports: [
     BrowserModule,
@@ -252,6 +253,7 @@ import { ModalSesionExpiradaComponent } from './components/shared/modal-sesion-e
     TooltipModule.forRoot(),
     PopoverModule.forRoot()
   ],
+  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })

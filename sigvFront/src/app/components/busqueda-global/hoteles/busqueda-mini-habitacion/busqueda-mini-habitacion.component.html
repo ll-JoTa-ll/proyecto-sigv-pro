@@ -1,4 +1,4 @@
-<!--<div class="p-0 m-0">
+<div class="p-0 m-0">
     <div class="row m-0 p-0 box-shadow">
 
         <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3 text-destino">
@@ -7,7 +7,7 @@
 
         <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3">
             <div id="destinos" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
-                <ng-autocomplete [(ngModel)]="destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                <ng-autocomplete id="dest" [(ngModel)]="sessionMini1.destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate">
                 </ng-autocomplete>
 
@@ -35,14 +35,14 @@
                                            class="input-image">
                                     <input type="text"
                                            id="fechaInicio"
-                                           [(ngModel)]="fchingreso"
+                                         
+                                           value="{{sessionMini.fechaentrada}}"
                                            placeholder="Ingreso"
                                            class="p-0 pl-2 v-texto-3"
                                            (keypress)="validarTodo($event)"
                                            #datepickerIngreso="bsDatepicker"
                                            (onHidden)="handlerIngreso(datepickerIngreso)"
                                            (bsValueChange)="onValueChangeIngreso($event)"
-                                           value="lhotel.cityName"
                                            [minDate]="minDateIngreso"
                                            [maxDate]="maxDateIngreso"
                                            bsDatepicker
@@ -59,7 +59,8 @@
                                     <input type="text"
                                            id="fechaFin"
                                            placeholder="Salida"
-                                           [(ngModel)]="fchsalida"
+                                           value="{{sessionMini.fechasalida}}"
+                                         
                                            class="p-0 pl-2 v-texto-3"
                                            #datepickerSalida="bsDatepicker"
                                            (keypress)="validarTodo($event)"
@@ -133,20 +134,20 @@
                         src="./assets/images/cama.svg"
                         class="input-img2">
                         <input (keypress)="validarNumeros($event)" type="text"
-                        [(ngModel)]="habitaciones"
+                        
                         id="txthabitacion"
                         class="input-habitacion"
-                        value="{{lhotel.numberPassenger}}">
+                        value="{{sessionMini.habi}}">
                       </label>
                 <label for="" class="d-inline-flex box-shadow col-6 label-iconpersona">
                       <input type="image"
                       src="./assets/images/pasajero.svg"
                       class="input-img2">
                       <input (keypress)="validarNumeros($event)" type="text"
-                      [(ngModel)]="adultos"
+                      
                       id="txtpersonas"
                       class="input-habitacion"
-                      value="2">
+                      value="{{sessionMini.personas}}">
                       </label>
             </div>
             <div class="modal-info tooltipHabitaciones box-shadow" id="pop1" style="display: none;">
@@ -198,4 +199,4 @@
 
 
     </div>
-</div>-->
+</div>

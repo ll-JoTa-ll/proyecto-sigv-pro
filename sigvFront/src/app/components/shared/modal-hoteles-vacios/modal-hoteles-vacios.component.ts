@@ -3,23 +3,18 @@ import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
-  selector: 'app-modal-sesion-expirada',
-  templateUrl: './modal-sesion-expirada.component.html',
-  styleUrls: ['./modal-sesion-expirada.component.sass']
+  selector: 'app-modal-hoteles-vacios',
+  templateUrl: './modal-hoteles-vacios.component.html',
+  styleUrls: ['./modal-hoteles-vacios.component.sass']
 })
-export class ModalSesionExpiradaComponent implements OnInit {
-  config = {
-    keyboard: true
-  };
-
+export class ModalHotelesVaciosComponent implements OnInit {
 
   constructor(private router: Router,public modalRef: BsModalRef) { }
 
   ngOnInit() {
   }
-
   VolverHome(){
-    this.router.navigate(['hoteles']);
+    this.router.navigate(['']);
     this.modalRef.hide();
   }
 

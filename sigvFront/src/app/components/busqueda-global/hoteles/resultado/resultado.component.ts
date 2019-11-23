@@ -49,6 +49,7 @@ export class ResultadoComponent implements OnInit {
   urlimg = './assets/images/hotel-icon.png';
   lstHabication: IHabitacionResults;
   lstHotel : IHotelResultsModel[];
+  objSearch: any;
   
   t: number;
 
@@ -86,6 +87,15 @@ export class ResultadoComponent implements OnInit {
       ],
       "Ocompany": this.loginDataUser.ocompany
     }
+    this.objSearch = { 
+      destino: $('#destinos').val(),
+      fechaentrada: $('#fechaInicio').val(),
+      fechasalida: $('#fechaFin').val(),
+      categoria : this.estrellas,
+      habi: $('#txthabitacion').val(),
+      personas: $('#txtpersonas').val()
+    };
+    this.sessionStorageService.store("ss_sessionmini",this.objSearch);
 
     let hotel;
     for (let i = 0; i < this.lstHotel.length; i++) {

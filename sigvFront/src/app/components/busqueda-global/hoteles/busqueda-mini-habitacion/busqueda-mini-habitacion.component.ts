@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { SessionStorageService } from 'ngx-webstorage';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ILoginDatosModel } from '../../../../models/ILoginDatos.model';
+import { HotelService } from '../../../../services/hotel.service';
 declare var jquery: any;
 declare var $: any;
 
@@ -9,53 +12,66 @@ declare var $: any;
   templateUrl: './busqueda-mini-habitacion.component.html',
   styleUrls: ['./busqueda-mini-habitacion.component.sass']
 })
-export class BusquedaMiniHabitacionComponent implements OnInit {
+export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
   lhotel: IHotelResultsModel;
   estrellas: string;
   fechaSalida: string;
   fechaRetorno: string;
-  @Input() textoestrellas: string;
+  minDateSalida: Date;
+  maxDateIngreso: Date;
+  minDateIngreso: Date;
+  data: any[] = [];
+  keyword = 'name';
+  airportlist: any[] = [];
+  loginDataUser: ILoginDatosModel;
+  LResultshotel: IHotelResultsModel[];
+  isOpen = false;
+
+  @Output() flagShowMap = new EventEmitter<boolean>();
+  @Output() messagelistado = new EventEmitter<any[]>();
+
+  textoestrellas: string;
   @Input() destino: string;
   @Input() fchingreso: string;
   @Input() fchsalida: string;
   @Input() habitaciones: string;
   @Input() adultos: string;
   @Input() cantidadnoches;
+  @Input() destinoValue: string;
+  @Input() destinoText: string;
+  sessionMini1;
+  sessionMini;
+  estrellasSess;
 
-  constructor(private sessionStorageService: SessionStorageService) { 
-    this.lhotel = this.sessionStorageService.retrieve("ls_search_hotel");
-
+  constructor(private localStorageService: LocalStorageService,private sessionStorageService: SessionStorageService,private spinner: NgxSpinnerService,private service: HotelService) { 
+    this.lhotel = this.sessionStorageService.retrieve("hotel");
+    console.log("this.lhotel.name ===== >"+ this.lhotel.name)
   }
   
   ngOnInit() {
+    this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.sessionMini1 = this.sessionStorageService.retrieve('ss_sessionmini1');
+    this.sessionMini = this.sessionStorageService.retrieve('ss_sessionmini');
+    this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.textoestrellas = this.sessionMini1.categoria;
   }
   
   SeleccionarEstrella(codeestrella, texto) {
     this.estrellas = codeestrella;
     this.textoestrellas = texto;
+
+  }
+
+  Enviarlistado() {
+    this.messagelistado.emit(this.LResultshotel);
   }
   
   ValidarCampos() {
     let val = true;
+    let correo;
+    
      
-      if ($.trim(this.destino) === '' || $.trim(this.destino) === undefined) {
-        $("#destinos").addClass("campo-invalido");
-        val = false;
-      } else {
-        $("#destinos").removeClass("campo-invalido");
-      }
-      if ($.trim(this.fchingreso) === '' || $.trim(this.fchingreso) === undefined) {
-        $("#ingreso").addClass("campo-invalido");
-        val = false;
-      } else {
-        $("#ingreso").removeClass("campo-invalido");
-      }
-      if ($.trim(this.fchsalida) === '' || $.trim(this.fchsalida) === undefined) {
-        $("#destino").addClass("campo-invalido");
-        val = false;
-      } else {
-        $("#destino").removeClass("campo-invalido");
-      }
+    
       
         
     return val;
@@ -82,6 +98,158 @@ export class BusquedaMiniHabitacionComponent implements OnInit {
   
     this.fechaSalida = n1[2] + "-" + n1[1] + "-" + n1[0];
     this.fechaRetorno = n2[2] + "-" + n2[1] + "-" + n2[0];
+  }
+
+  selectEvent(item) {
+    // do something with selected item
+    
+    this.destinoValue = item.iataCode;
+    this.destinoText = item.name;
+    setTimeout(function() {
+      $(".x").hide();
+    }, 1000);
+  }
+
+  onChangeSearch(val: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+    $(".x").hide();
+    if (val.length >= 3) {
+      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      this.data = resultFilter;
+
+      $(".x").hide();
+    }
+  }
+
+  handlerIngreso(datepickerSalida) {
+    
+  }
+
+  ngAfterViewInit() {
+    //cantidadnoches
+    
+    //this.fechaSalida = this.fchingreso;
+    //this.fechaRetorno = this.fchsalida;
+    this.ObtenerDias(this.fchingreso, this.fchsalida);
+  }
+
+  onValueChangeIngreso(value: Date): void {
+    
+    this.minDateSalida = value;
+    if (value === null) {
+      return;
+    } else {
+      let mes = "";
+      if ((value.getMonth() + 1) < 10) {
+        mes = "0" + (value.getMonth() + 1);
+      } else {
+        mes = "" + (value.getMonth() + 1);
+      }
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+      this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
+     
+      this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
+    }
+  }
+
+  onValueChangeSalida(value: Date): void {
+    
+    this.maxDateIngreso = value;
+    if (value === null) {
+      return;
+    } else {
+      let mes = "";
+      if ((value.getMonth() + 1) < 10) {
+        mes = "0" + (value.getMonth() + 1);
+      } else {
+        mes = "" + (value.getMonth() + 1);
+      }
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+      this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
+    
+      this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
+    }
+  }
+
+  SeachHotel() {
+    const val= this.ValidarCampos();
+    if (!val) {
+      return val;
+    }
+    else{
+      this.spinner.show();
+    this.flagShowMap.emit(false);
+    let data = {
+      "Lhotel":
+      [
+        {
+          "HotelCityCode": this.destinoValue,
+          "Stars": this.estrellas,
+          "StartDate": this.fechaSalida,
+          "EndDate": this.fechaRetorno,	
+          "LguestPerRoom":
+          [
+            {
+              "RoomQuantity": $('#txthabitacion').val(),
+              "NumberPassengers": $('#txtpersonas').val(),
+              "TypePassenger": "ADT"
+            }
+          ]
+        }
+      ],
+      "Ocompany": this.loginDataUser.ocompany
+    }
+    this.habitaciones = $('#txthabitacion').val();
+    this.adultos = $('#txtpersonas').val();
+   
+    this.service.SearchHotel(data).subscribe(
+       result => {
+          if (result[0].oerror != null) {
+            alert("HOTELES NO DISPONIBLES");
+          }
+          else {
+            
+          this.sessionStorageService.store('ls_search_hotel', result);
+
+          //this.sessionStorageService.store('ls_search_hotel', result);
+          //this.LlistaHotel = result;
+          
+          this.sessionStorageService.store('hotel', null);
+          this.sessionStorageService.store('hotel', result[0]);
+
+          this.LResultshotel = result;
+          //this.flagShowMap.emit(true);
+          this.messagelistado.emit(this.LResultshotel);
+          this.spinner.hide();
+          }
+       },
+       err => {
+        this.spinner.hide();
+        
+       },
+       () => {
+         this.spinner.hide();
+        
+       }
+   );
+    }
+    
+ }
+
+  onFocused(e) {
+    // do something when input is focused
+    
   }
   
   ObtenerDias2(fecha1, fecha2) {

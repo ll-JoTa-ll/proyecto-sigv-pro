@@ -10,7 +10,8 @@ import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { Router } from '@angular/router';
-import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalSesionExpiradaComponent } from '../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -21,8 +22,9 @@ declare var $: any;
   styleUrls: ['./hoteles.component.sass']
 })
 export class HotelesComponent implements OnInit, AfterViewInit {
-@ViewChild('chilModal',{static: false}) childModal: ModalDirective;
+  @ViewChild("modalexpired", {static: false}) modalexpired;
 
+  
   locale = 'es';
   locales = listLocales();
   user : IGetUserById;
@@ -63,7 +65,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   flagVal: boolean;
   contador: number;
   t: number;
-  
+  modalRefSessionExpired: BsModalRef;
 
   constructor(
     private router: Router,
@@ -72,8 +74,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     private localStorageService: LocalStorageService,
     public spinner: NgxSpinnerService,
     private service: HotelService,
-    private bnIdle: BnNgIdleService
-    
+    private bnIdle: BnNgIdleService,
+    private modalService: BsModalService
   ) {
     
     console.log('constructor hoteles');
@@ -97,16 +99,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.mapafiltro = true;
     this.contador = 600;
     this.t = 0;
-    
+    this.startCountDown(28800, this.modalexpired);
   }
 
-  showChildModal(): void {
-    this.childModal.show();
-  }
- 
-  hideChildModal(): void {
-    this.childModal.hide();
-  }
+  
 
   ngOnInit() {
     this.user = this.sessionStorageService.retrieve('ss_user');
@@ -143,6 +139,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+    
   }
 
   selectEvent(item) {
@@ -227,6 +224,20 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
     this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
 
+  }
+
+  startCountDown(seconds, template){
+    var counter = seconds;
+    var interval = setInterval(() => {
+      console.log(counter);
+      counter--;
+      if (counter < 0 ) {
+        clearInterval(interval);
+        //alert("SI FUCIONA")
+        this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent)
+        //this.router.navigate(['login'])
+      }	
+    }, 1000);
   }
 
   Obtenerlistado($event) {
@@ -337,7 +348,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
       result => {
         if (result.length == 0 || result == null || result[0].oerror != null) {
-          alert("HOTELES NO DISPONIBLES");
+          //alert("asdasd")
+          this.flagDinData = true;
         }
         else{
 
@@ -389,6 +401,32 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     }
     
 }
+
+
+
+
+searchFlightBuscador($event) {
+  this.LlistaHotel = [];
+  if ($event === null) {
+    console.log("this.spinner.hide()");
+    this.spinner.hide();
+  } else {
+    this.LlistaHotel = $event;
+  }
+  console.log("searchFlightBuscador");
+  console.log("$event: " + $event);
+  this.sessionStorageService.store('ls_search_hotel', this.LlistaHotel);
+
+  if (this.LlistaHotel[0].oerror != null) {
+    this.flagDinData = true;
+    this.spinner.hide();
+  } else {
+    this.flagDinData = false;
+    this.spinner.hide();
+
+  }
+}
+
 
 ValidarCampos() {
   let val = true;
