@@ -301,9 +301,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.origentTexto = item.name;
     this.isOpen = false;
     $("#txtOrigen").removeClass("campo-invalido");
-    setTimeout(function() {
-      $(".x").hide();
-    }, 1000);
+    $(".x").show();
   }
 
   onChangeSearch(val: string) {
@@ -329,6 +327,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.destinoTexto = item.name;
     this.valdestino = false;
     $("#txtDestino").removeClass("campo-invalido");
+    $(".x").show();
   }
 
   onChangeSearch2(val: string) {

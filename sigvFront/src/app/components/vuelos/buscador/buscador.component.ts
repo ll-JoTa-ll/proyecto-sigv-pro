@@ -128,9 +128,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     this.indexTramo = this.inIndexTramo;
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-    setTimeout(function() {
-      $(".x").hide();
-    }, 1000);
+    $(".x").show();
     console.log('tipoVuelo: ' + this.tipoVuelo);
     console.log('origenAuto: ' + this.origenAuto);
     console.log('destinoAuto: ' + this.destinoAuto);
@@ -156,9 +154,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     console.log('destinoAuto: ' + this.destinoAuto);
     console.log('origenAuto1: ' + this.origenAuto1);
     console.log('destinoAuto1: ' + this.destinoAuto1);
-    setTimeout(function() {
-      $(".x").hide();
-    }, 1000);
+    $(".x").show();
     const tipoVuelo = this.tipoVuelo;
     const fechaSalidaShow = this.fechaSalidaShow;
     const fechaRetornoShow = this.fechaRetornoShow;
@@ -223,18 +219,14 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.origenAuto = item.iataCode;
       this.origentTexto = item.name;
       $("#txtOrigen").removeClass("campo-invalido");
-      setTimeout(function() {
-        $(".x").hide();
-      }, 1000);
+      $(".x").show();
     }
 
     if (flag === 2) {
       this.destinoAuto = item.iataCode;
       this.destinoTexto = item.name;
       $("#txtDestino").removeClass("campo-invalido");
-      setTimeout(function() {
-        $(".x").hide();
-      }, 1000);
+      $(".x").show();
     }
   }
 
@@ -583,13 +575,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       return flagVal;
     }
 
-    console.log("data request mini busqueda: " + JSON.stringify(data))
-
     this.airportService.searchFlight(data).subscribe(
       result => {
         console.log(result);
         if (result !== null && result.length > 0) {
-          console.log("resultado optimo");
           if (ss_filterPrecio === 'mas') {
             result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
           }
@@ -597,7 +586,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
           }
         } else {
-          console.log("resultado null o vacio");
           this.spinner.hide();
         }
         this.lRecomendaciones.emit(result);
@@ -607,11 +595,9 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       err => {
         console.log("ERROR MINI BUSQUEDA: " + JSON.stringify(err));
         this.spinner.hide();
-        console.log("ERROR: " + err);
       },
       () => {
         this.spinner.hide();
-        console.log("MINI BUSQUEDA this.airportService.searchFlight completado");
       }
     );
   }
@@ -636,13 +622,15 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if (this.model.salida === null || this.model.salida === '' || this.model.salida === undefined) {
+      // tslint:disable-next-line: max-line-length
+      if ($('#datepickerSalida').val().length === 0/*this.model.salida === null || this.model.salida === '' || this.model.salida === undefined*/) {
         $("#txtFechaSalida").addClass("campo-invalido");
         flagVal = false;
       } else {
         $("#txtFechaSalida").removeClass("campo-invalido");
       }
-      if (this.model.retorno === null || this.model.retorno === '' || this.model.retorno === undefined) {
+      // tslint:disable-next-line: max-line-length
+      if ($('#datepickerRetorno').val().length === 0/*this.model.retorno === null || this.model.retorno === '' || this.model.retorno === undefined*/) {
         $("#txtFechaDestino").addClass("campo-invalido");
         flagVal = false;
       } else {
@@ -663,7 +651,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if (this.model.salida === null || this.model.salida === '' || this.model.salida === undefined) {
+      if ($('#datepickerRetorno').val().length === 0/*this.model.salida === null || this.model.salida === '' || this.model.salida === undefined*/) {
         $("#txtFechaSalida").addClass("campo-invalido");
         flagVal = false;
       } else {
