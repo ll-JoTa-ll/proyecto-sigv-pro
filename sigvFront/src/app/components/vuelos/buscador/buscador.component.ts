@@ -651,7 +651,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if ($('#datepickerRetorno').val().length === 0/*this.model.salida === null || this.model.salida === '' || this.model.salida === undefined*/) {
+      if ($('#datepickerSalida').val().length === 0/*this.model.salida === null || this.model.salida === '' || this.model.salida === undefined*/) {
         $("#txtFechaSalida").addClass("campo-invalido");
         flagVal = false;
       } else {
