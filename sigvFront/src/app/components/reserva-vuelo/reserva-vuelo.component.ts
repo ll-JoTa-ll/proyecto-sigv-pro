@@ -11,6 +11,7 @@ import { IGetApprovers } from '../../models/IGetApprovers.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { fromStringWithSourceMap } from 'source-list-map';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { FlightService } from '../../services/flight.service';
 
 declare var jquery: any;
 declare var $: any;
@@ -55,6 +56,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   LSectionPassenger;
   lsapprovers: IGetApprovers[] = [];
   flightNational;
+  uidByCompanyC: any[] = [];
+  uidByCompanyP: any[] = [];
+  htmlTxtC: string;
+  flagHtmlC = false;
 
   constructor(
     private modalService: BsModalService,
@@ -62,7 +67,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     private localStorageService: LocalStorageService,
     private service: AirportService,
     private router: Router,
-    private bnIdle: BnNgIdleService
+    private bnIdle: BnNgIdleService,
+    private flightService: FlightService
   ) {
     this.datarequest = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
     this.flightAvailability_request = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
@@ -71,6 +77,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
     this.sessionStorageService.store('tipovuelo', null);
     this.datosuser = sessionStorageService.retrieve('objusuarios');
+    this.htmlTxtC = "";
   }
 
   ngOnInit() {
@@ -131,6 +138,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       },
       err => {
          console.log('error results', err);
+      },
+      () => {
+        this.getUidByCompany();
       }
     );
   }
@@ -305,6 +315,74 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.sessionStorageService.store('politicas', this.LPolicies);
       this.sessionStorageService.store('idmotivo', idmotivo);
       this.router.navigate(['/reserva-vuelo-compra']);
+    }
+  }
+
+  getUidByCompany() {
+    console.log("getUidByCompany");
+    const companyId = this.loginDataUser.ocompany.companyId;
+    this.flightService.getUidByCompany(companyId  ).subscribe(
+      result => {
+        console.log("result: " + JSON.stringify(result))
+        if (result != null) {
+          this.uidByCompanyC = result.filter(x => x.typeUid === 'C');
+          this.uidByCompanyP = result.filter(x => x.typeUid === 'P');
+        }
+      },
+      err => {},
+      () => {
+        this.setInformacionAdicional(this.uidByCompanyC);
+      }
+    );
+  }
+
+  setInformacionAdicional(lstUidByCompanyC) {
+    if (lstUidByCompanyC.length > 0) {
+      let htmlTxtC = "";
+      const lstTxtC = lstUidByCompanyC.filter(x => x.isList === false);
+      const lstCbxC = lstUidByCompanyC.filter(x => x.isList === true);
+      let flagC = 0;
+      lstTxtC.forEach(function(txt, index) {
+        flagC = 1;
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += txt.title;
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "<input [id]='txt.code' class='form-control' type='text'>";
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "";
+      });
+      lstCbxC.forEach(function(cbx, index) {
+        const llistUid = cbx.llistUid;
+        flagC = 1;
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += cbx.title;
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "";
+      });
+      console.log(htmlTxtC);
+      this.htmlTxtC = htmlTxtC;
+
+
+      if (flagC === 1) {
+        this.flagHtmlC = true;
+      }
+
     }
   }
 }
