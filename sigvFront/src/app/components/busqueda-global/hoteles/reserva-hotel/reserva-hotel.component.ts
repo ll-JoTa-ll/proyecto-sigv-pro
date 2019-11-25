@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AirportService } from '../../../../services/airport.service';
 import { IGetUserById } from '../../../../models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { ModalHotelesVaciosComponent } from '../../../shared/modal-hoteles-vacios/modal-hoteles-vacios.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -35,6 +36,7 @@ export class ReservaHotelComponent implements OnInit {
   lstConfirmacion : IGetEnhancedHotel;
   Reserva : IGetPnrHotel;
   user;
+  modalRefSessionExpired: BsModalRef;
 
   emailsolicitud;
   lsthabitacion;
@@ -193,7 +195,8 @@ export class ReservaHotelComponent implements OnInit {
     },
    () => {
     if (message != null) {
-      alert(this.Reserva.oerror.message)
+      this.modalRefSessionExpired = this.modalService.show(ModalHotelesVaciosComponent)
+      //alert(this.Reserva.oerror.message)
       this.spinner.hide();
       return;
     }

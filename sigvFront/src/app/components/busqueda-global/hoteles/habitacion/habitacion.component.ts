@@ -24,7 +24,7 @@ declare var $: any;
   templateUrl: './habitacion.component.html',
   styleUrls: ['./habitacion.component.sass']
 })
-@Injectable()
+
 export class HabitacionComponent implements OnInit, AfterViewInit {
 
   alertAt = 15;
@@ -62,7 +62,9 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   habitaciones: string;
   personas: number;
   mapafiltro: boolean;
-
+  showComponent: boolean = false;
+  hideComponent: boolean = true;
+  hoteles: IHotelResultsModel[];
   
   @Input() urlHotel: string;
   @Input() estrellas: number;
@@ -111,7 +113,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     console.log("(this.modalexpired: "+this.modalexpired);
-    this.startCountDown(600, this.modalexpired);
+    //this.startCountDown(600, this.modalexpired);
   }
 
   
@@ -129,6 +131,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
         }	
       }, 1000);
     }
+    
 
   VolverHome(){
     this.router.navigate(['hoteles'])
@@ -145,6 +148,19 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   showHideMap($event) {
     this.mapafiltro = $event;
+  }
+  
+  showComponente($event) {
+    this.showComponent = $event;
+  }
+
+  hideComponente($event) {
+    this.hideComponent = $event;
+  }
+
+  listadoHoteles($event) {
+    this.hoteles = $event;
+ 
   }
 
   getChatMessages(){

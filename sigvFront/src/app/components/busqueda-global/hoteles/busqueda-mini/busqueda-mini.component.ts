@@ -95,7 +95,8 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.ObtenerDias(this.fchingreso, this.fchsalida);
     this.objSearch = { 
       destino: this.destinoText,
-      categoria: this.textoestrellas
+      categoria: this.textoestrellas,
+      iata: this.destinoValue,
     };
     this.sessionStorageService.store("ss_sessionmini1",this.objSearch);
   }
@@ -103,7 +104,8 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   limpiarSession(){
     this.objSearch = { 
       destino: this.destinoText,
-      categoria: this.estrellas
+      categoria: this.estrellas,
+      iata: this.destinoValue
     };
     this.sessionStorageService.store("ss_sessionmini1",null);
     this.sessionStorageService.store("ss_sessionmini1",this.objSearch);
@@ -246,6 +248,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
           //this.flagShowMap.emit(true);
           this.messagelistado.emit(this.LResultshotel);
           this.limpiarSession();
+          this.flagDinData = false;
           this.spinner.hide();
           }
        },

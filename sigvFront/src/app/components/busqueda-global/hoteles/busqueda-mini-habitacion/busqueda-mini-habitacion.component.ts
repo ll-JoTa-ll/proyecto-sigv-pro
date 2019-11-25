@@ -28,7 +28,10 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
   isOpen = false;
 
   @Output() flagShowMap = new EventEmitter<boolean>();
+  @Output() ShowComponent = new EventEmitter<boolean>();
   @Output() messagelistado = new EventEmitter<any[]>();
+  @Output() hideComponent = new EventEmitter<boolean>();
+  @Output() listado = new EventEmitter<IHotelResultsModel[]>();
 
   textoestrellas: string;
   @Input() destino: string;
@@ -46,6 +49,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
   constructor(private localStorageService: LocalStorageService,private sessionStorageService: SessionStorageService,private spinner: NgxSpinnerService,private service: HotelService) { 
     this.lhotel = this.sessionStorageService.retrieve("hotel");
     console.log("this.lhotel.name ===== >"+ this.lhotel.name)
+    
   }
   
   ngOnInit() {
@@ -54,6 +58,9 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
     this.sessionMini = this.sessionStorageService.retrieve('ss_sessionmini');
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.textoestrellas = this.sessionMini1.categoria;
+    this.destinoValue = this.sessionMini1.iata;
+    this.fechaSalida = this.sessionMini.fechaentrada;
+    this.fechaRetorno = this.sessionMini.fechasalida;
   }
   
   SeleccionarEstrella(codeestrella, texto) {
@@ -184,10 +191,19 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
 
   SeachHotel() {
     const val= this.ValidarCampos();
+    let fechaSal;
+    let fechaRe;
+    fechaSal = this.fechaSalida;
+    fechaRe = this.fechaRetorno;
+    fechaSal = fechaSal.split("-");
+    fechaRe = fechaRe.split("-");
+    fechaSal= fechaSal[2] + "-" + fechaSal[1] + "-" + fechaSal[0];
+    fechaRe= fechaRe[2] + "-" + fechaRe[1] + "-" + fechaRe[0];
     if (!val) {
       return val;
     }
     else{
+    
       this.spinner.show();
     this.flagShowMap.emit(false);
     let data = {
@@ -196,8 +212,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
         {
           "HotelCityCode": this.destinoValue,
           "Stars": this.estrellas,
-          "StartDate": this.fechaSalida,
-          "EndDate": this.fechaRetorno,	
+          "StartDate": fechaSal,
+          "EndDate": fechaRe,	
           "LguestPerRoom":
           [
             {
@@ -231,6 +247,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
           this.LResultshotel = result;
           //this.flagShowMap.emit(true);
           this.messagelistado.emit(this.LResultshotel);
+          this.ShowComponent.emit(true);
+          this.hideComponent.emit(false);
           this.spinner.hide();
           }
        },

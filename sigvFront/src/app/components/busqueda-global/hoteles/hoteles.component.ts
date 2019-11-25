@@ -99,7 +99,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.mapafiltro = true;
     this.contador = 600;
     this.t = 0;
-    this.startCountDown(28800, this.modalexpired);
   }
 
   
