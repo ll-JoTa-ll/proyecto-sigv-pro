@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div class="col-12 m-0 p-0">
-                <app-info-vuelo-segment (msjairline)="ObtenerAirline($event)" *ngFor="let segment of section.Lsegments; let i = index" [segment]="segment" [bagAllowed]="section.BagAllowed"></app-info-vuelo-segment>
+                <app-info-vuelo-segment (msjairline)="ObtenerAirline($event)" *ngFor="let segment of section.Lsegments; let i = index" [segment]="segment" [bagAllowed]="section.BagAllowed" [bagquantity]="section.BagQuantity"></app-info-vuelo-segment>
             </div>
         </div>
     </div>

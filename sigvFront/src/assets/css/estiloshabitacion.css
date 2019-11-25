@@ -75,3 +75,48 @@
     margin-left: -170px;
     display: block;
 }
+
+:host>>>.popover {
+    background-color: #009688;
+    color: #fff;
+}
+
+:host>>>.popover>.arrow:after {
+    border-top-color: #009688;
+}
+
+.tooltipEscalas {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltipEscalas .tooltipBagDivEsc {
+    visibility: hidden;
+    width: 350px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: -85%;
+    margin-left: -170px;
+    box-shadow: 1px 1px 5px 5px #949494;
+}
+
+.tooltipEscalas .tooltipBagDivEsc::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltipEscalas:hover .tooltipBagDivEsc {
+    visibility: visible;
+}

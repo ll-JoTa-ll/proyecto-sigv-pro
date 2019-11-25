@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AirportService } from '../../../services/airport.service';
 import { SessionStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
@@ -7,12 +7,15 @@ import { IReservaModel } from '../../../models/iReserva.model';
 import { iGetReservation } from '../../../models/IGetReservation.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
+declare var jquery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-gestion-reserva-vuelo',
   templateUrl: './gestion-reserva-vuelo.component.html',
   styleUrls: ['./gestion-reserva-vuelo.component.sass']
 })
-export class GestionReservaVueloComponent implements OnInit {
+export class GestionReservaVueloComponent implements OnInit, AfterViewInit {
 
   lsreservas: IReservaModel[] = [];
   getreserva: iGetReservation;
@@ -37,6 +40,20 @@ export class GestionReservaVueloComponent implements OnInit {
 
   ngOnInit() {
     this.ObtenerReservas();
+  }
+
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit vuelos');
+    $('#menu-vuelo-1').hide();
+    $('#menu-vuelo-2').show();
+    $('#menu-hotel-1').show();
+    $('#menu-hotel-2').hide();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
   }
 
   ObtenerReservas() {

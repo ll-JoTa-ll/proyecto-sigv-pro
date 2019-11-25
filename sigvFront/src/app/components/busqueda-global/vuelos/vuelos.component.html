@@ -1,3 +1,5 @@
+
+
 <!--
 <ng-container *ngIf="flagCentralizador">
     <app-header>
@@ -67,20 +69,20 @@
                 <div id="txtOrigen" class="m-0 p-0 txtOrigen" style="width: 75%">
 
                   <div class="ng-autocomplete" style="width: 100%;">
-                    <ng-autocomplete [(ngModel)]="model.origentTexto" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                     [notFoundTemplate]="notFoundTemplate">
-                    </ng-autocomplete>
+                      <ng-autocomplete [(ngModel)]="model.origentTexto" popover="Falta ingresar el origen" triggers="" [isOpen]="isOpen" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                          [notFoundTemplate]="notFoundTemplate">
+                      </ng-autocomplete>
 
-                    <ng-template #itemTemplate let-item>
-                      <a [innerHTML]="item.name"></a>
-                    </ng-template>
+                      <ng-template #itemTemplate let-item>
+                          <a [innerHTML]="item.name"></a>
+                      </ng-template>
 
-                    <ng-template #notFoundTemplate let-notFound>
-                      <!--<div [innerHTML]="notFound"></div>-->
-                    </ng-template>
+                      <ng-template #notFoundTemplate let-notFound>
+                          <!--<div [innerHTML]="notFound"></div>-->
+                      </ng-template>
                   </div>
 
-                </div>
+              </div>
 
               </div>
 
@@ -97,20 +99,20 @@
                 <div id="txtDestino" class=" m-0 p-0 txtDestino" style="width: 75%;">
 
                   <div class="ng-autocomplete" style="width: 100%;">
-                    <ng-autocomplete [(ngModel)]="model.destinoTexto" style="color: #898989 !important;" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent2($event)' (inputChanged)='onChangeSearch2($event)' (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2"
-                                     [notFoundTemplate]="notFoundTemplate2">
-                    </ng-autocomplete>
+                      <ng-autocomplete [(ngModel)]="model.destinoTexto" popover="Falta ingresar el destino" triggers="" [isOpen]="valdestino" style="color: #898989 !important;" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent2($event)' (inputChanged)='onChangeSearch2($event)' (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2"
+                          [notFoundTemplate]="notFoundTemplate2">
+                      </ng-autocomplete>
 
-                    <ng-template #itemTemplate2 let-item>
-                      <a [innerHTML]="item.name"></a>
-                    </ng-template>
+                      <ng-template #itemTemplate2 let-item>
+                          <a [innerHTML]="item.name"></a>
+                      </ng-template>
 
-                    <ng-template #notFoundTemplate2 let-notFound>
-                      <!--<div [innerHTML]="notFound"></div>-->
-                    </ng-template>
+                      <ng-template #notFoundTemplate2 let-notFound>
+                          <!--<div [innerHTML]="notFound"></div>-->
+                      </ng-template>
                   </div>
 
-                </div>
+              </div>
 
               </div>
 
@@ -121,54 +123,54 @@
               <div class="row m-0 p-0" style="height: 40px !important;">
 
                 <div class="m-0 p-0 text-center d-flex justify-content-center align-items-center" style="width: 16%; height: 40px !important;">
-                  Fechas
+                    Fechas
                 </div>
 
                 <div class="m-0 p-0 pr-2" style="width: 42%">
-                  <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
-                    <input type="image"
-                           src="./assets/images/home/calendario.svg"
-                           (click)="datepickerSalida.toggle()"
-                           style="outline: none; border: 0; width: 20% !important;">
-                    <input type="text"
-                           readonly
-                           placeholder="Salida"
-                           class="p-0 pl-2 v-texto-3"
-                           style="outline: none; border: 0; width: 80%"
-                           #datepickerSalida="bsDatepicker"
-                           (onHidden)="handlerSalida(datepickerSalida)"
-                           (bsValueChange)="onValueChangeSalida($event)"
-                           [minDate]="minDateSalida"
-                           bsDatepicker
-                           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-                           [(ngModel)]="model.salida"
-                    >
-                  </label>
+                    <label id="txtFechaSalida" for="" popover="Ingresa una fecha de salida" triggers="" [isOpen]="valfechasalida" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+      <input type="image"
+             src="./assets/images/home/calendario.svg"
+             (click)="datepickerSalida.toggle()"
+             style="outline: none; border: 0; width: 20% !important;">
+      <input type="text"
+             readonly
+             placeholder="Salida"
+             class="p-0 pl-2 v-texto-3"
+             style="outline: none; border: 0; width: 80%"
+             #datepickerSalida="bsDatepicker"
+             (onHidden)="handlerSalida(datepickerSalida)"
+             (bsValueChange)="onValueChangeSalida($event)"
+             [minDate]="minDateSalida"
+             bsDatepicker
+             [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+             [(ngModel)]="model.salida"
+      >
+    </label>
                 </div>
 
                 <div *ngIf="tipoVuelo!=='OW'" class=" m-0 p-0" style="width: 40%">
-                  <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
-                    <input type="image"
-                           src="./assets/images/home/calendario.svg"
-                           (click)="datepickerRetorno.toggle()"
-                           style="outline: none; border: 0; width: 20% !important;">
-                    <input type="text"
-                           readonly
-                           placeholder="Retorno"
-                           class="p-0 pl-2 v-texto-3"
-                           style="outline: none; border: 0; width: 80%"
-                           #datepickerRetorno="bsDatepicker"
-                           (onHidden)="handlerSalida(datepickerRetorno)"
-                           (bsValueChange)="onValueChangeRetorno($event)"
-                           [minDate]="minDateRetorno"
-                           bsDatepicker
-                           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-                           [(ngModel)]="model.retorno"
-                    >
-                  </label>
-                </div>
-
+                  <label id="txtFechaDestino" for="" popover="Ingresa una fecha de destino" triggers="" [isOpen]="valfechadestino" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+    <input type="image"
+           src="./assets/images/home/calendario.svg"
+           (click)="datepickerRetorno.toggle()"
+           style="outline: none; border: 0; width: 20% !important;">
+    <input type="text"
+           readonly
+           placeholder="Retorno"
+           class="p-0 pl-2 v-texto-3"
+           style="outline: none; border: 0; width: 80%"
+           #datepickerRetorno="bsDatepicker"
+           (onHidden)="handlerSalida(datepickerRetorno)"
+           (bsValueChange)="onValueChangeRetorno($event)"
+           [minDate]="minDateRetorno"
+           bsDatepicker
+           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+           [(ngModel)]="model.retorno"
+    >
+  </label>
               </div>
+
+            </div>
 
             </div>
 
@@ -396,4 +398,3 @@
 
   </app-header>
 
-</ng-container>

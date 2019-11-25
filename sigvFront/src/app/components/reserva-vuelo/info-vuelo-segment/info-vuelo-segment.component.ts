@@ -10,6 +10,7 @@ export class InfoVueloSegmentComponent implements OnInit {
   @Input() segment;
   @Input() bagAllowed;
   @Output() msjairline = new EventEmitter<any>();
+  @Input() bagquantity;
 
   marketingCarrier: string;
   lSegmentGroups: any[] = [];

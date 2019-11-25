@@ -22,6 +22,7 @@ export class AddPaxCentralizadorComponent implements OnInit {
   lstPerson: IUserCompanyModel[] = [];
   lstPasajeros: IUserCompanyModel[] = [];
   maxPax: number;
+  p: number[] = [];
 
   constructor(
     private userCompanyService: UserCompanyService,
@@ -56,8 +57,7 @@ export class AddPaxCentralizadorComponent implements OnInit {
 
     this.userCompanyService.getUserByCompany(this.companyId, freeText).subscribe(
       result => {
-        console.log('result: ' + result.slice(0, 10));
-        this.lstPerson = result.slice(0, 10);
+        this.lstPerson = result;
       },
       err => {
         this.spinner.hide();

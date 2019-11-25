@@ -25,7 +25,7 @@ export class PersonaContactoComponent implements OnInit {
 
 
   ValidarCampos() {
-    let regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+    let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if ($('#contactocorreo').val().length <= 0) {
       $('#contactocorreo').addClass('campo-invalido');
     } else {
@@ -43,5 +43,12 @@ export class PersonaContactoComponent implements OnInit {
     } else {
      this.inderror = true;
     }
+  }
+
+  ValidarSoloNumero(event)  {
+    // tslint:disable-next-line: max-line-length
+    if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==190  && event.keyCode !==110 && event.keyCode !==8 && event.keyCode !==9  ){
+      return false;
+  }
   }
 }

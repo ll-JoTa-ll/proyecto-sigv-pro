@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { AirportService } from '../../../services/airport.service';
 import { IFlightAvailability } from '../../../models/IFlightAvailability';
@@ -11,7 +11,8 @@ import { IGenerateTicket } from '../../../models/IGenerateTicket.model';
 import { HttpClient } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 declare var jquery: any;
 declare var $: any;
@@ -21,8 +22,9 @@ declare var $: any;
   templateUrl: './reserva-compra.component.html',
   styleUrls: ['./reserva-compra.component.sass']
 })
-export class ReservaCompraComponent implements OnInit {
+export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
+  @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   Lsection;
   Lsectionpassenger;
   lsusuario;
@@ -69,8 +71,8 @@ export class ReservaCompraComponent implements OnInit {
   };
 
   constructor(private sessionStorageService: SessionStorageService,
-              private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService, 
-              private toastr: ToastrService, private modalservice: BsModalService) {
+              private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService,
+              private toastr: ToastrService, private modalservice: BsModalService, private bnIdle: BnNgIdleService) {
     this.Lsection = this.sessionStorageService.retrieve('sectioninfo');
     this.Lsectionpassenger = this.sessionStorageService.retrieve('sectionservice');
     this.lsusuario = this.sessionStorageService.retrieve('datosusuario');
@@ -95,6 +97,12 @@ export class ReservaCompraComponent implements OnInit {
     this.contacto = this.sessionStorageService.retrieve('contacto');
    }
 
+   /*
+  VolverHome() {
+    this.router.navigate(['/vuelos']);
+    this.modal.hide();
+  }*/
+
   ngOnInit() {
     window.scrollTo(0, 0);
     this.currency = this.dataflightavalilability.Currency;
@@ -107,6 +115,19 @@ export class ReservaCompraComponent implements OnInit {
     this.flightnational = this.dataflightavalilability.FlightNational;
   }
 
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit vuelos');
+    $('#menu-vuelo-1').hide();
+    $('#menu-vuelo-2').show();
+    $('#menu-hotel-1').show();
+    $('#menu-hotel-2').hide();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
+  }
 
   Obtenerstring() {
     this.http.get(this.plantilla, {responseType: 'text'}).subscribe(
@@ -134,12 +155,6 @@ export class ReservaCompraComponent implements OnInit {
     this.spinner.show();
     let phones = [];
     let email = [];
-    this.contacto.email.forEach(function(item, index) {
-      email.push(item);
-    });
-    this.contacto.telefonos.forEach(function(item, index) {
-      phones.push(item);
-    });
     let infraction;
     if (this.LPolicies.length > 0) {
       infraction = true;
@@ -157,19 +172,19 @@ export class ReservaCompraComponent implements OnInit {
     "Lsections": this.Lsectionpassenger,
     "Ocompany": this.ocompany,
     "osession": this.osession,
-    "Phones": phones,
-    "Emails": email,
     "Lpassenger": this.lsusuario,
     "ReasonFlightId": parseFloat(this.idmotivo),
     "CarrierId": this.carrierId,
     "Lpolicies": this.LPolicies,
     "Lauthorizer": this.lsapprover,
-    "Comment": $('#motivoviaje').val()
+    "Comment": $('#motivoviaje').val(),
+    "OContactInfo": this.contacto
     };
     this.service.AddPassenger(data).subscribe(
         results => {
         // tslint:disable-next-line: indent
         this.pnrresults = results;
+        // tslint:disable-next-line: max-line-length
         if (this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length > 0 || this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length === 0) {
           this.router.navigate(['/reserva-generada-vuelo']);
         }
@@ -187,7 +202,7 @@ export class ReservaCompraComponent implements OnInit {
         }
         if (this.lsapprover.length > 0 && this.pnrresults.oerror === null) {
           this.SendEmail();
-        } 
+        }
         if (this.pnrresults.oerror != null) {
             this.spinner.hide();
             this.modalRef = this.modalservice.show(
@@ -195,22 +210,24 @@ export class ReservaCompraComponent implements OnInit {
               Object.assign({}, { class: 'gray modal-lg m-infraccion' })
             );
           }
-    
+
       }
       );
     }
 
+    
+
     PlantillaEmailSolicitud() {
       let htmlsection = '';
- 
+
       for (let i = 0; i < this.Lsection.length; i++) {
        const section = this.Lsection[i];
        const lsegment = section.Lsegments;
-       
+
        for (let k = 0; k < lsegment.length; k++) {
          const itemlsegment = lsegment[k];
          const segmentgroup = itemlsegment.LsegmentGroups;
-         
+
          for (let j = 0; j < segmentgroup.length; j++) {
            const itemsegmentgroup = segmentgroup[j];
            htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
@@ -286,7 +303,7 @@ export class ReservaCompraComponent implements OnInit {
        }
      }
       this.htmlvuelosection = htmlsection;
-           
+
       this.emailsolicitud = this.emailsolicitud.replace("@segmentos", this.htmlvuelosection);
     }
 
@@ -303,7 +320,7 @@ export class ReservaCompraComponent implements OnInit {
 
    PlantillaPasajeros() {
     let html = '';
-    for (let j = 0; j < this.lusers.length; j++) {
+    for (let j = 0; j < this.lsusuario.length; j++) {
       const item = this.lusers[j];
     html+="<tr>"
     html+="<td>"
@@ -388,7 +405,7 @@ export class ReservaCompraComponent implements OnInit {
 
    FormatearFechaPnr() {
     let data;
-    let recorte; 
+    let recorte;
     let fecha;
     let hora;
     data = this.pnrresults.timeLimit;
@@ -450,7 +467,7 @@ export class ReservaCompraComponent implements OnInit {
       this.PlantillaPrecioReserva();
       this.PlantillaPasajeroReserva();
       let mails = [];
-      this.lusers.forEach(function(item) {
+      this.lsusuario.forEach(function(item) {
            mails.push(item.email);
       });
       let data = {
@@ -483,20 +500,16 @@ export class ReservaCompraComponent implements OnInit {
       );
     }
 
-    Emitir () {
+    Emitir() {
+      this.spinner.show();
       let phones = [];
       let email = [];
-      this.lusers.forEach(function(item) {
-        email.push(item.email);
-        phones.push(item.phone);
-      });
       let infraction;
       if (this.LPolicies.length > 0) {
       infraction = true;
       } else {
       infraction = false;
     }
-  
       let data = {
     "UserId": this.userid,
     "GDS": this.gds,
@@ -506,12 +519,11 @@ export class ReservaCompraComponent implements OnInit {
     "Lsections": this.Lsectionpassenger,
     "Ocompany": this.ocompany,
     "osession": this.osession,
-    "Phones": phones,
-    "Emails": email,
     "Lpassenger": this.lsusuario,
     "ReasonFlightId": parseFloat(this.idmotivo),
     "CarrierId": this.carrierId,
-    "Lpolicies": this.LPolicies
+    "Lpolicies": this.LPolicies,
+    "OContactInfo": this.contacto
     };
       this.service.GenerateTicket(data).subscribe(
         results => {
@@ -524,14 +536,14 @@ export class ReservaCompraComponent implements OnInit {
 
         },
         () => {
-
+        this.spinner.hide();
         }
       )
     }
 
     FormatearFechaReserva() {
       let data;
-      let recorte; 
+      let recorte;
       let fecha;
       let hora;
       let fechaexpiracion;
@@ -548,7 +560,7 @@ export class ReservaCompraComponent implements OnInit {
 
     FormatearFechaReserva2() {
       let data;
-      let recorte; 
+      let recorte;
       let fecha;
       let hora;
       let fechaexpiracion;
@@ -588,7 +600,7 @@ export class ReservaCompraComponent implements OnInit {
        for (let k = 0; k < lsegment.length; k++) {
          const itemlsegment = lsegment[k];
          const segmentgroup = itemlsegment.LsegmentGroups;
-         
+
          for (let j = 0; j < segmentgroup.length; j++) {
            const itemsegmentgroup = segmentgroup[j];
            htmlsection+="<div style='width: 100% !important;'>";

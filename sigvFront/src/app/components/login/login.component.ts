@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.sessionStorageService.store('ss_login_data', '');
     this.sessionStorageService.store('ss_token', '');
-    
+
   }
 
   login() {
@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit {
       () => {
         if (this.datoslogin.oerror != null) {
           this.msjerrorr = true;
-          
+
           this.spinner.hide();
         } else {
           this.userid = this.datoslogin.userId;
@@ -120,7 +120,36 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  
+  onKeydown(event) {
+    if (event.key === "Enter") {
+      if ($('#txtpass').val().length > 0) {
+        this.login();
+      }
+    }
+  }
+  getUser() {
+    let data = {
+      userId: this.userid
+      }
+
+      this.service.GetUser(data.userId).subscribe(
+        result => {
+
+          this.User = result;
+
+          this.sessionStorageService.store("ss_user", this.User);
+          //this.router.navigate(['/reserva-habitacion-hotel']);
+        },
+        err => {
+          this.spinner.hide();
+
+      },
+     () => {
+
+
+     }
+      )
+  }
 
   airportList() {
     this.airportService.airportList(this.token).subscribe(

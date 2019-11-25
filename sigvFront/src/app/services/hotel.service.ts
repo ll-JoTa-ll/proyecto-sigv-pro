@@ -47,7 +47,7 @@ GetHabitacion(data): Observable<IHabitacionResults> {
   return this.http.post<IHabitacionResults>(`${this.url_habitacion}`, data, httpOptions);
 }
 
-  GetConfirmacion(data): Observable<IGetEnhancedHotel>{
+  GetConfirmacion(data): Observable<IGetEnhancedHotel> {
     this.token = this.sessionSt.retrieve('ss_token');
     console.log("token: " + this.token);
     httpOptions.headers = new HttpHeaders({

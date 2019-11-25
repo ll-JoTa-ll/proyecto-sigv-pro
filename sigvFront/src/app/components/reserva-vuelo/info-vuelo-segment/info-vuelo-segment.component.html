@@ -33,9 +33,9 @@
                         {{totalFlightTimeShow}}
                     </div>
                     <div class="col-6 m-0 p-0 div-bag">
-                        <span class="pr-3"><img src="./assets/images/accesorio_rojo.svg" alt=""></span>
-                        <span> <img *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
-                            <img *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt=""></span>
+                        <span tooltip="Permite equipaje de mano." class="pr-3"><img src="./assets/images/accesorio_rojo.svg" alt=""></span>
+                        <span> <img tooltip="Incluye equipaje para documentar. {{bagquantity}} maleta(s) por adulto." *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
+                            <img tooltip="No incluye maleta." *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt=""></span>
                     </div>
                 </div>
             </div>

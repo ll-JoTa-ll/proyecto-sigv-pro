@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, OnInit, Output, TemplateRef, AfterViewInit } from '@angular/core';
 import { IGetEnhancedHotel } from '../../../../models/IGetEnhancedHotel';
 import { SessionStorageService } from 'ngx-webstorage';
 import { ILoginDatosModel } from 'src/app/models/ILoginDatos.model';
@@ -26,7 +26,7 @@ declare var $: any;
   templateUrl: './reserva-hotel.component.html',
   styleUrls: ['./reserva-hotel.component.sass']
 })
-export class ReservaHotelComponent implements OnInit {
+export class ReservaHotelComponent implements OnInit, AfterViewInit {
   modalref: BsModalRef;
  
    
@@ -101,6 +101,21 @@ export class ReservaHotelComponent implements OnInit {
     this.router.navigate(['hoteles'])
   }
 
+    
+
+  ngAfterViewInit() {
+    console.log('ngOnInit hoteles');
+    $('#menu-vuelo-1').show();
+    $('#menu-vuelo-2').hide();
+    $('#menu-hotel-1').hide();
+    $('#menu-hotel-2').show();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
+  }  
   
   getPnrHotel(){
     console.log(this.user);

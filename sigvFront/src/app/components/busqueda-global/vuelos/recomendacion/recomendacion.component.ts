@@ -515,6 +515,16 @@ TraerAutorizador() {
 
   flightAvailability(data, template, tipo, modalFam) {
     this.vuelosComponent.spinner.show();
+    if (tipo === 1) {
+      // tslint:disable-next-line: max-line-length
+      if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
+        this.GetUsers();
+    } else {
+       this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+       this.sessionStorageService.store('objusuarios', this.datosuser);
+       this.TraerAutorizador();
+    }
+    }
     // tslint:disable-next-line: max-line-length
     let flagResult = 0;
     this.airportService.fligthAvailibility(data).subscribe(
@@ -544,13 +554,6 @@ TraerAutorizador() {
         if (flagResult === 1) {
           if (tipo === 1) {
             // tslint:disable-next-line: max-line-length
-            if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
-              this.GetUsers();
-          } else {
-             this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-             this.sessionStorageService.store('objusuarios', this.datosuser);
-             this.TraerAutorizador();
-          }
             // tslint:disable-next-line: max-line-length
             this.router.navigate(['/reserva-vuelo']);
           }
@@ -603,6 +606,12 @@ TraerAutorizador() {
 
   closeModalFamilia($event) {
     this.modalRef.hide();
+  }
+
+  closeModal() {
+    this.modalRef.hide();
+    this.datosuser = [];
+    this.sessionStorageService.store('objusuarios', null);
   }
 
   famFlightAvailability($event) {

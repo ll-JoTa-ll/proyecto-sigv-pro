@@ -107,6 +107,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   destinoText;
   fechaValue;
   fechaText;
+  model: any = {};
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -221,6 +222,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 1) {
       this.origenAuto = item.iataCode;
       this.origentTexto = item.name;
+      $("#txtOrigen").removeClass("campo-invalido");
       setTimeout(function() {
         $(".x").hide();
       }, 1000);
@@ -229,6 +231,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 2) {
       this.destinoAuto = item.iataCode;
       this.destinoTexto = item.name;
+      $("#txtDestino").removeClass("campo-invalido");
       setTimeout(function() {
         $(".x").hide();
       }, 1000);
@@ -364,7 +367,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     } else {
       dia = "" + value.getDate();
     }
-
+    $("#txtFechaSalida").removeClass("campo-invalido");
     this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
     console.log(this.fechaSalida);
   }
@@ -386,6 +389,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       dia = "" + value.getDate();
     }
 
+    $("#txtFechaDestino").removeClass("campo-invalido");
     this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
     console.log(this.fechaRetorno);
   }
@@ -632,13 +636,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if ($.trim(this.fechaSalida) === '') {
+      if (this.model.salida === null || this.model.salida === '' || this.model.salida === undefined) {
         $("#txtFechaSalida").addClass("campo-invalido");
         flagVal = false;
       } else {
         $("#txtFechaSalida").removeClass("campo-invalido");
       }
-      if ($.trim(this.fechaRetorno) === '') {
+      if (this.model.retorno === null || this.model.retorno === '' || this.model.retorno === undefined) {
         $("#txtFechaDestino").addClass("campo-invalido");
         flagVal = false;
       } else {
@@ -659,7 +663,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if ($.trim(this.fechaSalida) === '') {
+      if (this.model.salida === null || this.model.salida === '' || this.model.salida === undefined) {
         $("#txtFechaSalida").addClass("campo-invalido");
         flagVal = false;
       } else {

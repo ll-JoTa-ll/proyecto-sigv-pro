@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, AfterViewInit } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IPnrConfirm } from '../../../models/IPnrConfirm.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -19,7 +19,7 @@ declare var $: any;
   templateUrl: './aprobacion-reserva.component.html',
   styleUrls: ['./aprobacion-reserva.component.sass']
 })
-export class AprobacionReservaComponent implements OnInit {
+export class AprobacionReservaComponent implements OnInit, AfterViewInit {
 
   lspnrresults: IPnrConfirm;
   Lsection;
@@ -75,6 +75,20 @@ export class AprobacionReservaComponent implements OnInit {
     this.ObtenerstringVueloCancelado();
   }
 
+  ngAfterViewInit() {
+    console.log('ngAfterViewInit vuelos');
+    $('#menu-vuelo-1').hide();
+    $('#menu-vuelo-2').show();
+    $('#menu-hotel-1').show();
+    $('#menu-hotel-2').hide();
+    $('#menu-bus-1').show();
+    $('#menu-bus-2').hide();
+    $('#menu-paquete-1').show();
+    $('#menu-paquete-2').hide();
+    $('#menu-seguro-1').show();
+    $('#menu-seguro-2').hide();
+  }
+
   Obtenerstring() {
     this.http.get(this.plantilla, {responseType: 'text'}).subscribe(
       data => {
@@ -121,7 +135,7 @@ export class AprobacionReservaComponent implements OnInit {
 
   FormatearFechaPnr() {
     let data;
-    let recorte; 
+    let recorte;
     let fecha;
     let hora;
     data = this.reserva.timeLimit;
@@ -447,7 +461,7 @@ CancelarReserva() {
 PlantillaEmailSolicitud() {
   let htmlsection = '';
 
-    
+
   for (let j = 0; j < this.reserva.litineraries.length; j++) {
        const itemsegmentgroup = this.reserva.litineraries[j];
        htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
@@ -521,7 +535,7 @@ PlantillaEmailSolicitud() {
        htmlsection += "</div>";
       }
   this.htmlvuelosection = htmlsection;
-       
+
   this.emailsolicitud = this.emailsolicitud.replace("@segmentos", this.htmlvuelosection);
 }
 
@@ -561,7 +575,7 @@ PlantillaPreciovuelo() {
   }
   this.htmlpasajeros = html;
   this.emailsolicitud = this.emailsolicitud.replace('@pasajeros', this.htmlpasajeros);
- } 
+ }
 
  PlantillaPoliticas()
  {
@@ -694,7 +708,7 @@ PlantillaPreciovuelo() {
  }
 
  PlantillaEmailSolicitudVueloAprobado() {
-  let htmlsection = '';    
+  let htmlsection = '';
   for (let j = 0; j < this.reserva.litineraries.length; j++) {
        const itemsegmentgroup = this.reserva.litineraries[j];
        htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
@@ -768,7 +782,7 @@ PlantillaPreciovuelo() {
        htmlsection += "</div>";
       }
   this.htmlvuelosection = htmlsection;
-       
+
   this.emailvueloaprobado = this.emailvueloaprobado.replace("@segmentos", this.htmlvuelosection);
 }
 
@@ -877,7 +891,7 @@ PlantillaPasajerosVueloRechazado() {
  }
 
  PlantillaEmailSolicitudVueloRechazado() {
-  let htmlsection = '';    
+  let htmlsection = '';
   for (let j = 0; j < this.reserva.litineraries.length; j++) {
        const itemsegmentgroup = this.reserva.litineraries[j];
        htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
@@ -951,7 +965,7 @@ PlantillaPasajerosVueloRechazado() {
        htmlsection += "</div>";
       }
   this.htmlvuelosection = htmlsection;
-       
+
   this.emailvuelorechazado = this.emailvuelorechazado.replace("@segmentos", this.htmlvuelosection);
 }
 
@@ -1018,7 +1032,7 @@ PlantillaPasajerosVueloCancelado() {
 
 
  PlantillaEmailSolicitudVueloCancelado() {
-  let htmlsection = '';    
+  let htmlsection = '';
   for (let j = 0; j < this.reserva.litineraries.length; j++) {
        const itemsegmentgroup = this.reserva.litineraries[j];
        htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
@@ -1092,7 +1106,7 @@ PlantillaPasajerosVueloCancelado() {
        htmlsection += "</div>";
       }
   this.htmlvuelosection = htmlsection;
-       
+
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@segmentos", this.htmlvuelosection);
 }
 

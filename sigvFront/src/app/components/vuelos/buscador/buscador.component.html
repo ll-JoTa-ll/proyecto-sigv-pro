@@ -48,7 +48,7 @@
 
             <div id="txtOrigen" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
                 <div class="ng-autocomplete" style="width: 100%;">
-                    <ng-autocomplete [(ngModel)]="origentTexto" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent(1, $event)' (inputChanged)='onChangeSearch(1, $event)' (inputFocused)='onFocused(1, $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                    <ng-autocomplete #closed [(ngModel)]="origentTexto" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent(1, $event)' (inputChanged)='onChangeSearch(1, $event)' (inputFocused)='onFocused(1, $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
 
                     <ng-template #itemTemplate let-item style="z-index: 1000;">
@@ -96,6 +96,7 @@
                      (click)="datepickerSalida.toggle()"
                      style="outline: none; border: 0; width: 20% !important;">
               <input type="text"
+                     readonly
                      id="datepickerSalida"
                      placeholder="Salida"
                      class="p-0 pl-2 bv-texto-2"
@@ -104,7 +105,8 @@
                      (bsValueChange)="onValueChangeSalida($event)"
                      [minDate]="minDateSalida"
                      bsDatepicker
-                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+                     [(ngModel)]="model.salida"
+                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
               >
             </label>
 
@@ -118,6 +120,7 @@
                      (click)="datepickerRetorno.toggle()"
                      style="outline: none; border: 0; width: 20% !important;">
               <input type="text"
+                     readonly
                      id="datepickerRetorno"
                      placeholder="Retorno"
                      class="p-0 pl-2 bv-texto-2"
@@ -126,7 +129,8 @@
                      (bsValueChange)="onValueChangeRetorno($event)"
                      [minDate]="minDateRetorno"
                      bsDatepicker
-                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
+                     [(ngModel)]="model.retorno"
+                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
               >
             </label>
 

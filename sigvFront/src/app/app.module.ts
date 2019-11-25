@@ -118,13 +118,16 @@ import { VueloFamiliaSegmentComponent } from './components/vuelos/familias/vuelo
 import { NavHeaderComponent } from './components/shared/nav-header/nav-header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/hoteles/busqueda-mini-habitacion/busqueda-mini-habitacion.component';
-import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ModalSesionExpiradaComponent } from './components/shared/modal-sesion-expirada/modal-sesion-expirada.component';
 import { ModalHotelesVaciosComponent } from './components/shared/modal-hoteles-vacios/modal-hoteles-vacios.component';
 
+import { FormattimeairportPipe } from './pipes/formattimeairport.pipe';
+import { SessionExpirationAlert, SessionInteruptService } from 'session-expiration-alert';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -222,7 +225,8 @@ import { ModalHotelesVaciosComponent } from './components/shared/modal-hoteles-v
     NavHeaderComponent,
     BusquedaMiniHabitacionComponent,
     ModalSesionExpiradaComponent,
-    ModalHotelesVaciosComponent
+    ModalHotelesVaciosComponent,
+    FormattimeairportPipe
   ],
   imports: [
     BrowserModule,
@@ -251,7 +255,9 @@ import { ModalHotelesVaciosComponent } from './components/shared/modal-hoteles-v
     NgxPaginationModule,
     ToastrModule.forRoot(),
     TooltipModule.forRoot(),
-    PopoverModule.forRoot()
+    PopoverModule.forRoot(),
+    SessionExpirationAlert.forRoot(),
+    NgbModule
   ],
   entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent],
   providers: [BnNgIdleService],

@@ -13,6 +13,8 @@ export class HeaderComponent implements OnInit {
   nombreUsuario: string;
   gender: string;
   loginDataUser;
+  role;
+  empresa;
 
   constructor(
     private router: Router,
@@ -23,6 +25,9 @@ export class HeaderComponent implements OnInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.nombreUsuario = this.loginDataUser.userName;
     this.gender = this.loginDataUser.gender;
+    this.role = this.loginDataUser.orole.roleDescription;
+    this.empresa = this.loginDataUser.ocompany.companyName;
+
   }
 
   ngOnInit() {
@@ -55,6 +60,10 @@ export class HeaderComponent implements OnInit {
         break;
 
     }
+  }
+
+  home() {
+    this.router.navigate(['/vuelos']);
   }
 
   cerrarSesion() {
