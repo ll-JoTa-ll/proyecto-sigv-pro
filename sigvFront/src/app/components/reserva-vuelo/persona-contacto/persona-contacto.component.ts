@@ -47,6 +47,14 @@ export class PersonaContactoComponent implements OnInit {
         $('#contactotelefono').removeClass('campo-invalido');
       }
     }
+
+    if (tipo === 3) {
+      if ($('#nombrecontacto').val().length <= 0) {
+        $('#nombrecontacto').addClass('campo-invalido');
+      } else {
+        $('#nombrecontacto').removeClass('campo-invalido');
+      }
+    }
   }
 
   ValidarSoloNumero(event)  {

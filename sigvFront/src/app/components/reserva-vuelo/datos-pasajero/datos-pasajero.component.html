@@ -78,7 +78,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keypress)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.firstName" id="txtnombre_{{index}}">
+                                <input (keypress)="ValidarCampos()" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.firstName" id="txtnombre_{{index}}">
                             </div>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keypress)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.lastName" id="txtapellidos_{{index}}">
+                                <input (keypress)="ValidarCampos()" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.lastName" id="txtapellidos_{{index}}">
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keydown)="ValidarSoloNumero($event)" (keypress)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.odocument.number" id="txtnrodocumento_{{index}}" maxlength="15">
+                                <input (keydown)="ValidarSoloNumero($event)" (keypress)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.odocument.number" id="txtnrodocumento_{{index}}" maxlength="15">
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keypress)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.nationality" id="txtnacionalidad_{{index}}">
+                                <input (keypress)="ValidarCampos()" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.nationality" id="txtnacionalidad_{{index}}">
                             </div>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input popover="Falta ingresar el correo" (keypress)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.email" id="txtcorreo_{{index}}" maxlength="50">
+                                <input (keypress)="ValidarCampos()" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.email" id="txtcorreo_{{index}}" maxlength="50">
                             </div>
                         </div>
                     </div>
@@ -159,7 +159,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keydown)="ValidarSoloNumero($event)" (keypress)="ValidarCampos()" class="input-pasajero" type="text" id="txtfecha_{{index}}" value="{{user.birthDate | fechaformat}}">
+                                <input (keydown)="ValidarSoloNumero($event)" (keypress)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" id="txtfecha_{{index}}" value="{{user.birthDate | fechaformat}}">
                             </div>
                         </div>
                     </div>
@@ -185,7 +185,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input popover="Falta ingresar el telefono" triggers="" [isOpen]="valtelefono" (keypress)="ValidarCampos()" (keydown)="ValidarSoloNumero($event)" class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}" maxlength="12">
+                                <input triggers="" (keypress)="ValidarCampos()" (keydown)="ValidarSoloNumero($event)" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}" maxlength="12">
                             </div>
                         </div>
                     </div>

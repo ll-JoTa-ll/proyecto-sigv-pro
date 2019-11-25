@@ -527,7 +527,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (lstPasajeros != null) {
       if (lstPasajeros.length > 0) {
         lstPasajeros.forEach(function(item, index) {
-          console.log('item_pax: ' + JSON.stringify(item))
           const pax = {
             "RoleId": item.orole.id,
             "CostCenterId": null,
