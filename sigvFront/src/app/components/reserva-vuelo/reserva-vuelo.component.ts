@@ -12,6 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { fromStringWithSourceMap } from 'source-list-map';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { FlightService } from '../../services/flight.service';
+import { ModalSesionExpiradaComponent } from '../shared/modal-sesion-expirada/modal-sesion-expirada.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -100,7 +101,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-   // this.startCountDown(40, this.modalexpired);
+    this.startCountDown(600, this.modalexpired);
     console.log('ngAfterViewInit vuelos');
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
@@ -168,23 +169,19 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
      return val;
   }
 
-  /*
   startCountDown(seconds, template) {
     var counter = seconds;
     var interval = setInterval(() => {
-    console.log(counter);
-    counter--;
-    if (counter < 0 ) {
-    clearInterval(interval);
-    //alert("SI FUCIONA")
-    this.modalRefSessionExpired = this.modalService.show(
-    template,
-    Object.assign({}, { class: 'gray con-session-expired' })
-    );
-    //this.router.navigate(['login'])
-    } 
+      console.log(counter);
+      counter--;
+      if (counter < 0 ) {
+        clearInterval(interval);
+        //alert("SI FUCIONA")
+        this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent, this.config);
+        //this.router.navigate(['login'])
+      }
     }, 1000);
-    }*/
+  }
 
   ValidarCampos() {
     let val = true;
@@ -263,7 +260,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
   Comprar() {
     let idmotivo = $('#cbomotivo option:selected').val();
-
     let datosusuario: any[] = [];
     let contacto: any;
     let mail : any = [];
@@ -348,7 +344,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   getUidByCompany() {
     console.log("getUidByCompany");
     const companyId = this.loginDataUser.ocompany.companyId;
-    this.flightService.getUidByCompany(companyId  ).subscribe(
+    this.flightService.getUidByCompany(companyId).subscribe(
       result => {
         console.log("result: " + JSON.stringify(result))
         if (result != null) {
