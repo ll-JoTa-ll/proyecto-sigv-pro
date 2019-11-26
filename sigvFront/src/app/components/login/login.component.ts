@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
           this.spinner.hide();
         } else {
           this.userid = this.datoslogin.userId;
-          this.getUser();
+
           this.airportList();
         }
       }
@@ -127,29 +127,31 @@ export class LoginComponent implements OnInit {
       }
     }
   }
+
   getUser() {
     let data = {
       userId: this.userid
-      }
+    }
 
-      this.service.GetUser(data.userId).subscribe(
-        result => {
+    this.service.GetUser(data.userId).subscribe(
+      result => {
 
-          this.User = result;
+        this.User = result;
 
-          this.sessionStorageService.store("ss_user", this.User);
-          //this.router.navigate(['/reserva-habitacion-hotel']);
-        },
-        err => {
-          this.spinner.hide();
+        this.sessionStorageService.store("ss_user", this.User);
+        //this.router.navigate(['/reserva-habitacion-hotel']);
+      },
+      err => {
+        this.spinner.hide();
 
       },
-     () => {
+      () => {
 
 
-     }
-      )
+      }
+    )
   }
+
 
   airportList() {
     this.airportService.airportList(this.token).subscribe(

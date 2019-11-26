@@ -29,13 +29,6 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
   constructor(private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService) { 
 
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
-    this.bnIdle.startWatching(600).subscribe((res) => {
-      if(res) {
-          console.log("session expired");
-          alert("session expired")
-          this.router.navigate(['hoteles'])
-      }
-    })
   }
 
   ngOnInit() {

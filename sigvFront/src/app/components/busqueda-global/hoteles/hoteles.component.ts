@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales, getDay } from 'ngx-bootstrap/chronos';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -10,6 +10,8 @@ import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { Router } from '@angular/router';
+import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalSesionExpiradaComponent } from '../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -20,6 +22,8 @@ declare var $: any;
   styleUrls: ['./hoteles.component.sass']
 })
 export class HotelesComponent implements OnInit, AfterViewInit {
+  @ViewChild("modalexpired", {static: false}) modalexpired;
+
 
   locale = 'es';
   locales = listLocales();
@@ -59,8 +63,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   model: any = {};
   isOpen = false;
   flagVal: boolean;
-
-  
+  contador: number;
+  t: number;
+  modalRefSessionExpired: BsModalRef;
 
   constructor(
     private router: Router,
@@ -69,16 +74,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     private localStorageService: LocalStorageService,
     public spinner: NgxSpinnerService,
     private service: HotelService,
-    private bnIdle: BnNgIdleService
-    
+    private bnIdle: BnNgIdleService,
+    private modalService: BsModalService
   ) {
-    this.bnIdle.startWatching(1740).subscribe((res) => {
-      if(res) {
-          console.log("session expired");
-          alert("session expired");
-          this.router.navigate(['']);
-      }
-    })
+
     console.log('constructor hoteles');
     $('.menu-vuelo-1').show();
     $('.menu-vuelo-2').hide();
@@ -98,7 +97,11 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
     this.mapafiltro = true;
+    this.contador = 600;
+    this.t = 0;
   }
+
+
 
   ngOnInit() {
     this.user = this.sessionStorageService.retrieve('ss_user');
@@ -121,7 +124,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.localeService.use(this.locale);
   }
 
-  
+
 
   ngAfterViewInit() {
     console.log('ngOnInit hoteles');
@@ -135,6 +138,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+
   }
 
   selectEvent(item) {
@@ -221,6 +225,20 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
   }
 
+  startCountDown(seconds, template){
+    var counter = seconds;
+    var interval = setInterval(() => {
+      console.log(counter);
+      counter--;
+      if (counter < 0 ) {
+        clearInterval(interval);
+        //alert("SI FUCIONA")
+        this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent)
+        //this.router.navigate(['login'])
+      }
+    }, 1000);
+  }
+
   Obtenerlistado($event) {
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
@@ -229,17 +247,17 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     let mayorValor = 0;
 
     this.LlistaHotel.forEach(function(item) {
-            if (item.oprice.pricePerAllNights < menorValor) {
-              menorValor = item.oprice.pricePerAllNights;
-            }
-              if (item.oprice.pricePerAllNights > mayorValor) {
-                mayorValor = item.oprice.pricePerAllNights;
-              }
+      if (item.oprice.pricePerAllNights < menorValor) {
+        menorValor = item.oprice.pricePerAllNights;
+      }
+      if (item.oprice.pricePerAllNights > mayorValor) {
+        mayorValor = item.oprice.pricePerAllNights;
+      }
 
-           });
+    });
 
-           this.menorPrecioHotel = menorValor;
-           this.mayorPrecioHotel = mayorValor;
+    this.menorPrecioHotel = menorValor;
+    this.mayorPrecioHotel = mayorValor;
     this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
     this.mapafiltro = true;
   }
@@ -250,13 +268,13 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   }
 
   MostrarMapa($event) {
-     this.vistamapa = $event;
-     this.vistalistado = false;
+    this.vistamapa = $event;
+    this.vistalistado = false;
   }
 
   MostrarListado($event) {
-     this.vistalistado = $event;
-     this.vistamapa = false;
+    this.vistalistado = $event;
+    this.vistamapa = false;
   }
 
   ObtenerListaFiltroEstrella($event) {
@@ -296,95 +314,122 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     }
     else{
       this.spinner.show();
-    this.flagDinData = false;
-    this.dateingreso = $('#dateingreso').val();
-    this.datesalida = $('#datesalida').val();
-    this.cantidadhabitaciones = $('#txthabitacion').val();
-    let data = {
-      "Lhotel":
-      [
-        {
-          "HotelCityCode": this.destinoValue,
-          "Stars": this.estrellas,
-          "StartDate": this.fechaSalida,
-          "EndDate": this.fechaRetorno,
-          "LguestPerRoom":
+      this.flagDinData = false;
+      this.dateingreso = $('#dateingreso').val();
+      this.datesalida = $('#datesalida').val();
+      this.cantidadhabitaciones = $('#txthabitacion').val();
+      let data = {
+        "Lhotel":
           [
             {
-              "RoomQuantity": $('#txthabitacion').val(),
-              "NumberPassengers": $('#txtpersonas').val(),
-              "TypePassenger": "ADT"
+              "HotelCityCode": this.destinoValue,
+              "Stars": this.estrellas,
+              "StartDate": this.fechaSalida,
+              "EndDate": this.fechaRetorno,
+              "LguestPerRoom":
+                [
+                  {
+                    "RoomQuantity": $('#txthabitacion').val(),
+                    "NumberPassengers": $('#txtpersonas').val(),
+                    "TypePassenger": "ADT"
+                  }
+                ]
             }
-          ]
-        }
-      ],
-      "Ocompany": this.loginDataUser.ocompany
-    }
-    this.habitaciones = $('#txthabitacion').val();
-    this.personas = $('#txtpersonas').val();
+          ],
+        "Ocompany": this.loginDataUser.ocompany
+      }
+      this.habitaciones = $('#txthabitacion').val();
+      this.personas = $('#txtpersonas').val();
 
 
 
-    this.service.SearchHotel(data).subscribe(
+      this.service.SearchHotel(data).subscribe(
 
-      result => {
-        if (result.length == 0 || result == null || result[0].oerror != null) {
-          alert("HOTELES NO DISPONIBLES");
-        }
-        else{
-
-          if (result !== null && result.length > 0) {
-
-           this.sessionStorageService.store('ls_search_hotel', result);
-            this.LlistaHotel = result;
-            this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
-            this.flagBuscar = true;
-
-            let menorValor = 1000000;
-            let mayorValor = 0;
-            let currency;
-            let cantnoche;
-
-           result.forEach(function(item, index1) {
-
-             let mmm = 1000000;
-
-             if (item.oprice.pricePerAllNights < menorValor) {
-               menorValor = item.oprice.pricePerAllNights;
-             }
-               if (item.oprice.pricePerAllNights > mayorValor) {
-                 mayorValor = item.oprice.pricePerAllNights;
-               }
-
-            });
-
-            this.cantidadnoche = cantnoche;
-            this.currency = currency;
-            this.menorPrecioHotel = menorValor;
-            this.mayorPrecioHotel = mayorValor;
-          } else {
+        result => {
+          if (result.length == 0 || result == null || result[0].oerror != null) {
+            //alert("asdasd")
             this.flagDinData = true;
+          }
+          else{
 
-       }
+            if (result !== null && result.length > 0) {
+
+              this.sessionStorageService.store('ls_search_hotel', result);
+              this.LlistaHotel = result;
+              this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
+              this.flagBuscar = true;
+
+              let menorValor = 1000000;
+              let mayorValor = 0;
+              let currency;
+              let cantnoche;
+
+              result.forEach(function(item, index1) {
+
+                let mmm = 1000000;
+
+                if (item.oprice.pricePerAllNights < menorValor) {
+                  menorValor = item.oprice.pricePerAllNights;
+                }
+                if (item.oprice.pricePerAllNights > mayorValor) {
+                  mayorValor = item.oprice.pricePerAllNights;
+                }
+
+              });
+
+              this.cantidadnoche = cantnoche;
+              this.currency = currency;
+              this.menorPrecioHotel = menorValor;
+              this.mayorPrecioHotel = mayorValor;
+            } else {
+              this.flagDinData = true;
+
+            }
+          }
+
+        },
+        err => {
+          this.spinner.hide();
+
+        },
+        () => {
+          this.spinner.hide();
+
         }
+      );
+    }
 
-      },
-    err => {
+  }
+
+
+
+
+  searchFlightBuscador($event) {
+    this.LlistaHotel = [];
+    if ($event === null) {
+      console.log("this.spinner.hide()");
+      this.spinner.hide();
+    } else {
+      this.LlistaHotel = $event;
+    }
+    console.log("searchFlightBuscador");
+    console.log("$event: " + $event);
+    this.sessionStorageService.store('ls_search_hotel', this.LlistaHotel);
+
+    if (this.LlistaHotel[0].oerror != null) {
+      this.flagDinData = true;
+      this.spinner.hide();
+    } else {
+      this.flagDinData = false;
       this.spinner.hide();
 
-    },
-   () => {
-     this.spinner.hide();
-
-   }
-  );
     }
-    
-}
+  }
 
-ValidarCampos() {
-  let val = true;
-   
+
+  ValidarCampos() {
+    let val = true;
+
     if ($.trim(this.model.origentTextos) === '' || $.trim(this.model.origentTextos) === undefined) {
       $("#txtOrigen").addClass("campo-invalido");
       val = false;
@@ -403,53 +448,53 @@ ValidarCampos() {
     } else {
       $("#salida").removeClass("campo-invalido");
     }
-      
-  return val;
-}
-SeleccionarEstrella(codeestrella, texto) {
-  this.estrellas = codeestrella;
-  this.textoestrellas = texto;
-}
 
-validarNumeros(e){
-  var tecla = (document.all) ? e.keyCode : e.which;
-   if (tecla == 8) return true;
+    return val;
+  }
+  SeleccionarEstrella(codeestrella, texto) {
+    this.estrellas = codeestrella;
+    this.textoestrellas = texto;
+  }
+
+  validarNumeros(e){
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
     var patron = /^([0-9])*$/;
-     var teclaFinal = String.fromCharCode(tecla);
-      return patron.test(teclaFinal);
-};
+    var teclaFinal = String.fromCharCode(tecla);
+    return patron.test(teclaFinal);
+  };
 
-validarNumerosN(e){
-  var tecla = (document.all) ? e.keyCode : e.which;
-   if (tecla == 8) return true;
+  validarNumerosN(e){
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
     var patron = /^([])*$/;
-     var teclaFinal = String.fromCharCode(tecla);
-     if(tecla == 505) return false;
-      return patron.test(teclaFinal);
-};
+    var teclaFinal = String.fromCharCode(tecla);
+    if(tecla == 505) return false;
+    return patron.test(teclaFinal);
+  };
 
 
-validarTodo(e){
-  var tecla = (document.all) ? e.keyCode : e.which;
-   if (tecla == 8) return true;
+  validarTodo(e){
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
     var patron = /^([])*$/;
-     var teclaFinal = String.fromCharCode(tecla);
-      return patron.test(teclaFinal);
-};
+    var teclaFinal = String.fromCharCode(tecla);
+    return patron.test(teclaFinal);
+  };
 
-validarLetras(e){
-  var tecla = (document.all) ? e.keyCode : e.which;
-   if (tecla == 8) return true;
+  validarLetras(e){
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
     var patron = /^([a-zA-Z ])*$/;
-     var teclaFinal = String.fromCharCode(tecla);
-      return patron.test(teclaFinal);
-};
+    var teclaFinal = String.fromCharCode(tecla);
+    return patron.test(teclaFinal);
+  };
 
 
 
 
-showHideMap($event) {
-  this.mapafiltro = $event;
-}
+  showHideMap($event) {
+    this.mapafiltro = $event;
+  }
 
 }

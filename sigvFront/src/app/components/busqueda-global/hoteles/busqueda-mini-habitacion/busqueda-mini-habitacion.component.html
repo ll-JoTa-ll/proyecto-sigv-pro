@@ -1,0 +1,201 @@
+<!--<div class="p-0 m-0">
+    <div class="row m-0 p-0 box-shadow">
+
+        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3 text-destino">
+            Destino
+        </div>
+
+        <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3">
+            <div id="destinos" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
+                <ng-autocomplete [(ngModel)]="destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.name"></a>
+                </ng-template>
+
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div>
+        </div>
+
+        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3 text-fechas">
+            Fechas
+        </div>
+
+        <div class="col-12 mt-3 p-0 pl-4 pr-4">
+            <div class="row m-0 p-0">
+                <div class="col-6 m-0 p-0">
+                    <label id="ingreso" for="" class="d-inline-flex box-shadow label-fechas">
+                                    <input type="image"
+                                           src="./assets/images/home/calendario.svg"
+                                           (click)="datepickerIngreso.toggle()"
+                                           class="input-image">
+                                    <input type="text"
+                                           id="fechaInicio"
+                                           [(ngModel)]="fchingreso"
+                                           placeholder="Ingreso"
+                                           class="p-0 pl-2 v-texto-3"
+                                           (keypress)="validarTodo($event)"
+                                           #datepickerIngreso="bsDatepicker"
+                                           (onHidden)="handlerIngreso(datepickerIngreso)"
+                                           (bsValueChange)="onValueChangeIngreso($event)"
+                                           value="lhotel.cityName"
+                                           [minDate]="minDateIngreso"
+                                           [maxDate]="maxDateIngreso"
+                                           bsDatepicker
+                                           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                                    >
+                                  </label>
+                </div>
+                <div class="col-6 m-0 p-0">
+                    <label id="destino" for="" class="d-inline-flex box-shadow label-fechas">
+                                    <input type="image"
+                                           src="./assets/images/home/calendario.svg"
+                                           (click)="datepickerSalida.toggle()"
+                                           class="input-image">
+                                    <input type="text"
+                                           id="fechaFin"
+                                           placeholder="Salida"
+                                           [(ngModel)]="fchsalida"
+                                           class="p-0 pl-2 v-texto-3"
+                                           #datepickerSalida="bsDatepicker"
+                                           (keypress)="validarTodo($event)"
+                                           (bsValueChange)="onValueChangeSalida($event)"
+                                           [minDate]="minDateSalida"
+                                           bsDatepicker
+                                           [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                                    >
+                                  </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3 text-categoria">
+            Categoria
+        </div>
+        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
+            <div class="btn-group" style="width: 100% !important;" dropdown>
+                <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                        <span class="star-filtro" *ngIf="textoestrellas === 'Todas'">     {{textoestrellas}}</span>
+                        <span class="star-filtro" *ngIf="textoestrellas === '5'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
+                        <span class="star-filtro" *ngIf="textoestrellas === '4'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
+                        <span class="star-filtro" *ngIf="textoestrellas === '3'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
+                        <span class="star-filtro" *ngIf="textoestrellas === '2'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">     {{textoestrellas}}</span>
+                        <span class="star-filtro" *ngIf="textoestrellas === '1'"><img src="./assets/images/star.svg">     {{textoestrellas}}</span>
+                            </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3 list-star pl-3 pr-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item" (click)="SeleccionarEstrella('', 'Todas')">Todas</a></li>
+                    <li role="menuitem" class="row m-0 p-0">
+                        <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('5', '5')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                        <div class="col-1 m-0 p-0 number-star">5</div>
+                    </li>
+                    <li role="menuitem" class="row m-0 p-0">
+                        <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('4', '4')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                        <div class="col-1 m-0 p-0 number-star">4</div>
+                    </li>
+                    <li role="menuitem" class="row m-0 p-0">
+                        <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('3', '3')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                        <div class="col-1 m-0 p-0 number-star">3</div>
+                    </li>
+                    <li role="menuitem" class="row m-0 p-0">
+                        <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('2', '2')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                        <div class="col-1 m-0 p-0 number-star">2</div>
+                    </li>
+                    <li role="menuitem" class="row m-0 p-0">
+                        <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('1', '1')"><img src="./assets/images/estrellas.svg"></div>
+                        <div class="col-1 m-0 p-0 number-star">1</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 mt-5 div-line">
+                </div>
+                <div class="div-noches">
+                    <span id="nronoches">{{cantidadnoches}}</span><span class="pl-1">noche(s)</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
+            <label for="" class="txthabitaciones">Habitaciones</label>
+        </div>
+
+        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
+            <div class="row m-0 p-0" onclick="MostrarModal()" id="habitacion">
+                <label for="" class="d-inline-flex box-shadow col-6 label-iconhabitacion">
+                        <input type="image"
+                        src="./assets/images/cama.svg"
+                        class="input-img2">
+                        <input (keypress)="validarNumeros($event)" type="text"
+                        [(ngModel)]="habitaciones"
+                        id="txthabitacion"
+                        class="input-habitacion"
+                        value="{{lhotel.numberPassenger}}">
+                      </label>
+                <label for="" class="d-inline-flex box-shadow col-6 label-iconpersona">
+                      <input type="image"
+                      src="./assets/images/pasajero.svg"
+                      class="input-img2">
+                      <input (keypress)="validarNumeros($event)" type="text"
+                      [(ngModel)]="adultos"
+                      id="txtpersonas"
+                      class="input-habitacion"
+                      value="2">
+                      </label>
+            </div>
+            <div class="modal-info tooltipHabitaciones box-shadow" id="pop1" style="display: none;">
+                <div id="habitacion_1">
+                    <div id="seccion_habitacion">
+                        <div class="title-room2">
+                            <span>Habitacion 1</span>
+                        </div>
+                        <hr>
+                        <div class="number-adults">
+                            <span>Adultos</span>
+                            <div class="input-group number-spinner">
+                                <span class="input-group-btn">
+                                                        <button class="btn btn-danger" data-dir="dwn"><i class="fas fa-minus"></i></button>
+                                                    </span>
+                                <input type="text" class="form-control text-center" id="txtadultos_1" value="2">
+                                <span class="input-group-btn">
+                                                        <button  class="btn btn-danger" data-dir="up"><i class="fas fa-plus"></i></button>
+                                                    </span>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div id="habitacion_2"></div>
+                <div id="options_1">
+                    <div class="btn-agregar" id="divbotones_1" style="display: block;">
+                        <button class="btn btn-danger text-btn" onclick="AddHabitaciones(1)">Añadir habitacion</button>
+                        <button class="btn btn-danger añadir" onclick="Aplicar(1)">Aplicar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0">
+                    <button class="btn v-btn-buscar" (click)="SeachHotel()">
+                                    <img src="./assets/images/home/buscador-musical.svg" alt="">
+                                    Buscar
+                                  </button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>-->

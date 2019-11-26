@@ -70,6 +70,7 @@ export class IHabitacionResults {
     }
   ];
   gds: string;
+  contador: number;
   pseudo: string;
     osession: {
         sessionId: string;
