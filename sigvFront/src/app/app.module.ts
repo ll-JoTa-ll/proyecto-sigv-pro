@@ -110,11 +110,8 @@ import { FiltroPrecioHotelComponent } from './components/busqueda-global/hoteles
 import { ReservaGeneradaHotelComponent } from './components/busqueda-global/hoteles/reserva-generada-hotel/reserva-generada-hotel.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { ToastrModule } from 'ngx-toastr';
-
 import { VueloFamiliaSectionComponent } from './components/vuelos/familias/vuelo-familia-section/vuelo-familia-section.component';
 import { VueloFamiliaSegmentComponent } from './components/vuelos/familias/vuelo-familia-segment/vuelo-familia-segment.component';
-
-
 import { NavHeaderComponent } from './components/shared/nav-header/nav-header.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
@@ -124,6 +121,8 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { FormattimeairportPipe } from './pipes/formattimeairport.pipe';
 import { SessionExpirationAlert, SessionInteruptService } from 'session-expiration-alert';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/hoteles/busqueda-mini-habitacion/busqueda-mini-habitacion.component';
+
 
 @NgModule({
   declarations: [
@@ -219,7 +218,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     VueloFamiliaSectionComponent,
     VueloFamiliaSegmentComponent,
     NavHeaderComponent,
-    FormattimeairportPipe
+    FormattimeairportPipe,
+    BusquedaMiniHabitacionComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,9 @@ import { ILoginDatosModel } from '../../../../../models/ILoginDatos.model';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 
+declare var jquery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-titulares-reserva',
   templateUrl: './titulares-reserva.component.html',
@@ -34,23 +37,13 @@ export class TitularesReservaComponent implements OnInit {
   }
 
   validarCorreo() {
-    let correo = this.correo;
-   
-    if (correo.length == 3) {
-      correo += '' ;
-      this.correo = correo;
-    }
-    this.outCorreo.emit(this.correo)
+    let correo = $("#correoTitu").val();
+    this.outCorreo.emit(correo)
   }
 
   validarTelefono() {
-    let telefono = this.telefono;
-   
-    if (telefono.length == 3) {
-      telefono += '' ;
-      this.telefono = telefono;
-    }
-    this.outTelefono.emit(this.telefono)
+    let telefono = $("#fonoTitu").val();
+    this.outTelefono.emit(telefono)
   }
 
     validarNumeros(e){

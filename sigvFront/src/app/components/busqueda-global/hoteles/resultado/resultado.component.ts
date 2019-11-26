@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
 import { HotelService } from '../../../../services/hotel.service';
 import { datepickerAnimation } from 'ngx-bootstrap/datepicker/datepicker-animations';
@@ -11,6 +11,9 @@ import { VuelosComponent } from '../../vuelos/vuelos.component';
 import { HotelesComponent } from '../hoteles.component';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+
+
 
 declare var jquery: any;
 declare var $: any;
@@ -21,7 +24,7 @@ declare var $: any;
   styleUrls: ['./resultado.component.sass']
 })
 export class ResultadoComponent implements OnInit {
-
+  @ViewChild(ModalDirective,{static:false}) modal: ModalDirective;
   loginDataUser: ILoginDatosModel;
 
   @Input() LHoteles: IHotelResultsModel[];
@@ -46,22 +49,20 @@ export class ResultadoComponent implements OnInit {
   urlimg = './assets/images/hotel-icon.png';
   lstHabication: IHabitacionResults;
   lstHotel : IHotelResultsModel[];
-  
+  objSearch: any;
+
+  t: number;
 
   constructor(private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router,private Hotels: HotelesComponent) {
-    this.bnIdle.startWatching(1740).subscribe((res) => {
-      if(res) {
-          alert("session expired");
-          this.router.navigate(['hoteles']);
-      }
-    })
-   }
+
+  }
 
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
-    
+
   }
+
 
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
@@ -69,61 +70,75 @@ export class ResultadoComponent implements OnInit {
     let data = {
       "Pseudo": "LIMPE2235",
       "Lhotel":
-      [
-        {
-          "HotelCode": hotelcode,
-          "StartDate": fechasalida,
-          "EndDate": fecharetorno,
-          "LguestPerRoom":
-          [
-            {
-              "RoomQuantity": $('#txthabitacion').val(),
-              "NumberPassengers": cantpersonas,
-              "TypePassenger": "ADT"
-            }
-          ]
-        }
-      ],
+        [
+          {
+            "HotelCode": hotelcode,
+            "StartDate": fechasalida,
+            "EndDate": fecharetorno,
+            "LguestPerRoom":
+              [
+                {
+                  "RoomQuantity": $('#txthabitacion').val(),
+                  "NumberPassengers": cantpersonas,
+                  "TypePassenger": "ADT"
+                }
+              ]
+          }
+        ],
       "Ocompany": this.loginDataUser.ocompany
     }
+    this.objSearch = {
+      destino: $('#destinos').val(),
+      fechaentrada: $('#fechaInicio').val(),
+      fechasalida: $('#fechaFin').val(),
+      categoria : this.estrellas,
+      habi: $('#txthabitacion').val(),
+      personas: $('#txtpersonas').val()
+    };
+    this.sessionStorageService.store("ss_sessionmini",this.objSearch);
 
     let hotel;
     for (let i = 0; i < this.lstHotel.length; i++) {
       const element = this.lstHotel[i];
-      
+
       if (element.code === hotelcode) {
         hotel = this.lstHotel[i];
       }
-      
+
     }
     this.sessionStorageService.store("lhotel",hotel);
 
     this.service.GetHabitacion(data).subscribe(
       data => {
         this.lstHabication = data;
-        
+
         this.sessionStorageService.store("lstHabication", this.lstHabication);
 
         window.open(environment.url_project + "/habitacion");
       },
       err => {
-      this.Hotels.spinner.hide();
-      
-    },
-   () => {
-     this.Hotels.spinner.hide();
-    
-   }
+        this.Hotels.spinner.hide();
+
+      },
+      () => {
+        this.Hotels.spinner.hide();
+
+      }
     )
   }
 
 
   Mostrarmapa(position) {
     $('#mapa_' + position).show();
- }
- 
- OcultarMapa(position) {
-   $('#mapa_' + position).hide();
- }
+  }
+
+
+  VolverHome(){
+    this.router.navigate[('')]
+  }
+
+  OcultarMapa(position) {
+    $('#mapa_' + position).hide();
+  }
 
 }

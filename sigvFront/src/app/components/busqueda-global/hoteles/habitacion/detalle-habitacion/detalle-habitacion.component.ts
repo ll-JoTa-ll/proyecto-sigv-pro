@@ -29,7 +29,7 @@ export class DetalleHabitacionComponent implements OnInit {
   User : IGetUserById;
   lhotel;
   habitacion;
-
+  userId;
   constructor(
     private service: HotelService,
     private sessionStorageService: SessionStorageService,
@@ -40,14 +40,14 @@ export class DetalleHabitacionComponent implements OnInit {
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.User = this.sessionStorageService.retrieve("ss_user");
-      
+    this.userId = this.loginDataUser.userId;
    }
 
   ngOnInit() {
     
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
-    
+    this.getUser();
 
   }
 
@@ -90,6 +90,28 @@ export class DetalleHabitacionComponent implements OnInit {
     )
   }
 
+  getUser(){
+    let data = {
+      userId: this.userId
+      }
+
+      this.service.GetUser(data.userId).subscribe(
+        result => {
   
+          this.User = result;
+          
+          this.sessionStorageService.store("ss_user", this.User);
+          //this.router.navigate(['/reserva-habitacion-hotel']);
+        },
+        err => {
+          this.spinner.hide();
+       
+      },
+     () => {
+
+      
+     }
+      )
+  }
 
 }
