@@ -232,6 +232,16 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            const itemsegmentgroup = segmentgroup[j];
            htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
            htmlsection += "<div style='width: 100%; border-radius: 20px 20px 20px 20px; background: white; padding: 1em; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);'>";
+
+           if (itemsegmentgroup.fareFamilyName !== '') {
+           htmlsection+= "<div class='row'>";
+           htmlsection+= "<div style='width: 100% !important'>";
+           htmlsection+= "<span style='background: #FFCD01; color: #FFFFFF; font-size: 17px;border-radius: 5px;border: 1px solid #8A7979; width: 250px;display: block;text-align: center;'>";
+           htmlsection+= itemsegmentgroup.fareFamilyName;
+           htmlsection+= "</span>";
+           htmlsection+= "</div>";
+           htmlsection+= "</div>";
+          }
            htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
            htmlsection += "<div style='width: 40%;'>";
            htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://sigvplus.azurewebsites.net/sigv/assets/images/Airlines/";
@@ -432,6 +442,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            mails.push(item.email);
         }
       });
+      console.log(this.emailsolicitud);
       let data = {
         "AgencyId": 1,
         "Recipients": mails,
@@ -603,6 +614,15 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
          for (let j = 0; j < segmentgroup.length; j++) {
            const itemsegmentgroup = segmentgroup[j];
+           if (itemsegmentgroup.fareFamilyName !== null) {
+           htmlsection+= "<div class='row '>";
+           htmlsection+= "<div style='width: 100% !important; padding-left: 2%; '>";
+           htmlsection+= "<span style='color: #3D3D3D; font-size: 20px;'>Clase de vuelo: ";
+           htmlsection+= itemsegmentgroup.fareFamilyName;
+           htmlsection+= "</span>";
+           htmlsection+= "</div>";
+           htmlsection+= "</div>";
+           }
            htmlsection+="<div style='width: 100% !important;'>";
            htmlsection+="<div style='width: 100% !important; padding-top: 1%; padding-bottom: 1%;padding-left: 2%;'>";
            htmlsection+="<span><img style='width: 30px; ' src='https://sigvplus.azurewebsites.net/sigv/assets/images/airplaneida.png '></span>";

@@ -9,7 +9,7 @@ declare var $: any;
   templateUrl: './reserva-ticket.component.html',
   styleUrls: ['./reserva-ticket.component.sass']
 })
-export class ReservaTicketComponent implements OnInit , AfterViewInit{
+export class ReservaTicketComponent implements OnInit , AfterViewInit {
 
   Lsection;
   lsflightavailability;

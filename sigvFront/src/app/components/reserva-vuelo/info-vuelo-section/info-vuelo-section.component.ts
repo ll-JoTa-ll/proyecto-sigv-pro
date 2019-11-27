@@ -13,6 +13,7 @@ export class InfoVueloSectionComponent implements OnInit {
   @Input() sectionLength;
   @Input() posicion;
   @Input() LSection;
+  @Input() index;
 
   modalRef: BsModalRef;
   config = {

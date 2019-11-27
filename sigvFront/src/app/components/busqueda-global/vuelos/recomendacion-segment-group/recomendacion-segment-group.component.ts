@@ -20,7 +20,7 @@ export class RecomendacionSegmentGroupComponent implements OnInit {
 
   ngOnInit() {
     if (this.lSegmentGroupsLength === this.lSegmentGroupsIndex) {
-      this.textFlightTimeShow = "Duracion total: " + this.totalFlightTimeShow;
+      this.textFlightTimeShow = "Duración total: " + this.totalFlightTimeShow;
     } else {
       this.textFlightTimeShow = "Espera en aeropuerto: " + this.segmentGroup.timeWaitAirport.replace("00d ", "");
     }
