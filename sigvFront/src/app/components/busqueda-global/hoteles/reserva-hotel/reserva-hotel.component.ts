@@ -308,6 +308,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     this.emailsolicitud = this.emailsolicitud.replace('@amenities', htmlGlobal);
     this.emailsolicitud = this.emailsolicitud.replace('@priceTotal', this.Reserva.litineraryInfos[0].priceTotal);
     this.emailsolicitud = this.emailsolicitud.replace('@pnr', this.Reserva.pnr);
+    this.emailsolicitud = this.emailsolicitud.replace('@confirmacion', this.Reserva.litineraryInfos[0].codeConfirmation);
     this.emailsolicitud = this.emailsolicitud.replace('@numeronoches', this.lsthabitacion.ohotel.numberNights);
     this.emailsolicitud = this.emailsolicitud.replace('@numeropersonas', this.lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers);
     this.emailsolicitud = this.emailsolicitud.replace('@descripcionHabitacion', this.Reserva.litineraryInfos[0].descriptionRoom);

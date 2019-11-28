@@ -30,10 +30,11 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   lsthabitacion : IHabitacionResults;
   loginDataUser: ILoginDatosModel;
   Confirmacion : IGetEnhancedHotel;
-  
-
+  divwarning: boolean;
+  currency: string;
   LHoteles: IHotelResultsModel;
- 
+  fechaSalida: string;
+  fechaRetorno: string;
   
   
   @Input() LlistaHotel: IHotelResultsModel[] = [];
@@ -61,7 +62,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   mapafiltro: boolean;
   showComponent: boolean = false;
   hideComponent: boolean = true;
-  hoteles: IHotelResultsModel[];
+  hoteles: IHotelResultsModel[] = [];
   
   @Input() urlHotel: string;
   @Input() estrellas: number;
@@ -84,9 +85,9 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
-    console.log(this.LHoteles);
+   
     this.personas = this.LHoteles.numberPassenger;
-    
+    this.divwarning = false;
 
    // this.contador = 600;
     
@@ -114,7 +115,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     startCountDown(seconds, template){
       var counter = seconds;
       var interval = setInterval(() => {
-        console.log(counter);
+        
         counter--;
         if (counter < 0 ) {
           clearInterval(interval);
@@ -145,6 +146,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+    this.startCountDown(600, this.modalexpired);
   }
 
   openModal(template: TemplateRef<any>) {
@@ -158,16 +160,38 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   showHideMap($event) {
     this.mapafiltro = $event;
   }
+
+  ObtenerListFiltro($event) {
+    this.LlistaHotel = [];
+    this.LlistaHotel = $event;
+    console.log("LlistaHotel =====>" + this.LlistaHotel);
+  }
+
+  MostrarMapa($event) {
+    this.vistamapa = $event;
+    this.vistalistado = false;
+ }
+
+ MostrarListado($event) {
+    this.vistalistado = $event;
+    this.vistamapa = false;
+ }
   
   showComponente($event) {
+    console.log("showComponente");
+    console.log("$event: " + $event);
     this.showComponent = $event;
   }
 
   hideComponente($event) {
+    console.log("hideComponente");
+    console.log("$event: " + $event);
     this.hideComponent = $event;
   }
 
   listadoHoteles($event) {
+    console.log("listadoHoteles");
+    console.log("$event: " + $event);
     this.hoteles = $event;
  
   }
@@ -180,6 +204,9 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   }
 
   Obtenerlistado($event) {
+    console.log("Obtenerlistado");
+    console.log("$event: " + $event);
+    console.log("");
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
 
@@ -243,8 +270,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     this.texto2 = this.lsthabitacion.ohotel.hotelDescription.substring(250,this.lsthabitacion.ohotel.hotelDescription.length);
     this.texto3 = this.lsthabitacion.ohotel.hotelDescription;
     this.lsthabitacion.contador = this.contador;
-    console.log("this.contador ====>" +this.contador)
-    console.log("this.contador ====>" +this.contador)
+ 
   }
 
  mostrarmas(){
@@ -257,6 +283,37 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   $('#p2').css("display","none")
   $('#p1').css("display","block")
  }
+
+ ObtenerListaFiltroEstrella($event) {
+  this.divwarning = false;
+  this.LlistaHotel = [];
+  this.LlistaHotel = $event;
+  console.log("$event" + $event);
+  if (this.LlistaHotel.length === 0) {
+    this.divwarning = true;
+  }
+}
+
+ObtenerListaFiltroPrecio($event) {
+  this.divwarning = false;
+  this.LlistaHotel = [];
+  this.LlistaHotel = $event;
+
+  if (this.LlistaHotel.length === 0) {
+    this.divwarning = true;
+  }
+
+}
+
+ObtenerListaFiltroNombre($event) {
+  this.LlistaHotel = [];
+  this.LlistaHotel = $event;
+
+  if (this.LlistaHotel.length === 0) {
+    this.divwarning = true;
+  }
+
+}
 
   
 

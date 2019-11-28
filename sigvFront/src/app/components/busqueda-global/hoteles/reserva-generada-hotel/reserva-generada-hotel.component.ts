@@ -32,6 +32,7 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.bloquearBotonAtras();
     this.reserva = this.sessionStorageService.retrieve("reserva");
     this.confirmacion = this.sessionStorageService.retrieve("confirmacion");
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
@@ -80,5 +81,12 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
       
     }
  }
+
+ bloquearBotonAtras() {
+  history.pushState(null, null, location.href);
+  window.onpopstate = function() {
+    history.go(1);
+};
+}
 
 }

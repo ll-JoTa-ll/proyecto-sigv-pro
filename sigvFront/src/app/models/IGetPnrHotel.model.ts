@@ -13,7 +13,7 @@ export class IGetPnrHotel {
             numberPhone: string;
             descriptionRoom: string;
             penality: string;
-            CodeConfirmation: string;
+            codeConfirmation: string;
         }
     ];
     lpassengers:[{

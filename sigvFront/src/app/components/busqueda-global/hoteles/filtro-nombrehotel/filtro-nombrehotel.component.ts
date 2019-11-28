@@ -14,20 +14,31 @@ export class FiltroNombrehotelComponent implements OnInit {
   @Input() listado: IHotelResultsModel[];
   @Output() resultFiltro = new EventEmitter<any[]>();
   ls_search_hotel;
+  minibuscador;
   listadohotel: IHotelResultsModel[] = [];
 
-  constructor(private sessionStorageService: SessionStorageService) { }
+  constructor(private sessionStorageService: SessionStorageService) {
+    this.ls_search_hotel = null;
+    
+   }
 
   ngOnInit() {
     this.ls_search_hotel = this.sessionStorageService.retrieve('ls_search_hotel');
+    
   }
 
 
   FiltrarNombre() {
+    this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
     let nombre;
     let results;
     let listado;
-    listado = this.ls_search_hotel;
+    if (this.minibuscador != null) {
+      listado = this.minibuscador;
+    }else{
+      listado = this.ls_search_hotel;
+    }
+    
     nombre = $('#nombrehotel').val();
     results = listado.filter(m => m.name.toUpperCase().includes(nombre.toUpperCase()))
     //results = listado.filter(m => m.name === nombre);

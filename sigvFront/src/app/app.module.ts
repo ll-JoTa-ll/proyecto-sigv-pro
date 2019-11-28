@@ -128,6 +128,7 @@ import { ModalHotelesVaciosComponent } from './components/shared/modal-hoteles-v
 import { FormattimeairportPipe } from './pipes/formattimeairport.pipe';
 import { SessionExpirationAlert, SessionInteruptService } from 'session-expiration-alert';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResultadoHabitacionComponent } from './components/busqueda-global/hoteles/resultado-habitacion/resultado-habitacion.component';
 
 @NgModule({
   declarations: [
@@ -226,7 +227,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BusquedaMiniHabitacionComponent,
     ModalSesionExpiradaComponent,
     ModalHotelesVaciosComponent,
-    FormattimeairportPipe
+    FormattimeairportPipe,
+    ResultadoHabitacionComponent
   ],
   imports: [
     BrowserModule,

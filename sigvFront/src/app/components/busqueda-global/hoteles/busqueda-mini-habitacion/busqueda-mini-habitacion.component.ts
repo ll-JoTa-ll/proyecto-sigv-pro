@@ -190,6 +190,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
   }
 
   SeachHotel() {
+    this.spinner.show();
     const val= this.ValidarCampos();
     let fechaSal;
     let fechaRe;
@@ -203,8 +204,6 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
       return val;
     }
     else{
-    
-      this.spinner.show();
     this.flagShowMap.emit(false);
     let data = {
       "Lhotel":
@@ -236,7 +235,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
           }
           else {
             
-          this.sessionStorageService.store('ls_search_hotel', result);
+          this.sessionStorageService.store('ss_minibuscador', result);
 
           //this.sessionStorageService.store('ls_search_hotel', result);
           //this.LlistaHotel = result;
@@ -249,7 +248,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
           this.messagelistado.emit(this.LResultshotel);
           this.ShowComponent.emit(true);
           this.hideComponent.emit(false);
-          this.spinner.hide();
+         
           }
        },
        err => {

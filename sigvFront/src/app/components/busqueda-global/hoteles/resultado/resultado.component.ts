@@ -12,6 +12,7 @@ import { HotelesComponent } from '../hoteles.component';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -53,20 +54,26 @@ export class ResultadoComponent implements OnInit {
   
   t: number;
 
-  constructor(private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router,private Hotels: HotelesComponent) {
+  constructor(public spinner: NgxSpinnerService,private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router) {
+
+    console.log("ResultadoComponent constructor");
     
    }
 
   ngOnInit() {
+    console.log("ResultadoComponent ngOnInit");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
+    console.log("this.loginDataUser: " + JSON.stringify(this.loginDataUser));
+    console.log("this.lstHotel: " + JSON.stringify(this.lstHotel));
+    console.log("this.LHoteles: " + JSON.stringify(this.LHoteles));
     
   }
 
  
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
-    this.Hotels.spinner.show();
+    this.spinner.show();
     let data = {
       "Pseudo": "LIMPE2235",
       "Lhotel":
@@ -117,11 +124,11 @@ export class ResultadoComponent implements OnInit {
         window.open(environment.url_project + "/habitacion");
       },
       err => {
-      this.Hotels.spinner.hide();
+      this.spinner.hide();
       
     },
    () => {
-     this.Hotels.spinner.hide();
+     this.spinner.hide();
     
    }
     )
