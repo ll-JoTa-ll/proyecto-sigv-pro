@@ -124,6 +124,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/hoteles/busqueda-mini-habitacion/busqueda-mini-habitacion.component';
 import { ModalHotelesVaciosComponent } from './components/shared/modal-hoteles-vacios/modal-hoteles-vacios.component';
 import { ModalSesionExpiradaComponent } from './components/shared/modal-sesion-expirada/modal-sesion-expirada.component';
+import { BoletosnousadosComponent } from './components/boletosnousados/boletosnousados.component';
 
 
 @NgModule({
@@ -223,7 +224,8 @@ import { ModalSesionExpiradaComponent } from './components/shared/modal-sesion-e
     FormattimeairportPipe,
     BusquedaMiniHabitacionComponent,
     ModalHotelesVaciosComponent,
-    ModalSesionExpiradaComponent
+    ModalSesionExpiradaComponent,
+    BoletosnousadosComponent
   ],
   imports: [
     BrowserModule,

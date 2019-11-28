@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'mis-reservas-vuelo', component: MisReservasVueloComponent, runGuardsAndResolvers: 'always' },
   { path: 'gestion-reserva-vuelo', component: GestionReservaVueloComponent, runGuardsAndResolvers: 'always' },
   { path: 'aprobar-reserva-vuelo', component: AprobacionReservaComponent, runGuardsAndResolvers: 'always' },
-  { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' },
+  { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' }
 ];
 
 @NgModule({

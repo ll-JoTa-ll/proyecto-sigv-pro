@@ -328,6 +328,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.valdestino = false;
     $("#txtDestino").removeClass("campo-invalido");
     $(".x").show();
+    if (this.model.origentTexto.length < 5) {
+      this.model.origentTexto = '';
+    }
   }
 
   onChangeSearch2(val: string) {
@@ -340,8 +343,20 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onFocused2(e) {}
+  onFocused2(e) {
+  }
 
+  ClosedOrigen() {
+    if (this.model.origentTexto.length < 15) {
+      this.model.origentTexto = '';
+    }
+  }
+
+  ClosedDestino() {
+    if (this.model.destinoTexto.length < 15) {
+      this.model.destinoTexto = '';
+    }
+  }
 
   seleccionarCabina(valor, texto) {
     this.cabina = valor;

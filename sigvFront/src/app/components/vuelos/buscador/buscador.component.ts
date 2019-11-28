@@ -206,6 +206,18 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ClosedOrigen() {
+    if (this.origentTexto.length < 15) {
+      this.origentTexto = '';
+    }
+  }
+
+  ClosedDestino() {
+    if (this.destinoTexto.length < 15) {
+      this.destinoTexto = '';
+    }
+  }
+
   seleccionarTipoVuelo(valor) {
     this.tipoVuelo = valor;
   }

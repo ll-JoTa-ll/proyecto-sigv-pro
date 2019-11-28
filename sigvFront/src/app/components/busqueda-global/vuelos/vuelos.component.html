@@ -67,7 +67,7 @@
 
                                     <div class="ng-autocomplete" style="width: 100%;">
                                         <ng-autocomplete [(ngModel)]="model.origentTexto" popover="Falta ingresar el origen" triggers="" [isOpen]="isOpen" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeHolder="Ingresa desde donde viajas">
+                                            (closed)='ClosedOrigen()' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeHolder="Ingresa desde donde viajas">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -97,7 +97,7 @@
 
                                     <div class="ng-autocomplete" style="width: 100%;">
                                         <ng-autocomplete [(ngModel)]="model.destinoTexto" popover="Falta ingresar el destino" triggers="" [isOpen]="valdestino" style="color: #898989 !important;" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent2($event)' (inputChanged)='onChangeSearch2($event)'
-                                            (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2" [notFoundTemplate]="notFoundTemplate2" placeHolder="Ingresa hacia dónde viajas">
+                                            (closed)="ClosedDestino()" (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2" [notFoundTemplate]="notFoundTemplate2" placeHolder="Ingresa hacia dónde viajas">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate2 let-item>
