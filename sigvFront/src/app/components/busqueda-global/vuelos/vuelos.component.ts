@@ -115,6 +115,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   valdestino = false;
   valfechasalida = false;
   valfechadestino = false;
+  indback;
 
   model: any = {};
 
@@ -195,6 +196,75 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     } else {
       this.flagPaxMasMenos = false;
     }
+
+    this.indback = this.sessionStorageService.retrieve('indregresar');
+    let tipovuelo;
+    if (this.indback === true) {
+     // this.SearchFlight2();
+     let databuscador = this.sessionStorageService.retrieve('objbuscador');
+     let dataRequestFlight = this.sessionStorageService.retrieve('ss_databuscador');
+     if (dataRequestFlight != null) {
+      tipovuelo = databuscador.tipovuelo;
+
+      if (tipovuelo === 'OW' || tipovuelo === 'RT') {
+        let lstdata = this.sessionStorageService.retrieve('ss_searchFlight');
+        this.setLstAerolineas(lstdata);
+        this.searchData = lstdata;
+        this.flagBuscar = true;
+        this.flagBuscadorLateral = true;
+        this.sessionStorageService.store('indregresar', null);
+        this.sessionStorageService.store('indback2', true);
+        this.origenAuto = databuscador.origencode;
+        this.origentTexto = databuscador.origen;
+        this.destinoAuto = databuscador.destinocode;
+        this.destinoTexto = databuscador.destino;
+        this.textoEscala = databuscador.escala;
+        this.textoCabina = databuscador.cabina;
+        this.pasajeros = databuscador.pasajeros;
+        this.fechaSalidaShow = databuscador.fechasalida;
+        this.fechaRetornoShow = databuscador.fechadestino;
+        this.fechaSalida = databuscador.fechasalida;
+        this.fechaRetorno = databuscador.fechadestino;
+        this.tipoVuelo = databuscador.tipovuelo;
+      }
+      if (tipovuelo === 'MC') {
+        let lstdata = this.sessionStorageService.retrieve('ss_searchFlight');
+        this.setLstAerolineas(lstdata);
+        this.searchData = lstdata;
+        this.flagBuscar = true;
+        this.flagBuscadorLateral = true;
+        this.sessionStorageService.store('indregresar', null);
+        this.sessionStorageService.store('indback2', true);
+        this.origenAuto1 = databuscador.origencode1;
+        this.origenAuto2 = databuscador.origencode2;
+        this.origenAuto3 = databuscador.origencode3;
+        this.origenAuto4 = databuscador.origencode4;
+        this.origenAuto5 = databuscador.origencode5;
+        this.origenAuto6 = databuscador.origencode6;
+        this.origentTexto1 = databuscador.origen1;
+        this.origentTexto2 = databuscador.origen2;
+        this.origentTexto3 = databuscador.origen3;
+        this.origentTexto4 = databuscador.origen4;
+        this.origentTexto5 = databuscador.origen5;
+        this.origentTexto6 = databuscador.origen6;
+        this.destinoAuto1 = databuscador.destinocode1;
+        this.destinoAuto2 = databuscador.destinocode2;
+        this.destinoAuto3 = databuscador.destinocode3;
+        this.destinoAuto4 = databuscador.destinocode4;
+        this.destinoAuto5 = databuscador.destinocode5;
+        this.destinoAuto6 = databuscador.destinocode6;
+        this.destinoTexto1 = databuscador.destino1;
+        this.destinoTexto2 = databuscador.destino2;
+        this.destinoTexto3 = databuscador.destino3;
+        this.destinoTexto4 = databuscador.destino4;
+        this.destinoTexto5 = databuscador.destino5;
+        this.destinoTexto6 = databuscador.destino6;
+        this.textoEscala = databuscador.escala;
+        this.textoCabina = databuscador.cabina;
+        this.pasajeros = databuscador.pasajeros;
+      }
+     }
+    }
   }
 
 
@@ -212,6 +282,98 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
   }
 
+  SearchFlight2() {
+    this.spinner.show();
+    console.log("this.indexTramo: " + this.indexTramo);
+    this.flagDinData = false;
+    this.sessionStorageService.store('indregresar', null);
+
+    let origen: any[] = [];
+    let destino: any[] = [];
+    let fechas: any[] = [];
+    let horasFrom: any[] = [];
+    let horasTo: any[] = [];
+
+    let dataRequestFlight = this.sessionStorageService.retrieve('ss_databuscador');
+
+    let data = {
+      "Lusers": dataRequestFlight.Lusers,
+      "NumberPassengers": dataRequestFlight.NumberPassengers,
+      "NumberRecommendations": dataRequestFlight.NumberRecommendations,
+      "CabinType": dataRequestFlight.CabinType,
+      "Scales": dataRequestFlight.Scales,
+      "Origin": dataRequestFlight.Origin,
+      "Destination": dataRequestFlight.Destination,
+      "DepartureArrivalDate": dataRequestFlight.DepartureArrivalDate,
+      "DepartureArrivalTimeFrom": dataRequestFlight.DepartureArrivalTimeFrom,
+      "DepartureArrivalTimeTo": dataRequestFlight.DepartureArrivalTimeTo,
+      "Ocompany": dataRequestFlight.Ocompany
+    };
+
+    this.sessionStorageService.store('ss_dataRequestFlight', data);
+    this.sessionStorageService.store('ss_databuscador', data);
+    this.sessionStorageService.store('ss_horasFrom', horasFrom);
+    this.sessionStorageService.store('ss_horasTo', horasTo);
+    this.sessionStorageService.store('ss_filterPrecio', 'mas');
+
+
+    this.airportService.searchFlight(data).subscribe(
+      result => {
+        console.log(result);
+        this.flagPseudoRepeat = true;
+        if (result !== null && result.length > 0) {
+          this.searchData = result;
+          this.sessionStorageService.store('ss_searchFlight', result);
+          this.flagBuscar = true;
+          this.flagBuscadorLateral = true;
+
+          //aerolineas
+          this.setLstAerolineas(result);
+          /*
+          result.forEach(function(reco, indexreco) {
+            if (indexreco === 0) {
+              const dataAero = {
+                carrierId: reco.carrierId,
+                carrierName: reco.carrierName,
+                filter: 0
+              };
+              aerolineas.push(dataAero);
+            } else {
+              let flagAero = 1;
+              aerolineas.forEach(function(aerolinea, indexaero) {
+                if (aerolinea.carrierId === reco.carrierId) {
+                  flagAero = 0;
+                }
+              });
+              if (flagAero === 1) {
+                const dataAeroN = {
+                  carrierId: reco.carrierId,
+                  carrierName: reco.carrierName,
+                  filter: 0
+                };
+                aerolineas.push(dataAeroN);
+              }
+            }
+          });
+          this.aerolineas = aerolineas;
+          */
+        } else {
+          this.sessionStorageService.store('ss_searchFlight', null);
+          this.flagDinData = true;
+        }
+      },
+      err => {
+        this.spinner.hide();
+        this.flagBuscadorLateral = false;
+        console.log("ERROR: " + JSON.stringify(err));
+      },
+      () => {
+        this.spinner.hide();
+        this.flagBuscadorLateral = false;
+        console.log("this.airportService.searchFlight completado");
+      }
+    );
+  }
 
 
   /*
@@ -573,6 +735,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     };
 
     this.sessionStorageService.store('ss_dataRequestFlight', data);
+    this.sessionStorageService.store('ss_databuscador', data);
     this.sessionStorageService.store('ss_horasFrom', horasFrom);
     this.sessionStorageService.store('ss_horasTo', horasTo);
     this.sessionStorageService.store('ss_filterPrecio', 'mas');
@@ -586,6 +749,63 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     console.log("data: " + JSON.stringify(data));
 
     let aerolineas = this.aerolineas;
+    let objcampos;
+
+    if (this.tipoVuelo === 'OW' || this.tipoVuelo === 'RT') {
+        objcampos = {
+        origen: this.origentTexto,
+        origencode: this.origenAuto,
+        destino: this.destinoTexto,
+        destinocode: this.destinoAuto,
+        fechasalida: $('#fechasalida').val(),
+        fechadestino: $('#fechadestino').val(),
+        cabina: this.textoCabina,
+        escala: this.textoEscala,
+        pasajeros: this.pasajeros,
+        tipovuelo: this.tipoVuelo
+      };
+    }
+
+    if (this.tipoVuelo === 'MC') {
+      objcampos = {
+        origen1: this.origentTexto1,
+        origen2: this.origentTexto2,
+        origen3: this.origentTexto3,
+        origen4: this.origentTexto4,
+        origen5: this.origentTexto5,
+        origen6: this.origentTexto6,
+        origencode1: this.origenAuto1,
+        origencode2: this.origenAuto2,
+        origencode3: this.origenAuto3,
+        origencode4: this.origenAuto4,
+        origencode5: this.origenAuto5,
+        origencode6: this.origenAuto6,
+        destino1: this.destinoTexto1,
+        destino2: this.destinoTexto2,
+        destino3: this.destinoTexto3,
+        destino4: this.destinoTexto4,
+        destino5: this.destinoTexto5,
+        destino6: this.destinoTexto6,
+        destinocode1: this.destinoAuto1,
+        destinocode2: this.destinoAuto2,
+        destinocode3: this.destinoAuto3,
+        destinocode4: this.destinoAuto4,
+        destinocode5: this.destinoAuto5,
+        destinocode6: this.destinoAuto6,
+        fechasalida1: this.fechaSalida1,
+        fechasalida2: this.fechaSalida2,
+        fechasalida3: this.fechaSalida3,
+        fechasalida4: this.fechaSalida4,
+        fechasalida5: this.fechaSalida5,
+        fechasalida6: this.fechaSalida6,
+        tipovuelo: this.tipoVuelo,
+        cabina: this.textoCabina,
+        escala: this.textoEscala,
+        pasajeros: this.pasajeros
+      }
+    }
+
+    this.sessionStorageService.store('objbuscador', objcampos);
 
     this.airportService.searchFlight(data).subscribe(
       result => {

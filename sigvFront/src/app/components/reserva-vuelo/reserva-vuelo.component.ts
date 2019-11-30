@@ -130,6 +130,26 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /*
+  back2() {
+    if (history.go(-1)) {
+      this.router.navigate(['/vuelos']);
+      let back;
+      let interval;
+      back = true;
+      this.sessionStorageService.store('indregresar', back);
+    }
+  }
+*/
+
+  Back() {
+    this.router.navigate(['/vuelos']);
+    let back;
+    let interval;
+    back = true;
+    this.sessionStorageService.store('indregresar', back);
+  }
+
   ReasonFlight() {
     let data = {
       CompanyId: this.ocompany.companyId
@@ -147,6 +167,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
+  
 
 
   ValidarCorreo() {
@@ -181,6 +203,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         //this.router.navigate(['login'])
       }
     }, 1000);
+    return interval;
   }
 
   ValidarCampos() {
