@@ -262,6 +262,21 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.textoEscala = databuscador.escala;
         this.textoCabina = databuscador.cabina;
         this.pasajeros = databuscador.pasajeros;
+        this.tipoVuelo = databuscador.tipovuelo;
+        this.indexTramo = databuscador.indextramo;
+        this.fechaSalida1 = databuscador.fechasalida1;
+        this.fechaSalida2 = databuscador.fechasalida2;
+        this.fechaSalida3 = databuscador.fechasalida3;
+        this.fechaSalida4 = databuscador.fechasalida4;
+        this.fechaSalida5 = databuscador.fechasalida5;
+        this.fechaSalida6 = databuscador.fechasalida6;
+        this.fechaSalidaShow1 = databuscador.fechasalida1;
+        this.fechaSalidaShow2 = databuscador.fechasalida2;
+        this.fechaSalidaShow3 = databuscador.fechasalida3;
+        this.fechaSalidaShow4 = databuscador.fechasalida4;
+        this.fechaSalidaShow5 = databuscador.fechasalida5;
+        this.fechaSalidaShow6 = databuscador.fechasalida6;
+
       }
      }
     }
@@ -792,16 +807,17 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         destinocode4: this.destinoAuto4,
         destinocode5: this.destinoAuto5,
         destinocode6: this.destinoAuto6,
-        fechasalida1: this.fechaSalida1,
-        fechasalida2: this.fechaSalida2,
-        fechasalida3: this.fechaSalida3,
-        fechasalida4: this.fechaSalida4,
-        fechasalida5: this.fechaSalida5,
-        fechasalida6: this.fechaSalida6,
+        fechasalida1: this.fechaSalidaShow1,
+        fechasalida2: this.fechaSalidaShow2,
+        fechasalida3: this.fechaSalidaShow3,
+        fechasalida4: this.fechaSalidaShow4,
+        fechasalida5: this.fechaSalidaShow5,
+        fechasalida6: this.fechaSalidaShow6,
         tipovuelo: this.tipoVuelo,
         cabina: this.textoCabina,
         escala: this.textoEscala,
-        pasajeros: this.pasajeros
+        pasajeros: this.pasajeros,
+        indextramo: this.indexTramo
       }
     }
 

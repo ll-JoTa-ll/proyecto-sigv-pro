@@ -84,6 +84,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   @Output() outTipoVuelo = new EventEmitter<string>();
   @Output() outIndexTramo = new EventEmitter<number>();
 
+  fecha1show;
+  fecha2show;
+  fecha3show;
+  fecha4show;
+  fecha5show;
+  fecha6show;
+
   airportlist: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
@@ -159,12 +166,15 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     switch (tipoVuelo) {
       case 'RT':
         $('#radio_b_tv_1').prop("checked", true);
-        $('#datepickerSalida').val(fechaSalidaShow);
-        $('#datepickerRetorno').val(fechaRetornoShow);
+        this.model.salida = fechaSalidaShow;
+        this.model.retorno = fechaRetornoShow;
+       // $('#datepickerSalida').val(fechaSalidaShow);
+       // $('#datepickerRetorno').val(fechaRetornoShow);
         break;
       case 'OW':
         $('#radio_b_tv_2').prop("checked", true);
-        $('#datepickerRetorno').val(fechaRetornoShow);
+        this.model.salida = fechaSalidaShow;
+        //$('#datepickerSalida').val(fechaSalidaShow);
         break;
       case 'MC':
         $('#radio_b_tv_3').prop("checked", true);
@@ -372,6 +382,30 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     $("#txtFechaSalida").removeClass("campo-invalido");
     this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
     console.log(this.fechaSalida);
+  }
+
+  Updatefecha1($event) {
+   this.fecha1show = $event;
+  }
+
+  Updatefecha2($event) {
+    this.fecha2show = $event;
+  }
+
+  Updatefecha3($event) {
+    this.fecha3show = $event;
+  }
+
+  Updatefecha4($event) {
+    this.fecha4show = $event;
+  }
+
+  Updatefecha5($event) {
+    this.fecha5show = $event;
+  }
+
+  Updatefecha6($event) {
+    this.fecha6show = $event;
   }
 
   onValueChangeRetorno(value: Date): void {
@@ -588,16 +622,17 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         destinocode4: this.destinoAuto4,
         destinocode5: this.destinoAuto5,
         destinocode6: this.destinoAuto6,
-        fechasalida1: this.fechaSalida1,
-        fechasalida2: this.fechaSalida2,
-        fechasalida3: this.fechaSalida3,
-        fechasalida4: this.fechaSalida4,
-        fechasalida5: this.fechaSalida5,
-        fechasalida6: this.fechaSalida6,
+        fechasalida1: this.fecha1show,
+        fechasalida2: this.fecha2show,
+        fechasalida3: this.fecha3show,
+        fechasalida4: this.fecha4show,
+        fechasalida5: this.fecha5show,
+        fechasalida6: this.fecha6show,
         tipovuelo: this.tipoVuelo,
         cabina: this.textoCabina,
         escala: this.textoEscala,
-        pasajeros: this.pasajeros
+        pasajeros: this.pasajeros,
+        indextramo: this.indexTramo
       }
     }
 

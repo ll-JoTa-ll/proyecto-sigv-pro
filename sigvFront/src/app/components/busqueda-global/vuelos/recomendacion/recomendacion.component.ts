@@ -263,8 +263,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
                 segment.lfareFamilies.forEach(function(fare, indexFare) {
                   if (indexFare === 0) {
                     const fareFamilyName = fare.fareFamilyName;
-                    dataPost.Lsections[indexSection].Lsegments[indexSegment].LsegmentGroups[indexFare].fareFamilyName = fareFamilyName;
-                    datasecciones.Lsections[indexSection].Lsegments[indexSegment].LsegmentGroups[indexFare].fareFamilyName = fareFamilyName;
+                   dataPost.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexFare].fareFamilyName = fareFamilyName;
+                   datasecciones.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexFare].fareFamilyName = fareFamilyName;
                   }
                 });
               });
