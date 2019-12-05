@@ -36,6 +36,7 @@ export class ResultadoComponent implements OnInit {
   @Input() estrellas: number;
   @Input() precioxnoche: string;
   @Input() precioprom: string;
+  @Input() isvisible: string;
   @Input() currency: string;
   @Input() urlHotel: string;
   @Input() index: string;

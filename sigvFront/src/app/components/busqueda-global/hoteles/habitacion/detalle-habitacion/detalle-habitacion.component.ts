@@ -10,6 +10,8 @@ import { environment } from '../../../../../../environments/environment';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalHabitacionErroneaComponent } from '../../../../shared/modal-habitacion-erronea/modal-habitacion-erronea.component';
 
 @Component({
   selector: 'app-detalle-habitacion',
@@ -23,6 +25,7 @@ export class DetalleHabitacionComponent implements OnInit {
   @Input() breakFast;
   @Input() hotel;
 
+  modalRefSessionExpired: BsModalRef;
   lsthabitacion : IHabitacionResults;
   Confirmacion : IGetEnhancedHotel;
   loginDataUser: ILoginDatosModel;
@@ -31,6 +34,7 @@ export class DetalleHabitacionComponent implements OnInit {
   habitacion;
   userId;
   constructor(
+    private modalService: BsModalService,
     private service: HotelService,
     private sessionStorageService: SessionStorageService,
     //private confir: ReservaHotelComponent,
@@ -75,6 +79,7 @@ export class DetalleHabitacionComponent implements OnInit {
 
         this.Confirmacion = data;
         
+        
         this.sessionStorageService.store("confirmacion", this.Confirmacion);
       },
       err => {
@@ -83,7 +88,12 @@ export class DetalleHabitacionComponent implements OnInit {
     },
    () => {
     //window.open(environment.url_project + "/reserva-habitacion-hotel");
-    this.router.navigate(['/reserva-habitacion-hotel']);
+    if (this.Confirmacion.oerror != null) {
+      this.modalRefSessionExpired = this.modalService.show(ModalHabitacionErroneaComponent)
+    }else{
+      this.router.navigate(['/reserva-habitacion-hotel']);
+    }
+    
     this.spinner.hide();
     
    }

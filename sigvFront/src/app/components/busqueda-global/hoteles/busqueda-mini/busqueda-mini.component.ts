@@ -295,6 +295,15 @@ ValidarCampos() {
   return val;
 }
 
+validarNumerosN(e){
+  var tecla = (document.all) ? e.keyCode : e.which;
+   if (tecla == 8) return true;
+    var patron = /^([])*$/;
+     var teclaFinal = String.fromCharCode(tecla);
+     if(tecla == 505) return false;
+      return patron.test(teclaFinal);
+};
+
 ObtenerDias(fecha1, fecha2) {
   //const fecha1 = this.fchingreso;
   //const fecha2 = this.fchsalida;

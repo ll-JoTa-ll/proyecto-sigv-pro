@@ -40,6 +40,11 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
     this.reserva.numberPhone.forEach(function(item){
       this.phone = item;
     })
+    console.log("phone ======>" + this.phone);
+    console.log("phone ======>" + this.phone);
+    console.log("phone ======>" + this.phone);
+    console.log("phone ======>" + this.phone);
+    console.log("phone ======>" + this.phone);
   }
 
   ngAfterViewInit() {
@@ -54,6 +59,7 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+    
   }
 
   Mostrarmapa() {

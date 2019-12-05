@@ -124,6 +124,16 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     //this.token = this.sessionStorageService.retrieve('ss_token');
 
     this.localeService.use(this.locale);
+
+    window.addEventListener('storage',(event) => {
+      if (event.storageArea == localStorage) {
+        let token = this.localStorageService.retrieve('ss_token');
+        if(token == undefined){
+          this.router.navigate(['']);
+        }
+      }
+    });
+    
   }
 
   

@@ -56,7 +56,7 @@
                                                 </div>
                                                 <div class='row m-0 p-0'>
                                                     <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 0px 15px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.pnr}}</div>
-                                                    <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 15px 0px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.litineraryInfos[0].codeConfirmation}}</div>
+                                                    <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 15px 0px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.lpassengers[0].codeConfirmation}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,7 +90,7 @@
                                                         <span class="Pricefin">Precio Final</span>
                                                     </div>
                                                     <div class="col-8 m-0 p-0">
-                                                        <span class="pl-4"><span class="Moneda"></span><span class="Amount pl-2">{{reserva.litineraryInfos[0].priceTotal}}</span></span>
+                                                        <span class="pl-4"><span class="Moneda"></span><span class="Amount pl-2">{{reserva.oitineraryInfos.priceTotal}}</span></span>
                                                     </div>
                                                 </div>
                                                 <ng-container *ngIf="habitacion.ohotel.numberNights > 1; else elseTemplate" class="row m-0 p-0">
@@ -110,7 +110,7 @@
 
                                                     </div>
                                                     <div class="col-11 m-0 p-0 pb-3 pr-2">
-                                                        <span class="textopremin">✓ {{reserva.litineraryInfos[0].descriptionRoom}}</span>
+                                                        <span class="textopremin">✓ {{reserva.oitineraryInfos.descriptionRoom}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,7 +155,7 @@
                                         </div>
                                         <div class="row m-0 p-0">
                                             <div class="col-12 m-0 p-0 pt-3 pl-5">
-                                                <span></span><span class="phono">{{reserva.litineraryInfos[0].numberPhone}}</span>
+                                                <span></span><span class="phono">{{reserva.oitineraryInfos.numberPhone}}</span>
                                             </div>
                                         </div>
                                         <div class="row m-0 p-0 pt-5">
@@ -176,7 +176,7 @@
                                 <div class="row m-0 p-0">
                                     <div class="col-12 m-0 p-0 pb-3">
                                         <span class="condi pl-3">Condiciones:</span>
-                                        <span class="Description pl-3">{{reserva.litineraryInfos[0].penality}}</span>
+                                        <span class="Description pl-3">{{reserva.oitineraryInfos.penality}}</span>
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0">
@@ -240,4 +240,4 @@
 
 
     </app-header>
-</ng-container>
+</ng-container>n

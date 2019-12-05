@@ -57,7 +57,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.sessionStorageService.store('ss_login_data', '');
-    this.sessionStorageService.store('ss_token', '');
+    this.localStorageService.store('ss_token', '');
+
+    
 
   }
 
@@ -91,7 +93,7 @@ export class LoginComponent implements OnInit {
             });
             this.sessionStorageService.store('ss_login_data', result);
             this.token = result.token;
-            this.sessionStorageService.store('ss_token', result.token);
+            this.localStorageService.store('ss_token', result.token);
             console.log(this.token);
             this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
             this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);

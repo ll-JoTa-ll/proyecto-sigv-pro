@@ -306,12 +306,12 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     htmlGlobal = html;
     SinInfo = "Sin Información";
     this.emailsolicitud = this.emailsolicitud.replace('@amenities', htmlGlobal);
-    this.emailsolicitud = this.emailsolicitud.replace('@priceTotal', this.Reserva.litineraryInfos[0].priceTotal);
+    this.emailsolicitud = this.emailsolicitud.replace('@priceTotal', this.Reserva.oitineraryInfos.priceTotal);
     this.emailsolicitud = this.emailsolicitud.replace('@pnr', this.Reserva.pnr);
-    this.emailsolicitud = this.emailsolicitud.replace('@confirmacion', this.Reserva.litineraryInfos[0].codeConfirmation);
+    this.emailsolicitud = this.emailsolicitud.replace('@confirmacion', this.Reserva.lpassengers[0].codeConfirmation);
     this.emailsolicitud = this.emailsolicitud.replace('@numeronoches', this.lsthabitacion.ohotel.numberNights);
     this.emailsolicitud = this.emailsolicitud.replace('@numeropersonas', this.lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers);
-    this.emailsolicitud = this.emailsolicitud.replace('@descripcionHabitacion', this.Reserva.litineraryInfos[0].descriptionRoom);
+    this.emailsolicitud = this.emailsolicitud.replace('@descripcionHabitacion', this.Reserva.oitineraryInfos.descriptionRoom);
     this.emailsolicitud = this.emailsolicitud.replace('@fechaentrada', this.lstConfirmacion.oroom.startDate);
     this.emailsolicitud = this.emailsolicitud.replace('@fechasalida', this.lstConfirmacion.oroom.endDate);
     if (this.lsthabitacion.ohotel.checkIn != null && this.lsthabitacion.ohotel.checkIn != '') {
@@ -324,7 +324,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     }else{
       this.emailsolicitud = this.emailsolicitud.replace('@checkout', SinInfo);
     }
-    this.emailsolicitud = this.emailsolicitud.replace('@politicacancelacion', this.Reserva.litineraryInfos[0].penality);
+    this.emailsolicitud = this.emailsolicitud.replace('@politicacancelacion', this.Reserva.oitineraryInfos.penality);
     this.emailsolicitud = this.emailsolicitud.replace('@nombreusuario', this.Reserva.lpassengers[0].name + this.Reserva.lpassengers[0].lastName);
     this.emailsolicitud = this.emailsolicitud.replace('@telefono', this.Reserva.numberPhone);
     if(this.lsthabitacion.ohotel.limagens != null && this.lsthabitacion.ohotel.limagens.length > 0){

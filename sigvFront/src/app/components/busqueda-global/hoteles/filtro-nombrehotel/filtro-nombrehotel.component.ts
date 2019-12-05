@@ -23,8 +23,8 @@ export class FiltroNombrehotelComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.ls_search_hotel = this.sessionStorageService.retrieve('ls_search_hotel');
     
+    this.ls_search_hotel = this.sessionStorageService.retrieve('ls_search_hotel');
   }
 
 
@@ -41,7 +41,7 @@ export class FiltroNombrehotelComponent implements OnInit {
     
     nombre = $('#nombrehotel').val();
     results = listado.filter(m => m.name.toUpperCase().includes(nombre.toUpperCase()))
-    //results = listado.filter(m => m.name === nombre);
+    
     this.listadohotel = results;
     this.resultFiltro.emit(this.listadohotel);
   }

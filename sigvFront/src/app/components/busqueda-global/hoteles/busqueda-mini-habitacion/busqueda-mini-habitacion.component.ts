@@ -26,6 +26,9 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
   loginDataUser: ILoginDatosModel;
   LResultshotel: IHotelResultsModel[];
   isOpen = false;
+  noches: number;
+
+  
 
   @Output() flagShowMap = new EventEmitter<boolean>();
   @Output() ShowComponent = new EventEmitter<boolean>();
@@ -45,11 +48,13 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
   sessionMini1;
   sessionMini;
   estrellasSess;
+  ss_minibuscador;
+  ls_search_hotel;
 
   constructor(private localStorageService: LocalStorageService,private sessionStorageService: SessionStorageService,private spinner: NgxSpinnerService,private service: HotelService) { 
     this.lhotel = this.sessionStorageService.retrieve("hotel");
-    console.log("this.lhotel.name ===== >"+ this.lhotel.name)
-    
+
+
   }
   
   ngOnInit() {
@@ -57,10 +62,14 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
     this.sessionMini1 = this.sessionStorageService.retrieve('ss_sessionmini1');
     this.sessionMini = this.sessionStorageService.retrieve('ss_sessionmini');
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.ss_minibuscador = this.localStorageService.retrieve('ss_minibuscador');
+    this.ls_search_hotel = this.localStorageService.retrieve('ls_search_hotel');
     this.textoestrellas = this.sessionMini1.categoria;
     this.destinoValue = this.sessionMini1.iata;
     this.fechaSalida = this.sessionMini.fechaentrada;
     this.fechaRetorno = this.sessionMini.fechasalida;
+    console.log("this.ls_search_hotel =======> " + this.lhotel.endDate)
+
   }
   
   SeleccionarEstrella(codeestrella, texto) {
@@ -83,6 +92,15 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
         
     return val;
   }
+
+  validarNumerosN(e){
+    var tecla = (document.all) ? e.keyCode : e.which;
+     if (tecla == 8) return true;
+      var patron = /^([])*$/;
+       var teclaFinal = String.fromCharCode(tecla);
+       if(tecla == 505) return false;
+        return patron.test(teclaFinal);
+  };
   
   ObtenerDias(fecha1, fecha2) {
     //const fecha1 = this.fchingreso;
@@ -139,6 +157,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
     //this.fechaSalida = this.fchingreso;
     //this.fechaRetorno = this.fchsalida;
     this.ObtenerDias(this.fchingreso, this.fchsalida);
+    
+    
   }
 
   onValueChangeIngreso(value: Date): void {
@@ -190,16 +210,27 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
   }
 
   SeachHotel() {
+    console.log("this.fchingreso" + this.fchingreso);
+    console.log("this.fchingreso" + this.fchingreso);
+    console.log("this.fchingreso" + this.fchingreso);
+    console.log("this.fchingreso" + this.fchingreso);
+    console.log("this.fchingreso" + this.fchingreso);
+    console.log("this.fchingreso" + this.fchingreso);
+    console.log("this.fchingreso" + this.fchingreso);
+    console.log("this.fchingreso" + this.fchingreso);
     this.spinner.show();
     const val= this.ValidarCampos();
     let fechaSal;
     let fechaRe;
     fechaSal = this.fechaSalida;
     fechaRe = this.fechaRetorno;
-    fechaSal = fechaSal.split("-");
-    fechaRe = fechaRe.split("-");
-    fechaSal= fechaSal[2] + "-" + fechaSal[1] + "-" + fechaSal[0];
-    fechaRe= fechaRe[2] + "-" + fechaRe[1] + "-" + fechaRe[0];
+    if ( this.fchingreso == undefined) {
+      fechaSal = fechaSal.split("-");
+      fechaRe = fechaRe.split("-");
+      fechaSal= fechaSal[2] + "-" + fechaSal[1] + "-" + fechaSal[0];
+      fechaRe= fechaRe[2] + "-" + fechaRe[1] + "-" + fechaRe[0];
+    }
+  
     if (!val) {
       return val;
     }

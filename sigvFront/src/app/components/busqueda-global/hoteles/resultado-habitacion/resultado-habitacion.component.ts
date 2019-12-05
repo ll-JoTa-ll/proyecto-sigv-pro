@@ -56,8 +56,8 @@ export class ResultadoHabitacionComponent implements OnInit {
       [
         {
           "HotelCode": hotelcode,
-          "StartDate": fechasalida,
-          "EndDate": fecharetorno,
+          "StartDate": this.lstHotel[0].startDate,
+          "EndDate": this.lstHotel[0].endDate,
           "LguestPerRoom":
           [
             {

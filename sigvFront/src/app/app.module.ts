@@ -129,6 +129,7 @@ import { FormattimeairportPipe } from './pipes/formattimeairport.pipe';
 import { SessionExpirationAlert, SessionInteruptService } from 'session-expiration-alert';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResultadoHabitacionComponent } from './components/busqueda-global/hoteles/resultado-habitacion/resultado-habitacion.component';
+import { ModalHabitacionErroneaComponent } from './components/shared/modal-habitacion-erronea/modal-habitacion-erronea.component';
 
 @NgModule({
   declarations: [
@@ -228,7 +229,8 @@ import { ResultadoHabitacionComponent } from './components/busqueda-global/hotel
     ModalSesionExpiradaComponent,
     ModalHotelesVaciosComponent,
     FormattimeairportPipe,
-    ResultadoHabitacionComponent
+    ResultadoHabitacionComponent,
+    ModalHabitacionErroneaComponent
   ],
   imports: [
     BrowserModule,
@@ -261,7 +263,7 @@ import { ResultadoHabitacionComponent } from './components/busqueda-global/hotel
     SessionExpirationAlert.forRoot(),
     NgbModule
   ],
-  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent],
+  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })

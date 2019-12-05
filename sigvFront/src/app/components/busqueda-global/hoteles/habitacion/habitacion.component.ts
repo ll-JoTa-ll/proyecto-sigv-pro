@@ -88,6 +88,8 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
    
     this.personas = this.LHoteles.numberPassenger;
     this.divwarning = false;
+    
+
 
    // this.contador = 600;
     
@@ -147,6 +149,15 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
     this.startCountDown(600, this.modalexpired);
+    console.log("cantidadnoche =====> " +this.cantidadnoche);
+    console.log("cantidadnoche =====> " +this.cantidadnoche);
+    console.log("cantidadnoche =====> " +this.cantidadnoche);
+    console.log("cantidadnoche =====> " +this.cantidadnoche);
+    console.log("cantidadnoche =====> " +this.cantidadnoche);
+    console.log("cantidadnoche =====> " +this.cantidadnoche);
+    console.log("cantidadnoche =====> " +this.cantidadnoche);
+    console.log("cantidadnoche =====> " +this.cantidadnoche);
+    
   }
 
   openModal(template: TemplateRef<any>) {
@@ -205,6 +216,12 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   Obtenerlistado($event) {
     console.log("Obtenerlistado");
+    console.log("dateingreso =====> " + this.dateingreso);
+    console.log("dateingreso =====> " + this.dateingreso);
+    console.log("dateingreso =====> " + this.dateingreso);
+    console.log("dateingreso =====> " + this.dateingreso);
+    console.log("dateingreso =====> " + this.dateingreso);
+    console.log("dateingreso =====> " + this.dateingreso);
     console.log("$event: " + $event);
     console.log("");
     this.LlistaHotel = [];

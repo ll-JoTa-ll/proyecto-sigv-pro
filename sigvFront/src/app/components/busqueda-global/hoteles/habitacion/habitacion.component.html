@@ -7,13 +7,9 @@
 
 
                     <app-busqueda-mini-habitacion (ShowComponent)="showComponente($event)" [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso"
-                        [fchsalida]="datesalida" (messagelistado)="listadoHoteles($event)" [habitaciones]="habitaciones" [adultos]="personas" (hideComponent)="hideComponente($event)" (flagShowMap)="showHideMap($event)">
+                        [fchsalida]="datesalida" (messagelistado)="listadoHoteles($event)" [habitaciones]="habitaciones" [adultos]="LHoteles.numberPassenger" (hideComponent)="hideComponente($event)" (flagShowMap)="showHideMap($event)">
                     </app-busqueda-mini-habitacion>
-                    <div *ngIf="showComponent">
-                        <app-filtro-estrellas [listado]="LlistaHotel" (resultfiltro)="ObtenerListaFiltroEstrella($event)"></app-filtro-estrellas>
-                        <app-filtro-precio-hotel [cantnoche]="cantidadnoche" [currency]="currency" (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio-hotel>
-                        <app-filtro-nombrehotel (resultFiltro)="ObtenerListaFiltroNombre($event)" [listado]="LlistaHotel"></app-filtro-nombrehotel>
-                    </div>
+
 
 
                 </div>
@@ -22,12 +18,11 @@
             <div class="col-8">
 
                 <div *ngIf="showComponent">
-                    <app-filtros [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)" (vistalistado)="MostrarListado($event)"></app-filtros>
-                    <app-resultado *ngFor="let lHotels of hoteles; let i = index" [name]="lHotels.name" [tipoPago]="lHotels.guaranteeType" [direccion]="lHotels.address" [distancia]="lHotels.oairportDistance.distance" [estrellas]="lHotels.stars" [currency]="lHotels.oprice.currency"
+                    <!--<app-filtros [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)" (vistalistado)="MostrarListado($event)"></app-filtros>-->
+                    <app-resultado-habitacion *ngFor="let lHotels of hoteles; let i = index" [name]="lHotels.name" [tipoPago]="lHotels.guaranteeType" [direccion]="lHotels.address" [distancia]="lHotels.oairportDistance.distance" [estrellas]="lHotels.stars" [currency]="lHotels.oprice.currency"
                         [precioxnoche]="lHotels.oprice.pricePerAllNights" [precioprom]="lHotels.oprice.pricePerNight" [urlHotel]="lHotels.limagens | getimghotel" [index]="i + 1" [latitud]="lHotels.oposition.latitude" [longitud]="lHotels.oposition.longitude"
-                        [cantidadnoche]="lHotels.numberNights" [cantpersonas]="lHotels.numberPassenger">
-                    </app-resultado>
-                    <app-mapa-hoteles *ngIf="vistamapa && mapafiltro" [listado]="LlistaHotel" [fechasalida]="fechaSalida" [fecharetorno]="fechaRetorno"></app-mapa-hoteles>
+                        [cantidadnoche]="lHotels.numberNights" [cantpersonas]="lHotels.numberPassenger" [hotelcode]="lHotels.code" [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida">
+                    </app-resultado-habitacion>
                 </div>
 
 
@@ -86,7 +81,7 @@
                                 <div class="col-12 m-0 p-0 pl-4 pt-2 pb-3">
                                     <div class="row m-0 p-0">
                                         <div *ngIf="lsthabitacion.ohotel.lamenities != null && lsthabitacion.ohotel.lamenities.length > 0" class="col-12 m-0 p-0">
-                                            <span *ngFor="let item of lsthabitacion.ohotel.lamenities" class="pl-3"><span class="pl-2"><img style="width: 30px;" src="./assets/images/{{item.code}}.png"></span><span class="Condition pl-3">{{item.description}}</span></span>
+                                            <span *ngFor="let item of lsthabitacion.ohotel.lamenities" class="pl-3"><span class="pl-2"><img style="width: 30px;color: #898989" src="./assets/images/{{item.code}}.png"></span><span class="Condition pl-3">{{item.description}}</span></span>
                                         </div>
                                     </div>
                                 </div>

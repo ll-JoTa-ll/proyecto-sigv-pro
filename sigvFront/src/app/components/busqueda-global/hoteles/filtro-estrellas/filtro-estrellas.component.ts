@@ -38,8 +38,8 @@ export class FiltroEstrellasComponent implements OnInit {
   }
 
   ngOnInit() {
-    //ls_search_hotel
     this.ls_search_hotel = this.sessionStorageService.retrieve('ls_search_hotel');
+    
   }
 
   FiltroEstrella(estrellas) {
@@ -51,6 +51,7 @@ export class FiltroEstrellasComponent implements OnInit {
     }else{
       listadohotel = this.ls_search_hotel;
     }
+    
 
     let estrella1 = this.estrella1;
     let estrella2 = this.estrella2;
@@ -177,6 +178,7 @@ export class FiltroEstrellasComponent implements OnInit {
     }else{
       listado = this.ls_search_hotel;
     }
+    
 
     if (estrellas === 'todas') {
       listadohotel = listado;
@@ -185,27 +187,33 @@ export class FiltroEstrellasComponent implements OnInit {
       if (listadoEstrellas.length === 0) {
         this.listadohotel = [];
         listadohotel = [];
+        
         if (this.minibuscador != null) {
           this.listadohotel = this.minibuscador;
         }else{
           this.listadohotel = this.ls_search_hotel;
         }
+        
 
       } else {
         listadoEstrellas.forEach(function(valor) {
           let results = listado.filter(m => parseFloat(m.stars) === parseFloat(valor));
           results.forEach(function(rrr) {
             listadohotel.push(rrr);
-          });
+         });
         });
-
-        
-
         this.listadohotel = listadohotel;
+        
       }
     }
+    
 
     
+   // this.listadohotel.forEach(function(item) {
+    //  item.isvisible = true;
+//});
+    
+
     this.resultfiltro.emit(this.listadohotel);
 
     // tslint:disable-next-line: prefer-const
