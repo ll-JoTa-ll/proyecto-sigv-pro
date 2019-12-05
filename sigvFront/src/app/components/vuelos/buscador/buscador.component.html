@@ -17,20 +17,29 @@
                 <div class="row m-0 p-0">
 
                     <div class="col-6 m-0 p-0">
-
-                        <input id="radio_b_tv_1" (click)="seleccionarTipoVuelo('RT')" type="radio" name="gender" value="RT" class="bv-texto-1"> Ida & Vuelta
+                        <label class="container" (click)="seleccionarTipoVuelo('RT')">
+                            <input id="radio_b_tv_1" type="radio" name="radio" class="bv-texto-1" checked value="RT"> Ida & Vuelta
+                            <span class="checkmark"></span>
+                    </label>
+                        <!--    <input id="radio_b_tv_1" (click)="seleccionarTipoVuelo('RT')" type="radio" name="gender" value="RT" class="bv-texto-1"> Ida & Vuelta -->
 
                     </div>
 
                     <div class="col-6 m-0 p-0">
-
-                        <input id="radio_b_tv_2" (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="bv-texto-1"> Sólo ida
+                        <label class="container" (click)="seleccionarTipoVuelo('OW')">
+                            <input id="radio_b_tv_2" type="radio" name="radio" value="OW" class="bv-texto-1"> Sólo ida
+                            <span class="checkmark"></span>
+                    </label>
+                        <!--  <input id="radio_b_tv_2" (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="bv-texto-1"> Sólo ida -->
 
                     </div>
 
                     <div class="col-12 m-0 p-0 pt-2">
-
-                        <input id="radio_b_tv_3" (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="bv-texto-1"> Multidestinos
+                        <label class="container" (click)="seleccionarTipoVuelo('MC')">
+                            <input id="radio_b_tv_3" type="radio" name="radio" value="MC" class="bv-texto-1"> Multidestinos
+                            <span class="checkmark"></span>
+                    </label>
+                        <!--  <input id="radio_b_tv_3" (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="bv-texto-1"> Multidestinos-->
 
                     </div>
 
@@ -92,7 +101,7 @@
 
                     <div class="col-6 m-0 p-0 pr-1">
 
-                        <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                        <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px;">
               <input type="image"
                      src="./assets/images/home/calendario.svg"
                      (click)="datepickerSalida.toggle()"
@@ -116,7 +125,7 @@
 
                     <div class="col-6 m-0 p-0 pl-1" *ngIf="tipoVuelo!=='OW'">
 
-                        <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                        <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px;">
               <input type="image"
                      src="./assets/images/home/calendario.svg"
                      (click)="datepickerRetorno.toggle()"
@@ -249,9 +258,9 @@
             <div class="col-12 m-0 p-0 pt-4">
 
                 <button (click)="searchFlight()" class="btn bv-texto-3" style="width: 100% !important;">
-          <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-          Buscar
-        </button>
+                  <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                    Buscar
+                </button>
 
             </div>
 

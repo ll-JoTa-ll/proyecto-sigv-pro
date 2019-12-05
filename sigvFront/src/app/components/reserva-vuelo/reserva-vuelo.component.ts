@@ -28,7 +28,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   modalRefSessionExpired: BsModalRef;
   config = {
     backdrop: true,
-    ignoreBackdropClick: true
+    ignoreBackdropClick: true,
+    keyboard: false
   };
 
   @ViewChild("modalexpired", {static: false}) modalexpired;
@@ -95,8 +96,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.pseudo = this.flightAvailability_request.Pseudo;
     this.gds = this.flightAvailability_request.Gds;
     this.flightNational = this.flightAvailability_request.FlightNational;
-
-    //this.CostCenter();
     this.ReasonFlight();
   }
 
@@ -320,7 +319,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       email1 = $('#txtcorreo_' + (index + 1)).val();
       telefono1 = $('#txttelefono_' + (index + 1)).val();
       let odocument = {
-        description: 'Documento Nacional',
+        description: item.odocument.description,
         number: nrodoc,
         type: typedoc
       }

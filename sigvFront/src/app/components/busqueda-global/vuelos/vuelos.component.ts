@@ -116,6 +116,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   valfechasalida = false;
   valfechadestino = false;
   indback;
+  ss_login_data;
 
   model: any = {};
 
@@ -160,9 +161,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.vuelosNoche = false;
     this.vueloTurnoFiltro = false;
     this.flagBuscadorLateral = false;
-    const ss_login_data = this.sessionStorageService.retrieve('ss_login_data');
-    console.log(ss_login_data);
-    if (ss_login_data === '' || ss_login_data === null) {
+    this.ss_login_data = this.sessionStorageService.retrieve('ss_login_data');
+    if (this.ss_login_data === '' || this.ss_login_data === null) {
       this.router.navigate(['/']);
     }
   }
@@ -210,8 +210,14 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         let lstdata = this.sessionStorageService.retrieve('ss_searchFlight');
         this.setLstAerolineas(lstdata);
         this.searchData = lstdata;
-        this.flagBuscar = true;
-        this.flagBuscadorLateral = true;
+        if (this.ss_login_data.orole.roleDescription === 'Usuario' || this.ss_login_data.orole.roleDescription === 'Autorizador') {
+          this.flagBuscar = true;
+          this.flagBuscadorLateral = true;
+       } else {
+          this.flagBuscar = true;
+          this.flagBuscadorLateral = true;
+          this.flagCentralizador = false;
+       }
         this.sessionStorageService.store('indregresar', null);
         this.sessionStorageService.store('indback2', true);
         this.origenAuto = databuscador.origencode;

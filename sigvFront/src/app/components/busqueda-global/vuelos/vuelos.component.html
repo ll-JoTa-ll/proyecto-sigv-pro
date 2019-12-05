@@ -31,20 +31,29 @@
                         </div>
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-
-                            <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT" class="mr-1"> Ida & Vuelta
-
-                        </div>
-
-                        <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-
-                            <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1"> Sólo ida
+                            <label class="container" (click)="seleccionarTipoVuelo('RT')">
+                                <input type="radio" name="radio" checked value="RT"> Ida & Vuelta
+                                <span class="checkmark"></span>
+                        </label>
+                            <!--  <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT" class="mr-1"> Ida & Vuelta -->
 
                         </div>
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                            <label class="container" (click)="seleccionarTipoVuelo('OW')">
+                                <input type="radio" name="radio" value="OW"> Sólo ida
+                                <span class="checkmark"></span>
+                        </label>
+                            <!-- <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1"> Sólo ida -->
 
-                            <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1"> Multidestinos
+                        </div>
+
+                        <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                            <label class="container" (click)="seleccionarTipoVuelo('MC')">
+                                <input type="radio" name="radio" value="MC"> Multidestinos
+                                <span class="checkmark"></span>
+                        </label>
+                            <!-- <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1"> Multidestinos-->
 
                         </div>
 
@@ -64,7 +73,6 @@
                                     Orígen
                                 </div>
                                 <div id="txtOrigen" class="m-0 p-0 txtOrigen" style="width: 75%">
-
                                     <div class="ng-autocomplete" style="width: 100%;">
                                         <ng-autocomplete [(ngModel)]="model.origentTexto" popover="Falta ingresar el origen" triggers="" [isOpen]="isOpen" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
                                             (closed)='ClosedOrigen()' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeHolder="Ingresa desde donde viajas">
@@ -78,7 +86,6 @@
                                             <!--<div [innerHTML]="notFound"></div>-->
                                         </ng-template>
                                     </div>
-
                                 </div>
 
                             </div>
@@ -293,7 +300,7 @@
 
                             <div class="row m-0 p-0" style="height: 40px !important;">
 
-                                <div class="col-12 text-center">
+                                <div class="col-12 text-right">
                                     <button (click)="searchFlight()" class="btn v-btn-buscar">
                     <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
                     Buscar
@@ -380,10 +387,6 @@
                                 [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.pseudoRepeat">
                             </app-recomendacion>
                         </div>
-
-
-
-
                     </div>
 
                 </div>

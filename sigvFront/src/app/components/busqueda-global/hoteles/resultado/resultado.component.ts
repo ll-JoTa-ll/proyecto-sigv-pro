@@ -65,7 +65,7 @@ export class ResultadoComponent implements OnInit {
 
 
 
-  getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
+  getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas) {
     this.Hotels.spinner.show();
     let data = {
       "Pseudo": "LIMPE2235",
@@ -106,7 +106,7 @@ export class ResultadoComponent implements OnInit {
       }
 
     }
-    this.sessionStorageService.store("lhotel",hotel);
+    this.sessionStorageService.store("lhotel", hotel);
 
     this.service.GetHabitacion(data).subscribe(
       data => {
@@ -124,7 +124,7 @@ export class ResultadoComponent implements OnInit {
         this.Hotels.spinner.hide();
 
       }
-    )
+    );
   }
 
 

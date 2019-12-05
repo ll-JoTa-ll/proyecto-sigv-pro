@@ -313,6 +313,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.outOrigenText1.emit(this.origentTexto1);
         console.log("case 1");
         console.log("this.origenAuto1: " + this.origenAuto1);
+        $(".x").show();
         const data1 = {
           value: this.origenAuto1,
           text: this.origentTexto1,
@@ -326,6 +327,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto1 = item.name;
         this.outDestinoValue1.emit(this.destinoAuto1);
         this.outDestinoText1.emit(this.destinoTexto1);
+        $(".x").show();
         const data2 = {
           value: this.destinoAuto1,
           text: this.destinoTexto1,
@@ -348,6 +350,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto2 = item.name;
         this.outOrigenValue2.emit(this.origenAuto2);
         this.outOrigenText2.emit(this.origentTexto2);
+        $(".x").show();
         const data3 = {
           value: this.origenAuto2,
           text: this.origentTexto2,
@@ -361,6 +364,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto2 = item.name;
         this.outDestinoValue2.emit(this.destinoAuto2);
         this.outDestinoText2.emit(this.destinoTexto2);
+        $(".x").show();
         const data4 = {
           value: this.destinoAuto2,
           text: this.destinoTexto2,
@@ -381,6 +385,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto3 = item.name;
         this.outOrigenValue3.emit(this.origenAuto3);
         this.outOrigenText3.emit(this.origentTexto3);
+        $(".x").show();
         const data5 = {
           value: this.origenAuto3,
           text: this.origentTexto3,
@@ -394,6 +399,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto3 = item.name;
         this.outDestinoValue3.emit(this.destinoAuto3);
         this.outDestinoText3.emit(this.destinoTexto3);
+        $(".x").show();
         const data6 = {
           value: this.destinoAuto3,
           text: this.destinoTexto3,
@@ -414,6 +420,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto4 = item.name;
         this.outOrigenValue4.emit(this.origenAuto4);
         this.outOrigenText4.emit(this.origentTexto4);
+        $(".x").show();
         const data7 = {
           value: this.origenAuto4,
           text: this.origentTexto4,
@@ -427,6 +434,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto4 = item.name;
         this.outDestinoValue4.emit(this.destinoAuto4);
         this.outDestinoText4.emit(this.destinoTexto4);
+        $(".x").show();
         const data8 = {
           value: this.destinoAuto4,
           text: this.destinoTexto4,
@@ -438,6 +446,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto5 = item.name;
         this.outOrigenValue5.emit(this.destinoAuto4);
         this.outOrigenText5.emit(this.destinoTexto4);
+        $(".x").show();
 
         $("#txtDestino4").removeClass("campo-invalido");
         $("#txtOrigen5").removeClass("campo-invalido");
@@ -447,6 +456,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto5 = item.name;
         this.outOrigenValue5.emit(this.origenAuto5);
         this.outOrigenText5.emit(this.origentTexto5);
+        $(".x").show();
         const data9 = {
           value: this.origenAuto5,
           text: this.origentTexto5,
@@ -460,6 +470,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto5 = item.name;
         this.outDestinoValue5.emit(this.destinoAuto5);
         this.outDestinoText5.emit(this.destinoTexto5);
+        $(".x").show();
         const data10 = {
           value: this.destinoAuto5,
           text: this.destinoTexto5,
@@ -480,6 +491,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto6 = item.name;
         this.outOrigenValue6.emit(this.origenAuto6);
         this.outOrigenText6.emit(this.origentTexto6);
+        $(".x").show();
         const data11 = {
           value: this.origenAuto6,
           text: this.origentTexto6,
@@ -493,6 +505,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto6 = item.name;
         this.outDestinoValue6.emit(this.destinoAuto6);
         this.outDestinoText6.emit(this.destinoTexto6);
+        $(".x").show();
         const data12 = {
           value: this.destinoAuto6,
           text: this.destinoTexto6,
@@ -502,11 +515,6 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         $("#txtDestino6").removeClass("campo-invalido");
         break;
     }
-
-    setTimeout(function() {
-      $(".x").hide();
-    }, 1000);
-
   }
 
   onChangeSearch(flag, val: string) {
