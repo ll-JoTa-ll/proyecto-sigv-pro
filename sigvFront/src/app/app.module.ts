@@ -122,6 +122,7 @@ import { FormattimeairportPipe } from './pipes/formattimeairport.pipe';
 import { SessionExpirationAlert, SessionInteruptService } from 'session-expiration-alert';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/hoteles/busqueda-mini-habitacion/busqueda-mini-habitacion.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 
 @NgModule({
@@ -219,7 +220,8 @@ import { BusquedaMiniHabitacionComponent } from './components/busqueda-global/ho
     VueloFamiliaSegmentComponent,
     NavHeaderComponent,
     FormattimeairportPipe,
-    BusquedaMiniHabitacionComponent
+    BusquedaMiniHabitacionComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
