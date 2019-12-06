@@ -150,14 +150,6 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
     this.startCountDown(600, this.modalexpired);
     console.log("cantidadnoche =====> " +this.cantidadnoche);
-    console.log("cantidadnoche =====> " +this.cantidadnoche);
-    console.log("cantidadnoche =====> " +this.cantidadnoche);
-    console.log("cantidadnoche =====> " +this.cantidadnoche);
-    console.log("cantidadnoche =====> " +this.cantidadnoche);
-    console.log("cantidadnoche =====> " +this.cantidadnoche);
-    console.log("cantidadnoche =====> " +this.cantidadnoche);
-    console.log("cantidadnoche =====> " +this.cantidadnoche);
-    
   }
 
   openModal(template: TemplateRef<any>) {

@@ -27,7 +27,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
   LResultshotel: IHotelResultsModel[];
   isOpen = false;
   noches: number;
-
+  flagDinData: boolean;
   
 
   @Output() flagShowMap = new EventEmitter<boolean>();
@@ -54,7 +54,6 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
   constructor(private localStorageService: LocalStorageService,private sessionStorageService: SessionStorageService,private spinner: NgxSpinnerService,private service: HotelService) { 
     this.lhotel = this.sessionStorageService.retrieve("hotel");
 
-
   }
   
   ngOnInit() {
@@ -68,7 +67,6 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
     this.destinoValue = this.sessionMini1.iata;
     this.fechaSalida = this.sessionMini.fechaentrada;
     this.fechaRetorno = this.sessionMini.fechasalida;
-    console.log("this.ls_search_hotel =======> " + this.lhotel.endDate)
 
   }
   
@@ -210,14 +208,6 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
   }
 
   SeachHotel() {
-    console.log("this.fchingreso" + this.fchingreso);
-    console.log("this.fchingreso" + this.fchingreso);
-    console.log("this.fchingreso" + this.fchingreso);
-    console.log("this.fchingreso" + this.fchingreso);
-    console.log("this.fchingreso" + this.fchingreso);
-    console.log("this.fchingreso" + this.fchingreso);
-    console.log("this.fchingreso" + this.fchingreso);
-    console.log("this.fchingreso" + this.fchingreso);
     this.spinner.show();
     const val= this.ValidarCampos();
     let fechaSal;
@@ -262,7 +252,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
     this.service.SearchHotel(data).subscribe(
        result => {
           if (result[0].oerror != null) {
-            alert("HOTELES NO DISPONIBLES");
+            this.flagDinData = true;
           }
           else {
             
@@ -279,7 +269,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit,AfterViewInit {
           this.messagelistado.emit(this.LResultshotel);
           this.ShowComponent.emit(true);
           this.hideComponent.emit(false);
-         
+          this.flagDinData = false;
           }
        },
        err => {

@@ -274,6 +274,8 @@
                 <div class="col-3 m-0 p-0 pt-4 pr-4 pl-5">
                     <app-busqueda-mini [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event);searchFlightBuscador($event);" [destino]="destinoText" [fchingreso]="dateingreso"
                         [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas" (flagShowMap)="showHideMap($event)"></app-busqueda-mini>
+
+
                     <app-filtro-estrellas [listado]="LlistaHotel" (resultfiltro)="ObtenerListaFiltroEstrella($event)"></app-filtro-estrellas>
                     <app-filtro-precio-hotel [cantnoche]="cantidadnoche" [currency]="currency" (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio-hotel>
                     <app-filtro-nombrehotel (resultFiltro)="ObtenerListaFiltroNombre($event)" [listado]="LlistaHotel"></app-filtro-nombrehotel>
