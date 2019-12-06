@@ -8,6 +8,9 @@ export class IHotelResultsModel {
         cityName: string;
         numberNights: number;
         numberPassenger: number;
+        startDate: string;
+        endDate: string;
+        isvisible;
         oposition: {
             latitude: number;
             longitude: number;

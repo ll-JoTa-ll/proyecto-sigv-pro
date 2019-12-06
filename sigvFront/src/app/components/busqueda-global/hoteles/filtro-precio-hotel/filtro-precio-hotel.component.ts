@@ -21,6 +21,7 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
   
   mostrardiv: boolean = true;
   menorprice: number;
+  minibuscador;
   mayorprice: number;
   listadohotel: IHotelResultsModel[] = [];
   ls_search_hotel;
@@ -70,6 +71,7 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
   }
 
  FiltrarPrecio() {
+  this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
   const menorprecio = this.menorprecio;
   const mayorprecio = this.mayorprecio;
   let precio1;
@@ -87,7 +89,11 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
     return false;
   }
   let listado;
-  listado = this.ls_search_hotel;
+    if (this.minibuscador != null) {
+      listado = this.minibuscador;
+    }else{
+      listado = this.ls_search_hotel;
+    }
   results = listado.filter(m => m.oprice.pricePerAllNights >=  parseFloat(precio1) &&  m.oprice.pricePerAllNights <= parseFloat(precio2));
   this.listadohotel = results;
   this.filtroprecio.emit(this.listadohotel);

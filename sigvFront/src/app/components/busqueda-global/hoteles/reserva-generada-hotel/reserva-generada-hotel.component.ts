@@ -32,6 +32,7 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.bloquearBotonAtras();
     this.reserva = this.sessionStorageService.retrieve("reserva");
     this.confirmacion = this.sessionStorageService.retrieve("confirmacion");
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
@@ -39,6 +40,11 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
     this.reserva.numberPhone.forEach(function(item){
       this.phone = item;
     })
+    console.log("phone ======>" + this.phone);
+    console.log("phone ======>" + this.phone);
+    console.log("phone ======>" + this.phone);
+    console.log("phone ======>" + this.phone);
+    console.log("phone ======>" + this.phone);
   }
 
   ngAfterViewInit() {
@@ -53,6 +59,7 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+    
   }
 
   Mostrarmapa() {
@@ -80,5 +87,12 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
       
     }
  }
+
+ bloquearBotonAtras() {
+  history.pushState(null, null, location.href);
+  window.onpopstate = function() {
+    history.go(1);
+};
+}
 
 }

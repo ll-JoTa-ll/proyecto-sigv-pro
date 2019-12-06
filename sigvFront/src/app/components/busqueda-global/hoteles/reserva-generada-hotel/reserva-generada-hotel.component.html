@@ -2,7 +2,11 @@
     <app-header>
         <div class="row m-0 p-0">
             <div class="col-2 m-0 p-0">
+                <ng-template #modalexpired>
+                    <app-modal-sesion-expirada>
 
+                    </app-modal-sesion-expirada>
+                </ng-template>
             </div>
             <div class="col-8 m-0 p-0">
                 <div class="row m-0 p-0">
@@ -47,8 +51,12 @@
                                             </div>
                                             <div class="col-6" style="padding-top: 50px;">
                                                 <div class='row m-0 p-0'>
-                                                    <div style='width: 50%; height: 65px; padding-top: 13px; background: #6B253C 0% 0% no-repeat padding-box; border-radius: 15px 0px 0px 15px; color: #FFFFFF; text-align: center; font-size: 22px;font-family: Omnes-med;'>Código de Reserva</div>
-                                                    <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 15px 0px 0px 15px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.pnr}}</div>
+                                                    <div style='width: 50%; height: 55px; padding-top: 13px; background: #6B253C 0% 0% no-repeat padding-box; border-radius: 15px 0px 0px 0px; color: #FFFFFF; text-align: center; font-size: 22px;font-family: Omnes-med;'>Código Reserva</div>
+                                                    <div style='width: 50%; height: 55px; padding-top: 13px; background: #6B253C 0% 0% no-repeat padding-box; border-radius: 0px 15px 0px 0px; color: #FFFFFF; text-align: center; font-size: 22px;font-family: Omnes-med;'>Código Confirmacion</div>
+                                                </div>
+                                                <div class='row m-0 p-0'>
+                                                    <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 0px 15px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.pnr}}</div>
+                                                    <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 15px 0px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.lpassengers[0].codeConfirmation}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -68,10 +76,12 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <div class="row m-0 p-0">
-                                    <div class="col-8 m-0 p-0">
+                                    <ng-container *ngIf="habitacion.ohotel.limagens != null && habitacion.ohotel.limagens.length > 0; else elseTemplate" class="col-8 m-0 p-0">
                                         <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="{{habitacion.ohotel.limagens[0].url}}">
-                                        <!-- <img *ngFor="let imga of lsthabitacion.ohotel.limagens" class="imagenG" src="{{imga.url}}"> -->
-                                    </div>
+                                    </ng-container>
+                                    <ng-template #elseTemplate>
+                                        <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="./assets/images/imagenotfound.jfif">
+                                    </ng-template>
                                     <div class="col-4 m-0 p-0">
                                         <div class="row m-0 p-0 pt-3 pb-4">
                                             <div class="col-12 m-0 p-0" style="padding: 1em; background: white; border: 2px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border-radius: 15px 0px 15px 0px">
@@ -80,17 +90,17 @@
                                                         <span class="Pricefin">Precio Final</span>
                                                     </div>
                                                     <div class="col-8 m-0 p-0">
-                                                        <span class="pl-4"><span class="Moneda"></span><span class="Amount pl-2">{{reserva.litineraryInfos[0].priceTotal}}</span></span>
+                                                        <span class="pl-4"><span class="Moneda"></span><span class="Amount pl-2">{{reserva.oitineraryInfos.priceTotal}}</span></span>
                                                     </div>
                                                 </div>
-                                                <ng-container *ngIf="habitacion.ohotel.numberNights == 1; else elseTemplate" class="row m-0 p-0">
+                                                <ng-container *ngIf="habitacion.ohotel.numberNights > 1; else elseTemplate" class="row m-0 p-0">
                                                     <div class="col-12 m-0 p-0">
-                                                        <span class="textopre">{{habitacion.ohotel.numberNights}} noche para {{habitacion.ohotel.lguestPerRoom[0].numberPassengers}} persona</span>
+                                                        <span class="textopre">{{habitacion.ohotel.numberNights}} noches para {{habitacion.ohotel.lguestPerRoom[0].numberPassengers}} persona</span>
                                                     </div>
                                                 </ng-container>
                                                 <ng-template #elseTemplate class="row m-0 p-0">
                                                     <div class="col-12 m-0 p-0">
-                                                        <span class="textopre">{{habitacion.ohotel.numberNights}} noches para {{habitacion.ohotel.lguestPerRoom[0].numberPassengers}} persona</span>
+                                                        <span class="textopre">{{habitacion.ohotel.numberNights}} noche para {{habitacion.ohotel.lguestPerRoom[0].numberPassengers}} persona</span>
                                                     </div>
                                                 </ng-template>
 
@@ -100,7 +110,7 @@
 
                                                     </div>
                                                     <div class="col-11 m-0 p-0 pb-3 pr-2">
-                                                        <span class="textopremin">✓ {{reserva.litineraryInfos[0].descriptionRoom}}</span>
+                                                        <span class="textopremin">✓ {{reserva.oitineraryInfos.descriptionRoom}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -145,7 +155,7 @@
                                         </div>
                                         <div class="row m-0 p-0">
                                             <div class="col-12 m-0 p-0 pt-3 pl-5">
-                                                <span></span><span class="phono">{{reserva.litineraryInfos[0].numberPhone}}</span>
+                                                <span></span><span class="phono">{{reserva.oitineraryInfos.numberPhone}}</span>
                                             </div>
                                         </div>
                                         <div class="row m-0 p-0 pt-5">
@@ -166,7 +176,7 @@
                                 <div class="row m-0 p-0">
                                     <div class="col-12 m-0 p-0 pb-3">
                                         <span class="condi pl-3">Condiciones:</span>
-                                        <span class="Description pl-3">{{reserva.litineraryInfos[0].penality}}</span>
+                                        <span class="Description pl-3">{{reserva.oitineraryInfos.penality}}</span>
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0">
@@ -230,4 +240,4 @@
 
 
     </app-header>
-</ng-container>
+</ng-container>n

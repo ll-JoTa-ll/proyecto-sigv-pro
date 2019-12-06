@@ -64,6 +64,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   isOpen = false;
   flagVal: boolean;
   contador: number;
+  minibuscador;
   t: number;
   modalRefSessionExpired: BsModalRef;
 
@@ -118,10 +119,21 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+
     //this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     //this.token = this.sessionStorageService.retrieve('ss_token');
 
     this.localeService.use(this.locale);
+
+    window.addEventListener('storage',(event) => {
+      if (event.storageArea == localStorage) {
+        let token = this.localStorageService.retrieve('ss_token');
+        if(token == undefined){
+          this.router.navigate(['']);
+        }
+      }
+    });
+
   }
 
 
@@ -162,6 +174,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       $(".x").hide();
     }
   }
+
+
 
   onFocused(e) {
     // do something when input is focused
@@ -355,6 +369,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
             if (result !== null && result.length > 0) {
 
               this.sessionStorageService.store('ls_search_hotel', result);
+              this.sessionStorageService.store('ss_minibuscador',null);
               this.LlistaHotel = result;
               this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
               this.flagBuscar = true;

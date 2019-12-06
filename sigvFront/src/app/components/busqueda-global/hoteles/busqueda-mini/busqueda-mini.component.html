@@ -5,7 +5,7 @@
             Destino
         </div>
 
-        <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3" >
+        <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3">
             <div id="destinos" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
                 <ng-autocomplete [(ngModel)]="destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate">
@@ -27,7 +27,7 @@
 
         <div class="col-12 mt-3 p-0 pl-4 pr-4">
             <div class="row m-0 p-0">
-                <div class="col-6 m-0 p-0" >
+                <div class="col-6 m-0 p-0">
                     <label id="ingreso" for="" class="d-inline-flex box-shadow label-fechas">
                                 <input type="image"
                                        src="./assets/images/home/calendario.svg"
@@ -50,7 +50,7 @@
                               </label>
                 </div>
                 <div class="col-6 m-0 p-0">
-                    <label  id="destino" for="" class="d-inline-flex box-shadow label-fechas">
+                    <label id="destino" for="" class="d-inline-flex box-shadow label-fechas">
                                 <input type="image"
                                        src="./assets/images/home/calendario.svg"
                                        (click)="datepickerSalida.toggle()"
@@ -125,7 +125,7 @@
             <label for="" class="txthabitaciones">Habitaciones</label>
         </div>
 
-        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
+        <div *ngIf="loginDataUser.orole.roleDescription == 'Centralizador'; else elseTemplate" class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
             <div class="row m-0 p-0" onclick="MostrarModal()" id="habitacion">
                 <label for="" class="d-inline-flex box-shadow col-6 label-iconhabitacion">
                     <input type="image"
@@ -159,12 +159,12 @@
                             <span>Adultos</span>
                             <div class="input-group number-spinner">
                                 <span class="input-group-btn">
-                                                    <button class="btn btn-danger" data-dir="dwn"><i class="fas fa-minus"></i></button>
-                                                </span>
+                                                        <button class="btn btn-danger" data-dir="dwn"><i class="fas fa-minus"></i></button>
+                                                    </span>
                                 <input type="text" class="form-control text-center" id="txtadultos_1" value="2">
                                 <span class="input-group-btn">
-                                                    <button  class="btn btn-danger" data-dir="up"><i class="fas fa-plus"></i></button>
-                                                </span>
+                                                        <button  class="btn btn-danger" data-dir="up"><i class="fas fa-plus"></i></button>
+                                                    </span>
                             </div>
                         </div>
                         <hr>
@@ -180,6 +180,36 @@
             </div>
         </div>
 
+        <ng-template #elseTemplate class="row m-0 p-0">
+            <div class="row m-0 p-0" id="habitacion">
+                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                          <input type="image"
+                          src="./assets/images/cama.svg"
+                          class="input-img"
+                          
+                          >
+                          <input (keypress)="validarNumerosN($event)" type="text"
+                          id="txthabitacion"
+                          class="input-text2"
+                          value="1"
+                          >
+                        </label>
+                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                        <input type="image"
+                        src="./assets/images/pasajero.svg"
+                        class="input-img"
+                        >
+                        <input (keypress)="validarNumerosN($event)" type="text"
+                        id="txtpersonas"
+                        class="input-text2"
+                        value="1"
+                        >
+                        </label>
+            </div>
+        </ng-template>
+
+
+
         <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0">
@@ -194,7 +224,26 @@
                 </div>
             </div>
         </div>
+        <div *ngIf="flagDinData" class="col-12">
 
+            <div class="row m-0 p-0">
+
+                <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+                <div class="col-3 m-0 p-0"></div>
+
+                <div class="col-6 m-0 p-0">
+                    <div class="col-12 m-0 p-0 text-center">
+
+                        <alert type="warning">
+                            No se encontraron itinerarios para esta búsqueda
+                        </alert>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 </div>

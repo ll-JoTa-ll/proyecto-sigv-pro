@@ -8,16 +8,19 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./modal-sesion-expirada.component.sass']
 })
 export class ModalSesionExpiradaComponent implements OnInit {
-  modalRef: BsModalRef;
+  config = {
+    keyboard: true
+  };
 
-  constructor(private router: Router) { }
+
+  constructor(private router: Router,public modalRef: BsModalRef) { }
 
   ngOnInit() {
   }
 
   VolverHome(){
-    this.router.navigate(['hoteles'])
-    return;
+    this.router.navigate(['hoteles']);
+    this.modalRef.hide();
   }
 
 }
