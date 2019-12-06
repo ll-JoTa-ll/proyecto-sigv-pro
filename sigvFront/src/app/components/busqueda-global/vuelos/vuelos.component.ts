@@ -395,8 +395,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
-
   /*
   airportList() {
     this.airportService.airportList().subscribe(
@@ -414,7 +412,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     );
   }
   */
-
   handlerSalida(datepickerSalida) {
     console.log(datepickerSalida);
   }
@@ -492,7 +489,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.airportlist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data = resultFilter;
 
       $(".x").hide();
@@ -500,7 +497,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   onFocused(e) {
-    // do something when input is focused
     console.log("onFocused");
     console.log(e);
   }
@@ -519,7 +515,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   onChangeSearch2(val: string) {
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.airportlist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data2 = resultFilter;
 
       $(".x").hide();
@@ -717,7 +713,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if (lstPasajeros != null) {
       if (lstPasajeros.length > 0) {
         lstPasajeros.forEach(function(item, index) {
-          console.log('item_pax: ' + JSON.stringify(item))
+          console.log('item_pax: ' + JSON.stringify(item));
           const pax = {
             "RoleId": item.orole.id,
             "CostCenterId": null,
