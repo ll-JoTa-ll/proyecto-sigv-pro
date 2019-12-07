@@ -158,7 +158,10 @@ export class LoginComponent implements OnInit {
       (result: any) => {
         //console.log(result);
         this.airportlist = result.lairport;
+        
+        
         this.localStorageService.store('ls_airportlist', this.airportlist);
+
       },
 
       (err) => {

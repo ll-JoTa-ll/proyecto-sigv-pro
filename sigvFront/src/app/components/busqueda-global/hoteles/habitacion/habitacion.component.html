@@ -5,12 +5,9 @@
             <div class="col-3">
                 <div class="row m-0 p-0 pt-4">
 
-
                     <app-busqueda-mini-habitacion (ShowComponent)="showComponente($event)" [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso"
                         [fchsalida]="datesalida" (messagelistado)="listadoHoteles($event)" [habitaciones]="habitaciones" [adultos]="LHoteles.numberPassenger" (hideComponent)="hideComponente($event)" (flagShowMap)="showHideMap($event)">
                     </app-busqueda-mini-habitacion>
-
-
 
                 </div>
             </div>
@@ -115,6 +112,24 @@
                                         <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0" class="col-4 m-0 p-0">
                                             <div *ngIf="lsthabitacion.ohotel.limagens[1].url != null && lsthabitacion.ohotel.limagens[1].url != '' " class="row m-0 p-0">
                                                 <img class="pl-2 pt-4" style="width: 400px; height: 270px; border-radius: 15px 0px 15px 0px;" src="{{lsthabitacion.ohotel.limagens[1].url}}" (click)="openModal(template)">
+                                                <ng-template #template>
+
+                                                    <div class="modal-content" style="width: 1000px;">
+                                                        <div class="modal-body" style="width: 1000px;">
+                                                            <carousel [(activeSlide)]="activeSlideIndex">
+                                                                <slide *ngFor="let imga of lsthabitacion.ohotel.limagens; let index=index">
+                                                                    <img style="width: 1000px; height: 600px;" src="{{imga.url}}">
+                                                                    <div class="carousel-caption">
+                                                                        <!--      <h4>Slide {{index}}</h4>-->
+                                                                    </div>
+                                                                </slide>
+                                                            </carousel>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </ng-template>
                                             </div>
                                             <div class="row m-0 p-0 pt-3 pb-4">
                                                 <div class="col-12 m-0 p-0 box-shadow">

@@ -93,14 +93,14 @@
                                                         <span class="pl-4"><span class="Moneda"></span><span class="Amount pl-2">{{reserva.oitineraryInfos.priceTotal}}</span></span>
                                                     </div>
                                                 </div>
-                                                <ng-container *ngIf="habitacion.ohotel.numberNights > 1; else elseTemplate" class="row m-0 p-0">
+                                                <ng-container *ngIf="habitacion.ohotel.numberNights === 1; else elseTemplate" class="row m-0 p-0">
                                                     <div class="col-12 m-0 p-0">
-                                                        <span class="textopre">{{habitacion.ohotel.numberNights}} noches para {{habitacion.ohotel.lguestPerRoom[0].numberPassengers}} persona</span>
+                                                        <span class="textopre">{{habitacion.ohotel.numberNights}} noche para {{habitacion.ohotel.lguestPerRoom[0].numberPassengers}} persona</span>
                                                     </div>
                                                 </ng-container>
                                                 <ng-template #elseTemplate class="row m-0 p-0">
                                                     <div class="col-12 m-0 p-0">
-                                                        <span class="textopre">{{habitacion.ohotel.numberNights}} noche para {{habitacion.ohotel.lguestPerRoom[0].numberPassengers}} persona</span>
+                                                        <span class="textopre">{{habitacion.ohotel.numberNights}} noches para {{habitacion.ohotel.lguestPerRoom[0].numberPassengers}} persona</span>
                                                     </div>
                                                 </ng-template>
 
@@ -226,7 +226,7 @@
                                 <input disabled="" type="text" value="{{reserva.lpassengers[0].name}} {{reserva.lpassengers[0].lastName}}" class="input-names box-shadow" style="width: 380px; height: 38px;">
                             </div>
                             <div class="col-6 m-0 p-0">
-                                <input disabled="" type="text" value="{{phone}}" class="input-names box-shadow" style="width: 380px; height: 38px;">
+                                <input disabled="" type="text" value="{{reserva.lpassengers[0].phone}}" class="input-names box-shadow" style="width: 380px; height: 38px;">
                             </div>
                         </div>
                     </div>

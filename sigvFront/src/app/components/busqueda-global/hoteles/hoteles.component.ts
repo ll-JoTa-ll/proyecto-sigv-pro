@@ -9,6 +9,7 @@ import { HotelService } from '../../../services/hotel.service';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
+import * as crypto from 'crypto-js';
 import { Router } from '@angular/router';
 import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalSesionExpiradaComponent } from '../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
@@ -67,6 +68,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   minibuscador;
   t: number;
   modalRefSessionExpired: BsModalRef;
+  output;
 
   constructor(
     private router: Router,
