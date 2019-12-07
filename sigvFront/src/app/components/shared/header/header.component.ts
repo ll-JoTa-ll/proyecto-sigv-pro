@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   loginDataUser;
   role;
   empresa;
+  myWindow;
 
   constructor(
     private router: Router,

@@ -48,5 +48,8 @@ export class IGetEnhancedHotel {
         securityToken: string;
         sequenceNumber: string;
         transactionStatusCode: string;
+    };
+    oerror:{
+        message: string;
     }
 }

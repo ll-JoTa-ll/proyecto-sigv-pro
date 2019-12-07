@@ -63,6 +63,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   uidByCompanyP: any[] = [];
   htmlTxtC: string;
   flagHtmlC = false;
+  htmlTxtP: string;
+  flagHtmlP = false;
 
   constructor(
     private modalService: BsModalService,
@@ -377,11 +379,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       err => {},
       () => {
         this.setInformacionAdicional(this.uidByCompanyC);
+        this.setInformacionPasajeros(this.uidByCompanyP);
       }
     );
   }
 
   setInformacionAdicional(lstUidByCompanyC) {
+    console.log("setInformacionAdicional");
     if (lstUidByCompanyC.length > 0) {
       let htmlTxtC = "";
       const lstTxtC = lstUidByCompanyC.filter(x => x.isList === false);
@@ -398,14 +402,56 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += "";
         htmlTxtC += "";
-        htmlTxtC += "<input [id]='txt.code' class='form-control' type='text'>";
+        htmlTxtC += "<input class='form-control' type='text'>";
         htmlTxtC += "";
         htmlTxtC += "</div>";
         htmlTxtC += "";
       });
+
+      //this.setHijoNieto(lstCbxC);
+
       lstCbxC.forEach(function(cbx, index) {
-        const llistUid = cbx.llistUid;
         flagC = 1;
+
+        const llistUid = cbx.llistUid;
+        const lstPadre = llistUid.filter(x => x.parent === 0);
+        const lstHijosNietos = llistUid.filter(x => x.parent > 0);
+
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += cbx.title;
+        htmlTxtC += "</div>";
+
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+
+
+        htmlTxtC += "<select class='form-control'>";
+        lstPadre.forEach(function(padre, indexPadre) {
+          const lstHijos = lstHijosNietos.filter(x => x.parent === padre.id);
+          if (lstHijos.length > 0) {
+            htmlTxtC += "<optgroup label='  " + padre.description + "'>";
+            lstHijos.forEach(function(hijo, indexHijo) {
+              const lstNietos = lstHijosNietos.filter(y => y.parent === hijo.id);
+              if (lstNietos.length > 0) {
+                htmlTxtC += "<optgroup label='" + hijo.description + "'>";
+                lstNietos.forEach(function(nieto, indexnieto) {
+                  htmlTxtC += "<option>" + nieto.description + "</option>";
+                });
+                htmlTxtC += "</optgroup>";
+              } else {
+                htmlTxtC += "<option>" + hijo.description + "</option>";
+              }
+            });
+            htmlTxtC += "</optgroup>";
+          } else {
+            htmlTxtC += "<option>" + padre.description + "</option>";
+          }
+        });
+        htmlTxtC += "</select>";
+
+
+        htmlTxtC += "</div>";
+
+        /*
         htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += "";
         htmlTxtC += "";
@@ -414,11 +460,55 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         htmlTxtC += "</div>";
         htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += "";
+        htmlTxtC += "<div class='btn-group' dropdown [autoClose]='false' container='body'>";
+        htmlTxtC += "<button id='button-nested' dropdownToggle type='button' class='btn btn-primary dropdown-toggle' aria-controls='dropdown-nested'>";
+        htmlTxtC += "Seleccionar <span class='caret'></span>";
+        htmlTxtC += "</button>";
+        htmlTxtC += "<ul id='dropdown-nested' *dropdownMenu class='dropdown-menu' role='menu' aria-labelledby='button-nested'>";
         htmlTxtC += "";
         htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "";
+
+        lstPadre.forEach(function(padre, indexPadre) {
+          const lstHijos = lstHijosNietos.filter(x => x.parent === padre.id);
+          if (lstHijos.length > 100) {
+            lstHijos.forEach(function(hijo, indexHijo) {
+              const lstNietos = lstHijosNietos.filter(y => y.parent === hijo.id);
+              if (lstNietos.length > 0) {
+                //
+              } else {
+                htmlTxtC += "<li role='menuitem' dropdown triggers='mouseover' placement='right' container='body'>";
+                htmlTxtC += "<a dropdownToggle class=dropdown-item dropdown-toggle' (click)=false'> {{padre.description}} ";
+                htmlTxtC += "<span class='caret'></span></a>";
+                htmlTxtC += "<ul *dropdownMenu class='dropdown-menu' role='menu'>";
+                htmlTxtC += "";
+                htmlTxtC += "";
+                htmlTxtC += "";
+                htmlTxtC += "<li role='menuitem'><a class='dropdown-item' >{{hijo.description}}</a></li>";
+                htmlTxtC += "";
+                htmlTxtC += "";
+                htmlTxtC += "</ul>";
+                htmlTxtC += "</li>";
+              }
+            });
+          } else {
+            htmlTxtC += "<li role='menuitem'><a class='dropdown-item' href='#/dropdowns#nested-dropdowns'>";
+            htmlTxtC += "{{padre.description}}";
+            htmlTxtC += "</a></li>";
+            htmlTxtC += "";
+            htmlTxtC += "";
+          }
+        });
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "</ul>";
+        htmlTxtC += "</div>";
         htmlTxtC += "";
         htmlTxtC += "</div>";
         htmlTxtC += "";
+        */
       });
       console.log(htmlTxtC);
       this.htmlTxtC = htmlTxtC;
@@ -428,6 +518,85 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         this.flagHtmlC = true;
       }
 
+    }
+  }
+
+  setHijoNieto(lstCbxC) {
+
+  }
+
+  setInformacionPasajeros(lstUidByCompanyP) {
+    console.log("setInformacionPasajeros");
+    //this.htmlTxtP = this.htmlTxtC;
+    if (lstUidByCompanyP.length > 0) {
+      let htmlTxtP = "";
+      const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
+      const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
+      let flagC = 0;
+      lstTxtC.forEach(function(txt, index) {
+        flagC = 1;
+        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtP += "";
+        htmlTxtP += "";
+        htmlTxtP += txt.title;
+        htmlTxtP += "";
+        htmlTxtP += "</div>";
+        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtP += "";
+        htmlTxtP += "";
+        htmlTxtP += "<input class='form-control' type='text'>";
+        htmlTxtP += "";
+        htmlTxtP += "</div>";
+        htmlTxtP += "";
+      });
+
+      //this.setHijoNieto(lstCbxC);
+
+      lstCbxC.forEach(function(cbx, index) {
+        flagC = 1;
+
+        const llistUid = cbx.llistUid;
+        const lstPadre = llistUid.filter(x => x.parent === 0);
+        const lstHijosNietos = llistUid.filter(x => x.parent > 0);
+
+        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtP += cbx.title;
+        htmlTxtP += "</div>";
+
+        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
+
+        htmlTxtP += "<select class='form-control'>";
+        lstPadre.forEach(function(padre, indexPadre) {
+          const lstHijos = lstHijosNietos.filter(x => x.parent === padre.id);
+          if (lstHijos.length > 0) {
+            htmlTxtP += "<optgroup label='" + padre.description + "'>";
+            lstHijos.forEach(function(hijo, indexHijo) {
+              const lstNietos = lstHijosNietos.filter(y => y.parent === hijo.id);
+              if (lstNietos.length > 0) {
+                htmlTxtP += "<optgroup label='" + hijo.description + "'>";
+                lstNietos.forEach(function(nieto, indexnieto) {
+                  htmlTxtP += "<option>" + nieto.description + "</option>";
+                });
+                htmlTxtP += "</optgroup>";
+              } else {
+                htmlTxtP += "<option>" + hijo.description + "</option>";
+              }
+            });
+            htmlTxtP += "</optgroup>";
+          } else {
+            htmlTxtP += "<option>" + padre.description + "</option>";
+          }
+        });
+        htmlTxtP += "</select>";
+
+        htmlTxtP += "</div>";
+
+      });
+      console.log(htmlTxtP);
+      this.htmlTxtP = htmlTxtP;
+      this.flagHtmlP = true;
+    } else {
+      this.flagHtmlP = true;
     }
   }
 }

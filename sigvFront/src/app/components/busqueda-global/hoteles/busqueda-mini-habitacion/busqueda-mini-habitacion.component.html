@@ -1,4 +1,4 @@
-<!--<div class="p-0 m-0">
+<div class="p-0 m-0">
     <div class="row m-0 p-0 box-shadow">
 
         <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3 text-destino">
@@ -7,7 +7,7 @@
 
         <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3">
             <div id="destinos" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
-                <ng-autocomplete [(ngModel)]="destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                <ng-autocomplete id="dest" [(ngModel)]="sessionMini1.destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate">
                 </ng-autocomplete>
 
@@ -36,13 +36,13 @@
                                     <input type="text"
                                            id="fechaInicio"
                                            [(ngModel)]="fchingreso"
+                                           value="{{sessionMini.fechaentrada}}"
                                            placeholder="Ingreso"
                                            class="p-0 pl-2 v-texto-3"
                                            (keypress)="validarTodo($event)"
                                            #datepickerIngreso="bsDatepicker"
                                            (onHidden)="handlerIngreso(datepickerIngreso)"
                                            (bsValueChange)="onValueChangeIngreso($event)"
-                                           value="lhotel.cityName"
                                            [minDate]="minDateIngreso"
                                            [maxDate]="maxDateIngreso"
                                            bsDatepicker
@@ -59,6 +59,7 @@
                                     <input type="text"
                                            id="fechaFin"
                                            placeholder="Salida"
+                                           value="{{sessionMini.fechasalida}}"
                                            [(ngModel)]="fchsalida"
                                            class="p-0 pl-2 v-texto-3"
                                            #datepickerSalida="bsDatepicker"
@@ -126,60 +127,64 @@
             <label for="" class="txthabitaciones">Habitaciones</label>
         </div>
 
-        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
+        <div *ngIf="loginDataUser.orole.roleDescription == 'Centralizador'; else elseTemplate" class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
             <div class="row m-0 p-0" onclick="MostrarModal()" id="habitacion">
                 <label for="" class="d-inline-flex box-shadow col-6 label-iconhabitacion">
                         <input type="image"
                         src="./assets/images/cama.svg"
                         class="input-img2">
                         <input (keypress)="validarNumeros($event)" type="text"
-                        [(ngModel)]="habitaciones"
+                        
                         id="txthabitacion"
                         class="input-habitacion"
-                        value="{{lhotel.numberPassenger}}">
+                        value="{{sessionMini.habi}}">
                       </label>
                 <label for="" class="d-inline-flex box-shadow col-6 label-iconpersona">
                       <input type="image"
                       src="./assets/images/pasajero.svg"
                       class="input-img2">
                       <input (keypress)="validarNumeros($event)" type="text"
-                      [(ngModel)]="adultos"
+                     
                       id="txtpersonas"
                       class="input-habitacion"
-                      value="2">
+                      value="{{sessionMini.personas}}">
                       </label>
             </div>
-            <div class="modal-info tooltipHabitaciones box-shadow" id="pop1" style="display: none;">
-                <div id="habitacion_1">
-                    <div id="seccion_habitacion">
-                        <div class="title-room2">
-                            <span>Habitacion 1</span>
-                        </div>
-                        <hr>
-                        <div class="number-adults">
-                            <span>Adultos</span>
-                            <div class="input-group number-spinner">
-                                <span class="input-group-btn">
-                                                        <button class="btn btn-danger" data-dir="dwn"><i class="fas fa-minus"></i></button>
-                                                    </span>
-                                <input type="text" class="form-control text-center" id="txtadultos_1" value="2">
-                                <span class="input-group-btn">
-                                                        <button  class="btn btn-danger" data-dir="up"><i class="fas fa-plus"></i></button>
-                                                    </span>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-                </div>
-                <div id="habitacion_2"></div>
-                <div id="options_1">
-                    <div class="btn-agregar" id="divbotones_1" style="display: block;">
-                        <button class="btn btn-danger text-btn" onclick="AddHabitaciones(1)">Añadir habitacion</button>
-                        <button class="btn btn-danger añadir" onclick="Aplicar(1)">Aplicar</button>
-                    </div>
-                </div>
-            </div>
+
+
+
+
+
+
         </div>
+
+        <ng-template #elseTemplate class="row m-0 p-0">
+            <div class="row m-0 p-0" id="habitacion">
+                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                              <input type="image"
+                              src="./assets/images/cama.svg"
+                              class="input-img"
+                              
+                              >
+                              <input (keypress)="validarNumerosN($event)" type="text"
+                              id="txthabitacion"
+                              class="input-text2"
+                              value="1"
+                              >
+                            </label>
+                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                            <input type="image"
+                            src="./assets/images/pasajero.svg"
+                            class="input-img"
+                            >
+                            <input (keypress)="validarNumerosN($event)" type="text"
+                            id="txtpersonas"
+                            class="input-text2"
+                            value="1"
+                            >
+                            </label>
+            </div>
+        </ng-template>
 
         <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
             <div class="row m-0 p-0">
@@ -198,4 +203,4 @@
 
 
     </div>
-</div>-->
+</div>

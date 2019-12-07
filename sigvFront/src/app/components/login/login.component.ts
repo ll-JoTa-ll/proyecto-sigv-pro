@@ -57,7 +57,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.sessionStorageService.store('ss_login_data', '');
-    this.sessionStorageService.store('ss_token', '');
+    this.localStorageService.store('ss_token', '');
+
+
 
   }
 
@@ -91,7 +93,7 @@ export class LoginComponent implements OnInit {
             });
             this.sessionStorageService.store('ss_login_data', result);
             this.token = result.token;
-            this.sessionStorageService.store('ss_token', result.token);
+            this.localStorageService.store('ss_token', result.token);
             console.log(this.token);
             this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
             this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
@@ -131,7 +133,7 @@ export class LoginComponent implements OnInit {
   getUser() {
     let data = {
       userId: this.userid
-    }
+    };
 
     this.service.GetUser(data.userId).subscribe(
       result => {
@@ -149,17 +151,17 @@ export class LoginComponent implements OnInit {
 
 
       }
-    )
+    );
   }
-
 
   airportList() {
     this.airportService.airportList(this.token).subscribe(
       (result: any) => {
+        let lstairport;
         //console.log(result);
         this.airportlist = result.lairport;
-        this.localStorageService.store('ls_airportlist', "");
-        this.localStorageService.store('ls_airportlist', this.airportlist);
+   //     lstairport = crypto.AES.encrypt(this.airportList, 'kairport');
+        this.sessionStorageService.store('ls_airportlist', this.airportlist);
       },
 
       (err) => {
@@ -167,7 +169,7 @@ export class LoginComponent implements OnInit {
         //console.log('ERROR' + JSON.stringify(err));
         },
 
-      () => {
+      () => { 
         this.spinner.hide();
         let id = this.rutaActiva.snapshot.params.id;
         //console.log("Service airportList complete");

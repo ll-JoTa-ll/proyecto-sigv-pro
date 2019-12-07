@@ -9,6 +9,7 @@ import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import {DatepickerRenderOptions} from 'ngx-bootstrap/datepicker/models';
 import {consoleTestResultHandler} from 'tslint/lib/test';
 import { Router } from '@angular/router';
+import * as crypto from 'crypto-js';
 
 declare var jquery: any;
 declare var $: any;
@@ -182,7 +183,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     //$(".x").hide();
     //this.localeService.use("es");
     //this.airportList();
-    this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.airportlist = this.sessionStorageService.retrieve('ls_airportlist');
+   // this.airportlist = crypto.AES.decrypt(airport, 'kairport');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     this.token = this.sessionStorageService.retrieve('ss_token');
@@ -491,7 +493,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if (val.length >= 3) {
       const resultFilter = this.airportlist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data = resultFilter;
-
       $(".x").hide();
     }
   }

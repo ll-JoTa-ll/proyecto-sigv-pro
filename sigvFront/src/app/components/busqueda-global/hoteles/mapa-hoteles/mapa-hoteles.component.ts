@@ -7,6 +7,7 @@ import { ILoginDatosModel } from '../../../../models/ILoginDatos.model';
 import { HotelService } from '../../../../services/hotel.service';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { environment } from '../../../../../environments/environment';
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var jquery: any;
 declare var $: any;
 
@@ -54,8 +55,9 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private sessionStorageService: SessionStorageService,
-    private Hotels: HotelesComponent,
-    private localStorageService: LocalStorageService
+
+    private localStorageService: LocalStorageService,
+    public spinner: NgxSpinnerService
   ) {
     
   }
@@ -102,7 +104,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
   }
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
-    this.Hotels.spinner.show();
+    this.spinner.show();
     let data = {
       "Pseudo": "LIMPE2235",
       "Lhotel":
@@ -144,11 +146,11 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
         window.open(environment.url_project + "/habitacion");
       },
       err => {
-      this.Hotels.spinner.hide();
+      this.spinner.hide();
  
     },
    () => {
-     this.Hotels.spinner.hide();
+     this.spinner.hide();
     
    }
     )

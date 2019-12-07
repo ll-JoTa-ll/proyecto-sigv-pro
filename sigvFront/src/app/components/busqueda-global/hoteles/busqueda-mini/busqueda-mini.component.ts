@@ -48,6 +48,9 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   LResultshotel: IHotelResultsModel[];
   estrellas: string;
   model: any = {};
+  flagDinData: boolean;
+  
+  objSearch : any;
 
   SearchObj: any = { 
     HotelCityCode: '',
@@ -64,7 +67,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     private localStorageService: LocalStorageService,
     private spinner: NgxSpinnerService,
     private service: HotelService
-
+    
     
   ) { 
     this.minDateIngreso = new Date();
@@ -90,6 +93,22 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     //this.fechaSalida = this.fchingreso;
     //this.fechaRetorno = this.fchsalida;
     this.ObtenerDias(this.fchingreso, this.fchsalida);
+    this.objSearch = { 
+      destino: this.destinoText,
+      categoria: this.textoestrellas,
+      iata: this.destinoValue,
+    };
+    this.sessionStorageService.store("ss_sessionmini1",this.objSearch);
+  }
+
+  limpiarSession(){
+    this.objSearch = { 
+      destino: this.destinoText,
+      categoria: this.estrellas,
+      iata: this.destinoValue
+    };
+    this.sessionStorageService.store("ss_sessionmini1",null);
+    this.sessionStorageService.store("ss_sessionmini1",this.objSearch);
   }
 
   Enviarlistado() {
@@ -205,17 +224,18 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
       ],
       "Ocompany": this.loginDataUser.ocompany
     }
+    
+    
     this.habitaciones = $('#txthabitacion').val();
     this.adultos = $('#txtpersonas').val();
    
     this.service.SearchHotel(data).subscribe(
        result => {
           if (result[0].oerror != null) {
-            alert("HOTELES NO DISPONIBLES");
+            this.flagDinData = true;
           }
           else {
-            
-          this.sessionStorageService.store('ls_search_hotel', result);
+          this.sessionStorageService.store('ss_minibuscador', result);
 
           //this.sessionStorageService.store('ls_search_hotel', result);
           //this.LlistaHotel = result;
@@ -226,6 +246,8 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
           this.LResultshotel = result;
           //this.flagShowMap.emit(true);
           this.messagelistado.emit(this.LResultshotel);
+          this.limpiarSession();
+          this.flagDinData = false;
           this.spinner.hide();
           }
        },
@@ -272,6 +294,15 @@ ValidarCampos() {
       
   return val;
 }
+
+validarNumerosN(e){
+  var tecla = (document.all) ? e.keyCode : e.which;
+   if (tecla == 8) return true;
+    var patron = /^([])*$/;
+     var teclaFinal = String.fromCharCode(tecla);
+     if(tecla == 505) return false;
+      return patron.test(teclaFinal);
+};
 
 ObtenerDias(fecha1, fecha2) {
   //const fecha1 = this.fchingreso;

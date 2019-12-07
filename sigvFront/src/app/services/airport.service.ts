@@ -16,6 +16,7 @@ import { IReservaModel } from '../models/iReserva.model';
 import { iGetReservation } from '../models/IGetReservation.model';
 import { IResultAprobacionReserva } from '../models/iResultAprobacion.model';
 import { IQueuePnr } from '../models/IQueuePnr.model';
+import { IAirportList } from '../models/IAirportList.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -55,7 +56,7 @@ export class AirportService {
     });
   }
 
-  airportList(token) {
+  airportList(token): Observable<IAirportList> {
     this.token = this.sessionSt.retrieve('ss_token');
     console.log('token' + token);
     httpOptions2.headers = new HttpHeaders({
@@ -63,7 +64,7 @@ export class AirportService {
       'Content-Type': "application/json",
       'Access-Control-Allow-Origin' : '*'
     });
-    return this.http.get(this._url + "GetAirports", httpOptions2);
+    return this.http.get<IAirportList>(this._url + "GetAirports", httpOptions2);
   }
 
   searchFlight(data): Observable<ISearchFlightModel[]> {
