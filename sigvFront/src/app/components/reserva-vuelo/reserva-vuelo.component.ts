@@ -413,9 +413,15 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         flagC = 1;
 
         const llistUid = cbx.llistUid;
-        const lstPadre = llistUid.filter(x => x.parent === 0);
-        const lstHijosNietos = llistUid.filter(x => x.parent > 0);
+        let lstPadre;
+        let lstHijosNietos;
 
+        if (llistUid != null) {
+          lstPadre = llistUid.filter(x => x.parent === 0);
+          lstHijosNietos = llistUid.filter(x => x.parent > 0);  
+        } else {
+          return;
+        }
         htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += cbx.title;
         htmlTxtC += "</div>";
@@ -510,7 +516,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         */
       });
       console.log(htmlTxtC);
-      this.htmlTxtC = htmlTxtC;
+      this.htmlTxtC = "";
 
 
       if (flagC === 1) {
@@ -592,7 +598,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
       });
       console.log(htmlTxtP);
-      this.htmlTxtP = htmlTxtP;
+      this.htmlTxtP = "";
       this.flagHtmlP = true;
     } else {
       this.flagHtmlP = true;

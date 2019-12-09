@@ -1,9 +1,7 @@
 <!--
 <ng-container *ngIf="flagCentralizador">
     <app-header>
-
         <app-add-pax-centralizador (flagCentralizado)="updateCentralizador($event)"></app-add-pax-centralizador>
-
     </app-header>
 </ng-container>
 -->
@@ -31,29 +29,20 @@
                         </div>
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                            <label class="container" (click)="seleccionarTipoVuelo('RT')">
-                                <input type="radio" name="radio" checked value="RT"> Ida & Vuelta
-                                <span class="checkmark"></span>
-                        </label>
-                            <!--  <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT" class="mr-1"> Ida & Vuelta -->
+
+                            <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT" class="mr-1"> Ida & Vuelta
 
                         </div>
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                            <label class="container" (click)="seleccionarTipoVuelo('OW')">
-                                <input type="radio" name="radio" value="OW"> Sólo ida
-                                <span class="checkmark"></span>
-                        </label>
-                            <!-- <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1"> Sólo ida -->
+
+                            <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1"> Sólo ida
 
                         </div>
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                            <label class="container" (click)="seleccionarTipoVuelo('MC')">
-                                <input type="radio" name="radio" value="MC"> Multidestinos
-                                <span class="checkmark"></span>
-                        </label>
-                            <!-- <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1"> Multidestinos-->
+
+                            <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1"> Multidestinos
 
                         </div>
 
@@ -72,20 +61,25 @@
                                 <div class="m-0 p-0 d-flex align-items-center" style="width: 25%">
                                     Orígen
                                 </div>
+
                                 <div id="txtOrigen" class="m-0 p-0 txtOrigen" style="width: 75%">
+
                                     <div class="ng-autocomplete" style="width: 100%;">
                                         <ng-autocomplete [(ngModel)]="model.origentTexto" popover="Falta ingresar el origen" triggers="" [isOpen]="isOpen" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
-                                            (closed)='ClosedOrigen()' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" placeHolder="Ingresa desde donde viajas">
+                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.name"></a>
+                                            <!--<a [innerHTML]="item.name"></a>-->
+                                            <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                            <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt=""> {{item.name}}
                                         </ng-template>
 
                                         <ng-template #notFoundTemplate let-notFound>
                                             <!--<div [innerHTML]="notFound"></div>-->
                                         </ng-template>
                                     </div>
+
                                 </div>
 
                             </div>
@@ -104,11 +98,17 @@
 
                                     <div class="ng-autocomplete" style="width: 100%;">
                                         <ng-autocomplete [(ngModel)]="model.destinoTexto" popover="Falta ingresar el destino" triggers="" [isOpen]="valdestino" style="color: #898989 !important;" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent2($event)' (inputChanged)='onChangeSearch2($event)'
-                                            (closed)="ClosedDestino()" (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2" [notFoundTemplate]="notFoundTemplate2" placeHolder="Ingresa hacia dónde viajas">
+                                            (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2" [notFoundTemplate]="notFoundTemplate2">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate2 let-item>
-                                            <a [innerHTML]="item.name"></a>
+                                            <!--<a [innerHTML]="item.name"></a>-->
+                                            <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                            <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt=""> {{item.name}}
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <!--<div [innerHTML]="notFound"></div>-->
                                         </ng-template>
 
                                         <ng-template #notFoundTemplate2 let-notFound>
@@ -131,49 +131,47 @@
                                 </div>
 
                                 <div class="m-0 p-0 pr-2" style="width: 42%">
-                                    <label id="txtFechaSalida" for="" popover="Ingresa una fecha de salida" triggers="" [isOpen]="valfechasalida" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px;">
-      <input type="image"
-             src="./assets/images/home/calendario.svg"
-             (click)="datepickerSalida.toggle()"
-             style="outline: none; border: 0; width: 20% !important;">
-      <input type="text"
-             readonly
-             placeholder="Salida"
-             class="p-0 pl-2 v-texto-3"
-             style="outline: none; border: 0; width: 80%"
-             #datepickerSalida="bsDatepicker"
-             (onHidden)="handlerSalida(datepickerSalida)"
-             (bsValueChange)="onValueChangeSalida($event)"
-             [minDate]="minDateSalida"
-             bsDatepicker
-             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-             [(ngModel)]="model.salida"
-             id="fechasalida"
-      >
-    </label>
+                                    <label id="txtFechaSalida" for="" popover="Ingresa una fecha de salida" triggers="" [isOpen]="valfechasalida" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+        <input type="image"
+               src="./assets/images/home/calendario.svg"
+               (click)="datepickerSalida.toggle()"
+               style="outline: none; border: 0; width: 20% !important;">
+        <input type="text"
+               readonly
+               placeholder="Salida"
+               class="p-0 pl-2 v-texto-3"
+               style="outline: none; border: 0; width: 80%"
+               #datepickerSalida="bsDatepicker"
+               (onHidden)="handlerSalida(datepickerSalida)"
+               (bsValueChange)="onValueChangeSalida($event)"
+               [minDate]="minDateSalida"
+               bsDatepicker
+               [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+               [(ngModel)]="model.salida"
+        >
+      </label>
                                 </div>
 
                                 <div *ngIf="tipoVuelo!=='OW'" class=" m-0 p-0" style="width: 40%">
-                                    <label id="txtFechaDestino" for="" popover="Ingresa una fecha de destino" triggers="" [isOpen]="valfechadestino" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px;">
-    <input type="image"
-           src="./assets/images/home/calendario.svg"
-           (click)="datepickerRetorno.toggle()"
-           style="outline: none; border: 0; width: 20% !important;">
-    <input type="text"
-           readonly
-           placeholder="Retorno"
-           class="p-0 pl-2 v-texto-3"
-           style="outline: none; border: 0; width: 80%"
-           #datepickerRetorno="bsDatepicker"
-           (onHidden)="handlerSalida(datepickerRetorno)"
-           (bsValueChange)="onValueChangeRetorno($event)"
-           [minDate]="minDateRetorno"
-           bsDatepicker
-           [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-           [(ngModel)]="model.retorno"
-           id="fechadestino"
-    >
-  </label>
+                                    <label id="txtFechaDestino" for="" popover="Ingresa una fecha de destino" triggers="" [isOpen]="valfechadestino" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+      <input type="image"
+             src="./assets/images/home/calendario.svg"
+             (click)="datepickerRetorno.toggle()"
+             style="outline: none; border: 0; width: 20% !important;">
+      <input type="text"
+             readonly
+             placeholder="Retorno"
+             class="p-0 pl-2 v-texto-3"
+             style="outline: none; border: 0; width: 80%"
+             #datepickerRetorno="bsDatepicker"
+             (onHidden)="handlerSalida(datepickerRetorno)"
+             (bsValueChange)="onValueChangeRetorno($event)"
+             [minDate]="minDateRetorno"
+             bsDatepicker
+             [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+             [(ngModel)]="model.retorno"
+      >
+    </label>
                                 </div>
 
                             </div>
@@ -195,13 +193,13 @@
                             (outFechaSalidaShow6)="updateFechaSalidaShow6($event)" style="width: 100% !important;"></app-multidestinos-lg>
 
                         <!--    <app-multidestinos-lg [inOrigenValue]="origenAuto" [inOrigenText]="origentTexto" [inDestinoValue]="destinoAuto" [inDestinoText]="destinoTexto" (outIndexTramo)="updateIndexTramo($event)" (outOrigenValue1)="updateOrigenTramoValue1($event)" (outOrigenValue2)="updateOrigenTramoValue2($event)"
-                (outOrigenValue3)="updateOrigenTramoValue3($event)" (outOrigenValue4)="updateOrigenTramoValue4($event)" (outOrigenValue5)="updateOrigenTramoValue5($event)" (outOrigenValue6)="updateOrigenTramoValue6($event)" (outOrigenText1)="updateOrigenTramoText1($event)"
-                (outOrigenText2)="updateOrigenTramoText2($event)" (outOrigenText3)="updateOrigenTramoText3($event)" (outOrigenText4)="updateOrigenTramoText4($event)" (outOrigenText5)="updateOrigenTramoText5($event)" (outOrigenText6)="updateOrigenTramoText6($event)"
-                (outDestinoValue1)="updateDestinoTramoValue1($event)" (outDestinoValue2)="updateDestinoTramoValue2($event)" (outDestinoValue3)="updateDestinoTramoValue3($event)" (outDestinoValue4)="updateDestinoTramoValue4($event)" (outDestinoValue5)="updateDestinoTramoValue5($event)"
-                (outDestinoValue6)="updateDestinoTramoValue6($event)" (outDestinoText1)="updateDestinoTramoText1($event)" (outDestinoText2)="updateDestinoTramoText2($event)" (outDestinoText3)="updateDestinoTramoText3($event)" (outDestinoText4)="updateDestinoTramoText4($event)"
-                (outDestinoText5)="updateDestinoTramoText5($event)" (outDestinoText6)="updateDestinoTramoText6($event)" (outFechaSalida1)="updateFechaSalida1($event)" (outFechaSalida2)="updateFechaSalida2($event)" (outFechaSalida3)="updateFechaSalida3($event)"
-                (outFechaSalida4)="updateFechaSalida4($event)" (outFechaSalida5)="updateFechaSalida5($event)" (outFechaSalida6)="updateFechaSalida6($event)" (outFechaSalidaShow1)="updateFechaSalidaShow1($event)" (outFechaSalidaShow2)="updateFechaSalidaShow2($event)"
-                (outFechaSalidaShow3)="updateFechaSalidaShow3($event)" (outFechaSalidaShow4)="updateFechaSalidaShow4($event)" (outFechaSalidaShow5)="updateFechaSalidaShow5($event)" (outFechaSalidaShow6)="updateFechaSalidaShow6($event)" style="width: 100% !important;"></app-multidestinos-lg> -->
+                  (outOrigenValue3)="updateOrigenTramoValue3($event)" (outOrigenValue4)="updateOrigenTramoValue4($event)" (outOrigenValue5)="updateOrigenTramoValue5($event)" (outOrigenValue6)="updateOrigenTramoValue6($event)" (outOrigenText1)="updateOrigenTramoText1($event)"
+                  (outOrigenText2)="updateOrigenTramoText2($event)" (outOrigenText3)="updateOrigenTramoText3($event)" (outOrigenText4)="updateOrigenTramoText4($event)" (outOrigenText5)="updateOrigenTramoText5($event)" (outOrigenText6)="updateOrigenTramoText6($event)"
+                  (outDestinoValue1)="updateDestinoTramoValue1($event)" (outDestinoValue2)="updateDestinoTramoValue2($event)" (outDestinoValue3)="updateDestinoTramoValue3($event)" (outDestinoValue4)="updateDestinoTramoValue4($event)" (outDestinoValue5)="updateDestinoTramoValue5($event)"
+                  (outDestinoValue6)="updateDestinoTramoValue6($event)" (outDestinoText1)="updateDestinoTramoText1($event)" (outDestinoText2)="updateDestinoTramoText2($event)" (outDestinoText3)="updateDestinoTramoText3($event)" (outDestinoText4)="updateDestinoTramoText4($event)"
+                  (outDestinoText5)="updateDestinoTramoText5($event)" (outDestinoText6)="updateDestinoTramoText6($event)" (outFechaSalida1)="updateFechaSalida1($event)" (outFechaSalida2)="updateFechaSalida2($event)" (outFechaSalida3)="updateFechaSalida3($event)"
+                  (outFechaSalida4)="updateFechaSalida4($event)" (outFechaSalida5)="updateFechaSalida5($event)" (outFechaSalida6)="updateFechaSalida6($event)" (outFechaSalidaShow1)="updateFechaSalidaShow1($event)" (outFechaSalidaShow2)="updateFechaSalidaShow2($event)"
+                  (outFechaSalidaShow3)="updateFechaSalidaShow3($event)" (outFechaSalidaShow4)="updateFechaSalidaShow4($event)" (outFechaSalidaShow5)="updateFechaSalidaShow5($event)" (outFechaSalidaShow6)="updateFechaSalidaShow6($event)" style="width: 100% !important;"></app-multidestinos-lg> -->
 
                     </div>
 
@@ -219,8 +217,8 @@
 
                                     <div class="btn-group" style="width: 90% !important;" dropdown>
                                         <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                      {{textoCabina}}
-                    </button>
+                        {{textoCabina}}
+                      </button>
                                         <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
                                             <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
                                             <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('E', 'Económica')">Económica</a></li>
@@ -247,8 +245,8 @@
 
                                     <div class="btn-group" style="width: 90% !important;" dropdown>
                                         <button id="button-basic-2" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                      {{textoEscala}}
-                    </button>
+                        {{textoEscala}}
+                      </button>
                                         <ul id="dropdown-basic-2" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic-2">
                                             <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('', 'Todas')">Todas</a></li>
                                             <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('D', 'Directo')">Directo</a></li>
@@ -272,23 +270,23 @@
 
                                 <div class="m-0 p-0 d-flex align-items-center justify-content-center" style="width: 65%; padding: 6px !important;">
                                     <label for="" style="padding: 0px; margin: 0px;" class=" d-inline-flex justify-content-center align-items-center box-shadow">
-                    <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
-                    <input readonly type="text" class="text-center v-texto-3" style="width: 60px; outline: none; border: 0" [value]="pasajeros">
-                    <!--
-    <span
-      *ngIf="flagPaxMasMenos"
-      class="text-center"
-      (click)="pasajeroOperacion(false)"
-      style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-right-style: solid; border-right-color: white">
-                      -</span>
-    <span
-      *ngIf="flagPaxMasMenos"
-      class="text-center"
-      (click)="pasajeroOperacion(true)"
-      style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-radius: 0 10px 10px 0"
-    >+</span>
-                    -->
-                  </label>
+                      <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
+                      <input readonly type="text" class="text-center v-texto-3" style="width: 60px; outline: none; border: 0" [value]="pasajeros">
+                      <!--
+      <span
+        *ngIf="flagPaxMasMenos"
+        class="text-center"
+        (click)="pasajeroOperacion(false)"
+        style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-right-style: solid; border-right-color: white">
+                        -</span>
+      <span
+        *ngIf="flagPaxMasMenos"
+        class="text-center"
+        (click)="pasajeroOperacion(true)"
+        style="background-color: #ED1C24; width: 30px; color: white; cursor: pointer; border-radius: 0 10px 10px 0"
+      >+</span>
+                      -->
+                    </label>
 
                                 </div>
 
@@ -300,11 +298,11 @@
 
                             <div class="row m-0 p-0" style="height: 40px !important;">
 
-                                <div class="col-12 text-right">
+                                <div class="col-12 text-center">
                                     <button (click)="searchFlight()" class="btn v-btn-buscar">
-                    <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-                    Buscar
-                  </button>
+                      <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                      Buscar
+                    </button>
                                 </div>
 
                             </div>
@@ -348,15 +346,14 @@
 
                     <div class="col-3 m-0 p-0 pr-3 pl-5">
 
-                        <app-buscador [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [textorigen]="origentTexto" [textdestino]="destinoTexto" [origenAuto]="origenAuto"
-                            [origentTexto]="origentTexto" [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida"
-                            [fechaRetorno]="fechaRetorno" [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2"
-                            [fechaSalida3]="fechaSalida3" [fechaSalida4]="fechaSalida4" [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3"
-                            [fechaSalidaShow4]="fechaSalidaShow4" [fechaSalidaShow5]="fechaSalidaShow5" [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5"
-                            [origenAuto6]="origenAuto6" [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2" [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1"
-                            [destinoAuto2]="destinoAuto2" [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3"
-                            [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)" (outTipoVuelo)="setOutputTipoVuelo($event)"
-                            (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
+                        <app-buscador [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto" [destinoAuto]="destinoAuto"
+                            [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida" [fechaRetorno]="fechaRetorno" [minDateSalida]="minDateSalida"
+                            [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2" [fechaSalida3]="fechaSalida3" [fechaSalida4]="fechaSalida4"
+                            [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3" [fechaSalidaShow4]="fechaSalidaShow4" [fechaSalidaShow5]="fechaSalidaShow5"
+                            [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5" [origenAuto6]="origenAuto6" [origentTexto1]="origentTexto1"
+                            [origentTexto2]="origentTexto2" [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1" [destinoAuto2]="destinoAuto2" [destinoAuto3]="destinoAuto3"
+                            [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3" [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5"
+                            [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)" (outTipoVuelo)="setOutputTipoVuelo($event)" (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
 
                         <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
 
@@ -387,6 +384,10 @@
                                 [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.pseudoRepeat">
                             </app-recomendacion>
                         </div>
+
+
+
+
                     </div>
 
                 </div>

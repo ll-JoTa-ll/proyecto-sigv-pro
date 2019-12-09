@@ -159,9 +159,9 @@ export class LoginComponent implements OnInit {
       (result: any) => {
         let lstairport;
         //console.log(result);
-        this.airportlist = result.lairport;
-   //     lstairport = crypto.AES.encrypt(this.airportList, 'kairport');
-        this.sessionStorageService.store('ls_airportlist', this.airportlist);
+        //this.airportlist = result.lairport;
+        this.localStorageService.store('ls_airportlist', result.lairport);
+        this.localStorageService.store('ls_citylist', result.lcity);
       },
 
       (err) => {
