@@ -158,8 +158,9 @@ export class LoginComponent implements OnInit {
     this.airportService.airportList(this.token).subscribe(
       (result: any) => {
         //console.log(result);
-        this.airportlist = result.lairport;
-        this.localStorageService.store('ls_airportlist', this.airportlist);
+        //this.airportlist = result.lairport;
+        this.localStorageService.store('ls_airportlist', result.lairport);
+        this.localStorageService.store('ls_citylist', result.lcity);
       },
 
       (err) => {

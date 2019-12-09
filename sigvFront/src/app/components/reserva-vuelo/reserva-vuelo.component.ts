@@ -466,7 +466,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         */
       });
       console.log(htmlTxtC);
-      this.htmlTxtC = htmlTxtC;
+      this.htmlTxtC = "";
 
 
       if (flagC === 1) {
@@ -548,7 +548,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
       });
       console.log(htmlTxtP);
-      this.htmlTxtP = htmlTxtP;
+      this.htmlTxtP = "";
       this.flagHtmlP = true;
     } else {
       this.flagHtmlP = true;

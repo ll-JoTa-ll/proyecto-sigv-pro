@@ -26,6 +26,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   flagBuscar: boolean;
 
   airportlist: any[] = [];
+  citylist: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
   searchData: ISearchFlightModel[] = [];
@@ -37,7 +38,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   tipoVuelo: string;
 
-  keyword = 'name';
+  keyword = 'searchName';
   data: any[] = [];
   data2: any[] = [];
 
@@ -119,6 +120,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   model: any = {};
 
   aerolineas: any[] = [];
+  lstAutocomplete: any[] = [];
 
   constructor(
     private airportService: AirportService,
@@ -182,6 +184,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     //this.localeService.use("es");
     //this.airportList();
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     this.token = this.sessionStorageService.retrieve('ss_token');
@@ -195,6 +198,34 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     } else {
       this.flagPaxMasMenos = false;
     }
+
+    const lstAutocomplete = this.lstAutocomplete;
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        latitude: aeropuerto.latitude,
+        longitude: aeropuerto.longitude,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    this.citylist.forEach(function (ciudad) {
+      const obj1 = {
+        iataCode: ciudad.iataCode,
+        name: ciudad.name,
+        searchName: ciudad.searchName,
+        latitude: ciudad.latitude,
+        longitude: ciudad.longitude,
+        categoryId: 2,
+        categoryName: 'Ciudad'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    lstAutocomplete.sort((a, b) => a.name - b.name );
+    this.lstAutocomplete = lstAutocomplete;
   }
 
 
@@ -311,7 +342,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data = resultFilter;
 
       $(".x").hide();
@@ -334,7 +365,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   onChangeSearch2(val: string) {
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data2 = resultFilter;
 
       $(".x").hide();
