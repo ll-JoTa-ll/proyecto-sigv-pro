@@ -166,10 +166,9 @@ export class LoginComponent implements OnInit {
 
       (err) => {
         this.spinner.hide();
-        //console.log('ERROR' + JSON.stringify(err));
         },
 
-      () => { 
+      () => {
         this.spinner.hide();
         let id = this.rutaActiva.snapshot.params.id;
         //console.log("Service airportList complete");

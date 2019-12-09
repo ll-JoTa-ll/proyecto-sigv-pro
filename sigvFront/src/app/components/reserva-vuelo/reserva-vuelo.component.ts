@@ -408,7 +408,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         htmlTxtC += "";
       });
 
-      //this.setHijoNieto(lstCbxC);
 
       lstCbxC.forEach(function(cbx, index) {
         flagC = 1;
