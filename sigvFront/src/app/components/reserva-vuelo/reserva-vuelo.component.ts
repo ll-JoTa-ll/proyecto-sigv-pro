@@ -169,6 +169,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     );
   }
 
+  
+
 
   ValidarCorreo() {
     let val;
@@ -368,7 +370,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     const companyId = this.loginDataUser.ocompany.companyId;
     this.flightService.getUidByCompany(companyId).subscribe(
       result => {
-        console.log("result: " + JSON.stringify(result));
+        console.log("result: " + JSON.stringify(result))
         if (result != null) {
           this.uidByCompanyC = result.filter(x => x.typeUid === 'C');
           this.uidByCompanyP = result.filter(x => x.typeUid === 'P');
@@ -411,15 +413,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         flagC = 1;
 
         const llistUid = cbx.llistUid;
-        let lstPadre;
-        let lstHijosNietos;
+        const lstPadre = llistUid.filter(x => x.parent === 0);
+        const lstHijosNietos = llistUid.filter(x => x.parent > 0);
 
-        if (llistUid != null) {
-          lstPadre = llistUid.filter(x => x.parent === 0);
-          lstHijosNietos = llistUid.filter(x => x.parent > 0);
-        } else {
-          return;
-        }
         htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += cbx.title;
         htmlTxtC += "</div>";

@@ -580,7 +580,6 @@ TraerAutorizador() {
             // tslint:disable-next-line: max-line-length
             this.router.navigate(['/reserva-vuelo']);
           }
-
           if (tipo === 2) {
             // tslint:disable-next-line: max-line-length
             if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
@@ -729,7 +728,6 @@ TraerAutorizador() {
             console.log("idSecuencial: " + idSecuencial);
             $("#idRadioFam_" + idSecuencial).prop("checked", true);
             $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
-
           });
         }
       });
@@ -782,5 +780,4 @@ TraerAutorizador() {
   openModalDsctCop(template: TemplateRef<any>) {
     this.modalRefDsctCorp = this.modalService.show(template);
   }
-
 }
