@@ -40,11 +40,11 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
     this.reserva.numberPhone.forEach(function(item){
       this.phone = item;
     })
-    console.log("phone ======>" + this.phone);
-    console.log("phone ======>" + this.phone);
-    console.log("phone ======>" + this.phone);
-    console.log("phone ======>" + this.phone);
-    console.log("phone ======>" + this.phone);
+
+  }
+
+  BackSearch(){
+    this.router.navigate(["/hoteles"])
   }
 
   ngAfterViewInit() {

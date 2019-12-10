@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HotelService } from '../../../../services/hotel.service';
-import { SessionStorageService } from 'ngx-webstorage';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../../models/ILoginDatos.model';
 import { IHotelResultsModel } from '../../../../models/IHotelResults.model';
@@ -38,6 +38,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   @Input() hotelcode;
   @Input() fecharetorno;
   urlimg = './assets/images/hotel-icon.png';
+  
 
   constructor(public spinner: NgxSpinnerService,private service: HotelService,private sessionStorageService: SessionStorageService) {
 
@@ -49,6 +50,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   }
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
+    
     this.spinner.show();
     let data = {
       "Pseudo": "LIMPE2235",

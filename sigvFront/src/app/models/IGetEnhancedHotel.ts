@@ -9,6 +9,7 @@ export class IGetEnhancedHotel {
     oroom: {
         guarantee: string;
         ratePlan: string;
+        breakFast: boolean;
         paymentCards: [];
         lcancelPenalties: [
             {

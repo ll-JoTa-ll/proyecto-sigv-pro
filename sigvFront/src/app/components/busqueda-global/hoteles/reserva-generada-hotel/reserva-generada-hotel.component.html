@@ -35,7 +35,7 @@
                                                 <br>
                                                 <span class="txtdis pr-4">{{habitacion.ohotel.cityName}}. A {{lhotel.oairportDistance.distance}} km  del  aeropuerto</span>
 
-                                                <label for="happy" class="option-happy" (click)="Mostrarmapa()">Ver Mapa</label>
+                                                <img for="happy" class="option-happy pb-2" (click)="Mostrarmapa()" style="width:23px;" src="./assets/images/qqq.png"><label for="happy" class="option-happy" (click)="Mostrarmapa()">Ver Mapa</label>
 
 
                                             </div>
@@ -76,11 +76,11 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <div class="row m-0 p-0">
-                                    <ng-container *ngIf="habitacion.ohotel.limagens != null && habitacion.ohotel.limagens.length > 0; else elseTemplate" class="col-8 m-0 p-0">
+                                    <ng-container *ngIf="habitacion.ohotel.limagens != null && habitacion.ohotel.limagens.length > 0; else elseTemplate1" class="col-8 m-0 p-0">
                                         <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="{{habitacion.ohotel.limagens[0].url}}">
                                     </ng-container>
-                                    <ng-template #elseTemplate>
-                                        <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="./assets/images/imagenotfound.jfif">
+                                    <ng-template #elseTemplate1>
+                                        <img class="pl-2 pt-4" style="width: 800px; height: 600px; border-radius: 15px 0px 15px 0px;" src="./assets/images/imagenotfound.jfif">
                                     </ng-template>
                                     <div class="col-4 m-0 p-0">
                                         <div class="row m-0 p-0 pt-3 pb-4">
@@ -151,7 +151,7 @@
                                             </div>
                                         </div>
                                         <div class="row m-0 p-0">
-                                            <span> <img style="width: 30px;" src="./assets/images/telephone.png"></span><span class="txtphono">TELÉFONO DE CONTACTO:</span>
+                                            <span> <img style="width: 30px;" src="./assets/images/telephone.png"></span><span class="txtphono pl-3">TELÉFONO DE CONTACTO:</span>
                                         </div>
                                         <div class="row m-0 p-0">
                                             <div class="col-12 m-0 p-0 pt-3 pl-5">
@@ -189,10 +189,10 @@
                                     <!--   <div class="col-3 m-0 p-0">
                                         <span class=""><span class="pl-2"></span><span class="Dates">Check out: {{habitacion.ohotel.checkOut}}</span></span>
                                     </div>-->
-                                    <ng-container *ngIf="habitacion.ohotel.checkOut != null && habitacion.ohotel.checkOut != ''; else elseTemplate" class="col-3 m-0 p-0">
+                                    <ng-container *ngIf="habitacion.ohotel.checkOut != null && habitacion.ohotel.checkOut != ''; else elseTemplate2" class="col-3 m-0 p-0">
                                         <span class=""><span class="pl-2"></span><span class="Dates">Check out: {{habitacion.ohotel.checkOut}}</span></span>
                                     </ng-container>
-                                    <ng-template #elseTemplate class="col-3 m-0 p-0">
+                                    <ng-template #elseTemplate2 class="col-3 m-0 p-0">
                                         <span class=""><span class="pl-2"></span><span class="Dates">Check out: Sin informacion</span></span>
                                     </ng-template>
 
@@ -227,6 +227,23 @@
                             </div>
                             <div class="col-6 m-0 p-0">
                                 <input disabled="" type="text" value="{{reserva.lpassengers[0].phone}}" class="input-names box-shadow" style="width: 380px; height: 38px;">
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0 pt-5">
+                            <div class="col-4 m-0 p-0">
+
+                            </div>
+                            <div class="col-3 m-0 p-0">
+
+                                <button class="btn1" (click)="BackSearch()">
+                                            
+                                           
+                                            <span style="color: #FFFFFF">Aceptar</span>
+                                        </button>
+
+                            </div>
+                            <div class="col-5 m-0 p-0">
+
                             </div>
                         </div>
                     </div>

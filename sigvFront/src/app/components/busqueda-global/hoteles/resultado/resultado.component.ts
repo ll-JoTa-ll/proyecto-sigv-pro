@@ -4,7 +4,7 @@ import { HotelService } from '../../../../services/hotel.service';
 import { datepickerAnimation } from 'ngx-bootstrap/datepicker/datepicker-animations';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { ILoginDatosModel } from 'src/app/models/ILoginDatos.model';
-import { SessionStorageService } from 'ngx-webstorage';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { VuelosComponent } from '../../vuelos/vuelos.component';
@@ -48,6 +48,7 @@ export class ResultadoComponent implements OnInit {
   @Input() fechasalida: string;
   @Input() cantidadhabitaciones: string;
   @Input() fecharetorno: string;
+  localfinish;
   urlimg = './assets/images/hotel-icon.png';
   lstHabication: IHabitacionResults;
   lstHotel : IHotelResultsModel[];
@@ -55,7 +56,7 @@ export class ResultadoComponent implements OnInit {
   
   t: number;
 
-  constructor(public spinner: NgxSpinnerService,private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router) {
+  constructor(private localStorageService: LocalStorageService,public spinner: NgxSpinnerService,private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router) {
 
     console.log("ResultadoComponent constructor");
     
@@ -74,6 +75,9 @@ export class ResultadoComponent implements OnInit {
  
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
+    this.localfinish = true;
+    this.localStorageService.store("ss_countersession",null);
+    this.localStorageService.store("ss_countersession",this.localfinish);
     this.spinner.show();
     let data = {
       "Pseudo": "LIMPE2235",
@@ -134,6 +138,8 @@ export class ResultadoComponent implements OnInit {
    }
     )
   }
+
+  
 
 
   Mostrarmapa(position) {
