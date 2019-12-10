@@ -57,7 +57,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   @Input() mayorPrecioHotel: number;
   @Input() menorPrecioHotel: number;
-  
+
   slides: { image: string }[] = [];
   activeSlideIndex = 0;
  
@@ -75,7 +75,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   showComponent: boolean = false;
   hideComponent: boolean = true;
   hoteles: IHotelResultsModel[] = [];
-  
+
   @Input() urlHotel: string;
   @Input() estrellas: number;
   @Input() index: string;
@@ -90,7 +90,6 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   modalRefSessionExpired: BsModalRef;
 
   @ViewChild("modalexpired", {static: false}) modalexpired;
-  
 
 
   constructor(private localStorageService: LocalStorageService,private router: Router,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
@@ -107,24 +106,25 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     }
 
 
-   // this.contador = 600;
-    
-   // this.bnIdle.startWatching(this.contador).subscribe((res) => {
+
+    // this.contador = 600;
+
+    // this.bnIdle.startWatching(this.contador).subscribe((res) => {
 
 
-   //   if(res) {
+    //   if(res) {
 
-     //    alert("Session expired")
-     //    this.router.navigate(['hoteles'])
-     // }
-  // });
+    //    alert("Session expired")
+    //    this.router.navigate(['hoteles'])
+    // }
+    // });
 
-  //  this.t = 0;
-  //  let tt = this.t;
-  //  setInterval(function(){
-   //   console.log(tt++);
-   //   sessionStorageService.store("ss_timer_hoteles_v1", tt);
-  //  },1000);
+    //  this.t = 0;
+    //  let tt = this.t;
+    //  setInterval(function(){
+    //   console.log(tt++);
+    //   sessionStorageService.store("ss_timer_hoteles_v1", tt);
+    //  },1000);
   }
 
 
@@ -173,15 +173,15 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    this.startCountDown(20, this.modalexpired);
+    this.startCountDown(600, this.modalexpired);
     console.log("cantidadnoche =====> " +this.cantidadnoche);
     this.sessionFinish = true;
   }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
-    template,
-    Object.assign({}, { class: 'modal-lg m-galeria' })
+      template,
+      Object.assign({}, { class: 'modal-lg m-galeria' })
     )
   }
 
@@ -199,13 +199,13 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   MostrarMapa($event) {
     this.vistamapa = $event;
     this.vistalistado = false;
- }
+  }
 
- MostrarListado($event) {
+  MostrarListado($event) {
     this.vistalistado = $event;
     this.vistamapa = false;
- }
-  
+  }
+
   showComponente($event) {
     console.log("showComponente");
     console.log("$event: " + $event);
@@ -222,7 +222,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     console.log("listadoHoteles");
     console.log("$event: " + $event);
     this.hoteles = $event;
- 
+
   }
 
   getChatMessages(){
@@ -249,17 +249,17 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     let mayorValor = 0;
 
     this.LlistaHotel.forEach(function(item) {
-            if (item.oprice.pricePerAllNights < menorValor) {
-              menorValor = item.oprice.pricePerAllNights;
-            }
-              if (item.oprice.pricePerAllNights > mayorValor) {
-                mayorValor = item.oprice.pricePerAllNights;
-              }
+      if (item.oprice.pricePerAllNights < menorValor) {
+        menorValor = item.oprice.pricePerAllNights;
+      }
+      if (item.oprice.pricePerAllNights > mayorValor) {
+        mayorValor = item.oprice.pricePerAllNights;
+      }
 
-           });
+    });
 
-           this.menorPrecioHotel = menorValor;
-           this.mayorPrecioHotel = mayorValor;
+    this.menorPrecioHotel = menorValor;
+    this.mayorPrecioHotel = mayorValor;
     this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
     this.mapafiltro = true;
   }
@@ -273,24 +273,24 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   leermar(){
     var texto, padre;
     $(".contenido").each(function(){
-        texto = $(this).html();
-        this.setAttribute("data-texto", texto);
-        if ($(this).html().length > 75){
-            $(this)
-                .html(texto.substr(0, 75) + "...")
-                .append($("<label class = 'mas'>Ver más</label>"));
-        }
+      texto = $(this).html();
+      this.setAttribute("data-texto", texto);
+      if ($(this).html().length > 75){
+        $(this)
+          .html(texto.substr(0, 75) + "...")
+          .append($("<label class = 'mas'>Ver más</label>"));
+      }
     });
-    
+
     $(".mas").on("click", function(){
-        padre = $(this).parent();
-        texto = padre.data("texto");
-        $(padre)
-            .html(texto)
-            .css({
-                width: "50%",
-                height: "5rem"
-            });
+      padre = $(this).parent();
+      texto = padre.data("texto");
+      $(padre)
+        .html(texto)
+        .css({
+          width: "50%",
+          height: "5rem"
+        });
     });
   }
 
@@ -305,62 +305,62 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     this.texto2 = this.lsthabitacion.ohotel.hotelDescription.substring(250,this.lsthabitacion.ohotel.hotelDescription.length);
     this.texto3 = this.lsthabitacion.ohotel.hotelDescription;
     this.lsthabitacion.contador = this.contador;
- 
+
   }
 
- mostrarmas(){
-   $('#description').html(this.texto3)
-   $('#p2').css("display","block")
-   $('#p1').css("display","none")
- }
- mostrarmenos(){
-  $('#description').html(this.texto1)
-  $('#p2').css("display","none")
-  $('#p1').css("display","block")
- }
-
- ObtenerListaFiltroEstrella($event) {
-  this.divwarning = false;
-  this.LlistaHotel = [];
-  this.LlistaHotel = $event;
-  console.log("$event" + $event);
-  if (this.LlistaHotel.length === 0) {
-    this.divwarning = true;
+  mostrarmas(){
+    $('#description').html(this.texto3)
+    $('#p2').css("display","block")
+    $('#p1').css("display","none")
   }
-}
-
-ObtenerListaFiltroPrecio($event) {
-  this.divwarning = false;
-  this.LlistaHotel = [];
-  this.LlistaHotel = $event;
-
-  if (this.LlistaHotel.length === 0) {
-    this.divwarning = true;
+  mostrarmenos(){
+    $('#description').html(this.texto1)
+    $('#p2').css("display","none")
+    $('#p1').css("display","block")
   }
 
-}
-
-ObtenerListaFiltroNombre($event) {
-  this.LlistaHotel = [];
-  this.LlistaHotel = $event;
-
-  if (this.LlistaHotel.length === 0) {
-    this.divwarning = true;
+  ObtenerListaFiltroEstrella($event) {
+    this.divwarning = false;
+    this.LlistaHotel = [];
+    this.LlistaHotel = $event;
+    console.log("$event" + $event);
+    if (this.LlistaHotel.length === 0) {
+      this.divwarning = true;
+    }
   }
 
-}
+  ObtenerListaFiltroPrecio($event) {
+    this.divwarning = false;
+    this.LlistaHotel = [];
+    this.LlistaHotel = $event;
 
-  
+    if (this.LlistaHotel.length === 0) {
+      this.divwarning = true;
+    }
+
+  }
+
+  ObtenerListaFiltroNombre($event) {
+    this.LlistaHotel = [];
+    this.LlistaHotel = $event;
+
+    if (this.LlistaHotel.length === 0) {
+      this.divwarning = true;
+    }
+
+  }
+
+
 
   Mostrarmapa() {
     $('#mapa').show();
- }
- 
- OcultarMapa() {
-   $('#mapa').hide();
- }
+  }
 
- 
- 
+  OcultarMapa() {
+    $('#mapa').hide();
+  }
+
+
+
 
 }

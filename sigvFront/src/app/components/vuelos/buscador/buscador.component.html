@@ -51,9 +51,12 @@
                     <ng-autocomplete #closed [(ngModel)]="origentTexto" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent(1, $event)' (inputChanged)='onChangeSearch(1, $event)' (inputFocused)='onFocused(1, $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
 
-                    <ng-template #itemTemplate let-item style="z-index: 1000;">
-                        <a [innerHTML]="item.name"></a>
-                    </ng-template>
+                  <ng-template #itemTemplate let-item>
+                    <!--<a [innerHTML]="item.name"></a>-->
+                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                    {{item.name}}
+                  </ng-template>
 
                     <ng-template #notFoundTemplate let-notFound>
                         <div [innerHTML]=""></div>
@@ -70,9 +73,12 @@
                     <ng-autocomplete [(ngModel)]="destinoTexto" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent(2, $event)' (inputChanged)='onChangeSearch(2, $event)' (inputFocused)='onFocused(2, $event)' [itemTemplate]="itemTemplate2" [notFoundTemplate]="notFoundTemplate2">
                     </ng-autocomplete>
 
-                    <ng-template #itemTemplate2 let-item style="z-index: 1000;">
-                        <a [innerHTML]="item.name"></a>
-                    </ng-template>
+                  <ng-template #itemTemplate2 let-item>
+                    <!--<a [innerHTML]="item.name"></a>-->
+                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                    {{item.name}}
+                  </ng-template>
 
                     <ng-template #notFoundTemplate2 let-notFound>
                         <div [innerHTML]=""></div>

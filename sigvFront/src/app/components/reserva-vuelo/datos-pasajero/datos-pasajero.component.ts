@@ -51,6 +51,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   //valtelefono = false;
   //valcorreo = false;
 
+  @Input() htmlTxtP;
 
   constructor(private modalService: BsModalService, private sessionStorageService : SessionStorageService) {
     this.datosuser = sessionStorageService.retrieve('objusuarios');
@@ -66,6 +67,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    $("#divHtmlTxtP").html(this.htmlTxtP);
   }
 
   openModal(template: TemplateRef<any>, template2: TemplateRef<any>) {

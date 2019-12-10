@@ -69,12 +69,26 @@
                 <div id="txtOrigen" class="m-0 p-0 txtOrigen" style="width: 75%">
 
                   <div class="ng-autocomplete" style="width: 100%;">
-                      <ng-autocomplete [(ngModel)]="model.origentTexto" popover="Falta ingresar el origen" triggers="" [isOpen]="isOpen" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                          [notFoundTemplate]="notFoundTemplate">
+                      <ng-autocomplete
+                        [(ngModel)]="model.origentTexto"
+                        popover="Falta ingresar el origen"
+                        triggers=""
+                        [isOpen]="isOpen"
+                        style="color: #898989 !important;"
+                        [data]="data"
+                        [searchKeyword]="keyword"
+                        (selected)='selectEvent($event)'
+                        (inputChanged)='onChangeSearch($event)'
+                        (inputFocused)='onFocused($event)'
+                        [itemTemplate]="itemTemplate"
+                        [notFoundTemplate]="notFoundTemplate">
                       </ng-autocomplete>
 
                       <ng-template #itemTemplate let-item>
-                          <a [innerHTML]="item.name"></a>
+                          <!--<a [innerHTML]="item.name"></a>-->
+                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                        {{item.name}}
                       </ng-template>
 
                       <ng-template #notFoundTemplate let-notFound>
@@ -99,13 +113,29 @@
                 <div id="txtDestino" class=" m-0 p-0 txtDestino" style="width: 75%;">
 
                   <div class="ng-autocomplete" style="width: 100%;">
-                      <ng-autocomplete [(ngModel)]="model.destinoTexto" popover="Falta ingresar el destino" triggers="" [isOpen]="valdestino" style="color: #898989 !important;" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent2($event)' (inputChanged)='onChangeSearch2($event)' (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2"
-                          [notFoundTemplate]="notFoundTemplate2">
+                      <ng-autocomplete
+                        [(ngModel)]="model.destinoTexto"
+                        popover="Falta ingresar el destino"
+                        triggers="" [isOpen]="valdestino"
+                        style="color: #898989 !important;" [data]="data2"
+                        [searchKeyword]="keyword"
+                        (selected)='selectEvent2($event)'
+                        (inputChanged)='onChangeSearch2($event)'
+                        (inputFocused)='onFocused2($event)'
+                        [itemTemplate]="itemTemplate2"
+                        [notFoundTemplate]="notFoundTemplate2">
                       </ng-autocomplete>
 
-                      <ng-template #itemTemplate2 let-item>
-                          <a [innerHTML]="item.name"></a>
-                      </ng-template>
+                    <ng-template #itemTemplate2 let-item>
+                      <!--<a [innerHTML]="item.name"></a>-->
+                      <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                      <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                      {{item.name}}
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                      <!--<div [innerHTML]="notFound"></div>-->
+                    </ng-template>
 
                       <ng-template #notFoundTemplate2 let-notFound>
                           <!--<div [innerHTML]="notFound"></div>-->

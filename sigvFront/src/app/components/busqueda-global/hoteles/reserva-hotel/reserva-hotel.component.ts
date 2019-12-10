@@ -28,8 +28,8 @@ declare var $: any;
 })
 export class ReservaHotelComponent implements OnInit, AfterViewInit {
   modalref: BsModalRef;
- 
-   
+
+
 
   loginDataUser: ILoginDatosModel;
   habitacion : IHabitacionResults;
@@ -54,9 +54,9 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   nombreContacto;
   areaContacto;
   isOpen = false;
-  
-  
-  
+
+
+
 
   constructor(private bnIdle: BnNgIdleService,private toastr: ToastrService,private http: HttpClient,private router: Router,private sessionStorageService: SessionStorageService,public spinner: NgxSpinnerService,private service: HotelService,private modalService: BsModalService,private services: AirportService) {
     this.lstConfirmacion = this.sessionStorageService.retrieve("confirmacion");
@@ -64,7 +64,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.user = this.sessionStorageService.retrieve("ss_user");
     this.plantilla = 'assets/plantillashoteles/enviocorreo.html';
-   }
+  }
 
   ngOnInit() {
     console.log("this.user.email ===> "+ this.user.email)
@@ -75,33 +75,33 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
     //let ss_timer_hoteles = this.sessionStorageService.retrieve("ss_timer_hoteles_v1");
     //console.log("ss_timer_hoteles: " + ss_timer_hoteles);
-   // let newCount = 60 - ss_timer_hoteles;
-   // console.log("newCount: " + newCount);
-   // this.bnIdle.startWatching(newCount).subscribe((res) => {
-   //   console.log("res"+res);
-   //   console.log("res"+res);
-   //   console.log("res"+res);
-  //    console.log("res"+res);
-   //   console.log("res"+res);
+    // let newCount = 60 - ss_timer_hoteles;
+    // console.log("newCount: " + newCount);
+    // this.bnIdle.startWatching(newCount).subscribe((res) => {
+    //   console.log("res"+res);
+    //   console.log("res"+res);
+    //   console.log("res"+res);
+    //    console.log("res"+res);
+    //   console.log("res"+res);
     //  console.log("res"+res);
 
     //  if(res) {
 
-     //     alert("Session expired")
-     //     this.router.navigate(['hoteles'])
-     // }
-   // });
-    
+    //     alert("Session expired")
+    //     this.router.navigate(['hoteles'])
+    // }
+    // });
+
     this.Obtenerstring();
   }
 
-  
+
 
   VolverHome(){
     this.router.navigate(['hoteles'])
   }
 
-    
+
 
   ngAfterViewInit() {
     console.log('ngOnInit hoteles');
@@ -115,8 +115,8 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-  }  
-  
+  }
+
   getPnrHotel(){
     console.log(this.user);
     let message;
@@ -130,106 +130,106 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     }
     else{
       //let fechVencimiento = this.fechVencimiento;
-    //this.fechVencimiento = fechVencimiento.substring(0,2) + fechVencimiento.substring(3,5);
-    //this.fechVencimiento = this.fechVencimiento.substring(0,2) + this.fechVencimiento.substring(3,5);
-    let phone = [this.telefono];
-    phone.push();
-    let email = [this.correo];
-    email.push();
-    this.spinner.show();
-    let data = {
-    "Pseudo": "LIMPE2235",
-    "GDS": "Amadeus",
-    "Ocompany": this.loginDataUser.ocompany,
-    "osession": this.lstConfirmacion.osession,
-    "Phones": phone,
-      "Emails": email,
-      "LPassenger":
-      [
-        {
-          "PassengerId": 1,
-          "PersonId": this.user.personId,
-          "Prefix": "MR",
-          "Type": "ADT",
-          "Name": this.loginDataUser.userName,
-          "LastName":this.loginDataUser.userLastName,
-          "Gender": this.user.gender,
-          "BirthDate": cumple,
-          "IsVIP": this.user.isVIP,
-          "Odocument":
+      //this.fechVencimiento = fechVencimiento.substring(0,2) + fechVencimiento.substring(3,5);
+      //this.fechVencimiento = this.fechVencimiento.substring(0,2) + this.fechVencimiento.substring(3,5);
+      let phone = [this.telefono];
+      phone.push();
+      let email = [this.correo];
+      email.push();
+      this.spinner.show();
+      let data = {
+        "Pseudo": "LIMPE2235",
+        "GDS": "Amadeus",
+        "Ocompany": this.loginDataUser.ocompany,
+        "osession": this.lstConfirmacion.osession,
+        "Phones": phone,
+        "Emails": email,
+        "LPassenger":
+          [
             {
-              "Type": this.user.odocument.type,
-              "Number": this.user.odocument.number
+              "PassengerId": 1,
+              "PersonId": this.user.personId,
+              "Prefix": "MR",
+              "Type": "ADT",
+              "Name": this.loginDataUser.userName,
+              "LastName":this.loginDataUser.userLastName,
+              "Gender": this.user.gender,
+              "BirthDate": cumple,
+              "IsVIP": this.user.isVIP,
+              "Odocument":
+                {
+                  "Type": this.user.odocument.type,
+                  "Number": this.user.odocument.number
+                }
             }
-        }
-      ],
-    "StartDate": this.lsthabitacion.ohotel.startDate,
-    "EndDate": this.lsthabitacion.ohotel.endDate,
-    "CityCode": this.lstConfirmacion.ohotel.cityCode,
-    "Hotelcode": this.lstConfirmacion.ohotel.code,
-    "HotelName": this.lstConfirmacion.ohotel.name,
-    "GuaranteeText": "GuaranteeRequired",
-    "BookingCode": this.lstConfirmacion.oroom.bookingCode,
-    "CorporateCode": this.lstConfirmacion.ohotel.chainCode,
-    "NumberPassengers": this.lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers,
-    "OcreditCard":
-      {
-        "CardType": this.nombreTarjeta,
-        "CardNumber": this.numeroTarjeta,
-        "SecurityId": this.codSeguridad,
-        "ExpiryDate": this.fechVencimiento,
-        "HolderName": this.titular
-      },
-      "OInformationContact":
-      {
-        "Area": this.areaContacto,
-        "Name": this.nombreContacto,
-        "EmailAddress" : this.correoContacto,
-        "Numberphone": this.telefonoContacto
+          ],
+        "StartDate": this.lsthabitacion.ohotel.startDate,
+        "EndDate": this.lsthabitacion.ohotel.endDate,
+        "CityCode": this.lstConfirmacion.ohotel.cityCode,
+        "Hotelcode": this.lstConfirmacion.ohotel.code,
+        "HotelName": this.lstConfirmacion.ohotel.name,
+        "GuaranteeText": "GuaranteeRequired",
+        "BookingCode": this.lstConfirmacion.oroom.bookingCode,
+        "CorporateCode": this.lstConfirmacion.ohotel.chainCode,
+        "NumberPassengers": this.lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers,
+        "OcreditCard":
+          {
+            "CardType": this.nombreTarjeta,
+            "CardNumber": this.numeroTarjeta,
+            "SecurityId": this.codSeguridad,
+            "ExpiryDate": this.fechVencimiento,
+            "HolderName": this.titular
+          },
+        "OInformationContact":
+          {
+            "Area": this.areaContacto,
+            "Name": this.nombreContacto,
+            "EmailAddress" : this.correoContacto,
+            "Numberphone": this.telefonoContacto
+          }
       }
-    }
-
-    
 
 
-    this.service.GetReserva(data).subscribe(
-      data => {
-        let template : TemplateRef<any>;
-        this.Reserva = data;
-        
-        this.sessionStorageService.store("reserva", this.Reserva);
-         message = this.Reserva.oerror;
 
-         
-       
-          
-      },
-      err => {
-        this.spinner.hide();
-      
-    },
-   () => {
-    if (message != null) {
-      this.modalRefSessionExpired = this.modalService.show(ModalHotelesVaciosComponent)
-      //alert(this.Reserva.oerror.message)
-      this.spinner.hide();
-      return;
+
+      this.service.GetReserva(data).subscribe(
+        data => {
+          let template : TemplateRef<any>;
+          this.Reserva = data;
+
+          this.sessionStorageService.store("reserva", this.Reserva);
+          message = this.Reserva.oerror;
+
+
+
+
+        },
+        err => {
+          this.spinner.hide();
+
+        },
+        () => {
+          if (message != null) {
+            this.modalRefSessionExpired = this.modalService.show(ModalHotelesVaciosComponent)
+            //alert(this.Reserva.oerror.message)
+            this.spinner.hide();
+            return;
+          }
+          else{
+            this.SendMailHotelAprobado();
+          }
+
+
+
+        }
+
+      )
     }
-    else{
-      this.SendMailHotelAprobado();
-    }
-     
- 
-    
-   }
-   
-    )
-    }
-    
+
   }
   openModal(template: TemplateRef<any>){
-      this.modalref = this.modalService.show(this.Reserva.oerror.message);
-   
+    this.modalref = this.modalService.show(this.Reserva.oerror.message);
+
   }
 
   Obtenerstring() {
@@ -238,7 +238,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
         this.emailsolicitud = data;
       },
       err => {
-      
+
       }
     )
   }
@@ -246,15 +246,15 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   SendMailHotelAprobado() {
     this.spinner.show();
     this.getAmenities();
-  
+
     let mails = [];
-   
+
     this.Reserva.email.forEach(function(item){
       mails.push(item);
-    }); 
-   
-  
-   
+    });
+
+
+
     let data = {
       "AgencyId": 1,
       "Recipients": mails,
@@ -265,18 +265,18 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     }
     this.services.SendEmail(data).subscribe(
       results => {
-           if (results === true) {
-            this.toastr.success('', 'Se envio correctamente', {
-              timeOut: 3000
-             });
-           } else {
-            this.toastr.error('', 'Error al envio', {
-              timeOut: 3000
-            });
-           }
+        if (results === true) {
+          this.toastr.success('', 'Se envio correctamente', {
+            timeOut: 3000
+          });
+        } else {
+          this.toastr.error('', 'Error al envio', {
+            timeOut: 3000
+          });
+        }
       },
       err => {
-       
+
       },
       () => {
         this.spinner.hide();
@@ -392,7 +392,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   setCorreo($event){
     this.correo = $event;
   }
-  
+
 
   setCorreoContacto($event){
     this.correoContacto = $event;
@@ -409,12 +409,12 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   setAreaContacto($event){
     this.areaContacto = $event;
   }
-  
+
   ValidarCampos() {
     let val = true;
     let correo;
     correo = $("#correoTitu").val();
-     
+
     if ($('#correoTitu').val().length <= 0) {
       val = false;
       $('#correoTitu').addClass('campo-invalido');
@@ -477,10 +477,10 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     } else {
       $('#numero').removeClass('campo-invalido');
     }
-      
-        
+
+
     return val;
   }
-  
+
 
 }

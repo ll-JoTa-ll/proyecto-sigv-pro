@@ -60,6 +60,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   uidByCompanyP: any[] = [];
   htmlTxtC: string;
   flagHtmlC = false;
+  htmlTxtP: string;
+  flagHtmlP = false;
 
   constructor(
     private modalService: BsModalService,
@@ -323,24 +325,35 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     const companyId = this.loginDataUser.ocompany.companyId;
     this.flightService.getUidByCompany(companyId  ).subscribe(
       result => {
-        console.log("result: " + JSON.stringify(result))
+        console.log("result: " + JSON.stringify(result));
         if (result != null) {
           this.uidByCompanyC = result.filter(x => x.typeUid === 'C');
           this.uidByCompanyP = result.filter(x => x.typeUid === 'P');
+          console.log("this.uidByCompanyC: " + this.uidByCompanyC.length);
+          console.log("this.uidByCompanyP: " + this.uidByCompanyP.length);
         }
       },
       err => {},
       () => {
-        this.setInformacionAdicional(this.uidByCompanyC);
+        if (this.uidByCompanyC.length > 0) {
+          this.setInformacionAdicional(this.uidByCompanyC);
+        }
+
+        if (this.uidByCompanyP.length > 0) {
+          this.setInformacionPasajeros(this.uidByCompanyP);
+        }
       }
     );
   }
 
   setInformacionAdicional(lstUidByCompanyC) {
+    console.log("setInformacionAdicional");
     if (lstUidByCompanyC.length > 0) {
       let htmlTxtC = "";
       const lstTxtC = lstUidByCompanyC.filter(x => x.isList === false);
       const lstCbxC = lstUidByCompanyC.filter(x => x.isList === true);
+      console.log("lstTxtC: " + lstTxtC.length);
+      console.log("lstCbxC: " + lstCbxC.length);
       let flagC = 0;
       lstTxtC.forEach(function(txt, index) {
         flagC = 1;
@@ -353,36 +366,144 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += "";
         htmlTxtC += "";
-        htmlTxtC += "<input [id]='txt.code' class='form-control' type='text'>";
+        htmlTxtC += "<input class='form-control' type='text'>";
         htmlTxtC += "";
         htmlTxtC += "</div>";
         htmlTxtC += "";
       });
+
+      //this.setHijoNieto(lstCbxC);
+
       lstCbxC.forEach(function(cbx, index) {
-        const llistUid = cbx.llistUid;
         flagC = 1;
-        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
-        htmlTxtC += "";
-        htmlTxtC += "";
-        htmlTxtC += cbx.title;
-        htmlTxtC += "";
-        htmlTxtC += "</div>";
-        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
-        htmlTxtC += "";
-        htmlTxtC += "";
-        htmlTxtC += "";
-        htmlTxtC += "";
-        htmlTxtC += "</div>";
-        htmlTxtC += "";
+
+        const llistUid = cbx.llistUid;
+        if (llistUid != null) {
+          const lstPadre = llistUid.filter(x => x.parent === 0);
+          const lstHijosNietos = llistUid.filter(x => x.parent > 0);
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += cbx.title;
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+
+
+          htmlTxtC += "<select class='form-control'>";
+          lstPadre.forEach(function(padre, indexPadre) {
+            const lstHijos = lstHijosNietos.filter(x => x.parent === padre.id);
+            if (lstHijos.length > 0) {
+              htmlTxtC += "<optgroup label='  " + padre.description + "'>";
+              lstHijos.forEach(function(hijo, indexHijo) {
+                const lstNietos = lstHijosNietos.filter(y => y.parent === hijo.id);
+                if (lstNietos.length > 0) {
+                  htmlTxtC += "<optgroup label='" + hijo.description + "'>";
+                  lstNietos.forEach(function(nieto, indexnieto) {
+                    htmlTxtC += "<option>" + nieto.description + "</option>";
+                  });
+                  htmlTxtC += "</optgroup>";
+                } else {
+                  htmlTxtC += "<option>" + hijo.description + "</option>";
+                }
+              });
+              htmlTxtC += "</optgroup>";
+            } else {
+              htmlTxtC += "<option>" + padre.description + "</option>";
+            }
+          });
+          htmlTxtC += "</select>";
+
+
+          htmlTxtC += "</div>";
+        }
       });
       console.log(htmlTxtC);
-      this.htmlTxtC = htmlTxtC;
+      this.htmlTxtC = "";
 
 
       if (flagC === 1) {
         this.flagHtmlC = true;
       }
 
+    }
+  }
+
+  setHijoNieto(lstCbxC) {
+
+  }
+
+  setInformacionPasajeros(lstUidByCompanyP) {
+    console.log("setInformacionPasajeros");
+    //this.htmlTxtP = this.htmlTxtC;
+    if (lstUidByCompanyP.length > 0) {
+      let htmlTxtP = "";
+      const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
+      const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
+      let flagC = 0;
+      lstTxtC.forEach(function(txt, index) {
+        flagC = 1;
+        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtP += "";
+        htmlTxtP += "";
+        htmlTxtP += txt.title;
+        htmlTxtP += "";
+        htmlTxtP += "</div>";
+        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtP += "";
+        htmlTxtP += "";
+        htmlTxtP += "<input class='form-control' type='text'>";
+        htmlTxtP += "";
+        htmlTxtP += "</div>";
+        htmlTxtP += "";
+      });
+
+      //this.setHijoNieto(lstCbxC);
+
+      lstCbxC.forEach(function(cbx, index) {
+        flagC = 1;
+
+        const llistUid = cbx.llistUid;
+        const lstPadre = llistUid.filter(x => x.parent === 0);
+        const lstHijosNietos = llistUid.filter(x => x.parent > 0);
+
+        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtP += cbx.title;
+        htmlTxtP += "</div>";
+
+        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
+
+        htmlTxtP += "<select class='form-control'>";
+        lstPadre.forEach(function(padre, indexPadre) {
+          const lstHijos = lstHijosNietos.filter(x => x.parent === padre.id);
+          if (lstHijos.length > 0) {
+            htmlTxtP += "<optgroup label='" + padre.description + "'>";
+            lstHijos.forEach(function(hijo, indexHijo) {
+              const lstNietos = lstHijosNietos.filter(y => y.parent === hijo.id);
+              if (lstNietos.length > 0) {
+                htmlTxtP += "<optgroup label='" + hijo.description + "'>";
+                lstNietos.forEach(function(nieto, indexnieto) {
+                  htmlTxtP += "<option>" + nieto.description + "</option>";
+                });
+                htmlTxtP += "</optgroup>";
+              } else {
+                htmlTxtP += "<option>" + hijo.description + "</option>";
+              }
+            });
+            htmlTxtP += "</optgroup>";
+          } else {
+            htmlTxtP += "<option>" + padre.description + "</option>";
+          }
+        });
+        htmlTxtP += "</select>";
+
+        htmlTxtP += "</div>";
+
+      });
+      console.log(htmlTxtP);
+      this.htmlTxtP = "";
+      this.flagHtmlP = true;
+    } else {
+      this.flagHtmlP = true;
     }
   }
 }

@@ -85,10 +85,11 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   @Output() outIndexTramo = new EventEmitter<number>();
 
   airportlist: any[] = [];
+  citylist: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
   searchData: ISearchFlightModel[] = [];
-  keyword = 'name';
+  keyword = 'searchName';
   data: any[] = [];
   data2: any[] = [];
   data3: any[] = [];
@@ -108,6 +109,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   fechaValue;
   fechaText;
   model: any = {};
+  lstAutocomplete: any[] = [];
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -127,6 +129,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     console.log('buscador ngOnInit');
     this.indexTramo = this.inIndexTramo;
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     setTimeout(function() {
       $(".x").hide();
@@ -147,6 +150,34 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.destinoValue = this.destinoAuto;
       this.destinoText = this.destinoTexto;
     }
+
+    const lstAutocomplete = this.lstAutocomplete;
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        latitude: aeropuerto.latitude,
+        longitude: aeropuerto.longitude,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    this.citylist.forEach(function (ciudad) {
+      const obj1 = {
+        iataCode: ciudad.iataCode,
+        name: ciudad.name,
+        searchName: ciudad.searchName,
+        latitude: ciudad.latitude,
+        longitude: ciudad.longitude,
+        categoryId: 2,
+        categoryName: 'Ciudad'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    lstAutocomplete.sort((a, b) => a.name - b.name );
+    this.lstAutocomplete = lstAutocomplete;
   }
 
   ngAfterViewInit() {
@@ -244,7 +275,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 1) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data = resultFilter;
 
         $(".x").hide();
@@ -254,7 +285,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 2) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data2 = resultFilter;
 
         $(".x").hide();
@@ -264,7 +295,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 3) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data3 = resultFilter;
 
         $(".x").hide();
@@ -274,7 +305,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 4) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data4 = resultFilter;
 
         $(".x").hide();
@@ -284,7 +315,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 5) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data5 = resultFilter;
 
         $(".x").hide();
@@ -294,7 +325,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 6) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data6 = resultFilter;
 
         $(".x").hide();
@@ -304,7 +335,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 7) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data7 = resultFilter;
 
         $(".x").hide();
@@ -314,7 +345,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 8) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data8 = resultFilter;
 
         $(".x").hide();
@@ -324,7 +355,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 9) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data9 = resultFilter;
 
         $(".x").hide();
@@ -334,7 +365,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 10) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data10 = resultFilter;
 
         $(".x").hide();

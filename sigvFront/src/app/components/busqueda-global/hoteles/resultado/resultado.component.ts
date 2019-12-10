@@ -53,14 +53,14 @@ export class ResultadoComponent implements OnInit {
   lstHabication: IHabitacionResults;
   lstHotel : IHotelResultsModel[];
   objSearch: any;
-  
+
   t: number;
 
   constructor(private localStorageService: LocalStorageService,public spinner: NgxSpinnerService,private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router) {
 
     console.log("ResultadoComponent constructor");
-    
-   }
+
+  }
 
   ngOnInit() {
     console.log("ResultadoComponent ngOnInit");
@@ -69,10 +69,10 @@ export class ResultadoComponent implements OnInit {
     console.log("this.loginDataUser: " + JSON.stringify(this.loginDataUser));
     console.log("this.lstHotel: " + JSON.stringify(this.lstHotel));
     console.log("this.LHoteles: " + JSON.stringify(this.LHoteles));
-    
+
   }
 
- 
+
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
     this.localfinish = true;
@@ -82,24 +82,24 @@ export class ResultadoComponent implements OnInit {
     let data = {
       "Pseudo": "LIMPE2235",
       "Lhotel":
-      [
-        {
-          "HotelCode": hotelcode,
-          "StartDate": fechasalida,
-          "EndDate": fecharetorno,
-          "LguestPerRoom":
-          [
-            {
-              "RoomQuantity": $('#txthabitacion').val(),
-              "NumberPassengers": cantpersonas,
-              "TypePassenger": "ADT"
-            }
-          ]
-        }
-      ],
+        [
+          {
+            "HotelCode": hotelcode,
+            "StartDate": fechasalida,
+            "EndDate": fecharetorno,
+            "LguestPerRoom":
+              [
+                {
+                  "RoomQuantity": $('#txthabitacion').val(),
+                  "NumberPassengers": cantpersonas,
+                  "TypePassenger": "ADT"
+                }
+              ]
+          }
+        ],
       "Ocompany": this.loginDataUser.ocompany
     }
-    this.objSearch = { 
+    this.objSearch = {
       destino: $('#destinos').val(),
       fechaentrada: $('#fechaInicio').val(),
       fechasalida: $('#fechaFin').val(),
@@ -112,30 +112,30 @@ export class ResultadoComponent implements OnInit {
     let hotel;
     for (let i = 0; i < this.lstHotel.length; i++) {
       const element = this.lstHotel[i];
-      
+
       if (element.code === hotelcode) {
         hotel = this.lstHotel[i];
       }
-      
+
     }
     this.sessionStorageService.store("lhotel",hotel);
 
     this.service.GetHabitacion(data).subscribe(
       data => {
         this.lstHabication = data;
-        
+
         this.sessionStorageService.store("lstHabication", this.lstHabication);
 
         window.open(environment.url_project + "/habitacion");
       },
       err => {
-      this.spinner.hide();
-      
-    },
-   () => {
-     this.spinner.hide();
-    
-   }
+        this.spinner.hide();
+
+      },
+      () => {
+        this.spinner.hide();
+
+      }
     )
   }
 
@@ -144,15 +144,15 @@ export class ResultadoComponent implements OnInit {
 
   Mostrarmapa(position) {
     $('#mapa_' + position).show();
- }
+  }
 
 
-VolverHome(){
-  this.router.navigate[('')]
-}
- 
- OcultarMapa(position) {
-   $('#mapa_' + position).hide();
- }
+  VolverHome(){
+    this.router.navigate[('')]
+  }
+
+  OcultarMapa(position) {
+    $('#mapa_' + position).hide();
+  }
 
 }

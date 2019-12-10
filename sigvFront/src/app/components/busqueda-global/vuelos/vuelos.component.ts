@@ -26,6 +26,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   flagBuscar: boolean;
 
   airportlist: any[] = [];
+  citylist: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
   searchData: ISearchFlightModel[] = [];
@@ -37,7 +38,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   tipoVuelo: string;
 
-  keyword = 'name';
+  keyword = 'searchName';
   data: any[] = [];
   data2: any[] = [];
 
@@ -119,6 +120,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   model: any = {};
 
   aerolineas: any[] = [];
+  lstAutocomplete: any[] = [];
+
+  lstResult1: any[] = [];
+  lstResult2: any[] = [];
 
   constructor(
     private airportService: AirportService,
@@ -182,6 +187,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     //this.localeService.use("es");
     //this.airportList();
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     this.token = this.sessionStorageService.retrieve('ss_token');
@@ -195,6 +201,34 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     } else {
       this.flagPaxMasMenos = false;
     }
+
+    const lstAutocomplete = this.lstAutocomplete;
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        latitude: aeropuerto.latitude,
+        longitude: aeropuerto.longitude,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    this.citylist.forEach(function (ciudad) {
+      const obj1 = {
+        iataCode: ciudad.iataCode,
+        name: ciudad.name,
+        searchName: ciudad.searchName,
+        latitude: ciudad.latitude,
+        longitude: ciudad.longitude,
+        categoryId: 2,
+        categoryName: 'Ciudad'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    lstAutocomplete.sort((a, b) => a.name - b.name );
+    this.lstAutocomplete = lstAutocomplete;
   }
 
 
@@ -311,8 +345,44 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data = resultFilter;
+
+      /*
+      let resultAero = this.airportlist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+      console.log("resultAero: " + JSON.stringify(resultAero));
+      let resultCity = this.citylist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+
+      let lstResult1: any [] = [];
+
+      resultAero.forEach(function (aeropuerto) {
+        const data1 = {
+          iataCode: aeropuerto.iataCode,
+          name: aeropuerto.name,
+          searchName: aeropuerto.searchName,
+          latitude: aeropuerto.latitude,
+          longitude: aeropuerto.longitude,
+          categoryId: 1
+        };
+        lstResult1.push(data1);
+      });
+
+      resultCity.forEach(function (ciudad) {
+        const data2 = {
+          iataCode: ciudad.iataCode,
+          name: ciudad.name,
+          searchName: ciudad.searchName,
+          latitude: ciudad.latitude,
+          longitude: ciudad.longitude,
+          categoryId: 2
+        };
+        lstResult1.push(data2);
+      });
+
+      if (lstResult1.length > 0) {
+        this.data = lstResult1;
+      }
+      */
 
       $(".x").hide();
     }
@@ -334,8 +404,53 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   onChangeSearch2(val: string) {
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data2 = resultFilter;
+
+      /*
+      let resultAero = this.airportlist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+      let resultCity = this.citylist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+
+      if (resultAero.length > 5) {
+        resultAero = resultAero.slice(0, 5);
+      }
+
+      if (resultCity.length > 5) {
+        resultCity = resultCity.slice(0, 5);
+      }
+
+      let lstResult2: any [] = [];
+
+      resultAero.forEach(function (aeropuerto) {
+        const data1 = {
+          iataCode: aeropuerto.iataCode,
+          name: aeropuerto.name,
+          searchName: aeropuerto.searchName,
+          latitude: aeropuerto.latitude,
+          longitude: aeropuerto.longitude,
+          categoryId: 1
+        };
+        lstResult2.push(data1);
+      });
+
+      resultCity.forEach(function (ciudad) {
+        const data2 = {
+          iataCode: ciudad.iataCode,
+          name: ciudad.name,
+          searchName: ciudad.searchName,
+          latitude: ciudad.latitude,
+          longitude: ciudad.longitude,
+          categoryId: 2
+        };
+        lstResult2.push(data2);
+      });
+
+      console.log("lstResult2: " + JSON.stringify(lstResult2));
+
+      if (lstResult2.length === 10) {
+        this.data2 = lstResult2;
+      }
+      */
 
       $(".x").hide();
     }
