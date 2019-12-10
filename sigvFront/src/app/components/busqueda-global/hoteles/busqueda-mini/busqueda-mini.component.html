@@ -12,11 +12,12 @@
                 </ng-autocomplete>
 
                 <ng-template #itemTemplate let-item>
-                    <a [innerHTML]="item.name"></a>
+                    <!--<a [innerHTML]="item.name"></a>-->
+                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad.png" alt="">
+                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt=""> {{item.name}}
                 </ng-template>
-
                 <ng-template #notFoundTemplate let-notFound>
-                    <div [innerHTML]="notFound"></div>
+                    <!--<div [innerHTML]="notFound"></div>-->
                 </ng-template>
             </div>
         </div>

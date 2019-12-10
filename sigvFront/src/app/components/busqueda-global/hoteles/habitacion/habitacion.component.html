@@ -5,12 +5,9 @@
             <div class="col-3">
                 <div class="row m-0 p-0 pt-4">
 
-
                     <app-busqueda-mini-habitacion (ShowComponent)="showComponente($event)" [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso"
                         [fchsalida]="datesalida" (messagelistado)="listadoHoteles($event)" [habitaciones]="habitaciones" [adultos]="LHoteles.numberPassenger" (hideComponent)="hideComponente($event)" (flagShowMap)="showHideMap($event)">
                     </app-busqueda-mini-habitacion>
-
-
 
                 </div>
             </div>
@@ -47,7 +44,7 @@
                                         <div class="col-12 m-0 p-0">
                                             <span class="Info">{{lsthabitacion.ohotel.cityName}} </span>
                                             <span class="Info">    .A {{lhotel.oairportDistance.distance}} km  del  aeropuerto</span>
-                                            <span class="txt-mapa pl-3" (click)="Mostrarmapa()">Ver mapa</span>
+                                            <span class="txt-mapa pl-3" (click)="Mostrarmapa()"><img  (click)="Mostrarmapa()" style="width:23px; cursor: pointer;" src="./assets/images/qqq.png">Ver mapa</span>
 
                                         </div>
                                         <div *ngIf="lhotel.oposition != null" class="PopupContainer" id="mapa">
@@ -88,7 +85,7 @@
                             </div>
                             <div class="row m-0 p-0">
                                 <div class="col-12 m-0 p-0">
-                                    <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0 " class="row m-0 p-0">
+                                    <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0; else elseTemplate2 " class="row m-0 p-0">
                                         <div *ngIf="lsthabitacion.ohotel.limagens[0].url != null && lsthabitacion.ohotel.limagens[0].url != '' " class="col-8 m-0 p-0">
                                             <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="{{lsthabitacion.ohotel.limagens[0].url}}" (click)="openModal(template)">
                                             <ng-template #template>
@@ -115,6 +112,24 @@
                                         <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0" class="col-4 m-0 p-0">
                                             <div *ngIf="lsthabitacion.ohotel.limagens[1].url != null && lsthabitacion.ohotel.limagens[1].url != '' " class="row m-0 p-0">
                                                 <img class="pl-2 pt-4" style="width: 400px; height: 270px; border-radius: 15px 0px 15px 0px;" src="{{lsthabitacion.ohotel.limagens[1].url}}" (click)="openModal(template)">
+                                                <ng-template #template>
+
+                                                    <div class="modal-content" style="width: 1000px;">
+                                                        <div class="modal-body" style="width: 1000px;">
+                                                            <carousel [(activeSlide)]="activeSlideIndex">
+                                                                <slide *ngFor="let imga of lsthabitacion.ohotel.limagens; let index=index">
+                                                                    <img style="width: 1000px; height: 600px;" src="{{imga.url}}">
+                                                                    <div class="carousel-caption">
+                                                                        <!--      <h4>Slide {{index}}</h4>-->
+                                                                    </div>
+                                                                </slide>
+                                                            </carousel>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </ng-template>
                                             </div>
                                             <div class="row m-0 p-0 pt-3 pb-4">
                                                 <div class="col-12 m-0 p-0 box-shadow">
@@ -164,6 +179,65 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <ng-template class="col-12 m-0 p-0" #elseTemplate2>
+                                        <div class="row m-0 p-0">
+                                            <div class="col-8 m-0 p-0">
+                                                <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="./assets/images/imagenotfound.jfif">
+                                            </div>
+                                            <div class="col-4 m-0 p-0">
+                                                <div class="row m-0 p-0">
+                                                    <img class="pl-2 pt-4" style="width: 400px; height: 270px; border-radius: 15px 0px 15px 0px;" src="./assets/images/imagenotfound.jfif">
+                                                </div>
+                                                <div class="row m-0 p-0 pt-3 pb-4">
+                                                    <div class="col-12 m-0 p-0 box-shadow">
+                                                        <div class="row m-0 p-0 pt-3">
+                                                            <div class="col-4 m-0 p-0 pt-4">
+                                                                <span class="Pricefin">Precio Final</span>
+                                                            </div>
+                                                            <div class="col-8 m-0 p-0">
+                                                                <span class="pl-4"><span class="Moneda">{{lhotel.oprice.currency}}</span><span class="Amount pl-2">{{lhotel.oprice.pricePerAllNights}}</span></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate" class="row m-0 p-0">
+                                                            <div class="col-12 m-0 p-0">
+                                                                <span class="textopre">{{lhotel.numberNights}} noche para {{lhotel.numberPassenger}} persona</span>
+                                                            </div>
+                                                        </ng-container>
+                                                        <ng-template #elseTemplate class="row m-0 p-0">
+                                                            <div class="col-12 m-0 p-0">
+                                                                <span class="textopre">{{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} persona</span>
+                                                            </div>
+                                                        </ng-template>
+
+
+
+                                                        <div class="row m-0 p-0">
+                                                            <div class="col-1 m-0 p-0">
+
+                                                            </div>
+                                                            <div class="col-11 m-0 p-0 pb-3 pr-2">
+                                                                <span class="textopremin">✓ {{lsthabitacion.lroom[0].description}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row m-0 p-0">
+                                                    <div class="col-12 m-0 p-0">
+                                                        <span class="pl-0">
+                                                                                <button class="botonver" class="btn btn-danger col-lg-12" (click)="getChatMessages()">Ver habitaciones</button>
+                                                                                <!--<a class="btn btn-danger col-lg-12">
+                                                                                     <span class="ver">Ver habitaciones</span>
+                                                        </a>-->
+
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+
                                 </div>
                             </div>
 
@@ -248,6 +322,14 @@
 
             </div>
         </div>
+
+        <ng-template #template>
+            <div class="modal-body text-center">
+                <p>Do you want to confirm?</p>
+                <button type="button" class="btn btn-default">Yes</button>
+                <button type="button" class="btn btn-primary">No</button>
+            </div>
+        </ng-template>
 
     </app-header>
 </ng-container>

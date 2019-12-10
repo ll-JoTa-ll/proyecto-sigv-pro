@@ -13,6 +13,7 @@ import { fromStringWithSourceMap } from 'source-list-map';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { FlightService } from '../../services/flight.service';
 import { ModalSesionExpiradaComponent } from '../shared/modal-sesion-expirada/modal-sesion-expirada.component';
+import { ModalSesionExpiradaVuelosComponent } from '../shared/modal-sesion-expirada-vuelos/modal-sesion-expirada-vuelos.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -164,7 +165,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
          console.log('error results', err);
       },
       () => {
-        this.getUidByCompany();
+        //this.getUidByCompany();
       }
     );
   }
@@ -195,12 +196,11 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   startCountDown(seconds, template) {
     var counter = seconds;
     var interval = setInterval(() => {
-      console.log(counter);
       counter--;
       if (counter < 0 ) {
         clearInterval(interval);
         //alert("SI FUCIONA")
-        this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent, this.config);
+        this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaVuelosComponent, this.config);
         //this.router.navigate(['login'])
       }
     }, 1000);
@@ -364,7 +364,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/reserva-vuelo-compra']);
     }
   }
-
+  /*
   getUidByCompany() {
     console.log("getUidByCompany");
     const companyId = this.loginDataUser.ocompany.companyId;
@@ -550,4 +550,5 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.flagHtmlP = true;
     }
   }
+  */
 }

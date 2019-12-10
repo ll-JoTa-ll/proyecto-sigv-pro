@@ -292,28 +292,48 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     let amenities: any;
     let htmlGlobal = '';
     amenities = this.lsthabitacion.ohotel.lamenities
-    for (let i = 0; i < amenities.length; i++) {
-      const element = amenities[i];
-      html += "<div style='width: 20%;'>";
-      html +=   "<img style='width: 30px;' src='https://sigvplus.azurewebsites.net/sigv/assets/images/";
-      html += element.code
-      html += ".png'>";
-      html +=  "<span style='color: #676767; font-family: Arial, Helvetica, sans-serif; font-size: 14px; opacity: 1; letter-spacing: 0;'>";
-      html += element.description
-      html += "</span>";
-      html += "</div>";
+    if (amenities != null) {
+      for (let i = 0; i < amenities.length; i++) {
+        const element = amenities[i];
+        html += "<div style='width: 20%;'>";
+        html +=   "<img style='width: 30px;' src='https://sigvplus.azurewebsites.net/sigv/assets/images/";
+        html += element.code
+        html += ".png'>";
+        html +=  "<label style='color: #676767; font-family: Arial, Helvetica, sans-serif; font-size: 14px; opacity: 1; letter-spacing: 0;'>";
+        html += element.description
+        html += "</label>";
+        html += "</div>";
+      }
+      htmlGlobal = html;
     }
-    htmlGlobal = html;
+    if (htmlGlobal != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@amenities', htmlGlobal);
+    }
     SinInfo = "Sin Información";
-    this.emailsolicitud = this.emailsolicitud.replace('@amenities', htmlGlobal);
-    this.emailsolicitud = this.emailsolicitud.replace('@priceTotal', this.Reserva.oitineraryInfos.priceTotal);
-    this.emailsolicitud = this.emailsolicitud.replace('@pnr', this.Reserva.pnr);
-    this.emailsolicitud = this.emailsolicitud.replace('@confirmacion', this.Reserva.lpassengers[0].codeConfirmation);
-    this.emailsolicitud = this.emailsolicitud.replace('@numeronoches', this.lsthabitacion.ohotel.numberNights);
-    this.emailsolicitud = this.emailsolicitud.replace('@numeropersonas', this.lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers);
-    this.emailsolicitud = this.emailsolicitud.replace('@descripcionHabitacion', this.Reserva.oitineraryInfos.descriptionRoom);
-    this.emailsolicitud = this.emailsolicitud.replace('@fechaentrada', this.lstConfirmacion.oroom.startDate);
-    this.emailsolicitud = this.emailsolicitud.replace('@fechasalida', this.lstConfirmacion.oroom.endDate);
+    if (this.Reserva.oitineraryInfos.priceTotal != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@priceTotal', this.Reserva.oitineraryInfos.priceTotal);
+    }
+    if (this.Reserva.pnr != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@pnr', this.Reserva.pnr);
+    }
+    if (this.Reserva.lpassengers[0].codeConfirmation != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@confirmacion', this.Reserva.lpassengers[0].codeConfirmation);
+    }
+    if (this.lsthabitacion.ohotel.numberNights != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@numeronoches', this.lsthabitacion.ohotel.numberNights);
+    }
+    if (this.lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@numeropersonas', this.lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers);
+    }
+    if (this.Reserva.oitineraryInfos.descriptionRoom != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@descripcionHabitacion', this.Reserva.oitineraryInfos.descriptionRoom);
+    }
+    if (this.lstConfirmacion.oroom.startDate != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@fechaentrada', this.lstConfirmacion.oroom.startDate);
+    }
+    if (this.lstConfirmacion.oroom.endDate != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@fechasalida', this.lstConfirmacion.oroom.endDate);
+    }
     if (this.lsthabitacion.ohotel.checkIn != null && this.lsthabitacion.ohotel.checkIn != '') {
       this.emailsolicitud = this.emailsolicitud.replace('@checkin', this.lsthabitacion.ohotel.checkIn);
     }else{
@@ -324,18 +344,22 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     }else{
       this.emailsolicitud = this.emailsolicitud.replace('@checkout', SinInfo);
     }
-    this.emailsolicitud = this.emailsolicitud.replace('@politicacancelacion', this.Reserva.oitineraryInfos.penality);
-    this.emailsolicitud = this.emailsolicitud.replace('@nombreusuario', this.Reserva.lpassengers[0].name + this.Reserva.lpassengers[0].lastName);
-    this.emailsolicitud = this.emailsolicitud.replace('@telefono', this.Reserva.numberPhone);
+    if (this.Reserva.oitineraryInfos.penality != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@politicacancelacion', this.Reserva.oitineraryInfos.penality);
+    }
+    if (this.Reserva.lpassengers[0].name != null || this.Reserva.lpassengers[0].lastName != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@nombreusuario', this.Reserva.lpassengers[0].name + this.Reserva.lpassengers[0].lastName);
+    }
+    if (this.Reserva.numberPhone != null) {
+      this.emailsolicitud = this.emailsolicitud.replace('@telefono', this.Reserva.numberPhone);
+    }
     if(this.lsthabitacion.ohotel.limagens != null && this.lsthabitacion.ohotel.limagens.length > 0){
       this.emailsolicitud = this.emailsolicitud.replace('@imagen',this.lsthabitacion.ohotel.limagens[0].url)
     }
     else {
       this.emailsolicitud = this.emailsolicitud.replace('@imagen',imgNotFound);
     }
-
-
-  }
+ }
 
 
 

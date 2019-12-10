@@ -40,15 +40,17 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   fechaIngreso: string;
   fechaSalida: string;
   fechaRetorno: string;
-  airportlist: any[] = [];
   loginDataUser: ILoginDatosModel;
   token;
-  keyword = 'name';
+  keyword = 'searchName';
   data: any[] = [];
   LResultshotel: IHotelResultsModel[];
   estrellas: string;
   model: any = {};
   flagDinData: boolean;
+  lstAutocomplete: any[] = [];
+  airportlist: any[] = [];
+  citylist: any[] = [];
   
   objSearch : any;
 
@@ -75,16 +77,42 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     
   
   }
-
-  
-
   ngOnInit() {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
    // this.sessionStorageService.store('ss_token', this.loginDataUser.token);
   //  this.token = this.sessionStorageService.retrieve('ss_token');
   
     this.localeService.use(this.locale);
+
+    const lstAutocomplete = this.lstAutocomplete;
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        latitude: aeropuerto.latitude,
+        longitude: aeropuerto.longitude,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    this.citylist.forEach(function (ciudad) {
+      const obj1 = {
+        iataCode: ciudad.iataCode,
+        name: ciudad.name,
+        searchName: ciudad.searchName,
+        latitude: ciudad.latitude,
+        longitude: ciudad.longitude,
+        categoryId: 2,
+        categoryName: 'Ciudad'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    lstAutocomplete.sort((a, b) => a.name - b.name );
+    this.lstAutocomplete = lstAutocomplete;
   }
 
   ngAfterViewInit() {
@@ -132,7 +160,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data = resultFilter;
 
       $(".x").hide();

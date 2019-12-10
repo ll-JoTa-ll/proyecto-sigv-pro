@@ -127,6 +127,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResultadoHabitacionComponent } from './components/busqueda-global/hoteles/resultado-habitacion/resultado-habitacion.component';
 import { ModalHabitacionErroneaComponent } from './components/shared/modal-habitacion-erronea/modal-habitacion-erronea.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { ModalSesionExpiradaVuelosComponent } from './components/shared/modal-sesion-expirada-vuelos/modal-sesion-expirada-vuelos.component';
 
 @NgModule({
   declarations: [
@@ -231,7 +232,8 @@ import { SafePipe } from './pipes/safe.pipe';
     ModalSesionExpiradaComponent,
     ResultadoHabitacionComponent,
     ModalHabitacionErroneaComponent,
-    SafePipe
+    SafePipe,
+    ModalSesionExpiradaVuelosComponent
   ],
   imports: [
     BrowserModule,
@@ -264,7 +266,7 @@ import { SafePipe } from './pipes/safe.pipe';
     SessionExpirationAlert.forRoot(),
     NgbModule
   ],
-  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent],
+  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })

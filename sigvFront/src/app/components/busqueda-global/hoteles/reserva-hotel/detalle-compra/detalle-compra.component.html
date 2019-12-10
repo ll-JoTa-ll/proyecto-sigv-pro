@@ -19,7 +19,7 @@
                         <span class="ml-3" *ngIf="lstHabi.ohotel.stars  === 1"><img src="./assets/images/star.svg"></span>
                     </div>
                     <div class="mapa col-6 m-0 p-0 pl-4">
-                        <span class="txt-mapa pl-3" (click)="Mostrarmapa()"> Ver mapa </span>
+                        <span class="txt-mapa pl-2" (click)="Mostrarmapa()"><img (click)="Mostrarmapa()" style="width:23px;cursor: pointer;" src="./assets/images/qqq.png"> Ver mapa </span>
                     </div>
                     <div class="PopupContainer" id="mapa">
                         <div class="tooltipBagDiv box-shadow animated fadeIn fast">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 m-0 p-0 pb-5">
+            <div class="col-12 m-0 p-0 pb-2">
                 <div class="hours row m-0 p-0">
                     <div class="col-6 m-0 p-0">
                         <span>{{lstHabi.ohotel.checkIn}}</span>
@@ -62,10 +62,22 @@
                         <span>{{lstHabi.ohotel.checkOut}}</span>
                     </div>
                 </div>
+                <div style="border-bottom: #707070 1px solid; opacity: 21%;padding-top: 40px;"></div>
             </div>
-            <div class="Informacion row m-0 p-0">
-                <div class="col-12 m-0 p-0 pt-3"><span>{{lstHabi.ohotel.lguestPerRoom[0].roomQuantity}} habitacion</span> <span class="pl-2">{{lstHabi.ohotel.lguestPerRoom[0].numberPassengers}} adultos</span></div>
-                <div class="col-12 m-0 p-0 pb-3"><span>{{lstConfirmacion.oroom.name}}</span></div>
+
+            <div class="Informacion row m-0 p-0 pb-3">
+                <div class="col-12 m-0 p-0 pt-3"><img style="width: 30px;" src="./assets/images/moon-phase-outline.svg"><span class="pl-3">{{lstHabi.ohotel.lguestPerRoom[0].roomQuantity}} habitacion ,</span> <span class="pl-2">{{lstHabi.ohotel.lguestPerRoom[0].numberPassengers}} adultos</span></div>
+                <div class="col-12 m-0 p-0 pt-3"><img style="width: 30px;" src="./assets/images/cama.svg"><span class="pl-3">{{lstConfirmacion.oroom.name}}</span></div>
+                <div *ngIf="lstConfirmacion.oroom.breakFast == false" class="col-12 m-0 p-0 pt-3"><img style="width: 30px;" src="./assets/images/coffee-cup.svg"><span class="pl-3">Incluido</span></div>
+
+
+                <div *ngIf="lstHabi.ohotel.lamenities != null && lstHabi.ohotel.lamenities.length > 0" class="col-12 m-0 p-0 pt-3" style="
+                    display: inline-grid;">
+                    <span *ngFor="let item of lstHabi.ohotel.lamenities" class="pb-3"><span class=""><img style="width: 30px;color: #898989" src="./assets/images/{{item.code}}.png"></span>
+                    <span *ngIf="item.description != null && item.description != '' " class="Condition pl-3 pr-1">{{item.description}}</span></span>
+                </div>
+
+
             </div>
         </div>
     </div>

@@ -46,7 +46,7 @@ export class InfoAdicionalComponent implements OnInit, AfterViewInit {
   ) {
     //
   }
-
+/*
   public get inputpdf(): SafeHtml {
     return this._sanitizer.bypassSecurityTrustHtml(this.htmlStr);
   }
@@ -54,14 +54,14 @@ export class InfoAdicionalComponent implements OnInit, AfterViewInit {
   public get htmlInfAdi(): SafeHtml {
     return this._sanitizer.bypassSecurityTrustHtml(this.htmlTxtC);
   }
-
+*/
   ngOnInit() {
     //$("#divHtmlTxtC").html(this.htmlTxtC);
     //$("#dropdown-nested").show();
   }
 
   ngAfterViewInit() {
-    this.htmlTxtC_ = this.htmlTxtC;
+   /* this.htmlTxtC_ = this.htmlTxtC;
 
 
     $("ul.dropdown-menu [data-toggle='dropdown']").on("click", function(event) {
@@ -80,7 +80,7 @@ export class InfoAdicionalComponent implements OnInit, AfterViewInit {
 
     });
 
-
+*/
   }
 
 }

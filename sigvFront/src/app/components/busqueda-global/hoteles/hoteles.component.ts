@@ -9,6 +9,7 @@ import { HotelService } from '../../../services/hotel.service';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
+import * as crypto from 'crypto-js';
 import { Router } from '@angular/router';
 import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalSesionExpiradaComponent } from '../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
@@ -30,10 +31,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   user : IGetUserById;
   flagBuscar: boolean;
   flagDinData: boolean;
-  airportlist: any[] = [];
   loginDataUser: ILoginDatosModel;
   token;
-  keyword = 'name';
+  keyword = 'searchName';
   data: any[] = [];
   destinoValue: string;
   destinoText: string;
@@ -67,6 +67,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   minibuscador;
   t: number;
   modalRefSessionExpired: BsModalRef;
+  output;
+  lstAutocomplete: any[] = [];
+  airportlist: any[] = [];
+  citylist: any[] = [];
 
   constructor(
     private router: Router,
@@ -102,9 +106,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.t = 0;
   }
 
-
-
   ngOnInit() {
+    this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.user = this.sessionStorageService.retrieve('ss_user');
     console.log('ngOnInit hoteles');
     $('#menu-vuelo-1').show();
@@ -117,7 +121,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
 
     //this.sessionStorageService.store('ss_token', this.loginDataUser.token);
@@ -128,12 +131,40 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     window.addEventListener('storage',(event) => {
       if (event.storageArea == localStorage) {
         let token = this.localStorageService.retrieve('ss_token');
-        if(token == undefined){
+        if(token == undefined) {
           this.router.navigate(['']);
         }
       }
     });
 
+    //autocomplete ciudades
+    const lstAutocomplete = this.lstAutocomplete;
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        latitude: aeropuerto.latitude,
+        longitude: aeropuerto.longitude,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    this.citylist.forEach(function (ciudad) {
+      const obj1 = {
+        iataCode: ciudad.iataCode,
+        name: ciudad.name,
+        searchName: ciudad.searchName,
+        latitude: ciudad.latitude,
+        longitude: ciudad.longitude,
+        categoryId: 2,
+        categoryName: 'Ciudad'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    lstAutocomplete.sort((a, b) => a.name - b.name );
+    this.lstAutocomplete = lstAutocomplete;
   }
 
 
@@ -168,7 +199,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data = resultFilter;
 
       $(".x").hide();

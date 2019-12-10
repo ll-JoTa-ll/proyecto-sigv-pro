@@ -57,11 +57,16 @@
                                 <span style="border-bottom: 1px solid #ED1C24">Políticas y Condiciones</span>
                             </div>
                         </div>
-                        <div *ngIf="lstConfirmacion.oroom.lcancelPenalties.length > 0 && lstConfirmacion.oroom.lcancelPenalties != null" class="row m-0 p-0 pt-3">
+                        <div *ngIf="lstConfirmacion.oroom.lcancelPenalties.length > 0 && lstConfirmacion.oroom.lcancelPenalties != null; else elseTemplate1" class="row m-0 p-0 pt-3">
                             <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].deadline != null && lstConfirmacion.oroom.lcancelPenalties[0].deadline != '' " class="col-12 m-0 p-0">
                                 <span class="info">✓ Se puede cancelar hasta el {{lstConfirmacion.oroom.lcancelPenalties[0].deadline}}</span>
                             </div>
                         </div>
+                        <ng-template #elseTemplate1 class="row m-0 p-0 pt-3">
+                                <div class="col-12 m-0 p-0 pt-4">
+                                        <span class="info">✓ Políticas y Condiciones sin información</span>
+                                    </div>
+                        </ng-template>
                         <div *ngIf="lstConfirmacion.oroom.lcancelPenalties.length > 0 && lstConfirmacion.oroom.lcancelPenalties != null " class="row m-0 p-0">
                             <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].nonRefundable === false" class="col-12 m-0 p-0">
                                 <span class="info">✓ No Reembolsable <img style="width: 50px;" src="./assets/images/no-money.png"></span>

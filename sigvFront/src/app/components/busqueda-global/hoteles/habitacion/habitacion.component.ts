@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
-import { SessionStorageService } from 'ngx-webstorage';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { HotelService } from '../../../../services/hotel.service';
@@ -15,6 +15,7 @@ import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scrol
 import { BnNgIdleService } from 'bn-ng-idle';
 import { Status } from 'tslint/lib/runner';
 import { ModalSesionExpiradaComponent } from '../../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
+import { Window } from 'selenium-webdriver';
 
 declare var jquery: any;
 declare var $: any;
@@ -25,6 +26,14 @@ declare var $: any;
   styleUrls: ['./habitacion.component.sass']
 })
 export class HabitacionComponent implements OnInit, AfterViewInit {
+  modalF5;
+  modalRef: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
+
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
 
   lsthabitacion : IHabitacionResults;
@@ -36,7 +45,10 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   fechaSalida: string;
   fechaRetorno: string;
 
-
+  localfinish;
+  sessionFinish: boolean;
+  
+  
   @Input() LlistaHotel: IHotelResultsModel[] = [];
   urlhotel: string;
   urlimg = './assets/images/hotel-icon.png';
@@ -48,7 +60,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   slides: { image: string }[] = [];
   activeSlideIndex = 0;
-  modalRef: BsModalRef;
+ 
   isCollapsed = false;
 
   destinoValue: string;
@@ -80,14 +92,18 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   @ViewChild("modalexpired", {static: false}) modalexpired;
 
 
-
-  constructor(private router: Router,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) {
-
+  constructor(private localStorageService: LocalStorageService,private router: Router,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
+    this.localfinish = this.localStorageService.retrieve("ss_countersession");
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
-
+    
     this.personas = this.LHoteles.numberPassenger;
     this.divwarning = false;
+    console.log("localfinish" + this.localfinish);
+    if (this.localfinish === false) {
+      this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
+
+    }
 
 
 
@@ -112,29 +128,38 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   }
 
 
-
-
-  startCountDown(seconds, template){
-    var counter = seconds;
-    var interval = setInterval(() => {
-
-      counter--;
-      if (counter < 0 ) {
-        clearInterval(interval);
-        //alert("SI FUCIONA")
-        this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent)
-        //this.router.navigate(['login'])
-      }
-    }, 1000);
-  }
-
+  
+  
+    startCountDown(seconds, template){
+      var counter = seconds;
+      var interval = setInterval(() => {
+        counter--;
+        console.log(counter);
+        if (counter < 0 ) {
+          clearInterval(interval);
+          this.sessionFinish = false;
+          this.localStorageService.store('ss_countersession',this.sessionFinish);
+          this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
+          //this.router.navigate(['login'])
+        }	
+      }, 1000);
+    }
+    
 
   VolverHome(){
     this.router.navigate(['hoteles'])
     this.modalexpired.hide();
   }
 
+  noRefresh(){
+    document.onkeydown = function(e){
+      var tecla = (document.all) ? e.keyCode : e.which;
+      if (tecla = 116) return false
+      }
+      
+  }
 
+  
 
   ngAfterViewInit() {
     console.log('ngOnInit hoteles');
@@ -148,8 +173,9 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    this.startCountDown(600, this.modalexpired);
+    this.startCountDown(20, this.modalexpired);
     console.log("cantidadnoche =====> " +this.cantidadnoche);
+    this.sessionFinish = true;
   }
 
   openModal(template: TemplateRef<any>) {
