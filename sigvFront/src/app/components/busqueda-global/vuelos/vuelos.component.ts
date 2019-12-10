@@ -345,22 +345,13 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      //const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
-      //this.data = resultFilter;
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+      this.data = resultFilter;
 
+      /*
       let resultAero = this.airportlist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       console.log("resultAero: " + JSON.stringify(resultAero));
       let resultCity = this.citylist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
-
-      /*
-      if (resultAero.length > 5) {
-        resultAero = resultAero.slice(0, 5);
-      }
-
-      if (resultCity.length > 5) {
-        resultCity = resultCity.slice(0, 5);
-      }
-      */
 
       let lstResult1: any [] = [];
 
@@ -388,11 +379,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         lstResult1.push(data2);
       });
 
-      //console.log("lstResult2: " + JSON.stringify(lstResult1));
-
       if (lstResult1.length > 0) {
         this.data = lstResult1;
       }
+      */
 
       $(".x").hide();
     }
@@ -414,13 +404,12 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   onChangeSearch2(val: string) {
     $(".x").hide();
     if (val.length >= 3) {
-      //const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+      this.data2 = resultFilter;
 
+      /*
       let resultAero = this.airportlist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       let resultCity = this.citylist.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
-
-      //console.log("resultAero: " + JSON.stringify(resultAero));
-      //console.log("resultCity: " + JSON.stringify(resultCity));
 
       if (resultAero.length > 5) {
         resultAero = resultAero.slice(0, 5);
@@ -461,6 +450,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       if (lstResult2.length === 10) {
         this.data2 = lstResult2;
       }
+      */
 
       $(".x").hide();
     }
