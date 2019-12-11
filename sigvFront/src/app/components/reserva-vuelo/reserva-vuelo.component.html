@@ -18,7 +18,7 @@
                             <app-datos-pasajero [currency]="currency" *ngFor="let user of datosuser; let i = index;" [user]="user" [index]="i + 1" [LPolicies]="LPolicies"></app-datos-pasajero>
                         </div>
                         <app-persona-contacto [lsCostCenter]="lsCostCenter"></app-persona-contacto>
-                        <app-info-adicional></app-info-adicional>
+                        <app-info-adicional *ngIf="flagHtmlC" [htmlTxtC]="htmlTxtC"></app-info-adicional>
                         <app-motivo-viaje [lsReasonflight]="lsReasonFlight"></app-motivo-viaje>
                         <div class="row m-0 p-0 pt-4 pb-5">
                             <div class="col-12 p-0 m-0 text-center">

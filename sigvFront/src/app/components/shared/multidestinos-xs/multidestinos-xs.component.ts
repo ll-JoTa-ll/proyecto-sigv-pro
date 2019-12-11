@@ -112,6 +112,8 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   lstDestinos: any[] = [];
 
   airportlist: any[] = [];
+  citylist: any[] = [];
+  lstAutocomplete: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
   searchData: ISearchFlightModel[] = [];
@@ -207,6 +209,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     console.log("app-multidestinos-xs ngOnInit");
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.outIndexTramo.emit(this.indexTramo);
 
@@ -224,6 +227,32 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
 
     console.log("this.infechaSalida1: " + this.infechaSalida1);
     console.log("this.infechaSalidaShow1: " + this.infechaSalidaShow1);
+
+    const lstAutocomplete = this.lstAutocomplete;
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        priority: aeropuerto.priority,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    this.citylist.forEach(function (ciudad) {
+      const obj1 = {
+        iataCode: ciudad.iataCode,
+        name: ciudad.name,
+        searchName: ciudad.searchName,
+        priority: ciudad.priority,
+        categoryId: 2,
+        categoryName: 'Ciudad'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    lstAutocomplete.sort((a, b) => b.priority - a.priority );
+    this.lstAutocomplete = lstAutocomplete;
   }
 
   ngAfterViewInit() {
@@ -313,7 +342,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.outOrigenText1.emit(this.origentTexto1);
         console.log("case 1");
         console.log("this.origenAuto1: " + this.origenAuto1);
-        $(".x").show();
+        //$(".x").show();
         const data1 = {
           value: this.origenAuto1,
           text: this.origentTexto1,
@@ -327,7 +356,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto1 = item.name;
         this.outDestinoValue1.emit(this.destinoAuto1);
         this.outDestinoText1.emit(this.destinoTexto1);
-        $(".x").show();
+        //$(".x").show();
         const data2 = {
           value: this.destinoAuto1,
           text: this.destinoTexto1,
@@ -350,7 +379,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto2 = item.name;
         this.outOrigenValue2.emit(this.origenAuto2);
         this.outOrigenText2.emit(this.origentTexto2);
-        $(".x").show();
+        //$(".x").show();
         const data3 = {
           value: this.origenAuto2,
           text: this.origentTexto2,
@@ -364,7 +393,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto2 = item.name;
         this.outDestinoValue2.emit(this.destinoAuto2);
         this.outDestinoText2.emit(this.destinoTexto2);
-        $(".x").show();
+        //$(".x").show();
         const data4 = {
           value: this.destinoAuto2,
           text: this.destinoTexto2,
@@ -385,7 +414,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto3 = item.name;
         this.outOrigenValue3.emit(this.origenAuto3);
         this.outOrigenText3.emit(this.origentTexto3);
-        $(".x").show();
+        //$(".x").show();
         const data5 = {
           value: this.origenAuto3,
           text: this.origentTexto3,
@@ -399,7 +428,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto3 = item.name;
         this.outDestinoValue3.emit(this.destinoAuto3);
         this.outDestinoText3.emit(this.destinoTexto3);
-        $(".x").show();
+        //$(".x").show();
         const data6 = {
           value: this.destinoAuto3,
           text: this.destinoTexto3,
@@ -420,7 +449,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto4 = item.name;
         this.outOrigenValue4.emit(this.origenAuto4);
         this.outOrigenText4.emit(this.origentTexto4);
-        $(".x").show();
+        //$(".x").show();
         const data7 = {
           value: this.origenAuto4,
           text: this.origentTexto4,
@@ -434,7 +463,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto4 = item.name;
         this.outDestinoValue4.emit(this.destinoAuto4);
         this.outDestinoText4.emit(this.destinoTexto4);
-        $(".x").show();
+        //$(".x").show();
         const data8 = {
           value: this.destinoAuto4,
           text: this.destinoTexto4,
@@ -446,7 +475,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto5 = item.name;
         this.outOrigenValue5.emit(this.destinoAuto4);
         this.outOrigenText5.emit(this.destinoTexto4);
-        $(".x").show();
+       // $(".x").show();
 
         $("#txtDestino4").removeClass("campo-invalido");
         $("#txtOrigen5").removeClass("campo-invalido");
@@ -456,7 +485,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto5 = item.name;
         this.outOrigenValue5.emit(this.origenAuto5);
         this.outOrigenText5.emit(this.origentTexto5);
-        $(".x").show();
+       // $(".x").show();
         const data9 = {
           value: this.origenAuto5,
           text: this.origentTexto5,
@@ -470,7 +499,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto5 = item.name;
         this.outDestinoValue5.emit(this.destinoAuto5);
         this.outDestinoText5.emit(this.destinoTexto5);
-        $(".x").show();
+       // $(".x").show();
         const data10 = {
           value: this.destinoAuto5,
           text: this.destinoTexto5,
@@ -491,7 +520,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto6 = item.name;
         this.outOrigenValue6.emit(this.origenAuto6);
         this.outOrigenText6.emit(this.origentTexto6);
-        $(".x").show();
+        //$(".x").show();
         const data11 = {
           value: this.origenAuto6,
           text: this.origentTexto6,
@@ -505,7 +534,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto6 = item.name;
         this.outDestinoValue6.emit(this.destinoAuto6);
         this.outDestinoText6.emit(this.destinoTexto6);
-        $(".x").show();
+       // $(".x").show();
         const data12 = {
           value: this.destinoAuto6,
           text: this.destinoTexto6,
@@ -523,7 +552,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 1) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data = resultFilter;
 
         $(".x").hide();
@@ -533,7 +562,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 2) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data2 = resultFilter;
 
         $(".x").hide();
@@ -543,7 +572,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 3) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data3 = resultFilter;
 
         $(".x").hide();
@@ -553,7 +582,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 4) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data4 = resultFilter;
 
         $(".x").hide();
@@ -563,7 +592,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 5) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data5 = resultFilter;
 
         $(".x").hide();
@@ -573,7 +602,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 6) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data6 = resultFilter;
 
         $(".x").hide();
@@ -583,7 +612,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 7) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data7 = resultFilter;
 
         $(".x").hide();
@@ -593,7 +622,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 8) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data8 = resultFilter;
 
         $(".x").hide();
@@ -603,7 +632,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 9) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data9 = resultFilter;
 
         $(".x").hide();
@@ -613,7 +642,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 10) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data10 = resultFilter;
 
         $(".x").hide();
@@ -623,7 +652,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 11) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data11 = resultFilter;
 
         $(".x").hide();
@@ -633,7 +662,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (flag === 12) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data12 = resultFilter;
 
         $(".x").hide();

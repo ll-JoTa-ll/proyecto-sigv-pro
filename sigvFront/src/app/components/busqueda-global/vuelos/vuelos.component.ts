@@ -6,7 +6,7 @@ import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
-import {DatepickerRenderOptions} from 'ngx-bootstrap/datepicker/models';
+import {DatepickerRenderOptions, DatepickerDateCustomClasses} from 'ngx-bootstrap/datepicker/models';
 import {consoleTestResultHandler} from 'tslint/lib/test';
 import { Router } from '@angular/router';
 import * as crypto from 'crypto-js';
@@ -25,12 +25,14 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   locales = listLocales();
 
   flagBuscar: boolean;
+  fechahoy = new Date();
 
   airportlist: any[] = [];
   citylist: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
   searchData: ISearchFlightModel[] = [];
+  dateCustomClasses: DatepickerDateCustomClasses[];
 
   origenAuto: string;
   origentTexto: string;
@@ -39,7 +41,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   tipoVuelo: string;
 
-  keyword = 'searchName';
+  keyword = 'name';
   data: any[] = [];
   data2: any[] = [];
 
@@ -170,6 +172,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if (this.ss_login_data === '' || this.ss_login_data === null) {
       this.router.navigate(['/']);
     }
+    const now = new Date();
+    this.dateCustomClasses = [
+      { date: now, classes: ['bg-danger', 'text-warning'] }
+    ];
+
   }
 
   ngOnInit() {
@@ -297,8 +304,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         iataCode: aeropuerto.iataCode,
         name: aeropuerto.name,
         searchName: aeropuerto.searchName,
-        latitude: aeropuerto.latitude,
-        longitude: aeropuerto.longitude,
+        priority: aeropuerto.priority,
         categoryId: 1,
         categoryName: 'Aeropuerto'
       };
@@ -309,14 +315,13 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         iataCode: ciudad.iataCode,
         name: ciudad.name,
         searchName: ciudad.searchName,
-        latitude: ciudad.latitude,
-        longitude: ciudad.longitude,
+        priority: ciudad.priority,
         categoryId: 2,
         categoryName: 'Ciudad'
       };
       lstAutocomplete.push(obj1);
     });
-    lstAutocomplete.sort((a, b) => a.name - b.name );
+    lstAutocomplete.sort((a, b) => b.priority - a.priority );
     this.lstAutocomplete = lstAutocomplete;
   }
 
@@ -501,7 +506,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.origentTexto = item.name;
     this.isOpen = false;
     $("#txtOrigen").removeClass("campo-invalido");
-    $(".x").show();
+    $(".x").hide();
   }
 
   onChangeSearch(val: string) {
@@ -553,6 +558,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   onFocused(e) {
+    $(this.origentTexto).select();
   }
 
   selectEvent2(item) {
@@ -560,7 +566,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.destinoTexto = item.name;
     this.valdestino = false;
     $("#txtDestino").removeClass("campo-invalido");
-    $(".x").show();
+    $(".x").hide();
     if (this.model.origentTexto.length < 5) {
       this.model.origentTexto = '';
     }

@@ -165,7 +165,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
          console.log('error results', err);
       },
       () => {
-        //this.getUidByCompany();
+        this.getUidByCompany();
       }
     );
   }
@@ -364,11 +364,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/reserva-vuelo-compra']);
     }
   }
-  /*
   getUidByCompany() {
     console.log("getUidByCompany");
     const companyId = this.loginDataUser.ocompany.companyId;
-    this.flightService.getUidByCompany(companyId).subscribe(
+    this.flightService.getUidByCompany(companyId  ).subscribe(
       result => {
         console.log("result: " + JSON.stringify(result));
         if (result != null) {
@@ -417,6 +416,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         htmlTxtC += "";
       });
 
+      //this.setHijoNieto(lstCbxC);
 
       lstCbxC.forEach(function(cbx, index) {
         flagC = 1;
@@ -462,7 +462,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         }
       });
       console.log(htmlTxtC);
-      this.htmlTxtC = "";
+      this.htmlTxtC = htmlTxtC;
 
 
       if (flagC === 1) {
@@ -544,11 +544,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
       });
       console.log(htmlTxtP);
-      this.htmlTxtP = "";
+      this.htmlTxtP = htmlTxtP;
       this.flagHtmlP = true;
     } else {
       this.flagHtmlP = true;
     }
   }
-  */
 }

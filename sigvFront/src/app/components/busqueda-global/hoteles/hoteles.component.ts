@@ -270,19 +270,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
   }
 
-  startCountDown(seconds, template){
-    var counter = seconds;
-    var interval = setInterval(() => {
-      console.log(counter);
-      counter--;
-      if (counter < 0 ) {
-        clearInterval(interval);
-        //alert("SI FUCIONA")
-        this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent)
-        //this.router.navigate(['login'])
-      }
-    }, 1000);
-  }
 
   Obtenerlistado($event) {
     this.LlistaHotel = [];

@@ -173,7 +173,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    this.startCountDown(20, this.modalexpired);
+    this.startCountDown(780, this.modalexpired);
     console.log("cantidadnoche =====> " +this.cantidadnoche);
     this.sessionFinish = true;
   }
