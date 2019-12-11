@@ -66,6 +66,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   flagHtmlC = false;
   htmlTxtP: string;
   flagHtmlP = false;
+  idinterval: any;
 
   constructor(
     private modalService: BsModalService,
@@ -150,6 +151,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let interval;
     back = true;
     this.sessionStorageService.store('indregresar', back);
+    clearInterval(this.idinterval);
   }
 
   ReasonFlight() {
@@ -197,6 +199,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     var counter = seconds;
     var interval = setInterval(() => {
       counter--;
+      console.log(counter);
       if (counter < 0 ) {
         clearInterval(interval);
         //alert("SI FUCIONA")
@@ -204,6 +207,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         //this.router.navigate(['login'])
       }
     }, 1000);
+    this.idinterval = interval;
     return interval;
   }
 

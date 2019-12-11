@@ -121,7 +121,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keydown)="ValidarSoloNumero($event)" (keypress)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.odocument.number" id="txtnrodocumento_{{index}}" maxlength="15">
+                                <input (keydown)="ValidarSoloNumero($event)" (keypress)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.odocument.number" id="txtnrodocumento_{{index}}" maxlength="8">
                             </div>
                         </div>
                     </div>
@@ -185,13 +185,13 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input triggers="" (keypress)="ValidarCampos()" (keydown)="ValidarSoloNumero($event)" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}" maxlength="12">
+                                <input triggers="" (keypress)="ValidarCampos()" (keydown)="ValidarSoloNumero($event)" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}" maxlength="9">
                             </div>
                         </div>
                     </div>
                 </div>
 
-              <div class="row p-0 m-0 pb-4" id="divHtmlTxtP"></div>
+                <div class="row p-0 m-0 pb-4" id="divHtmlTxtP"></div>
 
             </div>
         </div>
