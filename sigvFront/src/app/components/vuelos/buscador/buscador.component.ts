@@ -89,7 +89,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
   searchData: ISearchFlightModel[] = [];
-  keyword = 'searchName';
+  keyword = 'name';
   data: any[] = [];
   data2: any[] = [];
   data3: any[] = [];
@@ -157,8 +157,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         iataCode: aeropuerto.iataCode,
         name: aeropuerto.name,
         searchName: aeropuerto.searchName,
-        latitude: aeropuerto.latitude,
-        longitude: aeropuerto.longitude,
+        priority: aeropuerto.priority,
         categoryId: 1,
         categoryName: 'Aeropuerto'
       };
@@ -169,14 +168,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         iataCode: ciudad.iataCode,
         name: ciudad.name,
         searchName: ciudad.searchName,
-        latitude: ciudad.latitude,
-        longitude: ciudad.longitude,
+        priority: ciudad.priority,
         categoryId: 2,
         categoryName: 'Ciudad'
       };
       lstAutocomplete.push(obj1);
     });
-    lstAutocomplete.sort((a, b) => a.name - b.name );
+    lstAutocomplete.sort((a, b) => b.priority - a.priority );
     this.lstAutocomplete = lstAutocomplete;
   }
 

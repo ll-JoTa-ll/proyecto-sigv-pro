@@ -12,7 +12,7 @@
           </div>
         </div>
 
-        <div class="row p-0 m-0 m-3" id="divHtmlTxtC" [innerHTML]="htmlTxtC_ | safe: 'html'"></div>
+        <div *ngIf="htmlTxtC.length>0" class="row p-0 m-0 m-3" id="divHtmlTxtC" [innerHTML]="htmlTxtC | safe: 'html'"></div>
 
       </div>
     </div>
