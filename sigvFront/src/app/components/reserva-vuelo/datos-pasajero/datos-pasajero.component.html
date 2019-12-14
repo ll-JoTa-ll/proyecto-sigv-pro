@@ -186,8 +186,8 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <!--  <input triggers="" (keypress)="ValidarCampos()" (keydown)="ValidarSoloNumero($event)" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}" maxlength="9"> -->
-                                <ngx-intl-tel-input [cssClass]="'input-codepais'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [enablePlaceholder]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                    [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Peru" [maxLength]="9" [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="separateDialCode" name="phone" ngModelGrou>
+                                <ngx-intl-tel-input [(ngModel)]="mdtelefono" [cssClass]="'input-codepais'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="false" [enablePlaceholder]="false" [searchCountryFlag]="true" [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                    [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.Peru" [maxLength]="9" [tooltipField]="TooltipLabel.Name" [phoneValidation]="true" [separateDialCode]="separateDialCode" name="phone">
                                 </ngx-intl-tel-input>
                             </div>
                         </div>

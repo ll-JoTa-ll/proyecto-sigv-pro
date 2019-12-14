@@ -33,6 +33,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datosPax;
   flagValDatosPAsajeros: boolean = false;
   datosuser: any[] = [];
+  mdtelefono;
 
   modalRef: BsModalRef;
   config = {
