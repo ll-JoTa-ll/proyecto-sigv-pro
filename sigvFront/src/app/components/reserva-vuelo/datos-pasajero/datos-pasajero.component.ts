@@ -5,6 +5,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ICostCenter } from '../../../models/ICostCenter';
 import { IReasonFlight } from '../../../models/IReasonFlight';
 import { SessionStorageService } from 'ngx-webstorage';
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 
 declare var jquery: any;
 declare var $: any;
@@ -16,19 +17,12 @@ declare var $: any;
 })
 export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
-  /*
-  @Input() datosuser: {
-    name: '',
-    lastName: '',
-    documentType: '',
-    documentNumber: '',
-    nationality: '',
-    birthDate: '',
-    email: '',
-    phone: '',
-    frequentFlyer: ''
-  };
-  */
+  separateDialCode = true;
+  SearchCountryField = SearchCountryField;
+  TooltipLabel = TooltipLabel;
+  CountryISO = CountryISO;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+
   @Input() LPolicies;
   @Input() currency;
   @Input() user;

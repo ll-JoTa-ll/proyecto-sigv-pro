@@ -20,8 +20,7 @@ export class PersonaContactoComponent implements OnInit {
     this.datosuser = sessionStorageService.retrieve('objusuarios');
    }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 
   ValidarCampos(tipo) {

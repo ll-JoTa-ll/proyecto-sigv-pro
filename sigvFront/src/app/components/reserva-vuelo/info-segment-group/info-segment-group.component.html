@@ -14,14 +14,28 @@
                 }">Aerolinea Operadores: {{segmentGroup.CarrierName}} </span>
             </div>
             <div *ngIf="tipo==1" class="col-6 m-0 p-0 text-center">
-                <span class="text-plane">Vuelo {{segmentGroup.FlightOrtrainNumber}} - {{segmentGroup.EquipmentType}}</span>
+                <div class="row m-0 p-0 text-plane">
+                    <div class="col-12 m-0 p-0">
+                        Vuelo {{segmentGroup.FlightOrtrainNumber}}
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        Tipo de avión - {{segmentGroup.EquipmentType}}
+                    </div>
+                </div>
             </div>
 
             <div *ngIf="tipo==2" class="col-12 m-0 p-0 text-center text-airlane-2">
                 Aerolinea Operadores: {{segmentGroup.CarrierName}}
             </div>
             <div *ngIf="tipo==2" class="col-12 m-0 p-0 text-center text-plane">
-                Vuelo {{segmentGroup.FlightOrtrainNumber}} - {{segmentGroup.EquipmentType}}
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0">
+                        Vuelo {{segmentGroup.FlightOrtrainNumber}}
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        Tipo de avión - {{segmentGroup.EquipmentType}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

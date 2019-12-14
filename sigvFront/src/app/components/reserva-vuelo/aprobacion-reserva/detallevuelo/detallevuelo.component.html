@@ -6,7 +6,14 @@
                 <span class="text-airlane">Aerolinea Operadores: {{itemgroup.CarrierName}} </span>
             </div>
             <div class="col-6 m-0 p-0 text-center">
-                <span class="text-plane">Vuelo {{itemgroup.flightNumber}} - {{itemgroup.equipmentType}}</span>
+                <div class="row m-0 p-0 text-plane">
+                    <div class="col-12 m-0 p-0">
+                        Vuelo {{itemgroup.flightNumber}}
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        Tipo de avión - {{itemgroup.equipmentType}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -128,6 +128,7 @@ import { ResultadoHabitacionComponent } from './components/busqueda-global/hotel
 import { ModalHabitacionErroneaComponent } from './components/shared/modal-habitacion-erronea/modal-habitacion-erronea.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { ModalSesionExpiradaVuelosComponent } from './components/shared/modal-sesion-expirada-vuelos/modal-sesion-expirada-vuelos.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @NgModule({
   declarations: [
@@ -264,7 +265,8 @@ import { ModalSesionExpiradaVuelosComponent } from './components/shared/modal-se
     TooltipModule.forRoot(),
     PopoverModule.forRoot(),
     SessionExpirationAlert.forRoot(),
-    NgbModule
+    NgbModule,
+    NgxIntlTelInputModule
   ],
   entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent],
   providers: [BnNgIdleService],

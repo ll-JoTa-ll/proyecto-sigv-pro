@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AirportService } from '../../../services/airport.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
@@ -6,7 +6,7 @@ import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
-import {DatepickerRenderOptions, DatepickerDateCustomClasses} from 'ngx-bootstrap/datepicker/models';
+import { DatepickerDateCustomClasses} from 'ngx-bootstrap/datepicker/models';
 import {consoleTestResultHandler} from 'tslint/lib/test';
 import { Router } from '@angular/router';
 import * as crypto from 'crypto-js';
@@ -180,6 +180,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    $(".x").hide();
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
     $('.menu-hotel-1').show();
@@ -558,7 +559,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   onFocused(e) {
-    $(this.origentTexto).select();
+    //$('.ng-dirty').select();
+    console.log('entro');
   }
 
   selectEvent2(item) {

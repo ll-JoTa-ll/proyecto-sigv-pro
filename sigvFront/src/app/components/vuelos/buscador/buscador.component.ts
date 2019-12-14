@@ -126,12 +126,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     private spinner: NgxSpinnerService,
     private airportService: AirportService
   ) {
-    console.log('buscador constructor');
-    console.log('tipoVuelo: ' + this.tipoVuelo);
-    console.log('origenAuto: ' + this.origenAuto);
-    console.log('destinoAuto: ' + this.destinoAuto);
-    console.log('origenAuto1: ' + this.origenAuto1);
-    console.log('destinoAuto1: ' + this.destinoAuto1);
   }
 
   ngOnInit() {
@@ -287,7 +281,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       if (val.length >= 3) {
         const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data = resultFilter;
-
         $(".x").hide();
       }
     }

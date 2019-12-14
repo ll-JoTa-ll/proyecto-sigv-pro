@@ -96,41 +96,15 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     this.localfinish = this.localStorageService.retrieve("ss_countersession");
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
-    
     this.personas = this.LHoteles.numberPassenger;
     this.divwarning = false;
     console.log("localfinish" + this.localfinish);
     if (this.localfinish === false) {
-      this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
-
+      this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent, this.config);
     }
-
-
-
-    // this.contador = 600;
-
-    // this.bnIdle.startWatching(this.contador).subscribe((res) => {
-
-
-    //   if(res) {
-
-    //    alert("Session expired")
-    //    this.router.navigate(['hoteles'])
-    // }
-    // });
-
-    //  this.t = 0;
-    //  let tt = this.t;
-    //  setInterval(function(){
-    //   console.log(tt++);
-    //   sessionStorageService.store("ss_timer_hoteles_v1", tt);
-    //  },1000);
   }
 
-
-  
-  
-    startCountDown(seconds, template){
+    startCountDown(seconds, template) {
       var counter = seconds;
       var interval = setInterval(() => {
         counter--;
@@ -144,9 +118,9 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
         }	
       }, 1000);
     }
-    
 
-  VolverHome(){
+
+  VolverHome() {
     this.router.navigate(['hoteles'])
     this.modalexpired.hide();
   }
@@ -156,10 +130,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
       var tecla = (document.all) ? e.keyCode : e.which;
       if (tecla = 116) return false
       }
-      
   }
-
-  
 
   ngAfterViewInit() {
     console.log('ngOnInit hoteles');
