@@ -86,6 +86,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   minDateSalida: Date;
   minDateRetorno: Date;
+  maxDateIngreso: Date;
 
   fechaSalida: string;
   fechaRetorno: string;
@@ -161,6 +162,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.indexTramo = 2;
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate());
+    this.minDateRetorno = new Date();
+    this.minDateRetorno.setDate(this.minDateRetorno.getDate() + 1);
     this.flagPseudoRepeat = false;
     this.inicioBuscador = true;
     this.flagPaxMasMenos = true;
@@ -446,6 +449,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
   */
   handlerSalida(datepickerSalida) {
+    console.log("salio");
   }
 
   onValueChangeSalida(value: Date): void {
@@ -476,8 +480,14 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
+  clickfecha1() {
+   // this.dateCustomClasses = null;
+    console.log("entro");
+  }
+
   onValueChangeRetorno(value: Date): void {
     if (value != null) {
+      this.maxDateIngreso = value;
       this.valfechadestino = false;
       $("#txtFechaDestino").removeClass("campo-invalido");
       let mes = "";
@@ -1006,7 +1016,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.valdestino = false;
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if ($.trim(this.fechaSalida) === '' || this.model.salida === null || this.model.salida === '') {
+      if ($.trim(this.fechaSalida) === '') {
         $("#txtFechaSalida").addClass("campo-invalido");
         this.valfechasalida = true;
         flagVal = false;

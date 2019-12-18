@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, Input, Output, AfterViewInit, Injectable } from '@angular/core';
+import { Component, OnInit, TemplateRef, Input, Output, AfterViewInit, Injectable, EventEmitter } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { IDatosUser } from 'src/app/models/IDatosUser';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
@@ -6,6 +6,7 @@ import { ICostCenter } from '../../../models/ICostCenter';
 import { IReasonFlight } from '../../../models/IReasonFlight';
 import { SessionStorageService } from 'ngx-webstorage';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+import { ConfigurationOptions, ContentOptionsEnum, NumberResult } from 'intl-input-phone';
 
 declare var jquery: any;
 declare var $: any;
@@ -28,12 +29,14 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   @Input() user;
   @Input() index;
   @Input() valtelefono;
+  @Output() numtelefono = new EventEmitter<any>();
   selectedvalue;
   fechanacimiento;
   datosPax;
   flagValDatosPAsajeros: boolean = false;
   datosuser: any[] = [];
-  mdtelefono;
+  mdtelefono: string;
+  configOption3 : ConfigurationOptions;
 
   modalRef: BsModalRef;
   config = {
@@ -43,6 +46,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datos;
   tratamiento;
   fecha;
+  OutputValue1: NumberResult = new NumberResult();
   //valtelefono = false;
   //valcorreo = false;
 
@@ -50,9 +54,16 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
   constructor(private modalService: BsModalService, private sessionStorageService : SessionStorageService) {
     this.datosuser = sessionStorageService.retrieve('objusuarios');
+    this.configOption3 = new ConfigurationOptions();
+    this.configOption3.SelectorClass = "OptionType3";
+    this.configOption3.OptionTextTypes = [];
+    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.Flag);
+    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.CountryName);
+    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.CountryPhoneCode);
   }
 
   ngOnInit() {
+    $("#phone").intlTelInput();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
     } else {
@@ -84,6 +95,13 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==190  && event.keyCode !==110 && event.keyCode !==8 && event.keyCode !==9  ){
       return false;
   }
+  }
+
+  onNumberChage(outputResult)
+  {
+    this.OutputValue1 = outputResult;
+    console.log(this.OutputValue1);
+    this.numtelefono.emit(this.OutputValue1);
   }
 
   ValidarCampos() {

@@ -129,6 +129,7 @@ import { ModalHabitacionErroneaComponent } from './components/shared/modal-habit
 import { SafePipe } from './pipes/safe.pipe';
 import { ModalSesionExpiradaVuelosComponent } from './components/shared/modal-sesion-expirada-vuelos/modal-sesion-expirada-vuelos.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { IntlInputPhoneModule } from 'intl-input-phone';
 
 @NgModule({
   declarations: [
@@ -266,7 +267,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     PopoverModule.forRoot(),
     SessionExpirationAlert.forRoot(),
     NgbModule,
-    NgxIntlTelInputModule
+    IntlInputPhoneModule
   ],
   entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent],
   providers: [BnNgIdleService],

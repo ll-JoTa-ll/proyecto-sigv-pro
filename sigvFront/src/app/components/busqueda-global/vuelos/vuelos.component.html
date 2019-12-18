@@ -166,11 +166,12 @@
                #datepickerSalida="bsDatepicker"
                (onHidden)="handlerSalida(datepickerSalida)"
                (bsValueChange)="onValueChangeSalida($event)"
-               [bsValue]="fechahoy"
                [minDate]="minDateSalida"
+               [maxDate]="maxDateIngreso"
                bsDatepicker
                [(ngModel)]="model.salida"
                [dateCustomClasses]="dateCustomClasses"
+               [outsideEsc]="clickfecha1()"
                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
         >
       </label>

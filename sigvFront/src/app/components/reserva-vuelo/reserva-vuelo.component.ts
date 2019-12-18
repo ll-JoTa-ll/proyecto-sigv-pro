@@ -67,6 +67,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   htmlTxtP: string;
   flagHtmlP = false;
   idinterval: any;
+  numero1: any;
+  telefonocontacto: any;
 
   constructor(
     private modalService: BsModalService,
@@ -253,26 +255,19 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         } else {
           $('#txtcorreo_' + (index + 1)).removeClass('campo-invalido');
         }
-        if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
+     /*   if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
           $('#txttelefono_' + (index + 1)).addClass('campo-invalido');
           valtelefono = true;
           val = false;
         } else {
           $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
-        }
+        }*/
     });
     if ($('#contactocorreo').val().length <= 0) {
       $('#contactocorreo').addClass('campo-invalido');
       val = false;
     } else {
       $('#contactocorreo').removeClass('campo-invalido');
-    }
-
-    if ($('#contactotelefono').val().length <= 0) {
-      $('#contactotelefono').addClass('campo-invalido');
-      val = false;
-    } else {
-      $('#contactotelefono').removeClass('campo-invalido');
     }
 
     if ($('#nombrecontacto').val().length <= 0) {
@@ -282,9 +277,25 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       $('#nombrecontacto').removeClass('campo-invalido');
     }
 
+    if (this.telefonocontacto === null || this.telefonocontacto === '' || this.telefonocontacto === undefined) {
+      $('input[name="InputPhone"]').addClass('campo-invalido');
+      val = false;
+    } else {
+      $('input[name="InputPhone').removeClass('campo-invalido');
+    }
+
     return val;
   }
 
+  obtenernumero1($event) {
+    this.numero1 = $event;
+    console.log("1" , this.numero1);
+  }
+
+  obtenerNumeroContacto($event) {
+    this.telefonocontacto = $event;
+    console.log("2", this.telefonocontacto);
+  }
 
   Comprar() {
     let idmotivo = $('#cbomotivo option:selected').val();
@@ -295,8 +306,17 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let email2;
     let telefono2;
     let nombrecontacto;
+    let numero1;
+    console.log('entro', this.numero1);
+    if (this.numero1 !== undefined) {
+      numero1 = this.numero1.Number;
+      console.log('entroo numero pasajero' + this.numero1);
+    }
     email2 = $('#contactocorreo').val();
-    telefono2 = $('#contactotelefono').val();
+    if (this.telefonocontacto !== undefined) {
+      telefono2 = this.telefonocontacto.Number;
+    }
+     //$('#contactotelefono').val();
     nombrecontacto = $('#nombrecontacto').val();
     this.datosuser.forEach(function(item, index) {
       let prefix;
@@ -323,7 +343,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       nrodoc = $('#txtnrodocumento_' + (index + 1)).val();
       prefix = $('#cbotratamiento_' + (index + 1) + ' '  + 'option:selected').val();
       email1 = $('#txtcorreo_' + (index + 1)).val();
-      telefono1 = $('#txttelefono_' + (index + 1)).val();
+      telefono1 = numero1; //$('#txttelefono_' + (index + 1)).val();
       let odocument = {
         description: item.odocument.description,
         number: nrodoc,

@@ -30,6 +30,7 @@
     "bootstrap": "^4.4.1",
     "crypto-js": "^3.1.9-1",
     "google-libphonenumber": "^3.2.6",
+    "intl-input-phone": "0.0.7",
     "intl-tel-input": "^14.1.0",
     "ionic-scroller": "0.0.4",
     "ngb-modal": "^2.0.3",
