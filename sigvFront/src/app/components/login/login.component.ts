@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import * as crypto from 'crypto-js';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -22,6 +22,10 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
+  public text: String;
+
+  
+
   model: any = {};
   checkedRecuerdame: boolean;
   airportlist: any[] = [];
@@ -30,6 +34,7 @@ export class LoginComponent implements OnInit {
   token;
   datoslogin: ILoginDatosModel;
   msjerrorr: boolean = false;
+  closedSesion: boolean;
 
   userid;
 
@@ -48,7 +53,8 @@ export class LoginComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private airportService: AirportService,
     private rutaActiva: ActivatedRoute,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    
     //private location: Location
   ) {
     this.checkedRecuerdame = true;
@@ -58,9 +64,18 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.sessionStorageService.store('ss_login_data', '');
     this.localStorageService.store('ss_token', '');
+    this.localStorageService.store("ss_closedSesion", null);
 
 
 
+  }
+
+  click(){
+    var el = document.getElementById('module');
+
+    el.onclick = function() {
+        console.log('Click just happened');
+    };
   }
 
   login() {
@@ -97,6 +112,9 @@ export class LoginComponent implements OnInit {
             console.log(this.token);
             this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
             this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
+            this.closedSesion = true;
+            this.localStorageService.store("ss_closedSesion",null);
+            this.localStorageService.store("ss_closedSesion",this.closedSesion);
           //console.log(result);
         } else {
           return;
@@ -153,6 +171,8 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  
 
   airportList() {
     this.airportService.airportList(this.token).subscribe(

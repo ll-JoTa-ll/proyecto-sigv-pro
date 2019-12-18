@@ -10,6 +10,8 @@ import { listLocales } from 'ngx-bootstrap/chronos';
 import { IGetEnhancedHotel } from '../models/IGetEnhancedHotel';
 import { IGetPnrHotel } from '../models/IGetPnrHotel.model';
 import { IGetUserById } from '../models/IGetUserById.model';
+import { IGetReservationHotel } from '../models/IGetReservationHotel.model';
+import { IGetReservaDetalleHotel } from '../models/IGetReservaDetalleHotel.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -26,6 +28,7 @@ export class HotelService {
   private url_confirmacion: string = environment.url_hotel + 'Booking/SelectRoom';
   private url_reserva: string = environment.url_hotel + 'Booking/GenerateReservation';
   private url_user: string = environment.url_usuario + 'User/';
+  private url_getreservation: string = environment.url_hotel + 'Booking/';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) { }
 
@@ -80,4 +83,33 @@ GetHabitacion(data): Observable<IHabitacionResults> {
     const url = `${this.url_user + 'GetUserById'}?${'userId=' + data}`;
     return this.http.get<IGetUserById>(url, httpOptions);
   }
+
+ /* GetReservation(data): Observable<IGetReservationHotel> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IGetReservationHotel>(this.url_getreservation + "GetReservation", data, httpOptions);
+  }*/
+
+  ListaReservas(data): Observable<IGetReservationHotel[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    const url = `${this.url_getreservation + 'GetReservation'}?${'userId=' + data}`;
+    return this.http.get<IGetReservationHotel[]>(url, httpOptions);
+  }
+
+  GetReservationHotel(data): Observable<IGetReservaDetalleHotel> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IGetReservaDetalleHotel>(this.url_getreservation + "GetReservationDetails", data, httpOptions);
+  }
+
 }

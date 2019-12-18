@@ -197,6 +197,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   }
 
   SeachHotel() {
+    this.sessionStorageService.store("ls_search_hotel",null);
     const val= this.ValidarCampos();
     if (!val) {
       return val;
@@ -236,7 +237,6 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
           }
           else {
           this.sessionStorageService.store('ss_minibuscador', result);
-
           //this.sessionStorageService.store('ls_search_hotel', result);
           //this.LlistaHotel = result;
           

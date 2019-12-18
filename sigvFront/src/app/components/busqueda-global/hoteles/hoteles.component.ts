@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales, getDay } from 'ngx-bootstrap/chronos';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -13,6 +13,7 @@ import * as crypto from 'crypto-js';
 import { Router } from '@angular/router';
 import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalSesionExpiradaComponent } from '../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
+import { ModalCerrarSesionComponent } from '../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -23,6 +24,30 @@ declare var $: any;
   styleUrls: ['./hoteles.component.sass']
 })
 export class HotelesComponent implements OnInit, AfterViewInit {
+
+  public text: String;
+
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(this.eRef.nativeElement.contains(event.target)) {
+      this.text = "clicked inside";
+      console.log(this.text);
+      var cerrarsesion;
+      cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
+      if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
+        this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+      }
+    } else {
+      this.text = "clicked outside";
+      console.log(this.text);
+    }
+  }
+
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
   @ViewChild("modalexpired", {static: false}) modalexpired;
 
 
@@ -65,7 +90,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   isOpen = false;
   flagVal: boolean;
   contador: number;
-  minibuscador;
+  minibuscador: IHotelResultsModel[] = [];
   t: number;
   modalRefSessionExpired: BsModalRef;
   output;
@@ -78,7 +103,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     public spinner: NgxSpinnerService,
     private service: HotelService,
     private bnIdle: BnNgIdleService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private eRef: ElementRef
   ) {
 
     console.log('constructor hoteles');
@@ -121,7 +147,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-
+    this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
+    
     //this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     //this.token = this.sessionStorageService.retrieve('ss_token');
 
@@ -135,6 +162,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
         }
       }
     });
+
+    
 
   }
 
@@ -153,6 +182,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
 
+    
+
   }
 
   selectEvent(item) {
@@ -164,6 +195,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       $(".x").hide();
     }, 1000);
   }
+
+  
 
   onChangeSearch(val: string) {
     // fetch remote data from here
@@ -262,6 +295,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     let menorValor = 1000000;
     let mayorValor = 0;
 
+    
     this.LlistaHotel.forEach(function(item) {
       if (item.oprice.pricePerAllNights < menorValor) {
         menorValor = item.oprice.pricePerAllNights;

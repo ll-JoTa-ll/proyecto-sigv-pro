@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   role;
   empresa;
   myWindow;
+  closedSesion: boolean;
 
   constructor(
     private router: Router,
@@ -70,6 +71,8 @@ export class HeaderComponent implements OnInit {
   cerrarSesion() {
     this.sessionStorageService.clear();
     this.router.navigate(['/']);
+    this.closedSesion = false;
+    this.localStorageService.store("ss_closedSesion",this.closedSesion);
   }
 
 }

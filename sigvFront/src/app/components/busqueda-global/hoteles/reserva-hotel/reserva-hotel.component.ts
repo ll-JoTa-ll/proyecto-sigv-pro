@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, TemplateRef, AfterViewInit, HostListener, ElementRef } from '@angular/core';
 import { IGetEnhancedHotel } from '../../../../models/IGetEnhancedHotel';
-import { SessionStorageService } from 'ngx-webstorage';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { ILoginDatosModel } from 'src/app/models/ILoginDatos.model';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -16,6 +16,7 @@ import { AirportService } from '../../../../services/airport.service';
 import { IGetUserById } from '../../../../models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ModalHotelesVaciosComponent } from '../../../shared/modal-hoteles-vacios/modal-hoteles-vacios.component';
+import { ModalCerrarSesionComponent } from '../../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -27,13 +28,34 @@ declare var $: any;
   styleUrls: ['./reserva-hotel.component.sass']
 })
 export class ReservaHotelComponent implements OnInit, AfterViewInit {
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
+  public text: String;
+
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(this.eRef.nativeElement.contains(event.target)) {
+      this.text = "clicked inside";
+      var cerrarsesion;
+      cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
+      if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
+        this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+      }
+    } else {
+      this.text = "clicked outside";
+    }
+  }
+  
   modalref: BsModalRef;
 
 
 
   loginDataUser: ILoginDatosModel;
   habitacion : IHabitacionResults;
-  lstConfirmacion : IGetEnhancedHotel;
+  lstConfirmacion : any;
   Reserva : IGetPnrHotel;
   user;
   modalRefSessionExpired: BsModalRef;
@@ -54,36 +76,29 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   nombreContacto;
   areaContacto;
   isOpen = false;
+  lhotel;
+
+  amenities: any;
 
 
 
-
-  constructor(private bnIdle: BnNgIdleService,private toastr: ToastrService,private http: HttpClient,private router: Router,private sessionStorageService: SessionStorageService,public spinner: NgxSpinnerService,private service: HotelService,private modalService: BsModalService,private services: AirportService) {
+  constructor(private eRef: ElementRef,private localStorageService: LocalStorageService,private bnIdle: BnNgIdleService,private toastr: ToastrService,private http: HttpClient,private router: Router,private sessionStorageService: SessionStorageService,public spinner: NgxSpinnerService,private service: HotelService,private modalService: BsModalService,private services: AirportService) {
     this.lstConfirmacion = this.sessionStorageService.retrieve("confirmacion");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.user = this.sessionStorageService.retrieve("ss_user");
     this.plantilla = 'assets/plantillashoteles/enviocorreo.html';
+    
   }
 
   ngOnInit() {
-    console.log("this.user.email ===> "+ this.user.email)
-    console.log("this.user.email ===> "+ this.user.email)
-    console.log("this.user.email ===> "+ this.user.email)
-    console.log("this.user.email ===> "+ this.user.email)
-    console.log("this.user.email ===> "+ this.user.email)
-
+    this.bloquearBotonAtras();
+    this.lhotel = this.sessionStorageService.retrieve("lhotel");
     //let ss_timer_hoteles = this.sessionStorageService.retrieve("ss_timer_hoteles_v1");
     //console.log("ss_timer_hoteles: " + ss_timer_hoteles);
     // let newCount = 60 - ss_timer_hoteles;
     // console.log("newCount: " + newCount);
     // this.bnIdle.startWatching(newCount).subscribe((res) => {
-    //   console.log("res"+res);
-    //   console.log("res"+res);
-    //   console.log("res"+res);
-    //    console.log("res"+res);
-    //   console.log("res"+res);
-    //  console.log("res"+res);
 
     //  if(res) {
 
@@ -104,7 +119,6 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    console.log('ngOnInit hoteles');
     $('#menu-vuelo-1').show();
     $('#menu-vuelo-2').hide();
     $('#menu-hotel-1').hide();
@@ -117,10 +131,17 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
   }
 
+  bloquearBotonAtras() {
+    history.pushState(null, null, location.href);
+    window.onpopstate = function() {
+      history.go(1);
+  };
+  }
+
   getPnrHotel(){
-    console.log(this.user);
     let message;
     let cumple;
+    let listaAme;
     cumple = this.user.birthDate;
     cumple = cumple.substring(0,10);
     cumple = cumple.replace(/-/gi,"/");
@@ -129,9 +150,24 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       return val;
     }
     else{
+      let tipoPago;
+      let amenities = [];
       //let fechVencimiento = this.fechVencimiento;
       //this.fechVencimiento = fechVencimiento.substring(0,2) + fechVencimiento.substring(3,5);
       //this.fechVencimiento = this.fechVencimiento.substring(0,2) + this.fechVencimiento.substring(3,5);
+
+      var listaroom = this.lsthabitacion.lroom.length;
+    
+
+      for (let index = 0; index < this.lsthabitacion.lroom.length; index++) {
+        if (this.lstConfirmacion.oroom.bookingCode === this.lsthabitacion.lroom[index].bookingCode) {
+          const element = this.lsthabitacion.lroom[index];
+          //this.amenities = element.lamenities;
+          listaAme = element.lamenities;
+        
+        }
+      }
+      this.amenities = listaAme;
       let phone = [this.telefono];
       phone.push();
       let email = [this.correo];
@@ -165,13 +201,25 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           ],
         "StartDate": this.lsthabitacion.ohotel.startDate,
         "EndDate": this.lsthabitacion.ohotel.endDate,
-        "CityCode": this.lstConfirmacion.ohotel.cityCode,
-        "Hotelcode": this.lstConfirmacion.ohotel.code,
-        "HotelName": this.lstConfirmacion.ohotel.name,
-        "GuaranteeText": "GuaranteeRequired",
-        "BookingCode": this.lstConfirmacion.oroom.bookingCode,
-        "CorporateCode": this.lstConfirmacion.ohotel.chainCode,
         "NumberPassengers": this.lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers,
+        "OHotel":{
+          "CityCode": this.lstConfirmacion.ohotel.cityCode,
+          "Hotelcode": this.lstConfirmacion.ohotel.code,
+          "HotelName": this.lstConfirmacion.ohotel.name,
+          "Latitude": this.lhotel.oposition.latitude,
+          "Longitude": this.lhotel.oposition.longitude,
+          "Starts": this.lhotel.stars,
+          "Lamenities": this.lhotel.lamenities,
+        },
+        "ORoom":{
+          "Name": this.lsthabitacion.ohotel.hotelName,
+          "Description": this.lsthabitacion.ohotel.hotelDescription,
+          "GuaranteeText": this.lstConfirmacion.ohotel.guarantee,
+          "BookingCode": this.lstConfirmacion.oroom.bookingCode,
+          "CorporateCode": this.lstConfirmacion.ohotel.chainCode,
+          "Lamenities" :  this.amenities,
+        },
+        "LcancelPenalties": this.lstConfirmacion.oroom.lcancelPenalties,
         "OcreditCard":
           {
             "CardType": this.nombreTarjeta,

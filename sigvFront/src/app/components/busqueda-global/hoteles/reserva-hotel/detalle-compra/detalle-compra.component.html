@@ -1,6 +1,6 @@
 <div class="col-12 m-0 p-0 ">
     <div class="row m-0 p-0">
-        <div class="detalleCompra col-12 m-0 p-0 pt-4 pb-4">Detalle de la compra</div>
+        <div class="detalleCompra col-12 m-0 p-0 pt-4 pb-4">Detalle de la reserva</div>
 
         <div class="row m-0 p-0 pt-2 pl-3" style="box-shadow: 0px 3px 6px #00000029;">
             <div class="col-12 m-0 p-0 pt-1 pb-2">
@@ -58,9 +58,12 @@
                     <div class="col-6 m-0 p-0">
                         <span>{{lstHabi.ohotel.checkIn}}</span>
                     </div>
-                    <div class="col-6 m-0 p-0 pl-4">
+                    <div *ngIf="lstHabi.ohotel.checkOut != null;else templateOut" class="col-6 m-0 p-0 pl-4">
                         <span>{{lstHabi.ohotel.checkOut}}</span>
                     </div>
+                    <ng-template #templateOut class="col-6 m-0 p-0 pl-4">
+                        <span class="pl-4">Sin Información</span>
+                    </ng-template>
                 </div>
                 <div style="border-bottom: #707070 1px solid; opacity: 21%;padding-top: 40px;"></div>
             </div>
@@ -68,7 +71,7 @@
             <div class="Informacion row m-0 p-0 pb-3">
                 <div class="col-12 m-0 p-0 pt-3"><img style="width: 30px;" src="./assets/images/moon-phase-outline.svg"><span class="pl-3">{{lstHabi.ohotel.lguestPerRoom[0].roomQuantity}} habitacion ,</span> <span class="pl-2">{{lstHabi.ohotel.lguestPerRoom[0].numberPassengers}} adultos</span></div>
                 <div class="col-12 m-0 p-0 pt-3"><img style="width: 30px;" src="./assets/images/cama.svg"><span class="pl-3">{{lstConfirmacion.oroom.name}}</span></div>
-                <div *ngIf="lstConfirmacion.oroom.breakFast == false" class="col-12 m-0 p-0 pt-3"><img style="width: 30px;" src="./assets/images/coffee-cup.svg"><span class="pl-3">Incluido</span></div>
+                <div *ngIf="lstConfirmacion.oroom.breakFast == true" class="col-12 m-0 p-0 pt-3"><img style="width: 30px;" src="./assets/images/coffee-cup.svg"><span class="pl-3">Incluido</span></div>
 
 
                 <div *ngIf="lstHabi.ohotel.lamenities != null && lstHabi.ohotel.lamenities.length > 0" class="col-12 m-0 p-0 pt-3" style="

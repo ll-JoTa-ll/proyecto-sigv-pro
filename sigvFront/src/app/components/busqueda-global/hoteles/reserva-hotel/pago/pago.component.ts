@@ -23,7 +23,7 @@ export class PagoComponent implements OnInit {
 
   
   isCollapsed = false;
-  reserva : IGetEnhancedHotel;
+  reserva : any;
   habitacion : IHabitacionResults;
   lhotel;
 
@@ -49,6 +49,8 @@ export class PagoComponent implements OnInit {
   ngOnInit() {
     this.reserva = this.sessionStorageService.retrieve("confirmacion");
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
+    console.log(this.reserva.oroom.lcancelPenalties);
+    
     
     
   }
@@ -62,7 +64,7 @@ export class PagoComponent implements OnInit {
     }
     else if (numTarjeta.substring(0,2) == "51" || numTarjeta.substring(0,2) == "52" || numTarjeta.substring(0,2) == "53" || numTarjeta.substring(0,2) == "54" || numTarjeta.substring(0,2) == "55") {
       this.tipoTarjeta = 1;
-      this.nombreTarjeta = "CA";
+      this.nombreTarjeta = "MC";
     }
     else if (numTarjeta.substring(0,2) == "60" || numTarjeta.substring(0,2) == "64" || numTarjeta.substring(0,2) == "65") {
       this.tipoTarjeta = 2;
@@ -71,6 +73,10 @@ export class PagoComponent implements OnInit {
     else if (numTarjeta.substring(0,2) == "34" || numTarjeta.substring(0,2) == "37") {
       this.tipoTarjeta = 3;
       this.nombreTarjeta = "AX";
+    }
+    else if(numTarjeta.substring(0,2) == "36" || numTarjeta.substring(0,2) == "38" || numTarjeta.substring(0,3) == "300" || numTarjeta.substring(0,3) == "301" || numTarjeta.substring(0,3) == "302" || numTarjeta.substring(0,3) == "303" || numTarjeta.substring(0,3) == "304" || numTarjeta.substring(0,3) == "305"){
+      this.tipoTarjeta = 6;
+      this.nombreTarjeta = "DC";
     }
     else if (numTarjeta.substring(0,4) == "2131" || numTarjeta.substring(0,4) == "1800" || numTarjeta.substring(0,2) == "35") {
       this.tipoTarjeta = 5;

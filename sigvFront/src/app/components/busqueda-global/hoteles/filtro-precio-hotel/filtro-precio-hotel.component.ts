@@ -32,7 +32,7 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
   ngOnInit() {
    
     this.ls_search_hotel = this.sessionStorageService.retrieve('ls_search_hotel'); 
-
+    
   }
 
   ngAfterViewInit() {
@@ -60,8 +60,8 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
     }
     $('#slider-container').slider({
       range: true,
-      min: this.menorprice,
-      max: this.mayorprice,
+      min: this.menorprecio,
+      max: this.mayorprecio,
       values: [p1, p2],
       slide: function(event, ui) {
           $('#precio1').val(ui.values[0]);

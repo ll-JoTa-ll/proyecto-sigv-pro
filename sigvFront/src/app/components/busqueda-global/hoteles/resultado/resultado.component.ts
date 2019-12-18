@@ -53,6 +53,7 @@ export class ResultadoComponent implements OnInit {
   lstHabication: IHabitacionResults;
   lstHotel : IHotelResultsModel[];
   objSearch: any;
+  personas: any;
 
   t: number;
 
@@ -70,6 +71,11 @@ export class ResultadoComponent implements OnInit {
     console.log("this.lstHotel: " + JSON.stringify(this.lstHotel));
     console.log("this.LHoteles: " + JSON.stringify(this.LHoteles));
 
+    if (this.lstHotel[0].numberPassenger > 1) {
+      this.personas = "adultos"
+    }else{
+      this.personas = "adulto"
+    }
   }
 
 
