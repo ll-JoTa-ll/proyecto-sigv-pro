@@ -49,12 +49,12 @@
 
                 <div class="col-3 m-0 p-0 pl-3 d-flex align-items-center">
                     <div class="row m-0 p-0" style="width: 100% !important;">
-                        <div class="col-4 m-0 p-0">
+                        <div class="col-4 m-0 p-0 d-flex justify-content-center align-items-center">
                             <input class="" type="radio" [id]="radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment" [name]="radioButtonName+recommendationId+sectionId" (click)="selectRadioButton(radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment)"
                                 value="male">
                         </div>
-                        <div class="col-4 m-0 p-0">
-                            <img tooltip="{{carrierName}}" style="width: 100px !important;" class="pl-1" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+                        <div tooltip="{{carrierName}}" class="col-4 m-0 p-0">
+                            <img style="width: 100px !important;" class="pl-1" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
                         </div>
                         <div class="col-4 m-0 p-0"></div>
                     </div>
