@@ -56,10 +56,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   user : IGetUserById;
   flagBuscar: boolean;
   flagDinData: boolean;
-  airportlist: any[] = [];
   loginDataUser: ILoginDatosModel;
   token;
-  keyword = 'name';
+  keyword = 'searchName';
   data: any[] = [];
   destinoValue: string;
   destinoText: string;
@@ -94,6 +93,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   t: number;
   modalRefSessionExpired: BsModalRef;
   output;
+  lstAutocomplete: any[] = [];
+  airportlist: any[] = [];
+  citylist: any[] = [];
+  flagPriceHotel = false;
 
   constructor(
     private router: Router,
@@ -130,9 +133,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.t = 0;
   }
 
-
-
   ngOnInit() {
+    this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.user = this.sessionStorageService.retrieve('ss_user');
     console.log('ngOnInit hoteles');
     $('#menu-vuelo-1').show();
@@ -145,7 +148,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
     
@@ -157,14 +159,40 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     window.addEventListener('storage',(event) => {
       if (event.storageArea == localStorage) {
         let token = this.localStorageService.retrieve('ss_token');
-        if(token == undefined){
+        if(token == undefined) {
           this.router.navigate(['']);
         }
       }
     });
 
-    
-
+    //autocomplete ciudades
+    const lstAutocomplete = this.lstAutocomplete;
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        latitude: aeropuerto.latitude,
+        longitude: aeropuerto.longitude,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    this.citylist.forEach(function (ciudad) {
+      const obj1 = {
+        iataCode: ciudad.iataCode,
+        name: ciudad.name,
+        searchName: ciudad.searchName,
+        latitude: ciudad.latitude,
+        longitude: ciudad.longitude,
+        categoryId: 2,
+        categoryName: 'Ciudad'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    lstAutocomplete.sort((a, b) => a.name - b.name );
+    this.lstAutocomplete = lstAutocomplete;
   }
 
 
@@ -203,7 +231,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data = resultFilter;
 
       $(".x").hide();
@@ -274,19 +302,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
   }
 
-  startCountDown(seconds, template){
-    var counter = seconds;
-    var interval = setInterval(() => {
-      console.log(counter);
-      counter--;
-      if (counter < 0 ) {
-        clearInterval(interval);
-        //alert("SI FUCIONA")
-        this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent)
-        //this.router.navigate(['login'])
-      }
-    }, 1000);
-  }
 
   Obtenerlistado($event) {
     this.LlistaHotel = [];
@@ -399,6 +414,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
           if (result.length == 0 || result == null || result[0].oerror != null) {
             //alert("asdasd")
             this.flagDinData = true;
+            
           }
           else{
 
@@ -445,7 +461,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
         },
         () => {
           this.spinner.hide();
-
+          this.flagPriceHotel = true;
         }
       );
     }
@@ -546,6 +562,11 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
   showHideMap($event) {
     this.mapafiltro = $event;
+  }
+
+  updateMiniBusqueda($event) {
+    console.log("updateMiniBusqueda: " + $event);
+    this.flagPriceHotel = $event;
   }
 
 }

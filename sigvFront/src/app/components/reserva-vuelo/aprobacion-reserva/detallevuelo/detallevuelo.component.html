@@ -6,7 +6,14 @@
                 <span class="text-airlane">Aerolinea Operadores: {{itemgroup.CarrierName}} </span>
             </div>
             <div class="col-6 m-0 p-0 text-center">
-                <span class="text-plane">Vuelo {{itemgroup.flightNumber}} - {{itemgroup.equipmentType}}</span>
+                <div class="row m-0 p-0 text-plane">
+                    <div class="col-12 m-0 p-0">
+                        Vuelo {{itemgroup.flightNumber}}
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        Tipo de avión - {{itemgroup.equipmentType}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -35,7 +42,7 @@
                                 Duración
                             </div>
                             <div class="col-12 m-0 p-0 text-timetotal">
-                                {{itemgroup.totalFlightTime}}
+                                {{itemgroup.totalFlightTimeShow}}
                             </div>
                         </div>
                     </div>
@@ -72,9 +79,14 @@
             <div class="col-4 m-0 p-0">
                 <hr style="height: 7px; border-radius: 20px 0 0 20px; background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box">
             </div>
-            <div class="col-4 m-0 p-0 g-text-5 d-flex justify-content-center align-items-center" style="border-radius: 20px 20px 20px 20px; background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; height: 32px">
-                {{textFlightTimeShow}}
+            <div *ngIf="itemgroup.timeWaitAirport != null else divduracion" class="col-4 m-0 p-0 g-text-5 d-flex justify-content-center align-items-center" style="border-radius: 20px 20px 20px 20px; background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; height: 32px">
+                Espera en aeropuerto: {{itemgroup.timeWaitAirport | formattimeairport}}
             </div>
+            <ng-template #divduracion>
+                <div class="col-4 m-0 p-0 g-text-5 d-flex justify-content-center align-items-center" style="border-radius: 20px 20px 20px 20px; background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box; height: 32px">
+                    Duración total: {{itemgroup.totalFlightTimeShow}}
+                </div>
+            </ng-template>
             <div class="col-4 m-0 p-0">
                 <hr style="height: 7px; border-radius: 0 20px 20px 0;background: transparent linear-gradient(99deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box">
             </div>

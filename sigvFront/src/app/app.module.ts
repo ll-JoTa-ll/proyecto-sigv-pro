@@ -127,9 +127,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResultadoHabitacionComponent } from './components/busqueda-global/hoteles/resultado-habitacion/resultado-habitacion.component';
 import { ModalHabitacionErroneaComponent } from './components/shared/modal-habitacion-erronea/modal-habitacion-erronea.component';
 import { SafePipe } from './pipes/safe.pipe';
-import { ModalCerrarSesionComponent } from './components/shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
-import { DetalleReservaHotelComponent } from './components/reserva-vuelo/detalle-reserva-hotel/detalle-reserva-hotel.component';
-import { ModalAvisoSesionComponent } from './components/shared/modal-aviso-sesion/modal-aviso-sesion.component';
+import { ModalSesionExpiradaVuelosComponent } from './components/shared/modal-sesion-expirada-vuelos/modal-sesion-expirada-vuelos.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { IntlInputPhoneModule } from 'intl-input-phone';
+import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
+import { IgxInputGroupModule,IgxSliderModule } from 'igniteui-angular';
 
 @NgModule({
   declarations: [
@@ -229,12 +231,13 @@ import { ModalAvisoSesionComponent } from './components/shared/modal-aviso-sesio
     ModalSesionExpiradaComponent,
     ModalHotelesVaciosComponent,
     FormattimeairportPipe,
+    BusquedaMiniHabitacionComponent,
+    ModalHotelesVaciosComponent,
+    ModalSesionExpiradaComponent,
     ResultadoHabitacionComponent,
     ModalHabitacionErroneaComponent,
     SafePipe,
-    ModalCerrarSesionComponent,
-    DetalleReservaHotelComponent,
-    ModalAvisoSesionComponent
+    ModalSesionExpiradaVuelosComponent
   ],
   imports: [
     BrowserModule,
@@ -265,10 +268,15 @@ import { ModalAvisoSesionComponent } from './components/shared/modal-aviso-sesio
     TooltipModule.forRoot(),
     PopoverModule.forRoot(),
     SessionExpirationAlert.forRoot(),
-    NgbModule
+    NgbModule,
+    IntlInputPhoneModule,
+    NgxBootstrapSliderModule,
+    IgxInputGroupModule,
+		IgxSliderModule
   ],
-  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent,ModalCerrarSesionComponent,ModalAvisoSesionComponent],
+  entryComponents: [ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

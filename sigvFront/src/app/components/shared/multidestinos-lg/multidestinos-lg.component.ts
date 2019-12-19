@@ -4,6 +4,7 @@ import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AirportService } from '../../../services/airport.service';
+import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 
 declare var jquery: any;
 declare var $: any;
@@ -16,6 +17,7 @@ declare var $: any;
 export class MultidestinosLgComponent implements OnInit {
 
   model: any = {};
+  dateCustomClasses: DatepickerDateCustomClasses[];
 
   @Input() inOrigenValue;
   @Input() inOrigenText;
@@ -152,6 +154,10 @@ export class MultidestinosLgComponent implements OnInit {
     this.minDateSalida5.setDate(this.minDateSalida5.getDate());
     this.minDateSalida6 = new Date();
     this.minDateSalida6.setDate(this.minDateSalida6.getDate());
+    const now = new Date();
+    this.dateCustomClasses = [
+      { date: now, classes: ['bg-danger', 'text-warning'] }
+    ];
   }
 
   ngOnInit() {

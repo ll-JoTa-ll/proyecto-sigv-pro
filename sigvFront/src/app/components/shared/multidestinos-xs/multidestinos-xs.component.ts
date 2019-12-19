@@ -4,6 +4,8 @@ import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AirportService } from '../../../services/airport.service';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTypeaheadWindow } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window';
 
 declare var jquery: any;
 declare var $: any;
@@ -100,6 +102,13 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   @Output() outFechaSalida5 = new EventEmitter<string>();
   @Output() outFechaSalida6 = new EventEmitter<string>();
 
+  @Output() outFechaSalidaShow1 = new EventEmitter<string>();
+  @Output() outFechaSalidaShow2 = new EventEmitter<string>();
+  @Output() outFechaSalidaShow3 = new EventEmitter<string>();
+  @Output() outFechaSalidaShow4 = new EventEmitter<string>();
+  @Output() outFechaSalidaShow5 = new EventEmitter<string>();
+  @Output() outFechaSalidaShow6 = new EventEmitter<string>();
+
   lstDestinos: any[] = [];
 
   airportlist: any[] = [];
@@ -164,6 +173,12 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   fechaSalida4: string;
   fechaSalida5: string;
   fechaSalida6: string;
+  fecha1: string;
+  fecha2: string;
+  fecha3: string;
+  fecha4: string;
+  fecha5: string;
+  fecha6: string;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -248,32 +263,33 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.agregarTramo(i);
     }
 
-    $('#datepickerSalida1').val(this.infechaSalidaShow1);
+    this.fecha1 = this.infechaSalidaShow1;
+    //$('#datepickerSalida1').val(this.infechaSalidaShow1);
     this.fechaSalida1 = this.infechaSalida1;
     this.origenAuto1 = this.inorigenAuto1;
     this.origentTexto1 = this.inorigentTexto1;
     this.destinoAuto1 = this.indestinoAuto1;
     this.destinoTexto1 = this.indestinoTexto1;
 
-    $('#datepickerSalida2').val(this.infechaSalidaShow2);
+    this.fecha2 = this.infechaSalidaShow2;
+    //$('#datepickerSalida2').val(this.infechaSalidaShow2);
     this.fechaSalida2 = this.infechaSalida2;
     this.origenAuto2 = this.inorigenAuto2;
     this.origentTexto2 = this.inorigentTexto2;
     this.destinoAuto2 = this.indestinoAuto2;
     this.destinoTexto2 = this.indestinoTexto2;
 
-    if (inIndexTramo >= 3) {
-      $('#datepickerSalida3').val(this.infechaSalidaShow3);
-      this.fechaSalida3 = this.infechaSalida3;
-      this.origenAuto3 = this.inorigenAuto3;
-      this.origentTexto3 = this.inorigentTexto3;
-      this.destinoAuto3 = this.indestinoAuto3;
-      this.destinoTexto3 = this.indestinoTexto3;
-    }
-
+    this.fecha3 = this.infechaSalidaShow3;
+    //$('#datepickerSalida3').val(this.infechaSalidaShow3);
+    this.fechaSalida3 = this.infechaSalida3;
+    this.origenAuto3 = this.inorigenAuto3;
+    this.origentTexto3 = this.inorigentTexto3;
+    this.destinoAuto3 = this.indestinoAuto3;
+    this.destinoTexto3 = this.indestinoTexto3;
 
     if (inIndexTramo >= 4) {
-      $('#datepickerSalida4').val(this.infechaSalidaShow4);
+      this.fecha4 = this.infechaSalidaShow4;
+      //$('#datepickerSalida4').val(this.infechaSalidaShow4);
       this.fechaSalida4 = this.infechaSalida4;
       this.origenAuto4 = this.inorigenAuto4;
       this.origentTexto4 = this.inorigentTexto4;
@@ -281,9 +297,9 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.destinoTexto4 = this.indestinoTexto4;
     }
 
-
     if (inIndexTramo >= 5) {
-      $('#datepickerSalida5').val(this.infechaSalidaShow5);
+      this.fecha5 = this.infechaSalidaShow5;
+      //$('#datepickerSalida5').val(this.infechaSalidaShow5);
       this.fechaSalida5 = this.infechaSalida5;
       this.origenAuto5 = this.inorigenAuto5;
       this.origentTexto5 = this.inorigentTexto5;
@@ -291,9 +307,9 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.destinoTexto5 = this.indestinoTexto5;
     }
 
-
     if (inIndexTramo >= 6) {
-      $('#datepickerSalida6').val(this.infechaSalidaShow6);
+      this.fecha6 = this.infechaSalidaShow6;
+      //$('#datepickerSalida6').val(this.infechaSalidaShow6);
       this.fechaSalida6 = this.infechaSalida6;
       this.origenAuto6 = this.inorigenAuto6;
       this.origentTexto6 = this.inorigentTexto6;
@@ -326,6 +342,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.outOrigenText1.emit(this.origentTexto1);
         console.log("case 1");
         console.log("this.origenAuto1: " + this.origenAuto1);
+        //$(".x").show();
         const data1 = {
           value: this.origenAuto1,
           text: this.origentTexto1,
@@ -339,6 +356,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto1 = item.name;
         this.outDestinoValue1.emit(this.destinoAuto1);
         this.outDestinoText1.emit(this.destinoTexto1);
+        //$(".x").show();
         const data2 = {
           value: this.destinoAuto1,
           text: this.destinoTexto1,
@@ -361,6 +379,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto2 = item.name;
         this.outOrigenValue2.emit(this.origenAuto2);
         this.outOrigenText2.emit(this.origentTexto2);
+        //$(".x").show();
         const data3 = {
           value: this.origenAuto2,
           text: this.origentTexto2,
@@ -374,6 +393,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto2 = item.name;
         this.outDestinoValue2.emit(this.destinoAuto2);
         this.outDestinoText2.emit(this.destinoTexto2);
+        //$(".x").show();
         const data4 = {
           value: this.destinoAuto2,
           text: this.destinoTexto2,
@@ -394,6 +414,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto3 = item.name;
         this.outOrigenValue3.emit(this.origenAuto3);
         this.outOrigenText3.emit(this.origentTexto3);
+        //$(".x").show();
         const data5 = {
           value: this.origenAuto3,
           text: this.origentTexto3,
@@ -407,6 +428,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto3 = item.name;
         this.outDestinoValue3.emit(this.destinoAuto3);
         this.outDestinoText3.emit(this.destinoTexto3);
+        //$(".x").show();
         const data6 = {
           value: this.destinoAuto3,
           text: this.destinoTexto3,
@@ -427,6 +449,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto4 = item.name;
         this.outOrigenValue4.emit(this.origenAuto4);
         this.outOrigenText4.emit(this.origentTexto4);
+        //$(".x").show();
         const data7 = {
           value: this.origenAuto4,
           text: this.origentTexto4,
@@ -440,6 +463,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto4 = item.name;
         this.outDestinoValue4.emit(this.destinoAuto4);
         this.outDestinoText4.emit(this.destinoTexto4);
+        //$(".x").show();
         const data8 = {
           value: this.destinoAuto4,
           text: this.destinoTexto4,
@@ -451,6 +475,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto5 = item.name;
         this.outOrigenValue5.emit(this.destinoAuto4);
         this.outOrigenText5.emit(this.destinoTexto4);
+       // $(".x").show();
 
         $("#txtDestino4").removeClass("campo-invalido");
         $("#txtOrigen5").removeClass("campo-invalido");
@@ -460,6 +485,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto5 = item.name;
         this.outOrigenValue5.emit(this.origenAuto5);
         this.outOrigenText5.emit(this.origentTexto5);
+       // $(".x").show();
         const data9 = {
           value: this.origenAuto5,
           text: this.origentTexto5,
@@ -473,6 +499,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto5 = item.name;
         this.outDestinoValue5.emit(this.destinoAuto5);
         this.outDestinoText5.emit(this.destinoTexto5);
+       // $(".x").show();
         const data10 = {
           value: this.destinoAuto5,
           text: this.destinoTexto5,
@@ -493,6 +520,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto6 = item.name;
         this.outOrigenValue6.emit(this.origenAuto6);
         this.outOrigenText6.emit(this.origentTexto6);
+        //$(".x").show();
         const data11 = {
           value: this.origenAuto6,
           text: this.origentTexto6,
@@ -506,6 +534,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.destinoTexto6 = item.name;
         this.outDestinoValue6.emit(this.destinoAuto6);
         this.outDestinoText6.emit(this.destinoTexto6);
+       // $(".x").show();
         const data12 = {
           value: this.destinoAuto6,
           text: this.destinoTexto6,
@@ -515,11 +544,6 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         $("#txtDestino6").removeClass("campo-invalido");
         break;
     }
-
-    setTimeout(function() {
-      $(".x").hide();
-    }, 1000);
-
   }
 
   onChangeSearch(flag, val: string) {
@@ -726,7 +750,9 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     }
 
     this.fechaSalida1 = value.getFullYear() + "/" + mes + "/" + dia;
+    let fechasalidashow1 = dia + '/' + mes + '/' + value.getFullYear();
     this.outFechaSalida1.emit(this.fechaSalida1);
+    this.outFechaSalidaShow1.emit(fechasalidashow1);
     console.log(this.fechaSalida1);
   }
 
@@ -754,6 +780,8 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     }
 
     this.fechaSalida2 = value.getFullYear() + "/" + mes + "/" + dia;
+    let fechasalidashow2 = dia + '/' + mes + '/' + value.getFullYear();
+    this.outFechaSalidaShow2.emit(fechasalidashow2);
     this.outFechaSalida2.emit(this.fechaSalida2);
     console.log(this.fechaSalida2);
   }
@@ -781,7 +809,9 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     }
 
     this.fechaSalida3 = value.getFullYear() + "/" + mes + "/" + dia;
+    let fechasalidashow3 = dia + '/' + mes + '/' + value.getFullYear();
     this.outFechaSalida3.emit(this.fechaSalida3);
+    this.outFechaSalidaShow3.emit(fechasalidashow3);
     console.log(this.fechaSalida3);
   }
 
@@ -807,7 +837,9 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     }
 
     this.fechaSalida4 = value.getFullYear() + "/" + mes + "/" + dia;
+    let fechasalidashow4 = dia + '/' + mes + '/' + value.getFullYear();
     this.outFechaSalida4.emit(this.fechaSalida4);
+    this.outFechaSalidaShow4.emit(fechasalidashow4);
     console.log(this.fechaSalida4);
   }
 
@@ -832,7 +864,9 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     }
 
     this.fechaSalida5 = value.getFullYear() + "/" + mes + "/" + dia;
+    let fechasalidashow5 = dia + '/' + mes + '/' + value.getFullYear();
     this.outFechaSalida5.emit(this.fechaSalida5);
+    this.outFechaSalidaShow5.emit(fechasalidashow5);
     console.log(this.fechaSalida5);
   }
 
@@ -855,7 +889,9 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     }
 
     this.fechaSalida6 = value.getFullYear() + "/" + mes + "/" + dia;
+    let fechasalidashow6 = dia + '/' + mes + '/' + value.getFullYear();
     this.outFechaSalida6.emit(this.fechaSalida6);
+    this.outFechaSalidaShow6.emit(fechasalidashow6);
     console.log(this.fechaSalida6);
   }
 

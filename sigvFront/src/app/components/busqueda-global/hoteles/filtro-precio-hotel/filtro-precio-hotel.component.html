@@ -17,41 +17,60 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 m-0 p-0 pt-3 pb-3 pl-4 pr-4">
-            <div class="slider-price" id="slider-container"></div>
+        <div class="col-12 m-0 p-0 pt-3 pb-3 pr-5">
+            <!--<div class="slider-price" id="slider-container"></div>-->
+            <!--  <mv-slider [(value)]="value" [min]="menorprice" [max]="mayorprice" [enabled]="enabled" (change)="change()"></mv-slider>    -->
+
+            <div class="container">
+                <igx-slider id="slider" [type]="sliderType.RANGE" [minValue]="menorprice" [maxValue]="mayorprice" [lowerBound]="menorprice" [upperBound]="mayorprice" [(ngModel)]="priceRange"></igx-slider>
+                <div class="wrapper">
+                    <igx-input-group>
+                        <input igxInput id="lowerInput" type="text" [ngModel]="priceRange.lower | currency" (blur)="updatePriceRange($event.target)" />
+                        <label igxLabel for="lowerInput">Lower price:</label>
+                    </igx-input-group>
+                    <igx-input-group class="pl-3">
+                        <input igxInput id="upperInput" type="text" [ngModel]="priceRange.upper | currency" (blur)="updatePriceRange($event.target)" />
+                        <label igxLabel for="upperInput">Upper price:</label>
+                    </igx-input-group>
+                </div>
+            </div>
+
         </div>
-        <div class="col-12 m-0 p-0">
+        <!--      <div class="col-12 m-0 p-0">
             <div class="row m-0 p-0">
                 <div class="col-6 m-0 p-0 pl-4 pt-3">
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 txt-rango">
-                            Desde {{this.menorprice}} ----- {{this.menorprecio}}
+                            Desde {{menorprice}} ----- {{menorprecio}}
                         </div>
                     </div>
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0">
-                            <input type="text" class="input-price box-shadow" value="{{this.menorprecio}}" id="precio1" (keyup)="RangoPrecio()" (keypress)="validateNumber($event)">
+                            <input type="text" class="input-price box-shadow" id="precio1" (keyup)="RangoPrecio()" (keypress)="validateNumber($event)">
                         </div>
                     </div>
                 </div>
                 <div class="col-6 m-0 p-0 pr-4 pt-3">
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 txt-rango">
-                            Hasta {{this.mayorprice}} ----- {{this.mayorprecio}}
+                            Hasta {{mayorprice}} ----- {{mayorprecio}}
                         </div>
                     </div>
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0">
-                            <input type="text" class="input-price box-shadow" value="{{this.mayorprecio}}" id="precio2" (keyup)="RangoPrecio()" (keypress)="validateNumber($event)">
+                            <input type="text" class="input-price box-shadow" id="precio2" (keyup)="RangoPrecio()" (keypress)="validateNumber($event)">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3">
+        </div>-->
+        <div class="col-12 m-0 p-0 pl-4 pr-4 pt-3 pb-3">
             <button class="btn v-btn-buscar" (click)="FiltrarPrecio()">
                     Aplicar
                   </button>
         </div>
     </div>
+    <style>
+
+    </style>
 </div>

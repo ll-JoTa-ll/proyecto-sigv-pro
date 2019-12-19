@@ -9,7 +9,7 @@
                 <div class="col-1 m-0 p-0 pt-3"></div>
 
                 <div class="col-3 m-0 p-0 pt-3 d-flex justify-content-center align-items-center">
-                    <img style="width: 60px;" class="img-fluid vertical-center pl-4" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+                    <img style="width: 120px;" class="img-fluid vertical-center pl-4" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
                 </div>
 
                 <div class="col-3 m-0 p-0 pt-3 g-text-1 d-flex justify-content-center align-items-center">
@@ -17,7 +17,15 @@
                 </div>
 
                 <div class="col-5 m-0 p-0 pt-3 text-center g-text-2 d-flex justify-content-center align-items-center">
-                    Vuelo {{segmentGroup.flightOrtrainNumber}} - {{segmentGroup.equipmentType}}
+
+                    <div class="row">
+                        <div class="col-12 m-0 p-0">
+                            Vuelo {{segmentGroup.flightOrtrainNumber}}
+                        </div>
+                        <div class="col-12 m-0 p-0">
+                            Tipo de avión - {{segmentGroup.equipmentType}}
+                        </div>
+                    </div>
                 </div>
 
 

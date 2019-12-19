@@ -20,7 +20,6 @@ export class InfoAdicionalComponent implements OnInit, AfterViewInit {
   ) {
     //
   }
-
   ngOnInit() {
     //$("#divHtmlTxtC").html(this.htmlTxtC);
     //$("#dropdown-nested").show();

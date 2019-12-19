@@ -38,8 +38,11 @@
                     </ng-template>
                 </div>
             </div>
+            <div *ngIf="section.Lsegments[0].LsegmentGroups[0].fareFamilyName != ''" class="col-12 m-0 p-0 pt-2 pl-3">
+                <span class="nombrefamilia">{{section.Lsegments[0].LsegmentGroups[0].fareFamilyName}}</span>
+            </div>
             <div class="col-12 m-0 p-0 pt-4 pl-3 pb-4">
-                <span><img src="./assets/images/airlines/{{marketingcarrier}}" style="width: 30px;"></span>
+                <span><img src="./assets/images/airlines/{{marketingcarrier}}" style="width: 73px;"></span>
             </div>
             <div class="col-12 m-0 p-0">
                 <div class="row p-0 m-0">

@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { IHotelResultsModel } from '../../../../models/IHotelResults.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+import { SliderType } from "igniteui-angular";
 
 declare var jquery: any;
 declare var $: any;
@@ -11,6 +12,8 @@ declare var $: any;
   styleUrls: ['./filtro-precio-hotel.component.sass']
 })
 export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
+
+  
 
   @Input() listado: IHotelResultsModel[];
   @Input() menorprecio: number;
@@ -25,6 +28,8 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
   mayorprice: number;
   listadohotel: IHotelResultsModel[] = [];
   ls_search_hotel;
+  enabled = true;
+  value = [250, 450];
 
   constructor(private sessionStorageService: SessionStorageService) {
    }
@@ -35,39 +40,34 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
     
   }
 
+  
+
   ngAfterViewInit() {
     this.menorprice =  parseFloat($('#menorprice').html());
     this.mayorprice = parseFloat($('#mayorprice').html());
-    $('#precio1').val(this.menorprecio);
-    $('#precio2').val(this.mayorprecio);
-    this.RangoPrecio();
-  }
 
-  RangoPrecio() {
-    const menorprecio = this.menorprecio;
-    const mayorprecio = this.mayorprecio;
-    let p1;
-    let p2;
-    p1 = $('#precio1').val();
-    p2 = $('#precio2').val();
-    if (parseFloat(p1) < menorprecio || parseFloat(p1) > mayorprecio) {
-      //$('#precio1').val(menorprecio);
-      return false;
-    }
-    if (parseFloat(p2) < menorprecio || parseFloat(p2) > mayorprecio) {
-      //$('#precio2').val(mayorprecio);
-      return false;
-    }
-    $('#slider-container').slider({
-      range: true,
-      min: this.menorprecio,
-      max: this.mayorprecio,
-      values: [p1, p2],
-      slide: function(event, ui) {
-          $('#precio1').val(ui.values[0]);
-          $('#precio2').val(ui.values[1]);
+  }
+  
+  public sliderType = SliderType;
+  public priceRange: PriceRange = new PriceRange(this.menorprice, this.mayorprice);
+
+
+  public updatePriceRange(event) {
+    const prevPriceRange = this.priceRange;
+    switch (event.id) {
+      case "lowerInput": {
+        if (!isNaN(parseInt(event.value, 10))) {
+          this.priceRange = new PriceRange(event.value, prevPriceRange.upper);
+        }
+        break;
       }
-    });
+      case "upperInput": {
+        if (!isNaN(parseInt(event.value, 10))) {
+          this.priceRange = new PriceRange(prevPriceRange.lower, event.value);
+        }
+        break;
+      }
+    }
   }
 
  FiltrarPrecio() {
@@ -80,6 +80,8 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
   let results = [];
   precio1 = $('#precio1').val();
   precio2 = $('#precio2').val();
+  precio1 = this.priceRange.lower;
+  precio2 = this.priceRange.upper;
   if (parseFloat(precio1) < menorprecio || parseFloat(precio1) > mayorprecio) {
     //$('#precio1').val(menorprecio);
     return false;
@@ -106,5 +108,15 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
     if (!reg.test(input)) {
       e.preventDefault();
     }
+  }
+
+  change() {}
+}
+
+class PriceRange {
+  constructor(
+    public lower: number,
+    public upper: number
+  ) {
   }
 }

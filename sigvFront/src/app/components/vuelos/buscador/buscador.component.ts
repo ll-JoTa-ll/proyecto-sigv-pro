@@ -84,6 +84,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   @Output() outTipoVuelo = new EventEmitter<string>();
   @Output() outIndexTramo = new EventEmitter<number>();
 
+  fecha1show;
+  fecha2show;
+  fecha3show;
+  fecha4show;
+  fecha5show;
+  fecha6show;
+
   airportlist: any[] = [];
   citylist: any[] = [];
   airportlistFilter: any[] = [];
@@ -101,6 +108,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   data9: any[] = [];
   data10: any[] = [];
   indexTramo: number;
+  @Input() textorigen;
+  @Input() textdestino;
 
   origenValue;
   origenText;
@@ -117,12 +126,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     private spinner: NgxSpinnerService,
     private airportService: AirportService
   ) {
-    console.log('buscador constructor');
-    console.log('tipoVuelo: ' + this.tipoVuelo);
-    console.log('origenAuto: ' + this.origenAuto);
-    console.log('destinoAuto: ' + this.destinoAuto);
-    console.log('origenAuto1: ' + this.origenAuto1);
-    console.log('destinoAuto1: ' + this.destinoAuto1);
   }
 
   ngOnInit() {
@@ -131,14 +134,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-    setTimeout(function() {
-      $(".x").hide();
-    }, 1000);
-    console.log('tipoVuelo: ' + this.tipoVuelo);
-    console.log('origenAuto: ' + this.origenAuto);
-    console.log('destinoAuto: ' + this.destinoAuto);
-    console.log('origenAuto1: ' + this.origenAuto1);
-    console.log('destinoAuto1: ' + this.destinoAuto1);
+    let databuscador = this.sessionStorageService.retrieve('objbuscador');
+    $(".x").hide();
     if (this.tipoVuelo === 'MC') {
       this.origenValue = this.origenAuto1;
       this.origenText = this.origentTexto1;
@@ -185,21 +182,22 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     console.log('destinoAuto: ' + this.destinoAuto);
     console.log('origenAuto1: ' + this.origenAuto1);
     console.log('destinoAuto1: ' + this.destinoAuto1);
-    setTimeout(function() {
-      $(".x").hide();
-    }, 1000);
+    $(".x").hide();
     const tipoVuelo = this.tipoVuelo;
     const fechaSalidaShow = this.fechaSalidaShow;
     const fechaRetornoShow = this.fechaRetornoShow;
     switch (tipoVuelo) {
       case 'RT':
         $('#radio_b_tv_1').prop("checked", true);
-        $('#datepickerSalida').val(fechaSalidaShow);
-        $('#datepickerRetorno').val(fechaRetornoShow);
+        this.model.salida = fechaSalidaShow;
+        this.model.retorno = fechaRetornoShow;
+       // $('#datepickerSalida').val(fechaSalidaShow);
+       // $('#datepickerRetorno').val(fechaRetornoShow);
         break;
       case 'OW':
         $('#radio_b_tv_2').prop("checked", true);
-        $('#datepickerRetorno').val(fechaRetornoShow);
+        this.model.salida = fechaSalidaShow;
+        //$('#datepickerSalida').val(fechaSalidaShow);
         break;
       case 'MC':
         $('#radio_b_tv_3').prop("checked", true);
@@ -239,31 +237,39 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ClosedOrigen() {
+    if (this.origentTexto.length < 15) {
+      this.origentTexto = '';
+    }
+  }
+
+  ClosedDestino() {
+    if (this.destinoTexto.length < 15) {
+      this.destinoTexto = '';
+    }
+  }
+
   seleccionarTipoVuelo(valor) {
     this.tipoVuelo = valor;
   }
 
   selectEvent(flag, item) {
-    // do something with selected item
-    console.log("selectEvent");
-    console.log(item);
-
     if (flag === 1) {
       this.origenAuto = item.iataCode;
       this.origentTexto = item.name;
+      this.textorigen = item.name;
       $("#txtOrigen").removeClass("campo-invalido");
-      setTimeout(function() {
-        $(".x").hide();
-      }, 1000);
+     // $(".x").show();
+      console.log(this.origentTexto);
     }
 
     if (flag === 2) {
       this.destinoAuto = item.iataCode;
       this.destinoTexto = item.name;
+      this.textdestino = item.name;
       $("#txtDestino").removeClass("campo-invalido");
-      setTimeout(function() {
-        $(".x").hide();
-      }, 1000);
+     // $(".x").show();
+      console.log(this.destinoTexto);
     }
   }
 
@@ -275,7 +281,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       if (val.length >= 3) {
         const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
         this.data = resultFilter;
-
         $(".x").hide();
       }
     }
@@ -401,6 +406,30 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     console.log(this.fechaSalida);
   }
 
+  Updatefecha1($event) {
+   this.fecha1show = $event;
+  }
+
+  Updatefecha2($event) {
+    this.fecha2show = $event;
+  }
+
+  Updatefecha3($event) {
+    this.fecha3show = $event;
+  }
+
+  Updatefecha4($event) {
+    this.fecha4show = $event;
+  }
+
+  Updatefecha5($event) {
+    this.fecha5show = $event;
+  }
+
+  Updatefecha6($event) {
+    this.fecha6show = $event;
+  }
+
   onValueChangeRetorno(value: Date): void {
     let mes = "";
     let getMonth = value.getMonth() + 1;
@@ -420,7 +449,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
     $("#txtFechaDestino").removeClass("campo-invalido");
     this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
-    console.log(this.fechaRetorno);
   }
 
   searchFlight() {
@@ -440,15 +468,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       destino.push(this.destinoAuto);
       destino.push(this.origenAuto);
 
-      console.log("origen");
-      console.log(origen);
-      console.log("destino");
-      console.log(destino);
-
       fechas.push(this.fechaSalida);
       fechas.push(this.fechaRetorno);
-      console.log("fechas");
-      console.log(fechas);
     }
 
     if (this.tipoVuelo === "OW") {
@@ -564,7 +585,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (lstPasajeros != null) {
       if (lstPasajeros.length > 0) {
         lstPasajeros.forEach(function(item, index) {
-          console.log('item_pax: ' + JSON.stringify(item))
           const pax = {
             "RoleId": item.orole.id,
             "CostCenterId": null,
@@ -582,8 +602,61 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         }
       );
     }
+    let objcampos;
 
-    console.log('lUsers_: ' + JSON.stringify(lUsers_));
+    if (this.tipoVuelo === 'RT' || this.tipoVuelo === 'OW') {
+        objcampos = {
+        origen: this.textorigen,
+        origencode: this.origenAuto,
+        destino: this.textdestino,
+        destinocode: this.destinoAuto,
+        fechasalida: $('#datepickerSalida').val(),
+        fechadestino: $('#datepickerRetorno').val(),
+        cabina: this.textoCabina,
+        escala: this.textoEscala,
+        pasajeros: this.pasajeros,
+        tipovuelo: this.tipoVuelo
+      };
+    }
+    if (this.tipoVuelo === 'MC') {
+        objcampos = {
+        origen1: this.origentTexto1,
+        origen2: this.origentTexto2,
+        origen3: this.origentTexto3,
+        origen4: this.origentTexto4,
+        origen5: this.origentTexto5,
+        origen6: this.origentTexto6,
+        origencode1: this.origenAuto1,
+        origencode2: this.origenAuto2,
+        origencode3: this.origenAuto3,
+        origencode4: this.origenAuto4,
+        origencode5: this.origenAuto5,
+        origencode6: this.origenAuto6,
+        destino1: this.destinoTexto1,
+        destino2: this.destinoTexto2,
+        destino3: this.destinoTexto3,
+        destino4: this.destinoTexto4,
+        destino5: this.destinoTexto5,
+        destino6: this.destinoTexto6,
+        destinocode1: this.destinoAuto1,
+        destinocode2: this.destinoAuto2,
+        destinocode3: this.destinoAuto3,
+        destinocode4: this.destinoAuto4,
+        destinocode5: this.destinoAuto5,
+        destinocode6: this.destinoAuto6,
+        fechasalida1: this.fecha1show,
+        fechasalida2: this.fecha2show,
+        fechasalida3: this.fecha3show,
+        fechasalida4: this.fecha4show,
+        fechasalida5: this.fecha5show,
+        fechasalida6: this.fecha6show,
+        tipovuelo: this.tipoVuelo,
+        cabina: this.textoCabina,
+        escala: this.textoEscala,
+        pasajeros: this.pasajeros,
+        indextramo: this.indexTramo
+      }
+    }
 
     let data = {
       "Lusers": lUsers_,
@@ -599,7 +672,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       "Ocompany": this.loginDataUser.ocompany
     };
 
-    console.log('data buscar: ' + JSON.stringify(data));
+    this.sessionStorageService.store('objbuscador', objcampos);
 
     this.sessionStorageService.store('ss_dataRequestFlight', data);
     this.sessionStorageService.store('ss_horasFrom', horasFrom);
@@ -612,21 +685,18 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       return flagVal;
     }
 
-    console.log("data request mini busqueda: " + JSON.stringify(data))
-
     this.airportService.searchFlight(data).subscribe(
       result => {
         console.log(result);
         if (result !== null && result.length > 0) {
-          console.log("resultado optimo");
           if (ss_filterPrecio === 'mas') {
             result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
           }
           if (ss_filterPrecio === 'menos') {
             result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
           }
+          this.sessionStorageService.store('ss_searchFlight', result);
         } else {
-          console.log("resultado null o vacio");
           this.spinner.hide();
         }
         this.lRecomendaciones.emit(result);
@@ -636,18 +706,14 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       err => {
         console.log("ERROR MINI BUSQUEDA: " + JSON.stringify(err));
         this.spinner.hide();
-        console.log("ERROR: " + err);
       },
       () => {
         this.spinner.hide();
-        console.log("MINI BUSQUEDA this.airportService.searchFlight completado");
       }
     );
   }
 
   validarDataBusqueda(data) {
-    console.log('this.origentTexto: ' + this.origentTexto);
-    console.log('this.destinoTexto: ' + this.destinoTexto);
     const tipoVuelo = this.tipoVuelo;
     const indexTramo = this.indexTramo;
     let flagVal = true;
@@ -665,13 +731,15 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if (this.model.salida === null || this.model.salida === '' || this.model.salida === undefined) {
+      // tslint:disable-next-line: max-line-length
+      if ($('#datepickerSalida').val().length === 0/*this.model.salida === null || this.model.salida === '' || this.model.salida === undefined*/) {
         $("#txtFechaSalida").addClass("campo-invalido");
         flagVal = false;
       } else {
         $("#txtFechaSalida").removeClass("campo-invalido");
       }
-      if (this.model.retorno === null || this.model.retorno === '' || this.model.retorno === undefined) {
+      // tslint:disable-next-line: max-line-length
+      if ($('#datepickerRetorno').val().length === 0/*this.model.retorno === null || this.model.retorno === '' || this.model.retorno === undefined*/) {
         $("#txtFechaDestino").addClass("campo-invalido");
         flagVal = false;
       } else {
@@ -692,7 +760,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if (this.model.salida === null || this.model.salida === '' || this.model.salida === undefined) {
+      if ($('#datepickerSalida').val().length === 0/*this.model.salida === null || this.model.salida === '' || this.model.salida === undefined*/) {
         $("#txtFechaSalida").addClass("campo-invalido");
         flagVal = false;
       } else {

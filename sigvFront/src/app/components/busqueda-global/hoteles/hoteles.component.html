@@ -22,16 +22,15 @@
                                     <ng-autocomplete [(ngModel)]="model.origentTexto" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                         [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
-
                                     <ng-template #itemTemplate let-item>
-                                        <a [innerHTML]="item.name"></a>
+                                        <!--<a [innerHTML]="item.name"></a>-->
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt=""> {{item.name}}
                                     </ng-template>
-
                                     <ng-template #notFoundTemplate let-notFound>
-                                        <div [innerHTML]="notFound"></div>
+                                        <!--<div [innerHTML]="notFound"></div>-->
                                     </ng-template>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -273,11 +272,15 @@
             <div class="row m-0 p-0">
                 <div class="col-3 m-0 p-0 pt-4 pr-4 pl-5">
                     <app-busqueda-mini [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event);searchFlightBuscador($event);" [destino]="destinoText" [fchingreso]="dateingreso"
-                        [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas" (flagShowMap)="showHideMap($event)"></app-busqueda-mini>
+                        [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas" (flagShowMap)="showHideMap($event)" (flagBuscarMini)="updateMiniBusqueda($event)"></app-busqueda-mini>
 
 
                     <app-filtro-estrellas [listado]="LlistaHotel" (resultfiltro)="ObtenerListaFiltroEstrella($event)"></app-filtro-estrellas>
-                    <app-filtro-precio-hotel [cantnoche]="cantidadnoche" [currency]="currency" (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio-hotel>
+
+
+                    <app-filtro-precio-hotel *ngIf="flagPriceHotel" [cantnoche]="cantidadnoche" [currency]="currency" (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio-hotel>
+
+
                     <app-filtro-nombrehotel (resultFiltro)="ObtenerListaFiltroNombre($event)" [listado]="LlistaHotel"></app-filtro-nombrehotel>
                 </div>
                 <div class="col-9 m-0 p-0 pt-4 pl-4 pr-5">

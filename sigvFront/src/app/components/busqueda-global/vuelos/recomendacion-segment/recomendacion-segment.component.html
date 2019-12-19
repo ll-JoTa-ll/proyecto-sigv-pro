@@ -48,13 +48,13 @@
             <div class="row m-0 p-0">
 
                 <div class="col-3 m-0 p-0 pl-3 d-flex align-items-center">
-                    <div class="row m-0 p-0">
-                        <div class="col-4 m-0 p-0">
+                    <div class="row m-0 p-0" style="width: 100% !important;">
+                        <div class="col-4 m-0 p-0 d-flex justify-content-center align-items-center">
                             <input class="" type="radio" [id]="radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment" [name]="radioButtonName+recommendationId+sectionId" (click)="selectRadioButton(radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment)"
                                 value="male">
                         </div>
-                        <div class="col-4 m-0 p-0">
-                            <img tooltip="{{carrierName}}" style="width: 30px !important;" class="pl-1" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+                        <div tooltip="{{carrierName}}" class="col-4 m-0 p-0">
+                            <img style="width: 100px !important;" class="pl-1" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
                         </div>
                         <div class="col-4 m-0 p-0"></div>
                     </div>
@@ -67,7 +67,7 @@
 
                 <div class="col-6 m-0 p-0">
                     <div class="row m-0 p-0">
-                        <div class="col-4 m-0 p-0">
+                        <div class="col-4 m-0 p-0" style="cursor: pointer;">
                             <div class="row m-0 p-0">
                                 <div *ngIf="lSegmentGroupsLength===1" class="col-12 m-0 p-0 text-center sm-text-2">
                                     Directo
@@ -130,15 +130,15 @@
 
 
                 <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
-                    <img tooltip="Permite equipaje de mano." src="./assets/images/accesorio_rojo.svg" alt="">
+                    <img style="width: 33px;" tooltip="Permite equipaje de mano." src="./assets/images/bolsodemano-1.svg" alt="">
                     <!--
             <img *ngIf="!bagAllowed" src="./assets/images/accesorio_gris.svg" alt="">
             -->
                 </div>
 
                 <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
-                    <img tooltip="Incluye equipaje para documentar. {{bagQuantity}} maleta(s) por adulto." *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
-                    <img tooltip="No incluye maleta." *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt="">
+                    <img style="width: 33px;" tooltip="Incluye equipaje para documentar. {{bagQuantity}} maleta(s) por adulto." *ngIf="bagAllowed" src="./assets/images/maleta-si.svg" alt="">
+                    <img style="width: 33px;" tooltip="No incluye maleta." *ngIf="!bagAllowed" src="./assets/images/maleta-no.svg" alt="">
                 </div>
 
                 <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
@@ -174,7 +174,7 @@
                         <div class="col-12 m-0 p-0 pt-3">
                             <div class="row m-0 p-0">
                                 <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
-                                    <img src="./assets/images/accesorio5.svg" alt="">
+                                    <img style="width: 33px;" src="./assets/images/bolsodemano-1.svg" alt="">
                                 </div>
                                 <div class="col-10 m-0 p-0">
                                     <div class="row m-0 p-0">
@@ -192,8 +192,8 @@
                         <div class="col-12 m-0 p-0 pt-3">
                             <div class="row m-0 p-0">
                                 <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
-                                    <img *ngIf="bagAllowed" src="./assets/images/equipaje_rojo.svg" alt="">
-                                    <img *ngIf="!bagAllowed" src="./assets/images/equipaje_gris.svg" alt="">
+                                    <img style="width: 33px;" *ngIf="bagAllowed" src="./assets/images/maleta-si.svg" alt="">
+                                    <img style="width: 33px;" *ngIf="!bagAllowed" src="./assets/images/maleta-no.svg" alt="">
                                 </div>
                                 <div *ngIf="bagQuantity > 0" class="col-10 m-0 p-0">
                                     <div class="row m-0 p-0">

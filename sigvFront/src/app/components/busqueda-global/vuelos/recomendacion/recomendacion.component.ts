@@ -63,6 +63,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   lstPseudoRepeat: any[] = [];
 
   dataRequestFamilia;
+  dataseccionesvuelos;
   famTotalFareAmount;
   famFareAmountByPassenger;
   requestFamilia;
@@ -165,7 +166,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           FareBasis: section.lSectionGroups[i].fareBasis,
           CabinId: section.lSectionGroups[i].cabinId,
           CabinDescription: section.lSectionGroups[i].cabinDescription,
-          TimeWaitAirport: group.timeWaitAirport
+          TimeWaitAirport: group.timeWaitAirport,
+          fareFamilyName: ""
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -241,9 +243,13 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     this.vuelosComponent.spinner.show();
     this.ObtenerSecciones();
     this.dataRequestFamilia = dataPost;
+    let datasecciones = this.ObtenerSecciones();
+    console.log('mis secciones completas:  ' + JSON.stringify(datasecciones));
     let flagResultFamilias = 0;
+    console.log("dataPost Family INI: " + JSON.stringify(dataPost));
     this.familyService.getFareFamily(dataPost).subscribe(
       result => {
+        console.log("result getFareFamily: " + JSON.stringify(result));
         if (result === null) {
           flagResultFamilias = 0;
         } else {
@@ -252,6 +258,20 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
             flagResultFamilias = 0;
           } else {
             flagResultFamilias = 1;
+            this.lstFamilyResult.lsections.forEach(function(section, indexSection) {
+              section.lsegments.forEach(function(segment, indexSegment) {
+                segment.lfareFamilies.forEach(function(fare, indexFare) {
+                  if (indexFare === 0) {
+                    const fareFamilyName = fare.fareFamilyName;
+                   dataPost.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
+                   datasecciones.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
+                  }
+                });
+              });
+            });
+            console.log("dataPost Family FIN: " + JSON.stringify(dataPost));
+            this.requestFamilia = dataPost;
+            this.dataseccionesvuelos = datasecciones;
           }
         }
         this.flagResultFamilias = flagResultFamilias;
@@ -263,7 +283,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       () => {
         this.vuelosComponent.spinner.hide();
         if (flagResultFamilias === 1) {
-          this.flightAvailability(dataPost, modalerror, 2, template);
+          this.flightAvailability(dataPost, modalerror, 2, template, datasecciones);
           /*
           this.modalRef = this.modalService.show(
             template,
@@ -345,7 +365,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       PSeudo: this.pseudo
     };
     this.sessionStorageService.store('ss_FlightAvailability_request1', dataFamilias);
-    this.flightAvailability(dataFamilias, template, 1, null);
+    this.flightAvailability(dataFamilias, template, 1, null, null);
   }
 
   ObtenerSecciones() {
@@ -386,7 +406,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           AirportDestination: group.airportDestination,
           CabinDescription: section.lSectionGroups[i].cabinDescription,
           TimeWaitAirport: group.timeWaitAirport,
-          DateVariation: group.dateVariation
+          DateVariation: group.dateVariation,
+          fareFamilyName: ""
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -431,6 +452,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       FlightNational: this.flightNational
     };
     this.sessionStorageService.store('ss_FlightAvailability_request2', dataFamilias);
+
+    return dataFamilias;
 
   }
 
@@ -513,7 +536,7 @@ TraerAutorizador() {
   )
 }
 
-  flightAvailability(data, template, tipo, modalFam) {
+  flightAvailability(data, template, tipo, modalFam, dataseccion) {
     this.vuelosComponent.spinner.show();
     if (tipo === 1) {
       // tslint:disable-next-line: max-line-length
@@ -557,7 +580,6 @@ TraerAutorizador() {
             // tslint:disable-next-line: max-line-length
             this.router.navigate(['/reserva-vuelo']);
           }
-
           if (tipo === 2) {
             // tslint:disable-next-line: max-line-length
             if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
@@ -568,6 +590,7 @@ TraerAutorizador() {
              this.TraerAutorizador();
           }
             this.sessionStorageService.store('ss_FlightAvailability_request1', data);
+            this.sessionStorageService.store('ss_FlightAvailability_request2', dataseccion);
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
             this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
             this.flagMsgErrorSelFam = false;
@@ -582,6 +605,7 @@ TraerAutorizador() {
             this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
             this.flagMsgErrorSelFam = false;
             this.sessionStorageService.store('ss_FlightAvailability_request1', data);
+            this.sessionStorageService.store('ss_FlightAvailability_request2', dataseccion);
           }
         } else {
           if (tipo === 3) {
@@ -620,10 +644,12 @@ TraerAutorizador() {
     const segment_ = obj[2];
     const index_ = obj[3];
     const requestFamilia = this.requestFamilia;
+    const seccionvuelos = this.dataseccionesvuelos;
     const lstFamilyResult = this.lstFamilyResult;
     const colorsFare = this.colorsFare;
     let fareBasis = "";
     let classId = "";
+    let fareFamilyName = "";
     let fareBasisVal = "";
     let classIdVal = "";
     let flagFareBasisVal = 1;
@@ -658,6 +684,7 @@ TraerAutorizador() {
               if (indexFare == index_ - 1) {
                 fareBasis = fare.fareBasis;
                 classId = fare.classId;
+                fareFamilyName = fare.fareFamilyName;
               }
             }
           }
@@ -695,12 +722,12 @@ TraerAutorizador() {
 
             segment.lfareFamilies[index_ - 1].fareBasis = fareBasis;
             segment.lfareFamilies[index_ - 1].fareBasis = classId;
+            segment.lfareFamilies[index_ - 1].fareFamilyName = fareFamilyName;
 
             let idSecuencial = indexSection + "_" + indexSegment + "_" + index_;
             console.log("idSecuencial: " + idSecuencial);
             $("#idRadioFam_" + idSecuencial).prop("checked", true);
             $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
-
           });
         }
       });
@@ -717,6 +744,23 @@ TraerAutorizador() {
               if (indexGroup == segment_) {
                 group.ClassId = classId;
                 group.FareBasis = fareBasis;
+                group.fareFamilyName = fareFamilyName;
+              }
+            }
+          }
+        });
+      });
+    });
+
+    seccionvuelos.Lsections.forEach(function(section, indexSection) {
+      section.Lsegments.forEach(function(segment, indexSegment) {
+        segment.LsegmentGroups.forEach(function(group, indexGroup) {
+          if (indexSection == section_) {
+            if (indexSegment == 0) {
+              if (indexGroup == segment_) {
+                group.ClassId = classId;
+                group.FareBasis = fareBasis;
+                group.fareFamilyName = fareFamilyName;
               }
             }
           }
@@ -726,7 +770,7 @@ TraerAutorizador() {
 
     console.log("requestFamiliaRadio: " + JSON.stringify(requestFamilia));
 
-    this.flightAvailability(requestFamilia, null, 3, null);
+    this.flightAvailability(requestFamilia, null, 3, null, seccionvuelos);
   }
 
   flagCloseModal($event) {
@@ -736,5 +780,4 @@ TraerAutorizador() {
   openModalDsctCop(template: TemplateRef<any>) {
     this.modalRefDsctCorp = this.modalService.show(template);
   }
-
 }

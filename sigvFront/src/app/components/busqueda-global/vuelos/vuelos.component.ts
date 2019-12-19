@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AirportService } from '../../../services/airport.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
@@ -6,9 +6,10 @@ import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
-import {DatepickerRenderOptions} from 'ngx-bootstrap/datepicker/models';
+import { DatepickerDateCustomClasses} from 'ngx-bootstrap/datepicker/models';
 import {consoleTestResultHandler} from 'tslint/lib/test';
 import { Router } from '@angular/router';
+import * as crypto from 'crypto-js';
 
 declare var jquery: any;
 declare var $: any;
@@ -24,12 +25,14 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   locales = listLocales();
 
   flagBuscar: boolean;
+  fechahoy = new Date();
 
   airportlist: any[] = [];
   citylist: any[] = [];
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
   searchData: ISearchFlightModel[] = [];
+  dateCustomClasses: DatepickerDateCustomClasses[];
 
   origenAuto: string;
   origentTexto: string;
@@ -83,6 +86,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   minDateSalida: Date;
   minDateRetorno: Date;
+  maxDateIngreso: Date;
 
   fechaSalida: string;
   fechaRetorno: string;
@@ -116,6 +120,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   valdestino = false;
   valfechasalida = false;
   valfechadestino = false;
+  indback;
+  ss_login_data;
 
   model: any = {};
 
@@ -133,7 +139,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     public spinner: NgxSpinnerService,
     private router: Router
   ) {
-    console.log('constructor vuelos');
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
     $('.menu-hotel-1').show();
@@ -157,6 +162,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.indexTramo = 2;
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate());
+    this.minDateRetorno = new Date();
+    this.minDateRetorno.setDate(this.minDateRetorno.getDate() + 1);
     this.flagPseudoRepeat = false;
     this.inicioBuscador = true;
     this.flagPaxMasMenos = true;
@@ -164,15 +171,19 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.vuelosNoche = false;
     this.vueloTurnoFiltro = false;
     this.flagBuscadorLateral = false;
-    const ss_login_data = this.sessionStorageService.retrieve('ss_login_data');
-    console.log(ss_login_data);
-    if (ss_login_data === '' || ss_login_data === null) {
+    this.ss_login_data = this.sessionStorageService.retrieve('ss_login_data');
+    if (this.ss_login_data === '' || this.ss_login_data === null) {
       this.router.navigate(['/']);
     }
+    const now = new Date();
+    this.dateCustomClasses = [
+      { date: now, classes: ['bg-danger', 'text-warning'] }
+    ];
+
   }
 
   ngOnInit() {
-    console.log('ngOnInit vuelos');
+    $(".x").hide();
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
     $('.menu-hotel-1').show();
@@ -202,6 +213,95 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       this.flagPaxMasMenos = false;
     }
 
+    this.indback = this.sessionStorageService.retrieve('indregresar');
+    let tipovuelo;
+    if (this.indback === true) {
+     // this.SearchFlight2();
+     let databuscador = this.sessionStorageService.retrieve('objbuscador');
+     let dataRequestFlight = this.sessionStorageService.retrieve('ss_databuscador');
+     if (dataRequestFlight != null) {
+      tipovuelo = databuscador.tipovuelo;
+
+      if (tipovuelo === 'OW' || tipovuelo === 'RT') {
+        let lstdata = this.sessionStorageService.retrieve('ss_searchFlight');
+        this.setLstAerolineas(lstdata);
+        this.searchData = lstdata;
+        if (this.ss_login_data.orole.roleDescription === 'Usuario' || this.ss_login_data.orole.roleDescription === 'Autorizador') {
+          this.flagBuscar = true;
+          this.flagBuscadorLateral = true;
+       } else {
+          this.flagBuscar = true;
+          this.flagBuscadorLateral = true;
+          this.flagCentralizador = false;
+       }
+        this.sessionStorageService.store('indregresar', null);
+        this.sessionStorageService.store('indback2', true);
+        this.origenAuto = databuscador.origencode;
+        this.origentTexto = databuscador.origen;
+        this.destinoAuto = databuscador.destinocode;
+        this.destinoTexto = databuscador.destino;
+        this.textoEscala = databuscador.escala;
+        this.textoCabina = databuscador.cabina;
+        this.pasajeros = databuscador.pasajeros;
+        this.fechaSalidaShow = databuscador.fechasalida;
+        this.fechaRetornoShow = databuscador.fechadestino;
+        this.fechaSalida = databuscador.fechasalida;
+        this.fechaRetorno = databuscador.fechadestino;
+        this.tipoVuelo = databuscador.tipovuelo;
+      }
+      if (tipovuelo === 'MC') {
+        let lstdata = this.sessionStorageService.retrieve('ss_searchFlight');
+        this.setLstAerolineas(lstdata);
+        this.searchData = lstdata;
+        this.flagBuscar = true;
+        this.flagBuscadorLateral = true;
+        this.sessionStorageService.store('indregresar', null);
+        this.sessionStorageService.store('indback2', true);
+        this.origenAuto1 = databuscador.origencode1;
+        this.origenAuto2 = databuscador.origencode2;
+        this.origenAuto3 = databuscador.origencode3;
+        this.origenAuto4 = databuscador.origencode4;
+        this.origenAuto5 = databuscador.origencode5;
+        this.origenAuto6 = databuscador.origencode6;
+        this.origentTexto1 = databuscador.origen1;
+        this.origentTexto2 = databuscador.origen2;
+        this.origentTexto3 = databuscador.origen3;
+        this.origentTexto4 = databuscador.origen4;
+        this.origentTexto5 = databuscador.origen5;
+        this.origentTexto6 = databuscador.origen6;
+        this.destinoAuto1 = databuscador.destinocode1;
+        this.destinoAuto2 = databuscador.destinocode2;
+        this.destinoAuto3 = databuscador.destinocode3;
+        this.destinoAuto4 = databuscador.destinocode4;
+        this.destinoAuto5 = databuscador.destinocode5;
+        this.destinoAuto6 = databuscador.destinocode6;
+        this.destinoTexto1 = databuscador.destino1;
+        this.destinoTexto2 = databuscador.destino2;
+        this.destinoTexto3 = databuscador.destino3;
+        this.destinoTexto4 = databuscador.destino4;
+        this.destinoTexto5 = databuscador.destino5;
+        this.destinoTexto6 = databuscador.destino6;
+        this.textoEscala = databuscador.escala;
+        this.textoCabina = databuscador.cabina;
+        this.pasajeros = databuscador.pasajeros;
+        this.tipoVuelo = databuscador.tipovuelo;
+        this.indexTramo = databuscador.indextramo;
+        this.fechaSalida1 = databuscador.fechasalida1;
+        this.fechaSalida2 = databuscador.fechasalida2;
+        this.fechaSalida3 = databuscador.fechasalida3;
+        this.fechaSalida4 = databuscador.fechasalida4;
+        this.fechaSalida5 = databuscador.fechasalida5;
+        this.fechaSalida6 = databuscador.fechasalida6;
+        this.fechaSalidaShow1 = databuscador.fechasalida1;
+        this.fechaSalidaShow2 = databuscador.fechasalida2;
+        this.fechaSalidaShow3 = databuscador.fechasalida3;
+        this.fechaSalidaShow4 = databuscador.fechasalida4;
+        this.fechaSalidaShow5 = databuscador.fechasalida5;
+        this.fechaSalidaShow6 = databuscador.fechasalida6;
+
+      }
+     }
+    }
     const lstAutocomplete = this.lstAutocomplete;
     this.airportlist.forEach(function (aeropuerto) {
       const obj1 = {
@@ -231,7 +331,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit vuelos');
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
     $('#menu-hotel-1').show();
@@ -244,8 +343,94 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
   }
 
+  SearchFlight2() {
+    this.spinner.show();
+    this.flagDinData = false;
+    this.sessionStorageService.store('indregresar', null);
+
+    let origen: any[] = [];
+    let destino: any[] = [];
+    let fechas: any[] = [];
+    let horasFrom: any[] = [];
+    let horasTo: any[] = [];
+
+    let dataRequestFlight = this.sessionStorageService.retrieve('ss_databuscador');
+
+    let data = {
+      "Lusers": dataRequestFlight.Lusers,
+      "NumberPassengers": dataRequestFlight.NumberPassengers,
+      "NumberRecommendations": dataRequestFlight.NumberRecommendations,
+      "CabinType": dataRequestFlight.CabinType,
+      "Scales": dataRequestFlight.Scales,
+      "Origin": dataRequestFlight.Origin,
+      "Destination": dataRequestFlight.Destination,
+      "DepartureArrivalDate": dataRequestFlight.DepartureArrivalDate,
+      "DepartureArrivalTimeFrom": dataRequestFlight.DepartureArrivalTimeFrom,
+      "DepartureArrivalTimeTo": dataRequestFlight.DepartureArrivalTimeTo,
+      "Ocompany": dataRequestFlight.Ocompany
+    };
+
+    this.sessionStorageService.store('ss_dataRequestFlight', data);
+    this.sessionStorageService.store('ss_databuscador', data);
+    this.sessionStorageService.store('ss_horasFrom', horasFrom);
+    this.sessionStorageService.store('ss_horasTo', horasTo);
+    this.sessionStorageService.store('ss_filterPrecio', 'mas');
 
 
+    this.airportService.searchFlight(data).subscribe(
+      result => {
+        this.flagPseudoRepeat = true;
+        if (result !== null && result.length > 0) {
+          this.searchData = result;
+          this.sessionStorageService.store('ss_searchFlight', result);
+          this.flagBuscar = true;
+          this.flagBuscadorLateral = true;
+
+          //aerolineas
+          this.setLstAerolineas(result);
+          /*
+          result.forEach(function(reco, indexreco) {
+            if (indexreco === 0) {
+              const dataAero = {
+                carrierId: reco.carrierId,
+                carrierName: reco.carrierName,
+                filter: 0
+              };
+              aerolineas.push(dataAero);
+            } else {
+              let flagAero = 1;
+              aerolineas.forEach(function(aerolinea, indexaero) {
+                if (aerolinea.carrierId === reco.carrierId) {
+                  flagAero = 0;
+                }
+              });
+              if (flagAero === 1) {
+                const dataAeroN = {
+                  carrierId: reco.carrierId,
+                  carrierName: reco.carrierName,
+                  filter: 0
+                };
+                aerolineas.push(dataAeroN);
+              }
+            }
+          });
+          this.aerolineas = aerolineas;
+          */
+        } else {
+          this.sessionStorageService.store('ss_searchFlight', null);
+          this.flagDinData = true;
+        }
+      },
+      err => {
+        this.spinner.hide();
+        this.flagBuscadorLateral = false;
+      },
+      () => {
+        this.spinner.hide();
+        this.flagBuscadorLateral = false;
+      }
+    );
+  }
   /*
   airportList() {
     this.airportService.airportList().subscribe(
@@ -263,14 +448,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     );
   }
   */
-
   handlerSalida(datepickerSalida) {
-    console.log(datepickerSalida);
+    console.log("salio");
   }
 
   onValueChangeSalida(value: Date): void {
-    console.log("onValueChangeSalida");
-    console.log("value: " + value);
     this.valfechasalida = false;
     $("#txtFechaSalida").removeClass("campo-invalido");
     this.minDateRetorno = value;
@@ -295,12 +477,17 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
       this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
       this.fechaSalidaShow = dia + "/" + mes + "/" + value.getFullYear();
-      console.log(this.fechaSalida);
     }
+  }
+
+  clickfecha1() {
+   // this.dateCustomClasses = null;
+    console.log("entro");
   }
 
   onValueChangeRetorno(value: Date): void {
     if (value != null) {
+      this.maxDateIngreso = value;
       this.valfechadestino = false;
       $("#txtFechaDestino").removeClass("campo-invalido");
       let mes = "";
@@ -321,21 +508,16 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
       this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
       this.fechaRetornoShow = dia + "/" + mes + "/" + value.getFullYear();
-      console.log(this.fechaRetorno);
     }
   }
 
   selectEvent(item) {
     // do something with selected item
-    console.log("selectEvent");
-    console.log(item);
     this.origenAuto = item.iataCode;
     this.origentTexto = item.name;
     this.isOpen = false;
     $("#txtOrigen").removeClass("campo-invalido");
-    setTimeout(function() {
-      $(".x").hide();
-    }, 1000);
+    $(".x").hide();
   }
 
   onChangeSearch(val: string) {
@@ -387,9 +569,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   onFocused(e) {
-    // do something when input is focused
-    console.log("onFocused");
-    console.log(e);
+    //$('.ng-dirty').select();
+    console.log('entro');
   }
 
   selectEvent2(item) {
@@ -397,6 +578,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.destinoTexto = item.name;
     this.valdestino = false;
     $("#txtDestino").removeClass("campo-invalido");
+    $(".x").hide();
+    if (this.model.origentTexto.length < 5) {
+      this.model.origentTexto = '';
+    }
   }
 
   onChangeSearch2(val: string) {
@@ -454,8 +639,20 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onFocused2(e) {}
+  onFocused2(e) {
+  }
 
+  ClosedOrigen() {
+    if (this.model.origentTexto.length < 15) {
+      this.model.origentTexto = '';
+    }
+  }
+
+  ClosedDestino() {
+    if (this.model.destinoTexto.length < 15) {
+      this.model.destinoTexto = '';
+    }
+  }
 
   seleccionarCabina(valor, texto) {
     this.cabina = valor;
@@ -503,7 +700,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   searchFlight() {
     this.spinner.show();
-    console.log("this.indexTramo: " + this.indexTramo);
     this.flagDinData = false;
 
     let origen: any[] = [];
@@ -519,15 +715,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       destino.push(this.destinoAuto);
       destino.push(this.origenAuto);
 
-      console.log("origen");
-      console.log(origen);
-      console.log("destino");
-      console.log(destino);
-
       fechas.push(this.fechaSalida);
       fechas.push(this.fechaRetorno);
-      console.log("fechas");
-      console.log(fechas);
     }
 
     if (this.tipoVuelo === "OW") {
@@ -633,7 +822,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if (lstPasajeros != null) {
       if (lstPasajeros.length > 0) {
         lstPasajeros.forEach(function(item, index) {
-          console.log('item_pax: ' + JSON.stringify(item))
           const pax = {
             "RoleId": item.orole.id,
             "CostCenterId": null,
@@ -653,8 +841,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
 
 
-    console.log('lUsers_: ' + JSON.stringify(lUsers_));
-
 
 
     let data = {
@@ -672,6 +858,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     };
 
     this.sessionStorageService.store('ss_dataRequestFlight', data);
+    this.sessionStorageService.store('ss_databuscador', data);
     this.sessionStorageService.store('ss_horasFrom', horasFrom);
     this.sessionStorageService.store('ss_horasTo', horasTo);
     this.sessionStorageService.store('ss_filterPrecio', 'mas');
@@ -682,13 +869,69 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       return flagVal;
     }
 
-    console.log("data: " + JSON.stringify(data));
 
     let aerolineas = this.aerolineas;
+    let objcampos;
+
+    if (this.tipoVuelo === 'OW' || this.tipoVuelo === 'RT') {
+        objcampos = {
+        origen: this.origentTexto,
+        origencode: this.origenAuto,
+        destino: this.destinoTexto,
+        destinocode: this.destinoAuto,
+        fechasalida: $('#fechasalida').val(),
+        fechadestino: $('#fechadestino').val(),
+        cabina: this.textoCabina,
+        escala: this.textoEscala,
+        pasajeros: this.pasajeros,
+        tipovuelo: this.tipoVuelo
+      };
+    }
+
+    if (this.tipoVuelo === 'MC') {
+      objcampos = {
+        origen1: this.origentTexto1,
+        origen2: this.origentTexto2,
+        origen3: this.origentTexto3,
+        origen4: this.origentTexto4,
+        origen5: this.origentTexto5,
+        origen6: this.origentTexto6,
+        origencode1: this.origenAuto1,
+        origencode2: this.origenAuto2,
+        origencode3: this.origenAuto3,
+        origencode4: this.origenAuto4,
+        origencode5: this.origenAuto5,
+        origencode6: this.origenAuto6,
+        destino1: this.destinoTexto1,
+        destino2: this.destinoTexto2,
+        destino3: this.destinoTexto3,
+        destino4: this.destinoTexto4,
+        destino5: this.destinoTexto5,
+        destino6: this.destinoTexto6,
+        destinocode1: this.destinoAuto1,
+        destinocode2: this.destinoAuto2,
+        destinocode3: this.destinoAuto3,
+        destinocode4: this.destinoAuto4,
+        destinocode5: this.destinoAuto5,
+        destinocode6: this.destinoAuto6,
+        fechasalida1: this.fechaSalidaShow1,
+        fechasalida2: this.fechaSalidaShow2,
+        fechasalida3: this.fechaSalidaShow3,
+        fechasalida4: this.fechaSalidaShow4,
+        fechasalida5: this.fechaSalidaShow5,
+        fechasalida6: this.fechaSalidaShow6,
+        tipovuelo: this.tipoVuelo,
+        cabina: this.textoCabina,
+        escala: this.textoEscala,
+        pasajeros: this.pasajeros,
+        indextramo: this.indexTramo
+      }
+    }
+
+    this.sessionStorageService.store('objbuscador', objcampos);
 
     this.airportService.searchFlight(data).subscribe(
       result => {
-        console.log(result);
         this.flagPseudoRepeat = true;
         if (result !== null && result.length > 0) {
           this.searchData = result;
@@ -734,12 +977,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       err => {
         this.spinner.hide();
         this.flagBuscadorLateral = false;
-        console.log("ERROR: " + JSON.stringify(err));
       },
       () => {
         this.spinner.hide();
         this.flagBuscadorLateral = false;
-        console.log("this.airportService.searchFlight completado");
       }
     );
   }
@@ -754,8 +995,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   validarDataBusqueda(data) {
-    console.log('this.origentTexto: ' + this.origentTexto);
-    console.log('this.destinoTexto: ' + this.destinoTexto);
     const tipoVuelo = this.tipoVuelo;
     const indexTramo = this.indexTramo;
     let flagVal = true;
@@ -777,7 +1016,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.valdestino = false;
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if ($.trim(this.fechaSalida) === '' || this.model.salida === null || this.model.salida === '') {
+      if ($.trim(this.fechaSalida) === '') {
         $("#txtFechaSalida").addClass("campo-invalido");
         this.valfechasalida = true;
         flagVal = false;
@@ -1200,13 +1439,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   searchFlightBuscador($event) {
     this.searchData = [];
     if ($event === null) {
-      console.log("this.spinner.hide()");
       this.spinner.hide();
     } else {
       this.searchData = $event;
     }
-    console.log("searchFlightBuscador");
-    console.log("$event: " + $event);
     this.flagPseudoRepeat = false;
     this.flagPseudoRepeat = true;
     this.sessionStorageService.store('ss_searchFlight', this.searchData);
@@ -1224,7 +1460,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   //TRAMO
   updateIndexTramo($event) {
     this.indexTramo = $event;
-    console.log("this.indexTramo: " + this.indexTramo);
   }
 
   //ORIGEN
@@ -1234,23 +1469,18 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
   updateOrigenTramoValue2($event) {
     this.origenAuto2 = $event;
-    console.log(this.origenAuto2);
   }
   updateOrigenTramoValue3($event) {
     this.origenAuto3 = $event;
-    console.log(this.origenAuto3);
   }
   updateOrigenTramoValue4($event) {
     this.origenAuto4 = $event;
-    console.log(this.origenAuto4);
   }
   updateOrigenTramoValue5($event) {
     this.origenAuto5 = $event;
-    console.log(this.origenAuto5);
   }
   updateOrigenTramoValue6($event) {
     this.origenAuto6 = $event;
-    console.log(this.origenAuto6);
   }
 
   updateOrigenTramoText1($event) {
@@ -1281,19 +1511,15 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
   updateDestinoTramoValue2($event) {
     this.destinoAuto2 = $event;
-    console.log(this.destinoAuto2);
   }
   updateDestinoTramoValue3($event) {
     this.destinoAuto3 = $event;
-    console.log(this.destinoAuto3);
   }
   updateDestinoTramoValue4($event) {
     this.destinoAuto4 = $event;
-    console.log(this.destinoAuto4);
   }
   updateDestinoTramoValue5($event) {
     this.destinoAuto5 = $event;
-    console.log(this.destinoAuto5);
   }
   updateDestinoTramoValue6($event) {
     this.destinoAuto6 = $event;

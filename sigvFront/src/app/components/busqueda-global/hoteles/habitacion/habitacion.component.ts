@@ -124,8 +124,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     this.divwarning = false;
     
     if (this.localfinish === false) {
-      this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
-
+      this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent, this.config);
     }
     var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
@@ -162,10 +161,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     //  },1000);
   }
 
-
-  
-  
-    startCountDown(seconds, template){
+    startCountDown(seconds, template) {
       var counter = seconds;
       var interval = setInterval(() => {
         counter--;
@@ -187,7 +183,8 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
       }, 1000);
     }
 
-  VolverHome(){
+
+  VolverHome() {
     this.router.navigate(['hoteles'])
     this.modalexpired.hide();
   }
@@ -198,7 +195,6 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
       if (tecla = 116) return false
       }
   }
-
 
   ngAfterViewInit() {
     $('#menu-vuelo-1').show();
@@ -211,7 +207,8 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    this.startCountDown(20, this.modalexpired);
+    this.startCountDown(780, this.modalexpired);
+    console.log("cantidadnoche =====> " +this.cantidadnoche);
     this.sessionFinish = true;
 
     var cerrarsesion;

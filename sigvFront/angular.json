@@ -27,12 +27,17 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+                            "./node_modules/intl-tel-input/build/css/intlTelInput.css",
                             "./node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "src/styles.sass",
                             "src/assets/css/estiloshabitacion.css",
-                            "./node_modules/ngx-toastr/toastr.css"
+                            "./node_modules/ngx-toastr/toastr.css",
+                            "./node_modules/bootstrap-slider/dist/css/bootstrap-slider.min.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "./node_modules/bootstrap-slider/dist/bootstrap-slider.min.js"
+                        ]
                     },
                     "configurations": {
                         "production": {
@@ -86,8 +91,10 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
                             "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-                            "src/styles.sass"
+                            "src/styles.sass",
+                            "./node_modules/intl-tel-input/build/css/intlTelInput.css"
                         ],
                         "scripts": []
                     }

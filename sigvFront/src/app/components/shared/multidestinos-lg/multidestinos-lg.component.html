@@ -1,119 +1,101 @@
-
-
 <div class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">
-  <div class="row m-0 p-0">
-    <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
-      Tramo 1
+    <div class="row m-0 p-0">
+        <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+            Tramo 1
+        </div>
     </div>
-  </div>
 </div>
 <div class="col-12 m-0 p-0 pl-2 pt-3">
 
-  <div class="row m-0 p-0">
+    <div class="row m-0 p-0">
 
-    <div class="col-4 m-0 p-0">
+        <div class="col-4 m-0 p-0">
 
-      <div class="row m-0 p-0">
+            <div class="row m-0 p-0">
 
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-          Origen
+                    Origen
 
-        </div>
-
-        <div id="txtOrigen1" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              [(ngModel)]="model.origentTexto1"
-              style="color: #898989 !important;"
-              [data]="data"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(1, $event)'
-              (inputChanged)='onChangeSearch(1, $event)'
-              (inputFocused)='onFocused(1, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+                <div id="txtOrigen1" class="col-10 m-0 p-0">
 
-        </div>
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete [(ngModel)]="model.origentTexto1" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent(1, $event)' (inputChanged)='onChangeSearch(1, $event)' (inputFocused)='onFocused(1, $event)' [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
 
-      </div>
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
 
-    </div>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
 
-    <div class="col-4 m-0 p-0">
-
-      <div class="row m-0 p-0">
-
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
-
-          Destino
-
-        </div>
-
-        <div id="txtDestino1" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              [(ngModel)]="model.destinoTexto1"
-              style="color: #898989 !important;"
-              [data]="data2"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(2, $event)'
-              (inputChanged)='onChangeSearch(2, $event)'
-              (inputFocused)='onFocused(2, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+            </div>
 
         </div>
 
-      </div>
+        <div class="col-4 m-0 p-0">
 
-    </div>
+            <div class="row m-0 p-0">
 
-    <div class="col-2 m-0 p-0 pl-2">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-      <label id="txtFechaSalida1" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                    Destino
+
+                </div>
+
+                <div id="txtDestino1" class="col-10 m-0 p-0">
+
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete [(ngModel)]="model.destinoTexto1" style="color: #898989 !important;" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent(2, $event)' (inputChanged)='onChangeSearch(2, $event)' (inputFocused)='onFocused(2, $event)' [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-2 m-0 p-0 pl-2">
+
+            <label id="txtFechaSalida1" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida1.toggle()"
@@ -128,130 +110,115 @@
                bsDatepicker
                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
                [(ngModel)]="model.salida1"
+               [dateCustomClasses]="dateCustomClasses"
         >
       </label>
 
-    </div>
+        </div>
 
-  </div>
+    </div>
 
 </div>
 
 <hr>
 
 <div class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">
-  <div class="row m-0 p-0">
-    <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
-      Tramo 2
+    <div class="row m-0 p-0">
+        <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+            Tramo 2
+        </div>
     </div>
-  </div>
 </div>
 <div class="col-12 m-0 p-0 pl-2 pt-3">
 
-  <div class="row m-0 p-0">
+    <div class="row m-0 p-0">
 
-    <div class="col-4 m-0 p-0">
+        <div class="col-4 m-0 p-0">
 
-      <div class="row m-0 p-0">
+            <div class="row m-0 p-0">
 
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-          Origen
+                    Origen
 
-        </div>
-
-        <div id="txtOrigen2" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              style="color: #898989 !important;"
-              [(ngModel)]="model.origentTexto2"
-              [data]="data3"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(3, $event)'
-              (inputChanged)='onChangeSearch(3, $event)'
-              (inputFocused)='onFocused(3, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+                <div id="txtOrigen2" class="col-10 m-0 p-0">
 
-        </div>
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete style="color: #898989 !important;" [(ngModel)]="model.origentTexto2" [data]="data3" [searchKeyword]="keyword" (selected)='selectEvent(3, $event)' (inputChanged)='onChangeSearch(3, $event)' (inputFocused)='onFocused(3, $event)' [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
 
-      </div>
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
 
-    </div>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
 
-    <div class="col-4 m-0 p-0">
-
-      <div class="row m-0 p-0">
-
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
-
-          Destino
-
-        </div>
-
-        <div id="txtDestino2" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              style="color: #898989 !important;"
-              [data]="data4"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(4, $event)'
-              (inputChanged)='onChangeSearch(4, $event)'
-              (inputFocused)='onFocused(4, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+            </div>
 
         </div>
 
-      </div>
+        <div class="col-4 m-0 p-0">
 
-    </div>
+            <div class="row m-0 p-0">
 
-    <div class="col-2 m-0 p-0 pl-2">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-      <label id="txtFechaSalida2" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                    Destino
+
+                </div>
+
+                <div id="txtDestino2" class="col-10 m-0 p-0">
+
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete style="color: #898989 !important;" [data]="data4" [searchKeyword]="keyword" (selected)='selectEvent(4, $event)' (inputChanged)='onChangeSearch(4, $event)' (inputFocused)='onFocused(4, $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-2 m-0 p-0 pl-2">
+
+            <label id="txtFechaSalida2" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida2.toggle()"
@@ -268,130 +235,114 @@
         >
       </label>
 
-    </div>
+        </div>
 
-    <div class="col-2 m-0 p-0">
-      <button *ngIf="!flagTramo3" (click)="agregarTramo(3)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
-    </div>
+        <div class="col-2 m-0 p-0">
+            <button *ngIf="!flagTramo3" (click)="agregarTramo(3)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
+        </div>
 
-  </div>
+    </div>
 
 </div>
 
 <hr *ngIf="flagTramo3">
 <div *ngIf="flagTramo3" class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">
-  <div class="row m-0 p-0">
-    <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
-      Tramo 3
+    <div class="row m-0 p-0">
+        <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+            Tramo 3
+        </div>
     </div>
-  </div>
 </div>
 <div *ngIf="flagTramo3" class="col-12 m-0 p-0 pl-2 pt-3">
 
-  <div class="row m-0 p-0">
+    <div class="row m-0 p-0">
 
-    <div class="col-4 m-0 p-0">
+        <div class="col-4 m-0 p-0">
 
-      <div class="row m-0 p-0">
+            <div class="row m-0 p-0">
 
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-          Origen
+                    Origen
 
-        </div>
-
-        <div id="txtOrigen3" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              style="color: #898989 !important;"
-              [(ngModel)]="model.origentTexto3"
-              [data]="data5"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(5, $event)'
-              (inputChanged)='onChangeSearch(5, $event)'
-              (inputFocused)='onFocused(5, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+                <div id="txtOrigen3" class="col-10 m-0 p-0">
 
-        </div>
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete style="color: #898989 !important;" [(ngModel)]="model.origentTexto3" [data]="data5" [searchKeyword]="keyword" (selected)='selectEvent(5, $event)' (inputChanged)='onChangeSearch(5, $event)' (inputFocused)='onFocused(5, $event)' [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
 
-      </div>
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
 
-    </div>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
 
-    <div class="col-4 m-0 p-0">
-
-      <div class="row m-0 p-0">
-
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
-
-          Destino
-
-        </div>
-
-        <div id="txtDestino3" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              style="color: #898989 !important;"
-              [data]="data6"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(6, $event)'
-              (inputChanged)='onChangeSearch(6, $event)'
-              (inputFocused)='onFocused(6, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+            </div>
 
         </div>
 
-      </div>
+        <div class="col-4 m-0 p-0">
 
-    </div>
+            <div class="row m-0 p-0">
 
-    <div class="col-2 m-0 p-0 pl-2">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-      <label id="txtFechaSalida3" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                    Destino
+
+                </div>
+
+                <div id="txtDestino3" class="col-10 m-0 p-0">
+
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete style="color: #898989 !important;" [data]="data6" [searchKeyword]="keyword" (selected)='selectEvent(6, $event)' (inputChanged)='onChangeSearch(6, $event)' (inputFocused)='onFocused(6, $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-2 m-0 p-0 pl-2">
+
+            <label id="txtFechaSalida3" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida3.toggle()"
@@ -408,131 +359,115 @@
         >
       </label>
 
-    </div>
+        </div>
 
-    <div class="col-2 m-0 p-0">
-      <button *ngIf="flagTramo3 && !flagTramo4" (click)="eliminarTramo(3)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
-      <button *ngIf="flagTramo3 && !flagTramo4" (click)="agregarTramo(4)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
-    </div>
+        <div class="col-2 m-0 p-0">
+            <button *ngIf="flagTramo3 && !flagTramo4" (click)="eliminarTramo(3)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
+            <button *ngIf="flagTramo3 && !flagTramo4" (click)="agregarTramo(4)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
+        </div>
 
-  </div>
+    </div>
 
 </div>
 
 <hr *ngIf="flagTramo4">
 <div *ngIf="flagTramo4" class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">
-  <div class="row m-0 p-0">
-    <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
-      Tramo 4
+    <div class="row m-0 p-0">
+        <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+            Tramo 4
+        </div>
     </div>
-  </div>
 </div>
 <div *ngIf="flagTramo4" class="col-12 m-0 p-0 pl-2 pt-3">
 
-  <div class="row m-0 p-0">
+    <div class="row m-0 p-0">
 
-    <div class="col-4 m-0 p-0">
+        <div class="col-4 m-0 p-0">
 
-      <div class="row m-0 p-0">
+            <div class="row m-0 p-0">
 
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-          Origen
+                    Origen
 
-        </div>
-
-        <div id="txtOrigen4" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              style="color: #898989 !important;"
-              [(ngModel)]="model.origentTexto4"
-              [data]="data7"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(7, $event)'
-              (inputChanged)='onChangeSearch(7, $event)'
-              (inputFocused)='onFocused(7, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+                <div id="txtOrigen4" class="col-10 m-0 p-0">
 
-        </div>
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete style="color: #898989 !important;" [(ngModel)]="model.origentTexto4" [data]="data7" [searchKeyword]="keyword" (selected)='selectEvent(7, $event)' (inputChanged)='onChangeSearch(7, $event)' (inputFocused)='onFocused(7, $event)' [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
 
-      </div>
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
 
-    </div>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
 
-    <div class="col-4 m-0 p-0">
-
-      <div class="row m-0 p-0">
-
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
-
-          Destino
-
-        </div>
-
-        <div id="txtDestino4" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              style="color: #898989 !important;"
-              [data]="data8"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(8, $event)'
-              (inputChanged)='onChangeSearch(8, $event)'
-              (inputFocused)='onFocused(8, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+            </div>
 
         </div>
 
-      </div>
+        <div class="col-4 m-0 p-0">
 
-    </div>
+            <div class="row m-0 p-0">
 
-    <div class="col-2 m-0 p-0 pl-2">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-      <label id="txtFechaSalida4" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                    Destino
+
+                </div>
+
+                <div id="txtDestino4" class="col-10 m-0 p-0">
+
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete style="color: #898989 !important;" [data]="data8" [searchKeyword]="keyword" (selected)='selectEvent(8, $event)' (inputChanged)='onChangeSearch(8, $event)' (inputFocused)='onFocused(8, $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-2 m-0 p-0 pl-2">
+
+            <label id="txtFechaSalida4" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida4.toggle()"
@@ -549,131 +484,115 @@
         >
       </label>
 
-    </div>
+        </div>
 
-    <div class="col-2 m-0 p-0">
-      <button *ngIf="flagTramo4 && !flagTramo5" (click)="eliminarTramo(4)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
-      <button *ngIf="flagTramo4 && !flagTramo5" (click)="agregarTramo(5)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
-    </div>
+        <div class="col-2 m-0 p-0">
+            <button *ngIf="flagTramo4 && !flagTramo5" (click)="eliminarTramo(4)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
+            <button *ngIf="flagTramo4 && !flagTramo5" (click)="agregarTramo(5)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
+        </div>
 
-  </div>
+    </div>
 
 </div>
 
 <hr *ngIf="flagTramo5">
 <div *ngIf="flagTramo5" class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">
-  <div class="row m-0 p-0">
-    <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
-      Tramo 5
+    <div class="row m-0 p-0">
+        <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+            Tramo 5
+        </div>
     </div>
-  </div>
 </div>
 <div *ngIf="flagTramo5" class="col-12 m-0 p-0 pl-2 pt-3">
 
-  <div class="row m-0 p-0">
+    <div class="row m-0 p-0">
 
-    <div class="col-4 m-0 p-0">
+        <div class="col-4 m-0 p-0">
 
-      <div class="row m-0 p-0">
+            <div class="row m-0 p-0">
 
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-          Origen
+                    Origen
 
-        </div>
-
-        <div id="txtOrigen5" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              style="color: #898989 !important;"
-              [(ngModel)]="model.origentTexto5"
-              [data]="data9"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(9, $event)'
-              (inputChanged)='onChangeSearch(9, $event)'
-              (inputFocused)='onFocused(9, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+                <div id="txtOrigen5" class="col-10 m-0 p-0">
 
-        </div>
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete style="color: #898989 !important;" [(ngModel)]="model.origentTexto5" [data]="data9" [searchKeyword]="keyword" (selected)='selectEvent(9, $event)' (inputChanged)='onChangeSearch(9, $event)' (inputFocused)='onFocused(9, $event)' [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
 
-      </div>
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
 
-    </div>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
 
-    <div class="col-4 m-0 p-0">
-
-      <div class="row m-0 p-0">
-
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
-
-          Destino
-
-        </div>
-
-        <div id="txtDestino5" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              style="color: #898989 !important;"
-              [data]="data10"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(10, $event)'
-              (inputChanged)='onChangeSearch(10, $event)'
-              (inputFocused)='onFocused(10, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+            </div>
 
         </div>
 
-      </div>
+        <div class="col-4 m-0 p-0">
 
-    </div>
+            <div class="row m-0 p-0">
 
-    <div class="col-2 m-0 p-0 pl-2">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-      <label id="txtFechaSalida5" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                    Destino
+
+                </div>
+
+                <div id="txtDestino5" class="col-10 m-0 p-0">
+
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete style="color: #898989 !important;" [data]="data10" [searchKeyword]="keyword" (selected)='selectEvent(10, $event)' (inputChanged)='onChangeSearch(10, $event)' (inputFocused)='onFocused(10, $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-2 m-0 p-0 pl-2">
+
+            <label id="txtFechaSalida5" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida5.toggle()"
@@ -690,131 +609,115 @@
         >
       </label>
 
-    </div>
+        </div>
 
-    <div class="col-2 m-0 p-0">
-      <button *ngIf="flagTramo5 && !flagTramo6" (click)="eliminarTramo(5)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
-      <button *ngIf="flagTramo5 && !flagTramo6" (click)="agregarTramo(6)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
-    </div>
+        <div class="col-2 m-0 p-0">
+            <button *ngIf="flagTramo5 && !flagTramo6" (click)="eliminarTramo(5)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
+            <button *ngIf="flagTramo5 && !flagTramo6" (click)="agregarTramo(6)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
+        </div>
 
-  </div>
+    </div>
 
 </div>
 
 <hr *ngIf="flagTramo6">
 <div *ngIf="flagTramo6" class="col-12 m-0 p-0 pl-2 pt-3 m-texto-4">
-  <div class="row m-0 p-0">
-    <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
-      Tramo 6
+    <div class="row m-0 p-0">
+        <div class="col-2 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+            Tramo 6
+        </div>
     </div>
-  </div>
 </div>
 <div *ngIf="flagTramo6" class="col-12 m-0 p-0 pl-2 pt-3">
 
-  <div class="row m-0 p-0">
+    <div class="row m-0 p-0">
 
-    <div class="col-4 m-0 p-0">
+        <div class="col-4 m-0 p-0">
 
-      <div class="row m-0 p-0">
+            <div class="row m-0 p-0">
 
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-          Origen
+                    Origen
 
-        </div>
-
-        <div id="txtOrigen6" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              style="color: #898989 !important;"
-              [(ngModel)]="model.origentTexto6"
-              [data]="data11"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(11, $event)'
-              (inputChanged)='onChangeSearch(11, $event)'
-              (inputFocused)='onFocused(11, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+                <div id="txtOrigen6" class="col-10 m-0 p-0">
 
-        </div>
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete style="color: #898989 !important;" [(ngModel)]="model.origentTexto6" [data]="data11" [searchKeyword]="keyword" (selected)='selectEvent(11, $event)' (inputChanged)='onChangeSearch(11, $event)' (inputFocused)='onFocused(11, $event)' [itemTemplate]="itemTemplate"
+                            [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
 
-      </div>
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
 
-    </div>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
 
-    <div class="col-4 m-0 p-0">
-
-      <div class="row m-0 p-0">
-
-        <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
-
-          Destino
-
-        </div>
-
-        <div id="txtDestino6" class="col-10 m-0 p-0">
-
-          <div class="ng-autocomplete" style="width: 100%;">
-            <ng-autocomplete
-              style="color: #898989 !important;"
-              [data]="data12"
-              [searchKeyword]="keyword"
-              (selected)='selectEvent(12, $event)'
-              (inputChanged)='onChangeSearch(12, $event)'
-              (inputFocused)='onFocused(12, $event)'
-              [itemTemplate]="itemTemplate"
-              [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
-
-            <ng-template #itemTemplate let-item>
-              <div class="" style="width: 90%">
-                <div class="row">
-                  <div class="col-1">
-                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                  </div>
-                  <div class="col-11">
-                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                  </div>
                 </div>
-              </div>
-            </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
+            </div>
 
         </div>
 
-      </div>
+        <div class="col-4 m-0 p-0">
 
-    </div>
+            <div class="row m-0 p-0">
 
-    <div class="col-2 m-0 p-0 pl-2">
+                <div class="col-2 m-0 p-0 v-texto-2 d-flex justify-content-center align-items-center">
 
-      <label id="txtFechaSalida6" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                    Destino
+
+                </div>
+
+                <div id="txtDestino6" class="col-10 m-0 p-0">
+
+                    <div class="ng-autocomplete" style="width: 100%;">
+                        <ng-autocomplete style="color: #898989 !important;" [data]="data12" [searchKeyword]="keyword" (selected)='selectEvent(12, $event)' (inputChanged)='onChangeSearch(12, $event)' (inputFocused)='onFocused(12, $event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                        </ng-autocomplete>
+
+                        <ng-template #itemTemplate let-item>
+                            <div class="" style="width: 90%">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                        <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                    </div>
+                                    <div class="col-11">
+                                        <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-2 m-0 p-0 pl-2">
+
+            <label id="txtFechaSalida6" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida6.toggle()"
@@ -831,12 +734,12 @@
         >
       </label>
 
-    </div>
+        </div>
 
-    <div class="col-2 m-0 p-0">
-      <button *ngIf="flagTramo6" (click)="eliminarTramo(6)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
-    </div>
+        <div class="col-2 m-0 p-0">
+            <button *ngIf="flagTramo6" (click)="eliminarTramo(6)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
+        </div>
 
-  </div>
+    </div>
 
 </div>

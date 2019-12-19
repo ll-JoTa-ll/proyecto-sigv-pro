@@ -1,10 +1,12 @@
-import { Component, OnInit, TemplateRef, Input, Output, AfterViewInit, Injectable } from '@angular/core';
+import { Component, OnInit, TemplateRef, Input, Output, AfterViewInit, Injectable, EventEmitter } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { IDatosUser } from 'src/app/models/IDatosUser';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ICostCenter } from '../../../models/ICostCenter';
 import { IReasonFlight } from '../../../models/IReasonFlight';
 import { SessionStorageService } from 'ngx-webstorage';
+import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
+import { ConfigurationOptions, ContentOptionsEnum, NumberResult } from 'intl-input-phone';
 
 declare var jquery: any;
 declare var $: any;
@@ -16,29 +18,25 @@ declare var $: any;
 })
 export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
-  /*
-  @Input() datosuser: {
-    name: '',
-    lastName: '',
-    documentType: '',
-    documentNumber: '',
-    nationality: '',
-    birthDate: '',
-    email: '',
-    phone: '',
-    frequentFlyer: ''
-  };
-  */
+  separateDialCode = true;
+  SearchCountryField = SearchCountryField;
+  TooltipLabel = TooltipLabel;
+  CountryISO = CountryISO;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+
   @Input() LPolicies;
   @Input() currency;
   @Input() user;
   @Input() index;
   @Input() valtelefono;
+  @Output() numtelefono = new EventEmitter<any>();
   selectedvalue;
   fechanacimiento;
   datosPax;
   flagValDatosPAsajeros: boolean = false;
   datosuser: any[] = [];
+  mdtelefono: string;
+  configOption3 : ConfigurationOptions;
 
   modalRef: BsModalRef;
   config = {
@@ -48,6 +46,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datos;
   tratamiento;
   fecha;
+  OutputValue1: NumberResult = new NumberResult();
   //valtelefono = false;
   //valcorreo = false;
 
@@ -55,9 +54,16 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
   constructor(private modalService: BsModalService, private sessionStorageService : SessionStorageService) {
     this.datosuser = sessionStorageService.retrieve('objusuarios');
+    this.configOption3 = new ConfigurationOptions();
+    this.configOption3.SelectorClass = "OptionType3";
+    this.configOption3.OptionTextTypes = [];
+    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.Flag);
+    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.CountryName);
+    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.CountryPhoneCode);
   }
 
   ngOnInit() {
+    $("#phone").intlTelInput();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
     } else {
@@ -91,6 +97,13 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
   }
 
+  onNumberChage(outputResult)
+  {
+    this.OutputValue1 = outputResult;
+    console.log(this.OutputValue1);
+    this.numtelefono.emit(this.OutputValue1);
+  }
+
   ValidarCampos() {
     this.datosuser.forEach(function(item, index) {
       if ($('#txtnombre_' + (index + 1)).val().length <= 0) {
@@ -120,17 +133,13 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       }
       if ($('#txtcorreo_' + (index + 1)).val().length <= 0) {
         $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
-        this.valcorreo = true;
       } else {
         $('#txtcorreo_' + (index + 1)).removeClass('campo-invalido');
-        this.valcorreo = false;
       }
-      if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
+      if ($('#txttelefono_' + (index + 1)).val().length === 0) {
         $('#txttelefono_' + (index + 1)).addClass('campo-invalido');
-        this.valtelefono = true;
       } else {
         $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
-        this.valtelefono = false;
       }
   });
   }

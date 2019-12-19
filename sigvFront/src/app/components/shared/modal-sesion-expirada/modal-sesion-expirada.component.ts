@@ -9,6 +9,7 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
   styleUrls: ['./modal-sesion-expirada.component.sass']
 })
 export class ModalSesionExpiradaComponent implements OnInit {
+
   config = {
     backdrop: true,
     ignoreBackdropClick: true,

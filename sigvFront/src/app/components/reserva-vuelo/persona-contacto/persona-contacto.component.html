@@ -14,7 +14,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" id="nombrecontacto">
+                                <input class="input-pasajero" type="text" id="nombrecontacto" (keypress)="ValidarCampos(3)" (keydown)="ValidarCampos(3)" (keyup)="ValidarCampos(3)">
                             </div>
                         </div>
                     </div>
@@ -26,7 +26,9 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keydown)="ValidarSoloNumero($event)" class="input-pasajero" type="number" id="contactotelefono" maxlength="12" (keypress)="ValidarCampos()">
+                                <!--  <input (keydown)="ValidarSoloNumero($event)" class="input-pasajero" type="text" id="contactotelefono" maxlength="9" (keypress)="ValidarCampos(2)" (keydown)="ValidarCampos(2)" (keyup)="ValidarCampos(2)"> -->
+                                <intl-input-phone [ConfigurationOption]="configOption3" (OnNumberChange)="onNumberChage2($event)"></intl-input-phone>
+                                {{OutputValue2.Number}}
                             </div>
                         </div>
                     </div>
@@ -40,7 +42,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" id="contactocorreo" maxlength="100" (keypress)="ValidarCampos()">
+                                <input class="input-pasajero" type="text" id="contactocorreo" maxlength="70" (keyup)="ValidarCampos(1)">
                                 <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La direccion de correo es invalida</div>
                             </div>
                         </div>

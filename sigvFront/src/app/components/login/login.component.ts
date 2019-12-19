@@ -177,6 +177,7 @@ export class LoginComponent implements OnInit {
   airportList() {
     this.airportService.airportList(this.token).subscribe(
       (result: any) => {
+        let lstairport;
         //console.log(result);
         //this.airportlist = result.lairport;
         this.localStorageService.store('ls_airportlist', result.lairport);
@@ -185,7 +186,6 @@ export class LoginComponent implements OnInit {
 
       (err) => {
         this.spinner.hide();
-        //console.log('ERROR' + JSON.stringify(err));
         },
 
       () => {

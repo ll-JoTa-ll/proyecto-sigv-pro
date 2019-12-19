@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { IUserCompanyModel } from '../../../models/IUserCompany.model';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-add-pax-centralizador',
@@ -23,13 +24,19 @@ export class AddPaxCentralizadorComponent implements OnInit {
   lstPasajeros: IUserCompanyModel[] = [];
   maxPax: number;
   p: number[] = [];
+  modalRef: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
 
   constructor(
     private userCompanyService: UserCompanyService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    private modalService: BsModalService
   ) {
     this.sessionStorageService.store('ss_lstPasajeros', this.lstPasajeros);
     this.companyId = this.sessionStorageService.retrieve('ss_companyId');
@@ -102,9 +109,16 @@ export class AddPaxCentralizadorComponent implements OnInit {
     this.lstPasajeros = lstPasajeros;
   }
 
-  continuar() {
-    this.sessionStorageService.store('ss_lstPasajeros', this.lstPasajeros);
-    this.flagCentralizado.emit(false);
+  continuar(template) {
+    if (this.lstPasajeros.length === 0) {
+      this.modalRef = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+      );
+    } else {
+      this.sessionStorageService.store('ss_lstPasajeros', this.lstPasajeros);
+      this.flagCentralizado.emit(false);
+    }
   }
 
 }

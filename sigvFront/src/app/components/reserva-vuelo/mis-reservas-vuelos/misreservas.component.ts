@@ -173,14 +173,28 @@ FiltrarPendientes() {
 FiltrarEmitidos() {
   let listado = this.listadoreserva;
   let results;
-  results = listado.filter(m => m.ostate.stateId === 4 || m.ostate.stateId === 6);
+  results = listado.filter(m => m.ostate.stateId === 6);
   this.lsreservas = results;
 }
 
 FiltrarCancelados() {
   let listado = this.listadoreserva;
   let results;
-  results = listado.filter(m => m.ostate.stateId === 3 || m.ostate.stateId === 5 || m.ostate.stateId === 7);
+  results = listado.filter(m => m.ostate.stateId === 5);
+  this.lsreservas = results;
+}
+
+FiltrarRechazados() {
+  let listado = this.listadoreserva;
+  let results;
+  results = listado.filter(m => m.ostate.stateId === 3);
+  this.lsreservas = results;
+}
+
+filtrarProcEmision() {
+  let listado = this.listadoreserva;
+  let results;
+  results = listado.filter(m => m.ostate.stateId === 4);
   this.lsreservas = results;
 }
 }

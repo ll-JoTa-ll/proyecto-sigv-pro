@@ -226,10 +226,30 @@
 
 </div>
 
+<ng-template #modalvalidacion let-c="close" let-d="dismiss">
+    <div class="modal-header m-0 p-0" style="border: none;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 text-1 text-center pt-2 pb-2">
+                Debe elegir al menos un pasajero
+            </div>
+        </div>
+    </div>
+    <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0 text-center pb-3">
+            <button (click)="modalRef.hide()" class="btn btn-ok">Ok</button>
+        </div>
+    </div>
+</ng-template>
+
 <div class="row m-0 p-0 pb-5">
     <div class="col-2 m-0 p-0"></div>
     <div class="col-8 m-0 p-0 text-center">
-        <button class="btn apc-btn-continuar" [disabled]="lstPasajeros.length===0" (click)="continuar()">
+        <button class="btn apc-btn-continuar" (click)="continuar(modalvalidacion)">
       Continuar
     </button>
     </div>

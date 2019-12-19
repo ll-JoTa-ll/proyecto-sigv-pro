@@ -232,9 +232,19 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            const itemsegmentgroup = segmentgroup[j];
            htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
            htmlsection += "<div style='width: 100%; border-radius: 20px 20px 20px 20px; background: white; padding: 1em; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);'>";
+
+           if (itemsegmentgroup.fareFamilyName !== '') {
+           htmlsection+= "<div class='row'>";
+           htmlsection+= "<div style='width: 100% !important'>";
+           htmlsection+= "<span style='background: #FFCD01; color: #FFFFFF; font-size: 17px;border-radius: 5px;border: 1px solid #8A7979; width: 250px;display: block;text-align: center;'>";
+           htmlsection+= itemsegmentgroup.fareFamilyName;
+           htmlsection+= "</span>";
+           htmlsection+= "</div>";
+           htmlsection+= "</div>";
+          }
            htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
            htmlsection += "<div style='width: 40%;'>";
-           htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://sigvplus.azurewebsites.net/sigv/assets/images/Airlines/";
+           htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/Airlines/";
            htmlsection += itemsegmentgroup.MarketingCarrier + ".png'></span>";
            htmlsection += "</div>";
            htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
@@ -349,7 +359,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     const item = this.LPolicies[i];
      html+= "<div style='width:100% !important'>";
      html+="<div class='row' style='padding-top: 25px; padding-bottom: 30px; padding-left: 15px;'>";
-     html+="<img style='width: 40px;' src='https://sigvplus.azurewebsites.net/sigv/assets/images/calendario.png'><label class='m-0 p-0 pl-3' style='  color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;'>";
+     html+="<img style='width: 40px;' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/calendario.png'><label class='m-0 p-0 pl-3' style='  color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;'>";
      html+= item.name;
      html+="</label>";
      html+="</div>";
@@ -432,12 +442,13 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            mails.push(item.email);
         }
       });
+      console.log(this.emailsolicitud);
       let data = {
         "AgencyId": 1,
         "Recipients": mails,
         "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com', 'gerentedeinnovacion@domiruth.com'],
         "RecipientsHiddenCopy": [],
-        "Subject": "TEST SOLICITUD APROBACION DE EXCEPCION",
+        "Subject": "SOLICITUD APROBACION DE EXCEPCION",
         "Message": this.emailsolicitud
       }
       this.service.SendEmail(data).subscribe(
@@ -468,14 +479,14 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       this.PlantillaPasajeroReserva();
       let mails = [];
       this.lsusuario.forEach(function(item) {
-           mails.push(item.email);
+           mails.push(item.Email);
       });
       let data = {
         "AgencyId": 1,
         "Recipients": mails,
         "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com', 'gerentedeinnovacion@domiruth.com'],
         "RecipientsHiddenCopy": [],
-        "Subject": "TEST RESERVA GENERADA",
+        "Subject": "RESERVA GENERADA",
         "Message": this.emailreserva
       }
       this.service.SendEmail(data).subscribe(
@@ -603,9 +614,18 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
          for (let j = 0; j < segmentgroup.length; j++) {
            const itemsegmentgroup = segmentgroup[j];
+           if (itemsegmentgroup.fareFamilyName !== null) {
+           htmlsection+= "<div class='row '>";
+           htmlsection+= "<div style='width: 100% !important; padding-left: 2%; '>";
+           htmlsection+= "<span style='color: #3D3D3D; font-size: 20px;'>Clase de vuelo: ";
+           htmlsection+= itemsegmentgroup.fareFamilyName;
+           htmlsection+= "</span>";
+           htmlsection+= "</div>";
+           htmlsection+= "</div>";
+           }
            htmlsection+="<div style='width: 100% !important;'>";
            htmlsection+="<div style='width: 100% !important; padding-top: 1%; padding-bottom: 1%;padding-left: 2%;'>";
-           htmlsection+="<span><img style='width: 30px; ' src='https://sigvplus.azurewebsites.net/sigv/assets/images/airplaneida.png '></span>";
+           htmlsection+="<span><img style='width: 30px; ' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airplaneida.png '></span>";
            htmlsection+="<span style'padding-left: 10px;'>";
            if (segmentgroup.length === 1) {
                texttramo = 'Ida';

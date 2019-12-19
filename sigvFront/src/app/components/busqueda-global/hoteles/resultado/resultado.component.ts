@@ -124,15 +124,15 @@ export class ResultadoComponent implements OnInit {
       }
 
     }
-    this.sessionStorageService.store("lhotel",hotel);
+    this.sessionStorageService.store("lhotel", hotel);
 
     this.service.GetHabitacion(data).subscribe(
       data => {
         this.lstHabication = data;
 
         this.sessionStorageService.store("lstHabication", this.lstHabication);
-
-        window.open(environment.url_project + "/habitacion");
+        this.router.navigate(['/habitacion']);
+        //window.open(window.location.origin + "/habitacion");
       },
       err => {
         this.spinner.hide();
@@ -142,11 +142,8 @@ export class ResultadoComponent implements OnInit {
         this.spinner.hide();
 
       }
-    )
+    );
   }
-
-  
-
 
   Mostrarmapa(position) {
     $('#mapa_' + position).show();
