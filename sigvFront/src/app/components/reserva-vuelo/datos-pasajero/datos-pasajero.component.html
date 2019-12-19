@@ -78,7 +78,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keypress)="ValidarCampos()" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.firstName" id="txtnombre_{{index}}">
+                                <input (keypress)="Solotexto($event)" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.firstName" id="txtnombre_{{index}}" pattern="[A-Za-z0-9_-]{1,15}">
                             </div>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keypress)="ValidarCampos()" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.lastName" id="txtapellidos_{{index}}">
+                                <input (keypress)="Solotexto($event)" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.lastName" id="txtapellidos_{{index}}" pattern="[A-Za-z0-9_-]{1,15}">
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <!--  <input triggers="" (keypress)="ValidarCampos()" (keydown)="ValidarSoloNumero($event)" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}" maxlength="9"> -->
-                                <intl-input-phone [ConfigurationOption]="configOption3" (OnNumberChange)="onNumberChage($event)"></intl-input-phone>
+                                <intl-input-phone [SelectedCountryISOCode]="SelectedCountryISOCode" [ConfigurationOption]="configOption3" (OnNumberChange)="onNumberChage($event)" [NumberTextValue]="numtel"></intl-input-phone>
                             </div>
                         </div>
                     </div>

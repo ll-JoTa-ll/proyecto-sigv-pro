@@ -12,7 +12,7 @@
                     <img style="width: 120px;" class="img-fluid vertical-center pl-4" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
                 </div>
 
-                <div class="col-3 m-0 p-0 pt-3 g-text-1 d-flex justify-content-center align-items-center">
+                <div class="col-3 m-0 p-0 pt-3 g-text-airlane d-flex justify-content-center align-items-center">
                     {{segmentGroup.carrierName}}
                 </div>
 
@@ -47,7 +47,7 @@
 
                             <div class="row m-0 p-0">
 
-                                <div class="col-12 m-0 p-0 text-center g-text-2">
+                                <div class="col-12 m-0 p-0 text-center g-text-date">
                                     {{segmentGroup.departureDateShow}}
                                 </div>
 
@@ -122,7 +122,7 @@
 
                             <div class="row m-0 p-0">
 
-                                <div *ngIf="segmentGroup.dateVariation===0" class="col-12 m-0 p-0 text-center g-text-2">
+                                <div *ngIf="segmentGroup.dateVariation===0" class="col-12 m-0 p-0 text-center g-text-date">
                                     {{segmentGroup.arrivalDateShow}}
                                 </div>
                                 <div *ngIf="segmentGroup.dateVariation>0" style="color: #ED1C24 !important;" class="col-12 m-0 p-0 text-center g-text-2">

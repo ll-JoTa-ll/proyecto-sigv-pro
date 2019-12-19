@@ -244,7 +244,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
           }
            htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
            htmlsection += "<div style='width: 40%;'>";
-           htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/Airlines/";
+           htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/sigv/assets/images/Airlines/";
            htmlsection += itemsegmentgroup.MarketingCarrier + ".png'></span>";
            htmlsection += "</div>";
            htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
@@ -359,7 +359,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     const item = this.LPolicies[i];
      html+= "<div style='width:100% !important'>";
      html+="<div class='row' style='padding-top: 25px; padding-bottom: 30px; padding-left: 15px;'>";
-     html+="<img style='width: 40px;' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/calendario.png'><label class='m-0 p-0 pl-3' style='  color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;'>";
+     html+="<img style='width: 40px;' src='https://domiruthuatsa.z13.web.core.windows.net/sigv/assets/images/calendario.png'><label class='m-0 p-0 pl-3' style='  color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;'>";
      html+= item.name;
      html+="</label>";
      html+="</div>";
@@ -625,7 +625,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            }
            htmlsection+="<div style='width: 100% !important;'>";
            htmlsection+="<div style='width: 100% !important; padding-top: 1%; padding-bottom: 1%;padding-left: 2%;'>";
-           htmlsection+="<span><img style='width: 30px; ' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airplaneida.png '></span>";
+           htmlsection+="<span><img style='width: 30px; ' src='https://domiruthuatsa.z13.web.core.windows.net/sigv/assets/images/airplaneida.png '></span>";
            htmlsection+="<span style'padding-left: 10px;'>";
            if (segmentgroup.length === 1) {
                texttramo = 'Ida';

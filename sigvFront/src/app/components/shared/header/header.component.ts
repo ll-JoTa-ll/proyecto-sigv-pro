@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 
@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   role;
   empresa;
   myWindow;
+  @Output() buscar = new EventEmitter<any>();
 
   constructor(
     private router: Router,
@@ -65,6 +66,11 @@ export class HeaderComponent implements OnInit {
 
   home() {
     this.router.navigate(['/vuelos']);
+  }
+
+  vuelos() {
+    this.router.navigate(['/vuelos']);
+    this.buscar.emit(true);
   }
 
   cerrarSesion() {

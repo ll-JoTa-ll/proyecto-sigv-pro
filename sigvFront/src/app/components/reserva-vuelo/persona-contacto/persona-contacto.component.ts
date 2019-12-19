@@ -40,6 +40,15 @@ export class PersonaContactoComponent implements OnInit {
     $('input[name="InputPhone').removeClass('campo-invalido');
   }
 
+  Solotexto(event) {
+    var regex = new RegExp("^[a-zA-Z ]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+      event.preventDefault();
+      return false;
+    }
+  }
+
   ValidarCampos(tipo) {
     let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (tipo === 1) {

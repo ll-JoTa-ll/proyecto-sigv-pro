@@ -118,6 +118,11 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+    let back;
+    let interval;
+    back = true;
+    this.sessionStorageService.store('indregresar', back);
+    this.sessionStorageService.store('idinterval', this.idinterval);
   }
 
   CostCenter() {
