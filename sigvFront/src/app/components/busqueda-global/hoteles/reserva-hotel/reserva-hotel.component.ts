@@ -230,7 +230,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           },
         "OInformationContact":
           {
-            "Area": this.areaContacto,
+            "Area": '01',
             "Name": this.nombreContacto,
             "EmailAddress" : this.correoContacto,
             "Numberphone": this.telefonoContacto
