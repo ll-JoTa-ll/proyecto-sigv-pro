@@ -1,8 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~ngx-toastr/toastr'
-@import '~igniteui-angular/lib/core/styles/themes/index'
+@import "~igniteui-angular/lib/core/styles/themes/index"
+
+$company-color: #ED1C24
+$secondary-color: #ED1C24
+
+$my-color-palette: igx-palette($primary: $company-color,$secondary: $secondary-color)
+
+// IMPORTANT: Make sure you always include igx-core first!
 @include igx-core()
-@include igx-theme($default-palette)
+// Pass the color palette we generated to the igx-theme mixin
+@include igx-theme($my-color-palette)
 
 @font-face
   font-family: 'Omnes-bold'
@@ -328,6 +335,11 @@ code
 
 
 $green-palette: igx-palette($primary: #09f,$secondary: #72da67, $surface: #333)
+
+$company-color: #2ab759
+$secondary-color: #f96a88
+
+$my-color-palette: igx-palette($primary: $company-color,$secondary: $secondary-color)
 
 .fin-dark-theme 
     @include igx-dark-theme($green-palette)

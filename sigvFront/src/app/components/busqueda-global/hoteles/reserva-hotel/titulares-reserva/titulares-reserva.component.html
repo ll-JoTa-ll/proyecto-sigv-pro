@@ -44,7 +44,7 @@
                 <input type="text" value="{{user.email}}" id="correoTitu" (keyup)="validarCorreo()" class="input-names box-shadow" style="width: 380px; height: 38px;">
             </div>
             <div class="col-6 m-0 p-0">
-                <input type="text" value="{{user.phone}}" id="fonoTitu" (keyup)="validarTelefono()" (keypress)="validarNumeros($event)" class="input-names box-shadow" style="width: 380px; height: 38px;">
+                <input type="text" value="{{user.phone}}" id="fonoTitu" (keyup)="validarTelefono()" (keypress)="validarNumeros($event)" class="input-names box-shadow" maxlength="9" style="width: 380px; height: 38px;">
             </div>
         </div>
 

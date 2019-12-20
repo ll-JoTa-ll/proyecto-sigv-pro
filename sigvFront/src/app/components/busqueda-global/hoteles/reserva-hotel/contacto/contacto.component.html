@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="row m-0 p-0">
-            <div class="col-12 m-0 p-0" >
+            <div class="col-12 m-0 p-0">
                 <input type="text" id="nombre" (keyup)="validarNombre()" (keypress)="validarLetras($event)" [(ngModel)]="nombre" placeholder="Nombre de contacto" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
             </div>
         </div>
@@ -27,7 +27,7 @@
         </div>
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0">
-                <input type="email"  id="correo" placeholder="" (keyup)="validarCorreo()" [(ngModel)]="correo" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
+                <input type="email" id="correo" placeholder="example@gmail.com" (keyup)="validarCorreo()" [(ngModel)]="correo" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
             </div>
         </div>
         <div class="row m-0 p-0">
@@ -39,11 +39,11 @@
             </div>
         </div>
         <div class="row m-0 p-0">
-            <div class="col-5 m-0 p-0" >
+            <div class="col-5 m-0 p-0">
                 <input type="text" id="area" placeholder="01" (keyup)="validarArea()" (keypress)="validarNumeros($event)" [(ngModel)]="area" class="input-names box-shadow" style="width: 139,06px; height: 44px;" (paste)="false">
             </div>
-            <div class="col-7 m-0 p-0" >
-                <input type="text" id="numero" placeholder="Ingresa un número" (keyup)="validarTelefono()" (keypress)="validarNumeros($event)" [(ngModel)]="telefono" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
+            <div class="col-7 m-0 p-0">
+                <input type="text" id="numero" placeholder="Ingresa un número" maxlength="9" (keyup)="validarTelefono()" (keypress)="validarNumeros($event)" [(ngModel)]="telefono" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
             </div>
         </div>
 
