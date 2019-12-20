@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import { IFareFamilyServiceModel } from '../../../../models/IFareFamilyService.model';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 
 declare var jquery: any;
 declare var $: any;
@@ -58,7 +59,11 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     "#C33C54"
   ];
 
-  constructor() {
+  constructor(
+    private sessionStorageService: SessionStorageService,
+    private localStorageService: LocalStorageService
+  ) {
+    console.log("FamiliaFareComponent constructor");
     this.idDivInc = 'idDivInc';
     this.idDivNof = 'idDivNof';
     this.idDivCha = 'idDivCha';
@@ -75,6 +80,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log("FamiliaFareComponent ngOnInit");
     const fareFamily = this.fareFamily;
     //console.log('fareFamily: ' + JSON.stringify(fareFamily));
     this.lstInc = fareFamily.lfamilyServices.filter(x => x.serviceStatus === 'INC');
@@ -83,6 +89,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    console.log("FamiliaFareComponent ngAfterViewInit");
     let heightDivInc = 20 * this.flagCountInc;
     let heightDivNof = 20 * this.flagCountNof;
     let heightDivCha = 20 * this.flagCountCha;
@@ -108,10 +115,54 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     $("." + this.classDivNof + this.segmentIndex).height(heightDivNof);
     $("." + this.classDivCha + this.segmentIndex).height(heightDivCha);
 
+    /*
     if (this.fareFamilyIndex === 1) {
       $('#' + this.idRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex + '_' + this.fareFamilyIndex).prop("checked", true);
       $('#' + this.idNameFamilyName + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + this.fareFamilyIndex).css({'background-color': this.colorsFare[this.fareFamilyIndex]});
     }
+    */
+    //this.sessionStorageService.store('ss_FlightAvailability_request1', dataFamilias);
+    const ss_FlightAvailability_request1 = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
+    const ss_lstFamilyResult = this.sessionStorageService.retrieve('ss_lstFamilyResult');
+
+    console.log("ss_FlightAvailability_request1: " + JSON.stringify(ss_FlightAvailability_request1));
+    console.log("ss_lstFamilyResult: " + JSON.stringify(ss_lstFamilyResult));
+
+    const sectionIndex = this.sectionIndex;
+    const segmentIndex = this.segmentIndex;
+    const fareFamilyIndex = this.fareFamilyIndex;
+    //const fareBasis = ss_lstFamilyResult.lsections[this.sectionIndex].lsegments[this.segmentIndex].lfareFamilies[this.fareFamilyIndex].fareBasis;
+    const idRadioBtn = this.idRadioBtn;
+    const idNameFamilyName = this.idNameFamilyName;
+    //const sectionIndex = this.sectionIndex;
+    //const segmentIndex = this.segmentIndex;
+    const colorsFare = this.colorsFare;
+    //const fareFamilyIndex = this.fareFamilyIndex;
+
+    /*
+    ss_FlightAvailability_request1.Lsections.forEach(function (sectionS, indexSectionS) {
+      sectionS.Lsegments[0].LsegmentGroups.forEach(function (grupoS, indexGrupoS) {
+        if (indexSectionS == sectionIndex) {
+          const fareBasisS = grupoS.FareBasis;
+          ss_lstFamilyResult.lsections[indexSectionS].lsegments[indexGrupoS].lfareFamilies.forEach(function (a, b) {
+            if (fareBasisS == a.fareBasis) {
+              $('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (b + 1)).prop("checked", true);
+              $('#' + idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex  + '_' + (b + 1)).css({'background-color': colorsFare[fareFamilyIndex]});
+            }
+          });
+        }
+      });
+    });
+    */
+
+    const fareBasisVal = ss_lstFamilyResult.lsections[this.sectionIndex].lsegments[this.segmentIndex].lfareFamilies[(this.fareFamilyIndex - 1)].fareBasis;
+    const fareBasisServ = ss_FlightAvailability_request1.Lsections[sectionIndex].Lsegments[0].LsegmentGroups[this.segmentIndex].FareBasis;
+
+    if (fareBasisVal == fareBasisServ) {
+      $('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
+      $('#' + idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
+    }
+
   }
 
   selectRadioBtnFam(id) {
