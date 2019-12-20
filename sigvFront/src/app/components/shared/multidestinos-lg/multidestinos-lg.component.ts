@@ -130,6 +130,7 @@ export class MultidestinosLgComponent implements OnInit {
   fechaSalida4: string;
   fechaSalida5: string;
   fechaSalida6: string;
+  bsValue = new Date();
 
   constructor(
     private sessionStorageService: SessionStorageService,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales, getDay } from 'ngx-bootstrap/chronos';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -13,6 +13,7 @@ import * as crypto from 'crypto-js';
 import { Router } from '@angular/router';
 import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalSesionExpiradaComponent } from '../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
+import { ModalCerrarSesionComponent } from '../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -23,6 +24,31 @@ declare var $: any;
   styleUrls: ['./hoteles.component.sass']
 })
 export class HotelesComponent implements OnInit, AfterViewInit {
+
+  public text: String;
+  bsValue = new Date();
+
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(this.eRef.nativeElement.contains(event.target)) {
+      this.text = "clicked inside";
+      console.log(this.text);
+      var cerrarsesion;
+      cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
+      if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
+        this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+      }
+    } else {
+      this.text = "clicked outside";
+      console.log(this.text);
+    }
+  }
+
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
   @ViewChild("modalexpired", {static: false}) modalexpired;
 
 
@@ -64,13 +90,14 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   isOpen = false;
   flagVal: boolean;
   contador: number;
-  minibuscador;
+  minibuscador: IHotelResultsModel[] = [];
   t: number;
   modalRefSessionExpired: BsModalRef;
   output;
   lstAutocomplete: any[] = [];
   airportlist: any[] = [];
   citylist: any[] = [];
+  flagPriceHotel = false;
 
   constructor(
     private router: Router,
@@ -80,7 +107,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     public spinner: NgxSpinnerService,
     private service: HotelService,
     private bnIdle: BnNgIdleService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private eRef: ElementRef
   ) {
 
     console.log('constructor hoteles');
@@ -122,7 +150,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-
+    this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
+    
     //this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     //this.token = this.sessionStorageService.retrieve('ss_token');
 
@@ -182,6 +211,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
 
+    
+
   }
 
   selectEvent(item) {
@@ -189,10 +220,13 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
     this.destinoValue = item.iataCode;
     this.destinoText = item.name;
+    $("#txtOrigen").removeClass("campo-invalido");
     setTimeout(function() {
       $(".x").hide();
     }, 1000);
   }
+
+  
 
   onChangeSearch(val: string) {
     // fetch remote data from here
@@ -232,6 +266,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       dia = "" + value.getDate();
     }
 
+    $("#ingreso").removeClass("campo-invalido");
     this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
 
 
@@ -265,6 +300,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     } else {
       dia = "" + value.getDate();
     }
+    $("#salida").removeClass("campo-invalido");
 
     this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
 
@@ -278,6 +314,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     let menorValor = 1000000;
     let mayorValor = 0;
 
+    
     this.LlistaHotel.forEach(function(item) {
       if (item.oprice.pricePerAllNights < menorValor) {
         menorValor = item.oprice.pricePerAllNights;
@@ -381,6 +418,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
           if (result.length == 0 || result == null || result[0].oerror != null) {
             //alert("asdasd")
             this.flagDinData = true;
+            
           }
           else{
 
@@ -427,7 +465,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
         },
         () => {
           this.spinner.hide();
-
+          this.flagPriceHotel = true;
         }
       );
     }
@@ -463,19 +501,19 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   ValidarCampos() {
     let val = true;
 
-    if ($.trim(this.model.origentTextos) === '' || $.trim(this.model.origentTextos) === undefined) {
+    if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
       $("#txtOrigen").addClass("campo-invalido");
       val = false;
     } else {
       $("#txtOrigen").removeClass("campo-invalido");
     }
-    if ($.trim(this.model.origentTextos1) === '' || $.trim(this.model.origentTextos1) === undefined) {
+    if ($('#dateingreso').val().length === 0) {
       $("#ingreso").addClass("campo-invalido");
       val = false;
     } else {
       $("#ingreso").removeClass("campo-invalido");
     }
-    if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
+    if ($('#datesalida').val().length === 0) {
       $("#salida").addClass("campo-invalido");
       val = false;
     } else {
@@ -528,6 +566,11 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
   showHideMap($event) {
     this.mapafiltro = $event;
+  }
+
+  updateMiniBusqueda($event) {
+    console.log("updateMiniBusqueda: " + $event);
+    this.flagPriceHotel = $event;
   }
 
 }

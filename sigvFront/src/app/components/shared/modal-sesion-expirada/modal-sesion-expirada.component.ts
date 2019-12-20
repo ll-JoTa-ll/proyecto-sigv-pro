@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { LocalStorageService } from 'ngx-webstorage';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-modal-sesion-expirada',
@@ -16,8 +16,12 @@ export class ModalSesionExpiradaComponent implements OnInit {
     keyboard: false
   };
   localfinish;
+  idinterval;
 
-  constructor(private localStorageService: LocalStorageService,private router: Router, public modalRef: BsModalRef) { }
+  constructor(private sessionStorageService: SessionStorageService,private localStorageService: LocalStorageService,private router: Router,public modalRef: BsModalRef) {
+
+    this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+   }
 
   ngOnInit() {
     var modal = this.modalRef;
@@ -33,7 +37,8 @@ export class ModalSesionExpiradaComponent implements OnInit {
     this.router.navigate(['hoteles']);
     this.localfinish = true;
     this.localStorageService.store("ss_countersession",null);
-    this.localStorageService.store("ss_countersession", this.localfinish);
+    this.localStorageService.store("ss_countersession",this.localfinish);
+    clearInterval(this.idinterval);
     this.modalRef.hide();
   }
 }

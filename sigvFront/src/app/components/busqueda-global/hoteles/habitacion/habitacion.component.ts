@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, TemplateRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, ViewChild, AfterViewInit, HostListener, ElementRef } from '@angular/core';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
@@ -16,6 +16,8 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { Status } from 'tslint/lib/runner';
 import { ModalSesionExpiradaComponent } from '../../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
 import { Window } from 'selenium-webdriver';
+import { ModalCerrarSesionComponent } from '../../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
+import { ModalAvisoSesionComponent } from '../../../shared/modal-aviso-sesion/modal-aviso-sesion.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -26,6 +28,9 @@ declare var $: any;
   styleUrls: ['./habitacion.component.sass']
 })
 export class HabitacionComponent implements OnInit, AfterViewInit {
+
+  
+  checkout: any;
   modalF5;
   modalRef: BsModalRef;
   config = {
@@ -33,6 +38,22 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     ignoreBackdropClick: true,
     keyboard: false
   };
+
+  public text: String;
+
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(this.eRef.nativeElement.contains(event.target)) {
+      this.text = "clicked inside";
+      var cerrarsesion;
+      cerrarsesion = this.localStorageService.retrieve("ss_closedSesion");
+      if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
+        this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+      }
+    } else {
+      this.text = "clicked outside";
+    }
+  }
 
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
 
@@ -44,7 +65,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   LHoteles: IHotelResultsModel;
   fechaSalida: string;
   fechaRetorno: string;
-
+  idinterval: any;
   localfinish;
   sessionFinish: boolean;
   
@@ -88,34 +109,76 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   contador: number;
   t: number;
   modalRefSessionExpired: BsModalRef;
+  adultos: any;
 
   @ViewChild("modalexpired", {static: false}) modalexpired;
 
 
-  constructor(private localStorageService: LocalStorageService,private router: Router,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
+  constructor(private eRef: ElementRef,private localStorageService: LocalStorageService,private router: Router,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
     this.localfinish = this.localStorageService.retrieve("ss_countersession");
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
+    this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
+ 
     this.personas = this.LHoteles.numberPassenger;
     this.divwarning = false;
-    console.log("localfinish" + this.localfinish);
+    
     if (this.localfinish === false) {
       this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent, this.config);
     }
+    var cerrarsesion;
+      cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
+
+    if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
+      this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+    }
+
+    if (this.lhotel.numberPassenger > 1) {
+      this.adultos = "personas";
+    }else{
+      this.adultos = "persona";
+    }
+
+
+
+    // this.contador = 600;
+
+    // this.bnIdle.startWatching(this.contador).subscribe((res) => {
+
+
+    //   if(res) {
+
+    //    alert("Session expired")
+    //    this.router.navigate(['hoteles'])
+    // }
+    // });
+
+    //  this.t = 0;
+    //  let tt = this.t;
+    //  setInterval(function(){
+    //   console.log(tt++);
+    //   sessionStorageService.store("ss_timer_hoteles_v1", tt);
+    //  },1000);
   }
 
     startCountDown(seconds, template) {
       var counter = seconds;
       var interval = setInterval(() => {
         counter--;
-        console.log(counter);
+        console.log("counter ====>" + counter);
+        this.idinterval = interval;
+        this.sessionStorageService.store("ss_interval",this.idinterval);
+        if (counter === 300) {
+          this.modalRefSessionExpired = this.modalService.show(ModalAvisoSesionComponent,this.config);
+        }
         if (counter < 0 ) {
           clearInterval(interval);
+          counter = null;
           this.sessionFinish = false;
           this.localStorageService.store('ss_countersession',this.sessionFinish);
           this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
           //this.router.navigate(['login'])
-        }	
+        }
       }, 1000);
     }
 
@@ -133,7 +196,6 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('ngOnInit hoteles');
     $('#menu-vuelo-1').show();
     $('#menu-vuelo-2').hide();
     $('#menu-hotel-1').hide();
@@ -144,9 +206,15 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    this.startCountDown(780, this.modalexpired);
+    this.startCountDown(900, this.modalexpired);
     console.log("cantidadnoche =====> " +this.cantidadnoche);
     this.sessionFinish = true;
+
+    var cerrarsesion;
+    cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
+    if (cerrarsesion == false) {
+      this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+    }
   }
 
   openModal(template: TemplateRef<any>) {
@@ -164,7 +232,6 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   ObtenerListFiltro($event) {
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
-    console.log("LlistaHotel =====>" + this.LlistaHotel);
   }
 
   MostrarMapa($event) {
@@ -178,20 +245,14 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   }
 
   showComponente($event) {
-    console.log("showComponente");
-    console.log("$event: " + $event);
     this.showComponent = $event;
   }
 
   hideComponente($event) {
-    console.log("hideComponente");
-    console.log("$event: " + $event);
     this.hideComponent = $event;
   }
 
   listadoHoteles($event) {
-    console.log("listadoHoteles");
-    console.log("$event: " + $event);
     this.hoteles = $event;
 
   }
@@ -204,15 +265,6 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   }
 
   Obtenerlistado($event) {
-    console.log("Obtenerlistado");
-    console.log("dateingreso =====> " + this.dateingreso);
-    console.log("dateingreso =====> " + this.dateingreso);
-    console.log("dateingreso =====> " + this.dateingreso);
-    console.log("dateingreso =====> " + this.dateingreso);
-    console.log("dateingreso =====> " + this.dateingreso);
-    console.log("dateingreso =====> " + this.dateingreso);
-    console.log("$event: " + $event);
-    console.log("");
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
 
@@ -271,11 +323,12 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
+    
     this.texto1 = this.lsthabitacion.ohotel.hotelDescription.substring(0,250);
     this.texto2 = this.lsthabitacion.ohotel.hotelDescription.substring(250,this.lsthabitacion.ohotel.hotelDescription.length);
     this.texto3 = this.lsthabitacion.ohotel.hotelDescription;
     this.lsthabitacion.contador = this.contador;
+    
 
   }
 
@@ -294,7 +347,6 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     this.divwarning = false;
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
-    console.log("$event" + $event);
     if (this.LlistaHotel.length === 0) {
       this.divwarning = true;
     }

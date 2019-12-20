@@ -131,6 +131,11 @@ import { ModalSesionExpiradaVuelosComponent } from './components/shared/modal-se
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { IntlInputPhoneModule } from 'intl-input-phone';
 import { ModalSesionWarningVuelosComponent } from './components/shared/modal-sesion-warning-vuelos/modal-sesion-warning-vuelos.component';
+import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
+import { IgxInputGroupModule,IgxSliderModule } from 'igniteui-angular';
+import { DetalleReservaHotelComponent } from './components/reserva-vuelo/detalle-reserva-hotel/detalle-reserva-hotel.component';
+import { ModalAvisoSesionComponent } from './components/shared/modal-aviso-sesion/modal-aviso-sesion.component';
+import { ModalCerrarSesionComponent } from './components/shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
 
 @NgModule({
   declarations: [
@@ -237,7 +242,10 @@ import { ModalSesionWarningVuelosComponent } from './components/shared/modal-ses
     ModalHabitacionErroneaComponent,
     SafePipe,
     ModalSesionExpiradaVuelosComponent,
-    ModalSesionWarningVuelosComponent
+    ModalSesionWarningVuelosComponent,
+    DetalleReservaHotelComponent,
+    ModalAvisoSesionComponent,
+    ModalCerrarSesionComponent
   ],
   imports: [
     BrowserModule,
@@ -269,10 +277,14 @@ import { ModalSesionWarningVuelosComponent } from './components/shared/modal-ses
     PopoverModule.forRoot(),
     SessionExpirationAlert.forRoot(),
     NgbModule,
-    IntlInputPhoneModule
+    IntlInputPhoneModule,
+    NgxBootstrapSliderModule,
+    IgxInputGroupModule,
+		IgxSliderModule
   ],
-  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent],
+  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

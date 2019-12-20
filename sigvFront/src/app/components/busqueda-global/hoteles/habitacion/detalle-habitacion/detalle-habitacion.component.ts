@@ -33,6 +33,8 @@ export class DetalleHabitacionComponent implements OnInit {
   lhotel;
   habitacion;
   userId;
+  personas: any;
+
   constructor(
     private modalService: BsModalService,
     private service: HotelService,
@@ -52,7 +54,11 @@ export class DetalleHabitacionComponent implements OnInit {
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.getUser();
-
+    if (this.lhotel.numberPassenger > 1) {
+      this.personas = "personas"
+    }else {
+      this.personas = "persona"
+    }
   }
 
   getReservaHabitacion(RoomType,BookingCode,PlanCode){
@@ -64,6 +70,7 @@ export class DetalleHabitacionComponent implements OnInit {
     "HotelCode": this.habitacion.ohotel.hotelCode,
     "StartDate": this.habitacion.ohotel.startDate,
     "EndDate": this.habitacion.ohotel.endDate,
+    "Starts": this.habitacion.ohotel.stars,
     "RoomType": RoomType,
     "BookingCode": BookingCode,
     "LguestPerRoom": this.habitacion.ohotel.lguestPerRoom,

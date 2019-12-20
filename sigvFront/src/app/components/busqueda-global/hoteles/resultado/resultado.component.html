@@ -22,8 +22,8 @@
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 mt-3">
-                    <span class="direccion-hotel">{{direccion}} ,</span>
-                    <span class="ml-2 distance">A {{distancia}} km del aeropuerto</span>
+                    <span class="direccion-hotel">{{direccion}}  </span><br/>
+                    <span class="distance">A {{distancia}} km del aeropuerto</span>
                 </div>
             </div>
             <div class="row m-0 p-0">
@@ -73,12 +73,12 @@
             </div>
             <ng-container *ngIf="cantidadnoche == '1'; else elseTemplate" class="row m-0 p-0">
                 <div class="col-12 div-price-noche text-center mt-2">
-                    <span>Precio final por {{cantidadnoche}} noche para {{cantpersonas}} adulto</span>
+                    <span>Precio final por {{cantidadnoche}} noche para {{cantpersonas}} {{this.personas}}</span>
                 </div>
             </ng-container>
             <ng-template #elseTemplate class="row m-0 p-0">
                 <div class="col-12 div-price-noche text-center mt-2">
-                    <span>Precio final por {{cantidadnoche}} noches para {{cantpersonas}} adulto</span>
+                    <span>Precio final por {{cantidadnoche}} noches para {{cantpersonas}} {{this.personas}}</span>
                 </div>
             </ng-template>
 

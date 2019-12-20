@@ -63,6 +63,8 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     HotelSegmentCategoryCode: ''
   };
 
+  @Output() flagBuscarMini = new EventEmitter<boolean>();
+
   constructor(
     private localeService: BsLocaleService,
     private sessionStorageService: SessionStorageService,
@@ -225,6 +227,8 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   }
 
   SeachHotel() {
+    this.flagBuscarMini.emit(false);
+    this.sessionStorageService.store("ls_search_hotel",null);
     const val= this.ValidarCampos();
     if (!val) {
       return val;
@@ -264,7 +268,6 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
           }
           else {
           this.sessionStorageService.store('ss_minibuscador', result);
-
           //this.sessionStorageService.store('ls_search_hotel', result);
           //this.LlistaHotel = result;
           
@@ -284,8 +287,8 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
         
        },
        () => {
+        this.flagBuscarMini.emit(true);
          this.spinner.hide();
-        
        }
    );
     }

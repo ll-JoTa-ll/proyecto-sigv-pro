@@ -1,11 +1,13 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, ElementRef } from '@angular/core';
 import { IGetPnrHotel } from '../../../../models/IGetPnrHotel.model';
-import { SessionStorageService } from 'ngx-webstorage';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { IGetEnhancedHotel } from 'src/app/models/IGetEnhancedHotel';
 import { IHabitacionResults } from '../../../../models/IHabitacionResults';
 import { IGetUserById } from '../../../../models/IGetUserById.model';
 import { Router } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { ModalCerrarSesionComponent } from '../../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 declare var jquery: any;
 declare var $: any;
@@ -16,17 +18,40 @@ declare var $: any;
   styleUrls: ['./reserva-generada-hotel.component.sass']
 })
 export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
+  public text: String;
+
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(this.eRef.nativeElement.contains(event.target)) {
+      this.text = "clicked inside";
+      console.log(this.text);
+      var cerrarsesion;
+      cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
+      if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
+        this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+      }
+    } else {
+      this.text = "clicked outside";
+      console.log(this.text);
+    }
+  }
 
   reserva : IGetPnrHotel;
   habitacion : IHabitacionResults;
   confirmacion : IGetEnhancedHotel;
   user: IGetUserById;
+  modalRefSessionExpired: BsModalRef;
   lhotel;
 
   phone;
   urlimg = './assets/images/hotel-icon.png';
 
-  constructor(private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService) { 
+  constructor(private modalService: BsModalService,private eRef: ElementRef,private localStorageService: LocalStorageService,private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService) { 
 
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
   }

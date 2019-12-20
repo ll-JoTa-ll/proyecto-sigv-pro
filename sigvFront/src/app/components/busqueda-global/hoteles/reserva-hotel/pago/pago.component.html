@@ -1,7 +1,7 @@
 <div class="m-0 p-0 pb-5">
     <div class="col-12 m-0 p-0 box-shadow">
         <div class="row m-0 p-0">
-            <div class="pago col-12 m-0 p-0 pt-4 pb-2 pl-4"> PAGOS</div>
+            <div class="pago col-12 m-0 p-0 pt-4 pb-2 pl-4"> DEPÓSITO EN GARANTIA</div>
             <div class="nombreHotel col-12 m-0 p-0 pb-3 pl-4">
                 <span></span>{{reserva.ohotel.name}} - <span>{{habitacion.ohotel.cityName}} .</span> <span>A {{lhotel.oairportDistance.distance}} km  del  aeropuerto</span>
             </div>
@@ -49,14 +49,14 @@
                     <div class="col-12 m-0 p-0">
                         <div class="row m-0 p-0">
                             <div class="title col-6 m-0 p-0 pl-4">
-                                <input type="text" id="numeroTarjeta"  maxlength="19" (keyup)="validarTarjeta()" (keypress)="tarjeta();validarNumeros($event)" [(ngModel)]="numTarjeta" placeholder="Ingrese el numero de tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;"
+                                <input type="text" id="numeroTarjeta" maxlength="19" (keyup)="validarTarjeta()" (keypress)="tarjeta();validarNumeros($event)" [(ngModel)]="numTarjeta" placeholder="Ingrese el numero de tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;"
                                     (paste)="false">
                             </div>
-                            <div class="title col-3 m-0 p-0" >
-                                <input type="text" id="fechaVencimiento"  maxlength="4" (keyup)="validarVencimiento()" (keypress)="validarNumeros($event)" [(ngModel)]="fechVencimiento" placeholder="MMAA" class="input-names box-shadow" style="width: 158.37px; height: 44px;" (paste)="false">
+                            <div class="title col-3 m-0 p-0">
+                                <input type="text" id="fechaVencimiento" maxlength="4" (keyup)="validarVencimiento()" (keypress)="validarNumeros($event)" [(ngModel)]="fechVencimiento" placeholder="MMAA" class="input-names box-shadow" style="width: 158.37px; height: 44px;" (paste)="false">
                             </div>
-                            <div class="title col-3 m-0 p-0" >
-                                <input type="password" id="codSeguridad"  maxlength="3" (keyup)="validarCodSeguridad()" (keypress)="validarNumeros($event)" [(ngModel)]="codSeguridad" placeholder="XXX" class="input-names box-shadow" style="width: 158.37px; height: 44px;" (paste)="false">
+                            <div class="title col-3 m-0 p-0">
+                                <input type="password" id="codSeguridad" maxlength="3" (keyup)="validarCodSeguridad()" (keypress)="validarNumeros($event)" [(ngModel)]="codSeguridad" placeholder="XXX" class="input-names box-shadow" style="width: 158.37px; height: 44px;" (paste)="false">
                             </div>
                         </div>
 
@@ -70,8 +70,8 @@
                     </div>
                     <div class="col-12 m-0 p-0">
                         <div class="row m-0 p-0">
-                            <div class="title col-6 m-0 p-0 pl-4" >
-                                <input type="text" id="titularTarjeta" (keyup)="validarNombre()" (keypress)="validarLetras($event)"  [(ngModel)]="titular" placeholder="Como figura en la tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;">
+                            <div class="title col-6 m-0 p-0 pl-4">
+                                <input type="text" id="titularTarjeta" (keyup)="validarNombre()" (keypress)="validarLetras($event)" [(ngModel)]="titular" placeholder="Como figura en la tarjeta" class="input-names box-shadow" style="width: 350px; height: 44px;">
                             </div>
                         </div>
                     </div>
@@ -82,17 +82,19 @@
             <div class="FormadePago col-12 m-0 p-0 pt-4 pb-4" style="background: #F8F8F8;">
                 <span class="lblFormaPago pr-3"> Formato de pago aceptada </span>
                 <span>
-              <img *ngIf="tipoTarjeta === 1" src="./assets/images/mastercard.png"  class="pr-3" style="width: 70px;">     
-              <img *ngIf="tipoTarjeta === 2" src="./assets/images/discover.png"  class="pr-3 pl-3" style="width: 80px;">    
-              <img *ngIf="tipoTarjeta === 3" src="./assets/images/amex.png"  class="pr-3 pl-3" style="width: 80px;">   
-              <img *ngIf="tipoTarjeta === 4" src="./assets/images/visa.svg" class="pr-3 pl-3">
-              <img *ngIf="tipoTarjeta === 5" src="./assets/images/jcb.png" class="pr-3 pl-3" style="width: 80px;">
-              <span *ngIf="tipoTarjeta === 0">
-                <img src="./assets/images/mastercard.png" class="pr-3" style="width: 70px;">
-                <img src="./assets/images/discover.png" class="pr-3 pl-3" style="width: 80px;">
-                <img src="./assets/images/amex.png" class="pr-3 pl-3" style="width: 80px;">
-                <img src="./assets/images/visa.svg" class="pr-3 pl-3">
-                <img src="./assets/images/jcb.png" class="pr-3 pl-3" style="width: 80px;">
+              <img *ngIf="tipoTarjeta === 1 && this.reserva.oroom.paymentCards.includes('MC') === true" src="./assets/images/mastercard.png"  class="pr-3" style="width: 70px;">     
+              <img *ngIf="tipoTarjeta === 2 && this.reserva.oroom.paymentCards.includes('DS') === true" src="./assets/images/discover.png"  class="pr-3 pl-3" style="width: 80px;">    
+              <img *ngIf="tipoTarjeta === 3 && this.reserva.oroom.paymentCards.includes('AX') === true" src="./assets/images/amex.png"  class="pr-3 pl-3" style="width: 80px;">   
+              <img *ngIf="tipoTarjeta === 4 && this.reserva.oroom.paymentCards.includes('VI') === true" src="./assets/images/visa.svg" class="pr-3 pl-3">
+              <img *ngIf="tipoTarjeta === 5 && this.reserva.oroom.paymentCards.includes('JC') === true" src="./assets/images/jcb.png" class="pr-3 pl-3" style="width: 80px;">
+              <img *ngIf="tipoTarjeta === 6 && this.reserva.oroom.paymentCards.includes('DC') === true" src="./assets/images/dinersclub.png" class="pr-3 pl-3" style="width: 80px;">
+            <span *ngIf="tipoTarjeta === 0">
+                <img *ngIf="this.reserva.oroom.paymentCards.includes('MC') === true" src="./assets/images/mastercard.png" class="pr-3" style="width: 70px;">
+                <img *ngIf="this.reserva.oroom.paymentCards.includes('DS') === true" src="./assets/images/discover.png" class="pr-3 pl-3" style="width: 80px;">
+                <img *ngIf="this.reserva.oroom.paymentCards.includes('AX') === true" src="./assets/images/amex.png" class="pr-3 pl-3" style="width: 80px;">
+                <img *ngIf="this.reserva.oroom.paymentCards.includes('VI') === true" src="./assets/images/visa.svg" class="pr-3 pl-3">
+                <img *ngIf="this.reserva.oroom.paymentCards.includes('JC') === true" src="./assets/images/jcb.png" class="pr-3 pl-3" style="width: 80px;">
+                <img *ngIf="this.reserva.oroom.paymentCards.includes('DC') === true" src="./assets/images/dinersclub.png" class="pr-3 pl-3" style="width: 80px;">
               </span>
 
                 </span>

@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~ngx-toastr/toastr'
+@import "~igniteui-angular/lib/core/styles/themes/index"
+
+$company-color: #ED1C24
+$secondary-color: #ED1C24
+
+$my-color-palette: igx-palette($primary: $company-color,$secondary: $secondary-color)
+
+// IMPORTANT: Make sure you always include igx-core first!
+@include igx-core()
+// Pass the color palette we generated to the igx-theme mixin
+@include igx-theme($my-color-palette)
 
 @font-face
   font-family: 'Omnes-bold'
@@ -188,17 +198,8 @@
   display: block
   line-height: 30px
 
-
 .top-level-menu a:hover
   color: #000000
-
-
-
-
-
-
-
-
 
 .dropdown-submenu
   position: relative
@@ -249,3 +250,106 @@ code
 
 
 
+.sample-wrapper 
+    width: inherit
+    position: relative
+    height: 100%
+    margin: 0 auto
+    background: transparent
+
+
+.sample-content 
+    display: flex
+    flex-grow: 1
+    flex-flow: row wrap
+    justify-content: flex-start
+    padding: 0
+    -webkit-animation: fade-in .3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both
+    -moz-animation: fade-in .3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both
+    animation: fade-in .3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both
+
+
+.sample-column 
+    display: flex
+    flex-flow: column nowrap
+    flex: 1 0 25%
+    align-content: flex-start
+    margin: 16px
+    min-width: 280px
+
+
+.sample-title 
+    color: #0375be
+    margin-bottom: 12px
+    margin-top: 12px
+
+
+.sample-title .light 
+    font-weight: 400
+
+
+.sample-description 
+    font-size: 14px
+    font-weight: normal
+    color: #717171
+
+
+
+
+@-webkit-keyframes color-change-2x 
+    0% 
+        background: #fdf8f0
+    
+    100% 
+        background: #f6e7ec
+    
+
+
+@keyframes color-change-2x 
+    0% 
+        background: #fdf8f0
+    
+    100% 
+        background: #f6e7ec
+    
+
+
+@-webkit-keyframes fade-in 
+    0% 
+        opacity: 0
+    
+    100% 
+        opacity: 1
+    
+
+@keyframes fade-in 
+    0% 
+        opacity: 0
+    
+    100% 
+        opacity: 1
+    
+
+.headerAlignSyle 
+    text-align: right !important
+
+
+$green-palette: igx-palette($primary: #09f,$secondary: #72da67, $surface: #333)
+
+$company-color: #2ab759
+$secondary-color: #f96a88
+
+$my-color-palette: igx-palette($primary: $company-color,$secondary: $secondary-color)
+
+.fin-dark-theme 
+    @include igx-dark-theme($green-palette)
+    background: #333
+
+.dark-theme 
+    background: #333
+    color: #fff
+    @include igx-dark-theme($green-palette)
+
+    .grid-chart-contextmenu-wrapper
+        @include igx-fluent-dark-theme($fluent-excel-palette)
+    

@@ -254,6 +254,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           flagResultFamilias = 0;
         } else {
           this.lstFamilyResult = result;
+          this.sessionStorageService.store('ss_lstFamilyResult', this.lstFamilyResult);
           if (this.lstFamilyResult.lsections.length === 0) {
             flagResultFamilias = 0;
           } else {
@@ -281,7 +282,19 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         this.vuelosComponent.spinner.hide();
       },
       () => {
-        this.vuelosComponent.spinner.hide();
+        //this.vuelosComponent.spinner.hide();
+
+        const requestFamilia = this.requestFamilia;
+        const lstFamilyResult = this.lstFamilyResult;
+
+        requestFamilia.Lsections.forEach(function (section, indexSection) {
+          lstFamilyResult.lsections.forEach(function (section2, indexSection2) {
+            if (indexSection === indexSection2) {
+              //const fff = section.Lsegments[0]
+            }
+          });
+        });
+
         if (flagResultFamilias === 1) {
           this.flightAvailability(dataPost, modalerror, 2, template, datasecciones);
           /*
@@ -291,6 +304,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           );
           */
         } else {
+          this.vuelosComponent.spinner.hide();
           this.modalRef = this.modalService.show(
             template,
             Object.assign({}, { class: 'gray modal-lg sin-familias' })
@@ -522,7 +536,7 @@ TraerAutorizador() {
     "FlightNational": this.flightNational,
     'Infraction': infraction,
     "Lpassenger": datosusuario
-  }
+  };
 
   this.airportService.GetApprovers(data).subscribe(
     results => {
@@ -533,7 +547,7 @@ TraerAutorizador() {
     err => {
       console.log(err);
     }
-  )
+  );
 }
 
   flightAvailability(data, template, tipo, modalFam, dataseccion) {
@@ -654,8 +668,73 @@ TraerAutorizador() {
     let classIdVal = "";
     let flagFareBasisVal = 1;
     //aumentar validacion de misma aerolinea tbm
+
+
+    //Toda la fila segment blanquear y radio false
+    console.log("Todas las cabeceras del segment blancas");
+    lstFamilyResult.lsections.forEach(function(section, indexSection) {
+      if (indexSection == section_) {
+        section.lsegments.forEach(function(segment, indexSegment) {
+          if (indexSegment == segment_) {
+            segment.lfareFamilies.forEach(function(fare, indexFare) {
+              let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+              console.log("idSecuencial: " + idSecuencial);
+              $("#idRadioFam_" + idSecuencial).prop("checked", false);
+              $('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
+            });
+          }
+        });
+      }
+    });
+
+
+    //segment seleccionado guardamos valores y pintamos cabezera y seleccionamos radio
+    console.log("segment seleccionado guardamos valores y pintamos cabezera y seleccionamos radio");
     lstFamilyResult.lsections.forEach(function(section, indexSection) {
       section.lsegments.forEach(function(segment, indexSegment) {
+        if (indexSection == section_) {
+          segment.lfareFamilies.forEach(function(fare, indexFare) {
+            if (indexSection == section_) {
+              if (indexSegment == segment_) {
+                if (indexFare == index_ - 1) {
+                  fareBasis = fare.fareBasis;
+                  classId = fare.classId;
+                  fareFamilyName = fare.fareFamilyName;
+
+                  let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+                  console.log("idSecuencial: " + idSecuencial);
+                  $("#idRadioFam_" + idSecuencial).prop("checked", true);
+                  $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
+
+                  console.log("classId: " + classId);
+                  console.log("classId: " + classId);
+                  console.log("classId: " + classId);
+
+                  requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].ClassId = classId;
+                  requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].FareBasis = fareBasis;
+                  requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].fareFamilyName = fareFamilyName;
+
+                  /*
+                  group.ClassId = classId;
+                  group.FareBasis = fareBasis;
+                  group.fareFamilyName = fareFamilyName;
+                  */
+
+                  seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].ClassId = classId;
+                  seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].FareBasis = fareBasis;
+                  seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].fareFamilyName = fareFamilyName;
+                }
+              }
+            }
+          });
+        }
+      });
+    });
+
+    /*
+    lstFamilyResult.lsections.forEach(function(section, indexSection) {
+      section.lsegments.forEach(function(segment, indexSegment) {
+
 
         if (indexSection == section_) {
           if (indexSegment === 0) {
@@ -673,13 +752,9 @@ TraerAutorizador() {
           }
         }
 
+
         segment.lfareFamilies.forEach(function(fare, indexFare) {
           if (indexSection == section_) {
-            /*
-            $("#idRadioFam_" + indexSection + "_" + indexSegment + "_" + indexFare).prop("checked", false);
-            const idCab = '#idNameFamilyName_' + indexSection + '_' + indexSegment  + '_' + indexFare;
-            $(idCab).css({'background-color': '#C6C6C6'});
-            */
             if (indexSegment == segment_) {
               if (indexFare == index_ - 1) {
                 fareBasis = fare.fareBasis;
@@ -691,20 +766,77 @@ TraerAutorizador() {
         });
       });
     });
+    */
+
+    lstFamilyResult.lsections.forEach(function(section, indexSection) {
+      section.lsegments.forEach(function(segment, indexSegment) {
+        if (indexSection == section_) {
+          segment.lfareFamilies.forEach(function(fare, indexFare) {
+            //
+          });
+        }
+      });
+    });
+
+    lstFamilyResult.lsections.forEach(function(section, indexSection) {
+
+      if (indexSection == section_) {
+        section.lsegments.forEach(function(segment, indexSegment) {
+
+          if (indexSegment != segment_) {
+            let flagFareComp = 0;
+            segment.lfareFamilies.forEach(function(fare, indexFare) {
+              let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+              //$("#idRadioFam_" + idSecuencial).prop("checked", false);
+              //$('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
+              const fareBasisNew = fare.fareBasis;
+              if (fareBasis == fareBasisNew) {
+                flagFareComp = 1;
+                //segment.lfareFamilies[index_ - 1].fareBasis = fareBasis;
+                //segment.lfareFamilies[index_ - 1].fareBasis = classId;
+                //segment.lfareFamilies[index_ - 1].fareFamilyName = fareFamilyName;
+                //console.log("idSecuencial: " + idSecuencial);
+                //$("#idRadioFam_" + idSecuencial).prop("checked", true);
+                //$('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
+              }
+
+            });
+            if (flagFareComp === 1) {
+              segment.lfareFamilies.forEach(function(fare, indexFare) {
+                let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+                $("#idRadioFam_" + idSecuencial).prop("checked", false);
+                $('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
+                const fareBasisNew = fare.fareBasis;
+                if (fareBasis == fareBasisNew) {
+                  flagFareComp = 1;
+                  $("#idRadioFam_" + idSecuencial).prop("checked", true);
+                  $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
+                  requestFamilia.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].ClassId = classId;
+                  requestFamilia.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].FareBasis = fareBasis;
+                  requestFamilia.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
+                  seccionvuelos.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].ClassId = classId;
+                  seccionvuelos.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].FareBasis = fareBasis;
+                  seccionvuelos.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
+                }
+              });
+            }
+          }
+
+
+        });
+      }
+
+    });
 
     console.log("flagFareBasisVal: " + flagFareBasisVal);
     //$('#' + this.idRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex + '_' + this.fareFamilyIndex).prop("checked", true);
     if (flagFareBasisVal === 1) {
-
+      /*
       console.log("Todas las cabeceras del section blancas");
       lstFamilyResult.lsections.forEach(function(section, indexSection) {
         if (indexSection == section_) {
           section.lsegments.forEach(function(segment, indexSegment) {
             segment.lfareFamilies.forEach(function(fare, indexFare) {
-              //$("#idRadioFam_" + indexSection + "_" + indexSegment + "_" + indexFare).prop("checked", false);
-              //const idCab = '#idNameFamilyName_' + indexSection + '_' + indexSegment  + '_' + indexFare;
-              //$(idCab).css({'background-color': '#C6C6C6'});
-
               let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
               console.log("idSecuencial: " + idSecuencial);
               $("#idRadioFam_" + idSecuencial).prop("checked", false);
@@ -713,17 +845,16 @@ TraerAutorizador() {
           });
         }
       });
+      */
 
+      /*
       console.log("pintar las cabeceras correspondientes");
       lstFamilyResult.lsections.forEach(function(section, indexSection) {
-
         if (indexSection == section_) {
           section.lsegments.forEach(function(segment, indexSegment) {
-
             segment.lfareFamilies[index_ - 1].fareBasis = fareBasis;
             segment.lfareFamilies[index_ - 1].fareBasis = classId;
             segment.lfareFamilies[index_ - 1].fareFamilyName = fareFamilyName;
-
             let idSecuencial = indexSection + "_" + indexSegment + "_" + index_;
             console.log("idSecuencial: " + idSecuencial);
             $("#idRadioFam_" + idSecuencial).prop("checked", true);
@@ -731,11 +862,13 @@ TraerAutorizador() {
           });
         }
       });
+      */
     } else {
-      console.log("cuando son diferentes fareBasis")
-      $("#idRadioFam_" + section_ + "_" + segment_ + "_" + index_).prop("checked", true);
+      //console.log("cuando son diferentes fareBasis")
+      //$("#idRadioFam_" + section_ + "_" + segment_ + "_" + index_).prop("checked", true);
     }
 
+    /*
     requestFamilia.Lsections.forEach(function(section, indexSection) {
       section.Lsegments.forEach(function(segment, indexSegment) {
         segment.LsegmentGroups.forEach(function(group, indexGroup) {
@@ -751,7 +884,9 @@ TraerAutorizador() {
         });
       });
     });
+    */
 
+    /*
     seccionvuelos.Lsections.forEach(function(section, indexSection) {
       section.Lsegments.forEach(function(segment, indexSegment) {
         segment.LsegmentGroups.forEach(function(group, indexGroup) {
@@ -767,6 +902,7 @@ TraerAutorizador() {
         });
       });
     });
+    */
 
     console.log("requestFamiliaRadio: " + JSON.stringify(requestFamilia));
 

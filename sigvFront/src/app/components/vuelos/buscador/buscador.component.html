@@ -136,7 +136,7 @@
                      (bsValueChange)="onValueChangeSalida($event)"
                      [minDate]="minDateSalida"
                      bsDatepicker
-                     [(ngModel)]="model.salida"
+                     [bsValue]="fechanow"
                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
               >
             </label>

@@ -48,7 +48,6 @@
                                                    (click)="datepickerIngreso.toggle()"
                                                    class="input-img">
                                             <input type="text"
-                                                   [(ngModel)]="model.origentTextos"
                                                    placeholder="Ingreso"
                                                    class="p-0 pl-2 input-date"
                                                    (keypress)="validarTodo($event)"
@@ -59,7 +58,8 @@
                                                    [maxDate]="maxDateIngreso"
                                                    bsDatepicker
                                                    id="dateingreso"
-                                                   [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                                                   [(bsValue)]="bsValue"
+                                                   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
                                             >
                                           </label>
                             </div>
@@ -79,7 +79,7 @@
                                                    [minDate]="minDateSalida"
                                                    bsDatepicker
                                                    id="datesalida"
-                                                   [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                                                   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
                                             >
                                           </label>
                             </div>
@@ -272,11 +272,15 @@
             <div class="row m-0 p-0">
                 <div class="col-3 m-0 p-0 pt-4 pr-4 pl-5">
                     <app-busqueda-mini [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event);searchFlightBuscador($event);" [destino]="destinoText" [fchingreso]="dateingreso"
-                        [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas" (flagShowMap)="showHideMap($event)"></app-busqueda-mini>
+                        [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas" (flagShowMap)="showHideMap($event)" (flagBuscarMini)="updateMiniBusqueda($event)"></app-busqueda-mini>
 
 
                     <app-filtro-estrellas [listado]="LlistaHotel" (resultfiltro)="ObtenerListaFiltroEstrella($event)"></app-filtro-estrellas>
-                    <app-filtro-precio-hotel [cantnoche]="cantidadnoche" [currency]="currency" (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio-hotel>
+
+
+                    <app-filtro-precio-hotel *ngIf="flagPriceHotel" [cantnoche]="cantidadnoche" [currency]="currency" (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio-hotel>
+
+
                     <app-filtro-nombrehotel (resultFiltro)="ObtenerListaFiltroNombre($event)" [listado]="LlistaHotel"></app-filtro-nombrehotel>
                 </div>
                 <div class="col-9 m-0 p-0 pt-4 pl-4 pr-5">

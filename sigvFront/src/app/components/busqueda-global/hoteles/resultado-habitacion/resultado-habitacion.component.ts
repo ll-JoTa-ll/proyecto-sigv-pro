@@ -47,6 +47,8 @@ export class ResultadoHabitacionComponent implements OnInit {
    }
 
   ngOnInit() {
+
+    
   }
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){

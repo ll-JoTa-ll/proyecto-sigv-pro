@@ -131,7 +131,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   lstResult1: any[] = [];
   lstResult2: any[] = [];
   isOpendate = false;
-  bsValue = new Date();
+  bsValue: Date;
 
   constructor(
     private airportService: AirportService,
@@ -184,6 +184,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.bsValue = new Date();
     $(".x").hide();
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
@@ -233,7 +234,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
      let dataRequestFlight = this.sessionStorageService.retrieve('ss_databuscador');
      if (dataRequestFlight != null) {
       tipovuelo = databuscador.tipovuelo;
-
       if (tipovuelo === 'OW' || tipovuelo === 'RT') {
         let lstdata = this.sessionStorageService.retrieve('ss_searchFlight');
         this.setLstAerolineas(lstdata);

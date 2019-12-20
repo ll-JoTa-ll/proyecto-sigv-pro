@@ -109,8 +109,7 @@
                (bsValueChange)="onValueChangeSalida1($event)"
                bsDatepicker
                [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red' }"
-               [(ngModel)]="model.salida1"
-               [dateCustomClasses]="dateCustomClasses"
+               [(bsValue)]="bsValue"
         >
       </label>
 
