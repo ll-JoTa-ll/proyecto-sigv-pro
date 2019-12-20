@@ -141,6 +141,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   openModal(template: TemplateRef<any>, recommendationId, modalerror) {
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
+    let idVal = 1;
     lstRadioCheck.forEach(function(item) {
       const sectionId = item.sectionId_;
       const segmentId = item.segmentId_;
@@ -153,6 +154,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       let LsegmentGroups_: any[] = [];
       segment.lSegmentGroups.forEach(function(group, i) {
         const dataGroup = {
+          Id: idVal,
           ClassId: section.lSectionGroups[i].classId,
           DepartureDate: group.departureDate,
           TimeOfDeparture: group.timeOfDeparture,
@@ -170,6 +172,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           fareFamilyName: ""
         };
         LsegmentGroups_.push(dataGroup);
+        idVal++;
       });
 
       //Lsegments
