@@ -168,9 +168,8 @@
                (bsValueChange)="onValueChangeSalida($event)"
                [minDate]="minDateSalida"
                bsDatepicker
-               [(ngModel)]="model.salida"
-               [dateCustomClasses]="dateCustomClasses"
                id="fechasalida"
+               [bsValue]="bsValue"
                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
         >
       </label>

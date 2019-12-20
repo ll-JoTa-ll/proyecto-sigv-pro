@@ -118,6 +118,56 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
   obtenercodigo(value) {
     $("#hdnTel_" + this.index).val(value);
+    let valor = $('#cbopaises option:selected').attr('data-countryCode');
+    console.log(valor);
+    if (valor === 'CO') {
+       $('#txttelefono_' + this.index).attr('maxlength', '10');
+    }
+    if (valor === 'PA') {
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
+   }
+    if (valor === 'PE') {
+    $('#txttelefono_' + this.index).attr('maxlength', '10');
+    }
+    if (valor === 'AR') {
+      $('#txttelefono_' + this.index).attr('maxlength', '13');
+      }
+    if (valor === 'EC') {
+        $('#txttelefono_' + this.index).attr('maxlength', '10');
+      }
+    if (valor === 'PY') {
+          $('#txttelefono_' + this.index).attr('maxlength', '10');
+      }
+    if (valor === 'UY') {
+        $('#txttelefono_' + this.index).attr('maxlength', '9');
+    } 
+    if (valor === 'VE') {
+      $('#txttelefono_' + this.index).attr('maxlength', '11');
+  } 
+    if (valor === 'CL') {
+    $('#txttelefono_' + this.index).attr('maxlength', '9');
+} 
+    if (valor === 'BR') {
+  $('#txttelefono_' + this.index).attr('maxlength', '11');
+} 
+    if (valor === 'BO') {
+  $('#txttelefono_' + this.index).attr('maxlength', '8');
+} 
+    if (valor === 'US') {
+  $('#txttelefono_' + this.index).attr('maxlength', '10');
+} 
+    if (valor === 'MX') {
+  $('#txttelefono_' + this.index).attr('maxlength', '13');
+}
+    if (valor === 'CA') {
+  $('#txttelefono_' + this.index).attr('maxlength', '10');
+}
+    if (valor === 'CR') {
+  $('#txttelefono_' + this.index).attr('maxlength', '8');
+}
+    if (valor === 'CU') {
+  $('#txttelefono_' + this.index).attr('maxlength', '9');
+}
   }
 
   llenarnumero() {

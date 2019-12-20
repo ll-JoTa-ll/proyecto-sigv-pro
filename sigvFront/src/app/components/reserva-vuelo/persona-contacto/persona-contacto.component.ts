@@ -91,5 +91,55 @@ export class PersonaContactoComponent implements OnInit {
 
   obtenercodigo(value) {
     $("#hdnTel").val(value);
+    let valor = $('#cbopaises option:selected').attr('data-countryCode');
+    console.log(valor);
+    if (valor === 'CO') {
+       $('#contactotelefono').attr('maxlength', '10');
+    }
+    if (valor === 'PA') {
+      $('#contactotelefono').attr('maxlength', '8');
+   }
+    if (valor === 'PE') {
+    $('#contactotelefono').attr('maxlength', '10');
+    }
+    if (valor === 'AR') {
+      $('#contactotelefono').attr('maxlength', '13');
+      }
+    if (valor === 'EC') {
+        $('#contactotelefono').attr('maxlength', '10');
+      }
+    if (valor === 'PY') {
+          $('#contactotelefono').attr('maxlength', '10');
+      }
+    if (valor === 'UY') {
+        $('#contactotelefono').attr('maxlength', '9');
+    } 
+    if (valor === 'VE') {
+      $('#contactotelefono').attr('maxlength', '11');
+  } 
+    if (valor === 'CL') {
+    $('#contactotelefono').attr('maxlength', '9');
+} 
+    if (valor === 'BR') {
+  $('#contactotelefono').attr('maxlength', '11');
+} 
+    if (valor === 'BO') {
+  $('#contactotelefono').attr('maxlength', '8');
+} 
+    if (valor === 'US') {
+  $('#contactotelefono').attr('maxlength', '10');
+} 
+    if (valor === 'MX') {
+  $('#contactotelefono').attr('maxlength', '13');
+}
+    if (valor === 'CA') {
+  $('#contactotelefono').attr('maxlength', '10');
+}
+    if (valor === 'CR') {
+  $('#contactotelefono').attr('maxlength', '8');
+}
+    if (valor === 'CU') {
+  $('#contactotelefono').attr('maxlength', '9');
+}
   }
 }

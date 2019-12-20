@@ -131,6 +131,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   lstResult1: any[] = [];
   lstResult2: any[] = [];
   isOpendate = false;
+  bsValue = new Date();
 
   constructor(
     private airportService: AirportService,
@@ -875,8 +876,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         }
       );
     }
-
-
 
 
     let data = {

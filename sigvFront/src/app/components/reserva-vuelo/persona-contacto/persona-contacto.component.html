@@ -29,7 +29,7 @@
                                 <!--    <input (keydown)="ValidarSoloNumero($event)" class="input-pasajero" type="text" id="contactotelefono" maxlength="9" (keypress)="ValidarCampos(2)" (keydown)="ValidarCampos(2)" (keyup)="ValidarCampos(2)"> -->
                                 <!--  <intl-input-phone [ConfigurationOption]="configOption3" (OnNumberChange)="onNumberChage2($event)"></intl-input-phone>
                                 {{OutputValue2.Number}} -->
-                                <select name="countryCode" id="" #t style="width: 99px;" (change)=obtenercodigo(t.value)>
+                                <select name="countryCode" id="cbopaises" #t style="width: 99px;" (change)=obtenercodigo(t.value)>
                                     <option data-countryCode="GB" value="44">UK (+44)</option>
                                     <option data-countryCode="US" value="1">USA (+1)</option>
                                     <optgroup label="Other countries">

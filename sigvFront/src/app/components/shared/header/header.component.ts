@@ -49,6 +49,8 @@ export class HeaderComponent implements OnInit {
 
       case 2:
         this.router.navigate(['/hoteles']);
+        let idinterval = this.sessionStorageService.retrieve('idinterval');
+        clearInterval(idinterval);
         break;
 
       case 3:
@@ -73,6 +75,9 @@ export class HeaderComponent implements OnInit {
     window.location.reload(url);*/
     this.sessionStorageService.store('indregresar', false);
     $(location).attr('href', '/vuelos');
+    let idinterval = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(idinterval);
+    this.sessionStorageService.store('count', null);
   }
 
   vuelos() {
@@ -82,9 +87,15 @@ export class HeaderComponent implements OnInit {
     window.location.reload(url);*/
     this.sessionStorageService.store('indregresar', false);
     $(location).attr('href', '/vuelos');
+    let idinterval = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(idinterval);
+    this.sessionStorageService.store('count', null);
   }
 
   cerrarSesion() {
+    let idinterval = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(idinterval);
+    this.sessionStorageService.store('count', null);
     this.sessionStorageService.clear();
     this.router.navigate(['/']);
   }

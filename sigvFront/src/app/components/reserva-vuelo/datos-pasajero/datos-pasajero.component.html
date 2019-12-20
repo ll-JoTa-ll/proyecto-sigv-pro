@@ -133,7 +133,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keypress)="ValidarCampos()" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.nationality" id="txtnacionalidad_{{index}}">
+                                <input (keypress)="Solotexto($event)" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.nationality" id="txtnacionalidad_{{index}}">
                             </div>
                         </div>
                     </div>
@@ -186,7 +186,7 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <!--   <input triggers="" (keypress)="ValidarCampos()" (keydown)="ValidarSoloNumero($event)" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}" maxlength="9"> -->
-                                <select name="countryCode" id="" #t style="width: 99px;" (change)=obtenercodigo(t.value)>
+                                <select name="countryCode" id="cbopaises" #t style="width: 99px;" (change)=obtenercodigo(t.value)>
                                 <option data-countryCode="GB" value="44">UK (+44)</option>
                                 <option data-countryCode="US" value="1">USA (+1)</option>
                                 <optgroup label="Other countries">

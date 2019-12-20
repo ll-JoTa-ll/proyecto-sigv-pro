@@ -215,6 +215,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     var counter = seconds;
     var interval = setInterval(() => {
       counter--;
+      console.log(counter);
       if (counter === 300) {
         this.modalRefSessionWarning = this.modalService.show(ModalSesionWarningVuelosComponent, this.config);
       }
@@ -322,11 +323,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let email2;
     let telefono2;
     let nombrecontacto;
-    let numero1;
-    let prefcont = $('#hdnTel').val();
-    let numcon = $('#contactotelefono').val();
     email2 = $('#contactocorreo').val();
-    telefono2 = /*prefcont + ' ' + */numcon; 
+    telefono2 = $('#contactotelefono').val();
     nombrecontacto = $('#nombrecontacto').val();
     this.datosuser.forEach(function(item, index) {
       let prefix;
@@ -346,9 +344,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       let dia = fechaformat[2];
       fechatotal = año + '/' + mes + '/' + dia;
 
-      let prefijo = $('#hdnTel_' + (index + 1)).val();
-      let nrotel = $('#txttelefono_' + (index + 1)).val();
-
       nombre = $('#txtnombre_' + (index + 1)).val();
       apellido = $('#txtapellidos_' + (index + 1)).val();
       fechanacimiento = fechatotal,
@@ -356,7 +351,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       nrodoc = $('#txtnrodocumento_' + (index + 1)).val();
       prefix = $('#cbotratamiento_' + (index + 1) + ' '  + 'option:selected').val();
       email1 = $('#txtcorreo_' + (index + 1)).val();
-      telefono1 = /*prefijo + ' ' + */nrotel; //$('#txttelefono_' + (index + 1)).val();
+      telefono1 = $('#txttelefono_' + (index + 1)).val();
       let odocument = {
         description: item.odocument.description,
         number: nrodoc,
@@ -401,6 +396,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/reserva-vuelo-compra']);
     }
   }
+
+
+
   getUidByCompany() {
     console.log("getUidByCompany");
     const companyId = this.loginDataUser.ocompany.companyId;
@@ -426,6 +424,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       }
     );
   }
+  
 
   setInformacionAdicional(lstUidByCompanyC) {
     console.log("setInformacionAdicional");
