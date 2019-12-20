@@ -130,6 +130,7 @@ import { SafePipe } from './pipes/safe.pipe';
 import { ModalSesionExpiradaVuelosComponent } from './components/shared/modal-sesion-expirada-vuelos/modal-sesion-expirada-vuelos.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { IntlInputPhoneModule } from 'intl-input-phone';
+import { ModalSesionWarningVuelosComponent } from './components/shared/modal-sesion-warning-vuelos/modal-sesion-warning-vuelos.component';
 
 @NgModule({
   declarations: [
@@ -235,7 +236,8 @@ import { IntlInputPhoneModule } from 'intl-input-phone';
     ResultadoHabitacionComponent,
     ModalHabitacionErroneaComponent,
     SafePipe,
-    ModalSesionExpiradaVuelosComponent
+    ModalSesionExpiradaVuelosComponent,
+    ModalSesionWarningVuelosComponent
   ],
   imports: [
     BrowserModule,
@@ -269,7 +271,7 @@ import { IntlInputPhoneModule } from 'intl-input-phone';
     NgbModule,
     IntlInputPhoneModule
   ],
-  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent],
+  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })

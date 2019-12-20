@@ -55,6 +55,8 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   @Input() htmlTxtP;
 
   constructor(private modalService: BsModalService, private sessionStorageService : SessionStorageService) {
+  /*  $("#telephone").intlTelInput({
+  });*/
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.configOption3 = new ConfigurationOptions();
     this.configOption3.SelectorClass = "InputValidation2";
@@ -65,7 +67,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    $("#phone").intlTelInput();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
     } else {
@@ -113,6 +114,14 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       event.preventDefault();
       return false;
     }
+  }
+
+  obtenercodigo(value) {
+    $("#hdnTel_" + this.index).val(value);
+  }
+
+  llenarnumero() {
+
   }
 
   ValidarCampos() {

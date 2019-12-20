@@ -257,7 +257,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 1) {
       this.origenAuto = item.iataCode;
       this.origentTexto = item.name;
-      this.textorigen = item.name;
+      this.origenText = item.name;
       $("#txtOrigen").removeClass("campo-invalido");
      // $(".x").show();
       console.log(this.origentTexto);
@@ -266,7 +266,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 2) {
       this.destinoAuto = item.iataCode;
       this.destinoTexto = item.name;
-      this.textdestino = item.name;
+      this.destinoText = item.name;
       $("#txtDestino").removeClass("campo-invalido");
      // $(".x").show();
       console.log(this.destinoTexto);
@@ -606,9 +606,9 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
     if (this.tipoVuelo === 'RT' || this.tipoVuelo === 'OW') {
         objcampos = {
-        origen: this.textorigen,
+        origen: this.origenText,
         origencode: this.origenAuto,
-        destino: this.textdestino,
+        destino: this.destinoText,
         destinocode: this.destinoAuto,
         fechasalida: $('#datepickerSalida').val(),
         fechadestino: $('#datepickerRetorno').val(),

@@ -771,5 +771,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
     Back() {
       this.router.navigate(['/reserva-vuelo']);
+      this.sessionStorageService.store('count', false);
     }
 }

@@ -167,10 +167,10 @@
                (onHidden)="handlerSalida()"
                (bsValueChange)="onValueChangeSalida($event)"
                [minDate]="minDateSalida"
-               [maxDate]="maxDateIngreso"
                bsDatepicker
                [(ngModel)]="model.salida"
                [dateCustomClasses]="dateCustomClasses"
+               id="fechasalida"
                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
         >
       </label>
@@ -183,7 +183,7 @@
              (click)="datepickerRetorno.toggle()"
              style="outline: none; border: 0; width: 20% !important;">
       <input type="text"
-      readonly
+             readonly
              placeholder="Retorno"
              class="p-0 pl-2 v-texto-3"
              style="outline: none; border: 0; width: 80%"
@@ -195,6 +195,7 @@
              [(ngModel)]="model.retorno"
              [isOpen]="isOpendate"
              (onHidden)="handlerRetorno()"
+             id="fechadestino"
       >
     </label>
                                 </div>

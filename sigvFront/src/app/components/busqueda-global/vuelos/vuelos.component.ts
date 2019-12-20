@@ -524,7 +524,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   onValueChangeRetorno(value: Date): void {
     if (value != null) {
-      this.maxDateIngreso = value;
       this.valfechadestino = false;
       $("#txtFechaDestino").removeClass("campo-invalido");
       let mes = "";

@@ -88,4 +88,8 @@ export class PersonaContactoComponent implements OnInit {
       return false;
   }
   }
+
+  obtenercodigo(value) {
+    $("#hdnTel").val(value);
+  }
 }

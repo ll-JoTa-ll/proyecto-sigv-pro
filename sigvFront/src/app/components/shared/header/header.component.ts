@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-header',
@@ -65,12 +67,21 @@ export class HeaderComponent implements OnInit {
   }
 
   home() {
-    this.router.navigate(['/vuelos']);
+    /*
+    let url: any;
+    url = window.location.href;
+    window.location.reload(url);*/
+    this.sessionStorageService.store('indregresar', false);
+    $(location).attr('href', '/vuelos');
   }
 
   vuelos() {
-    this.router.navigate(['/vuelos']);
-    this.buscar.emit(true);
+/*
+    let url: any;
+    url = window.location.href + '/vuelos';
+    window.location.reload(url);*/
+    this.sessionStorageService.store('indregresar', false);
+    $(location).attr('href', '/vuelos');
   }
 
   cerrarSesion() {
