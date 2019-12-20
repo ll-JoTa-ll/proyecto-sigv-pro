@@ -166,6 +166,8 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
       var interval = setInterval(() => {
         counter--;
         console.log("counter ====>" + counter);
+        this.idinterval = interval;
+        this.sessionStorageService.store("ss_interval",this.idinterval);
         if (counter === 300) {
           this.modalRefSessionExpired = this.modalService.show(ModalAvisoSesionComponent,this.config);
         }
@@ -176,9 +178,6 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
           this.localStorageService.store('ss_countersession',this.sessionFinish);
           this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
           //this.router.navigate(['login'])
-          this.idinterval = interval;
-          this.sessionStorageService.store("ss_interval",this.idinterval);
-
         }
       }, 1000);
     }
@@ -207,7 +206,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    this.startCountDown(780, this.modalexpired);
+    this.startCountDown(900, this.modalexpired);
     console.log("cantidadnoche =====> " +this.cantidadnoche);
     this.sessionFinish = true;
 

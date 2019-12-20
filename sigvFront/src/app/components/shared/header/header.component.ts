@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   empresa;
   myWindow;
   closedSesion: boolean;
+  idinterval: any;
 
   constructor(
     private router: Router,
@@ -25,6 +26,7 @@ export class HeaderComponent implements OnInit {
   ) {
     this.flagTipo = 1;
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+   
     this.nombreUsuario = this.loginDataUser.userName;
     this.gender = this.loginDataUser.gender;
     this.role = this.loginDataUser.orole.roleDescription;
@@ -43,22 +45,32 @@ export class HeaderComponent implements OnInit {
 
       case 1:
         this.router.navigate(['/vuelos']);
+        this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+        clearInterval(this.idinterval);
         break;
 
       case 2:
         this.router.navigate(['/hoteles']);
+        this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+        clearInterval(this.idinterval);
         break;
 
       case 3:
         this.router.navigate(['/buses']);
+        this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+        clearInterval(this.idinterval);
         break;
 
       case 4:
         this.router.navigate(['/paquetes']);
+        this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+        clearInterval(this.idinterval);
         break;
 
       case 5:
         this.router.navigate(['/seguros']);
+        this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+        clearInterval(this.idinterval);
         break;
 
     }
@@ -66,6 +78,8 @@ export class HeaderComponent implements OnInit {
 
   home() {
     this.router.navigate(['/vuelos']);
+    this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+        clearInterval(this.idinterval);
   }
 
   cerrarSesion() {

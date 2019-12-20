@@ -219,7 +219,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           "CorporateCode": this.lstConfirmacion.ohotel.chainCode,
           "Lamenities" :  this.amenities,
         },
-        "LcancelPenalties": this.lstConfirmacion.oroom.lcancelPenalties,
+        //"LcancelPenalties": this.lstConfirmacion.oroom.lcancelPenalties,
         "OcreditCard":
           {
             "CardType": this.nombreTarjeta,
