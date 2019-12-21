@@ -213,7 +213,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     var cerrarsesion;
     cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
     if (cerrarsesion == false) {
-      this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+     
     }
   }
 

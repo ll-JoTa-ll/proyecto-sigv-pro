@@ -128,6 +128,7 @@ import { ResultadoHabitacionComponent } from './components/busqueda-global/hotel
 import { ModalHabitacionErroneaComponent } from './components/shared/modal-habitacion-erronea/modal-habitacion-erronea.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { ModalSesionExpiradaVuelosComponent } from './components/shared/modal-sesion-expirada-vuelos/modal-sesion-expirada-vuelos.component';
+import { ModalCerrarSesionComponent } from './components/shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { IntlInputPhoneModule } from 'intl-input-phone';
 import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
@@ -237,7 +238,8 @@ import { IgxInputGroupModule,IgxSliderModule } from 'igniteui-angular';
     ResultadoHabitacionComponent,
     ModalHabitacionErroneaComponent,
     SafePipe,
-    ModalSesionExpiradaVuelosComponent
+    ModalSesionExpiradaVuelosComponent,
+    ModalCerrarSesionComponent
   ],
   imports: [
     BrowserModule,
@@ -274,7 +276,7 @@ import { IgxInputGroupModule,IgxSliderModule } from 'igniteui-angular';
     IgxInputGroupModule,
 		IgxSliderModule
   ],
-  entryComponents: [ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent],
+  entryComponents: [ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent,ModalCerrarSesionComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
