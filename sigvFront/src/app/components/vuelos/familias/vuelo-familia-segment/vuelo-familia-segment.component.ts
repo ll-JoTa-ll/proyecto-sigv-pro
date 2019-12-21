@@ -68,9 +68,9 @@ export class VueloFamiliaSegmentComponent implements OnInit {
     const segmentIndex = this.segmentIndex;
 
     setTimeout(function() {
-      let heightDivInc = 20 * flagCountInc;
-      let heightDivNof = 20 * flagCountNof;
-      let heightDivCha = 20 * flagCountCha;
+      let heightDivInc = 30 * flagCountInc;
+      let heightDivNof = 30 * flagCountNof;
+      let heightDivCha = 30 * flagCountCha;
       if (heightDivInc === 0 || flagCountInc === 1) {
         heightDivInc = 43;
       }
