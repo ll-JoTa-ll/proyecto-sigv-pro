@@ -177,7 +177,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if (this.ss_login_data === '' || this.ss_login_data === null) {
       this.router.navigate(['/']);
     }
-    const now = new Date(); 
+    const now = new Date();
     this.dateCustomClasses = [
       { date: now, classes: ['bg-danger', 'text-warning'] }
     ];
@@ -208,7 +208,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     //console.log('this.flagCentralizador: ' + this.flagCentralizador);
     //console.log(this.locales);
     this.localeService.use(this.locale);
-    if (!this.flagCentralizador) {
+    if (!this.
+      flagCentralizador) {
       this.sessionStorageService.store('ss_lstPasajeros', null);
       this.flagPaxMasMenos = true;
     } else {

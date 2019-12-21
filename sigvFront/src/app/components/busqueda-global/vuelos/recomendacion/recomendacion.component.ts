@@ -141,6 +141,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   openModal(template: TemplateRef<any>, recommendationId, modalerror) {
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
+    let idVal = 1;
     lstRadioCheck.forEach(function(item) {
       const sectionId = item.sectionId_;
       const segmentId = item.segmentId_;
@@ -153,6 +154,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       let LsegmentGroups_: any[] = [];
       segment.lSegmentGroups.forEach(function(group, i) {
         const dataGroup = {
+          Id: idVal,
           ClassId: section.lSectionGroups[i].classId,
           DepartureDate: group.departureDate,
           TimeOfDeparture: group.timeOfDeparture,
@@ -170,6 +172,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           fareFamilyName: ""
         };
         LsegmentGroups_.push(dataGroup);
+        idVal++;
       });
 
       //Lsegments
@@ -244,12 +247,12 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     this.ObtenerSecciones();
     this.dataRequestFamilia = dataPost;
     let datasecciones = this.ObtenerSecciones();
-    console.log('mis secciones completas:  ' + JSON.stringify(datasecciones));
+    //console.log('mis secciones completas:  ' + JSON.stringify(datasecciones));
     let flagResultFamilias = 0;
-    console.log("dataPost Family INI: " + JSON.stringify(dataPost));
+    //console.log("dataPost Family INI: " + JSON.stringify(dataPost));
     this.familyService.getFareFamily(dataPost).subscribe(
       result => {
-        console.log("result getFareFamily: " + JSON.stringify(result));
+        //console.log("result getFareFamily: " + JSON.stringify(result));
         if (result === null) {
           flagResultFamilias = 0;
         } else {
@@ -270,7 +273,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
                 });
               });
             });
-            console.log("dataPost Family FIN: " + JSON.stringify(dataPost));
+            //console.log("dataPost Family FIN: " + JSON.stringify(dataPost));
             this.requestFamilia = dataPost;
             this.dataseccionesvuelos = datasecciones;
           }
@@ -671,14 +674,14 @@ TraerAutorizador() {
 
 
     //Toda la fila segment blanquear y radio false
-    console.log("Todas las cabeceras del segment blancas");
+    //console.log("Todas las cabeceras del segment blancas");
     lstFamilyResult.lsections.forEach(function(section, indexSection) {
       if (indexSection == section_) {
         section.lsegments.forEach(function(segment, indexSegment) {
           if (indexSegment == segment_) {
             segment.lfareFamilies.forEach(function(fare, indexFare) {
               let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
-              console.log("idSecuencial: " + idSecuencial);
+              //console.log("idSecuencial: " + idSecuencial);
               $("#idRadioFam_" + idSecuencial).prop("checked", false);
               $('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
             });
@@ -689,7 +692,7 @@ TraerAutorizador() {
 
 
     //segment seleccionado guardamos valores y pintamos cabezera y seleccionamos radio
-    console.log("segment seleccionado guardamos valores y pintamos cabezera y seleccionamos radio");
+    //console.log("segment seleccionado guardamos valores y pintamos cabezera y seleccionamos radio");
     lstFamilyResult.lsections.forEach(function(section, indexSection) {
       section.lsegments.forEach(function(segment, indexSegment) {
         if (indexSection == section_) {
@@ -702,13 +705,13 @@ TraerAutorizador() {
                   fareFamilyName = fare.fareFamilyName;
 
                   let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
-                  console.log("idSecuencial: " + idSecuencial);
+                  //console.log("idSecuencial: " + idSecuencial);
                   $("#idRadioFam_" + idSecuencial).prop("checked", true);
                   $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
 
-                  console.log("classId: " + classId);
-                  console.log("classId: " + classId);
-                  console.log("classId: " + classId);
+                  //console.log("classId: " + classId);
+                  //console.log("classId: " + classId);
+                  //console.log("classId: " + classId);
 
                   requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].ClassId = classId;
                   requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].FareBasis = fareBasis;
@@ -828,7 +831,7 @@ TraerAutorizador() {
 
     });
 
-    console.log("flagFareBasisVal: " + flagFareBasisVal);
+    //console.log("flagFareBasisVal: " + flagFareBasisVal);
     //$('#' + this.idRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex + '_' + this.fareFamilyIndex).prop("checked", true);
     if (flagFareBasisVal === 1) {
       /*
@@ -904,7 +907,7 @@ TraerAutorizador() {
     });
     */
 
-    console.log("requestFamiliaRadio: " + JSON.stringify(requestFamilia));
+    //console.log("requestFamiliaRadio: " + JSON.stringify(requestFamilia));
 
     this.flightAvailability(requestFamilia, null, 3, null, seccionvuelos);
   }

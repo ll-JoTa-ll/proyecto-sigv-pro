@@ -42,7 +42,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
       if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-        this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+        
       }
     } else {
       this.text = "clicked outside";
@@ -212,9 +212,9 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           "Lamenities": this.lhotel.lamenities,
         },
         "ORoom":{
-          "Name": this.lsthabitacion.ohotel.hotelName,
-          "Description": this.lsthabitacion.ohotel.hotelDescription,
-          "GuaranteeText": this.lstConfirmacion.ohotel.guarantee,
+          "Name": this.lstConfirmacion.oroom.name,
+          "Description": this.lstConfirmacion.oroom.description,
+          "GuaranteeText": this.lstConfirmacion.oroom.guarantee,
           "BookingCode": this.lstConfirmacion.oroom.bookingCode,
           "CorporateCode": this.lstConfirmacion.ohotel.chainCode,
           "Lamenities" :  this.amenities,

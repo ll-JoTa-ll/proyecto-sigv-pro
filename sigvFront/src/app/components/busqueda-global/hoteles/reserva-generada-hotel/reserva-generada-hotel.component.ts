@@ -33,7 +33,7 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
       if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-        this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+    
       }
     } else {
       this.text = "clicked outside";

@@ -102,7 +102,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     if (heightDivCha === 0 || this.flagCountCha === 1) {
       heightDivCha = 43;
     }
-    /*
+
     console.log('this.flagCountInc' + this.flagCountInc);
     console.log('this.flagCountNof' + this.flagCountNof);
     console.log('this.flagCountCha' + this.flagCountCha);
@@ -110,7 +110,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     console.log('heightDivInc: ' + heightDivInc);
     console.log('heightDivNof: ' + heightDivNof);
     console.log('heightDivCha: ' + heightDivCha);
-    */
+
     $("." + this.classDivInc + this.segmentIndex).height(heightDivInc);
     $("." + this.classDivNof + this.segmentIndex).height(heightDivNof);
     $("." + this.classDivCha + this.segmentIndex).height(heightDivCha);
@@ -125,8 +125,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     const ss_FlightAvailability_request1 = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
     const ss_lstFamilyResult = this.sessionStorageService.retrieve('ss_lstFamilyResult');
 
-    console.log("ss_FlightAvailability_request1: " + JSON.stringify(ss_FlightAvailability_request1));
-    console.log("ss_lstFamilyResult: " + JSON.stringify(ss_lstFamilyResult));
+    //console.log("ss_FlightAvailability_request1: " + JSON.stringify(ss_FlightAvailability_request1));
+    //console.log("ss_lstFamilyResult: " + JSON.stringify(ss_lstFamilyResult));
 
     const sectionIndex = this.sectionIndex;
     const segmentIndex = this.segmentIndex;
@@ -166,9 +166,9 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   }
 
   selectRadioBtnFam(id) {
-    console.log('id: ' + id);
+    //console.log('id: ' + id);
     const familyLength = this.familyLength;
-    console.log('familyLength: ' + familyLength);
+    //console.log('familyLength: ' + familyLength);
     for (let i = 1; i <= familyLength; i++) {
       const idCab = '#' + this.idNameFamilyName + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + i;
       $(idCab).css({'background-color': '#C6C6C6'});
