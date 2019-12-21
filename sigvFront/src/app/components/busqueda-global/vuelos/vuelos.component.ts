@@ -177,7 +177,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if (this.ss_login_data === '' || this.ss_login_data === null) {
       this.router.navigate(['/']);
     }
-    const now = new Date();
+    const now = new Date(); 
     this.dateCustomClasses = [
       { date: now, classes: ['bg-danger', 'text-warning'] }
     ];
