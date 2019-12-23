@@ -41,6 +41,7 @@ export class AddPaxCentralizadorComponent implements OnInit {
     this.sessionStorageService.store('ss_lstPasajeros', this.lstPasajeros);
     this.companyId = this.sessionStorageService.retrieve('ss_companyId');
     this.maxPax = environment.max_pax;
+    this.tipoBusqueda = 'N';
   }
 
   ngOnInit() {
