@@ -36,7 +36,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
       if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-        
+
       }
     } else {
       this.text = "clicked outside";
@@ -151,7 +151,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
-    
+
     //this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     //this.token = this.sessionStorageService.retrieve('ss_token');
 
@@ -211,7 +211,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
 
-    
+
 
   }
 
@@ -226,14 +226,14 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     }, 1000);
   }
 
-  
+
 
   onChangeSearch(val: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
       this.data = resultFilter;
 
       $(".x").hide();
@@ -314,7 +314,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     let menorValor = 1000000;
     let mayorValor = 0;
 
-    
+
     this.LlistaHotel.forEach(function(item) {
       if (item.oprice.pricePerAllNights < menorValor) {
         menorValor = item.oprice.pricePerAllNights;
@@ -418,7 +418,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
           if (result.length == 0 || result == null || result[0].oerror != null) {
             //alert("asdasd")
             this.flagDinData = true;
-            
+
           }
           else{
 

@@ -563,7 +563,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
       this.data = resultFilter;
 
       /*
@@ -625,7 +625,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   onChangeSearch2(val: string) {
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
       this.data2 = resultFilter;
 
       /*
