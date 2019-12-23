@@ -26,6 +26,7 @@ declare var $: any;
 export class HotelesComponent implements OnInit, AfterViewInit {
 
   public text: String;
+  bsValue = new Date();
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
@@ -219,7 +220,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
     this.destinoValue = item.iataCode;
     this.destinoText = item.name;
-    
+    $("#txtOrigen").removeClass("campo-invalido");
     setTimeout(function() {
       $(".x").hide();
     }, 1000);
@@ -265,6 +266,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       dia = "" + value.getDate();
     }
 
+    $("#ingreso").removeClass("campo-invalido");
     this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
 
 
@@ -298,6 +300,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     } else {
       dia = "" + value.getDate();
     }
+    $("#salida").removeClass("campo-invalido");
 
     this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
 
@@ -498,19 +501,19 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   ValidarCampos() {
     let val = true;
 
-    if ($.trim(this.model.origentTextos) === '' || $.trim(this.model.origentTextos) === undefined) {
+    if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
       $("#txtOrigen").addClass("campo-invalido");
       val = false;
     } else {
       $("#txtOrigen").removeClass("campo-invalido");
     }
-    if ($.trim(this.model.origentTextos1) === '' || $.trim(this.model.origentTextos1) === undefined) {
+    if ($('#dateingreso').val().length === 0) {
       $("#ingreso").addClass("campo-invalido");
       val = false;
     } else {
       $("#ingreso").removeClass("campo-invalido");
     }
-    if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
+    if ($('#datesalida').val().length === 0) {
       $("#salida").addClass("campo-invalido");
       val = false;
     } else {

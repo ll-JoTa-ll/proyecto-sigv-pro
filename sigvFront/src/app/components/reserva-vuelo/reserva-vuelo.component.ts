@@ -14,6 +14,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { FlightService } from '../../services/flight.service';
 import { ModalSesionExpiradaComponent } from '../shared/modal-sesion-expirada/modal-sesion-expirada.component';
 import { ModalSesionExpiradaVuelosComponent } from '../shared/modal-sesion-expirada-vuelos/modal-sesion-expirada-vuelos.component';
+import { ModalSesionWarningVuelosComponent } from '../shared/modal-sesion-warning-vuelos/modal-sesion-warning-vuelos.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -27,6 +28,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
   modalRef: BsModalRef;
   modalRefSessionExpired: BsModalRef;
+  modalRefSessionWarning: BsModalRef;
   config = {
     backdrop: true,
     ignoreBackdropClick: true,
@@ -106,7 +108,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.startCountDown(600, this.modalexpired);
+    let count = this.sessionStorageService.retrieve('count');
+    if (count === undefined || count === null || count === '') {
+      count = true;
+    }
+    if (count === true) {
+      this.startCountDown(600, this.modalexpired);
+    }
     console.log('ngAfterViewInit vuelos');
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
@@ -118,6 +126,11 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+    let back;
+    let interval;
+    back = true;
+    this.sessionStorageService.store('indregresar', back);
+    this.sessionStorageService.store('idinterval', this.idinterval);
   }
 
   CostCenter() {
@@ -153,6 +166,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let interval;
     back = true;
     this.sessionStorageService.store('indregresar', back);
+    this.sessionStorageService.store('count', true);
     clearInterval(this.idinterval);
   }
 
@@ -202,6 +216,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     var interval = setInterval(() => {
       counter--;
       console.log(counter);
+      if (counter === 300) {
+        this.modalRefSessionWarning = this.modalService.show(ModalSesionWarningVuelosComponent, this.config);
+      }
       if (counter < 0 ) {
         clearInterval(interval);
         //alert("SI FUCIONA")
@@ -255,13 +272,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         } else {
           $('#txtcorreo_' + (index + 1)).removeClass('campo-invalido');
         }
-     /*   if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
+        if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
           $('#txttelefono_' + (index + 1)).addClass('campo-invalido');
           valtelefono = true;
           val = false;
         } else {
           $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
-        }*/
+        }
     });
     if ($('#contactocorreo').val().length <= 0) {
       $('#contactocorreo').addClass('campo-invalido');
@@ -277,11 +294,11 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       $('#nombrecontacto').removeClass('campo-invalido');
     }
 
-    if (this.telefonocontacto === null || this.telefonocontacto === '' || this.telefonocontacto === undefined) {
-      $('input[name="InputPhone"]').addClass('campo-invalido');
+    if ($('#contactotelefono').val().length <= 0) {
+      $('#contactotelefono').addClass('campo-invalido');
       val = false;
     } else {
-      $('input[name="InputPhone').removeClass('campo-invalido');
+      $('#contactotelefono').removeClass('campo-invalido');
     }
 
     return val;
@@ -306,17 +323,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let email2;
     let telefono2;
     let nombrecontacto;
-    let numero1;
-    console.log('entro', this.numero1);
-    if (this.numero1 !== undefined) {
-      numero1 = this.numero1.Number;
-      console.log('entroo numero pasajero' + this.numero1);
-    }
     email2 = $('#contactocorreo').val();
-    if (this.telefonocontacto !== undefined) {
-      telefono2 = this.telefonocontacto.Number;
-    }
-     //$('#contactotelefono').val();
+    telefono2 = $('#contactotelefono').val();
     nombrecontacto = $('#nombrecontacto').val();
     this.datosuser.forEach(function(item, index) {
       let prefix;
@@ -343,7 +351,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       nrodoc = $('#txtnrodocumento_' + (index + 1)).val();
       prefix = $('#cbotratamiento_' + (index + 1) + ' '  + 'option:selected').val();
       email1 = $('#txtcorreo_' + (index + 1)).val();
-      telefono1 = numero1; //$('#txttelefono_' + (index + 1)).val();
+      telefono1 = $('#txttelefono_' + (index + 1)).val();
       let odocument = {
         description: item.odocument.description,
         number: nrodoc,
@@ -388,6 +396,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/reserva-vuelo-compra']);
     }
   }
+
+
+
   getUidByCompany() {
     console.log("getUidByCompany");
     const companyId = this.loginDataUser.ocompany.companyId;
@@ -413,6 +424,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       }
     );
   }
+  
 
   setInformacionAdicional(lstUidByCompanyC) {
     console.log("setInformacionAdicional");

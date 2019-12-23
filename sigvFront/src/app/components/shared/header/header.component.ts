@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-header',
@@ -16,6 +18,7 @@ export class HeaderComponent implements OnInit {
   role;
   empresa;
   myWindow;
+  @Output() buscar = new EventEmitter<any>();
   closedSesion: boolean;
   idinterval: any;
 
@@ -53,6 +56,8 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['/hoteles']);
         this.idinterval = this.sessionStorageService.retrieve("ss_interval");
         clearInterval(this.idinterval);
+        let idinterval = this.sessionStorageService.retrieve('idinterval');
+        clearInterval(idinterval);
         break;
 
       case 3:
@@ -77,12 +82,34 @@ export class HeaderComponent implements OnInit {
   }
 
   home() {
-    this.router.navigate(['/vuelos']);
-    this.idinterval = this.sessionStorageService.retrieve("ss_interval");
-        clearInterval(this.idinterval);
+    /*
+    let url: any;
+    url = window.location.href;
+    window.location.reload(url);*/
+    this.sessionStorageService.store('indregresar', false);
+    $(location).attr('href', '/vuelos');
+    let idinterval = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(idinterval);
+    this.sessionStorageService.store('count', null);
+  }
+
+  vuelos() {
+/*
+    let url: any;
+    url = window.location.href + '/vuelos';
+    window.location.reload(url);*/
+    this.sessionStorageService.store('indregresar', false);
+    $(location).attr('href', '/vuelos');
+    let idinterval = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(idinterval);
+    this.sessionStorageService.store('count', null);
+    this.sessionStorageService.store('indregresar', null);
   }
 
   cerrarSesion() {
+    let idinterval = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(idinterval);
+    this.sessionStorageService.store('count', null);
     this.sessionStorageService.clear();
     this.router.navigate(['/']);
     this.closedSesion = false;

@@ -61,19 +61,19 @@
                         [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
 
-                  <ng-template #itemTemplate let-item>
-                    <div class="" style="width: 90%">
-                      <div class="row">
-                        <div class="col-1">
-                          <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                          <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                    <ng-template #itemTemplate let-item>
+                        <div class="" style="width: 90%">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                </div>
+                                <div class="col-11">
+                                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-11">
-                          <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-template>
+                    </ng-template>
 
                     <ng-template #notFoundTemplate let-notFound>
                         <div [innerHTML]=""></div>
@@ -91,19 +91,19 @@
                         [notFoundTemplate]="notFoundTemplate2">
                     </ng-autocomplete>
 
-                  <ng-template #itemTemplate2 let-item>
-                    <div class="" style="width: 90%">
-                      <div class="row">
-                        <div class="col-1">
-                          <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                          <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                    <ng-template #itemTemplate2 let-item>
+                        <div class="" style="width: 90%">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                </div>
+                                <div class="col-11">
+                                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-11">
-                          <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </ng-template>
+                    </ng-template>
 
                     <ng-template #notFoundTemplate2 let-notFound>
                         <div [innerHTML]=""></div>
@@ -136,7 +136,7 @@
                      (bsValueChange)="onValueChangeSalida($event)"
                      [minDate]="minDateSalida"
                      bsDatepicker
-                     [(ngModel)]="model.salida"
+                     [bsValue]="fechanow"
                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
               >
             </label>

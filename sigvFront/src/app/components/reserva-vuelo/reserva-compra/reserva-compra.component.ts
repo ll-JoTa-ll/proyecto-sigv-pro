@@ -244,7 +244,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
           }
            htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
            htmlsection += "<div style='width: 40%;'>";
-           htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/Airlines/";
+           htmlsection += "<span class='m-0 p-0'><img style='width: 100px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
            htmlsection += itemsegmentgroup.MarketingCarrier + ".png'></span>";
            htmlsection += "</div>";
            htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
@@ -771,5 +771,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
     Back() {
       this.router.navigate(['/reserva-vuelo']);
+      this.sessionStorageService.store('count', false);
     }
 }

@@ -48,7 +48,6 @@
                                                    (click)="datepickerIngreso.toggle()"
                                                    class="input-img">
                                             <input type="text"
-                                                   [(ngModel)]="model.origentTextos"
                                                    placeholder="Ingreso"
                                                    class="p-0 pl-2 input-date"
                                                    (keypress)="validarTodo($event)"
@@ -59,7 +58,8 @@
                                                    [maxDate]="maxDateIngreso"
                                                    bsDatepicker
                                                    id="dateingreso"
-                                                   [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                                                   [(bsValue)]="bsValue"
+                                                   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
                                             >
                                           </label>
                             </div>
@@ -79,7 +79,7 @@
                                                    [minDate]="minDateSalida"
                                                    bsDatepicker
                                                    id="datesalida"
-                                                   [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                                                   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
                                             >
                                           </label>
                             </div>

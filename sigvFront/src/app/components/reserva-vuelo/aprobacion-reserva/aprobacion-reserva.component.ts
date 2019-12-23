@@ -468,7 +468,7 @@ PlantillaEmailSolicitud() {
        htmlsection += "<div style='width: 100%; border-radius: 20px 20px 20px 20px; background: white; padding: 1em; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);'>";
        htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
        htmlsection += "<div style='width: 40%;'>";
-       htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/Airlines/";
+       htmlsection += "<span class='m-0 p-0'><img style='width: 100px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
        htmlsection += itemsegmentgroup.carrier + ".png'></span>";
        htmlsection += "</div>";
        htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
@@ -671,7 +671,7 @@ PlantillaPreciovuelo() {
   const item = this.reserva.lpolicies[i];
    html+= "<div style='width:100% !important'>";
    html+="<div class='row' style='padding-top: 25px; padding-bottom: 30px; padding-left: 15px;'>";
-   html+="<img style='width: 40px;' src='https://domiruthuatsa.z13.web.core.windows.net/images/calendario.png'><label class='m-0 p-0 pl-3' style='  color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;'>";
+   html+="<img style='width: 40px;' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/calendario.png'><label class='m-0 p-0 pl-3' style='  color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;'>";
    html+= item.name;
    html+="</label>";
    html+="</div>";

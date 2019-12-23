@@ -142,6 +142,8 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     let message;
     let cumple;
     let listaAme;
+    this.telefono = $('#numero').val();
+    console.log("this.telefono===>" + this.telefono);
     cumple = this.user.birthDate;
     cumple = cumple.substring(0,10);
     cumple = cumple.replace(/-/gi,"/");
@@ -230,7 +232,6 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           },
         "OInformationContact":
           {
-            "Area": '01',
             "Name": this.nombreContacto,
             "EmailAddress" : this.correoContacto,
             "Numberphone": this.telefonoContacto
@@ -512,12 +513,6 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       val = false;
     } else {
       $('#correo').removeClass('campo-invalido');
-    }
-    if ($('#area').val().length <= 0) {
-      $('#area').addClass('campo-invalido');
-      val = false;
-    } else {
-      $('#area').removeClass('campo-invalido');
     }
     if ($('#numero').val().length <= 0) {
       $('#numero').addClass('campo-invalido');

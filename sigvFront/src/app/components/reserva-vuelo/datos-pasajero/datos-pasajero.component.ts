@@ -47,15 +47,19 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   tratamiento;
   fecha;
   OutputValue1: NumberResult = new NumberResult();
+  numtel: string = "+51 916 596 911";
+  SelectedCountryISOCode: string = "PE";
   //valtelefono = false;
   //valcorreo = false;
 
   @Input() htmlTxtP;
 
   constructor(private modalService: BsModalService, private sessionStorageService : SessionStorageService) {
+  /*  $("#telephone").intlTelInput({
+  });*/
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.configOption3 = new ConfigurationOptions();
-    this.configOption3.SelectorClass = "OptionType3";
+    this.configOption3.SelectorClass = "InputValidation2";
     this.configOption3.OptionTextTypes = [];
     this.configOption3.OptionTextTypes.push(ContentOptionsEnum.Flag);
     this.configOption3.OptionTextTypes.push(ContentOptionsEnum.CountryName);
@@ -63,7 +67,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    $("#phone").intlTelInput();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
     } else {
@@ -102,6 +105,73 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     this.OutputValue1 = outputResult;
     console.log(this.OutputValue1);
     this.numtelefono.emit(this.OutputValue1);
+  }
+
+  Solotexto(event) {
+    var regex = new RegExp("^[a-zA-Z ]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+      event.preventDefault();
+      return false;
+    }
+  }
+
+  obtenercodigo(value) {
+    $("#hdnTel_" + this.index).val(value);
+    let valor = $('#cbopaises option:selected').attr('data-countryCode');
+    console.log(valor);
+    if (valor === 'CO') {
+       $('#txttelefono_' + this.index).attr('maxlength', '10');
+    }
+    if (valor === 'PA') {
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
+   }
+    if (valor === 'PE') {
+    $('#txttelefono_' + this.index).attr('maxlength', '10');
+    }
+    if (valor === 'AR') {
+      $('#txttelefono_' + this.index).attr('maxlength', '13');
+      }
+    if (valor === 'EC') {
+        $('#txttelefono_' + this.index).attr('maxlength', '10');
+      }
+    if (valor === 'PY') {
+          $('#txttelefono_' + this.index).attr('maxlength', '10');
+      }
+    if (valor === 'UY') {
+        $('#txttelefono_' + this.index).attr('maxlength', '9');
+    } 
+    if (valor === 'VE') {
+      $('#txttelefono_' + this.index).attr('maxlength', '11');
+  } 
+    if (valor === 'CL') {
+    $('#txttelefono_' + this.index).attr('maxlength', '9');
+} 
+    if (valor === 'BR') {
+  $('#txttelefono_' + this.index).attr('maxlength', '11');
+} 
+    if (valor === 'BO') {
+  $('#txttelefono_' + this.index).attr('maxlength', '8');
+} 
+    if (valor === 'US') {
+  $('#txttelefono_' + this.index).attr('maxlength', '10');
+} 
+    if (valor === 'MX') {
+  $('#txttelefono_' + this.index).attr('maxlength', '13');
+}
+    if (valor === 'CA') {
+  $('#txttelefono_' + this.index).attr('maxlength', '10');
+}
+    if (valor === 'CR') {
+  $('#txttelefono_' + this.index).attr('maxlength', '8');
+}
+    if (valor === 'CU') {
+  $('#txttelefono_' + this.index).attr('maxlength', '9');
+}
+  }
+
+  llenarnumero() {
+
   }
 
   ValidarCampos() {

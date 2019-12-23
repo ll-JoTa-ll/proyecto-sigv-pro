@@ -130,6 +130,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   lstResult1: any[] = [];
   lstResult2: any[] = [];
+  isOpendate = false;
+  bsValue: Date;
 
   constructor(
     private airportService: AirportService,
@@ -179,10 +181,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.dateCustomClasses = [
       { date: now, classes: ['bg-danger', 'text-warning'] }
     ];
-
   }
 
   ngOnInit() {
+    this.bsValue = new Date();
     $(".x").hide();
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
@@ -206,22 +208,33 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     //console.log('this.flagCentralizador: ' + this.flagCentralizador);
     //console.log(this.locales);
     this.localeService.use(this.locale);
-    if (!this.flagCentralizador) {
+    if (!this.
+      flagCentralizador) {
       this.sessionStorageService.store('ss_lstPasajeros', null);
       this.flagPaxMasMenos = true;
     } else {
       this.flagPaxMasMenos = false;
     }
+    /*
+    let backvuelo;
+    backvuelo = this.sessionStorageService.retrieve('backvuelo');
+    if (backvuelo === true) {
+      this.flagBuscar = false;
+      this.flagBuscadorLateral = false;
+      this.flagCentralizador = false;
+    }
+*/
 
     this.indback = this.sessionStorageService.retrieve('indregresar');
     let tipovuelo;
     if (this.indback === true) {
      // this.SearchFlight2();
+     let idinterval = this.sessionStorageService.retrieve('idinterval');
+     clearInterval(idinterval);
      let databuscador = this.sessionStorageService.retrieve('objbuscador');
      let dataRequestFlight = this.sessionStorageService.retrieve('ss_databuscador');
      if (dataRequestFlight != null) {
       tipovuelo = databuscador.tipovuelo;
-
       if (tipovuelo === 'OW' || tipovuelo === 'RT') {
         let lstdata = this.sessionStorageService.retrieve('ss_searchFlight');
         this.setLstAerolineas(lstdata);
@@ -343,6 +356,28 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
   }
 
+  /*
+  mostrarbuscador($event) {
+    let buscar = $event;
+    if (buscar === true) {
+      this.flagBuscar = false;
+      this.flagBuscadorLateral = false;
+      this.flagCentralizador = false;
+      this.origenAuto = null;
+      this.origentTexto = null;
+      this.destinoAuto = null;
+      this.destinoTexto = null;
+      this.textoEscala = null;
+      this.textoCabina = null;
+      this.pasajeros = null;
+      this.fechaSalidaShow = null;
+      this.fechaRetornoShow = null;
+      this.fechaSalida = null;
+      this.fechaRetorno = null;
+      this.tipoVuelo = null;
+    }
+  }
+*/
   SearchFlight2() {
     this.spinner.show();
     this.flagDinData = false;
@@ -449,10 +484,14 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
   */
   handlerSalida(datepickerSalida) {
-    console.log("salio");
+    this.isOpendate = true;
   }
 
-  onValueChangeSalida(value: Date): void {
+  handlerRetorno() {
+    this.isOpendate = true;
+  }
+
+  onValueChangeSalida(value: Date, dateretorno: any): void {
     this.valfechasalida = false;
     $("#txtFechaSalida").removeClass("campo-invalido");
     this.minDateRetorno = value;
@@ -487,7 +526,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   onValueChangeRetorno(value: Date): void {
     if (value != null) {
-      this.maxDateIngreso = value;
       this.valfechadestino = false;
       $("#txtFechaDestino").removeClass("campo-invalido");
       let mes = "";
@@ -839,8 +877,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         }
       );
     }
-
-
 
 
     let data = {

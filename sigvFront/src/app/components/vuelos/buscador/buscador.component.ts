@@ -119,6 +119,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   fechaText;
   model: any = {};
   lstAutocomplete: any[] = [];
+  fechanow: Date;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -189,19 +190,26 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     switch (tipoVuelo) {
       case 'RT':
         $('#radio_b_tv_1').prop("checked", true);
-        this.model.salida = fechaSalidaShow;
-        this.model.retorno = fechaRetornoShow;
+        $('#datepickerSalida').val(fechaSalidaShow);
+       // this.model.salida = fechaSalidaShow;
+        console.log('holaa', this.model.salida);
+        //this.model.retorno = fechaRetornoShow;
+        $('#datepickerRetorno').val(fechaRetornoShow);
        // $('#datepickerSalida').val(fechaSalidaShow);
        // $('#datepickerRetorno').val(fechaRetornoShow);
         break;
       case 'OW':
         $('#radio_b_tv_2').prop("checked", true);
-        this.model.salida = fechaSalidaShow;
+       // this.model.salida = fechaSalidaShow;
+        $('#datepickerSalida').val(fechaSalidaShow);
         //$('#datepickerSalida').val(fechaSalidaShow);
         break;
       case 'MC':
         $('#radio_b_tv_3').prop("checked", true);
         break;
+    }
+    if (fechaSalidaShow === null) {
+      this.fechanow = new Date();
     }
 
     if (this.flagFilterVuelo === true) {
@@ -257,7 +265,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 1) {
       this.origenAuto = item.iataCode;
       this.origentTexto = item.name;
-      this.textorigen = item.name;
+      this.origenText = item.name;
       $("#txtOrigen").removeClass("campo-invalido");
      // $(".x").show();
       console.log(this.origentTexto);
@@ -266,7 +274,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 2) {
       this.destinoAuto = item.iataCode;
       this.destinoTexto = item.name;
-      this.textdestino = item.name;
+      this.destinoText = item.name;
       $("#txtDestino").removeClass("campo-invalido");
      // $(".x").show();
       console.log(this.destinoTexto);
@@ -606,9 +614,9 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
     if (this.tipoVuelo === 'RT' || this.tipoVuelo === 'OW') {
         objcampos = {
-        origen: this.textorigen,
+        origen: this.origenText,
         origencode: this.origenAuto,
-        destino: this.textdestino,
+        destino: this.destinoText,
         destinocode: this.destinoAuto,
         fechasalida: $('#datepickerSalida').val(),
         fechadestino: $('#datepickerRetorno').val(),

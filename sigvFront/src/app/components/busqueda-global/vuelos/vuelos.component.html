@@ -164,14 +164,13 @@
                class="p-0 pl-2 v-texto-3"
                style="outline: none; border: 0; width: 80%"
                #datepickerSalida="bsDatepicker"
-               (onHidden)="handlerSalida(datepickerSalida)"
+               (onHidden)="handlerSalida()"
                (bsValueChange)="onValueChangeSalida($event)"
                [minDate]="minDateSalida"
-               [maxDate]="maxDateIngreso"
                bsDatepicker
-               [(ngModel)]="model.salida"
-               [dateCustomClasses]="dateCustomClasses"
-               [outsideEsc]="clickfecha1()"
+               id="fechasalida"
+               [bsValue]="bsValue"
+               value=""
                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
         >
       </label>
@@ -189,12 +188,14 @@
              class="p-0 pl-2 v-texto-3"
              style="outline: none; border: 0; width: 80%"
              #datepickerRetorno="bsDatepicker"
-             (onHidden)="handlerSalida(datepickerRetorno)"
              (bsValueChange)="onValueChangeRetorno($event)"
              [minDate]="minDateRetorno"
              bsDatepicker
              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
              [(ngModel)]="model.retorno"
+             [isOpen]="isOpendate"
+             (onHidden)="handlerRetorno()"
+             id="fechadestino"
       >
     </label>
                                 </div>

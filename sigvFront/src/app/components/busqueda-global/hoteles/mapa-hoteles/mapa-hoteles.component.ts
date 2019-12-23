@@ -8,6 +8,7 @@ import { HotelService } from '../../../../services/hotel.service';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { environment } from '../../../../../environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 declare var jquery: any;
 declare var $: any;
 
@@ -55,7 +56,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private sessionStorageService: SessionStorageService,
-
+    private router: Router,
     private localStorageService: LocalStorageService,
     public spinner: NgxSpinnerService
   ) {
@@ -143,7 +144,8 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
         
         this.sessionStorageService.store("lstHabication", this.lstHabication);
 
-        window.open(environment.url_project + "/habitacion");
+        this.router.navigate(['/habitacion']);
+        //window.open(environment.url_project + "/habitacion");
       },
       err => {
       this.spinner.hide();

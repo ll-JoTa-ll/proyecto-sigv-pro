@@ -28,6 +28,10 @@ export class FiltroNombrehotelComponent implements OnInit {
   }
 
 
+  public change(event){
+    this.FiltrarNombre();
+ }
+
   FiltrarNombre() {
     this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
     let nombre;
