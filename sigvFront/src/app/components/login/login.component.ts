@@ -65,10 +65,9 @@ export class LoginComponent implements OnInit {
     this.sessionStorageService.store('ss_login_data', '');
     this.localStorageService.store('ss_token', '');
     this.localStorageService.store("ss_closedSesion", null);
-
-
-
   }
+
+  
 
   click(){
     var el = document.getElementById('module');
@@ -134,7 +133,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.userid = this.datoslogin.userId;
 
-          this.airportList();
+          this.airportListPriority();
         }
       }
     );
@@ -152,7 +151,6 @@ export class LoginComponent implements OnInit {
     let data = {
       userId: this.userid
     };
-
     this.service.GetUser(data.userId).subscribe(
       result => {
 
@@ -197,6 +195,35 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/gestion-reserva-vuelo']);
         } else {
           this.router.navigate(['/vuelos']);
+        }
+      }
+    );
+  }
+
+  airportListPriority() {
+    this.airportService.airportListPriority(this.token).subscribe(
+      (result: any) => {
+        let lstairport;
+        //console.log(result);
+        //this.airportlist = result.lairport;
+        this.localStorageService.store('ls_airportlist', result.lairport);
+        this.localStorageService.store('ls_citylist', result.lcity);
+      },
+
+      (err) => {
+        this.spinner.hide();
+        },
+
+      () => {
+        this.spinner.hide();
+        let id = this.rutaActiva.snapshot.params.id;
+        //console.log("Service airportList complete");
+        //$(location).attr("href", "/vuelos");
+        if (id == 1) {
+          this.router.navigate(['/gestion-reserva-vuelo']);
+        } else {
+          this.router.navigate(['/vuelos']);
+          this.airportList();
         }
       }
     );

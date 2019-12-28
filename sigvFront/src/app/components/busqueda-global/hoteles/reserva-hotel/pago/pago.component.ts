@@ -49,10 +49,6 @@ export class PagoComponent implements OnInit {
   ngOnInit() {
     this.reserva = this.sessionStorageService.retrieve("confirmacion");
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
-    console.log(this.reserva.oroom.lcancelPenalties);
-    
-    
-    
   }
 
   validarTarjeta() {

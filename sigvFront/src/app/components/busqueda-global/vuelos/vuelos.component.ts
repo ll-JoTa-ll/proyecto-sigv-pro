@@ -8,7 +8,7 @@ import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import { DatepickerDateCustomClasses} from 'ngx-bootstrap/datepicker/models';
 import {consoleTestResultHandler} from 'tslint/lib/test';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import * as crypto from 'crypto-js';
 
 declare var jquery: any;
@@ -40,6 +40,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   destinoTexto: string;
 
   tipoVuelo: string;
+  cont = 0;
 
   keyword = 'name';
   data: any[] = [];
@@ -134,6 +135,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   bsValue: Date;
 
   constructor(
+    private rutaActiva: ActivatedRoute,
     private airportService: AirportService,
     private localeService: BsLocaleService,
     private sessionStorageService: SessionStorageService,
@@ -141,6 +143,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     public spinner: NgxSpinnerService,
     private router: Router
   ) {
+    
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
     $('.menu-hotel-1').show();
@@ -174,6 +177,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.vueloTurnoFiltro = false;
     this.flagBuscadorLateral = false;
     this.ss_login_data = this.sessionStorageService.retrieve('ss_login_data');
+
+
+    
+
     if (this.ss_login_data === '' || this.ss_login_data === null) {
       this.router.navigate(['/']);
     }
@@ -184,6 +191,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    
     this.bsValue = new Date();
     $(".x").hide();
     $('#menu-vuelo-1').hide();
@@ -315,31 +323,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       }
      }
     }
-    const lstAutocomplete = this.lstAutocomplete;
-    this.airportlist.forEach(function (aeropuerto) {
-      const obj1 = {
-        iataCode: aeropuerto.iataCode,
-        name: aeropuerto.name,
-        searchName: aeropuerto.searchName,
-        priority: aeropuerto.priority,
-        categoryId: 1,
-        categoryName: 'Aeropuerto'
-      };
-      lstAutocomplete.push(obj1);
-    });
-    this.citylist.forEach(function (ciudad) {
-      const obj1 = {
-        iataCode: ciudad.iataCode,
-        name: ciudad.name,
-        searchName: ciudad.searchName,
-        priority: ciudad.priority,
-        categoryId: 2,
-        categoryName: 'Ciudad'
-      };
-      lstAutocomplete.push(obj1);
-    });
-    lstAutocomplete.sort((a, b) => b.priority - a.priority );
-    this.lstAutocomplete = lstAutocomplete;
+    
   }
 
 
@@ -354,6 +338,36 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+
+    
+  }
+
+  airportList() {
+    this.airportService.airportList(this.token).subscribe(
+      (result: any) => {
+        let lstairport;
+        //console.log(result);
+        //this.airportlist = result.lairport;
+        this.localStorageService.store('ls_airportlist1', result.lairport);
+        this.localStorageService.store('ls_citylist1', result.lcity);
+      },
+
+      (err) => {
+        this.spinner.hide();
+        },
+
+      () => {
+        this.spinner.hide();
+        let id = this.rutaActiva.snapshot.params.id;
+        //console.log("Service airportList complete");
+        //$(location).attr("href", "/vuelos");
+        if (id == 1) {
+          this.router.navigate(['/gestion-reserva-vuelo']);
+        } else {
+          this.router.navigate(['/vuelos']);
+        }
+      }
+    );
   }
 
   /*
@@ -559,6 +573,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   onChangeSearch(val: string) {
+
+    this.lstAutocomplete = this.localStorageService.retrieve('ls_airportlist');
+    this.citylist = this.localStorageService.retrieve('ls_citylist');
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();

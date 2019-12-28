@@ -59,17 +59,12 @@ export class ResultadoComponent implements OnInit {
 
   constructor(private localStorageService: LocalStorageService,public spinner: NgxSpinnerService,private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router) {
 
-    console.log("ResultadoComponent constructor");
 
   }
 
   ngOnInit() {
-    console.log("ResultadoComponent ngOnInit");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
-    console.log("this.loginDataUser: " + JSON.stringify(this.loginDataUser));
-    console.log("this.lstHotel: " + JSON.stringify(this.lstHotel));
-    console.log("this.LHoteles: " + JSON.stringify(this.LHoteles));
 
     if (this.lstHotel[0].numberPassenger > 1) {
       this.personas = "adultos"

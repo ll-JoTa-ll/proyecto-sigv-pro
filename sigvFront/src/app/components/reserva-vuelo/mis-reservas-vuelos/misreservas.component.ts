@@ -26,6 +26,8 @@ export class MisReservasVueloComponent implements OnInit, AfterViewInit {
   listadoreserva;
   listadoreservahotel;
   p: number[] = [];
+  idinterval: any;
+  idinterval1: any;
 
   constructor(private service: AirportService,
               private serviceHotel: HotelService,
@@ -38,6 +40,10 @@ export class MisReservasVueloComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.ObtenerReservas();
     this.ObtenerReservasHoteles();
+    this.idinterval = this.sessionstorage.retrieve("ss_interval");
+    clearInterval(this.idinterval);
+    this.idinterval1 = this.sessionstorage.retrieve('idinterval');
+    clearInterval(this.idinterval1);
   }
 
   ngAfterViewInit() {

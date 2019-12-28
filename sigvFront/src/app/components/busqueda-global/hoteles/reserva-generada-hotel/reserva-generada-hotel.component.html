@@ -56,7 +56,7 @@
                                                 </div>
                                                 <div class='row m-0 p-0'>
                                                     <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 0px 15px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.pnr}}</div>
-                                                    <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 15px 0px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.lpassengers[0].codeConfirmation}}</div>
+                                                    <div style='width: 50%; padding-top: 13px; padding-bottom: 10px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 15px 0px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.lpassengers[0].codeConfirmation}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -85,12 +85,12 @@
                                     <div class="col-4 m-0 p-0">
                                         <div class="row m-0 p-0 pt-3 pb-4">
                                             <div class="col-12 m-0 p-0" style="padding: 1em; background: white; border: 2px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border-radius: 15px 0px 15px 0px">
-                                                <div class="row m-0 p-0 pt-3">
+                                                <div class="row m-0 p-0 pb-3">
                                                     <div class="col-4 m-0 p-0 pt-4">
                                                         <span class="Pricefin">Precio Final</span>
                                                     </div>
-                                                    <div class="col-8 m-0 p-0">
-                                                        <span class="pl-4"><span class="Moneda"></span><span class="Amount pl-2">{{reserva.oitineraryInfos.priceTotal}}</span></span>
+                                                    <div class="col-8 m-0 p-0 pt-4">
+                                                        <span class="pl-3"><span class="Moneda"></span><span class="Amount pl-2">{{reserva.oitineraryInfos.priceTotal}}</span></span>
                                                     </div>
                                                 </div>
                                                 <ng-container *ngIf="habitacion.ohotel.numberNights === 1; else elseTemplate" class="row m-0 p-0">
@@ -144,9 +144,12 @@
                                                     <div class="col-6 m-0 p-0">
                                                         <span>{{habitacion.ohotel.checkIn}}</span>
                                                     </div>
-                                                    <div class="col-6 m-0 p-0 pl-4">
+                                                    <ng-container *ngIf="habitacion.ohotel.checkOut != null && habitacion.ohotel.checkOut != ''; else elseTemplate4" class="col-6 m-0 p-0 pl-4">
                                                         <span>{{habitacion.ohotel.checkOut}}</span>
-                                                    </div>
+                                                    </ng-container>
+                                                    <ng-template #elseTemplate4 class="col-6 m-0 p-0 pl-4">
+                                                        <span class="pl-4">Sin Información</span>
+                                                    </ng-template>
                                                 </div>
                                             </div>
                                         </div>
@@ -193,7 +196,7 @@
                                         <span class=""><span class="pl-2"></span><span class="Dates">Check out: {{habitacion.ohotel.checkOut}}</span></span>
                                     </ng-container>
                                     <ng-template #elseTemplate2 class="col-3 m-0 p-0">
-                                        <span class=""><span class="pl-2"></span><span class="Dates">Check out: Sin informacion</span></span>
+                                        <span class=""><span class="pl-2"></span><span class="Dates">Check out: Sin información</span></span>
                                     </ng-template>
 
                                     <div class="col-3 m-0 p-0">
@@ -205,12 +208,12 @@
 
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 pt-3">
-                                <span class="huesped">HUESPEDES</span>
+                                <span class="huesped">HUÉSPEDES</span>
                             </div>
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 pt-4">
-                                <span class="titular">Titular Habitacion 1</span>
+                                <span class="titular">Titular Habitación 1</span>
                             </div>
                         </div>
                         <div class="row m-0 p-0 pt-3">
@@ -218,7 +221,7 @@
                                 <span class="title">NOMBRE COMPLETO</span>
                             </div>
                             <div class="col-6 m-0 p-0">
-                                <span class="title">TELEFONO</span>
+                                <span class="title">TELÉFONO</span>
                             </div>
                         </div>
                         <div class="row m-0 p-0">
@@ -257,4 +260,4 @@
 
 
     </app-header>
-</ng-container>n
+</ng-container>

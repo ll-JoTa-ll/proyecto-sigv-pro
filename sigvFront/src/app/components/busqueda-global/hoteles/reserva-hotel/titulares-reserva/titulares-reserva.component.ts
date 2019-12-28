@@ -32,11 +32,6 @@ export class TitularesReservaComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log("this.user.email ==>"+this.user.email);
-    console.log("this.user.email ==>"+this.user.email);
-    console.log("this.user.email ==>"+this.user.email);
-    console.log("this.user.email ==>"+this.user.email);
-    console.log("this.user.email ==>"+this.user.email);
   }
 
   validarCorreo() {
@@ -60,7 +55,6 @@ export class TitularesReservaComponent implements OnInit {
   obtenercodigo(value) {
     $("#hdnTel_").val(value);
     let valor = $('#cbopaises option:selected').attr('data-countryCode');
-    console.log(valor);
     if (valor === 'CO') {
        $('#fonoTitu').attr('maxlength', '10');
     }

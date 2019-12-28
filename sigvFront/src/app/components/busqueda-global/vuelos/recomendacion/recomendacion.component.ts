@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 import { IFamilyResultModel } from '../../../../models/IFamilyResult.model';
 import { environment } from '../../../../../environments/environment';
 import { IGetApprovers } from '../../../../models/IGetApprovers.model';
+import { stringify } from '@angular/compiler/src/util';
+import { ModalFamiliasVaciasComponent } from '../../../shared/modal-familias-vacias/modal-familias-vacias.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -58,6 +60,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   lstFamilyResult: IFamilyResultModel;
   lsFlightAvailabilty: IFlightAvailability;
   flagResultFamilias: number;
+  modalRefSessionExpired: BsModalRef;
 
   flagPseudoRepeat: boolean;
   lstPseudoRepeat: any[] = [];
@@ -290,13 +293,35 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         const requestFamilia = this.requestFamilia;
         const lstFamilyResult = this.lstFamilyResult;
 
-        requestFamilia.Lsections.forEach(function (section, indexSection) {
-          lstFamilyResult.lsections.forEach(function (section2, indexSection2) {
-            if (indexSection === indexSection2) {
-              //const fff = section.Lsegments[0]
-            }
+        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
+        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
+        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
+        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
+        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
+        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
+
+        console.log("lstFamilyResult ======> " +lstFamilyResult);
+
+        if (lstFamilyResult === undefined) {
+          //this.modalRefSessionExpired = this.modalService.show(ModalFamiliasVaciasComponent,this.config);
+        }else{
+
+          requestFamilia.Lsections.forEach(function (section, indexSection) {
+            lstFamilyResult.lsections.forEach(function (section2, indexSection2) {
+              if (indexSection === indexSection2) {
+                //const fff = section.Lsegments[0]
+              }
+            });
           });
-        });
+        }
+
+        console.log("flagResultFamilias ======>" + flagResultFamilias);
+        console.log("flagResultFamilias ======>" + flagResultFamilias);
+        console.log("flagResultFamilias ======>" + flagResultFamilias);
+        console.log("flagResultFamilias ======>" + flagResultFamilias);
+        console.log("flagResultFamilias ======>" + flagResultFamilias);
+        console.log("flagResultFamilias ======>" + flagResultFamilias);
+        console.log("flagResultFamilias ======>" + flagResultFamilias);
 
         if (flagResultFamilias === 1) {
           this.flightAvailability(dataPost, modalerror, 2, template, datasecciones);

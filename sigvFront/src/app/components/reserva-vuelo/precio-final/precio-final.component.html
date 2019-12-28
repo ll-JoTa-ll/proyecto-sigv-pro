@@ -13,12 +13,12 @@
                     <div class="col-6 m-0 p-0 pt-3">
                         <span class="div-price pl-4 pr-4 pt-1 pb-1">Precio Final</span>
                     </div>
-                    <div *ngIf="tipo === 1 || tipo === 2 || tipo === 3" class="col-6 m-0 p-0 text-right pt-3 pr-5">
+                    <div *ngIf="tipo === 1 || tipo === 2 || tipo === 3" class="col-6 m-0 p-0 text-right pt-3 pr-5 pb-3">
                         <span tooltip="Vuelo con descuento corporativo." *ngIf="LSection[0].Lsegments[0].FareType==='RB'" class="pr-4"><img src="./assets/images/medalla.svg"></span>
                         <span tooltip="Vuelo con infracción de políticas." *ngIf="Lpolicies.length > 0" class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
                         <span *ngIf="Lpolicies.length === 0" class="circulo-politica1"></span>
                     </div>
-                    <div *ngIf="tipo === 4" class="col-6 m-0 p-0 text-right pt-3 pr-5">
+                    <div *ngIf="tipo === 4" class="col-6 m-0 p-0 text-right pt-3 pr-5 pb-3">
                         <span tooltip="Vuelo con descuento corporativo." *ngIf="Litineraries[0].fareType ==='RB' && tipo === 4" class="pr-4"><img src="./assets/images/medalla.svg"></span>
                         <span tooltip="Vuelo con infracción de políticas." *ngIf="Lpolicies.length > 0" class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
                         <span *ngIf="Lpolicies.length === 0" class="circulo-politica1"></span>

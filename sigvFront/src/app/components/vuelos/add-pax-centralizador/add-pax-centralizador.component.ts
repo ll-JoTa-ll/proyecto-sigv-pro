@@ -20,6 +20,7 @@ export class AddPaxCentralizadorComponent implements OnInit {
   nombreText: string;
   documentoText: string;
   companyId;
+  datoslogin;
   lstPerson: IUserCompanyModel[] = [];
   lstPasajeros: IUserCompanyModel[] = [];
   maxPax: number;
@@ -40,6 +41,7 @@ export class AddPaxCentralizadorComponent implements OnInit {
   ) {
     this.sessionStorageService.store('ss_lstPasajeros', this.lstPasajeros);
     this.companyId = this.sessionStorageService.retrieve('ss_companyId');
+    this.datoslogin = this.sessionStorageService.retrieve('ss_login_data');
     this.maxPax = environment.max_pax;
     this.tipoBusqueda = 'N';
   }
@@ -52,6 +54,7 @@ export class AddPaxCentralizadorComponent implements OnInit {
   }
 
   search() {
+    
     this.spinner.show();
     const tipoBusqueda = this.tipoBusqueda;
     let freeText = '';
@@ -63,7 +66,13 @@ export class AddPaxCentralizadorComponent implements OnInit {
       freeText = this.documentoText;
     }
 
-    this.userCompanyService.getUserByCompany(this.companyId, freeText).subscribe(
+    const datos = {
+      OCompany: this.datoslogin.ocompany,
+      OAgency: this.datoslogin.oAgency,
+      FreeText: freeText,
+    };
+
+    this.userCompanyService.getUserByCompany(datos).subscribe(
       result => {
         this.lstPerson = result;
       },

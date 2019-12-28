@@ -67,6 +67,17 @@ export class AirportService {
     return this.http.get<IAirportList>(this._url + "GetAirports", httpOptions2);
   }
 
+  airportListPriority(token): Observable<IAirportList> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    console.log('token' + token);
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + token,
+      'Content-Type': "application/json",
+      'Access-Control-Allow-Origin' : '*'
+    });
+    return this.http.get<IAirportList>(this._url + "GetPriorityAirports", httpOptions2);
+  }
+
   searchFlight(data): Observable<ISearchFlightModel[]> {
    this.token = this.sessionSt.retrieve('ss_token');
    httpOptions2.headers = new HttpHeaders({

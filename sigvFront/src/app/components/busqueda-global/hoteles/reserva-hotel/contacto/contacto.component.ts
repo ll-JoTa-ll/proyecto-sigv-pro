@@ -85,7 +85,6 @@ validarArea() {
 obtenercodigo(value) {
   $("#hdnTel_").val(value);
   let valor = $('#cbopaises option:selected').attr('data-countryCode');
-  console.log(valor);
   if (valor === 'CO') {
      $('#numero').attr('maxlength', '10');
   }

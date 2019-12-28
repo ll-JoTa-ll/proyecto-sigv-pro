@@ -48,7 +48,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion");
       if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-        this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+        
       }
     } else {
       this.text = "clicked outside";
@@ -130,7 +130,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
 
     if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-      this.modalRefSessionExpired = this.modalService.show(ModalCerrarSesionComponent,this.config);
+    
     }
 
     if (this.lhotel.numberPassenger > 1) {
@@ -156,7 +156,6 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     //  this.t = 0;
     //  let tt = this.t;
     //  setInterval(function(){
-    //   console.log(tt++);
     //   sessionStorageService.store("ss_timer_hoteles_v1", tt);
     //  },1000);
   }
@@ -165,7 +164,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
       var counter = seconds;
       var interval = setInterval(() => {
         counter--;
-        console.log("counter ====>" + counter);
+        console.log(counter);
         this.idinterval = interval;
         this.sessionStorageService.store("ss_interval",this.idinterval);
         if (counter === 300) {
@@ -206,8 +205,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    this.startCountDown(900, this.modalexpired);
-    console.log("cantidadnoche =====> " +this.cantidadnoche);
+    this.startCountDown(720, this.modalexpired);
     this.sessionFinish = true;
 
     var cerrarsesion;

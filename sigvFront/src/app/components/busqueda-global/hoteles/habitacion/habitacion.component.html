@@ -134,21 +134,21 @@
                                             </div>
                                             <div class="row m-0 p-0 pt-3 pb-4">
                                                 <div class="col-12 m-0 p-0 box-shadow">
-                                                    <div class="row m-0 p-0 pt-3">
+                                                    <div class="row m-0 p-0 pb-3">
                                                         <div class="col-4 m-0 p-0 pt-4">
                                                             <span class="Pricefin">Precio Final</span>
                                                         </div>
-                                                        <div class="col-8 m-0 p-0">
+                                                        <div class="col-8 m-0 p-0 pt-4">
                                                             <span class="pl-4"><span class="Moneda">{{lhotel.oprice.currency}}</span><span class="Amount pl-2">{{lhotel.oprice.pricePerAllNights}}</span></span>
                                                         </div>
                                                     </div>
 
-                                                    <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate" class="row m-0 p-0">
+                                                    <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate" class="row m-0 p-0 pt-3">
                                                         <div class="col-12 m-0 p-0">
                                                             <span class="textopre">{{lhotel.numberNights}} noche para {{lhotel.numberPassenger}} {{this.adultos}}</span>
                                                         </div>
                                                     </ng-container>
-                                                    <ng-template #elseTemplate class="row m-0 p-0">
+                                                    <ng-template #elseTemplate class="row m-0 p-0 pt-3">
                                                         <div class="col-12 m-0 p-0">
                                                             <span class="textopre">{{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} {{this.adultos}}</span>
                                                         </div>

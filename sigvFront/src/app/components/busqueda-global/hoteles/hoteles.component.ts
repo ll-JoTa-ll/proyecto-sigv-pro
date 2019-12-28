@@ -32,7 +32,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   clickout(event) {
     if(this.eRef.nativeElement.contains(event.target)) {
       this.text = "clicked inside";
-      console.log(this.text);
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
       if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
@@ -40,7 +39,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       }
     } else {
       this.text = "clicked outside";
-      console.log(this.text);
     }
   }
 
@@ -98,6 +96,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   airportlist: any[] = [];
   citylist: any[] = [];
   flagPriceHotel = false;
+ 
 
   constructor(
     private router: Router,
@@ -111,7 +110,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     private eRef: ElementRef
   ) {
 
-    console.log('constructor hoteles');
     $('.menu-vuelo-1').show();
     $('.menu-vuelo-2').hide();
     $('.menu-hotel-1').hide();
@@ -138,7 +136,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.user = this.sessionStorageService.retrieve('ss_user');
-    console.log('ngOnInit hoteles');
     $('#menu-vuelo-1').show();
     $('#menu-vuelo-2').hide();
     $('#menu-hotel-1').hide();
@@ -199,7 +196,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    console.log('ngOnInit hoteles');
     $('#menu-vuelo-1').show();
     $('#menu-vuelo-2').hide();
     $('#menu-hotel-1').hide();
@@ -478,13 +474,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   searchFlightBuscador($event) {
     this.LlistaHotel = [];
     if ($event === null) {
-      console.log("this.spinner.hide()");
       this.spinner.hide();
     } else {
       this.LlistaHotel = $event;
     }
-    console.log("searchFlightBuscador");
-    console.log("$event: " + $event);
     this.sessionStorageService.store('ls_search_hotel', this.LlistaHotel);
 
     if (this.LlistaHotel[0].oerror != null) {
@@ -569,8 +562,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   }
 
   updateMiniBusqueda($event) {
-    console.log("updateMiniBusqueda: " + $event);
     this.flagPriceHotel = $event;
   }
+
+ 
 
 }
