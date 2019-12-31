@@ -6,6 +6,7 @@ import { ILoginDatosModel } from '../../../../models/ILoginDatos.model';
 import { HotelService } from '../../../../services/hotel.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
+import { environment } from '../../../../../environments/environment.prod';
 declare var jquery: any;
 declare var $: any;
 
@@ -273,12 +274,10 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
             this.flagDinData = true;
           }
           else {
-            
           this.sessionStorageService.store('ss_minibuscador', result);
 
           //this.sessionStorageService.store('ls_search_hotel', result);
           //this.LlistaHotel = result;
-          
           this.sessionStorageService.store('hotel', null);
           this.sessionStorageService.store('hotel', result[0]);
 
@@ -292,7 +291,6 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
        },
        err => {
         this.spinner.hide();
-        
        },
        () => {
          this.spinner.hide();

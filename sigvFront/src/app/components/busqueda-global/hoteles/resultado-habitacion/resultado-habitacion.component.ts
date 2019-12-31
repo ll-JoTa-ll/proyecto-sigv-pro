@@ -6,6 +6,7 @@ import { ILoginDatosModel } from '../../../../models/ILoginDatos.model';
 import { IHotelResultsModel } from '../../../../models/IHotelResults.model';
 import { IHabitacionResults } from '../../../../models/IHabitacionResults';
 import { environment } from '../../../../../environments/environment';
+import { Router } from '@angular/router';
 
 declare var jquery: any;
 declare var $: any;
@@ -40,7 +41,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   urlimg = './assets/images/hotel-icon.png';
   
 
-  constructor(public spinner: NgxSpinnerService,private service: HotelService,private sessionStorageService: SessionStorageService) {
+  constructor(private router : Router,public spinner: NgxSpinnerService,private service: HotelService,private sessionStorageService: SessionStorageService) {
 
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
@@ -91,7 +92,7 @@ export class ResultadoHabitacionComponent implements OnInit {
         this.lstHabication = data;
         
         this.sessionStorageService.store("lstHabication", this.lstHabication);
-
+        //this.router.navigate(['/habitacion']);
         window.open(environment.url_project + "/habitacion");
       },
       err => {

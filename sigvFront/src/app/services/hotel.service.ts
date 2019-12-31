@@ -109,7 +109,8 @@ GetHabitacion(data): Observable<IHabitacionResults> {
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
     });
-    return this.http.post<IGetReservaDetalleHotel>(this.url_getreservation + "GetReservationDetails", data, httpOptions);
+    const url = `${this.url_getreservation + 'GetReservationDetails'}?${'pnr=' + data}`;
+    return this.http.get<IGetReservaDetalleHotel>(url, httpOptions);
   }
 
 }
