@@ -1,4 +1,3 @@
-<!--
 <ng-container>
     <app-header>
         <div class="row m-0 p-0">
@@ -22,15 +21,15 @@
 
                                         <div class="row m-0 p-0 pb-4">
                                             <div class="col-6" style="padding-top: 30px;">
-                                                <span class="txtCiudad pr-4">{{confirmacion.ohotel.name}}</span>
+                                                <span class="txtCiudad pr-4">{{detailsHotel.hotelName}}</span>
                                                 <span class="star-filtro"> </span>
-                                                <span class="ml-3" *ngIf="habitacion.ohotel.stars  === 5"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
-                                                <span class="ml-3" *ngIf="habitacion.ohotel.stars  === 4"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
-                                                <span class="ml-3" *ngIf="habitacion.ohotel.stars  === 3"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
-                                                <span class="ml-3" *ngIf="habitacion.ohotel.stars  === 2"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
-                                                <span class="ml-3" *ngIf="habitacion.ohotel.stars  === 1"><img src="./assets/images/star.svg"></span>
+                                                <span class="ml-3" *ngIf="detailsHotel.starts  === 5"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                                                <span class="ml-3" *ngIf="detailsHotel.starts  === 4"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                                                <span class="ml-3" *ngIf="detailsHotel.starts  === 3"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                                                <span class="ml-3" *ngIf="detailsHotel.starts  === 2"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                                                <span class="ml-3" *ngIf="detailsHotel.starts  === 1"><img src="./assets/images/star.svg"></span>
                                                 <br>
-                                                <span class="txtdis pr-4">{{habitacion.ohotel.cityName}}. A {{lhotel.oairportDistance.distance}} km  del  aeropuerto</span>
+                                                <span class="txtdis pr-4">{{detailsHotel.cityCode}}. A 0.9 km  del  aeropuerto</span>
 
                                                 <img for="happy" class="option-happy pb-2" (click)="Mostrarmapa()" style="width:23px;" src="./assets/images/qqq.png"><label for="happy" class="option-happy" (click)="Mostrarmapa()">Ver Mapa</label>
 
@@ -40,30 +39,21 @@
                                                 <div class="tooltipBagDiv box-shadow animated fadeIn fast">
                                                     <span class="title-modal">Vista de mapa</span>
                                                     <a class="btn-close" (click)="OcultarMapa()">X</a>
-                                                    <agm-map [latitude]="lhotel.oposition.latitude" [zoom]="15" [longitude]="lhotel.oposition.longitude">
-                                                        <agm-marker [latitude]="lhotel.oposition.latitude" [longitude]="lhotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
+                                                    <agm-map [latitude]="detailsHotel.latitude" [zoom]="15" [longitude]="detailsHotel.longitude">
+                                                        <agm-marker [latitude]="detailsHotel.latitude" [longitude]="detailsHotel.longitude" [iconUrl]="urlimg"></agm-marker>
                                                     </agm-map>
-                                                    <span class="hotel-nombre">{{habitacion.ohotel.hotelName}}</span>
+                                                    <span class="hotel-nombre">{{detailsHotel.nameRoom}}</span>
                                                 </div>
                                             </div>
-                                            <div class="col-6" style="padding-top: 50px;">
-                                                <div class='row m-0 p-0'>
-                                                    <div style='width: 50%; height: 55px; padding-top: 13px; background: #6B253C 0% 0% no-repeat padding-box; border-radius: 15px 0px 0px 0px; color: #FFFFFF; text-align: center; font-size: 22px;font-family: Omnes-med;'>Código Reserva</div>
-                                                    <div style='width: 50%; height: 55px; padding-top: 13px; background: #6B253C 0% 0% no-repeat padding-box; border-radius: 0px 15px 0px 0px; color: #FFFFFF; text-align: center; font-size: 22px;font-family: Omnes-med;'>Código Confirmacion</div>
-                                                </div>
-                                                <div class='row m-0 p-0'>
-                                                    <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 0px 15px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.pnr}}</div>
-                                                    <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 15px 0px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.lpassengers[0].codeConfirmation}}</div>
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row m-0 p-0">
                                     <div class="col-12 pt-4 pb-4">
                                         <div class="row m-0 p-0">
-                                            <div *ngIf="habitacion.ohotel.lamenities != null && habitacion.ohotel.lamenities.length > 0" class="col-12 m-0 p-0">
-                                                <span *ngFor="let item of habitacion.ohotel.lamenities" class="pl-3"><span class="pl-2"><img style="width: 30px;" src="./assets/images/{{item.code}}.png"></span><span class="Condition pl-3">{{item.description}}</span></span>
+                                            <div *ngIf="detailsHotel.lroomlAmenity != null && detailsHotel.lroomlAmenity.length > 0" class="col-12 m-0 p-0">
+                                                <span *ngFor="let item of detailsHotel.lroomlAmenity" class="pl-3"><span class="pl-2"><img style="width: 30px;" src="./assets/images/{{item.code}}.png"></span><span class="Condition pl-3">{{item.description}}</span></span>
                                             </div>
                                         </div>
                                     </div>
@@ -73,12 +63,12 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <div class="row m-0 p-0">
-                                    <ng-container *ngIf="habitacion.ohotel.limagens != null && habitacion.ohotel.limagens.length > 0; else elseTemplate1" class="col-8 m-0 p-0">
+                                    <!--    <ng-container *ngIf="habitacion.ohotel.limagens != null && habitacion.ohotel.limagens.length > 0; else elseTemplate1" class="col-8 m-0 p-0">
                                         <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="{{habitacion.ohotel.limagens[0].url}}">
                                     </ng-container>
                                     <ng-template #elseTemplate1>
                                         <img class="pl-2 pt-4" style="width: 800px; height: 600px; border-radius: 15px 0px 15px 0px;" src="./assets/images/imagenotfound.jfif">
-                                    </ng-template>
+                                    </ng-template>-->
                                     <div class="col-4 m-0 p-0">
                                         <div class="row m-0 p-0 pt-3 pb-4">
                                             <div class="col-12 m-0 p-0" style="padding: 1em; background: white; border: 2px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border-radius: 15px 0px 15px 0px">
@@ -87,10 +77,10 @@
                                                         <span class="Pricefin">Precio Final</span>
                                                     </div>
                                                     <div class="col-8 m-0 p-0">
-                                                        <span class="pl-4"><span class="Moneda"></span><span class="Amount pl-2">{{reserva.oitineraryInfos.priceTotal}}</span></span>
+                                                        <span class="pl-4"><span class="Moneda"></span><span class="Amount pl-2">{{detailsHotel.totalAmount}}</span></span>
                                                     </div>
                                                 </div>
-                                                <ng-container *ngIf="habitacion.ohotel.numberNights === 1; else elseTemplate" class="row m-0 p-0">
+                                                <!--      <ng-container *ngIf="habitacion.ohotel.numberNights === 1; else elseTemplate" class="row m-0 p-0">
                                                     <div class="col-12 m-0 p-0">
                                                         <span class="textopre">{{habitacion.ohotel.numberNights}} noche para {{habitacion.ohotel.lguestPerRoom[0].numberPassengers}} persona</span>
                                                     </div>
@@ -99,7 +89,7 @@
                                                     <div class="col-12 m-0 p-0">
                                                         <span class="textopre">{{habitacion.ohotel.numberNights}} noches para {{habitacion.ohotel.lguestPerRoom[0].numberPassengers}} persona</span>
                                                     </div>
-                                                </ng-template>
+                                                </ng-template>-->
 
 
                                                 <div class="row m-0 p-0">
@@ -107,7 +97,7 @@
 
                                                     </div>
                                                     <div class="col-11 m-0 p-0 pb-3 pr-2">
-                                                        <span class="textopremin">✓ {{reserva.oitineraryInfos.descriptionRoom}}</span>
+                                                        <span class="textopremin">✓ {{detailsHotel.descriptionRoom}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,33 +118,19 @@
                                             </div>
                                             <div class="col-12 m-0 p-0">
                                                 <div class="Date row m-0 p-0">
-                                                    <div class="col-6 m-0 p-0">
-                                                        <span>{{confirmacion.oroom.startDate}}</span>
-                                                    </div>
                                                     <div class="col-6 m-0 p-0 pl-4">
-                                                        <span>{{confirmacion.oroom.endDate}}</span>
+                                                        <span>{{detailsHotel.endDate}}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 m-0 p-0 pb-5">
-                                                <div class="hours row m-0 p-0">
-                                                    <div class="col-6 m-0 p-0">
-                                                        <span>{{habitacion.ohotel.checkIn}}</span>
-                                                    </div>
-                                                    <div class="col-6 m-0 p-0 pl-4">
-                                                        <span>{{habitacion.ohotel.checkOut}}</span>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="row m-0 p-0">
                                             <span> <img style="width: 30px;" src="./assets/images/telephone.png"></span><span class="txtphono pl-3">TELÉFONO DE CONTACTO:</span>
                                         </div>
-                                        <div class="row m-0 p-0">
-                                            <div class="col-12 m-0 p-0 pt-3 pl-5">
-                                                <span></span><span class="phono">{{reserva.oitineraryInfos.numberPhone}}</span>
-                                            </div>
-                                        </div>
+
                                         <div class="row m-0 p-0 pt-5">
                                             <div class="col-12 m-0 p-0">
                                                 <button class="btn" (click)="Mostrarmapa()">
@@ -170,13 +146,8 @@
                         </div>
                         <div class="row m-0 p-0 pt-4">
                             <div class="col-12 m-0 p-0 box-shadow pt-4 pl-4 pb-3">
-                                <div class="row m-0 p-0">
-                                    <div class="col-12 m-0 p-0 pb-3">
-                                        <span class="condi pl-3">Condiciones:</span>
-                                        <span class="Description pl-3">{{reserva.oitineraryInfos.penality}}</span>
-                                    </div>
-                                </div>
-                                <div class="row m-0 p-0">
+
+                                <!-- <div class="row m-0 p-0">
                                     <div class="col-3 m-0 p-0 text-center">
                                         <span class=""><span class="pl-2"><img src="./assets/images/horarios.svg"></span><span class="Dates pl-3">Horarios</span></span>
                                     </div>
@@ -194,7 +165,9 @@
                                     <div class="col-3 m-0 p-0">
                                         
                                     </div>
-                                </div>
+                                </div>-->
+
+
                             </div>
                         </div>
 
@@ -212,17 +185,13 @@
                             <div class="col-6 m-0 p-0">
                                 <span class="title">NOMBRE COMPLETO</span>
                             </div>
-                            <div class="col-6 m-0 p-0">
-                                <span class="title">TELEFONO</span>
-                            </div>
+
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-6 m-0 p-0">
-                                <input disabled="" type="text" value="{{reserva.lpassengers[0].name}} {{reserva.lpassengers[0].lastName}}" class="input-names box-shadow" style="width: 380px; height: 38px;">
+                                <input disabled="" type="text" value="{{detailsHotel.namePassenger}} {{detailsHotel.lastNamePassenger}}" class="input-names box-shadow" style="width: 380px; height: 38px;">
                             </div>
-                            <div class="col-6 m-0 p-0">
-                                <input disabled="" type="text" value="{{reserva.lpassengers[0].phone}}" class="input-names box-shadow" style="width: 380px; height: 38px;">
-                            </div>
+
                         </div>
                         <div class="row m-0 p-0 pt-5">
                             <div class="col-4 m-0 p-0">
@@ -252,4 +221,4 @@
 
 
     </app-header>
-</ng-container>-->
+</ng-container>

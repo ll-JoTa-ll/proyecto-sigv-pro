@@ -8,6 +8,7 @@ import { iGetReservation } from '../../../models/IGetReservation.model';
 import { IGetReservationHotel } from '../../../models/IGetReservationHotel.model';
 import { HotelService } from '../../../services/hotel.service';
 import { IGetReservaDetalleHotel } from '../../../models/IGetReservaDetalleHotel.model';
+import { stringify } from '@angular/compiler/src/util';
 
 declare var jquery: any;
 declare var $: any;
@@ -121,12 +122,12 @@ GetReserva(pnr, pseudo) {
 GetReservaHotel(pnr){
   this.spinner.show();
   const data = {
-    "UserId": this.loginDataUser.userId,
-    "Pnr": pnr,
+    "Pnr": pnr
   }
-  this.serviceHotel.GetReservationHotel(data).subscribe(
+  this.serviceHotel.GetReservationHotel(data.Pnr).subscribe(
     result => {
       this.gethotel = result;
+      console.log("result ===>" + result)
       this.sessionstorage.store('ss_getreservahotel',this.gethotel);
       this.router.navigate(['/detalle-reserva-hotel']);
     },
@@ -137,6 +138,7 @@ GetReservaHotel(pnr){
     }
   );
 }
+
 
 ShowVuelos(){
   var z = document.getElementById("todos");

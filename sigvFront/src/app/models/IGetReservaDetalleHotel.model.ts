@@ -1,5 +1,4 @@
 export class IGetReservaDetalleHotel {
-
     cityCode: string;
     hotelName: string;
     endDate: string;
