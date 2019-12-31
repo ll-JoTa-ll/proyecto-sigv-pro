@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   public text: String;
 
-  
+
 
   model: any = {};
   checkedRecuerdame: boolean;
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
     private airportService: AirportService,
     private rutaActiva: ActivatedRoute,
     private modalService: BsModalService,
-    
+
     //private location: Location
   ) {
     this.checkedRecuerdame = true;
@@ -65,9 +65,12 @@ export class LoginComponent implements OnInit {
     this.sessionStorageService.store('ss_login_data', '');
     this.localStorageService.store('ss_token', '');
     this.localStorageService.store("ss_closedSesion", null);
+    console.log(crypto.SHA256("domiadmin").toString());
+    console.log(crypto.SHA256("domiadmin").toString());
+    console.log(crypto.SHA256("domiadmin").toString());
   }
 
-  
+
 
   click(){
     var el = document.getElementById('module');
@@ -170,7 +173,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  
+
 
   airportList() {
     this.airportService.airportList(this.token).subscribe(
