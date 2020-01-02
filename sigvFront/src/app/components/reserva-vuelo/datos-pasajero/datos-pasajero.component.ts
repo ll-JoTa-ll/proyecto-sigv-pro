@@ -124,50 +124,50 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
        $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'PA') {
-      $('#txttelefono_' + this.index).attr('maxlength', '8');
-   }
+       $('#txttelefono_' + this.index).attr('maxlength', '8');
+    }
     if (valor === 'PE') {
-    $('#txttelefono_' + this.index).attr('maxlength', '10');
+       $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'AR') {
       $('#txttelefono_' + this.index).attr('maxlength', '13');
-      }
+    }
     if (valor === 'EC') {
         $('#txttelefono_' + this.index).attr('maxlength', '10');
-      }
+    }
     if (valor === 'PY') {
-          $('#txttelefono_' + this.index).attr('maxlength', '10');
-      }
+        $('#txttelefono_' + this.index).attr('maxlength', '10');
+    }
     if (valor === 'UY') {
         $('#txttelefono_' + this.index).attr('maxlength', '9');
     } 
     if (valor === 'VE') {
       $('#txttelefono_' + this.index).attr('maxlength', '11');
-  } 
+    } 
     if (valor === 'CL') {
     $('#txttelefono_' + this.index).attr('maxlength', '9');
-} 
+    } 
     if (valor === 'BR') {
-  $('#txttelefono_' + this.index).attr('maxlength', '11');
-} 
+    $('#txttelefono_' + this.index).attr('maxlength', '11');
+    } 
     if (valor === 'BO') {
-  $('#txttelefono_' + this.index).attr('maxlength', '8');
-} 
+    $('#txttelefono_' + this.index).attr('maxlength', '8');
+    } 
     if (valor === 'US') {
-  $('#txttelefono_' + this.index).attr('maxlength', '10');
-} 
+    $('#txttelefono_' + this.index).attr('maxlength', '10');
+    } 
     if (valor === 'MX') {
-  $('#txttelefono_' + this.index).attr('maxlength', '13');
-}
+    $('#txttelefono_' + this.index).attr('maxlength', '13');
+    }
     if (valor === 'CA') {
-  $('#txttelefono_' + this.index).attr('maxlength', '10');
-}
+    $('#txttelefono_' + this.index).attr('maxlength', '10');
+    }
     if (valor === 'CR') {
-  $('#txttelefono_' + this.index).attr('maxlength', '8');
-}
+    $('#txttelefono_' + this.index).attr('maxlength', '8');
+    }
     if (valor === 'CU') {
-  $('#txttelefono_' + this.index).attr('maxlength', '9');
-}
+    $('#txttelefono_' + this.index).attr('maxlength', '9');
+    }
   }
 
   llenarnumero() {

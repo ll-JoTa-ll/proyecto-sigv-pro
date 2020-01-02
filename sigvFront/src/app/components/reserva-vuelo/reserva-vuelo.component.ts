@@ -333,7 +333,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       let fechanacimiento;
       let typedoc;
       let nrodoc;
-      let email1 : any;
+      let email1: any;
       let telefono1;
 
       let fechatotal;
