@@ -80,6 +80,8 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   lhotel;
   counter;
 
+  opentarjeta = true;
+
   amenities: any;
 
 
@@ -153,7 +155,8 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     cumple = cumple.substring(0,10);
     cumple = cumple.replace(/-/gi,"/");
     const val= this.ValidarCampos();
-    if (!val) {
+    const valcorreo = this.ValidarCorreo();
+    if (!val || !valcorreo) {
       return val;
     }
     else{
@@ -217,16 +220,23 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           "Longitude": this.lhotel.oposition.longitude,
           "Starts": this.lhotel.stars,
           "Lamenities": this.lhotel.lamenities,
+          "TypeDistance": this.lhotel.oairportDistance.type,
+          "Distance": this.lhotel.oairportDistance.distance
         },
         "ORoom":{
           "Name": this.lstConfirmacion.oroom.name,
           "Description": this.lstConfirmacion.oroom.description,
           "GuaranteeText": this.lstConfirmacion.oroom.guarantee,
+          "NumberNights": this.lhotel.numberNights,
+          "CheckIn": this.lsthabitacion.ohotel.checkIn,
+          "CheckOut": this.lsthabitacion.ohotel.checkOut,
           "BookingCode": this.lstConfirmacion.oroom.bookingCode,
           "CorporateCode": this.lstConfirmacion.ohotel.chainCode,
+          "Address": this.lsthabitacion.ohotel.address,
           "Lamenities" :  this.amenities,
         },
-        //"LcancelPenalties": this.lstConfirmacion.oroom.lcancelPenalties,
+        "Limagens": this.lsthabitacion.ohotel.limagens,
+        "LcancelPenalties": this.lstConfirmacion.oroom.lcancelPenalties,
         "OcreditCard":
           {
             "CardType": this.nombreTarjeta,
@@ -464,11 +474,27 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     this.areaContacto = $event;
   }
 
+ValidarCorreo() {
+  let val;
+  let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if (regex.test($('#correo').val().trim())) {
+   val = true;
+  } else {
+   val = false;
+  }
+  return val;
+}
+
   ValidarCampos() {
     let val = true;
     let correo;
     correo = $("#correoTitu").val();
 
+    if ($('#correo').val().length <= 0) {
+      $('#correo').addClass('campo-invalido');
+    } else {
+      $('#correo').removeClass('campo-invalido');
+    }
     if ($('#correoTitu').val().length <= 0) {
       val = false;
       $('#correoTitu').addClass('campo-invalido');
@@ -485,9 +511,11 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     }
     if ($('#numeroTarjeta').val().length <= 0) {
       $('#numeroTarjeta').addClass('campo-invalido');
+      this.sessionStorageService.store("ss_tarjeta",this.opentarjeta);
       val = false;
     } else {
       $('#numeroTarjeta').removeClass('campo-invalido');
+      this.sessionStorageService.store("ss_tarjeta",false);
     }
     if ($('#fechaVencimiento').val().length <= 0) {
       $('#fechaVencimiento').addClass('campo-invalido');

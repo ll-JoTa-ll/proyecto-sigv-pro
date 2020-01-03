@@ -22,6 +22,7 @@ export class ContactoComponent implements OnInit {
   telefono: string;
   area: string;
   nombre: string;
+  inderror: boolean;
 
   constructor() {
     
@@ -46,7 +47,18 @@ export class ContactoComponent implements OnInit {
  };
 
  validarCorreo() {
-  let correo = this.correo;
+  let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if ($('#correo').val().length <= 0) {
+    $('#correo').addClass('campo-invalido');
+  } else {
+    $('#correo').removeClass('campo-invalido');
+  }
+  if (regex.test($('#correo').val().trim())) {
+    this.inderror = false;
+  } else {
+    this.inderror = true;
+  }
+let correo = this.correo;
  
   if (correo.length == 3) {
     correo += '' ;

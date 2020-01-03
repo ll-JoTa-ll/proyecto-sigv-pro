@@ -90,7 +90,7 @@
                                                         <span class="Pricefin">Precio Final</span>
                                                     </div>
                                                     <div class="col-8 m-0 p-0 pt-4">
-                                                        <span class="pl-3"><span class="Moneda"></span><span class="Amount pl-2">{{reserva.oitineraryInfos.priceTotal}}</span></span>
+                                                        <span class="pl-1"><span class="Moneda"></span><span class="Amount pl-1">{{reserva.oitineraryInfos.priceTotal}}</span></span>
                                                     </div>
                                                 </div>
                                                 <ng-container *ngIf="habitacion.ohotel.numberNights === 1; else elseTemplate" class="row m-0 p-0">
@@ -145,7 +145,7 @@
                                                         <span>{{habitacion.ohotel.checkIn}}</span>
                                                     </div>
                                                     <ng-container *ngIf="habitacion.ohotel.checkOut != null && habitacion.ohotel.checkOut != ''; else elseTemplate4" class="col-6 m-0 p-0 pl-4">
-                                                        <span>{{habitacion.ohotel.checkOut}}</span>
+                                                        <span class="pl-4">{{habitacion.ohotel.checkOut}}</span>
                                                     </ng-container>
                                                     <ng-template #elseTemplate4 class="col-6 m-0 p-0 pl-4">
                                                         <span class="pl-4">Sin Información</span>

@@ -74,7 +74,7 @@
                                 <div id="txtOrigen" class="m-0 p-0 txtOrigen" style="width: 75%">
 
                                     <div class="ng-autocomplete" style="width: 100%;">
-                                        <ng-autocomplete [(ngModel)]="model.origentTexto" popover="Falta ingresar el origen" triggers="" [isOpen]="isOpen" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (keyup)="carga()" (inputChanged)='onChangeSearch($event)'
+                                        <ng-autocomplete [(ngModel)]="model.origentTexto" popover="Falta ingresar el origen" triggers="" [isOpen]="isOpen" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
                                             (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                                         </ng-autocomplete>
 

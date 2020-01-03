@@ -36,6 +36,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   @Output() hideComponent = new EventEmitter<boolean>();
   @Output() listado = new EventEmitter<IHotelResultsModel[]>();
 
+  
+
   @Input() destinoValue: string;
   @Input() destinoText: string;
 
@@ -61,6 +63,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   estrellas: string;
   model: any = {};
   flagDinData: boolean;
+  noches: any;
   
   objSearch : any;
 
@@ -97,6 +100,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     this.sessionMini = this.sessionStorageService.retrieve('ss_sessionmini');
     this.ss_minibuscador = this.localStorageService.retrieve('ss_minibuscador');
     this.ls_search_hotel = this.localStorageService.retrieve('ls_search_hotel');
+    this.noches = this.sessionStorageService.retrieve('ss_noches');
    // this.sessionStorageService.store('ss_token', this.loginDataUser.token);
   //  this.token = this.sessionStorageService.retrieve('ss_token');
     this.textoestrellas = this.sessionMini1.categoria;
@@ -358,6 +362,7 @@ ObtenerDias2(fecha1, fecha2) {
  
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
+  this.noches = this.sessionStorageService.store('ss_noches',this.cantidadnoches);
 }
 
 validarNumeros(e){

@@ -27,7 +27,8 @@
         </div>
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0">
-                <input type="email" id="correo" placeholder="example@gmail.com" (keyup)="validarCorreo()" [(ngModel)]="correo" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
+                <input type="text" id="correo" placeholder="example@gmail.com" (keydown)="validarCorreo()" (keyup)="validarCorreo()" [(ngModel)]="correo" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
+                <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La direccion de correo es invalida</div>
             </div>
         </div>
         <div class="row m-0 p-0">
