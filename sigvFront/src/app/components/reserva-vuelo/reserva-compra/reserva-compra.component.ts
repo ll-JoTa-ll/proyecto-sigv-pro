@@ -171,6 +171,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     }
     this.Obtenerstring();
     this.ObtenerstringReserva();
+    let idinterval = this.sessionStorageService.retrieve('idinterval');
     let data = {
     "UserId": this.loginDataUser.userId,
     "GDS": this.gds,
@@ -192,6 +193,9 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         results => {
         // tslint:disable-next-line: indent
         this.pnrresults = results;
+        if (results != null) {
+         clearInterval(idinterval);
+        }
         // tslint:disable-next-line: max-line-length
         if (this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length > 0 || this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length === 0) {
           this.router.navigate(['/reserva-generada-vuelo']);

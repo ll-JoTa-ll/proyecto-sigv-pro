@@ -203,12 +203,18 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           return;
       }
     });
+    return val;
+  }
+
+  ValidarCorreoContacto() {
+    let val;
+    let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (regex.test($('#contactocorreo').val().trim())) {
       val = true;
     } else {
      val = false;
     }
-     return val;
+    return val;
   }
 
   startCountDown(seconds, template) {
@@ -252,6 +258,12 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           val = false;
         } else {
           $('#txtnrodocumento_' + (index + 1)).removeClass('campo-invalido');
+        }
+        if ($('#txtnacionalidad_' + (index + 1)).val().length <= 0) {
+          $('#txtnacionalidad_' + (index + 1)).addClass('campo-invalido');
+          val = false;
+        } else {
+          $('#txtnacionalidad_' + (index + 1)).removeClass('campo-invalido');
         }
         if ($('#cbo_tipodocumento_' + (index + 1)).val().trim() === '') {
           $('#cbo_tipodocumento_' + (index + 1)).addClass('campo-invalido');
@@ -384,7 +396,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     }
     const valcorreo = this.ValidarCorreo();
     const val = this.ValidarCampos();
-    if (!val || !valcorreo) {
+    const valmail = this.ValidarCorreoContacto();
+    if (!val || !valcorreo || !valmail) {
       return val;
     } else {
       this.sessionStorageService.store('contacto', contacto);

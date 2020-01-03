@@ -186,6 +186,11 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       } else {
         $('#txtapellidos_' + (index + 1)).removeClass('campo-invalido');
       }
+      if ($('#txtnacionalidad_' + (index + 1)).val().length <= 0) {
+        $('#txtnacionalidad_' + (index + 1)).addClass('campo-invalido');
+      } else {
+        $('#txtnacionalidad_' + (index + 1)).removeClass('campo-invalido');
+      }
       if ($('#txtnrodocumento_' + (index + 1)).val().length <= 0) {
         $('#txtnrodocumento_' + (index + 1)).addClass('campo-invalido');
       } else {

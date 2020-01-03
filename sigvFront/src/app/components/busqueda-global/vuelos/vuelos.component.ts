@@ -143,7 +143,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     public spinner: NgxSpinnerService,
     private router: Router
   ) {
-    
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
     $('.menu-hotel-1').show();
@@ -178,9 +177,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.flagBuscadorLateral = false;
     this.ss_login_data = this.sessionStorageService.retrieve('ss_login_data');
 
-
-    
-
     if (this.ss_login_data === '' || this.ss_login_data === null) {
       this.router.navigate(['/']);
     }
@@ -191,7 +187,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    
     this.bsValue = new Date();
     $(".x").hide();
     $('#menu-vuelo-1').hide();
@@ -319,11 +314,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.fechaSalidaShow4 = databuscador.fechasalida4;
         this.fechaSalidaShow5 = databuscador.fechasalida5;
         this.fechaSalidaShow6 = databuscador.fechasalida6;
-
       }
      }
     }
-    
   }
 
 
