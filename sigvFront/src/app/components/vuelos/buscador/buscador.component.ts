@@ -1163,11 +1163,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   //ORIGEN
   updateOrigenTramoValue1($event) {
     this.origenAuto1 = $event;
+    this.origenAuto = $event;
     console.log("updateOrigenTramoValue1");
     console.log(this.origenAuto1);
   }
   updateOrigenTramoValue2($event) {
     this.origenAuto2 = $event;
+    console.log("updateOrigenTramoValue2");
     console.log(this.origenAuto2);
   }
   updateOrigenTramoValue3($event) {
@@ -1188,9 +1190,14 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
   updateOrigenTramoText1($event) {
     this.origentTexto1 = $event;
+    this.origenText = $event;
+    console.log("updateOrigenTramoText1");
+    console.log(this.origentTexto1);
   }
   updateOrigenTramoText2($event) {
     this.origentTexto2 = $event;
+    console.log("updateOrigenTramoText2");
+    console.log(this.origentTexto2);
   }
   updateOrigenTramoText3($event) {
     this.origentTexto3 = $event;
@@ -1208,10 +1215,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   //DESTINO
   updateDestinoTramoValue1($event) {
     this.destinoAuto1 = $event;
+    this.destinoAuto = $event;
+    console.log("updateDestinoTramoValue1");
     console.log(this.destinoAuto1);
   }
   updateDestinoTramoValue2($event) {
     this.destinoAuto2 = $event;
+    console.log("updateDestinoTramoValue2");
     console.log(this.destinoAuto2);
   }
   updateDestinoTramoValue3($event) {
@@ -1232,9 +1242,14 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
   updateDestinoTramoText1($event) {
     this.destinoTexto1 = $event;
+    this.destinoText = $event;
+    console.log("updateDestinoTramoText1");
+    console.log(this.destinoTexto1);
   }
   updateDestinoTramoText2($event) {
     this.destinoTexto2 = $event;
+    console.log("updateDestinoTramoText2");
+    console.log(this.destinoTexto2);
   }
   updateDestinoTramoText3($event) {
     this.destinoTexto3 = $event;
