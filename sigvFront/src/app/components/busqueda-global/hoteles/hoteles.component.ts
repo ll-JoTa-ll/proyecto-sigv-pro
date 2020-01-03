@@ -32,15 +32,13 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   clickout(event) {
     if(this.eRef.nativeElement.contains(event.target)) {
       this.text = "clicked inside";
-      console.log(this.text);
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
       if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-        
+
       }
     } else {
       this.text = "clicked outside";
-      console.log(this.text);
     }
   }
 
@@ -98,6 +96,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   airportlist: any[] = [];
   citylist: any[] = [];
   flagPriceHotel = false;
+ 
 
   constructor(
     private router: Router,
@@ -111,7 +110,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     private eRef: ElementRef
   ) {
 
-    console.log('constructor hoteles');
     $('.menu-vuelo-1').show();
     $('.menu-vuelo-2').hide();
     $('.menu-hotel-1').hide();
@@ -138,7 +136,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.user = this.sessionStorageService.retrieve('ss_user');
-    console.log('ngOnInit hoteles');
     $('#menu-vuelo-1').show();
     $('#menu-vuelo-2').hide();
     $('#menu-hotel-1').hide();
@@ -151,7 +148,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
-    
+
     //this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     //this.token = this.sessionStorageService.retrieve('ss_token');
 
@@ -199,7 +196,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    console.log('ngOnInit hoteles');
     $('#menu-vuelo-1').show();
     $('#menu-vuelo-2').hide();
     $('#menu-hotel-1').hide();
@@ -211,7 +207,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
 
-    
+
 
   }
 
@@ -226,14 +222,14 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     }, 1000);
   }
 
-  
+
 
   onChangeSearch(val: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
       this.data = resultFilter;
 
       $(".x").hide();
@@ -314,7 +310,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     let menorValor = 1000000;
     let mayorValor = 0;
 
-    
+
     this.LlistaHotel.forEach(function(item) {
       if (item.oprice.pricePerAllNights < menorValor) {
         menorValor = item.oprice.pricePerAllNights;
@@ -418,7 +414,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
           if (result.length == 0 || result == null || result[0].oerror != null) {
             //alert("asdasd")
             this.flagDinData = true;
-            
+
           }
           else{
 
@@ -478,13 +474,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   searchFlightBuscador($event) {
     this.LlistaHotel = [];
     if ($event === null) {
-      console.log("this.spinner.hide()");
       this.spinner.hide();
     } else {
       this.LlistaHotel = $event;
     }
-    console.log("searchFlightBuscador");
-    console.log("$event: " + $event);
     this.sessionStorageService.store('ls_search_hotel', this.LlistaHotel);
 
     if (this.LlistaHotel[0].oerror != null) {
@@ -569,8 +562,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   }
 
   updateMiniBusqueda($event) {
-    console.log("updateMiniBusqueda: " + $event);
     this.flagPriceHotel = $event;
   }
+
+ 
 
 }

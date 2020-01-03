@@ -169,7 +169,7 @@
                                         <td>{{item.hotelName}}</td>
                                         <td>{{item.startDate}}</td>
                                         <td><img style="width: 30px;" src="assets/images/telo.svg"></td>
-                                        <td><span style="color: #176FC7; cursor: pointer;">Ver reserva <i class="fas fa-chevron-right"></i></span></td>
+                                        <td><span style="color: #176FC7; cursor: pointer;" (click)="GetReservaHotel(item.pnr)">Ver reserva <i class="fas fa-chevron-right"></i></span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -334,7 +334,7 @@
                                         <td>{{item.hotelName}}</td>
                                         <td>{{item.startDate}}</td>
                                         <td><img style="width: 30px;" src="assets/images/telo.svg"></td>
-                                        <td><span style="color: #176FC7; cursor: pointer;">Ver reserva <i class="fas fa-chevron-right"></i></span></td>
+                                        <td><span style="color: #176FC7; cursor: pointer;" (click)="GetReservaHotel(item.pnr)">Ver reserva <i class="fas fa-chevron-right"></i></span></td>
                                     </tr>
                                 </tbody>
                             </table>

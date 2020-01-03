@@ -17,6 +17,7 @@ import { IGetUserById } from '../../../../models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { ModalHotelesVaciosComponent } from '../../../shared/modal-hoteles-vacios/modal-hoteles-vacios.component';
 import { ModalCerrarSesionComponent } from '../../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
+import { ModalSesionExpiradaComponent } from '../../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -77,6 +78,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   areaContacto;
   isOpen = false;
   lhotel;
+  counter;
 
   amenities: any;
 
@@ -87,6 +89,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.user = this.sessionStorageService.retrieve("ss_user");
+    this.counter = this.localStorageService.retrieve("ss_countersession");
     this.plantilla = 'assets/plantillashoteles/enviocorreo.html';
     
   }
@@ -129,6 +132,9 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+    if (this.counter === false) {
+      this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
+    }
   }
 
   bloquearBotonAtras() {
@@ -142,6 +148,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     let message;
     let cumple;
     let listaAme;
+    this.telefono = $('#numero').val();
     cumple = this.user.birthDate;
     cumple = cumple.substring(0,10);
     cumple = cumple.replace(/-/gi,"/");
@@ -230,7 +237,6 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           },
         "OInformationContact":
           {
-            "Area": '01',
             "Name": this.nombreContacto,
             "EmailAddress" : this.correoContacto,
             "Numberphone": this.telefonoContacto
@@ -306,7 +312,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     let data = {
       "AgencyId": 1,
       "Recipients": mails,
-      "RecipientsCopy": ['analista6@domiruth.com', 'juan.caro.1987@gmail.com'],
+      "RecipientsCopy": ['analista6@domiruth.com'],
       "RecipientsHiddenCopy": [],
       "Subject": "HOTEL APROBADO",
       "Message": this.emailsolicitud
@@ -344,7 +350,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       for (let i = 0; i < amenities.length; i++) {
         const element = amenities[i];
         html += "<div style='width: 20%;'>";
-        html +=   "<img style='width: 30px;' src='https://sigvplus.azurewebsites.net/sigv/assets/images/";
+        html +=   "<img style='width: 30px;' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/";
         html += element.code
         html += ".png'>";
         html +=  "<label style='color: #676767; font-family: Arial, Helvetica, sans-serif; font-size: 14px; opacity: 1; letter-spacing: 0;'>";
@@ -512,12 +518,6 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       val = false;
     } else {
       $('#correo').removeClass('campo-invalido');
-    }
-    if ($('#area').val().length <= 0) {
-      $('#area').addClass('campo-invalido');
-      val = false;
-    } else {
-      $('#area').removeClass('campo-invalido');
     }
     if ($('#numero').val().length <= 0) {
       $('#numero').addClass('campo-invalido');

@@ -127,7 +127,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
        $('#txttelefono_' + this.index).attr('maxlength', '8');
     }
     if (valor === 'PE') {
-       $('#txttelefono_' + this.index).attr('maxlength', '10');
+       $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
     if (valor === 'AR') {
       $('#txttelefono_' + this.index).attr('maxlength', '13');

@@ -47,8 +47,6 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
     this.mayorprice = parseFloat($('#mayorprice').html());
     this.num1 = this.menorprice.toFixed(4);
     this.num2 = this.mayorprice.toFixed(4);
-    console.log(this.num1);
-    console.log(this.num2);
   }
   
   public sliderType = SliderType;
@@ -74,9 +72,6 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
   }
 
   fitlerPriceRealTime($event){
-    console.log("event ========> " + $event);
-    console.log("event ========> " + $event);
-    console.log("event ========> " + $event);
     this.FiltrarPrecio();
   }
 

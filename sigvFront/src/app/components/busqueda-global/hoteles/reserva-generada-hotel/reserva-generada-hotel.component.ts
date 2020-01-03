@@ -6,8 +6,8 @@ import { IHabitacionResults } from '../../../../models/IHabitacionResults';
 import { IGetUserById } from '../../../../models/IGetUserById.model';
 import { Router } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { ModalCerrarSesionComponent } from '../../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalSesionExpiradaComponent } from '../../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -29,7 +29,6 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
   clickout(event) {
     if(this.eRef.nativeElement.contains(event.target)) {
       this.text = "clicked inside";
-      console.log(this.text);
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
       if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
@@ -37,7 +36,6 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
       }
     } else {
       this.text = "clicked outside";
-      console.log(this.text);
     }
   }
 
@@ -47,6 +45,8 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
   user: IGetUserById;
   modalRefSessionExpired: BsModalRef;
   lhotel;
+  idinterval: any;
+  counter;
 
   phone;
   urlimg = './assets/images/hotel-icon.png';
@@ -62,6 +62,7 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
     this.confirmacion = this.sessionStorageService.retrieve("confirmacion");
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
     this.user = this.sessionStorageService.retrieve("ss_user");
+    this.counter = this.localStorageService.retrieve("ss_countersession");
     this.reserva.numberPhone.forEach(function(item){
       this.phone = item;
     })
@@ -69,11 +70,17 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
   }
 
   BackSearch(){
+    this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+    clearInterval(this.idinterval);
+    this.sessionStorageService.store('ss_sessionmini', null);
+    this.sessionStorageService.store('ss_sessionmini1', null);
+    this.sessionStorageService.store('ss_minibuscador', null);
+    this.sessionStorageService.store('ss_lhotel', null);
+    this.sessionStorageService.store('ss_hotel', null);
     this.router.navigate(["/hoteles"])
   }
 
   ngAfterViewInit() {
-    console.log('ngOnInit hoteles');
     $('#menu-vuelo-1').show();
     $('#menu-vuelo-2').hide();
     $('#menu-hotel-1').hide();
@@ -84,7 +91,9 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    
+    if (this.counter === false) {
+      this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
+    }
   }
 
   Mostrarmapa() {

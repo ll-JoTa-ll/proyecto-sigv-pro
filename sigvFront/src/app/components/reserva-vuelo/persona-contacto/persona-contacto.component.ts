@@ -100,7 +100,7 @@ export class PersonaContactoComponent implements OnInit {
       $('#contactotelefono').attr('maxlength', '8');
    }
     if (valor === 'PE') {
-    $('#contactotelefono').attr('maxlength', '10');
+    $('#contactotelefono').attr('maxlength', '9');
     }
     if (valor === 'AR') {
       $('#contactotelefono').attr('maxlength', '13');

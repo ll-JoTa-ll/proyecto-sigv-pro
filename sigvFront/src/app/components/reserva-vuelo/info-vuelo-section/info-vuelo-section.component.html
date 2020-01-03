@@ -29,10 +29,11 @@
                     <ng-template #modalresumen let-c="close" let-d="dismiss">
                         <div class="modal-header m-0 p-0" style="border: none;">
                             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                                  <span aria-hidden="true">&times;</span>
+                                  <span aria-hidden="true" class="pr-4 pt-3">&times;</span>
                                 </button>
                         </div>
                         <div class="modal-body m-0 p-0">
+
                             <app-modal-resumen-vuelo [LSection]="LSection"></app-modal-resumen-vuelo>
                         </div>
                     </ng-template>

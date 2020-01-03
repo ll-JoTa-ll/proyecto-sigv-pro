@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   @Output() buscar = new EventEmitter<any>();
   closedSesion: boolean;
   idinterval: any;
+  idinterval1: any;
 
   constructor(
     private router: Router,
@@ -56,26 +57,37 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['/hoteles']);
         this.idinterval = this.sessionStorageService.retrieve("ss_interval");
         clearInterval(this.idinterval);
-        let idinterval = this.sessionStorageService.retrieve('idinterval');
-        clearInterval(idinterval);
+        this.idinterval1 = this.sessionStorageService.retrieve('idinterval');
+        clearInterval(this.idinterval1);
+        this.sessionStorageService.store('ss_sessionmini', null);
+        this.sessionStorageService.store('ss_sessionmini1', null);
+        this.sessionStorageService.store('ss_minibuscador', null);
+        this.sessionStorageService.store('ss_lhotel', null);
+        this.sessionStorageService.store('ss_hotel', null);
         break;
 
       case 3:
         this.router.navigate(['/buses']);
         this.idinterval = this.sessionStorageService.retrieve("ss_interval");
         clearInterval(this.idinterval);
+        this.idinterval1 = this.sessionStorageService.retrieve('idinterval');
+        clearInterval(this.idinterval1);
         break;
 
       case 4:
         this.router.navigate(['/paquetes']);
         this.idinterval = this.sessionStorageService.retrieve("ss_interval");
         clearInterval(this.idinterval);
+        this.idinterval1 = this.sessionStorageService.retrieve('idinterval');
+        clearInterval(this.idinterval1);
         break;
 
       case 5:
         this.router.navigate(['/seguros']);
         this.idinterval = this.sessionStorageService.retrieve("ss_interval");
         clearInterval(this.idinterval);
+        this.idinterval1 = this.sessionStorageService.retrieve('idinterval');
+        clearInterval(this.idinterval1);
         break;
 
     }
@@ -88,8 +100,10 @@ export class HeaderComponent implements OnInit {
     window.location.reload(url);*/
     this.sessionStorageService.store('indregresar', false);
     $(location).attr('href', '/vuelos');
-    let idinterval = this.sessionStorageService.retrieve('idinterval');
-    clearInterval(idinterval);
+    this.idinterval1 = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(this.idinterval1);
+    this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+    clearInterval(this.idinterval);
     this.sessionStorageService.store('count', null);
   }
 
@@ -100,15 +114,19 @@ export class HeaderComponent implements OnInit {
     window.location.reload(url);*/
     this.sessionStorageService.store('indregresar', false);
     $(location).attr('href', '/vuelos');
-    let idinterval = this.sessionStorageService.retrieve('idinterval');
-    clearInterval(idinterval);
+    this.idinterval1 = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(this.idinterval1);
+    this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+    clearInterval(this.idinterval);
     this.sessionStorageService.store('count', null);
     this.sessionStorageService.store('indregresar', null);
   }
 
   cerrarSesion() {
-    let idinterval = this.sessionStorageService.retrieve('idinterval');
-    clearInterval(idinterval);
+    this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+    clearInterval(this.idinterval);
+    this.idinterval1 = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(this.idinterval1);
     this.sessionStorageService.store('count', null);
     this.sessionStorageService.clear();
     this.router.navigate(['/']);

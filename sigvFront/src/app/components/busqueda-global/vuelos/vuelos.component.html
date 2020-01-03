@@ -79,10 +79,12 @@
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
+
                                             <div class="" style="width: 100%">
                                                 <div class="row">
                                                     <div class="col-1">
-                                                        <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+
+                                                        <img *ngIf="item.categoryId===2;" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
                                                         <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
                                                     </div>
                                                     <div class="col-11">
@@ -193,10 +195,10 @@
              bsDatepicker
              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
              [(ngModel)]="model.retorno"
-             [isOpen]="isOpendate"
              (onHidden)="handlerRetorno()"
              id="fechadestino"
       >
+      <!--[isOpen]="isOpendate"-->
     </label>
                                 </div>
 

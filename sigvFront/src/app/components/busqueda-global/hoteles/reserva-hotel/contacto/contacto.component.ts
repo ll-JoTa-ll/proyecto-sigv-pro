@@ -1,4 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+
+declare var jquery: any;
+declare var $: any;
 
 
 @Component({
@@ -14,12 +17,15 @@ export class ContactoComponent implements OnInit {
   @Output() outNombre = new EventEmitter<string>();
   @Output() outArea = new EventEmitter<string>();
 
+
   correo: string;
   telefono: string;
   area: string;
   nombre: string;
 
-  constructor() { }
+  constructor() {
+    
+   }
 
   ngOnInit() {
   }
@@ -50,13 +56,9 @@ export class ContactoComponent implements OnInit {
 }
 
 validarTelefono() {
-  let telefono = this.telefono;
  
-  if (telefono.length == 3) {
-    telefono += '' ;
-    this.telefono = telefono;
-  }
-  this.outTelefono.emit(this.telefono)
+  this.telefono = $('numero').val();
+  this.outTelefono.emit(this.telefono);
 }
 
 validarNombre() {
@@ -79,4 +81,59 @@ validarArea() {
   this.outArea.emit(this.area)
 }
 
+
+obtenercodigo(value) {
+  $("#hdnTel_").val(value);
+  let valor = $('#cbopaises option:selected').attr('data-countryCode');
+  if (valor === 'CO') {
+     $('#numero').attr('maxlength', '10');
+  }
+  if (valor === 'PA') {
+    $('#numero').attr('maxlength', '8');
+ }
+  if (valor === 'PE') {
+  $('#numero').attr('maxlength', '10');
+  }
+  if (valor === 'AR') {
+    $('#numero').attr('maxlength', '13');
+    }
+  if (valor === 'EC') {
+      $('#numero').attr('maxlength', '10');
+    }
+  if (valor === 'PY') {
+        $('#numero').attr('maxlength', '10');
+    }
+  if (valor === 'UY') {
+      $('#numero').attr('maxlength', '9');
+  } 
+  if (valor === 'VE') {
+    $('#numero').attr('maxlength', '11');
+} 
+  if (valor === 'CL') {
+  $('#numero').attr('maxlength', '9');
+} 
+  if (valor === 'BR') {
+$('#numero').attr('maxlength', '11');
+} 
+  if (valor === 'BO') {
+$('#numero').attr('maxlength', '8');
+} 
+  if (valor === 'US') {
+$('#numero').attr('maxlength', '10');
+} 
+  if (valor === 'MX') {
+$('#numero').attr('maxlength', '13');
 }
+  if (valor === 'CA') {
+$('#numero').attr('maxlength', '10');
+}
+  if (valor === 'CR') {
+$('#numero').attr('maxlength', '8');
+}
+  if (valor === 'CU') {
+$('#numero').attr('maxlength', '9');
+}
+}
+}
+
+

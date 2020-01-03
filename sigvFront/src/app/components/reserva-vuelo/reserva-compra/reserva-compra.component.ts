@@ -104,6 +104,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   }*/
 
   ngOnInit() {
+    this.bloquearBotonAtras();
     window.scrollTo(0, 0);
     this.currency = this.dataflightavalilability.Currency;
     this.pseudo = this.dataflightavalilability.Pseudo;
@@ -149,6 +150,13 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         console.log(err);
       }
     )
+  }
+
+  bloquearBotonAtras() {
+    history.pushState(null, null, location.href);
+    window.onpopstate = function() {
+      history.go(1);
+  };
   }
 
   AddPassenger(template) {

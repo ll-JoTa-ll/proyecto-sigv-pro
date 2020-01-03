@@ -23,7 +23,7 @@ export class UserCompanyService {
     private sessionSt: SessionStorageService
   ) { }
 
-  getUserByCompany(companyId, freeText): Observable<IUserCompanyModel[]> {
+ /* getUserByCompany(companyId, freeText): Observable<IUserCompanyModel[]> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
@@ -31,5 +31,14 @@ export class UserCompanyService {
     });
     const url = `${this._url5}GetUserByCompany?companyId=${companyId}&freeText=${freeText}`;
     return this.http.get<IUserCompanyModel[]>(url, httpOptions2);
+  }*/
+
+  getUserByCompany(data): Observable<IUserCompanyModel[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IUserCompanyModel[]>(this._url5 + "GetUserByFreeText", data, httpOptions2);
   }
 }

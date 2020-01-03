@@ -5,13 +5,10 @@
         </div>
         <div class="col-12 m-0 p-0 pl-4 pr-4">
             <div class="row m-0 p-0 box-shadow">
-                <input class="input-nombre" type="text" placeholder="Ingresa el nombre del alojamiento" id="nombrehotel">
+                <input (keyup)="change($event)" class="input-nombre" type="text" placeholder="Ingresa el nombre del alojamiento" id="nombrehotel">
             </div>
         </div>
-        <div class="col-12 m-0 p-0 pt-3 pl-4 pr-4 pb-3">
-            <button class="btn v-btn-buscar" (click)="FiltrarNombre()">
-                        Aplicar
-                      </button>
+        <div class="col-12 m-0 p-0 pl-4 pr-4 pb-3">
         </div>
     </div>
 </div>

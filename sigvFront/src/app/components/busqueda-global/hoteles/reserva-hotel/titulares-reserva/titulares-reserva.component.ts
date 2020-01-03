@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ILoginDatosModel } from '../../../../../models/ILoginDatos.model';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
+
 
 declare var jquery: any;
 declare var $: any;
@@ -19,6 +20,8 @@ export class TitularesReservaComponent implements OnInit {
   @Output() outCorreo = new EventEmitter<string>();
   @Output() outTelefono = new EventEmitter<string>();
 
+  @Input() index;
+
   correo: string;
   telefono: string;
   corr: string;
@@ -29,11 +32,6 @@ export class TitularesReservaComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log("this.user.email ==>"+this.user.email);
-    console.log("this.user.email ==>"+this.user.email);
-    console.log("this.user.email ==>"+this.user.email);
-    console.log("this.user.email ==>"+this.user.email);
-    console.log("this.user.email ==>"+this.user.email);
   }
 
   validarCorreo() {
@@ -42,7 +40,7 @@ export class TitularesReservaComponent implements OnInit {
   }
 
   validarTelefono() {
-    let telefono = $("#fonoTitu").val();
+    let telefono = $("#fonoTitu_").val();
     this.outTelefono.emit(telefono)
   }
 
@@ -52,5 +50,58 @@ export class TitularesReservaComponent implements OnInit {
         var patron = /^([0-9])*$/;
         var teclaFinal = String.fromCharCode(tecla);
           return patron.test(teclaFinal);
+  }
+
+  obtenercodigo(value) {
+    $("#hdnTel_").val(value);
+    let valor = $('#cbopaises option:selected').attr('data-countryCode');
+    if (valor === 'CO') {
+       $('#fonoTitu').attr('maxlength', '10');
+    }
+    if (valor === 'PA') {
+      $('#fonoTitu').attr('maxlength', '8');
+   }
+    if (valor === 'PE') {
+    $('#fonoTitu').attr('maxlength', '10');
+    }
+    if (valor === 'AR') {
+      $('#fonoTitu').attr('maxlength', '13');
+      }
+    if (valor === 'EC') {
+        $('#fonoTitu').attr('maxlength', '10');
+      }
+    if (valor === 'PY') {
+          $('#fonoTitu').attr('maxlength', '10');
+      }
+    if (valor === 'UY') {
+        $('#fonoTitu').attr('maxlength', '9');
+    } 
+    if (valor === 'VE') {
+      $('#fonoTitu').attr('maxlength', '11');
+  } 
+    if (valor === 'CL') {
+    $('#fonoTitu').attr('maxlength', '9');
+  } 
+    if (valor === 'BR') {
+  $('#fonoTitu').attr('maxlength', '11');
+  } 
+    if (valor === 'BO') {
+  $('#fonoTitu').attr('maxlength', '8');
+  } 
+    if (valor === 'US') {
+  $('#fonoTitu').attr('maxlength', '10');
+  } 
+    if (valor === 'MX') {
+  $('#fonoTitu').attr('maxlength', '13');
+  }
+    if (valor === 'CA') {
+  $('#fonoTitu').attr('maxlength', '10');
+  }
+    if (valor === 'CR') {
+  $('#fonoTitu').attr('maxlength', '8');
+  }
+    if (valor === 'CU') {
+  $('#fonoTitu').attr('maxlength', '9');
+  }
   }
 }

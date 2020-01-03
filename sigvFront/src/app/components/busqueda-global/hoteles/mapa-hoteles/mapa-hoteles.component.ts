@@ -8,6 +8,7 @@ import { HotelService } from '../../../../services/hotel.service';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { environment } from '../../../../../environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 declare var jquery: any;
 declare var $: any;
 
@@ -24,6 +25,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
   @Input() hotelcode: string;
   @Input() fechasalida: string;
   @Input() fecharetorno: string;
+  @Input() estrellas: string;
   @Input() cantpersonas: string;
   urlimg = './assets/images/hotel-icon.png';
   show: boolean;
@@ -34,6 +36,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
   longitud: number;
   zoom = 15;
   cantidadnoche: string;
+  objSearch: any;
 
   lstHabication: IHabitacionResults;
   lstHotel : IHotelResultsModel[];
@@ -55,7 +58,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private sessionStorageService: SessionStorageService,
-
+    private router: Router,
     private localStorageService: LocalStorageService,
     public spinner: NgxSpinnerService
   ) {
@@ -125,6 +128,15 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
       ],
       "Ocompany": this.loginDataUser.ocompany
     }
+    this.objSearch = {
+      destino: $('#destinos').val(),
+      fechaentrada: fechasalida,
+      fechasalida: fecharetorno,
+      categoria : this.estrellas,
+      habi: $('#txthabitacion').val(),
+      personas: cantpersonas
+    };
+    this.sessionStorageService.store("ss_sessionmini",this.objSearch);
 
     let hotel;
     for (let i = 0; i < this.lstHotel.length; i++) {
@@ -143,7 +155,8 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
         
         this.sessionStorageService.store("lstHabication", this.lstHabication);
 
-        window.open(environment.url_project + "/habitacion");
+        this.router.navigate(['/habitacion']);
+        //window.open(environment.url_project + "/habitacion");
       },
       err => {
       this.spinner.hide();
@@ -151,7 +164,6 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
     },
    () => {
      this.spinner.hide();
-    
    }
     )
   }

@@ -391,7 +391,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 1) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data = resultFilter;
 
         $(".x").hide();
@@ -401,7 +401,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 2) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data2 = resultFilter;
 
         $(".x").hide();
@@ -411,7 +411,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 3) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data3 = resultFilter;
 
         $(".x").hide();
@@ -421,7 +421,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 4) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data4 = resultFilter;
 
         $(".x").hide();
@@ -431,7 +431,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 5) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data5 = resultFilter;
 
         $(".x").hide();
@@ -441,7 +441,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 6) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data6 = resultFilter;
 
         $(".x").hide();
@@ -451,7 +451,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 7) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data7 = resultFilter;
 
         $(".x").hide();
@@ -461,7 +461,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 8) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data8 = resultFilter;
 
         $(".x").hide();
@@ -471,7 +471,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 9) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data9 = resultFilter;
 
         $(".x").hide();
@@ -481,7 +481,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 10) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data10 = resultFilter;
 
         $(".x").hide();
@@ -491,7 +491,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 11) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data11 = resultFilter;
 
         $(".x").hide();
@@ -501,7 +501,7 @@ export class MultidestinosLgComponent implements OnInit {
     if (flag === 12) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
         this.data12 = resultFilter;
 
         $(".x").hide();
