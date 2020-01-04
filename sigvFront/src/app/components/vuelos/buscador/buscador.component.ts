@@ -425,8 +425,15 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   Updatefecha1($event) {
-   this.fecha1show = $event;
-   this.fechaSalidaShow = $event;
+    console.log("Updatefecha1");
+    console.log("$event: " + $event);
+    this.fecha1show = "";
+    this.fechaSalidaShow = "";
+    this.fecha1show = $event;
+    this.fechaSalidaShow = $event;
+    $('#datepickerSalida').val(this.fechaSalidaShow);
+    console.log("this.fecha1show: " + this.fecha1show);
+    console.log("this.fechaSalidaShow: " + this.fechaSalidaShow);
   }
 
   Updatefecha2($event) {
@@ -1291,6 +1298,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   updateFechaSalida1($event) {
+    this.fechaSalida1 = "";
+    this.fechaSalida = "";
     this.fechaSalida1 = $event;
     this.fechaSalida = $event;
   }
