@@ -565,8 +565,39 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   onChangeSearch(val: string) {
 
-    this.lstAutocomplete = this.localStorageService.retrieve('ls_airportlist');
+    //this.lstAutocomplete = this.localStorageService.retrieve('ls_airportlist');
+    //this.citylist = this.localStorageService.retrieve('ls_citylist');
+
+    this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
+
+    this.lstAutocomplete = [];
+    const lstAutocomplete = this.lstAutocomplete;
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        priority: aeropuerto.priority,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    this.citylist.forEach(function (ciudad) {
+      const obj1 = {
+        iataCode: ciudad.iataCode,
+        name: ciudad.name,
+        searchName: ciudad.searchName,
+        priority: ciudad.priority,
+        categoryId: 2,
+        categoryName: 'Ciudad'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    lstAutocomplete.sort((a, b) => b.priority - a.priority );
+    this.lstAutocomplete = lstAutocomplete;
+
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
@@ -631,6 +662,40 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   onChangeSearch2(val: string) {
+    //this.lstAutocomplete = this.localStorageService.retrieve('ls_airportlist');
+    //this.citylist = this.localStorageService.retrieve('ls_citylist');
+
+    this.airportlist = this.localStorageService.retrieve('ls_airportlist');
+    this.citylist = this.localStorageService.retrieve('ls_citylist');
+
+    this.lstAutocomplete = [];
+    const lstAutocomplete = this.lstAutocomplete;
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        priority: aeropuerto.priority,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    this.citylist.forEach(function (ciudad) {
+      const obj1 = {
+        iataCode: ciudad.iataCode,
+        name: ciudad.name,
+        searchName: ciudad.searchName,
+        priority: ciudad.priority,
+        categoryId: 2,
+        categoryName: 'Ciudad'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    lstAutocomplete.sort((a, b) => b.priority - a.priority );
+    this.lstAutocomplete = lstAutocomplete;
+
+
     $(".x").hide();
     if (val.length >= 3) {
       const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
@@ -741,6 +806,32 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       //this.origentTexto = "";
       //this.model.origentTexto = "";
       this.indexTramo = 2;
+      this.lstAutocomplete = [];
+      const lstAutocomplete = this.lstAutocomplete;
+      this.airportlist.forEach(function (aeropuerto) {
+        const obj1 = {
+          iataCode: aeropuerto.iataCode,
+          name: aeropuerto.name,
+          searchName: aeropuerto.searchName,
+          priority: aeropuerto.priority,
+          categoryId: 1,
+          categoryName: 'Aeropuerto'
+        };
+        lstAutocomplete.push(obj1);
+      });
+      this.citylist.forEach(function (ciudad) {
+        const obj1 = {
+          iataCode: ciudad.iataCode,
+          name: ciudad.name,
+          searchName: ciudad.searchName,
+          priority: ciudad.priority,
+          categoryId: 2,
+          categoryName: 'Ciudad'
+        };
+        lstAutocomplete.push(obj1);
+      });
+      lstAutocomplete.sort((a, b) => b.priority - a.priority );
+      this.lstAutocomplete = lstAutocomplete;
     }
   }
 
