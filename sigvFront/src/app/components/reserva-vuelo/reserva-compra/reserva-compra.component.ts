@@ -338,6 +338,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.emailsolicitud = this.emailsolicitud.replace(/@currency/gi, this.lsflightavailability.currency);
     this.emailsolicitud = this.emailsolicitud.replace("@precioTotal", this.lsflightavailability.totalFareAmount);
     this.emailsolicitud = this.emailsolicitud.replace("@preciounitario", this.lsflightavailability.fareAmountByPassenger);
+    this.emailsolicitud = this.emailsolicitud.replace('@pnr', this.pnrresults.pnr);
    }
 
    PlantillaPasajeros() {
