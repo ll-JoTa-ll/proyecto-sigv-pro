@@ -52,7 +52,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   
   modalref: BsModalRef;
 
-
+  genero: any;
 
   loginDataUser: ILoginDatosModel;
   habitacion : IHabitacionResults;
@@ -183,6 +183,11 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       let email = [this.correo];
       email.push();
       this.spinner.show();
+      if (this.user.gender === 'F') {
+        this.genero = "MRS";
+      }else{
+        this.genero = "MR";
+      }
       let data = {
         "Pseudo": "LIMPE2235",
         "GDS": "Amadeus",
@@ -195,7 +200,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
             {
               "PassengerId": 1,
               "PersonId": this.user.personId,
-              "Prefix": "MR",
+              "Prefix": this.genero,
               "Type": "ADT",
               "Name": this.loginDataUser.userName,
               "LastName":this.loginDataUser.userLastName,
@@ -204,7 +209,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
               "IsVIP": this.user.isVIP,
               "Odocument":
                 {
-                  "Type": this.user.odocument.type,
+                  "Type": this.user.odocument.codeAmadeus,
                   "Number": this.user.odocument.number
                 }
             }
@@ -221,7 +226,9 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           "Starts": this.lhotel.stars,
           "Lamenities": this.lhotel.lamenities,
           "TypeDistance": this.lhotel.oairportDistance.type,
-          "Distance": this.lhotel.oairportDistance.distance
+          "Distance": this.lhotel.oairportDistance.distance,
+          "Address": this.lsthabitacion.ohotel.address,
+          "Limagens": this.lsthabitacion.ohotel.limagens,
         },
         "ORoom":{
           "Name": this.lstConfirmacion.oroom.name,
@@ -232,10 +239,8 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           "CheckOut": this.lsthabitacion.ohotel.checkOut,
           "BookingCode": this.lstConfirmacion.oroom.bookingCode,
           "CorporateCode": this.lstConfirmacion.ohotel.chainCode,
-          "Address": this.lsthabitacion.ohotel.address,
           "Lamenities" :  this.amenities,
         },
-        "Limagens": this.lsthabitacion.ohotel.limagens,
         "LcancelPenalties": this.lstConfirmacion.oroom.lcancelPenalties,
         "OcreditCard":
           {

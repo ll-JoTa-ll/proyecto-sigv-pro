@@ -135,7 +135,7 @@ export class LoginComponent implements OnInit {
           this.spinner.hide();
         } else {
           this.userid = this.datoslogin.userId;
-          this.airportListPriority();
+          this.airportList();
         }
       }
     );

@@ -98,6 +98,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   flagPriceHotel = false;
   valfechasalida = false;
   valfechadestino = false;
+  calendarIngresoValue;
+  calendarSalidaValue: Date;
 
   constructor(
     private router: Router,
@@ -131,6 +133,16 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.mapafiltro = true;
     this.contador = 600;
     this.t = 0;
+    this.calendarSalidaValue = new Date();
+    this.calendarSalidaValue.setDate(this.calendarSalidaValue.getDate() + 1);
+    console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
+    
+    console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
+    console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
+    console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
+    console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
+    console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
+
   }
 
   ngOnInit() {
@@ -250,7 +262,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   }
 
   onValueChangeIngreso(value: Date): void {
-    this.valfechasalida = false;
+    if (value != null) {
+      this.valfechasalida = false;
     let mes = "";
     if ((value.getMonth() + 1) < 10) {
       mes = "0" + (value.getMonth() + 1);
@@ -271,6 +284,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
 
     this.minDateSalida = value;
+    if (value >= this.calendarSalidaValue) {
+      $("#datesalida").val("");
+    }
     //this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
     /*
     let value2 = value;
@@ -282,10 +298,13 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     console.log('value: ' + value);
     console.log('value2: ' + value2);
     */
+    }
   }
 
   onValueChangeSalida(value: Date): void {
-    this.maxDateIngreso  = value;
+    if (value != null) {
+      this.calendarSalidaValue = value;
+      this.maxDateIngreso  = value;
     this.valfechadestino = false;
     let mes = "";
     if ((value.getMonth() + 1) < 10) {
@@ -303,7 +322,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $("#salida").removeClass("campo-invalido");
 
     this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
-
+    }
   }
 
 
