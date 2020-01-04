@@ -67,6 +67,8 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   @Input() inFechaSalidaValue;
   @Input() inFechaSalidaText;
 
+  @Input() inTipoVuelo;
+
   @Output() outIndexTramo = new EventEmitter<number>();
 
   @Output() outOrigenValue1 = new EventEmitter<string>();
@@ -213,20 +215,28 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.outIndexTramo.emit(this.indexTramo);
 
-    this.origenAuto1 = this.inOrigenValue;
-    this.origentTexto1 = this.inOrigenText;
-    //this.origentTexto1 = this.inOrigenText;
-    this.outOrigenValue1.emit(this.inOrigenValue);
-    this.outOrigenText1.emit(this.inOrigenText);
+    console.log("this.inorigenAuto1: " + this.inorigenAuto1);
+    console.log("this.inorigentTexto1: " + this.inorigentTexto1);
+    console.log("this.indestinoAuto1: " + this.indestinoAuto1);
+    console.log("this.indestinoTexto1: " + this.indestinoTexto1);
 
-    this.destinoAuto1 = this.inDestinoValue;
-    this.destinoTexto1 = this.inDestinoText;
+    this.origenAuto1 = this.inorigenAuto1;
+    this.origentTexto1 = this.inorigentTexto1;
+    //this.origentTexto1 = this.inOrigenText;
+    this.outOrigenValue1.emit(this.inorigenAuto1);
+    this.outOrigenText1.emit(this.inorigentTexto1);
+
+    this.destinoAuto1 = this.indestinoAuto1;
+    this.destinoTexto1 = this.indestinoTexto1;
     //this.destinoTexto1 = this.inDestinoText;
-    this.outDestinoValue1.emit(this.inDestinoValue);
-    this.outDestinoText1.emit(this.inDestinoText);
+    this.outDestinoValue1.emit(this.indestinoAuto1);
+    this.outDestinoText1.emit(this.indestinoTexto1);
 
     console.log("this.infechaSalida1: " + this.infechaSalida1);
     console.log("this.infechaSalidaShow1: " + this.infechaSalidaShow1);
+
+    this.outFechaSalida1.emit(this.infechaSalida1);
+    this.outFechaSalidaShow1.emit(this.infechaSalidaShow1);
 
     const lstAutocomplete = this.lstAutocomplete;
     this.airportlist.forEach(function (aeropuerto) {
@@ -263,13 +273,41 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.agregarTramo(i);
     }
 
-    this.fecha1 = this.infechaSalidaShow1;
+    console.log("this.infechaSalidaShow1: " + this.infechaSalidaShow1);
+    console.log("this.infechaSalida1: " + this.infechaSalida1);
+    console.log("this.inorigenAuto1: " + this.inorigenAuto1);
+    console.log("this.inorigentTexto1: " + this.inorigentTexto1);
+    console.log("this.indestinoAuto1: " + this.indestinoAuto1);
+    console.log("this.indestinoTexto1: " + this.indestinoTexto1);
+
+    //undefined
+
+    if (this.infechaSalidaShow1 != undefined) {
+      console.log("1");
+      this.fecha1 = this.infechaSalidaShow1;
+    }
     //$('#datepickerSalida1').val(this.infechaSalidaShow1);
-    this.fechaSalida1 = this.infechaSalida1;
-    this.origenAuto1 = this.inorigenAuto1;
-    this.origentTexto1 = this.inorigentTexto1;
-    this.destinoAuto1 = this.indestinoAuto1;
-    this.destinoTexto1 = this.indestinoTexto1;
+
+    if (this.infechaSalida1 != undefined) {
+      console.log("2");
+      this.fechaSalida1 = this.infechaSalida1;
+    }
+    if (this.inorigenAuto1 != undefined) {
+      console.log("3");
+      this.origenAuto1 = this.inorigenAuto1;
+    }
+    if (this.inorigentTexto1 != undefined) {
+      console.log("4");
+      this.origentTexto1 = this.inorigentTexto1;
+    }
+    if (this.indestinoAuto1 != undefined) {
+      console.log("5");
+      this.destinoAuto1 = this.indestinoAuto1;
+    }
+    if (this.indestinoTexto1 != undefined) {
+      console.log("6");
+      this.destinoTexto1 = this.indestinoTexto1;
+    }
 
     this.fecha2 = this.infechaSalidaShow2;
     //$('#datepickerSalida2').val(this.infechaSalidaShow2);
@@ -726,173 +764,185 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   }
 
   onValueChangeSalida1(value: Date): void {
-    $("#txtFechaSalida1").removeClass("campo-invalido");
-    this.minDateSalida2 = value;
-    this.minDateSalida3 = value;
-    this.minDateSalida4 = value;
-    this.minDateSalida5 = value;
-    this.minDateSalida6 = value;
+    if (value != null) {
+      $("#txtFechaSalida1").removeClass("campo-invalido");
+      this.minDateSalida2 = value;
+      this.minDateSalida3 = value;
+      this.minDateSalida4 = value;
+      this.minDateSalida5 = value;
+      this.minDateSalida6 = value;
 
-    let mes = "";
-    let getMonth = value.getMonth() + 1;
-    if (getMonth < 10) {
-      getMonth = value.getMonth() + 1;
-      mes = "0" + getMonth;
-    } else {
-      mes = "" + getMonth;
+      let mes = "";
+      let getMonth = value.getMonth() + 1;
+      if (getMonth < 10) {
+        getMonth = value.getMonth() + 1;
+        mes = "0" + getMonth;
+      } else {
+        mes = "" + getMonth;
+      }
+
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+
+      this.fechaSalida1 = value.getFullYear() + "/" + mes + "/" + dia;
+      let fechasalidashow1 = dia + '/' + mes + '/' + value.getFullYear();
+      this.outFechaSalida1.emit(this.fechaSalida1);
+      this.outFechaSalidaShow1.emit(fechasalidashow1);
+      console.log(this.fechaSalida1);
     }
-
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
-
-    this.fechaSalida1 = value.getFullYear() + "/" + mes + "/" + dia;
-    let fechasalidashow1 = dia + '/' + mes + '/' + value.getFullYear();
-    this.outFechaSalida1.emit(this.fechaSalida1);
-    this.outFechaSalidaShow1.emit(fechasalidashow1);
-    console.log(this.fechaSalida1);
   }
 
   onValueChangeSalida2(value: Date): void {
-    $("#txtFechaSalida2").removeClass("campo-invalido");
-    this.minDateSalida3 = value;
-    this.minDateSalida4 = value;
-    this.minDateSalida5 = value;
-    this.minDateSalida6 = value;
+    if (value != null) {
+      $("#txtFechaSalida2").removeClass("campo-invalido");
+      this.minDateSalida3 = value;
+      this.minDateSalida4 = value;
+      this.minDateSalida5 = value;
+      this.minDateSalida6 = value;
 
-    let mes = "";
-    let getMonth = value.getMonth() + 1;
-    if (getMonth < 10) {
-      getMonth = value.getMonth() + 1;
-      mes = "0" + getMonth;
-    } else {
-      mes = "" + getMonth;
+      let mes = "";
+      let getMonth = value.getMonth() + 1;
+      if (getMonth < 10) {
+        getMonth = value.getMonth() + 1;
+        mes = "0" + getMonth;
+      } else {
+        mes = "" + getMonth;
+      }
+
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+
+      this.fechaSalida2 = value.getFullYear() + "/" + mes + "/" + dia;
+      let fechasalidashow2 = dia + '/' + mes + '/' + value.getFullYear();
+      this.outFechaSalidaShow2.emit(fechasalidashow2);
+      this.outFechaSalida2.emit(this.fechaSalida2);
+      console.log(this.fechaSalida2);
     }
-
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
-
-    this.fechaSalida2 = value.getFullYear() + "/" + mes + "/" + dia;
-    let fechasalidashow2 = dia + '/' + mes + '/' + value.getFullYear();
-    this.outFechaSalidaShow2.emit(fechasalidashow2);
-    this.outFechaSalida2.emit(this.fechaSalida2);
-    console.log(this.fechaSalida2);
   }
 
   onValueChangeSalida3(value: Date): void {
-    $("#txtFechaSalida3").removeClass("campo-invalido");
-    this.minDateSalida4 = value;
-    this.minDateSalida5 = value;
-    this.minDateSalida6 = value;
+    if (value != null) {
+      $("#txtFechaSalida3").removeClass("campo-invalido");
+      this.minDateSalida4 = value;
+      this.minDateSalida5 = value;
+      this.minDateSalida6 = value;
 
-    let mes = "";
-    let getMonth = value.getMonth() + 1;
-    if (getMonth < 10) {
-      getMonth = value.getMonth() + 1;
-      mes = "0" + getMonth;
-    } else {
-      mes = "" + getMonth;
+      let mes = "";
+      let getMonth = value.getMonth() + 1;
+      if (getMonth < 10) {
+        getMonth = value.getMonth() + 1;
+        mes = "0" + getMonth;
+      } else {
+        mes = "" + getMonth;
+      }
+
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+
+      this.fechaSalida3 = value.getFullYear() + "/" + mes + "/" + dia;
+      let fechasalidashow3 = dia + '/' + mes + '/' + value.getFullYear();
+      this.outFechaSalida3.emit(this.fechaSalida3);
+      this.outFechaSalidaShow3.emit(fechasalidashow3);
+      console.log(this.fechaSalida3);
     }
-
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
-
-    this.fechaSalida3 = value.getFullYear() + "/" + mes + "/" + dia;
-    let fechasalidashow3 = dia + '/' + mes + '/' + value.getFullYear();
-    this.outFechaSalida3.emit(this.fechaSalida3);
-    this.outFechaSalidaShow3.emit(fechasalidashow3);
-    console.log(this.fechaSalida3);
   }
 
   onValueChangeSalida4(value: Date): void {
-    $("#txtFechaSalida4").removeClass("campo-invalido");
-    this.minDateSalida5 = value;
-    this.minDateSalida6 = value;
+    if (value != null) {
+      $("#txtFechaSalida4").removeClass("campo-invalido");
+      this.minDateSalida5 = value;
+      this.minDateSalida6 = value;
 
-    let mes = "";
-    let getMonth = value.getMonth() + 1;
-    if (getMonth < 10) {
-      getMonth = value.getMonth() + 1;
-      mes = "0" + getMonth;
-    } else {
-      mes = "" + getMonth;
+      let mes = "";
+      let getMonth = value.getMonth() + 1;
+      if (getMonth < 10) {
+        getMonth = value.getMonth() + 1;
+        mes = "0" + getMonth;
+      } else {
+        mes = "" + getMonth;
+      }
+
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+
+      this.fechaSalida4 = value.getFullYear() + "/" + mes + "/" + dia;
+      let fechasalidashow4 = dia + '/' + mes + '/' + value.getFullYear();
+      this.outFechaSalida4.emit(this.fechaSalida4);
+      this.outFechaSalidaShow4.emit(fechasalidashow4);
+      console.log(this.fechaSalida4);
     }
-
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
-
-    this.fechaSalida4 = value.getFullYear() + "/" + mes + "/" + dia;
-    let fechasalidashow4 = dia + '/' + mes + '/' + value.getFullYear();
-    this.outFechaSalida4.emit(this.fechaSalida4);
-    this.outFechaSalidaShow4.emit(fechasalidashow4);
-    console.log(this.fechaSalida4);
   }
 
   onValueChangeSalida5(value: Date): void {
-    $("#txtFechaSalida5").removeClass("campo-invalido");
-    this.minDateSalida6 = value;
+    if (value != null) {
+      $("#txtFechaSalida5").removeClass("campo-invalido");
+      this.minDateSalida6 = value;
 
-    let mes = "";
-    let getMonth = value.getMonth() + 1;
-    if (getMonth < 10) {
-      getMonth = value.getMonth() + 1;
-      mes = "0" + getMonth;
-    } else {
-      mes = "" + getMonth;
+      let mes = "";
+      let getMonth = value.getMonth() + 1;
+      if (getMonth < 10) {
+        getMonth = value.getMonth() + 1;
+        mes = "0" + getMonth;
+      } else {
+        mes = "" + getMonth;
+      }
+
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+
+      this.fechaSalida5 = value.getFullYear() + "/" + mes + "/" + dia;
+      let fechasalidashow5 = dia + '/' + mes + '/' + value.getFullYear();
+      this.outFechaSalida5.emit(this.fechaSalida5);
+      this.outFechaSalidaShow5.emit(fechasalidashow5);
+      console.log(this.fechaSalida5);
     }
-
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
-
-    this.fechaSalida5 = value.getFullYear() + "/" + mes + "/" + dia;
-    let fechasalidashow5 = dia + '/' + mes + '/' + value.getFullYear();
-    this.outFechaSalida5.emit(this.fechaSalida5);
-    this.outFechaSalidaShow5.emit(fechasalidashow5);
-    console.log(this.fechaSalida5);
   }
 
   onValueChangeSalida6(value: Date): void {
-    $("#txtFechaSalida6").removeClass("campo-invalido");
-    let mes = "";
-    let getMonth = value.getMonth() + 1;
-    if (getMonth < 10) {
-      getMonth = value.getMonth() + 1;
-      mes = "0" + getMonth;
-    } else {
-      mes = "" + getMonth;
-    }
+    if (value != null) {
+      $("#txtFechaSalida6").removeClass("campo-invalido");
+      let mes = "";
+      let getMonth = value.getMonth() + 1;
+      if (getMonth < 10) {
+        getMonth = value.getMonth() + 1;
+        mes = "0" + getMonth;
+      } else {
+        mes = "" + getMonth;
+      }
 
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
 
-    this.fechaSalida6 = value.getFullYear() + "/" + mes + "/" + dia;
-    let fechasalidashow6 = dia + '/' + mes + '/' + value.getFullYear();
-    this.outFechaSalida6.emit(this.fechaSalida6);
-    this.outFechaSalidaShow6.emit(fechasalidashow6);
-    console.log(this.fechaSalida6);
+      this.fechaSalida6 = value.getFullYear() + "/" + mes + "/" + dia;
+      let fechasalidashow6 = dia + '/' + mes + '/' + value.getFullYear();
+      this.outFechaSalida6.emit(this.fechaSalida6);
+      this.outFechaSalidaShow6.emit(fechasalidashow6);
+      console.log(this.fechaSalida6);
+    }
   }
 
 }
