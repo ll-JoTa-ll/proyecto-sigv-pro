@@ -19,8 +19,8 @@
                             <div class="col-12 m-0 p-0">
 
                                 <div id="txtOrigen" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
-                                    <ng-autocomplete [(ngModel)]="model.origentTexto" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                        [notFoundTemplate]="notFoundTemplate">
+                                    <ng-autocomplete popover="Falta ingresar el origen" triggers="" [isOpen]="isOpen" [(ngModel)]="model.origentTexto" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
                                     <ng-template #itemTemplate let-item>
                                         <!--<a [innerHTML]="item.name"></a>-->
@@ -42,7 +42,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-6 m-0 p-0 pr-3">
-                                <label id="ingreso" for="" class="d-inline-flex box-shadow label-fecha">
+                                <label id="ingreso" for="" popover="Ingresa una fecha de salida" triggers="" [isOpen]="valfechasalida" class="d-inline-flex box-shadow label-fecha">
                                             <input type="image"
                                                    src="./assets/images/home/calendario.svg"
                                                    (click)="datepickerIngreso.toggle()"
@@ -64,7 +64,7 @@
                                           </label>
                             </div>
                             <div class="col-6 m-0 p-0 pr-3">
-                                <label id="salida" for="" class="d-inline-flex box-shadow label-fecha">
+                                <label id="salida" popover="Ingresa una fecha de retorno" triggers="" [isOpen]="valfechadestino" for="" class="d-inline-flex box-shadow label-fecha">
                                             <input type="image"
                                                    src="./assets/images/home/calendario.svg"
                                                    (click)="datepickerSalida.toggle()"
@@ -123,23 +123,23 @@
                         <ng-template #elseTemplate class="row m-0 p-0">
                             <div class="row m-0 p-0" id="habitacion">
                                 <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
-                                      <input type="image"
+                                      <input readonly type="image"
                                       src="./assets/images/cama.svg"
                                       class="input-img"
                                       
                                       >
-                                      <input (keypress)="validarNumerosN($event)" type="text"
+                                      <input readonly (keypress)="validarNumerosN($event)" type="text"
                                       id="txthabitacion"
                                       class="input-text2"
                                       value="1"
                                       >
                                     </label>
                                 <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
-                                    <input type="image"
+                                    <input readonly type="image"
                                     src="./assets/images/pasajero.svg"
                                     class="input-img"
                                     >
-                                    <input (keypress)="validarNumerosN($event)" type="text"
+                                    <input readonly (keypress)="validarNumerosN($event)" type="text"
                                     id="txtpersonas"
                                     class="input-text2"
                                     value="1"

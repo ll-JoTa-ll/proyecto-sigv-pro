@@ -107,6 +107,14 @@ export class HeaderComponent implements OnInit {
     this.sessionStorageService.store('count', null);
   }
 
+  hoteles(){
+    $(location).attr('href', '/hoteles');
+    this.idinterval1 = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(this.idinterval1);
+    this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+    clearInterval(this.idinterval);
+  }
+
   vuelos() {
 /*
     let url: any;

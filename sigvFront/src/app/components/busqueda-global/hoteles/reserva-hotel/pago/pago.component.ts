@@ -26,7 +26,7 @@ export class PagoComponent implements OnInit {
   reserva : any;
   habitacion : IHabitacionResults;
   lhotel;
-
+  isOpen = false;
   numTarjeta: string;
   fechVencimiento: string;
   codSeguridad: string;
@@ -37,9 +37,16 @@ export class PagoComponent implements OnInit {
   slash: number;
   model: any = {};
 
+  opentarjeta = false;
+  ss_tarjeta: any;
+
+  tarj: any;
+
   constructor(private sessionStorageService: SessionStorageService) {
     this.tipoTarjeta = 0;
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
+    this.sessionStorageService.store("ss_tarjeta",this.opentarjeta);
+    this.opentarjeta = this.sessionStorageService.retrieve("ss_tarjeta");
    }
 
   
@@ -145,8 +152,10 @@ export class PagoComponent implements OnInit {
      
       if ($.trim(this.numTarjeta) === '' || $.trim(this.numTarjeta) === undefined) {
         $("#numeroTarjeta").addClass("campo-invalido");
+        this.isOpen = true;
         val = false;
       } else {
+        this.isOpen = false;
         $("#numeroTarjeta").removeClass("campo-invalido");
       }
       if ($.trim(this.fechVencimiento) === '' || $.trim(this.fechVencimiento) === undefined) {

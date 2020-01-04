@@ -94,6 +94,8 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
     if (this.counter === false) {
       this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
     }
+    this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+    clearInterval(this.idinterval);
   }
 
   Mostrarmapa() {

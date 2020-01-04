@@ -637,7 +637,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            }
            htmlsection+="<div style='width: 100% !important;'>";
            htmlsection+="<div style='width: 100% !important; padding-top: 1%; padding-bottom: 1%;padding-left: 2%;'>";
-           htmlsection+="<span><img style='width: 30px; ' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airplaneida.png '></span>";
+           htmlsection+="<span><img style='width: 30px; ' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airplane_ida.png '></span>";
            htmlsection+="<span style'padding-left: 10px;'>";
            if (segmentgroup.length === 1) {
                texttramo = 'Ida';

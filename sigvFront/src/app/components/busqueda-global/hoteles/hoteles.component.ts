@@ -96,7 +96,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   airportlist: any[] = [];
   citylist: any[] = [];
   flagPriceHotel = false;
- 
+  valfechasalida = false;
+  valfechadestino = false;
 
   constructor(
     private router: Router,
@@ -214,6 +215,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   selectEvent(item) {
     // do something with selected item
 
+    this.isOpen = false;
     this.destinoValue = item.iataCode;
     this.destinoText = item.name;
     $("#txtOrigen").removeClass("campo-invalido");
@@ -240,7 +242,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
   onFocused(e) {
     // do something when input is focused
-
+    this.flagDinData = false;
   }
 
   handlerIngreso(datepickerSalida) {
@@ -248,6 +250,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   }
 
   onValueChangeIngreso(value: Date): void {
+    this.valfechasalida = false;
     let mes = "";
     if ((value.getMonth() + 1) < 10) {
       mes = "0" + (value.getMonth() + 1);
@@ -283,6 +286,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
   onValueChangeSalida(value: Date): void {
     this.maxDateIngreso  = value;
+    this.valfechadestino = false;
     let mes = "";
     if ((value.getMonth() + 1) < 10) {
       mes = "0" + (value.getMonth() + 1);
@@ -496,21 +500,27 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
     if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
       $("#txtOrigen").addClass("campo-invalido");
+      this.isOpen = true;
       val = false;
     } else {
+      this.isOpen = false;
       $("#txtOrigen").removeClass("campo-invalido");
     }
     if ($('#dateingreso').val().length === 0) {
       $("#ingreso").addClass("campo-invalido");
+      this.valfechasalida = true;
       val = false;
     } else {
+      this.valfechasalida = false;
       $("#ingreso").removeClass("campo-invalido");
     }
     if ($('#datesalida').val().length === 0) {
       $("#salida").addClass("campo-invalido");
+      this.valfechadestino = true;
       val = false;
     } else {
       $("#salida").removeClass("campo-invalido");
+      this.valfechadestino = false;
     }
 
     return val;

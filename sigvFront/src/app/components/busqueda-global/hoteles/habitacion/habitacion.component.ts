@@ -29,7 +29,7 @@ declare var $: any;
 })
 export class HabitacionComponent implements OnInit, AfterViewInit {
 
-  
+  flagPriceHotel = false;
   checkout: any;
   modalF5;
   modalRef: BsModalRef;
@@ -248,6 +248,10 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   hideComponente($event) {
     this.hideComponent = $event;
+  }
+
+  updateMiniBusqueda($event) {
+    this.flagPriceHotel = $event;
   }
 
   listadoHoteles($event) {
