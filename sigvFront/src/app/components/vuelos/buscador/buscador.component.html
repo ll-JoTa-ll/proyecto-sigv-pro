@@ -57,8 +57,16 @@
 
       <div id="txtOrigen" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
         <div class="ng-autocomplete" style="width: 100%;">
-          <ng-autocomplete [(ngModel)]="origentTexto" (closed)="ClosedOrigen()" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent(1, $event)' (inputChanged)='onChangeSearch(1, $event)' (inputFocused)='onFocused(1, $event)' [itemTemplate]="itemTemplate"
-                           [notFoundTemplate]="notFoundTemplate">
+          <ng-autocomplete
+            [(ngModel)]="origenText"
+            (closed)="ClosedOrigen()"
+            [data]="data"
+            [searchKeyword]="keyword"
+            (selected)='selectEvent(1, $event)'
+            (inputChanged)='onChangeSearch(1, $event)'
+            (inputFocused)='onFocused(1, $event)'
+            [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate">
           </ng-autocomplete>
 
           <ng-template #itemTemplate let-item>
@@ -87,8 +95,16 @@
 
       <div id="txtDestino" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
         <div class="ng-autocomplete" style="width: 100%;">
-          <ng-autocomplete [(ngModel)]="destinoTexto" (closed)="ClosedDestino()" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent(2, $event)' (inputChanged)='onChangeSearch(2, $event)' (inputFocused)='onFocused(2, $event)' [itemTemplate]="itemTemplate2"
-                           [notFoundTemplate]="notFoundTemplate2">
+          <ng-autocomplete
+            [(ngModel)]="destinoText"
+            (closed)="ClosedDestino()"
+            [data]="data2"
+            [searchKeyword]="keyword"
+            (selected)='selectEvent(2, $event)'
+            (inputChanged)='onChangeSearch(2, $event)'
+            (inputFocused)='onFocused(2, $event)'
+            [itemTemplate]="itemTemplate2"
+            [notFoundTemplate]="notFoundTemplate2">
           </ng-autocomplete>
 
           <ng-template #itemTemplate2 let-item>
@@ -171,11 +187,43 @@
 
       </div>
 
-      <app-multidestinos-xs [infechaSalida1]="fechaSalida1" [infechaSalida2]="fechaSalida2" [infechaSalida3]="fechaSalida3" [infechaSalida4]="fechaSalida4" [infechaSalida5]="fechaSalida5" [infechaSalida6]="fechaSalida6" [infechaSalidaShow1]="fechaSalidaShow1"
-                            [infechaSalidaShow2]="fechaSalidaShow2" [infechaSalidaShow3]="fechaSalidaShow3" [infechaSalidaShow4]="fechaSalidaShow4" [infechaSalidaShow5]="fechaSalidaShow5" [infechaSalidaShow6]="fechaSalidaShow6" [inorigenAuto1]="origenAuto1" [inorigenAuto2]="origenAuto2"
-                            [inorigenAuto3]="origenAuto3" [inorigenAuto4]="origenAuto4" [inorigenAuto5]="origenAuto5" [inorigenAuto6]="origenAuto6" [inorigentTexto1]="origentTexto1" [inorigentTexto2]="origentTexto2" [inorigentTexto3]="origentTexto3" [inorigentTexto4]="origentTexto4"
-                            [inorigentTexto5]="origentTexto5" [inorigentTexto6]="origentTexto6" [indestinoAuto1]="destinoAuto1" [indestinoAuto2]="destinoAuto2" [indestinoAuto3]="destinoAuto3" [indestinoAuto4]="destinoAuto4" [indestinoAuto5]="destinoAuto5" [indestinoAuto6]="destinoAuto6"
-                            [indestinoTexto1]="destinoTexto1" [indestinoTexto2]="destinoTexto2" [indestinoTexto3]="destinoTexto3" [indestinoTexto4]="destinoTexto4" [indestinoTexto5]="destinoTexto5" [indestinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo"
+      <app-multidestinos-xs [infechaSalida1]="fechaSalida1"
+                            [infechaSalida2]="fechaSalida2"
+                            [infechaSalida3]="fechaSalida3"
+                            [infechaSalida4]="fechaSalida4"
+                            [infechaSalida5]="fechaSalida5"
+                            [infechaSalida6]="fechaSalida6"
+                            [infechaSalidaShow1]="fechaSalidaShow1"
+                            [infechaSalidaShow2]="fechaSalidaShow2"
+                            [infechaSalidaShow3]="fechaSalidaShow3"
+                            [infechaSalidaShow4]="fechaSalidaShow4"
+                            [infechaSalidaShow5]="fechaSalidaShow5"
+                            [infechaSalidaShow6]="fechaSalidaShow6"
+                            [inorigenAuto1]="origenAuto1"
+                            [inorigenAuto2]="origenAuto2"
+                            [inorigenAuto3]="origenAuto3"
+                            [inorigenAuto4]="origenAuto4"
+                            [inorigenAuto5]="origenAuto5"
+                            [inorigenAuto6]="origenAuto6"
+                            [inorigentTexto1]="origentTexto1"
+                            [inorigentTexto2]="origentTexto2"
+                            [inorigentTexto3]="origentTexto3"
+                            [inorigentTexto4]="origentTexto4"
+                            [inorigentTexto5]="origentTexto5"
+                            [inorigentTexto6]="origentTexto6"
+                            [indestinoAuto1]="destinoAuto1"
+                            [indestinoAuto2]="destinoAuto2"
+                            [indestinoAuto3]="destinoAuto3"
+                            [indestinoAuto4]="destinoAuto4"
+                            [indestinoAuto5]="destinoAuto5"
+                            [indestinoAuto6]="destinoAuto6"
+                            [indestinoTexto1]="destinoTexto1"
+                            [indestinoTexto2]="destinoTexto2"
+                            [indestinoTexto3]="destinoTexto3"
+                            [indestinoTexto4]="destinoTexto4"
+                            [indestinoTexto5]="destinoTexto5"
+                            [indestinoTexto6]="destinoTexto6"
+                            [inIndexTramo]="indexTramo"
                             (outOrigenValue1)="updateOrigenTramoValue1($event)"
                             (outOrigenValue2)="updateOrigenTramoValue2($event)"
                             (outOrigenValue3)="updateOrigenTramoValue3($event)"
@@ -219,6 +267,7 @@
                             (outFechaSalidaShow4)="Updatefecha4($event)"
                             (outFechaSalidaShow5)="Updatefecha5($event)"
                             (outFechaSalidaShow6)="Updatefecha6($event)"
+                            [inTipoVuelo]="tipoVuelo"
       ></app-multidestinos-xs>
 
       <div class="col-12 m-0 p-0 bv-texto-1 pt-2">
