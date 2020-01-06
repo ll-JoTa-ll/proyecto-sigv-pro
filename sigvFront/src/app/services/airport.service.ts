@@ -80,7 +80,7 @@ export class AirportService {
 
   searchFlight(data): Observable<ISearchFlightModel[]> {
    this.token = this.sessionSt.retrieve('ss_token');
-   httpOptions2.headers = new HttpHeaders({
+   httpOptions2.headers = new HttpHeaders({ 
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
     });

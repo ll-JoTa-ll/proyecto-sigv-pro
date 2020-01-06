@@ -715,7 +715,7 @@ PlantillaPreciovuelo() {
        htmlsection += "<div style='width: 100%; border-radius: 20px 20px 20px 20px; background: white; padding: 1em; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);'>";
        htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
        htmlsection += "<div style='width: 40%;'>";
-       htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/Airlines/";
+       htmlsection += "<span class='m-0 p-0'><img style='width: 70px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
        htmlsection += itemsegmentgroup.carrier + ".png'></span>";
        htmlsection += "</div>";
        htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
@@ -898,7 +898,7 @@ PlantillaPasajerosVueloRechazado() {
        htmlsection += "<div style='width: 100%; border-radius: 20px 20px 20px 20px; background: white; padding: 1em; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);'>";
        htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
        htmlsection += "<div style='width: 40%;'>";
-       htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/Airlines/";
+       htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
        htmlsection += itemsegmentgroup.carrier + ".png'></span>";
        htmlsection += "</div>";
        htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
@@ -1039,7 +1039,7 @@ PlantillaPasajerosVueloCancelado() {
        htmlsection += "<div style='width: 100%; border-radius: 20px 20px 20px 20px; background: white; padding: 1em; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);'>";
        htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
        htmlsection += "<div style='width: 40%;'>";
-       htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/Airlines/";
+       htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
        htmlsection += itemsegmentgroup.carrier + ".png'></span>";
        htmlsection += "</div>";
        htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";

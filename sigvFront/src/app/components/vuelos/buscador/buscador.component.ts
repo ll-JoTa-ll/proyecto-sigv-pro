@@ -149,6 +149,11 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.destinoText = this.destinoTexto;
     }
 
+    this.origenAuto1 = this.origenValue;
+    this.origentTexto1 = this.origenText;
+    this.destinoAuto1 = this.destinoValue;
+    this.destinoTexto1 = this.destinoText;
+
     const lstAutocomplete = this.lstAutocomplete;
     this.airportlist.forEach(function (aeropuerto) {
       const obj1 = {
@@ -187,22 +192,16 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     const tipoVuelo = this.tipoVuelo;
     const fechaSalidaShow = this.fechaSalidaShow;
     const fechaRetornoShow = this.fechaRetornoShow;
+    this.fechaSalidaShow1 = this.fechaSalidaShow;
     switch (tipoVuelo) {
       case 'RT':
         $('#radio_b_tv_1').prop("checked", true);
         $('#datepickerSalida').val(fechaSalidaShow);
-       // this.model.salida = fechaSalidaShow;
-        console.log('holaa', this.model.salida);
-        //this.model.retorno = fechaRetornoShow;
         $('#datepickerRetorno').val(fechaRetornoShow);
-       // $('#datepickerSalida').val(fechaSalidaShow);
-       // $('#datepickerRetorno').val(fechaRetornoShow);
         break;
       case 'OW':
         $('#radio_b_tv_2').prop("checked", true);
-       // this.model.salida = fechaSalidaShow;
         $('#datepickerSalida').val(fechaSalidaShow);
-        //$('#datepickerSalida').val(fechaSalidaShow);
         break;
       case 'MC':
         $('#radio_b_tv_3').prop("checked", true);
@@ -258,6 +257,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   seleccionarTipoVuelo(valor) {
+    console.log('seleccionarTipoVuelo');
     this.tipoVuelo = valor;
   }
 
@@ -269,6 +269,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       $("#txtOrigen").removeClass("campo-invalido");
      // $(".x").show();
       console.log(this.origentTexto);
+
+      this.origenAuto1 = this.origenAuto;
+      this.origentTexto1 = this.origenText;
+      this.origenValue = this.origenAuto;
     }
 
     if (flag === 2) {
@@ -278,6 +282,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       $("#txtDestino").removeClass("campo-invalido");
      // $(".x").show();
       console.log(this.destinoTexto);
+
+      this.destinoAuto1 = this.destinoAuto;
+      this.destinoTexto1 = this.destinoText;
+      this.destinoValue = this.destinoAuto;
     }
   }
 
@@ -391,31 +399,41 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   onValueChangeSalida(value: Date): void {
-    this.minDateRetorno = value;
-    //console.log("dpSalida: " + this.dpSalida);
+    if (value != null) {
+      this.minDateRetorno = value;
+      //console.log("dpSalida: " + this.dpSalida);
 
-    let mes = "";
-    let getMonth = value.getMonth() + 1;
-    if (getMonth < 10) {
-      getMonth = value.getMonth() + 1;
-      mes = "0" + getMonth;
-    } else {
-      mes = "" + getMonth;
-    }
+      let mes = "";
+      let getMonth = value.getMonth() + 1;
+      if (getMonth < 10) {
+        getMonth = value.getMonth() + 1;
+        mes = "0" + getMonth;
+      } else {
+        mes = "" + getMonth;
+      }
 
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+      $("#txtFechaSalida").removeClass("campo-invalido");
+      this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
+      console.log(this.fechaSalida);
     }
-    $("#txtFechaSalida").removeClass("campo-invalido");
-    this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
-    console.log(this.fechaSalida);
   }
 
   Updatefecha1($event) {
-   this.fecha1show = $event;
+    console.log("Updatefecha1");
+    console.log("$event: " + $event);
+    this.fecha1show = "";
+    this.fechaSalidaShow = "";
+    this.fecha1show = $event;
+    this.fechaSalidaShow = $event;
+    $('#datepickerSalida').val(this.fechaSalidaShow);
+    console.log("this.fecha1show: " + this.fecha1show);
+    console.log("this.fechaSalidaShow: " + this.fechaSalidaShow);
   }
 
   Updatefecha2($event) {
@@ -439,24 +457,26 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   onValueChangeRetorno(value: Date): void {
-    let mes = "";
-    let getMonth = value.getMonth() + 1;
-    if (getMonth < 10) {
-      getMonth = value.getMonth() + 1;
-      mes = "0" + getMonth;
-    } else {
-      mes = "" + getMonth;
-    }
+    if (value != null) {
+      let mes = "";
+      let getMonth = value.getMonth() + 1;
+      if (getMonth < 10) {
+        getMonth = value.getMonth() + 1;
+        mes = "0" + getMonth;
+      } else {
+        mes = "" + getMonth;
+      }
 
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
 
-    $("#txtFechaDestino").removeClass("campo-invalido");
-    this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
+      $("#txtFechaDestino").removeClass("campo-invalido");
+      this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
+    }
   }
 
   searchFlight() {
@@ -618,8 +638,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         origencode: this.origenAuto,
         destino: this.destinoText,
         destinocode: this.destinoAuto,
-        fechasalida: $('#datepickerSalida').val(),
-        fechadestino: $('#datepickerRetorno').val(),
+        fechasalida: this.fechaSalida,
+        fechadestino: this.fechaRetorno,
+        fechasalidashow: $('#datepickerSalida').val(),
+        fecharetornoshow: $('#datepickerRetorno').val(),
         cabina: this.textoCabina,
         escala: this.textoEscala,
         pasajeros: this.pasajeros,
@@ -663,7 +685,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         escala: this.textoEscala,
         pasajeros: this.pasajeros,
         indextramo: this.indexTramo
-      }
+      };
     }
 
     let data = {
@@ -1162,10 +1184,17 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   //ORIGEN
   updateOrigenTramoValue1($event) {
+    console.log("updateOrigenTramoValue1");
+    console.log("$event: " + $event);
+    this.origenAuto1 = "";
+    this.origenAuto = "";
+    this.origenValue = "";
     this.origenAuto1 = $event;
     this.origenAuto = $event;
-    console.log("updateOrigenTramoValue1");
-    console.log(this.origenAuto1);
+    this.origenValue = $event;
+    console.log("this.origenAuto1: " + this.origenAuto1);
+    console.log("this.origenAuto: " + this.origenAuto);
+    console.log("this.origenValue: " + this.origenValue);
   }
   updateOrigenTramoValue2($event) {
     this.origenAuto2 = $event;
@@ -1189,10 +1218,14 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     console.log(this.origenAuto6);
   }
   updateOrigenTramoText1($event) {
+    console.log("updateOrigenTramoText1");
+    console.log("$event: " + $event);
+    this.origentTexto1 = "";
+    this.origenText = "";
     this.origentTexto1 = $event;
     this.origenText = $event;
-    console.log("updateOrigenTramoText1");
-    console.log(this.origentTexto1);
+    console.log("this.origentTexto1: " + this.origentTexto1);
+    console.log("this.origenText: " + this.origenText);
   }
   updateOrigenTramoText2($event) {
     this.origentTexto2 = $event;
@@ -1217,7 +1250,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     this.destinoAuto1 = $event;
     this.destinoAuto = $event;
     console.log("updateDestinoTramoValue1");
-    console.log(this.destinoAuto1);
+    console.log("this.destinoAuto1: " + this.destinoAuto1);
+    console.log("this.destinoAuto: " + this.destinoAuto);
   }
   updateDestinoTramoValue2($event) {
     this.destinoAuto2 = $event;
@@ -1244,7 +1278,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     this.destinoTexto1 = $event;
     this.destinoText = $event;
     console.log("updateDestinoTramoText1");
-    console.log(this.destinoTexto1);
+    console.log("this.destinoTexto1: " + this.destinoTexto1);
+    console.log("this.destinoText: " + this.destinoText);
   }
   updateDestinoTramoText2($event) {
     this.destinoTexto2 = $event;
@@ -1265,7 +1300,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   updateFechaSalida1($event) {
+    this.fechaSalida1 = "";
+    this.fechaSalida = "";
     this.fechaSalida1 = $event;
+    this.fechaSalida = $event;
   }
   updateFechaSalida2($event) {
     this.fechaSalida2 = $event;

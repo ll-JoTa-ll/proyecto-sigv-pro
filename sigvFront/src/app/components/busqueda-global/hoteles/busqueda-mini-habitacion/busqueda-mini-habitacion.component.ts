@@ -82,17 +82,11 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     private localStorageService: LocalStorageService,
     private spinner: NgxSpinnerService,
     private service: HotelService
-    
-    
   ) { 
     this.minDateIngreso = new Date();
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
-    
-  
   }
-
   
-
   ngOnInit() {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');

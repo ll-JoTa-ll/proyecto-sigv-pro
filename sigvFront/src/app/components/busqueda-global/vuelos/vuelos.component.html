@@ -29,29 +29,29 @@
                         </div>
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                            <label class="container" (click)="seleccionarTipoVuelo('RT')">
+                            <!--   <label class="container" (click)="seleccionarTipoVuelo('RT')">
                                 <input type="radio" name="radio" checked value="RT"> Ida & Vuelta
                                 <span class="checkmark"></span>
-                        </label>
-                            <!--  <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT" class="mr-1"> Ida & Vuelta -->
+                        </label> -->
+                            <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT" class="mr-1"> Ida & Vuelta
 
                         </div>
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                            <label class="container" (click)="seleccionarTipoVuelo('OW')">
+                            <!--   <label class="container" (click)="seleccionarTipoVuelo('OW')">
                                 <input type="radio" name="radio" value="OW"> Sólo ida
                                 <span class="checkmark"></span>
-                        </label>
-                            <!-- <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1"> Sólo ida -->
+                        </label> -->
+                            <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1"> Sólo ida
 
                         </div>
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                            <label class="container" (click)="seleccionarTipoVuelo('MC')">
+                            <!--  <label class="container" (click)="seleccionarTipoVuelo('MC')">
                                 <input type="radio" name="radio" value="MC"> Multidestinos
                                 <span class="checkmark"></span>
-                        </label>
-                            <!-- <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1"> Multidestinos-->
+                        </label> -->
+                            <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1"> Multidestinos
 
                         </div>
 
@@ -195,10 +195,10 @@
              bsDatepicker
              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
              [(ngModel)]="model.retorno"
-             [isOpen]="isOpendate"
              (onHidden)="handlerRetorno()"
              id="fechadestino"
       >
+      <!--[isOpen]="isOpendate"-->
     </label>
                                 </div>
 

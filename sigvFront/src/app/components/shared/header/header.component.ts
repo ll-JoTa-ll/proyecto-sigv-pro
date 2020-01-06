@@ -139,7 +139,7 @@ export class HeaderComponent implements OnInit {
     this.sessionStorageService.clear();
     this.router.navigate(['/']);
     this.closedSesion = false;
-    this.localStorageService.store("ss_closedSesion",this.closedSesion);
+    this.localStorageService.store("ss_closedSesion", this.closedSesion);
   }
 
 }
