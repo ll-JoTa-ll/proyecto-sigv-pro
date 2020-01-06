@@ -51,9 +51,9 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   lstAutocomplete: any[] = [];
   airportlist: any[] = [];
   citylist: any[] = [];
-  
+  salida: any;
   objSearch : any;
-
+  calendarSalidaValue: Date;
   SearchObj: any = { 
     HotelCityCode: '',
     Start: '',
@@ -76,8 +76,10 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   ) { 
     this.minDateIngreso = new Date();
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
-    
-  
+    this.minDateSalida = new Date();
+    this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
+    this.calendarSalidaValue = new Date();
+    this.calendarSalidaValue.setDate(this.calendarSalidaValue.getDate() + 1);
   }
   ngOnInit() {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
@@ -179,8 +181,6 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   }
 
   onValueChangeIngreso(value: Date): void {
-    
-    this.minDateSalida = value;
     if (value === null) {
       return;
     } else {
@@ -197,33 +197,37 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
         dia = "" + value.getDate();
       }
       this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
+      this.minDateSalida = value;
      
       this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
     }
   }
 
   onValueChangeSalida(value: Date): void {
-    
-    this.maxDateIngreso = value;
-    if (value === null) {
-      return;
-    } else {
-      let mes = "";
-      if ((value.getMonth() + 1) < 10) {
-        mes = "0" + (value.getMonth() + 1);
+    if (value != null) {
+      this.maxDateIngreso = value;
+      if (value === null) {
+        return;
       } else {
-        mes = "" + (value.getMonth() + 1);
+        let mes = "";
+        if ((value.getMonth() + 1) < 10) {
+          mes = "0" + (value.getMonth() + 1);
+        } else {
+          mes = "" + (value.getMonth() + 1);
+        }
+        let dia = "";
+        if (value.getDate() < 10) {
+          dia = "0" + value.getDate();
+        } else {
+          dia = "" + value.getDate();
+        }
+        this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
+      
+        this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
       }
-      let dia = "";
-      if (value.getDate() < 10) {
-        dia = "0" + value.getDate();
-      } else {
-        dia = "" + value.getDate();
-      }
-      this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
-    
-      this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
     }
+  
+    
   }
 
   SeachHotel() {
@@ -353,7 +357,7 @@ ObtenerDias(fecha1, fecha2) {
   
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
-
+  
   this.fechaSalida = n1[2] + "-" + n1[1] + "-" + n1[0];
   this.fechaRetorno = n2[2] + "-" + n2[1] + "-" + n2[0];
 }
@@ -376,14 +380,7 @@ ObtenerDias2(fecha1, fecha2) {
  
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
-
-  console.log("cantidadnoches ============> " + this.cantidadnoches);
-  console.log("cantidadnoches ============> " + this.cantidadnoches);
-  console.log("cantidadnoches ============> " + this.cantidadnoches);
-  console.log("cantidadnoches ============> " + this.cantidadnoches);
-  console.log("cantidadnoches ============> " + this.cantidadnoches);
-  console.log("cantidadnoches ============> " + this.cantidadnoches);
-  console.log("cantidadnoches ============> " + this.cantidadnoches);
+ 
   this.sessionStorageService.store("ss_noches",this.cantidadnoches);
 
 }

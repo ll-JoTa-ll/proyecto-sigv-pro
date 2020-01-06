@@ -71,6 +71,9 @@ export class IHabitacionResults {
   ];
   gds: string;
   contador: number;
+  Oerror:{
+    message: string;
+  }
   pseudo: string;
     osession: {
         sessionId: string;

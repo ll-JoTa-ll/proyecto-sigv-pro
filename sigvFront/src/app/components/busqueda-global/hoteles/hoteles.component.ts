@@ -281,8 +281,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $("#ingreso").removeClass("campo-invalido");
     this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
 
-
-
     this.minDateSalida = value;
     if (value >= this.calendarSalidaValue) {
       $("#datesalida").val("");

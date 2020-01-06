@@ -166,8 +166,6 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   }
 
   onValueChangeIngreso(value: Date): void {
-    
-    this.minDateSalida = value;
     if (value === null) {
       return;
     } else {
@@ -184,33 +182,37 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
         dia = "" + value.getDate();
       }
       this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
+      this.minDateSalida = value;
      
       this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
     }
   }
 
   onValueChangeSalida(value: Date): void {
-    
-    this.maxDateIngreso = value;
-    if (value === null) {
-      return;
-    } else {
-      let mes = "";
-      if ((value.getMonth() + 1) < 10) {
-        mes = "0" + (value.getMonth() + 1);
+    if (value != null) {
+      this.maxDateIngreso = value;
+      if (value === null) {
+        return;
       } else {
-        mes = "" + (value.getMonth() + 1);
+        let mes = "";
+        if ((value.getMonth() + 1) < 10) {
+          mes = "0" + (value.getMonth() + 1);
+        } else {
+          mes = "" + (value.getMonth() + 1);
+        }
+        let dia = "";
+        if (value.getDate() < 10) {
+          dia = "0" + value.getDate();
+        } else {
+          dia = "" + value.getDate();
+        }
+        this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
+      
+        this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
       }
-      let dia = "";
-      if (value.getDate() < 10) {
-        dia = "0" + value.getDate();
-      } else {
-        dia = "" + value.getDate();
-      }
-      this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
-    
-      this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
     }
+  
+    
   }
 
   ValidarCampos() {
@@ -339,8 +341,6 @@ ObtenerDias(fecha1, fecha2) {
 }
 
 ObtenerDias2(fecha1, fecha2) {
-  //const fecha1 = this.fchingreso;
-  //const fecha2 = this.fchsalida;
   const n1 = fecha1.split('-');
   const n2 = fecha2.split('-');
   let nuevafecha = new Date(parseInt(n1[0]), parseInt(n1[1]) - 1, parseInt(n1[2]));

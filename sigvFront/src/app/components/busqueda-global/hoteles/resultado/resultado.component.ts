@@ -11,8 +11,9 @@ import { VuelosComponent } from '../../vuelos/vuelos.component';
 import { HotelesComponent } from '../hoteles.component';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BnNgIdleService } from 'bn-ng-idle';
-import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ModalHotelErroneoComponent } from '../../../shared/modal-hotel-erroneo/modal-hotel-erroneo.component';
 
 
 
@@ -54,10 +55,10 @@ export class ResultadoComponent implements OnInit {
   lstHotel : IHotelResultsModel[];
   objSearch: any;
   personas: any;
-
+  modalRefSessionExpired: BsModalRef;
   t: number;
 
-  constructor(private localStorageService: LocalStorageService,public spinner: NgxSpinnerService,private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router) {
+  constructor(private modalService: BsModalService,private localStorageService: LocalStorageService,public spinner: NgxSpinnerService,private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router) {
 
 
   }
@@ -126,7 +127,13 @@ export class ResultadoComponent implements OnInit {
         this.lstHabication = data;
 
         this.sessionStorageService.store("lstHabication", this.lstHabication);
-        this.router.navigate(['/habitacion']);
+        if (this.lstHabication.Oerror != null) {
+          this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
+        }else{
+          //this.router.navigate(['/habitacion']);
+          window.open(window.location.origin + "/habitacion");
+        }
+        
         //window.open(window.location.origin + "/habitacion");
       },
       err => {

@@ -7,6 +7,9 @@ import { IHotelResultsModel } from '../../../../models/IHotelResults.model';
 import { IHabitacionResults } from '../../../../models/IHabitacionResults';
 import { environment } from '../../../../../environments/environment';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalHabitacionErroneaComponent } from '../../../shared/modal-habitacion-erronea/modal-habitacion-erronea.component';
+import { ModalHotelErroneoComponent } from '../../../shared/modal-hotel-erroneo/modal-hotel-erroneo.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -39,9 +42,9 @@ export class ResultadoHabitacionComponent implements OnInit {
   @Input() hotelcode;
   @Input() fecharetorno;
   urlimg = './assets/images/hotel-icon.png';
-  
+  modalRefSessionExpired: BsModalRef;
 
-  constructor(private router : Router,public spinner: NgxSpinnerService,private service: HotelService,private sessionStorageService: SessionStorageService) {
+  constructor(private modalService: BsModalService,private router : Router,public spinner: NgxSpinnerService,private service: HotelService,private sessionStorageService: SessionStorageService) {
 
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
@@ -93,7 +96,12 @@ export class ResultadoHabitacionComponent implements OnInit {
         
         this.sessionStorageService.store("lstHabication", this.lstHabication);
         //this.router.navigate(['/habitacion']);
-        window.open(environment.url_project + "/habitacion");
+        if (this.lstHabication.Oerror != null) {
+          this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
+        }else{
+          window.open(window.location.origin + "/habitacion");
+        }
+        
       },
       err => {
       this.spinner.hide();

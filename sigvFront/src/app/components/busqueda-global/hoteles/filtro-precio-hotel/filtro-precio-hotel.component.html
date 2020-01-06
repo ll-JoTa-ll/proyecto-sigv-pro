@@ -26,11 +26,11 @@
 
                 <div class="wrapper">
                     <igx-input-group>
-                        <input igxInput id="lowerInput" type="text" [ngModel]="priceRange.lower | currency" (blur)="updatePriceRange($event.target)" />
+                        <input readonly igxInput id="lowerInput" type="text" [ngModel]="priceRange.lower | currency" (blur)="updatePriceRange($event.target)" />
                         <label igxLabel for="lowerInput">Lower price:</label>
                     </igx-input-group>
                     <igx-input-group class="pl-3">
-                        <input igxInput id="upperInput" type="text" [ngModel]="priceRange.upper | currency" (blur)="updatePriceRange($event.target)" />
+                        <input readonly igxInput id="upperInput" type="text" [ngModel]="priceRange.upper | currency" (blur)="updatePriceRange($event.target)" />
                         <label igxLabel for="upperInput">Upper price:</label>
                     </igx-input-group>
                 </div>

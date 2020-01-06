@@ -137,6 +137,7 @@ import { IgxInputGroupModule,IgxSliderModule } from 'igniteui-angular';
 import { DetalleReservaHotelComponent } from './components/reserva-vuelo/detalle-reserva-hotel/detalle-reserva-hotel.component';
 import { ModalAvisoSesionComponent } from './components/shared/modal-aviso-sesion/modal-aviso-sesion.component';
 import { ModalFamiliasVaciasComponent } from './components/shared/modal-familias-vacias/modal-familias-vacias.component';
+import { ModalHotelErroneoComponent } from './components/shared/modal-hotel-erroneo/modal-hotel-erroneo.component';
 
 @NgModule({
   declarations: [
@@ -247,7 +248,8 @@ import { ModalFamiliasVaciasComponent } from './components/shared/modal-familias
     DetalleReservaHotelComponent,
     ModalAvisoSesionComponent,
     ModalCerrarSesionComponent,
-    ModalFamiliasVaciasComponent
+    ModalFamiliasVaciasComponent,
+    ModalHotelErroneoComponent
   ],
   imports: [
     BrowserModule,
@@ -284,7 +286,7 @@ import { ModalFamiliasVaciasComponent } from './components/shared/modal-familias
     IgxInputGroupModule,
 		IgxSliderModule
   ],
-  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent],
+  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
