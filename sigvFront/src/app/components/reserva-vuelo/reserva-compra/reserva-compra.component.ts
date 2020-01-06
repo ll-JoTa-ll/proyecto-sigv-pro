@@ -193,7 +193,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         results => {
         // tslint:disable-next-line: indent
         this.pnrresults = results;
-        if (results != null) {
+        if (this.pnrresults.pnr != null) {
          clearInterval(idinterval);
         }
         // tslint:disable-next-line: max-line-length
@@ -455,11 +455,12 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            mails.push(item.email);
         }
       });
+      let mailcontacto = this.contacto.ContactEmail;
       console.log(this.emailsolicitud);
       let data = {
         "AgencyId": 1,
         "Recipients": mails,
-        "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com', 'gerentedeinnovacion@domiruth.com'],
+        "RecipientsCopy": [mailcontacto, 'analista8@gmail.com'],
         "RecipientsHiddenCopy": [],
         "Subject": "SOLICITUD APROBACION DE EXCEPCION",
         "Message": this.emailsolicitud
@@ -494,10 +495,11 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       this.lsusuario.forEach(function(item) {
            mails.push(item.Email);
       });
+      let mailcontacto = this.contacto.ContactEmail;
       let data = {
         "AgencyId": 1,
         "Recipients": mails,
-        "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com', 'gerentedeinnovacion@domiruth.com'],
+        "RecipientsCopy": ['analista8@domiruth.com', mailcontacto],
         "RecipientsHiddenCopy": [],
         "Subject": "RESERVA GENERADA",
         "Message": this.emailreserva

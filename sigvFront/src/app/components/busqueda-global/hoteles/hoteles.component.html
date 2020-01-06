@@ -55,7 +55,6 @@
                                                    (onHidden)="handlerIngreso($event)"
                                                    (bsValueChange)="onValueChangeIngreso($event)"
                                                    [minDate]="minDateIngreso"
-                                                   [maxDate]="maxDateIngreso"
                                                    bsDatepicker
                                                    id="dateingreso"
                                                    [(bsValue)]="bsValue"
@@ -174,7 +173,7 @@
                             <div id="habitacion_2"></div>
                             <div id="options_1">
                                 <div class="btn-agregar" id="divbotones_1" style="display: block;">
-                                    <button class="btn btn-danger text-btn" onclick="s(1)">Añadir habitacion</button>
+                                    <button class="btn btn-danger text-btn" onclick="AddHabitaciones(1)">Añadir habitacion</button>
                                     <button class="btn btn-danger añadir" onclick="Aplicar(1)">Aplicar</button>
                                 </div>
                             </div>

@@ -1111,14 +1111,18 @@ PlantillaPasajerosVueloCancelado() {
 }
 
 Regresar() {
-  this.router.navigate(['/gestion-reserva-vuelo']);
+  if (this.reserva.lauthorizers.length > 0) {
+    this.router.navigate(['/gestion-reserva-vuelo']);
+  } else {
+    this.router.navigate(['/mis-reservas']);
+  }
 }
 
 Back() {
-  if (this.loginDataUser.orole.roleDescription === 'Usuario') {
-    this.router.navigate(['/mis-reservas-vuelo']);
-  } else {
+  if (this.reserva.lauthorizers.length > 0) {
     this.router.navigate(['/gestion-reserva-vuelo']);
+  } else {
+    this.router.navigate(['/mis-reservas']);
   }
 }
 }

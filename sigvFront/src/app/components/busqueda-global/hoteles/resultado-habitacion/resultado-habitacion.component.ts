@@ -93,7 +93,7 @@ export class ResultadoHabitacionComponent implements OnInit {
         
         this.sessionStorageService.store("lstHabication", this.lstHabication);
         //this.router.navigate(['/habitacion']);
-        window.open(environment.url_project + "/habitacion");
+        window.open(window.location.origin + "/habitacion");
       },
       err => {
       this.spinner.hide();
@@ -105,7 +105,6 @@ export class ResultadoHabitacionComponent implements OnInit {
    }
     )
   }
-  
 
   Mostrarmapa(position) {
     $('#mapa_' + position).show();

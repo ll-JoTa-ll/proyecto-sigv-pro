@@ -74,8 +74,8 @@
                                 <div id="txtOrigen" class="m-0 p-0 txtOrigen" style="width: 75%">
 
                                     <div class="ng-autocomplete" style="width: 100%;">
-                                        <ng-autocomplete [(ngModel)]="model.origentTexto" popover="Falta ingresar el origen" triggers="" [isOpen]="isOpen" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                                        <ng-autocomplete [(ngModel)]="model.origentTexto" triggers="" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -113,8 +113,8 @@
                                 <div id="txtDestino" class=" m-0 p-0 txtDestino" style="width: 75%;">
 
                                     <div class="ng-autocomplete" style="width: 100%;">
-                                        <ng-autocomplete [(ngModel)]="model.destinoTexto" popover="Falta ingresar el destino" triggers="" [isOpen]="valdestino" style="color: #898989 !important;" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent2($event)' (inputChanged)='onChangeSearch2($event)'
-                                            (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2" [notFoundTemplate]="notFoundTemplate2">
+                                        <ng-autocomplete [(ngModel)]="model.destinoTexto" style="color: #898989 !important;" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent2($event)' (inputChanged)='onChangeSearch2($event)' (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2"
+                                            [notFoundTemplate]="notFoundTemplate2">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate2 let-item>
@@ -155,7 +155,7 @@
                                 </div>
 
                                 <div class="m-0 p-0 pr-2" style="width: 42%">
-                                    <label id="txtFechaSalida" for="" popover="Ingresa una fecha de salida" triggers="" [isOpen]="valfechasalida" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                                    <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida.toggle()"
@@ -179,7 +179,7 @@
                                 </div>
 
                                 <div *ngIf="tipoVuelo!=='OW'" class=" m-0 p-0" style="width: 40%">
-                                    <label id="txtFechaDestino" for="" popover="Ingresa una fecha de destino" triggers="" [isOpen]="valfechadestino" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
+                                    <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
       <input type="image"
              src="./assets/images/home/calendario.svg"
              (click)="datepickerRetorno.toggle()"
@@ -406,10 +406,10 @@
                         </div>
 
                         <div class="row m-0 p-0" *ngIf="searchData.length > 0">
-                            <app-recomendacion *ngFor="let recomendacion of searchData" [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency" [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount" [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
+                            <app-recomendacion *ngFor="let recomendacion of searchData; let i = index" [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency" [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount" [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
                                 [taxAmountByPassenger]="recomendacion.taxAmountByPassenger" [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger" [carrierId]="recomendacion.carrierId" [numberPassengers]="recomendacion.numberPassengers" [pseudo]="recomendacion.pseudo"
                                 [gds]="recomendacion.gds" [flightNational]="recomendacion.flightNational" [lsections]="recomendacion.lsections" [lsectionLength]="recomendacion.lsections.length" [lpolicies]="recomendacion.lpolicies" [recommendationId]="recomendacion.recommendationId"
-                                [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.pseudoRepeat">
+                                [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.pseudoRepeat" [index]='i + 1'>
                             </app-recomendacion>
                         </div>
 

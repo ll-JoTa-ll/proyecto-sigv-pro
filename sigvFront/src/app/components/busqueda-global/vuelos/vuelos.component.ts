@@ -133,6 +133,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   lstResult2: any[] = [];
   isOpendate = false;
   bsValue: Date;
+  calendarSalidaValue: Date;
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -521,6 +522,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         dia = "" + value.getDate();
       }
 
+      if (value >= this.calendarSalidaValue) {
+        $("#fechadestino").val("");
+        this.fechaRetorno = '';
+      }
       this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
       this.fechaSalidaShow = dia + "/" + mes + "/" + value.getFullYear();
     }
@@ -534,6 +539,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   onValueChangeRetorno(value: Date): void {
     if (value != null) {
       this.valfechadestino = false;
+      this.calendarSalidaValue = value;
       $("#txtFechaDestino").removeClass("campo-invalido");
       let mes = "";
       let getMonth = value.getMonth() + 1;
