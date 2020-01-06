@@ -645,7 +645,9 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         cabina: this.textoCabina,
         escala: this.textoEscala,
         pasajeros: this.pasajeros,
-        tipovuelo: this.tipoVuelo
+        tipovuelo: this.tipoVuelo,
+        mindatesalida: this.minDateSalida,
+        mindateretorno: this.minDateRetorno
       };
     }
     if (this.tipoVuelo === 'MC') {

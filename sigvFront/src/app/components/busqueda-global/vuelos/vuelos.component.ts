@@ -264,6 +264,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.fechaSalida = databuscador.fechasalida;
         this.fechaRetorno = databuscador.fechadestino;
         this.tipoVuelo = databuscador.tipovuelo;
+        this.minDateSalida = databuscador.mindatesalida;
+        this.minDateRetorno = databuscador.mindateretorno;
       }
       if (tipovuelo === 'MC') {
         let lstdata = this.sessionStorageService.retrieve('ss_searchFlight');
@@ -1021,7 +1023,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         cabina: this.textoCabina,
         escala: this.textoEscala,
         pasajeros: this.pasajeros,
-        tipovuelo: this.tipoVuelo
+        tipovuelo: this.tipoVuelo,
+        mindatesalida: this.minDateSalida,
+        mindateretorno: this.minDateRetorno
       };
     }
 
