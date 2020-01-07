@@ -67,6 +67,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   lstAutocomplete: any[] = [];
   citylist: any[] = [];
   objSearch : any;
+  fechaSalidaShow;
+  fechaRetornoShow;
 
   SearchObj: any = { 
     HotelCityCode: '',
@@ -101,8 +103,15 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   //  this.token = this.sessionStorageService.retrieve('ss_token');
     this.textoestrellas = this.sessionMini1.categoria;
     this.destinoValue = this.sessionMini1.iata;
-    this.fechaSalida = this.sessionMini.fechaentrada;
-    this.fechaRetorno = this.sessionMini.fechasalida;
+
+    this.fechaSalidaShow = this.sessionMini.fechaentrada;
+    this.fechaRetornoShow = this.sessionMini.fechasalida;
+    const fechaSalidaShowSp  =  this.fechaSalidaShow.split('-');
+    const fechaRetornoShowSp  =  this.fechaRetornoShow.split('-');
+
+    this.fechaSalida = fechaSalidaShowSp[2] + "-" + fechaSalidaShowSp[1] + "-" + fechaSalidaShowSp[0];
+    this.fechaRetorno = fechaRetornoShowSp[2] + "-" + fechaRetornoShowSp[1] + "-" + fechaRetornoShowSp[0];
+
     this.localeService.use(this.locale);
 
     const lstAutocomplete = this.lstAutocomplete;
@@ -373,6 +382,10 @@ ObtenerDias(fecha1, fecha2) {
 }
 
 ObtenerDias2(fecha1, fecha2) {
+
+  console.log("fecha1: " + fecha1);
+  console.log("fecha2: " + fecha2);
+
   const n1 = fecha1.split('-');
   const n2 = fecha2.split('-');
   let nuevafecha = new Date(parseInt(n1[0]), parseInt(n1[1]) - 1, parseInt(n1[2]));

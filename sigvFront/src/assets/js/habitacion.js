@@ -30,15 +30,39 @@ document.onclick = function(e) {
 
 //* funciones modal agregar habitaciones
 $(document).on('click', '.number-spinner button', function() {
+
+
+    console.log("JOTA 1");
+
     var btn = $(this),
         oldValue = btn.closest('.number-spinner').find('input').val().trim(),
         newVal = 0;
     if (btn.attr('data-dir') == 'up') {
+        console.log("JOTA 2 UP");
         newVal = parseInt(oldValue) + 1;
         var result = 0;
         var adultos = parseFloat(document.getElementById("txtpersonas").value);
         result = adultos + 1;
         document.getElementById("txtpersonas").value = result;
+
+        var hdnCountAddHab = parseFloat($("#hdnCountAddHab").val());
+
+        var adultos1 = parseFloat(document.getElementById("txtadultos_1").value);
+        if (adultos1 >= 6) {
+            console.log("MAXIMOOOOO 6");
+            //$("#btnUp_1").hide();
+            $("#btnUp_1").prop("disabled", true);
+        }
+
+        if (hdnCountAddHab > 1) {
+            var adultos2 = parseFloat(document.getElementById("txtadultos_2").value);
+            if (adultos2 >= 6) {
+                console.log("MAXIMOOOOO 6");
+                //$("#btnUp_1").hide();
+                $("#btnUp_2").prop("disabled", true);
+            }
+        }
+
     } else {
         if (oldValue > 1) {
             var adultos = parseFloat(document.getElementById("txtpersonas").value);
@@ -47,6 +71,26 @@ $(document).on('click', '.number-spinner button', function() {
             var adultos = parseFloat(document.getElementById("txtpersonas").value);
             result = adultos - 1;
             document.getElementById("txtpersonas").value = result;
+
+            var hdnCountAddHab = parseFloat($("#hdnCountAddHab").val());
+
+            var adultos1 = parseFloat(document.getElementById("txtadultos_1").value);
+            if (adultos1 < 6) {
+                console.log(btn);
+                //$("#btnUp_1").show();
+                $("#btnUp_1").prop("disabled", false);
+            }
+
+            if (hdnCountAddHab > 1) {
+                var adultos2 = parseFloat(document.getElementById("txtadultos_2").value);
+                if (adultos2 < 6) {
+                    console.log(btn);
+                    //$("#btnUp_1").show();
+                    $("#btnUp_2").prop("disabled", false);
+                }
+            }
+
+
         } else {
             newVal = 1;
         }
@@ -65,6 +109,7 @@ function AddHabitaciones(position) {
     var sum = 0;
     const newComponent = parseInt(position) + 1;
     const oldComponent = parseInt(position) - 1;
+    $("#hdnCountAddHab").val(newComponent);
     var content = "<div id='seccion_habitacion'>";
     content += "<div class='title-room'>";
     content += "<span>Habitacion #" + newComponent + "</span>";
@@ -79,7 +124,7 @@ function AddHabitaciones(position) {
     content += "</span>";
     content += "<input readonly type='text' class='form-control text-center' value='1' id='txtadultos_" + newComponent + "'>";
     content += "<span class='input-group-btn'>";
-    content += "<button class='btn btn-danger' data-dir='up'><i class='fas fa-plus'></i></button>";
+    content += "<button class='btn btn-danger' data-dir='up' id='btnUp_" + newComponent + "'><i class='fas fa-plus'></i></button>";
     content += "</span>";
     content += "</div>";
     content += "</div>";
@@ -111,6 +156,10 @@ function AddHabitaciones(position) {
 }
 
 function RemoveHabitaciones(position) {
+
+    var hdnCountAddHab = parseFloat($("#hdnCountAddHab").val());
+    $("#hdnCountAddHab").val("" + (hdnCountAddHab - 1));
+
     var resta = 0;
     var canthab = 0;
     var habitaciones = parseFloat(document.getElementById("txthabitacion").value);

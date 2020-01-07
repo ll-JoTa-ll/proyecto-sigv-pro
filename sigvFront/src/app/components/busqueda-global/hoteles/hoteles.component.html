@@ -149,6 +149,8 @@
                         </ng-template>
 
 
+                        <input type="hidden" id="hdnCountAddHab" value="1">
+
                         <div class="modal-info tooltipBagDiv box-shadow" id="pop1" style="display: none;">
                             <div id="habitacion_1">
                                 <div id="seccion_habitacion">
@@ -162,9 +164,9 @@
                                             <span class="input-group-btn">
                                                                 <button class="btn btn-danger" data-dir="dwn"><i class="fas fa-minus"></i></button>
                                                             </span>
-                                            <input readonly (keypress)="validarTodo($event)" type="text" class="form-control text-center" id="txtadultos_1" value="2">
+                                            <input readonly (keypress)="validarTodo($event)" type="text" class="form-control text-center" id="txtadultos_1" value="1">
                                             <span class="input-group-btn">
-                                                                <button  class="btn btn-danger" data-dir="up"><i class="fas fa-plus"></i></button>
+                                                                <button  class="btn btn-danger" id="btnUp_1" data-dir="up"><i class="fas fa-plus"></i></button>
                                             </span>
                                         </div>
                                     </div>
