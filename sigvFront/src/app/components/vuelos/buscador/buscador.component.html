@@ -1,143 +1,127 @@
 <div class="row m-0 p-0" style="">
 
-  <!-- position: fixed !important; width: 20% !important; -->
-  <div class="col-12 m-0 p-0" style="width: 100%; height: 30px !important; border: none !important;"></div>
+    <!-- position: fixed !important; width: 20% !important; -->
+    <div class="col-12 m-0 p-0" style="width: 100%; height: 30px !important; border: none !important;"></div>
 
-  <div class="col-12 m-0 p-0">
+    <div class="col-12 m-0 p-0">
 
 
-    <div class="row m-0 p-0 box-shadow" style="padding: 10px !important;">
+        <div class="row m-0 p-0 box-shadow" style="padding: 10px !important;">
 
-      <div class="col-12 m-0 p-0">
-        <p class="m-0 bv-texto-titulo-1">Vuelos</p>
-      </div>
+            <div class="col-12 m-0 p-0">
+                <p class="m-0 bv-texto-titulo-1">Vuelos</p>
+            </div>
 
-      <div class="col-12 m-0 p-0 pt-1 bv-texto-1">
+            <div class="col-12 m-0 p-0 pt-1 bv-texto-1">
 
-        <div class="row m-0 p-0">
+                <div class="row m-0 p-0">
 
-          <div class="col-6 m-0 p-0">
-            <label class="container" (click)="seleccionarTipoVuelo('RT')">
+                    <div class="col-6 m-0 p-0">
+                        <label class="container" (click)="seleccionarTipoVuelo('RT')">
               <input id="radio_b_tv_1" type="radio" name="radio" class="bv-texto-1" checked value="RT"> Ida & Vuelta
               <span class="checkmark"></span>
             </label>
-            <!--    <input id="radio_b_tv_1" (click)="seleccionarTipoVuelo('RT')" type="radio" name="gender" value="RT" class="bv-texto-1"> Ida & Vuelta -->
+                        <!--    <input id="radio_b_tv_1" (click)="seleccionarTipoVuelo('RT')" type="radio" name="gender" value="RT" class="bv-texto-1"> Ida & Vuelta -->
 
-          </div>
+                    </div>
 
-          <div class="col-6 m-0 p-0">
-            <label class="container" (click)="seleccionarTipoVuelo('OW')">
+                    <div class="col-6 m-0 p-0">
+                        <label class="container" (click)="seleccionarTipoVuelo('OW')">
               <input id="radio_b_tv_2" type="radio" name="radio" value="OW" class="bv-texto-1"> Sólo ida
               <span class="checkmark"></span>
             </label>
-            <!--  <input id="radio_b_tv_2" (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="bv-texto-1"> Sólo ida -->
+                        <!--  <input id="radio_b_tv_2" (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="bv-texto-1"> Sólo ida -->
 
-          </div>
+                    </div>
 
-          <div class="col-12 m-0 p-0 pt-2">
-            <label class="container" (click)="seleccionarTipoVuelo('MC')">
+                    <div class="col-12 m-0 p-0 pt-2">
+                        <label class="container" (click)="seleccionarTipoVuelo('MC')">
               <input id="radio_b_tv_3" type="radio" name="radio" value="MC" class="bv-texto-1"> Multidestinos
               <span class="checkmark"></span>
             </label>
-            <!--  <input id="radio_b_tv_3" (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="bv-texto-1"> Multidestinos-->
+                        <!--  <input id="radio_b_tv_3" (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="bv-texto-1"> Multidestinos-->
 
-          </div>
+                    </div>
 
-        </div>
-
-      </div>
-
-      <div class="col-12 m-0 p-0">
-        <hr>
-      </div>
-
-      <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 bv-texto-1">
-        Origen
-      </div>
-
-      <div id="txtOrigen" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
-        <div class="ng-autocomplete" style="width: 100%;">
-          <ng-autocomplete
-            [(ngModel)]="origenText"
-            (closed)="ClosedOrigen()"
-            [data]="data"
-            [searchKeyword]="keyword"
-            (selected)='selectEvent(1, $event)'
-            (inputChanged)='onChangeSearch(1, $event)'
-            (inputFocused)='onFocused(1, $event)'
-            [itemTemplate]="itemTemplate"
-            [notFoundTemplate]="notFoundTemplate">
-          </ng-autocomplete>
-
-          <ng-template #itemTemplate let-item>
-            <div class="" style="width: 90%">
-              <div class="row">
-                <div class="col-1">
-                  <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                  <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
                 </div>
-                <div class="col-11">
-                  <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                </div>
-              </div>
+
             </div>
-          </ng-template>
 
-          <ng-template #notFoundTemplate let-notFound>
-            <div [innerHTML]=""></div>
-          </ng-template>
-        </div>
-      </div>
-
-      <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 bv-texto-1 pt-2">
-        Destino
-      </div>
-
-      <div id="txtDestino" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
-        <div class="ng-autocomplete" style="width: 100%;">
-          <ng-autocomplete
-            [(ngModel)]="destinoText"
-            (closed)="ClosedDestino()"
-            [data]="data2"
-            [searchKeyword]="keyword"
-            (selected)='selectEvent(2, $event)'
-            (inputChanged)='onChangeSearch(2, $event)'
-            (inputFocused)='onFocused(2, $event)'
-            [itemTemplate]="itemTemplate2"
-            [notFoundTemplate]="notFoundTemplate2">
-          </ng-autocomplete>
-
-          <ng-template #itemTemplate2 let-item>
-            <div class="" style="width: 90%">
-              <div class="row">
-                <div class="col-1">
-                  <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                  <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                </div>
-                <div class="col-11">
-                  <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                </div>
-              </div>
+            <div class="col-12 m-0 p-0">
+                <hr>
             </div>
-          </ng-template>
 
-          <ng-template #notFoundTemplate2 let-notFound>
-            <div [innerHTML]=""></div>
-          </ng-template>
-        </div>
-      </div>
+            <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 bv-texto-1">
+                Origen
+            </div>
 
-      <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 bv-texto-1 pt-2">
-        Fechas
-      </div>
+            <div id="txtOrigen" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
+                <div class="ng-autocomplete" style="width: 100%;">
+                    <ng-autocomplete [(ngModel)]="origenText" (closed)="ClosedOrigen()" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent(1, $event)' (inputChanged)='onChangeSearch(1, $event)' (inputFocused)='onFocused(1, $event)' [itemTemplate]="itemTemplate"
+                        [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
 
-      <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
+                    <ng-template #itemTemplate let-item>
+                        <div class="" style="width: 90%">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                </div>
+                                <div class="col-11">
+                                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
 
-        <div class="row m-0 p-0">
+                    <ng-template #notFoundTemplate let-notFound>
+                        <div [innerHTML]=""></div>
+                    </ng-template>
+                </div>
+            </div>
 
-          <div class="col-6 m-0 p-0 pr-1">
+            <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 bv-texto-1 pt-2">
+                Destino
+            </div>
 
-            <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px;">
+            <div id="txtDestino" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
+                <div class="ng-autocomplete" style="width: 100%;">
+                    <ng-autocomplete [(ngModel)]="destinoText" (closed)="ClosedDestino()" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent(2, $event)' (inputChanged)='onChangeSearch(2, $event)' (inputFocused)='onFocused(2, $event)' [itemTemplate]="itemTemplate2"
+                        [notFoundTemplate]="notFoundTemplate2">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate2 let-item>
+                        <div class="" style="width: 90%">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
+                                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
+                                </div>
+                                <div class="col-11">
+                                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate2 let-notFound>
+                        <div [innerHTML]=""></div>
+                    </ng-template>
+                </div>
+            </div>
+
+            <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 bv-texto-1 pt-2">
+                Fechas
+            </div>
+
+            <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
+
+                <div class="row m-0 p-0">
+
+                    <div class="col-6 m-0 p-0 pr-1">
+
+                        <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px;">
               <input type="image"
                      src="./assets/images/home/calendario.svg"
                      (click)="datepickerSalida.toggle()"
@@ -157,11 +141,11 @@
               >
             </label>
 
-          </div>
+                    </div>
 
-          <div class="col-6 m-0 p-0 pl-1" *ngIf="tipoVuelo!=='OW'">
+                    <div class="col-6 m-0 p-0 pl-1" *ngIf="tipoVuelo!=='OW'">
 
-            <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px;">
+                        <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px;">
               <input type="image"
                      src="./assets/images/home/calendario.svg"
                      (click)="datepickerRetorno.toggle()"
@@ -181,102 +165,33 @@
               >
             </label>
 
-          </div>
+                    </div>
 
-        </div>
+                </div>
 
-      </div>
+            </div>
 
-      <app-multidestinos-xs [infechaSalida1]="fechaSalida1"
-                            [infechaSalida2]="fechaSalida2"
-                            [infechaSalida3]="fechaSalida3"
-                            [infechaSalida4]="fechaSalida4"
-                            [infechaSalida5]="fechaSalida5"
-                            [infechaSalida6]="fechaSalida6"
-                            [infechaSalidaShow1]="fechaSalidaShow1"
-                            [infechaSalidaShow2]="fechaSalidaShow2"
-                            [infechaSalidaShow3]="fechaSalidaShow3"
-                            [infechaSalidaShow4]="fechaSalidaShow4"
-                            [infechaSalidaShow5]="fechaSalidaShow5"
-                            [infechaSalidaShow6]="fechaSalidaShow6"
-                            [inorigenAuto1]="origenAuto1"
-                            [inorigenAuto2]="origenAuto2"
-                            [inorigenAuto3]="origenAuto3"
-                            [inorigenAuto4]="origenAuto4"
-                            [inorigenAuto5]="origenAuto5"
-                            [inorigenAuto6]="origenAuto6"
-                            [inorigentTexto1]="origentTexto1"
-                            [inorigentTexto2]="origentTexto2"
-                            [inorigentTexto3]="origentTexto3"
-                            [inorigentTexto4]="origentTexto4"
-                            [inorigentTexto5]="origentTexto5"
-                            [inorigentTexto6]="origentTexto6"
-                            [indestinoAuto1]="destinoAuto1"
-                            [indestinoAuto2]="destinoAuto2"
-                            [indestinoAuto3]="destinoAuto3"
-                            [indestinoAuto4]="destinoAuto4"
-                            [indestinoAuto5]="destinoAuto5"
-                            [indestinoAuto6]="destinoAuto6"
-                            [indestinoTexto1]="destinoTexto1"
-                            [indestinoTexto2]="destinoTexto2"
-                            [indestinoTexto3]="destinoTexto3"
-                            [indestinoTexto4]="destinoTexto4"
-                            [indestinoTexto5]="destinoTexto5"
-                            [indestinoTexto6]="destinoTexto6"
-                            [inIndexTramo]="indexTramo"
-                            (outOrigenValue1)="updateOrigenTramoValue1($event)"
-                            (outOrigenValue2)="updateOrigenTramoValue2($event)"
-                            (outOrigenValue3)="updateOrigenTramoValue3($event)"
-                            (outOrigenValue4)="updateOrigenTramoValue4($event)"
-                            (outOrigenValue5)="updateOrigenTramoValue5($event)"
-                            (outOrigenValue6)="updateOrigenTramoValue6($event)"
-                            (outOrigenText1)="updateOrigenTramoText1($event)"
-                            (outOrigenText2)="updateOrigenTramoText2($event)"
-                            (outOrigenText3)="updateOrigenTramoText3($event)"
-                            (outOrigenText4)="updateOrigenTramoText4($event)"
-                            (outOrigenText5)="updateOrigenTramoText5($event)"
-                            (outOrigenText6)="updateOrigenTramoText6($event)"
-                            (outDestinoValue1)="updateDestinoTramoValue1($event)"
-                            (outDestinoValue2)="updateDestinoTramoValue2($event)"
-                            (outDestinoValue3)="updateDestinoTramoValue3($event)"
-                            (outDestinoValue4)="updateDestinoTramoValue4($event)"
-                            (outDestinoValue5)="updateDestinoTramoValue5($event)"
-                            (outDestinoValue6)="updateDestinoTramoValue6($event)"
-                            (outDestinoText1)="updateDestinoTramoText1($event)"
-                            (outDestinoText2)="updateDestinoTramoText2($event)"
-                            (outDestinoText3)="updateDestinoTramoText3($event)"
-                            (outDestinoText4)="updateDestinoTramoText4($event)"
-                            (outDestinoText5)="updateDestinoTramoText5($event)"
-                            (outDestinoText6)="updateDestinoTramoText6($event)"
-                            (outFechaSalida1)="updateFechaSalida1($event)"
-                            (outFechaSalida2)="updateFechaSalida2($event)"
-                            (outFechaSalida3)="updateFechaSalida3($event)"
-                            (outFechaSalida4)="updateFechaSalida4($event)"
-                            (outFechaSalida5)="updateFechaSalida5($event)"
-                            (outFechaSalida6)="updateFechaSalida6($event)"
-                            (outIndexTramo)="updateIndexTramo($event)"
-                            *ngIf="tipoVuelo==='MC'"
-                            style="width: 100% !important;"
-                            [inOrigenValue]="origenValue"
-                            [inOrigenText]="origenText"
-                            [inDestinoValue]="destinoValue"
-                            [inDestinoText]="destinoText"
-                            (outFechaSalidaShow1)="Updatefecha1($event)"
-                            (outFechaSalidaShow2)="Updatefecha2($event)"
-                            (outFechaSalidaShow3)="Updatefecha3($event)"
-                            (outFechaSalidaShow4)="Updatefecha4($event)"
-                            (outFechaSalidaShow5)="Updatefecha5($event)"
-                            (outFechaSalidaShow6)="Updatefecha6($event)"
-                            [inTipoVuelo]="tipoVuelo"
-      ></app-multidestinos-xs>
+            <app-multidestinos-xs [infechaSalida1]="fechaSalida1" [infechaSalida2]="fechaSalida2" [infechaSalida3]="fechaSalida3" [infechaSalida4]="fechaSalida4" [infechaSalida5]="fechaSalida5" [infechaSalida6]="fechaSalida6" [infechaSalidaShow1]="fechaSalidaShow1"
+                [infechaSalidaShow2]="fechaSalidaShow2" [infechaSalidaShow3]="fechaSalidaShow3" [infechaSalidaShow4]="fechaSalidaShow4" [infechaSalidaShow5]="fechaSalidaShow5" [infechaSalidaShow6]="fechaSalidaShow6" [inorigenAuto1]="origenAuto1" [inorigenAuto2]="origenAuto2"
+                [inorigenAuto3]="origenAuto3" [inorigenAuto4]="origenAuto4" [inorigenAuto5]="origenAuto5" [inorigenAuto6]="origenAuto6" [inorigentTexto1]="origentTexto1" [inorigentTexto2]="origentTexto2" [inorigentTexto3]="origentTexto3" [inorigentTexto4]="origentTexto4"
+                [inorigentTexto5]="origentTexto5" [inorigentTexto6]="origentTexto6" [indestinoAuto1]="destinoAuto1" [indestinoAuto2]="destinoAuto2" [indestinoAuto3]="destinoAuto3" [indestinoAuto4]="destinoAuto4" [indestinoAuto5]="destinoAuto5" [indestinoAuto6]="destinoAuto6"
+                [indestinoTexto1]="destinoTexto1" [indestinoTexto2]="destinoTexto2" [indestinoTexto3]="destinoTexto3" [indestinoTexto4]="destinoTexto4" [indestinoTexto5]="destinoTexto5" [indestinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (outOrigenValue1)="updateOrigenTramoValue1($event)"
+                (outOrigenValue2)="updateOrigenTramoValue2($event)" (outOrigenValue3)="updateOrigenTramoValue3($event)" (outOrigenValue4)="updateOrigenTramoValue4($event)" (outOrigenValue5)="updateOrigenTramoValue5($event)" (outOrigenValue6)="updateOrigenTramoValue6($event)"
+                (outOrigenText1)="updateOrigenTramoText1($event)" (outOrigenText2)="updateOrigenTramoText2($event)" (outOrigenText3)="updateOrigenTramoText3($event)" (outOrigenText4)="updateOrigenTramoText4($event)" (outOrigenText5)="updateOrigenTramoText5($event)"
+                (outOrigenText6)="updateOrigenTramoText6($event)" (outDestinoValue1)="updateDestinoTramoValue1($event)" (outDestinoValue2)="updateDestinoTramoValue2($event)" (outDestinoValue3)="updateDestinoTramoValue3($event)" (outDestinoValue4)="updateDestinoTramoValue4($event)"
+                (outDestinoValue5)="updateDestinoTramoValue5($event)" (outDestinoValue6)="updateDestinoTramoValue6($event)" (outDestinoText1)="updateDestinoTramoText1($event)" (outDestinoText2)="updateDestinoTramoText2($event)" (outDestinoText3)="updateDestinoTramoText3($event)"
+                (outDestinoText4)="updateDestinoTramoText4($event)" (outDestinoText5)="updateDestinoTramoText5($event)" (outDestinoText6)="updateDestinoTramoText6($event)" (outFechaSalida1)="updateFechaSalida1($event)" (outFechaSalida2)="updateFechaSalida2($event)"
+                (outFechaSalida3)="updateFechaSalida3($event)" (outFechaSalida4)="updateFechaSalida4($event)" (outFechaSalida5)="updateFechaSalida5($event)" (outFechaSalida6)="updateFechaSalida6($event)" (outIndexTramo)="updateIndexTramo($event)" *ngIf="tipoVuelo==='MC'"
+                style="width: 100% !important;" [inOrigenValue]="origenValue" [inOrigenText]="origenText" [inDestinoValue]="destinoValue" [inDestinoText]="destinoText" (outFechaSalidaShow1)="Updatefecha1($event)" (outFechaSalidaShow2)="Updatefecha2($event)"
+                (outFechaSalidaShow3)="Updatefecha3($event)" (outFechaSalidaShow4)="Updatefecha4($event)" (outFechaSalidaShow5)="Updatefecha5($event)" (outFechaSalidaShow6)="Updatefecha6($event)" [inTipoVuelo]="tipoVuelo"></app-multidestinos-xs>
 
-      <div class="col-12 m-0 p-0 bv-texto-1 pt-2">
-        Pasajeros
-      </div>
+            <div class="col-12 m-0 p-0 bv-texto-1 pt-2">
+                Pasajeros
+            </div>
 
-      <div class="col-12 m-0 p-0 pt-2">
+            <div class="col-12 m-0 p-0 pt-2">
 
-        <label for="" style="padding: 0px; margin: 0px; width: 100% !important;" class=" d-inline-flex align-items-center box-shadow">
+                <label for="" style="padding: 0px; margin: 0px; width: 100% !important;" class=" d-inline-flex align-items-center box-shadow">
           <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px; width: 10% !important;" class="pl-2">
           <input readonly type="text" class="text-center bv-texto-2" style="width: 60% !important; outline: none; border: 0" [value]="pasajeros">
           <!--
@@ -295,83 +210,83 @@
                   -->
         </label>
 
-      </div>
+            </div>
 
-      <div class="col-12 m-0 p-0 pt-2">
+            <div class="col-12 m-0 p-0 pt-2">
 
-        <div class="row m-0 p-0">
+                <div class="row m-0 p-0">
 
-          <div class="col-6 m-0 p-0">
+                    <div class="col-6 m-0 p-0">
 
-            <div class="row m-0 p-0">
+                        <div class="row m-0 p-0">
 
-              <div class="col-12 m-0 p-0 bv-texto-1">
-                Cabina
-              </div>
+                            <div class="col-12 m-0 p-0 bv-texto-1">
+                                Cabina
+                            </div>
 
-              <div class="col-12 m-0 p-0">
+                            <div class="col-12 m-0 p-0">
 
-                <div class="btn-group" style="width: 90% !important;" dropdown>
-                  <button id="button-basic" dropdownToggle type="button" class="btn bv-texto-2 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                                <div class="btn-group" style="width: 90% !important;" dropdown>
+                                    <button id="button-basic" dropdownToggle type="button" class="btn bv-texto-2 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
                     {{textoCabina}}
                   </button>
-                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu bv-texto-2" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
-                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
-                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('E', 'Económica')">Económica</a></li>
-                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('B', 'Business')">Business</a></li>
-                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('F', 'First')">First</a></li>
-                  </ul>
-                </div>
+                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu bv-texto-2" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
+                                        <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
+                                        <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('E', 'Económica')">Económica</a></li>
+                                        <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('B', 'Business')">Business</a></li>
+                                        <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('F', 'First')">First</a></li>
+                                    </ul>
+                                </div>
 
-              </div>
+                            </div>
 
-            </div>
+                        </div>
 
-          </div>
+                    </div>
 
-          <div class="col-6 m-0 p-0">
+                    <div class="col-6 m-0 p-0">
 
-            <div class="row m-0 p-0">
+                        <div class="row m-0 p-0">
 
-              <div class="col-12 m-0 p-0 bv-texto-1">
-                Escala
-              </div>
+                            <div class="col-12 m-0 p-0 bv-texto-1">
+                                Escala
+                            </div>
 
-              <div class="col-12 m-0 p-0">
+                            <div class="col-12 m-0 p-0">
 
-                <div class="btn-group" style="width: 90% !important;" dropdown>
-                  <button id="button-basic-2" dropdownToggle type="button" class="btn bv-texto-2 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                                <div class="btn-group" style="width: 90% !important;" dropdown>
+                                    <button id="button-basic-2" dropdownToggle type="button" class="btn bv-texto-2 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
                     {{textoEscala}}
                   </button>
-                  <ul id="dropdown-basic-2" *dropdownMenu class="dropdown-menu bv-texto-2" style="cursor: pointer" role="menu" aria-labelledby="button-basic-2">
-                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('', 'Todas')">Todos</a></li>
-                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('D', 'Directo')">Directo</a></li>
-                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('E', 'Con escalas')">Con escalas</a></li>
-                  </ul>
-                </div>
+                                    <ul id="dropdown-basic-2" *dropdownMenu class="dropdown-menu bv-texto-2" style="cursor: pointer" role="menu" aria-labelledby="button-basic-2">
+                                        <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('', 'Todas')">Todos</a></li>
+                                        <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('D', 'Directo')">Directo</a></li>
+                                        <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('E', 'Con escalas')">Con escalas</a></li>
+                                    </ul>
+                                </div>
 
-              </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
-          </div>
+            <div class="col-12 m-0 p-0 pt-4">
 
-        </div>
-
-      </div>
-
-      <div class="col-12 m-0 p-0 pt-4">
-
-        <button (click)="searchFlight()" class="btn bv-texto-3" style="width: 100% !important;">
+                <button (click)="searchFlight()" class="btn bv-texto-3" style="width: 100% !important;">
           <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
           Buscar
         </button>
 
-      </div>
+            </div>
+
+        </div>
+
 
     </div>
-
-
-  </div>
 
 </div>

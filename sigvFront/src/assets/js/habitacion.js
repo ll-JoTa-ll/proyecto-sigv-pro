@@ -98,7 +98,7 @@ $(document).on('click', '.number-spinner button', function() {
             var hdnCountAddHab = parseFloat($("#hdnCountAddHab").val());
 
             var adultos1 = parseFloat(document.getElementById("txtadultos_1").value - 1);
-            if (adultos1 < 7) {
+            if (adultos1 < 6) {
                 console.log(btn);
                 //$("#btnUp_1").show();
                 $("#btnUp_1").prop("disabled", false);
@@ -119,7 +119,6 @@ $(document).on('click', '.number-spinner button', function() {
                     console.log(btn);
                     //$("#btnUp_1").show();
                     $("#btnUp_3").prop("disabled", false);
-
                 }
             }
 
