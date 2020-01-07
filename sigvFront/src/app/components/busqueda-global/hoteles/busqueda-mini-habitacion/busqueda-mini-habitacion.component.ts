@@ -69,7 +69,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   objSearch : any;
   fechaSalidaShow;
   fechaRetornoShow;
-
+  calendarSalidaValue: Date;
   SearchObj: any = { 
     HotelCityCode: '',
     Start: '',
@@ -88,6 +88,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   ) { 
     this.minDateIngreso = new Date();
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
+    this.calendarSalidaValue = new Date();
+    this.calendarSalidaValue.setDate(this.calendarSalidaValue.getDate() + 1);
   }
   
   ngOnInit() {
@@ -103,7 +105,6 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   //  this.token = this.sessionStorageService.retrieve('ss_token');
     this.textoestrellas = this.sessionMini1.categoria;
     this.destinoValue = this.sessionMini1.iata;
-
     this.fechaSalidaShow = this.sessionMini.fechaentrada;
     this.fechaRetornoShow = this.sessionMini.fechasalida;
     const fechaSalidaShowSp  =  this.fechaSalidaShow.split('-');
@@ -224,13 +225,19 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       }
       this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
       this.minDateSalida = value;
-     
+      console.log("value ====>" + value);
+    console.log("calendarSalidaValue ====>" + this.calendarSalidaValue);
+      if (value >= this.calendarSalidaValue) {
+        $("#fechaFin").val("");
+      }
+
       this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
     }
   }
 
   onValueChangeSalida(value: Date): void {
     if (value != null) {
+      this.calendarSalidaValue = value;
       this.maxDateIngreso = value;
       if (value === null) {
         return;
@@ -293,10 +300,10 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     fechaSal = this.fechaSalida;
     fechaRe = this.fechaRetorno;
     if ( this.fchingreso == undefined) {
-      fechaSal = fechaSal.split("-");
-      fechaRe = fechaRe.split("-");
-      fechaSal= fechaSal[2] + "-" + fechaSal[1] + "-" + fechaSal[0];
-      fechaRe= fechaRe[2] + "-" + fechaRe[1] + "-" + fechaRe[0];
+      //fechaSal = fechaSal.split("-");
+      //fechaRe = fechaRe.split("-");
+      //fechaSal= fechaSal[2] + "-" + fechaSal[1] + "-" + fechaSal[0];
+      //fechaRe= fechaRe[2] + "-" + fechaRe[1] + "-" + fechaRe[0];
     }
     const val= this.ValidarCampos();
     if (!val) {

@@ -283,6 +283,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
 
     this.minDateSalida = value;
+    
     if (value >= this.calendarSalidaValue) {
       $("#datesalida").val("");
     }
