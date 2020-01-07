@@ -113,7 +113,6 @@ export class ResultadoHabitacionComponent implements OnInit {
    }
     )
   }
-  
 
   Mostrarmapa(position) {
     $('#mapa_' + position).show();

@@ -131,7 +131,12 @@ export class MultidestinosLgComponent implements OnInit {
   fechaSalida5: string;
   fechaSalida6: string;
   bsValue = new Date();
-
+  calendarSalidaValue1: Date;
+  calendarSalidaValue2: Date;
+  calendarSalidaValue3: Date;
+  calendarSalidaValue4: Date;
+  calendarSalidaValue5: Date;
+  calendarSalidaValue6: Date;
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
@@ -588,6 +593,10 @@ export class MultidestinosLgComponent implements OnInit {
       dia = "" + value.getDate();
     }
 
+    if (value >= this.calendarSalidaValue2) {
+      $("#calendar2").val("");
+      this.fechaSalida2 = '';
+    }
     this.fechaSalida1 = value.getFullYear() + "/" + mes + "/" + dia;
     this.outFechaSalida1.emit(this.fechaSalida1);
     this.outFechaSalidaShow1.emit(dia + "/" + mes + "/" +  value.getFullYear());
@@ -600,6 +609,7 @@ export class MultidestinosLgComponent implements OnInit {
     this.minDateSalida4 = value;
     this.minDateSalida5 = value;
     this.minDateSalida6 = value;
+    this.calendarSalidaValue2 = value;
 
     let mes = "";
     let getMonth = value.getMonth() + 1;
@@ -615,6 +625,11 @@ export class MultidestinosLgComponent implements OnInit {
       dia = "0" + value.getDate();
     } else {
       dia = "" + value.getDate();
+    }
+
+    if (value >= this.calendarSalidaValue3) {
+      $("#calendar3").val("");
+      this.fechaSalida3 = '';
     }
 
     this.fechaSalida2 = value.getFullYear() + "/" + mes + "/" + dia;
@@ -628,6 +643,7 @@ export class MultidestinosLgComponent implements OnInit {
     this.minDateSalida4 = value;
     this.minDateSalida5 = value;
     this.minDateSalida6 = value;
+    this.calendarSalidaValue3 = value;
 
     let mes = "";
     let getMonth = value.getMonth() + 1;
@@ -643,6 +659,11 @@ export class MultidestinosLgComponent implements OnInit {
       dia = "0" + value.getDate();
     } else {
       dia = "" + value.getDate();
+    }
+
+    if (value >= this.calendarSalidaValue4) {
+      $("#calendar4").val("");
+      this.fechaSalida4 = '';
     }
 
     this.fechaSalida3 = value.getFullYear() + "/" + mes + "/" + dia;
@@ -655,6 +676,7 @@ export class MultidestinosLgComponent implements OnInit {
     $("#txtFechaSalida4").removeClass("campo-invalido");
     this.minDateSalida5 = value;
     this.minDateSalida6 = value;
+    this.calendarSalidaValue4 = value;
 
     let mes = "";
     let getMonth = value.getMonth() + 1;
@@ -670,6 +692,11 @@ export class MultidestinosLgComponent implements OnInit {
       dia = "0" + value.getDate();
     } else {
       dia = "" + value.getDate();
+    }
+
+    if (value >= this.calendarSalidaValue5) {
+      $("#calendar5").val("");
+      this.fechaSalida5 = '';
     }
 
     this.fechaSalida4 = value.getFullYear() + "/" + mes + "/" + dia;
@@ -681,6 +708,7 @@ export class MultidestinosLgComponent implements OnInit {
   onValueChangeSalida5(value: Date): void {
     $("#txtFechaSalida5").removeClass("campo-invalido");
     this.minDateSalida6 = value;
+    this.calendarSalidaValue5 = value;
 
     let mes = "";
     let getMonth = value.getMonth() + 1;
@@ -698,6 +726,11 @@ export class MultidestinosLgComponent implements OnInit {
       dia = "" + value.getDate();
     }
 
+    if (value >= this.calendarSalidaValue6) {
+      $("#calendar6").val("");
+      this.fechaSalida6 = '';
+    }
+
     this.fechaSalida5 = value.getFullYear() + "/" + mes + "/" + dia;
     this.outFechaSalida5.emit(this.fechaSalida5);
     this.outFechaSalidaShow5.emit(dia + "/" + mes + "/" +  value.getFullYear());
@@ -706,6 +739,7 @@ export class MultidestinosLgComponent implements OnInit {
 
   onValueChangeSalida6(value: Date): void {
     $("#txtFechaSalida6").removeClass("campo-invalido");
+    this.calendarSalidaValue6 = value;
     let mes = "";
     let getMonth = value.getMonth() + 1;
     if (getMonth < 10) {

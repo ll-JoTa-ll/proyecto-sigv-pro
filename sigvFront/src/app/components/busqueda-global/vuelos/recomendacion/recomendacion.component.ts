@@ -32,6 +32,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     ignoreBackdropClick: true
   };
 
+  @Input() index;
   @Input() currency: string;
   @Input() totalFareAmount: number;
   @Input() totalTaxAmount: number;

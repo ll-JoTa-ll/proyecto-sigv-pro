@@ -355,9 +355,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       let mes = fechaformat[1];
       let dia = fechaformat[2];
       fechatotal = año + '/' + mes + '/' + dia;
-
-      nombre = $('#txtnombre_' + (index + 1)).val();
-      apellido = $('#txtapellidos_' + (index + 1)).val();
+      let nombrepasaj = $('#txtnombre_' + (index + 1)).val();
+      let apellidopasaj = $('#txtapellidos_' + (index + 1)).val();
+      nombre = $.trim(nombrepasaj);
+      apellido = $.trim(apellidopasaj);
       fechanacimiento = fechatotal,
       typedoc = $('#cbo_tipodocumento_' + (index + 1) + ' '  + 'option:selected').val();
       nrodoc = $('#txtnrodocumento_' + (index + 1)).val();

@@ -86,6 +86,7 @@ GetReserva(pnr, pseudo ,template) {
     result => {
       this.getreserva = result;
       this.sessionstorage.store('getreserva', this.getreserva);
+      this.sessionstorage.store('isgestion', true);
       this.router.navigate(['/aprobar-reserva-vuelo']);
     },
     err => {

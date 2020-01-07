@@ -60,7 +60,7 @@
             Ver familias
           </button>
 
-                  <ng-template #modalFamilias let-c="close" let-d="dismiss">
+                    <ng-template #modalFamilias let-c="close" let-d="dismiss">
 
                         <div class="modal-header pb-0" style="border: none;">
                             <!-- (click)="closeModalFamilia($event)" -->
@@ -69,29 +69,29 @@
               </button>
                         </div>
 
-                    <div class="modal-body">
-                      <app-familias *ngIf="flagResultFamilias===1" [lstFamilyResult]="lstFamilyResult.lsections" [nroPersonas]="numberPassengers" [currency]="currency" [dataRequestFamilia]="dataRequestFamilia" [tipoVuelo]="tipoVuelo" (flagCloseModal)="closeModalFamilia($event)"
-                                    [famFareAmountByPassenger]="famFareAmountByPassenger" [famTotalFareAmount]="famTotalFareAmount" [flagMsgErrorSelFam]="flagMsgErrorSelFam" [modalRef]="modalRef" (outIdRadioBtnFareFam)="famFlightAvailability($event)" (flagCloseModal)="flagCloseModal($event)"></app-familias>
+                        <div class="modal-body">
+                            <app-familias *ngIf="flagResultFamilias===1" [lstFamilyResult]="lstFamilyResult.lsections" [nroPersonas]="numberPassengers" [currency]="currency" [dataRequestFamilia]="dataRequestFamilia" [tipoVuelo]="tipoVuelo" (flagCloseModal)="closeModalFamilia($event)"
+                                [famFareAmountByPassenger]="famFareAmountByPassenger" [famTotalFareAmount]="famTotalFareAmount" [flagMsgErrorSelFam]="flagMsgErrorSelFam" [modalRef]="modalRef" (outIdRadioBtnFareFam)="famFlightAvailability($event)" (flagCloseModal)="flagCloseModal($event)"></app-familias>
 
-                      <div *ngIf="flagResultFamilias===0" class="row m-0 p-0">
-                        <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
-                          ¡Lo sentimos!
-                        </div>
+                            <div *ngIf="flagResultFamilias===0" class="row m-0 p-0">
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+                                    ¡Lo sentimos!
+                                </div>
 
-                        <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
-                          No hemos encontrado familias disponibles para este vuelo en particular. Por favor, selecciona otras de las opciones.
-                        </div>
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                                    No hemos encontrado familias disponibles para este vuelo en particular. Por favor, selecciona otras de las opciones.
+                                </div>
 
-                        <div class="col-12 m-0 p-0 pb-4 text-center">
-                          <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+                                <div class="col-12 m-0 p-0 pb-4 text-center">
+                                    <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
                             <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
                             Continuar con mi busqueda
                           </button>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
 
-                  </ng-template>
+                    </ng-template>
 
                     <ng-template #modalerror let-c="close" let-d="dismiss">
 
@@ -133,7 +133,9 @@
                 <div class="col-1 m-0 p-0"></div>
 
                 <div class="col-12 m-0 p-0 pt-2"></div>
-
+                <div class="col-12 m-0 p-0">
+                    <div>{{index}}</div>
+                </div>
             </div>
         </div>
 

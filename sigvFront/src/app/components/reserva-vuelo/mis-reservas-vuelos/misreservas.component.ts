@@ -110,6 +110,7 @@ GetReserva(pnr, pseudo) {
      this.getreserva = result;
      this.sessionstorage.store('getreserva', this.getreserva);
      this.router.navigate(['/aprobar-reserva-vuelo']);
+     this.sessionstorage.store('isgestion', false);
     },
     err => {
     },

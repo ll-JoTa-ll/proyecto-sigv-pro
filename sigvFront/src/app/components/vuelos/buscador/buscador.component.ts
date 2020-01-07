@@ -120,6 +120,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   model: any = {};
   lstAutocomplete: any[] = [];
   fechanow: Date;
+  calendarSalidaValue: Date;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -418,6 +419,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         dia = "" + value.getDate();
       }
+      if (value >= this.calendarSalidaValue) {
+        $("#datepickerRetorno").val("");
+        this.fechaRetorno = '';
+      }
       $("#txtFechaSalida").removeClass("campo-invalido");
       this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
       console.log(this.fechaSalida);
@@ -458,6 +463,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   onValueChangeRetorno(value: Date): void {
     if (value != null) {
+      this.calendarSalidaValue = value;
       let mes = "";
       let getMonth = value.getMonth() + 1;
       if (getMonth < 10) {
@@ -645,7 +651,9 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         cabina: this.textoCabina,
         escala: this.textoEscala,
         pasajeros: this.pasajeros,
-        tipovuelo: this.tipoVuelo
+        tipovuelo: this.tipoVuelo,
+        mindatesalida: this.minDateSalida,
+        mindateretorno: this.minDateRetorno
       };
     }
     if (this.tipoVuelo === 'MC') {
@@ -747,15 +755,15 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     const tipoVuelo = this.tipoVuelo;
     const indexTramo = this.indexTramo;
     let flagVal = true;
-
+    console.log(this.origentTexto);
     if (tipoVuelo === 'RT') {
-      if ($.trim(this.origentTexto) === '' || $.trim(this.origentTexto) === undefined) {
+      if ($.trim(this.origenText) === '' || $.trim(this.origenText) === undefined) {
         $("#txtOrigen").addClass("campo-invalido");
         flagVal = false;
       } else {
         $("#txtOrigen").removeClass("campo-invalido");
       }
-      if ($.trim(this.destinoTexto) === '' || $.trim(this.destinoTexto) === undefined) {
+      if ($.trim(this.destinoText) === '' || $.trim(this.destinoText) === undefined) {
         $("#txtDestino").addClass("campo-invalido");
         flagVal = false;
       } else {
