@@ -267,7 +267,7 @@
                 </optgroup>
             </select>
 
-                <input type="text" id="numero" placeholder="Ingresa un número" maxlength="9" (keypress)="validarNumeros($event)" [(ngModel)]="telefono" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
+                <input type="text" id="numero" placeholder="Ingresa un número" maxlength="9" (keypress)="validarNumeros($event)" (keyup)="validarTelefono()" [(ngModel)]="telefono" class="input-names box-shadow" style="width: 329px; height: 44px;" (paste)="false">
                 <input type="hidden" id="hdnTel" name="custId" value="51">
             </div>
 

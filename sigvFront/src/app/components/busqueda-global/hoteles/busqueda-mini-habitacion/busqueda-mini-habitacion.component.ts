@@ -258,18 +258,36 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
 
   ValidarCampos() {
     let val = true;
-    let correo;
-    
      
-    
+      
+
+
+      if ($.trim(this.sessionMini1.destino) === '' || $.trim(this.sessionMini1.destino) === undefined) {
+        $("#destinosa").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#destinosa").removeClass("campo-invalido");
+      }
+      if ($('#fechaInicio').val().length === 0) {
+        $("#ingresoa").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#ingresoa").removeClass("campo-invalido");
+      }
+      if ($('#fechaFin').val().length === 0) {
+        $("#destinoa").addClass("campo-invalido");
+        val = false;
+      } else {
+        $("#destinoa").removeClass("campo-invalido");
+      }
       
         
     return val;
   }
 
   SeachHotel() {
-    this.spinner.show();
-    const val= this.ValidarCampos();
+    
+    
     let fechaSal;
     let fechaRe;
     fechaSal = this.fechaSalida;
@@ -280,64 +298,65 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       fechaSal= fechaSal[2] + "-" + fechaSal[1] + "-" + fechaSal[0];
       fechaRe= fechaRe[2] + "-" + fechaRe[1] + "-" + fechaRe[0];
     }
-  
+    const val= this.ValidarCampos();
     if (!val) {
       return val;
     }
-    else{
-    this.flagShowMap.emit(false);
-    let data = {
-      "Lhotel":
-      [
-        {
-          "HotelCityCode": this.destinoValue,
-          "Stars": this.estrellas,
-          "StartDate": fechaSal,
-          "EndDate": fechaRe,	
-          "LguestPerRoom":
-          [
-            {
-              "RoomQuantity": $('#txthabitacion').val(),
-              "NumberPassengers": $('#txtpersonas').val(),
-              "TypePassenger": "ADT"
+      else{
+        this.spinner.show();
+      this.flagShowMap.emit(false);
+      let data = {
+        "Lhotel":
+        [
+          {
+            "HotelCityCode": this.destinoValue,
+            "Stars": this.estrellas,
+            "StartDate": fechaSal,
+            "EndDate": fechaRe,	
+            "LguestPerRoom":
+            [
+              {
+                "RoomQuantity": $('#txthabitacion').val(),
+                "NumberPassengers": $('#txtpersonas').val(),
+                "TypePassenger": "ADT"
+              }
+            ]
+          }
+        ],
+        "Ocompany": this.loginDataUser.ocompany
+      }
+      this.habitaciones = $('#txthabitacion').val();
+      this.adultos = $('#txtpersonas').val();
+    
+      this.service.SearchHotel(data).subscribe(
+        result => {
+            if (result[0].oerror != null) {
+              this.flagDinData = true;
             }
-          ]
+            else {
+            this.sessionStorageService.store('ss_minibuscador', result);
+
+            //this.sessionStorageService.store('ls_search_hotel', result);
+            //this.LlistaHotel = result;
+            this.sessionStorageService.store('hotel', null);
+            this.sessionStorageService.store('hotel', result[0]);
+
+            this.LResultshotel = result;
+            //this.flagShowMap.emit(true);
+            this.messagelistado.emit(this.LResultshotel);
+            this.ShowComponent.emit(true);
+            this.hideComponent.emit(false);
+            this.flagDinData = false;
+            }
+        },
+        err => {
+          this.spinner.hide();
+        },
+        () => {
+          this.spinner.hide();
+          
         }
-      ],
-      "Ocompany": this.loginDataUser.ocompany
-    }
-    this.habitaciones = $('#txthabitacion').val();
-    this.adultos = $('#txtpersonas').val();
-   
-    this.service.SearchHotel(data).subscribe(
-       result => {
-          if (result[0].oerror != null) {
-            this.flagDinData = true;
-          }
-          else {
-          this.sessionStorageService.store('ss_minibuscador', result);
-
-          //this.sessionStorageService.store('ls_search_hotel', result);
-          //this.LlistaHotel = result;
-          this.sessionStorageService.store('hotel', null);
-          this.sessionStorageService.store('hotel', result[0]);
-
-          this.LResultshotel = result;
-          //this.flagShowMap.emit(true);
-          this.messagelistado.emit(this.LResultshotel);
-          this.ShowComponent.emit(true);
-          this.hideComponent.emit(false);
-          this.flagDinData = false;
-          }
-       },
-       err => {
-        this.spinner.hide();
-       },
-       () => {
-         this.spinner.hide();
-        
-       }
-   );
+    );
     }
     
  }

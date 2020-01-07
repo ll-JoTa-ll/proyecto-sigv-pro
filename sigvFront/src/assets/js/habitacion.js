@@ -48,6 +48,7 @@ $(document).on('click', '.number-spinner button', function() {
         var hdnCountAddHab = parseFloat($("#hdnCountAddHab").val());
 
         var adultos1 = parseFloat(document.getElementById("txtadultos_1").value);
+        adultos1 = adultos1 + 1;
         if (adultos1 >= 6) {
             console.log("MAXIMOOOOO 6");
             //$("#btnUp_1").hide();
@@ -56,10 +57,32 @@ $(document).on('click', '.number-spinner button', function() {
 
         if (hdnCountAddHab > 1) {
             var adultos2 = parseFloat(document.getElementById("txtadultos_2").value);
+            adultos2 = adultos2 + 1;
             if (adultos2 >= 6) {
                 console.log("MAXIMOOOOO 6");
                 //$("#btnUp_1").hide();
                 $("#btnUp_2").prop("disabled", true);
+            }
+        }
+
+        if (hdnCountAddHab > 2) {
+            var adultos3 = parseFloat(document.getElementById("txtadultos_3").value);
+            adultos3 = adultos3 + 1;
+            if (adultos3 >= 6) {
+                console.log("MAXIMOOOOO 6");
+                //$("#btnUp_1").hide();
+                $("#btnUp_3").prop("disabled", true);
+            }
+        }
+
+        if (hdnCountAddHab > 3) {
+            var adultos4 = parseFloat(document.getElementById("txtadultos_4").value);
+            adultos4 = adultos4 + 1;
+            console.log("adultos4 ===>" + adultos4);
+            if (adultos4 >= 6) {
+                console.log("MAXIMOOOOO 6");
+                //$("#btnUp_1").hide();
+                $("#btnUp_4").prop("disabled", true);
             }
         }
 
@@ -74,19 +97,39 @@ $(document).on('click', '.number-spinner button', function() {
 
             var hdnCountAddHab = parseFloat($("#hdnCountAddHab").val());
 
-            var adultos1 = parseFloat(document.getElementById("txtadultos_1").value);
-            if (adultos1 < 6) {
+            var adultos1 = parseFloat(document.getElementById("txtadultos_1").value - 1);
+            if (adultos1 < 7) {
                 console.log(btn);
                 //$("#btnUp_1").show();
                 $("#btnUp_1").prop("disabled", false);
             }
 
             if (hdnCountAddHab > 1) {
-                var adultos2 = parseFloat(document.getElementById("txtadultos_2").value);
+                var adultos2 = parseFloat(document.getElementById("txtadultos_2").value - 1);
                 if (adultos2 < 6) {
                     console.log(btn);
                     //$("#btnUp_1").show();
                     $("#btnUp_2").prop("disabled", false);
+                }
+            }
+
+            if (hdnCountAddHab > 2) {
+                var adultos3 = parseFloat(document.getElementById("txtadultos_3").value - 1);
+                if (adultos3 < 6) {
+                    console.log(btn);
+                    //$("#btnUp_1").show();
+                    $("#btnUp_3").prop("disabled", false);
+
+                }
+            }
+
+            if (hdnCountAddHab > 3) {
+                var adultos4 = parseFloat(document.getElementById("txtadultos_4").value - 1);
+                if (adultos4 < 6) {
+                    console.log(btn);
+                    console.log("adultos4 ====>" + adultos4);
+                    //$("#btnUp_1").show();
+                    $("#btnUp_4").prop("disabled", false);
                 }
             }
 
@@ -106,6 +149,14 @@ function AddHabitaciones(position) {
     if (position === 4) {
         return;
     }
+    var hdnCountAddHab = parseFloat($("#hdnCountAddHab").val());
+    if (hdnCountAddHab > 1) {
+        $("#btnRemove_0").prop("disabled", true);
+    }
+    if (hdnCountAddHab > 2) {
+        $("#btnRemove_1").prop("disabled", true);
+    }
+    console.log("hdnCountAddHab ===>" + hdnCountAddHab);
     var sum = 0;
     const newComponent = parseInt(position) + 1;
     const oldComponent = parseInt(position) - 1;
@@ -159,7 +210,13 @@ function RemoveHabitaciones(position) {
 
     var hdnCountAddHab = parseFloat($("#hdnCountAddHab").val());
     $("#hdnCountAddHab").val("" + (hdnCountAddHab - 1));
-
+    console.log("hdnCountAddHab ===> " + hdnCountAddHab);
+    if (hdnCountAddHab < 4) {
+        $("#btnRemove_0").prop("disabled", false);
+    }
+    if (hdnCountAddHab < 5) {
+        $("#btnRemove_1").prop("disabled", false);
+    }
     var resta = 0;
     var canthab = 0;
     var habitaciones = parseFloat(document.getElementById("txthabitacion").value);

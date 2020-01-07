@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, TemplateRef } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 declare var jquery: any;
 declare var $: any;
@@ -14,8 +15,11 @@ export class DetalleReservaHotelComponent implements OnInit {
 
   detailsHotel;
   urlimg = './assets/images/hotel-icon.png';
+  activeSlideIndex = 0;
+  slides: { image: string }[] = [];
+  modalRef: BsModalRef;
 
-  constructor(private sessionstorage: SessionStorageService,private router: Router) {
+  constructor(private modalService: BsModalService,private sessionstorage: SessionStorageService,private router: Router) {
 
     this.detailsHotel = this.sessionstorage.retrieve('ss_getreservahotel');
    }
@@ -27,12 +31,24 @@ export class DetalleReservaHotelComponent implements OnInit {
     this.router.navigate(["/mis-reservas-vuelo"])
   }
 
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg m-galeria' })
+    )
+  }
+
   Mostrarmapa() {
     $('#mapa').show();
  }
 
   OcultarMapa() {
     $('#mapa').hide();
+  }
+
+  removeSlide(index?: number): void {
+    const toRemove = index ? index : this.activeSlideIndex;
+    this.slides.splice(toRemove, 1);
   }
 
   ngAfterViewInit() {

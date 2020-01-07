@@ -68,8 +68,12 @@ let correo = this.correo;
 }
 
 validarTelefono() {
- 
-  this.telefono = $('numero').val();
+  let telefono = this.telefono;
+  if (telefono.length == 3) {
+    telefono += '';
+    this.telefono = telefono;
+  }
+  
   this.outTelefono.emit(this.telefono);
 }
 

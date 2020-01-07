@@ -308,24 +308,24 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
 ValidarCampos() {
   let val = true;
    
-    if ($.trim(this.destino) === '' || $.trim(this.destino) === undefined) {
-      $("#destinos").addClass("campo-invalido");
-      val = false;
-    } else {
-      $("#destinos").removeClass("campo-invalido");
-    }
-    if ($.trim(this.fchingreso) === '' || $.trim(this.fchingreso) === undefined) {
-      $("#ingreso").addClass("campo-invalido");
-      val = false;
-    } else {
-      $("#ingreso").removeClass("campo-invalido");
-    }
-    if ($.trim(this.fchsalida) === '' || $.trim(this.fchsalida) === undefined) {
-      $("#destino").addClass("campo-invalido");
-      val = false;
-    } else {
-      $("#destino").removeClass("campo-invalido");
-    }
+  if ($.trim(this.destino) === '' || $.trim(this.destino) === undefined) {
+    $("#destinos").addClass("campo-invalido");
+    val = false;
+  } else {
+    $("#destinos").removeClass("campo-invalido");
+  }
+  if ($('#fechaInicio').val().length === 0) {
+    $("#ingreso").addClass("campo-invalido");
+    val = false;
+  } else {
+    $("#ingreso").removeClass("campo-invalido");
+  }
+  if ($('#fechaFin').val().length === 0) {
+    $("#destino").addClass("campo-invalido");
+    val = false;
+  } else {
+    $("#destino").removeClass("campo-invalido");
+  }
     
       
   return val;
