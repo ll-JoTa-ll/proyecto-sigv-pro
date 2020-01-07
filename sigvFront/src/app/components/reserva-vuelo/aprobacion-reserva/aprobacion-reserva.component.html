@@ -163,7 +163,7 @@
                         </button>
                 </div>
                 <div class="modal-body m-0 p-0">
-                    <div *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && reserva.isAuthorizer === true" class="row m-0 p-0 text-center pt-4 pb-4 pl-2 pr-2">
+                    <div *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && reserva.isAuthorizer === true || reserva.allowedApproved === true && reserva.allowedIssue === true && reserva.lauthorizers.length === 1" class="row m-0 p-0 text-center pt-4 pb-4 pl-2 pr-2">
                         <div class="col-12 m-0 p-0 text-1">
                             No existen mas aprobadores pendientes en el vuelo, al aprobar el vuelo este será emitido.
                         </div>
@@ -178,7 +178,7 @@
                     </div>
                 </div>
                 <div class="row m-0 p-0 pb-5">
-                    <div class="col-6 m-0 p-0 text-center" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && reserva.isAuthorizer === true">
+                    <div class="col-6 m-0 p-0 text-center" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && reserva.isAuthorizer === true || reserva.allowedApproved === true && reserva.allowedIssue === true && reserva.lauthorizers.length === 1">
                         <button (click)="AprobarReserva(modalconfirmacion)" class="btn btn-emitir">Emitir</button>
                     </div>
                     <div class="col-6 m-0 p-0 text-center" *ngIf="reserva.isAuthorizer === false">
@@ -197,10 +197,10 @@
                 </div>
                 <div class="modal-body m-0 p-0">
                     <div class="row m-0 p-0 text-center pt-4 pb-4 pl-2 pr-2">
-                        <div *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false" class="col-12 m-0 p-0 text-1">
+                        <div *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false || reserva.lauthorizers.length === 1" class="col-12 m-0 p-0 text-1">
                             El vuelo ha sido aprobado satisfactoriamente , el vuelo ha sido enviado a emisión
                         </div>
-                        <div *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === true" class="col-12 m-0 p-0 text-1">
+                        <div *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === true && reserva.lauthorizers.length > 1" class="col-12 m-0 p-0 text-1">
                             El vuelo ha sido aprobado satisfactoriamente sin embargo quedan aprobadores pendientes.
                         </div>
                     </div>
@@ -261,7 +261,7 @@
             </ng-template>
 
             <div class="col-8 m-0 p-0">
-                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false">
+                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false || reserva.allowedApproved === true && reserva.allowedIssue === true && reserva.isAuthorizer === true && reserva.lauthorizers.length > 1">
                     <div class="col-4 m-0 p-0">
                         <button class="btn btn-aceptar" (click)="AprobarReserva(modalconfirmacion)">Aprobar</button>
                     </div>
@@ -272,7 +272,7 @@
                         <button class="btn btn-salir">Salir</button>
                     </div>
                 </div>
-                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === true">
+                <!--     <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === true">
                     <div class="col-4 m-0 p-0">
                         <button class="btn btn-aceptar" (click)="AprobarReserva(modalconfirmacion)">Aprobar</button>
                     </div>
@@ -281,6 +281,14 @@
                     </div>
                     <div class="col-4 m-0 p-0">
                         <button class="btn btn-salir" (click)="Regresar()">Salir</button>
+                    </div>
+                </div> -->
+                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === true && reserva.lauthorizers.length === 1">
+                    <div class="col-6 m-0 p-0">
+                        <button class="btn btn-aceptar" (click)="openModal(modalaprobacionconfirmacion)">Emitir</button>
+                    </div>
+                    <div class="col-6 m-0 p-0">
+                        <button class="btn btn-cerrar" (click)="openModal(modalrechazar)">Rechazar</button>
                     </div>
                 </div>
                 <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && loginDataUser.orole.roleDescription !== 'Usuario' && reserva.isAuthorizer === true">
