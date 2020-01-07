@@ -531,6 +531,16 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ValidarCiudad() {
+    if (this.model.origentTexto.length < 10) {
+      this.model.origentTexto = '';
+   }
+
+    if (this.model.destinoTexto.length < 10) {
+     this.model.destinoTexto = '';
+  }
+  }
+
   clickfecha1() {
    // this.dateCustomClasses = null;
     console.log("entro");

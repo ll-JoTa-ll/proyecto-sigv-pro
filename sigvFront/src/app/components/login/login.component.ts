@@ -190,14 +190,12 @@ export class LoginComponent implements OnInit {
 
       () => {
         this.spinner.hide();
-        let id = this.rutaActiva.snapshot.params.id;
-        //console.log("Service airportList complete");
-        //$(location).attr("href", "/vuelos");
+      /*  let id = this.rutaActiva.snapshot.params.id;
         if (id == 1) {
           this.router.navigate(['/gestion-reserva-vuelo']);
         } else {
           this.router.navigate(['/vuelos']);
-        }
+        }*/
       }
     );
   }
@@ -219,8 +217,7 @@ export class LoginComponent implements OnInit {
       () => {
         this.spinner.hide();
         let id = this.rutaActiva.snapshot.params.id;
-        //console.log("Service airportList complete");
-        //$(location).attr("href", "/vuelos");
+
         if (id == 1) {
           this.router.navigate(['/gestion-reserva-vuelo']);
         } else {

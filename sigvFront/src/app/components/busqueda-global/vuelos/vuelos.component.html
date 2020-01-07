@@ -173,6 +173,7 @@
                id="fechasalida"
                [bsValue]="bsValue"
                value=""
+               (onHidden)="ValidarCiudad()"
                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
         >
       </label>
@@ -195,8 +196,8 @@
              bsDatepicker
              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
              [(ngModel)]="model.retorno"
-             (onHidden)="handlerRetorno()"
              id="fechadestino"
+             (onHidden)="ValidarCiudad()"
       >
       <!--[isOpen]="isOpendate"-->
     </label>

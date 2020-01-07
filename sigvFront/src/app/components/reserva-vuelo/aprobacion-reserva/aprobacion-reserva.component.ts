@@ -214,6 +214,9 @@ EncolarReserva() {
     results => {
         this.resultscola = results;
         if (this.resultscola.oerror === null) {
+          this.toastr.success('', 'Se envio a emitir correctamente', {
+            timeOut: 3000
+           });
           this.router.navigate(['/mis-reservas-vuelo']);
         }
     },
@@ -1111,18 +1114,22 @@ PlantillaPasajerosVueloCancelado() {
 }
 
 Regresar() {
-  if (this.reserva.lauthorizers.length > 0) {
+  let data;
+  data = this.sessionStorageService.retrieve('isgestion');
+  if (data === true) {
     this.router.navigate(['/gestion-reserva-vuelo']);
   } else {
-    this.router.navigate(['/mis-reservas']);
+    this.router.navigate(['/mis-reservas-vuelo']);
   }
 }
 
 Back() {
-  if (this.reserva.lauthorizers.length > 0) {
+  let data;
+  data = this.sessionStorageService.retrieve('isgestion');
+  if (data === true) {
     this.router.navigate(['/gestion-reserva-vuelo']);
   } else {
-    this.router.navigate(['/mis-reservas']);
+    this.router.navigate(['/mis-reservas-vuelo']);
   }
 }
 }

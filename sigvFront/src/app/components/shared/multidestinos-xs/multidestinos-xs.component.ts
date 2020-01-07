@@ -181,6 +181,12 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   fecha4: string;
   fecha5: string;
   fecha6: string;
+  calendarSalidaValue1: Date;
+  calendarSalidaValue2: Date;
+  calendarSalidaValue3: Date;
+  calendarSalidaValue4: Date;
+  calendarSalidaValue5: Date;
+  calendarSalidaValue6: Date;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -788,6 +794,11 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         dia = "" + value.getDate();
       }
 
+      if (value >= this.calendarSalidaValue2) {
+        $("#datepickerSalida2").val("");
+        this.fechaSalida2 = '';
+      }
+
       this.fechaSalida1 = value.getFullYear() + "/" + mes + "/" + dia;
       let fechasalidashow1 = dia + '/' + mes + '/' + value.getFullYear();
       this.outFechaSalida1.emit(this.fechaSalida1);
@@ -803,6 +814,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.minDateSalida4 = value;
       this.minDateSalida5 = value;
       this.minDateSalida6 = value;
+      this.calendarSalidaValue2 = value;
 
       let mes = "";
       let getMonth = value.getMonth() + 1;
@@ -818,6 +830,11 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         dia = "0" + value.getDate();
       } else {
         dia = "" + value.getDate();
+      }
+
+      if (value >= this.calendarSalidaValue3) {
+        $("#datepickerSalida3").val("");
+        this.fechaSalida3 = '';
       }
 
       this.fechaSalida2 = value.getFullYear() + "/" + mes + "/" + dia;
@@ -834,6 +851,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.minDateSalida4 = value;
       this.minDateSalida5 = value;
       this.minDateSalida6 = value;
+      this.calendarSalidaValue3 = value;
 
       let mes = "";
       let getMonth = value.getMonth() + 1;
@@ -849,6 +867,11 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         dia = "0" + value.getDate();
       } else {
         dia = "" + value.getDate();
+      }
+
+      if (value >= this.calendarSalidaValue4) {
+        $("#datepickerSalida4").val("");
+        this.fechaSalida4 = '';
       }
 
       this.fechaSalida3 = value.getFullYear() + "/" + mes + "/" + dia;
@@ -864,6 +887,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       $("#txtFechaSalida4").removeClass("campo-invalido");
       this.minDateSalida5 = value;
       this.minDateSalida6 = value;
+      this.calendarSalidaValue4 = value;
 
       let mes = "";
       let getMonth = value.getMonth() + 1;
@@ -879,6 +903,11 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         dia = "0" + value.getDate();
       } else {
         dia = "" + value.getDate();
+      }
+
+      if (value >= this.calendarSalidaValue5) {
+        $("#datepickerSalida5").val("");
+        this.fechaSalida5 = '';
       }
 
       this.fechaSalida4 = value.getFullYear() + "/" + mes + "/" + dia;
@@ -893,6 +922,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (value != null) {
       $("#txtFechaSalida5").removeClass("campo-invalido");
       this.minDateSalida6 = value;
+      this.calendarSalidaValue5 = value;
 
       let mes = "";
       let getMonth = value.getMonth() + 1;
@@ -910,6 +940,11 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         dia = "" + value.getDate();
       }
 
+      if (value >= this.calendarSalidaValue6) {
+        $("#datepickerSalida6").val("");
+        this.fechaSalida6 = '';
+      }
+
       this.fechaSalida5 = value.getFullYear() + "/" + mes + "/" + dia;
       let fechasalidashow5 = dia + '/' + mes + '/' + value.getFullYear();
       this.outFechaSalida5.emit(this.fechaSalida5);
@@ -921,6 +956,7 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   onValueChangeSalida6(value: Date): void {
     if (value != null) {
       $("#txtFechaSalida6").removeClass("campo-invalido");
+      this.calendarSalidaValue6 = value;
       let mes = "";
       let getMonth = value.getMonth() + 1;
       if (getMonth < 10) {
