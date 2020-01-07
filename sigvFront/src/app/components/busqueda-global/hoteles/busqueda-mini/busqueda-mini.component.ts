@@ -91,18 +91,6 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.localeService.use(this.locale);
 
     const lstAutocomplete = this.lstAutocomplete;
-    this.airportlist.forEach(function (aeropuerto) {
-      const obj1 = {
-        iataCode: aeropuerto.iataCode,
-        name: aeropuerto.name,
-        searchName: aeropuerto.searchName,
-        latitude: aeropuerto.latitude,
-        longitude: aeropuerto.longitude,
-        categoryId: 1,
-        categoryName: 'Aeropuerto'
-      };
-      lstAutocomplete.push(obj1);
-    });
     this.citylist.forEach(function (ciudad) {
       const obj1 = {
         iataCode: ciudad.iataCode,
@@ -115,6 +103,19 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
       };
       lstAutocomplete.push(obj1);
     });
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        latitude: aeropuerto.latitude,
+        longitude: aeropuerto.longitude,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+   
     lstAutocomplete.sort((a, b) => a.name - b.name );
     this.lstAutocomplete = lstAutocomplete;
   }

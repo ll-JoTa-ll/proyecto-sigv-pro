@@ -96,7 +96,7 @@ export class ResultadoHabitacionComponent implements OnInit {
         
         this.sessionStorageService.store("lstHabication", this.lstHabication);
         //this.router.navigate(['/habitacion']);
-        if (this.lstHabication.Oerror != null) {
+        if (this.lstHabication.oerror != null) {
           this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
         }else{
           window.open(window.location.origin + "/habitacion");

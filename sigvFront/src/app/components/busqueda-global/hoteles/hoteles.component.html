@@ -101,7 +101,7 @@
                                       class="input-img"
                                       
                                       >
-                                      <input (keypress)="validarNumeros($event)" type="text"
+                                      <input readonly (keypress)="validarNumeros($event)" type="text"
                                       id="txthabitacion"
                                       class="input-text2"
                                       value="1"
@@ -112,10 +112,10 @@
                                     src="./assets/images/pasajero.svg"
                                     class="input-img"
                                     >
-                                    <input (keypress)="validarNumeros($event)" type="text"
+                                    <input readonly (keypress)="validarNumeros($event)" type="text"
                                     id="txtpersonas"
                                     class="input-text2"
-                                    value="2"
+                                    value="1"
                                     >
                                     </label>
                             </div>
@@ -162,10 +162,10 @@
                                             <span class="input-group-btn">
                                                                 <button class="btn btn-danger" data-dir="dwn"><i class="fas fa-minus"></i></button>
                                                             </span>
-                                            <input (keypress)="validarTodo($event)" type="text" class="form-control text-center" id="txtadultos_1" value="2">
+                                            <input readonly (keypress)="validarTodo($event)" type="text" class="form-control text-center" id="txtadultos_1" value="2">
                                             <span class="input-group-btn">
                                                                 <button  class="btn btn-danger" data-dir="up"><i class="fas fa-plus"></i></button>
-                                                            </span>
+                                            </span>
                                         </div>
                                     </div>
                                     <hr>

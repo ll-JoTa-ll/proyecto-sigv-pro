@@ -195,8 +195,6 @@ export class LoginComponent implements OnInit {
         //$(location).attr("href", "/vuelos");
         if (id == 1) {
           this.router.navigate(['/gestion-reserva-vuelo']);
-        } else {
-          this.router.navigate(['/vuelos']);
         }
       }
     );

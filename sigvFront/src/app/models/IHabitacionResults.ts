@@ -71,7 +71,7 @@ export class IHabitacionResults {
   ];
   gds: string;
   contador: number;
-  Oerror:{
+  oerror:{
     message: string;
   }
   pseudo: string;

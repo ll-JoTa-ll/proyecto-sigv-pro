@@ -127,7 +127,7 @@ export class ResultadoComponent implements OnInit {
         this.lstHabication = data;
 
         this.sessionStorageService.store("lstHabication", this.lstHabication);
-        if (this.lstHabication.Oerror != null) {
+        if (this.lstHabication.oerror != null) {
           this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
         }else{
           //this.router.navigate(['/habitacion']);

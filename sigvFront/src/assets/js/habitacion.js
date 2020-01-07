@@ -26,7 +26,6 @@ document.onclick = function(e) {
     $("#divwebCompAirport ").hide();
     $("#divCity ").hide();
     $("#divCitydestino ").hide();
-
 }
 
 //* funciones modal agregar habitaciones
@@ -34,22 +33,20 @@ $(document).on('click', '.number-spinner button', function() {
     var btn = $(this),
         oldValue = btn.closest('.number-spinner').find('input').val().trim(),
         newVal = 0;
-
     if (btn.attr('data-dir') == 'up') {
         newVal = parseInt(oldValue) + 1;
         var result = 0;
         var adultos = parseFloat(document.getElementById("txtpersonas").value);
         result = adultos + 1;
         document.getElementById("txtpersonas").value = result;
-
     } else {
         if (oldValue > 1) {
+            var adultos = parseFloat(document.getElementById("txtpersonas").value);
             newVal = parseInt(oldValue) - 1;
             var result = 0;
             var adultos = parseFloat(document.getElementById("txtpersonas").value);
             result = adultos - 1;
             document.getElementById("txtpersonas").value = result;
-
         } else {
             newVal = 1;
         }
@@ -80,9 +77,9 @@ function AddHabitaciones(position) {
     content += "<span class='input-group-btn'>";
     content += "<button class='btn btn-danger' data-dir='dwn'><i class='fas fa-minus'></i></button>";
     content += "</span>";
-    content += "<input type='text' class='form-control text-center' value='1' id='txtadultos_" + newComponent + "'>";
+    content += "<input readonly type='text' class='form-control text-center' value='1' id='txtadultos_" + newComponent + "'>";
     content += "<span class='input-group-btn'>";
-    content += "<button onclick='AddCantidadPersonas()' class='btn btn-danger' data-dir='up'><i class='fas fa-plus'></i></button>";
+    content += "<button class='btn btn-danger' data-dir='up'><i class='fas fa-plus'></i></button>";
     content += "</span>";
     content += "</div>";
     content += "</div>";
@@ -108,6 +105,8 @@ function AddHabitaciones(position) {
     var txt = parseFloat(document.getElementById("txtpersonas").value);
     sum = txt + personas;
     document.getElementById("txtpersonas").value = sum;
+
+
 
 }
 

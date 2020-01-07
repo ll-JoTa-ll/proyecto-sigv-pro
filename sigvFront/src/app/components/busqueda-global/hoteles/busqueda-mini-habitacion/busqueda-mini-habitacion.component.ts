@@ -64,7 +64,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   model: any = {};
   flagDinData: boolean;
   noches: any;
-  
+  lstAutocomplete: any[] = [];
+  citylist: any[] = [];
   objSearch : any;
 
   SearchObj: any = { 
@@ -92,6 +93,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.sessionMini1 = this.sessionStorageService.retrieve('ss_sessionmini1');
     this.sessionMini = this.sessionStorageService.retrieve('ss_sessionmini');
+    this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.ss_minibuscador = this.localStorageService.retrieve('ss_minibuscador');
     this.ls_search_hotel = this.localStorageService.retrieve('ls_search_hotel');
     this.noches = this.sessionStorageService.retrieve('ss_noches');
@@ -102,7 +104,37 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     this.fechaSalida = this.sessionMini.fechaentrada;
     this.fechaRetorno = this.sessionMini.fechasalida;
     this.localeService.use(this.locale);
+
+    const lstAutocomplete = this.lstAutocomplete;
+    this.citylist.forEach(function (ciudad) {
+      const obj1 = {
+        iataCode: ciudad.iataCode,
+        name: ciudad.name,
+        searchName: ciudad.searchName,
+        latitude: ciudad.latitude,
+        longitude: ciudad.longitude,
+        categoryId: 2,
+        categoryName: 'Ciudad'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    this.airportlist.forEach(function (aeropuerto) {
+      const obj1 = {
+        iataCode: aeropuerto.iataCode,
+        name: aeropuerto.name,
+        searchName: aeropuerto.searchName,
+        latitude: aeropuerto.latitude,
+        longitude: aeropuerto.longitude,
+        categoryId: 1,
+        categoryName: 'Aeropuerto'
+      };
+      lstAutocomplete.push(obj1);
+    });
+    
+    lstAutocomplete.sort((a, b) => a.name - b.name );
+    this.lstAutocomplete = lstAutocomplete;
   }
+  
 
   ngAfterViewInit() {
     //cantidadnoches
@@ -149,7 +181,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.airportlist.filter( word => word.name.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
       this.data = resultFilter;
 
       $(".x").hide();

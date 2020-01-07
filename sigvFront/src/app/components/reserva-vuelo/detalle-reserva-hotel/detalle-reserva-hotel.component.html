@@ -29,7 +29,7 @@
                                                 <span class="ml-3" *ngIf="detailsHotel.starts  === 2"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
                                                 <span class="ml-3" *ngIf="detailsHotel.starts  === 1"><img src="./assets/images/star.svg"></span>
                                                 <br>
-                                                <span class="txtdis pr-4">{{detailsHotel.cityCode}}. A {{detailsHotel.distance}} {{detailsHotel.type}}  del  aeropuerto</span>
+                                                <span class="txtdis pr-4">{{detailsHotel.address}}. A {{detailsHotel.distance}} {{detailsHotel.type}}  del  aeropuerto</span>
 
                                                 <img for="happy" class="option-happy pb-2" (click)="Mostrarmapa()" style="width:23px;" src="./assets/images/qqq.png"><label for="happy" class="option-happy" (click)="Mostrarmapa()">Ver Mapa</label>
 
@@ -87,7 +87,7 @@
                                                         <span class="Pricefin">Precio Final</span>
                                                     </div>
                                                     <div class="col-8 m-0 p-0 pt-4">
-                                                        <span class="pl-4"><span class="Moneda"></span><span class="Amount pl-2">{{detailsHotel.totalAmount}}</span></span>
+                                                        <span class="pl-4"><span class="Moneda">{{detailsHotel.currency}}</span><span class="Amount pl-2">{{detailsHotel.totalAmount}}</span></span>
                                                     </div>
                                                 </div>
                                                 <ng-container *ngIf="detailsHotel.numberNights === 1; else elseTemplate" class="row m-0 p-0">
