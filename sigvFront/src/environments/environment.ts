@@ -4,7 +4,7 @@
 
 export const environment = {
 
-  /*production: false,
+  production: false,
    url:"https://sigvsecurityuat.azurewebsites.net/api/",
    url_2:"http://52.190.24.114/flights/api/",
    url_hotel: "http://52.190.24.114/hotel/api/",
@@ -15,8 +15,8 @@ export const environment = {
    cod_rol_autogestion: [3],
    cod_rol_autorizador: [4],
    cod_rol_centralizador: [5, 2],
-   max_pax: 8*/
-
+   max_pax: 8
+/*
  production: false,
   url:"https://sigvsecurityuat.azurewebsites.net/api/",
   url_2:"http://52.190.24.114/flights/api/",
@@ -28,5 +28,5 @@ export const environment = {
   cod_rol_autogestion: [3],
   cod_rol_autorizador: [4],
   cod_rol_centralizador: [5, 2],
-  max_pax: 8
+  max_pax: 8*/
 };
