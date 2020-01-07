@@ -130,7 +130,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let interval;
     back = true;
     this.sessionStorageService.store('indregresar', back);
-    this.sessionStorageService.store('idinterval', this.idinterval);
   }
 
   CostCenter() {
@@ -233,6 +232,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       }
     }, 1000);
     this.idinterval = interval;
+    this.sessionStorageService.store('idinterval', this.idinterval);
     return interval;
   }
 

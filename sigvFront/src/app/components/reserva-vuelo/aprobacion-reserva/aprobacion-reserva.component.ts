@@ -172,7 +172,7 @@ CapturarHoraAprobacion() {
 }
 
 AprobarReserva(template) {
-   if (this.reserva.allowedIssue === true && this.reserva.allowedApproved === false) {
+   if (this.reserva.allowedIssue === true && this.reserva.allowedApproved === false || this.reserva.allowedIssue === true && this.reserva.allowedApproved === true && this.reserva.lauthorizers.length ===1) {
     this.modalRef.hide();
   }
    let data = {
