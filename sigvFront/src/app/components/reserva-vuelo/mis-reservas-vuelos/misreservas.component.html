@@ -63,7 +63,18 @@
                     </div> -->
                         <div class="col-2 m-0 p-0"></div>
                     </div>
-                    <div class="row m-0 p-0 pt-5 pb-5">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 text-right">
+
+                            <label style="font-family: Omnes-med; margin-right: 16px;">Codigo de reserva</label>
+
+                            <input type="text" style="margin-right: 10px;" id="textpnr">
+
+                            <button class="btn btn-buscar" (click)="FiltrarPnr()">Buscar</button>
+
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0 pt-5 pb-3">
                         <div class="col-12 m-0 p-0">
                             <table class="table-reservas">
                                 <thead class="cabecera-tabla">
@@ -101,7 +112,7 @@
                                 </tbody>
                             </table>
                             <div class="col-12 m-0 p-0 text-center pt-5">
-                                <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
                             </div>
                         </div>
                     </div>
@@ -174,7 +185,7 @@
                                 </tbody>
                             </table>
                             <div class="col-12 m-0 p-0 text-center pt-5">
-                                <!--   <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
                             </div>
                         </div>
                     </div>
@@ -233,6 +244,17 @@
                         </div> -->
                         <div class="col-2 m-0 p-0"></div>
                     </div>
+                    <div class="row m-0 p-0 pt-4">
+                        <div class="col-12 m-0 p-0 text-right">
+
+                            <label style="font-family: Omnes-med; margin-right: 16px;">Codigo de reserva</label>
+
+                            <input type="text" style="margin-right: 10px;" id="textpnr">
+
+                            <button class="btn btn-buscar" (click)="FiltrarPnr()">Buscar</button>
+
+                        </div>
+                    </div>
                     <div class="row m-0 p-0 pt-5 pb-5">
                         <div class="col-12 m-0 p-0">
                             <table class="table-reservas">
@@ -271,7 +293,7 @@
                                 </tbody>
                             </table>
                             <div class="col-12 m-0 p-0 text-center pt-5">
-                                <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
                             </div>
                         </div>
                     </div>
@@ -339,7 +361,7 @@
                                 </tbody>
                             </table>
                             <div class="col-12 m-0 p-0 text-center pt-5">
-                                <!--   <pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
                             </div>
                         </div>
                     </div>

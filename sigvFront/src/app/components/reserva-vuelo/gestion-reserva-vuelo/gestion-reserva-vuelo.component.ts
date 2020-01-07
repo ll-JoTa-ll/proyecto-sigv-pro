@@ -97,6 +97,14 @@ GetReserva(pnr, pseudo ,template) {
   );
 }
 
+FiltrarPnr() {
+  let data = $('#textpnr').val();
+  let listado = this.listadoreserva;
+  let results;
+  results = listado.filter(m => m.pnr.toUpperCase().includes(data.toUpperCase()));
+  this.lsreservas = results;
+}
+
 FiltrarAprobados() {
   let listado = this.listadoreserva;
   let results;

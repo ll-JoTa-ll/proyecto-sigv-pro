@@ -179,6 +179,14 @@ FiltrarPendientes() {
   this.lsreservas = results;
 }
 
+FiltrarPnr() {
+  let data = $('#textpnr').val();
+  let listado = this.listadoreserva;
+  let results;
+  results = listado.filter(m => m.pnr.toUpperCase().includes(data.toUpperCase()));
+  this.lsreservas = results;
+}
+
 FiltrarEmitidos() {
   let listado = this.listadoreserva;
   let results;
