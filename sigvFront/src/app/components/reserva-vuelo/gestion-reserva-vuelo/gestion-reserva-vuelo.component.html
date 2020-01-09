@@ -96,7 +96,9 @@
                                     <td>{{item.ostate.stateDescription}}</td>
                                     <td><img *ngIf="item.ostate.stateId === 1" src="assets/images/img-validation/pendiente.svg">
                                         <img *ngIf="item.ostate.stateId === 2" src="assets/images/img-validation/aprobado.svg">
-                                        <img *ngIf="item.ostate.stateId === 3" src="assets/images/img-validation/rechazado.svg"></td>
+                                        <img *ngIf="item.ostate.stateId === 3" src="assets/images/img-validation/rechazado.svg">
+                                        <img style="width: 29px;" *ngIf="item.ostate.stateId === 4" src="assets/images/img-validation/expire.png">
+                                        <img style="width: 24px;" *ngIf="item.ostate.stateId === 5" src="assets/images/img-validation/not-gestion.png"></td>
                                     <td *ngIf="item.ostate.stateId === 1" (click)="GetReserva(item.pnr, item.pseudo, modalerror)" style="color: #176FC7; cursor: pointer;">Gestionar <i class="fas fa-chevron-right"></i></td>
                                     <td *ngIf="item.ostate.stateId !== 1" (click)="GetReserva(item.pnr,item.pseudo, modalerror)" style="color: #176FC7; cursor: pointer;">Ver reserva <i class="fas fa-chevron-right"></i></td>
                                 </tr>

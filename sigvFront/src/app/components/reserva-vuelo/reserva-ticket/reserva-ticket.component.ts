@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
+import { IGenerateTicket } from '../../../models/IGenerateTicket.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -15,11 +16,13 @@ export class ReservaTicketComponent implements OnInit , AfterViewInit {
   lsflightavailability;
   lusers;
   LPolicies;
+  ticketresults: IGenerateTicket;
 
   constructor(private sessionStorageService: SessionStorageService) {
   this.Lsection = this.sessionStorageService.retrieve('sectioninfo');
   this.lsflightavailability = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
   this.lusers = this.sessionStorageService.retrieve('datosusuario');
+  this.ticketresults = this.sessionStorageService.retrieve('dataticket');
   }
 
   ngOnInit() {

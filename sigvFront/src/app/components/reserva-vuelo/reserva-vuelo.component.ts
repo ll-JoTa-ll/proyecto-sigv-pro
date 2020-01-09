@@ -15,6 +15,7 @@ import { FlightService } from '../../services/flight.service';
 import { ModalSesionExpiradaComponent } from '../shared/modal-sesion-expirada/modal-sesion-expirada.component';
 import { ModalSesionExpiradaVuelosComponent } from '../shared/modal-sesion-expirada-vuelos/modal-sesion-expirada-vuelos.component';
 import { ModalSesionWarningVuelosComponent } from '../shared/modal-sesion-warning-vuelos/modal-sesion-warning-vuelos.component';
+import { IGetPaisesModel } from '../../models/IGetPaises';
 
 declare var jquery: any;
 declare var $: any;
@@ -71,6 +72,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   idinterval: any;
   numero1: any;
   telefonocontacto: any;
+  lstpaises: IGetPaisesModel[] = [];
 
   constructor(
     private modalService: BsModalService,
@@ -81,6 +83,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     private bnIdle: BnNgIdleService,
     private flightService: FlightService
   ) {
+    this.GetPaises();
     this.datarequest = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
     this.flightAvailability_request = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
     this.flightAvailability_result = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
@@ -107,7 +110,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.ReasonFlight();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit() { 
     let count = this.sessionStorageService.retrieve('count');
     if (count === undefined || count === null || count === '') {
       count = true;
@@ -236,6 +239,20 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     return interval;
   }
 
+  GetPaises() {
+    this.service.GetPaises().subscribe(
+      result => {
+          this.lstpaises = result;
+      },
+      err => {
+
+      },
+      () => {
+    
+      }
+    )
+  }
+
   ValidarCampos() {
     let val = true;
     let valtelefono;
@@ -259,12 +276,19 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         } else {
           $('#txtnrodocumento_' + (index + 1)).removeClass('campo-invalido');
         }
-        if ($('#txtnacionalidad_' + (index + 1)).val().length <= 0) {
+      /*  if ($('#txtnacionalidad_' + (index + 1)).val().length <= 0) {
           $('#txtnacionalidad_' + (index + 1)).addClass('campo-invalido');
           val = false;
         } else {
           $('#txtnacionalidad_' + (index + 1)).removeClass('campo-invalido');
+        }*/
+        if ($('#cbo_nacionalidad_' + (index + 1)).val().trim() === '') {
+          $('#cbo_nacionalidad_' + (index + 1)).addClass('campo-invalido');
+          val = false;
+        } else {
+          $('#cbo_nacionalidad_' + (index + 1)).removeClass('campo-invalido');
         }
+
         if ($('#cbo_tipodocumento_' + (index + 1)).val().trim() === '') {
           $('#cbo_tipodocumento_' + (index + 1)).addClass('campo-invalido');
           val = false;
@@ -283,6 +307,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           val = false;
         } else {
           $('#txtcorreo_' + (index + 1)).removeClass('campo-invalido');
+        }
+        if ($('#txtfecha_' + (index + 1)).val().length <= 0) {
+          $('#txtfecha_' + (index + 1)).addClass('campo-invalido');
+          valcorreo = true;
+          val = false;
+        } else {
+          $('#txtfecha_' + (index + 1)).removeClass('campo-invalido');
         }
         if ($('#txttelefono_' + (index + 1)).val().length <= 0) {
           $('#txttelefono_' + (index + 1)).addClass('campo-invalido');
@@ -372,6 +403,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       }
 
       const objuser = {
+        "UserId": item.userId,
         "PassengerId": index + 1,
         "PersonId": item.personId,
         "Prefix": prefix,

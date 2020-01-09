@@ -249,7 +249,7 @@ SendMailVueloAprobado() {
   let data = {
     "AgencyId": 1,
     "Recipients": mails,
-    "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com'],
+    "RecipientsCopy": ['analista8@domiruth.com'],
     "RecipientsHiddenCopy": [],
     "Subject": "VUELO APROBADO",
     "Message": this.emailvueloaprobado
@@ -289,7 +289,7 @@ SendMail() {
   let data = {
     "AgencyId": 1,
     "Recipients": mails,
-    "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com'],
+    "RecipientsCopy": ['analista8@domiruth.com'],
     "RecipientsHiddenCopy": [],
     "Subject": "SOLICITUD APROBACION DE EXCEPCION",
     "Message": this.emailsolicitud
@@ -335,7 +335,7 @@ SendMailVueloRechazado() {
   let data = {
     "AgencyId": 1,
     "Recipients": mails,
-    "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com'],
+    "RecipientsCopy": ['analista8@domiruth.com'],
     "RecipientsHiddenCopy": [],
     "Subject": "VUELO RECHAZADO",
     "Message": this.emailvuelorechazado
@@ -380,7 +380,7 @@ SendMailVueloCancelado() {
   let data = {
     "AgencyId": 1,
     "Recipients": mails,
-    "RecipientsCopy": ['analista8@domiruth.com', 'juan.caro.1987@gmail.com'],
+    "RecipientsCopy": ['analista8@domiruth.com'],
     "RecipientsHiddenCopy": [],
     "Subject": "VUELO CANCELADO",
     "Message": this.emailvuelocancelado
@@ -665,6 +665,7 @@ PlantillaPreciovuelo() {
   this.emailvueloaprobado = this.emailvueloaprobado.replace("@preciounitario", this.reserva.totalAmountByPassenger);
   this.emailvueloaprobado = this.emailvueloaprobado.replace("@hora", this.hora);
   this.emailvueloaprobado = this.emailvueloaprobado.replace("@motivoaprobacion", motivo);
+  this.emailvueloaprobado = this.emailvueloaprobado.replace("@pnr", this.reserva.pnr);
  }
 
  PlantillaPoliticasVueloAprobado()
@@ -848,6 +849,7 @@ PlantillaPasajerosVueloRechazado() {
   this.emailvuelorechazado = this.emailvuelorechazado.replace("@preciounitario", this.reserva.totalAmountByPassenger);
   this.emailvuelorechazado = this.emailvuelorechazado.replace("@hora", this.hora);
   this.emailvuelorechazado = this.emailvuelorechazado.replace("@motivorechazo", motivo);
+  this.emailvuelorechazado = this.emailvuelorechazado.replace("@pnr", this.reserva.pnr);
  }
 
  PlantillaPoliticasVueloRechazado()
@@ -1031,6 +1033,7 @@ PlantillaPasajerosVueloCancelado() {
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@preciounitario", this.reserva.totalAmountByPassenger);
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@hora", this.hora);
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@motivocancelacion", motivo);
+  this.emailvuelocancelado = this.emailvuelocancelado.replace("@pnr", this.reserva.pnr);
  }
 
 

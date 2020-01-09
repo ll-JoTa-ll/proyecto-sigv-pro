@@ -1290,6 +1290,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtFechaSalida2").removeClass("campo-invalido");
         }
+        console.log('fecha3', this.fechaSalida3);
         if ($.trim(this.fechaSalida3) === '') {
           $("#txtFechaSalida3").addClass("campo-invalido");
           flagVal = false;

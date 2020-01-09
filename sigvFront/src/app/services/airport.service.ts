@@ -17,6 +17,7 @@ import { iGetReservation } from '../models/IGetReservation.model';
 import { IResultAprobacionReserva } from '../models/iResultAprobacion.model';
 import { IQueuePnr } from '../models/IQueuePnr.model';
 import { IAirportList } from '../models/IAirportList.model';
+import { IGetPaisesModel } from '../models/IGetPaises';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -44,6 +45,7 @@ export class AirportService {
   private _url9: string = environment.url_2 + "Reservation/";
   private _url10: string = environment.url_2 + "Authorization/";
   private _url11: string = environment.url_2 + "Cancel/";
+  private _url12: string = environment.url_2 + "Country/";
 
   constructor(
     private http: HttpClient,
@@ -225,5 +227,14 @@ export class AirportService {
       'Content-Type': "application/json",
     });
     return this.http.post<IQueuePnr>(this._url4  + "QueuePnr", data, httpOptions2);
+  }
+
+  GetPaises(): Observable<IGetPaisesModel[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.get<IGetPaisesModel[]>(this._url12  + "GetCountry", httpOptions2);
   }
 }

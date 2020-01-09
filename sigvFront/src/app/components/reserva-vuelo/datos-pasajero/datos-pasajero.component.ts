@@ -7,6 +7,7 @@ import { IReasonFlight } from '../../../models/IReasonFlight';
 import { SessionStorageService } from 'ngx-webstorage';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import { ConfigurationOptions, ContentOptionsEnum, NumberResult } from 'intl-input-phone';
+import { IGetPaisesModel } from '../../../models/IGetPaises';
 
 declare var jquery: any;
 declare var $: any;
@@ -30,6 +31,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   @Input() index;
   @Input() valtelefono;
   @Output() numtelefono = new EventEmitter<any>();
+  @Input() lstpaises: IGetPaisesModel[];
   selectedvalue;
   fechanacimiento;
   datosPax;
@@ -185,11 +187,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
         $('#txtapellidos_' + (index + 1)).addClass('campo-invalido');
       } else {
         $('#txtapellidos_' + (index + 1)).removeClass('campo-invalido');
-      }
-      if ($('#txtnacionalidad_' + (index + 1)).val().length <= 0) {
-        $('#txtnacionalidad_' + (index + 1)).addClass('campo-invalido');
-      } else {
-        $('#txtnacionalidad_' + (index + 1)).removeClass('campo-invalido');
       }
       if ($('#txtnrodocumento_' + (index + 1)).val().length <= 0) {
         $('#txtnrodocumento_' + (index + 1)).addClass('campo-invalido');

@@ -187,7 +187,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "Lpolicies": this.LPolicies,
     "Lauthorizer": this.lsapprover,
     "Comment": $('#motivoviaje').val(),
-    "OContactInfo": this.contacto
+    "OContactInfo": this.contacto,
+    "FareTaxAmountByPassenger": this.lsflightavailability.fareAmountByPassenger
     };
     this.service.AddPassenger(data).subscribe(
         results => {
@@ -528,6 +529,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
     Emitir() {
       this.spinner.show();
+      let idinterval = this.sessionStorageService.retrieve('idinterval');
       let phones = [];
       let email = [];
       let infraction;
@@ -549,11 +551,16 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "ReasonFlightId": parseFloat(this.idmotivo),
     "CarrierId": this.carrierId,
     "Lpolicies": this.LPolicies,
-    "OContactInfo": this.contacto
+    "OContactInfo": this.contacto,
+    "FareTaxAmountByPassenger": this.lsflightavailability.fareAmountByPassenger
     };
       this.service.GenerateTicket(data).subscribe(
         results => {
           this.ticketresults = results;
+          this.sessionStorageService.store('dataticket', this.ticketresults);
+          if (this.ticketresults.oerror === null) {
+            clearInterval(idinterval);
+           }
           if (this.ticketresults.oerror === null) {
             this.router.navigate(['/reserva-ticket-vuelo']);
           }
