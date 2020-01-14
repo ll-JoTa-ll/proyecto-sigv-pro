@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   ) {
     this.flagTipo = 1;
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-   
+
     this.nombreUsuario = this.loginDataUser.userName;
     this.gender = this.loginDataUser.gender;
     this.role = this.loginDataUser.orole.roleDescription;
@@ -137,9 +137,10 @@ export class HeaderComponent implements OnInit {
     clearInterval(this.idinterval1);
     this.sessionStorageService.store('count', null);
     this.sessionStorageService.clear();
-    this.router.navigate(['/']);
     this.closedSesion = false;
     this.localStorageService.store("ss_closedSesion", this.closedSesion);
+    //this.router.navigate(['/']);
+    location.href = "/";
   }
 
 }
