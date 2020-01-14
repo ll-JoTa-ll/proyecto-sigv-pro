@@ -199,13 +199,16 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
       }
       this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
       this.minDateSalida = value;
-     
+      if (value >= this.calendarSalidaValue) {
+        $("#fechaFin").val("");
+      }
       this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
     }
   }
 
   onValueChangeSalida(value: Date): void {
     if (value != null) {
+      this.calendarSalidaValue = value;
       this.maxDateIngreso = value;
       if (value === null) {
         return;
