@@ -540,8 +540,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   clickfecha1() {
-   // this.dateCustomClasses = null;
-    console.log("entro");
   }
 
   onValueChangeRetorno(value: Date): void {
@@ -658,8 +656,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   onFocused(e) {
-    //$('.ng-dirty').select();
-    console.log('entro');
   }
 
   selectEvent2(item) {
@@ -1290,7 +1286,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtFechaSalida2").removeClass("campo-invalido");
         }
-        console.log('fecha3', this.fechaSalida3);
         if ($.trim(this.fechaSalida3) === '') {
           $("#txtFechaSalida3").addClass("campo-invalido");
           flagVal = false;

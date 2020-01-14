@@ -45,25 +45,15 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     private modalService: BsModalService,
     private spinner: NgxSpinnerService,
   ) {
-    console.log('modal familia constructor');
     //this.precioTotal = 0;
     //this.precioPersona = 0;
     //this.flagMsgErrorSelFam = false;
   }
 
   ngOnInit() {
-    console.log('modal familia ngOnInit');
-    //this.precioTotal = this.famTotalFareAmount;
-    //this.precioPersona = this.famFareAmountByPassenger;
-    console.log('this.famFareAmountByPassenger: ' + this.famFareAmountByPassenger);
-    console.log('this.famTotalFareAmount: ' + this.famTotalFareAmount);
-    //console.log('this.precioPersona: ' + this.precioPersona);
-    //console.log('this.precioTotal: ' + this.precioTotal);
-    console.log('this.flagMsgErrorSelFam: ' + this.flagMsgErrorSelFam);
   }
 
   ngAfterViewInit() {
-    console.log('modal familia ngAfterViewInit');
     /*
     console.log('modal familia ngAfterViewInit');
     let precioTotal = 0;
@@ -166,7 +156,6 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
       }
     }
     this.lstFareFamily = lstFareFamily;
-    console.log('lstFareFamily: ' + JSON.stringify(lstFareFamily));
   }
 
   seleccionarFamilia(template) {
@@ -211,14 +200,11 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   flightAvailability(data, template) {
     this.spinner.show();
     this.flagMsgErrorSelFam = false;
-    console.log('dataRequestflightAvailability: ' + JSON.stringify(data));
     let flagResult = 0;
     this.airportService.fligthAvailibility(data).subscribe(
       results => {
-        console.log('fligthAvailibility results: ' + JSON.stringify(results));
         if (results.oerror === null) {
           this.lsFlightAvailabilty = results;
-          console.log('results :', JSON.stringify(this.lsFlightAvailabilty));
           this.sessionStorageService.store('ss_FlightAvailability_result', results);
           this.sessionStorageService.store('ss_flightavailability_request1', data);
           this.sessionStorageService.store('ss_FlightAvailability_request2', this.ss_FlightAvailability_request2);
@@ -230,13 +216,10 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
         }
       },
       err => {
-        console.log('ERROR: ' + JSON.stringify(err));
         this.spinner.hide();
       },
       () => {
         this.spinner.hide();
-        console.log('flight availability completado');
-        console.log('flagResult: ' + flagResult);
         if (flagResult === 1) {
           this.flagCloseModal.emit(true);
           this.router.navigate(['/reserva-vuelo']);

@@ -28,7 +28,6 @@ export class FamilyService {
     private sessionSt: SessionStorageService
   ) {
     this.token = this.sessionSt.retrieve('ss_token');
-    console.log("AirportService constructor token:  " + this.token);
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",

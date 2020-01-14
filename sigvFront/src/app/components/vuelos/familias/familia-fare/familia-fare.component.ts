@@ -63,7 +63,6 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService
   ) {
-    console.log("FamiliaFareComponent constructor");
     this.idDivInc = 'idDivInc';
     this.idDivNof = 'idDivNof';
     this.idDivCha = 'idDivCha';
@@ -80,7 +79,6 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log("FamiliaFareComponent ngOnInit");
     const fareFamily = this.fareFamily;
     //console.log('fareFamily: ' + JSON.stringify(fareFamily));
     this.lstInc = fareFamily.lfamilyServices.filter(x => x.serviceStatus === 'INC');
@@ -89,7 +87,6 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log("FamiliaFareComponent ngAfterViewInit");
     let heightDivInc = 20 * this.flagCountInc;
     let heightDivNof = 20 * this.flagCountNof;
     let heightDivCha = 20 * this.flagCountCha;
@@ -103,13 +100,6 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
       heightDivCha = 43;
     }
 
-    console.log('this.flagCountInc' + this.flagCountInc);
-    console.log('this.flagCountNof' + this.flagCountNof);
-    console.log('this.flagCountCha' + this.flagCountCha);
-
-    console.log('heightDivInc: ' + heightDivInc);
-    console.log('heightDivNof: ' + heightDivNof);
-    console.log('heightDivCha: ' + heightDivCha);
 
     $("." + this.classDivInc + this.segmentIndex).height(heightDivInc);
     $("." + this.classDivNof + this.segmentIndex).height(heightDivNof);

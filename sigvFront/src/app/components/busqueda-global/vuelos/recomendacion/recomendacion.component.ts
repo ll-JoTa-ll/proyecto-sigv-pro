@@ -294,14 +294,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         const requestFamilia = this.requestFamilia;
         const lstFamilyResult = this.lstFamilyResult;
 
-        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
-        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
-        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
-        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
-        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
-        console.log("lstFamilyResult ======> " + stringify(lstFamilyResult));
-
-        console.log("lstFamilyResult ======> " +lstFamilyResult);
 
         if (lstFamilyResult === undefined) {
           //this.modalRefSessionExpired = this.modalService.show(ModalFamiliasVaciasComponent,this.config);
@@ -316,13 +308,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           });
         }
 
-        console.log("flagResultFamilias ======>" + flagResultFamilias);
-        console.log("flagResultFamilias ======>" + flagResultFamilias);
-        console.log("flagResultFamilias ======>" + flagResultFamilias);
-        console.log("flagResultFamilias ======>" + flagResultFamilias);
-        console.log("flagResultFamilias ======>" + flagResultFamilias);
-        console.log("flagResultFamilias ======>" + flagResultFamilias);
-        console.log("flagResultFamilias ======>" + flagResultFamilias);
 
         if (flagResultFamilias === 1) {
           this.flightAvailability(dataPost, modalerror, 2, template, datasecciones);
@@ -512,7 +497,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         this.sessionStorageService.store('objusuarios', this.datosuser);
       },
       err => {
-           console.log("error results", err);
+        
       },
       () => {
         this.TraerAutorizador();
@@ -574,7 +559,7 @@ TraerAutorizador() {
       this.sessionStorageService.store('lsapprover', this.lsapprovers);
     },
     err => {
-      console.log(err);
+    
     }
   );
 }
@@ -612,7 +597,6 @@ TraerAutorizador() {
         }
       },
       err => {
-        console.log('ERROR: ' + JSON.stringify(err));
         this.vuelosComponent.spinner.hide();
       },
       () => {

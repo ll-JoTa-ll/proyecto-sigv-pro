@@ -60,7 +60,6 @@ export class AirportService {
 
   airportList(token): Observable<IAirportList> {
     this.token = this.sessionSt.retrieve('ss_token');
-    console.log('token' + token);
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + token,
       'Content-Type': "application/json",
@@ -71,7 +70,6 @@ export class AirportService {
 
   airportListPriority(token): Observable<IAirportList> {
     this.token = this.sessionSt.retrieve('ss_token');
-    console.log('token' + token);
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + token,
       'Content-Type': "application/json",

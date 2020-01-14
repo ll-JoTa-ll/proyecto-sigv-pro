@@ -33,8 +33,6 @@ export class VueloFamiliaSegmentComponent implements OnInit {
 
   ngOnInit() {
     this.marketingCarrier = this.segment.oairline.carrierId + '.png';
-
-    console.log('calculando altura mas alta');
     let flagCountInc = 0;
     let flagCountNof = 0;
     let flagCountCha = 0;
@@ -80,9 +78,6 @@ export class VueloFamiliaSegmentComponent implements OnInit {
       if (heightDivCha === 0 || flagCountCha === 1) {
         heightDivCha = 43;
       }
-      console.log('heightDivInc: ' + heightDivInc);
-      console.log('heightDivNof: ' + heightDivNof);
-      console.log('heightDivCha: ' + heightDivCha);
       $("." + classDivInc + segmentIndex).height(heightDivInc);
       $("." + classDivNof + segmentIndex).height(heightDivNof);
       $("." + classDivCha + segmentIndex).height(heightDivCha);

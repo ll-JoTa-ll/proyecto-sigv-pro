@@ -184,8 +184,6 @@ export class MultidestinosLgComponent implements OnInit {
     this.outDestinoValue1.emit(this.inDestinoValue);
     this.outDestinoText1.emit(this.inDestinoText);
 
-    console.log("this.inFechaSalidaValue: " + this.inFechaSalidaValue);
-    console.log("this.inFechaSalidaText: " + this.inFechaSalidaText);
     this.fechaSalida1 = this.inFechaSalidaValue;
     this.model.salida1 = this.inFechaSalidaText;
     this.outFechaSalida1.emit(this.inFechaSalidaValue);
@@ -239,8 +237,6 @@ export class MultidestinosLgComponent implements OnInit {
 
   selectEvent(flag, item) {
     // do something with selected item
-    console.log("selectEvent");
-    console.log(item);
 
     /*
     if (flag === 1) {
@@ -516,13 +512,10 @@ export class MultidestinosLgComponent implements OnInit {
 
   onFocused(flag, e) {
     // do something when input is focused
-    console.log("onFocused");
-    console.log(e);
   }
 
   agregarTramo(tramo) {
     this.indexTramo = tramo;
-    console.log('tramo LG: ' + tramo);
     this.outIndexTramo.emit(this.indexTramo);
     if (tramo === 3) {
       this.flagTramo3 = true;
@@ -600,7 +593,6 @@ export class MultidestinosLgComponent implements OnInit {
     this.fechaSalida1 = value.getFullYear() + "/" + mes + "/" + dia;
     this.outFechaSalida1.emit(this.fechaSalida1);
     this.outFechaSalidaShow1.emit(dia + "/" + mes + "/" +  value.getFullYear());
-    console.log(this.fechaSalida1);
   }
 
   onValueChangeSalida2(value: Date): void {
@@ -630,12 +622,12 @@ export class MultidestinosLgComponent implements OnInit {
     if (value >= this.calendarSalidaValue3) {
       $("#calendar3").val("");
       this.fechaSalida3 = '';
+      this.outFechaSalida3.emit(this.fechaSalida3);
     }
 
     this.fechaSalida2 = value.getFullYear() + "/" + mes + "/" + dia;
     this.outFechaSalida2.emit(this.fechaSalida2);
     this.outFechaSalidaShow2.emit(dia + "/" + mes + "/" +  value.getFullYear());
-    console.log(this.fechaSalida2);
   }
 
   onValueChangeSalida3(value: Date): void {
@@ -664,12 +656,12 @@ export class MultidestinosLgComponent implements OnInit {
     if (value >= this.calendarSalidaValue4) {
       $("#calendar4").val("");
       this.fechaSalida4 = '';
+      this.outFechaSalida4.emit(this.fechaSalida4);
     }
 
     this.fechaSalida3 = value.getFullYear() + "/" + mes + "/" + dia;
     this.outFechaSalida3.emit(this.fechaSalida3);
     this.outFechaSalidaShow3.emit(dia + "/" + mes + "/" +  value.getFullYear());
-    console.log(this.fechaSalida3);
   }
 
   onValueChangeSalida4(value: Date): void {
@@ -697,12 +689,12 @@ export class MultidestinosLgComponent implements OnInit {
     if (value >= this.calendarSalidaValue5) {
       $("#calendar5").val("");
       this.fechaSalida5 = '';
+      this.outFechaSalida5.emit(this.fechaSalida5);
     }
 
     this.fechaSalida4 = value.getFullYear() + "/" + mes + "/" + dia;
     this.outFechaSalida4.emit(this.fechaSalida4);
     this.outFechaSalidaShow4.emit(dia + "/" + mes + "/" +  value.getFullYear());
-    console.log(this.fechaSalida4);
   }
 
   onValueChangeSalida5(value: Date): void {
@@ -729,12 +721,12 @@ export class MultidestinosLgComponent implements OnInit {
     if (value >= this.calendarSalidaValue6) {
       $("#calendar6").val("");
       this.fechaSalida6 = '';
+      this.outFechaSalida6.emit(this.fechaSalida6);
     }
 
     this.fechaSalida5 = value.getFullYear() + "/" + mes + "/" + dia;
     this.outFechaSalida5.emit(this.fechaSalida5);
     this.outFechaSalidaShow5.emit(dia + "/" + mes + "/" +  value.getFullYear());
-    console.log(this.fechaSalida5);
   }
 
   onValueChangeSalida6(value: Date): void {
@@ -759,7 +751,6 @@ export class MultidestinosLgComponent implements OnInit {
     this.fechaSalida6 = value.getFullYear() + "/" + mes + "/" + dia;
     this.outFechaSalida6.emit(this.fechaSalida6);
     this.outFechaSalidaShow6.emit(dia + "/" + mes + "/" +  value.getFullYear());
-    console.log(this.fechaSalida6);
   }
 
 }

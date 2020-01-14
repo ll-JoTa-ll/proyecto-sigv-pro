@@ -15,7 +15,7 @@
 
                         <div *ngIf="lhabitaciones.lamenities != null && lhabitaciones.lamenities.length > 0" class="col-12 m-0 p-0" style="
                                 display: inline-grid;">
-                            <span *ngFor="let item of lhabitaciones.lamenities" style="padding-bottom: 20px;"><span class="imgben"><img *ngIf="item.code != null && item.code != '' " style="width: 20px;" src="./assets/images/habitacion/{{item.code}}.png" alt="Cargando Imagen"></span>
+                            <span *ngFor="let item of lhabitaciones.lamenities" style="padding-bottom: 20px;"><span class="imgben"><img *ngIf="item.code != null && item.code != '' " style="width: 20px;" src="./assets/images/{{item.code}}.png" alt="Cargando Imagen"></span>
                             <span *ngIf="item.description != null && item.description != '' " class="Condition">{{item.description}}</span>
                             </span>
                         </div>
@@ -26,7 +26,7 @@
                 <div class="col-6 m-0 p-0" style="border-left: 1px solid #707070;">
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 text-center">
-                            <span class="tituhabi">Precio por noche</span>
+                            <span class="tituhabi">Precio por noche sin impuestos</span>
                         </div>
                     </div>
 

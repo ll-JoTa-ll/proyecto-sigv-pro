@@ -57,7 +57,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   flagDinData: boolean;
   loginDataUser: ILoginDatosModel;
   token;
-  keyword = 'searchName';
+  keyword = 'name';
   data: any[] = [];
   destinoValue: string;
   destinoText: string;
@@ -283,6 +283,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
 
     this.minDateSalida = value;
+    
     if (value >= this.calendarSalidaValue) {
       $("#datesalida").val("");
     }

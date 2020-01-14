@@ -117,7 +117,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit vuelos');
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
     $('#menu-hotel-1').show();
@@ -256,21 +255,22 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            htmlsection+= "</div>";
           }
            htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
-           htmlsection += "<div style='width: 40%;'>";
-           htmlsection += "<span class='m-0 p-0'><img style='width: 100px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
-           htmlsection += itemsegmentgroup.MarketingCarrier + ".png'></span>";
+           htmlsection += "<div style='width: 50%;'>";
+           htmlsection += "<div style='width: 100% !important'>";
+           htmlsection += "<img style='width: 170px; position: relative;left: 36px;top: 21px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
+           htmlsection += itemsegmentgroup.MarketingCarrier + ".png'>";
            htmlsection += "</div>";
-           htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
-           htmlsection += "<span style='color: #676767; font-size: 12px; opacity: 100%;'>Aerolinea Operadora :";
+           htmlsection += "<div style='width: 100% !important;'>";
+           htmlsection += "<span style='color: #676767; font-size: 11px; opacity: 100%;'>Aerolinea Operadora :";
            htmlsection += itemsegmentgroup.CarrierName;
            htmlsection += "</span>";
            htmlsection += "</div>";
-           htmlsection += "<div style='width: 40%; text-align: center; padding-top: 30px; padding-left: 50px;'>";
-           htmlsection += "<label style='color: #676767; font-size: 14px; opacity: 100%; width: 40%;'>";
-           htmlsection += "Vuelo AV140 - Airbus A319";
-           htmlsection += "</label>";
+           htmlsection += "</div>";
+           htmlsection += "<div style='text-align: center; padding-top: 20px;padding-left: 46%;'>";
+           htmlsection += "<label style='color: #676767; font-size: 14px; opacity: 100%; width: 40%;'>Vuelo AV140 - Airbus A319</label>";
            htmlsection += "</div>";
            htmlsection += "</div>";
+
            htmlsection += "<div class='row' style='padding-top: 40px; padding-bottom: 30px;'>";
            htmlsection += "<div style='width: 40%; text-align: center;'>";
            htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 14px; opacity: 1;'>";
@@ -293,11 +293,11 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 14px; opacity: 1;'>";
            htmlsection += "Duracion";
            htmlsection += "</div>";
-           htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 22px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 11px; opacity: 1; letter-spacing: 0;'>";
            htmlsection += itemsegmentgroup.TotalFlightTimeShow;
            htmlsection += "</div>";
-           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 20px; opacity: 1; letter-spacing: 0;'>";
-           htmlsection += "Clase: <label class='m-0 p-0 pl-3' style='color: #898989; font-size: 14px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 14px; opacity: 1; letter-spacing: 0;'>";
+           htmlsection += "Clase: <label class='m-0 p-0 pl-3' style='color: #898989; font-size: 9px; opacity: 1; letter-spacing: 0;'>";
            htmlsection += itemsegmentgroup.CabinDescription + " - " + itemsegmentgroup.ClassId;
            htmlsection += "</label>";
            htmlsection += "</div>";
@@ -373,16 +373,16 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     const item = this.LPolicies[i];
      html+= "<div style='width:100% !important'>";
      html+="<div class='row' style='padding-top: 25px; padding-bottom: 30px; padding-left: 15px;'>";
-     html+="<img style='width: 40px;' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/calendario.png'><label class='m-0 p-0 pl-3' style='  color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;'>";
+     html+="<img style='width: 40px;' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/calendario.png'><label class='m-0 p-0 pl-3' style=' color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;padding-left: 2%;'>";
      html+= item.name;
      html+="</label>";
      html+="</div>";
      html+="<div class='row'>";
      html+="<div style='color: #4A4A4A; font-size: 18px; opacity: 1; letter-spacing: 0; padding-bottom: 20px; padding-left: 20px;'>Infraccion</div>";
-     html+="<div style='color: #4A4A4A; font-size: 18px; opacity: 1; letter-spacing: 0; text-align: right; width: 1160px; padding-bottom: 20px;padding-right: 335px;'>Impacto</div>";
+     html+="<div style='color: #4A4A4A; font-size: 18px; opacity: 1; letter-spacing: 0; text-align: right; width: 1160px; padding-bottom: 20px;padding-right: 174px;'>Impacto</div>";
      html+="</div>";
      html+="<div class='row' style='padding-left: 20px; padding-right: 20px;'>";
-     html+="<div style='width: 60%; text-align: center; color: #898989; font-size: 20px; opacity: 1; letter-spacing: 0; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white;'>";
+     html+="<div style='width: 60%; text-align: center; color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white;'>";
      html+=item.message;
      html+="</div>";
      html+="<div style='width: 10%;'>";
@@ -390,7 +390,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
      html+="<div style='width: 30%; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white; text-align: center;'>";
      if (item.impact === 0)
      {
-      html+="<span style='color: #3D3D3D; font-size: 25px; opacity: 1; letter-spacing: 0;'>";
+      html+="<span style='color: #3D3D3D; font-size: 18px; opacity: 1; letter-spacing: 0;'>";
       html+="NO HAY IMPACTO";
       html+="</span>";
      } else {
@@ -458,13 +458,15 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       });
       let mailcontacto = this.contacto.ContactEmail;
       console.log(this.emailsolicitud);
+      let email = this.emailsolicitud.replace(/\n/g, '');
+      console.log(email);
       let data = {
         "AgencyId": 1,
         "Recipients": mails,
         "RecipientsCopy": [mailcontacto, 'analista8@gmail.com'],
         "RecipientsHiddenCopy": [],
         "Subject": "SOLICITUD APROBACION DE EXCEPCION",
-        "Message": this.emailsolicitud
+        "Message": email
       }
       this.service.SendEmail(data).subscribe(
         results => {
