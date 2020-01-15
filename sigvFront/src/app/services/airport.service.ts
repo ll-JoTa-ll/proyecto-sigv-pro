@@ -97,6 +97,15 @@ export class AirportService {
     return this.http.post<IFlightAvailability>(this._url4 + "FlightAvailability", data, httpOptions2);
   }
 
+  FlightPrice(data): Observable<IFlightAvailability> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IFlightAvailability>(this._url4 + "FlightPrice", data, httpOptions2);
+  }
+
   GetUser(data): Observable<IDatosUser> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({

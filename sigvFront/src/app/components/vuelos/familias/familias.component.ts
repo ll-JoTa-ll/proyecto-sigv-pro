@@ -4,6 +4,7 @@ import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { VuelosComponent } from '../../busqueda-global/vuelos/vuelos.component';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     private router: Router,
     private modalService: BsModalService,
     private spinner: NgxSpinnerService,
+    private vuelosComponent: VuelosComponent
   ) {
     //this.precioTotal = 0;
     //this.precioPersona = 0;
@@ -158,47 +160,26 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     this.lstFareFamily = lstFareFamily;
   }
 
+
   seleccionarFamilia(template) {
     this.flagCloseModal.emit(true);
-    this.router.navigate(['/reserva-vuelo']);
-    /*
-    const flagChangeFare = this.flagChangeFare;
-    let ss_FlightAvailability_request2 = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
-    if (flagChangeFare === 0) {
-      this.ss_FlightAvailability_request2 = ss_FlightAvailability_request2;
-      this.flightAvailability(this.dataRequestFamilia, template);
-    } else {
-      let dataRequestFamilia = this.dataRequestFamilia;
-      console.log('dataRequestFamilia: ' + JSON.stringify(dataRequestFamilia));
-      const lstFareFamily = this.lstFareFamily;
-      const lstFamilyResult = this.lstFamilyResult;
-      lstFareFamily.forEach(function(fare, index) {
-        const fareSplit = fare.split('_');
-        const fareIndexFam = parseFloat(fareSplit[1]) - 1;
-        const fareIndexFare = parseFloat(fareSplit[2]) - 1;
-        const classId = lstFamilyResult[fareIndexFam].lfareFamilies[fareIndexFare].classId;
-        const fareBasis = lstFamilyResult[fareIndexFam].lfareFamilies[fareIndexFare].fareBasis;
-        console.log('classId: ' + classId);
-        console.log('fareBasis: ' + fareBasis);
-        console.log('fareIndexFam: ' + fareIndexFam);
-        console.log('fareIndexFare: ' + fareIndexFare);
-        for (let i = 0; i < dataRequestFamilia.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups.length; i++) {
-          dataRequestFamilia.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups[i].ClassId = classId;
-          dataRequestFamilia.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups[i].FareBasis = fareBasis;
-        }
-        for (let j = 0; j < ss_FlightAvailability_request2.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups.length; j++) {
-          ss_FlightAvailability_request2.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups.ClassId = classId;
-          ss_FlightAvailability_request2.Lsections[fareIndexFam].Lsegments[0].LsegmentGroups.FareBasis = fareBasis;
-        }
-      });
-      this.ss_FlightAvailability_request2 = ss_FlightAvailability_request2;
-      this.flightAvailability(dataRequestFamilia, template);
+ //   this.router.navigate(['/reserva-vuelo']);
+    let request = this.sessionStorageService.retrieve('ss_flightavailability_request1');
+    let data = {
+      "NumberPassengers": request.NumberPassengers,
+      "Currency": request.Currency,
+      "CarrierId": request.CarrierId,
+      "Lsections": request.Lsections,
+      "Ocompany": request.Ocompany,
+      "Gds": request.Gds,
+      "PSeudo": request.PSeudo
     }
-    */
+    this.flightAvailability(data);
   }
 
-  flightAvailability(data, template) {
-    this.spinner.show();
+  flightAvailability(data) {
+    this.vuelosComponent.spinner.show();
+  //  this.spinner.show();
     this.flagMsgErrorSelFam = false;
     let flagResult = 0;
     this.airportService.fligthAvailibility(data).subscribe(
@@ -206,8 +187,8 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
         if (results.oerror === null) {
           this.lsFlightAvailabilty = results;
           this.sessionStorageService.store('ss_FlightAvailability_result', results);
-          this.sessionStorageService.store('ss_flightavailability_request1', data);
-          this.sessionStorageService.store('ss_FlightAvailability_request2', this.ss_FlightAvailability_request2);
+     /*     this.sessionStorageService.store('ss_flightavailability_request1', data);
+          this.sessionStorageService.store('ss_FlightAvailability_request2', this.ss_FlightAvailability_request2);*/
           //this.ObtenerSecciones();
           this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
           flagResult = 1;
@@ -216,12 +197,12 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
         }
       },
       err => {
-        this.spinner.hide();
+        this.vuelosComponent.spinner.hide();
       },
       () => {
-        this.spinner.hide();
+        this.vuelosComponent.spinner.hide();
+        //this.spinner.hide();
         if (flagResult === 1) {
-          this.flagCloseModal.emit(true);
           this.router.navigate(['/reserva-vuelo']);
         }
         if (flagResult === 2) {

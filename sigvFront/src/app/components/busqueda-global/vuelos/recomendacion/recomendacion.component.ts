@@ -77,6 +77,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   datosuser: any[] = [];
   LPolicies;
   lsapprovers: IGetApprovers[] = [];
+  osessionflightaval: any;
 
   colorsFare = [
     "white",
@@ -203,6 +204,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
     let dataFamilias = {
       NumberPassengers: this.numberPassengers,
+      Currency: this.currency,
       CarrierId: this.carrierId,
       Lsections: Lsections_,
       Ocompany: this.loginDataUser.ocompany,
@@ -271,8 +273,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
                 segment.lfareFamilies.forEach(function(fare, indexFare) {
                   if (indexFare === 0) {
                     const fareFamilyName = fare.fareFamilyName;
-                   dataPost.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
-                   datasecciones.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
+                    dataPost.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
+                    datasecciones.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
                   }
                 });
               });
@@ -542,7 +544,7 @@ TraerAutorizador() {
         "IsVIP": item.isVIP,
         "lcostCenter": item.lcostCenter
        };
-       datosusuario.push(objuser);
+    datosusuario.push(objuser);
   });
 
   let data = {
@@ -568,13 +570,15 @@ TraerAutorizador() {
     this.vuelosComponent.spinner.show();
     if (tipo === 1) {
       // tslint:disable-next-line: max-line-length
-      if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
+      if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleDescription !== 'Centralizador') {
         this.GetUsers();
-    } else {
-       this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-       this.sessionStorageService.store('objusuarios', this.datosuser);
-       this.TraerAutorizador();
-    }
+        this.sessionStorageService.store('objusuarios', this.datosuser);
+      }
+      if (this.loginDataUser.orole.roleDescription === 'Centralizador') {
+        this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+        this.sessionStorageService.store('objusuarios', this.datosuser);
+        this.TraerAutorizador();
+       }
     }
     // tslint:disable-next-line: max-line-length
     let flagResult = 0;
@@ -582,6 +586,7 @@ TraerAutorizador() {
       results => {
         if (results.oerror === null) {
           this.lsFlightAvailabilty = results;
+          this.osessionflightaval = this.lsFlightAvailabilty.osession;
           this.sessionStorageService.store('ss_FlightAvailability_result', results);
           this.ObtenerSecciones();
           this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
@@ -609,13 +614,15 @@ TraerAutorizador() {
           }
           if (tipo === 2) {
             // tslint:disable-next-line: max-line-length
-            if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0]) {
+            if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleDescription !== 'Centralizador') {
               this.GetUsers();
-          } else {
-             this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-             this.sessionStorageService.store('objusuarios', this.datosuser);
-             this.TraerAutorizador();
-          }
+              this.sessionStorageService.store('objusuarios', this.datosuser);
+            }
+            if (this.loginDataUser.orole.roleDescription === 'Centralizador') {
+              this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+              this.sessionStorageService.store('objusuarios', this.datosuser);
+              this.TraerAutorizador();
+             }
             this.sessionStorageService.store('ss_FlightAvailability_request1', data);
             this.sessionStorageService.store('ss_FlightAvailability_request2', dataseccion);
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
@@ -916,10 +923,50 @@ TraerAutorizador() {
       });
     });
     */
-
     //console.log("requestFamiliaRadio: " + JSON.stringify(requestFamilia));
 
-    this.flightAvailability(requestFamilia, null, 3, null, seccionvuelos);
+ //   this.flightAvailability(requestFamilia, null, 3, null, seccionvuelos);
+    this.FlightPrice(requestFamilia, seccionvuelos);
+  }
+
+  FlightPrice(request, seccionvuelos) {
+     this.vuelosComponent.spinner.show();
+     console.log(request);
+     let data = {
+      "NumberPassengers": request.NumberPassengers,
+      "CarrierId": request.CarrierId,
+      "Lsections": request.Lsections,
+      "Ocompany": request.Ocompany,
+      "osession": this.osessionflightaval,
+      "Gds": request.Gds,
+      "PSeudo": request.PSeudo
+     }
+     this.airportService.FlightPrice(data).subscribe(
+       result => {
+        this.lsFlightAvailabilty = result;
+        if (this.lsFlightAvailabilty.oerror !== null) {
+          this.flagMsgErrorSelFam = true;
+          this.famTotalFareAmount = 0;
+          this.famFareAmountByPassenger = 0;
+        }
+       // this.sessionStorageService.store('ss_FlightAvailability_result', results);
+      //  this.ObtenerSecciones();
+       // this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
+       },
+       error => {
+
+       },
+       () => {
+         this.vuelosComponent.spinner.hide();
+         if (this.lsFlightAvailabilty.oerror === null) {
+          this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
+          this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
+          this.flagMsgErrorSelFam = false;
+          this.sessionStorageService.store('ss_FlightAvailability_request1', request);
+          this.sessionStorageService.store('ss_FlightAvailability_request2', seccionvuelos);
+         }
+       }
+     )
   }
 
   flagCloseModal($event) {

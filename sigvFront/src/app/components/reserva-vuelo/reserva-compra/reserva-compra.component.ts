@@ -457,9 +457,10 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         }
       });
       let mailcontacto = this.contacto.ContactEmail;
-      console.log(this.emailsolicitud);
-      let email = this.emailsolicitud.replace(/\n/g, '');
-      console.log(email);
+   //   console.log(this.emailsolicitud);
+      let email = this.emailsolicitud.replace(/\n|\r/g, '');
+     // console.log(email);
+      //alert(email.trim());
       let data = {
         "AgencyId": 1,
         "Recipients": mails,

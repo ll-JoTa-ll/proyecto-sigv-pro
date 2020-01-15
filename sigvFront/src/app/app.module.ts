@@ -138,6 +138,7 @@ import { DetalleReservaHotelComponent } from './components/reserva-vuelo/detalle
 import { ModalAvisoSesionComponent } from './components/shared/modal-aviso-sesion/modal-aviso-sesion.component';
 import { ModalFamiliasVaciasComponent } from './components/shared/modal-familias-vacias/modal-familias-vacias.component';
 import { ModalHotelErroneoComponent } from './components/shared/modal-hotel-erroneo/modal-hotel-erroneo.component';
+import { BoletosNousadosComponent } from './components/busqueda-global/vuelos/boletos-nousados/boletos-nousados.component';
 
 @NgModule({
   declarations: [
@@ -249,7 +250,8 @@ import { ModalHotelErroneoComponent } from './components/shared/modal-hotel-erro
     ModalAvisoSesionComponent,
     ModalCerrarSesionComponent,
     ModalFamiliasVaciasComponent,
-    ModalHotelErroneoComponent
+    ModalHotelErroneoComponent,
+    BoletosNousadosComponent
   ],
   imports: [
     BrowserModule,
