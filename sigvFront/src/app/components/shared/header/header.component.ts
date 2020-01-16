@@ -142,4 +142,6 @@ export class HeaderComponent implements OnInit {
     this.localStorageService.store("ss_closedSesion", this.closedSesion);
   }
 
+ 
+
 }
