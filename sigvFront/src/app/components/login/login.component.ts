@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
   closedSesion: boolean;
   modalRefSessionExpired: BsModalRef;
   userid;
+  credenciales: any[] = [];
 
   modalRef: BsModalRef;
   config = {
@@ -135,6 +136,9 @@ export class LoginComponent implements OnInit {
 
           this.spinner.hide();
         } else {
+        var password = $('#txtpass').val();
+        var email = $('#txtemail').val();
+        this.localStorageService.store('ss_credenciales', email);
           this.userid = this.datoslogin.userId;
           this.airportListPriority();
         }

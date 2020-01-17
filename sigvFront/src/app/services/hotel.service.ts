@@ -29,6 +29,8 @@ export class HotelService {
   private url_reserva: string = environment.url_hotel + 'Booking/GenerateReservation';
   private url_user: string = environment.url_usuario + 'User/';
   private url_getreservation: string = environment.url_hotel + 'Booking/';
+  private url_gerUserByPassword: string = environment.url_usuario + 'User/GetUserByPassword';
+  private url_updatePassword: string = environment.url_usuario + 'User/UpdatePassword';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) { }
 
@@ -49,6 +51,25 @@ GetHabitacion(data): Observable<IHabitacionResults> {
   });
   return this.http.post<IHabitacionResults>(`${this.url_habitacion}`, data, httpOptions);
 }
+
+GetUserByPassword(data): Observable<boolean> {
+  this.token = this.sessionSt.retrieve('ss_token');
+  httpOptions.headers = new HttpHeaders({
+    'Authorization': "Bearer " + this.token,
+    'Content-Type': "application/json",
+  });
+  return this.http.post<boolean>(`${this.url_gerUserByPassword}`, data, httpOptions);
+}
+
+UpdatePassword(data): Observable<boolean> {
+  this.token = this.sessionSt.retrieve('ss_token');
+  httpOptions.headers = new HttpHeaders({
+    'Authorization': "Bearer " + this.token,
+    'Content-Type': "application/json",
+  });
+  return this.http.post<boolean>(`${this.url_updatePassword}`, data, httpOptions);
+}
+
 
   GetConfirmacion(data): Observable<IGetEnhancedHotel> {
     this.token = this.sessionSt.retrieve('ss_token');
