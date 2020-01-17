@@ -624,7 +624,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         objcampos = {
         origen: this.origenText,
         origencode: this.origenAuto,
-        destino: this.destinoText,
+        destino: this.destinoText.name,
         destinocode: this.destinoAuto,
         fechasalida: this.fechaSalida,
         fechadestino: this.fechaRetorno,

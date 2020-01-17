@@ -257,17 +257,21 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
            htmlsection += "<div style='width: 50%;'>";
            htmlsection += "<div style='width: 100% !important'>";
-           htmlsection += "<img style='width: 170px; position: relative;left: 36px;top: 21px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
+           htmlsection += "<img style='width: 150px; position: relative;left: 36px;top: 21px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
            htmlsection += itemsegmentgroup.MarketingCarrier + ".png'>";
            htmlsection += "</div>";
            htmlsection += "<div style='width: 100% !important;'>";
-           htmlsection += "<span style='color: #676767; font-size: 11px; opacity: 100%;'>Aerolinea Operadora :";
+           htmlsection += "<span style='color: #676767; font-size: 9px; opacity: 100%;'>Aerolinea Operadora :";
            htmlsection += itemsegmentgroup.CarrierName;
            htmlsection += "</span>";
            htmlsection += "</div>";
            htmlsection += "</div>";
-           htmlsection += "<div style='text-align: center; padding-top: 20px;padding-left: 46%;'>";
-           htmlsection += "<label style='color: #676767; font-size: 14px; opacity: 100%; width: 40%;'>Vuelo AV140 - Airbus A319</label>";
+           htmlsection += "<div style='text-align: center; padding-top: 20px;padding-left: 11%;'>";
+           htmlsection += "<label style='color: #676767; font-size: 14px; opacity: 100%; width: 40%;'>Vuelo ";
+           htmlsection += itemsegmentgroup.FlightOrtrainNumber;
+           htmlsection += " - Tipo de avion - ";
+           htmlsection += itemsegmentgroup.EquipmentType;
+           htmlsection += "</label>";
            htmlsection += "</div>";
            htmlsection += "</div>";
 
@@ -628,6 +632,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       let htmlsection = '';
       let texttramo = '';
       let htmltotal = '';
+      let imgavion = '';
 
       for (let i = 0; i < this.Lsection.length; i++) {
        const section = this.Lsection[i];
@@ -650,23 +655,29 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            }
            htmlsection+="<div style='width: 100% !important;'>";
            htmlsection+="<div style='width: 100% !important; padding-top: 1%; padding-bottom: 1%;padding-left: 2%;'>";
-           htmlsection+="<span><img style='width: 30px; ' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airplane_ida.png '></span>";
-           htmlsection+="<span style'padding-left: 10px;'>";
            if (segmentgroup.length === 1) {
                texttramo = 'Ida';
+               imgavion = 'airplane_ida';
          }
            if (segmentgroup.length === 2) {
               if (j === 0) {
                 texttramo = 'Ida';
+                imgavion = 'airplane_ida';
               } else {
                 texttramo = 'Vuelta';
+                imgavion = 'airplane_vuelta';
               }
            }
            if (segmentgroup.length > 2) {
               texttramo = 'Tramo ';
+              imgavion = 'airplane_ida';
               texttramo += (j + 1).toString();
            }
-           htmlsection+= texttramo
+           htmlsection+="<span><img style='width: 30px; ' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/";
+           htmlsection+= imgavion + ".png'";
+           htmlsection+= "></span>";
+           htmlsection+="<span style'padding-left: 10px;'>";
+           htmlsection+= texttramo;
            htmlsection+= "</span>";
            htmlsection+="</div>";
            htmlsection+="<div style='width: 100% !important;padding-left: 2%; color: #6A243B; font-size: 18px;'>";
