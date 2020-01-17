@@ -12,6 +12,7 @@ import { IGetPnrHotel } from '../models/IGetPnrHotel.model';
 import { IGetUserById } from '../models/IGetUserById.model';
 import { IGetReservationHotel } from '../models/IGetReservationHotel.model';
 import { IGetReservaDetalleHotel } from '../models/IGetReservaDetalleHotel.model';
+import { IDisplayLogin } from '../models/IDisplayLogin.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -31,6 +32,7 @@ export class HotelService {
   private url_getreservation: string = environment.url_hotel + 'Booking/';
   private url_gerUserByPassword: string = environment.url_usuario + 'User/GetUserByPassword';
   private url_updatePassword: string = environment.url_usuario + 'User/UpdatePassword';
+  private url_displayLogin: string = environment.url_usuario + 'User/DisplayLoginByEmail';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) { }
 
@@ -70,6 +72,12 @@ UpdatePassword(data): Observable<boolean> {
   return this.http.post<boolean>(`${this.url_updatePassword}`, data, httpOptions);
 }
 
+GetDisplayLogin(data): Observable<IDisplayLogin> {
+  httpOptions.headers = new HttpHeaders({
+    'Content-Type': "application/json",
+  });
+  return this.http.post<IDisplayLogin>(`${this.url_displayLogin}`, data, httpOptions);
+}
 
   GetConfirmacion(data): Observable<IGetEnhancedHotel> {
     this.token = this.sessionSt.retrieve('ss_token');
