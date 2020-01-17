@@ -142,6 +142,7 @@ import { ModalHotelErroneoComponent } from './components/shared/modal-hotel-erro
 import { ModalCambiarPasswordComponent } from './components/shared/modal-cambiar-password/modal-cambiar-password.component';
 import { ModalRecuperarPasswordComponent } from './components/shared/modal-recuperar-password/modal-recuperar-password.component';
 
+import { BoletosNousadosComponent } from './components/busqueda-global/vuelos/boletos-nousados/boletos-nousados.component';
 
 @NgModule({
   declarations: [
@@ -256,7 +257,8 @@ import { ModalRecuperarPasswordComponent } from './components/shared/modal-recup
     ModalHotelErroneoComponent,
     PerfilUsuarioComponent,
     ModalCambiarPasswordComponent,
-    ModalRecuperarPasswordComponent
+    ModalRecuperarPasswordComponent,
+    BoletosNousadosComponent
   ],
   imports: [
     BrowserModule,

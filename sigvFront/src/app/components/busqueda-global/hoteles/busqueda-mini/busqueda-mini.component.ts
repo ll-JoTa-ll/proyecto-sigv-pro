@@ -42,7 +42,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   fechaRetorno: string;
   loginDataUser: ILoginDatosModel;
   token;
-  keyword = 'searchName';
+  keyword = 'name';
   data: any[] = [];
   LResultshotel: IHotelResultsModel[];
   estrellas: string;

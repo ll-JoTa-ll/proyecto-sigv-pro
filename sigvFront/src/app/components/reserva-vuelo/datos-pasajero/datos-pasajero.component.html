@@ -133,7 +133,10 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keypress)="Solotexto($event)" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.nationality" id="txtnacionalidad_{{index}}" maxlength="50">
+                                <!--   <input (keypress)="Solotexto($event)" (keydown)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.nationality" id="txtnacionalidad_{{index}}" maxlength="50"> -->
+                                <select class="input-pasajero" name="" id="cbo_nacionalidad_{{index}}" [(ngModel)]="user.countryIataCode">
+                                <option *ngFor="let item of lstpaises" value="{{item.iataCode}}">{{item.name}}</option>
+                            </select>
                             </div>
                         </div>
                     </div>
@@ -159,7 +162,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keydown)="ValidarSoloNumero($event)" (keypress)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" id="txtfecha_{{index}}" value="{{user.birthDate | fechaformat}}" maxlength="10">
+                                <input (keypress)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" id="txtfecha_{{index}}" [(bsValue)]="bsValue" value="{{user.birthDate | fechaformat}}" maxlength="10" #datepickerSalida="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }">
                             </div>
                         </div>
                     </div>
@@ -186,7 +189,7 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <!--   <input triggers="" (keypress)="ValidarCampos()" (keydown)="ValidarSoloNumero($event)" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.phone" id="txttelefono_{{index}}" maxlength="9"> -->
-                                <select name="countryCode" id="cbopaises" #t style="width: 99px;" (change)=obtenercodigo(t.value)>
+                                <select class="cbo-pasajero" name="countryCode" id="cbopaises" #t (change)=obtenercodigo(t.value)>
                                 <option data-countryCode="GB" value="44">UK (+44)</option>
                                 <option data-countryCode="US" value="1">USA (+1)</option>
                                 <optgroup label="Other countries">
@@ -407,7 +410,7 @@
                                     <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
                                 </optgroup>
                             </select>
-                                <input [(ngModel)]="user.phone" (keypress)="ValidarCampos()" (keydown)="ValidarSoloNumero($event)" (keyup)="ValidarCampos()" type="text" name="" id="txttelefono_{{index}}" style="width: 267px; padding-left: 5px; box-shadow: none;" maxlength="9">
+                                <input class="input-pasajerotel" [(ngModel)]="user.phone" (keypress)="ValidarCampos()" (keydown)="ValidarSoloNumero($event)" (keyup)="ValidarCampos()" type="text" name="" id="txttelefono_{{index}}" maxlength="9">
                                 <input type="hidden" id="hdnTel_{{index}}" name="custId" value="51">
                             </div>
                         </div>

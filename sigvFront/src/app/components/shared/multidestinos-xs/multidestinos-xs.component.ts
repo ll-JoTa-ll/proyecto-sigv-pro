@@ -194,7 +194,6 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     private spinner: NgxSpinnerService,
     private airportService: AirportService
   ) {
-    console.log("app-multidestinos-xs constructor");
     this.flagTramo3 = false;
     this.flagTramo4 = false;
     this.flagTramo5 = false;
@@ -215,16 +214,10 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log("app-multidestinos-xs ngOnInit");
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.outIndexTramo.emit(this.indexTramo);
-
-    console.log("this.inorigenAuto1: " + this.inorigenAuto1);
-    console.log("this.inorigentTexto1: " + this.inorigentTexto1);
-    console.log("this.indestinoAuto1: " + this.indestinoAuto1);
-    console.log("this.indestinoTexto1: " + this.indestinoTexto1);
 
     this.origenAuto1 = this.inorigenAuto1;
     this.origentTexto1 = this.inorigentTexto1;
@@ -237,9 +230,6 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     //this.destinoTexto1 = this.inDestinoText;
     this.outDestinoValue1.emit(this.indestinoAuto1);
     this.outDestinoText1.emit(this.indestinoTexto1);
-
-    console.log("this.infechaSalida1: " + this.infechaSalida1);
-    console.log("this.infechaSalidaShow1: " + this.infechaSalidaShow1);
 
     this.outFechaSalida1.emit(this.infechaSalida1);
     this.outFechaSalidaShow1.emit(this.infechaSalidaShow1);
@@ -272,46 +262,31 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log("app-multidestinos-xs ngAfterViewInit");
     const inIndexTramo = this.inIndexTramo;
-    console.log('inIndexTramo: ' + inIndexTramo);
     for (let i = 3; i <= inIndexTramo; i++) {
       this.agregarTramo(i);
     }
 
-    console.log("this.infechaSalidaShow1: " + this.infechaSalidaShow1);
-    console.log("this.infechaSalida1: " + this.infechaSalida1);
-    console.log("this.inorigenAuto1: " + this.inorigenAuto1);
-    console.log("this.inorigentTexto1: " + this.inorigentTexto1);
-    console.log("this.indestinoAuto1: " + this.indestinoAuto1);
-    console.log("this.indestinoTexto1: " + this.indestinoTexto1);
-
     //undefined
 
     if (this.infechaSalidaShow1 != undefined) {
-      console.log("1");
       this.fecha1 = this.infechaSalidaShow1;
     }
     //$('#datepickerSalida1').val(this.infechaSalidaShow1);
 
     if (this.infechaSalida1 != undefined) {
-      console.log("2");
       this.fechaSalida1 = this.infechaSalida1;
     }
     if (this.inorigenAuto1 != undefined) {
-      console.log("3");
       this.origenAuto1 = this.inorigenAuto1;
     }
     if (this.inorigentTexto1 != undefined) {
-      console.log("4");
       this.origentTexto1 = this.inorigentTexto1;
     }
     if (this.indestinoAuto1 != undefined) {
-      console.log("5");
       this.destinoAuto1 = this.indestinoAuto1;
     }
     if (this.indestinoTexto1 != undefined) {
-      console.log("6");
       this.destinoTexto1 = this.indestinoTexto1;
     }
 
@@ -365,8 +340,6 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
 
   selectEvent(flag, item) {
     // do something with selected item
-    console.log("selectEvent");
-    console.log(item);
 
     /*
     if (flag === 1) {
@@ -384,8 +357,6 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
         this.origentTexto1 = item.name;
         this.outOrigenValue1.emit(this.origenAuto1);
         this.outOrigenText1.emit(this.origentTexto1);
-        console.log("case 1");
-        console.log("this.origenAuto1: " + this.origenAuto1);
         //$(".x").show();
         const data1 = {
           value: this.origenAuto1,
@@ -716,12 +687,9 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
 
   onFocused(flag, e) {
     // do something when input is focused
-    console.log("onFocused");
-    console.log(e);
   }
 
   agregarTramo(tramo) {
-    console.log('tramo: ' + tramo);
     this.indexTramo = tramo;
     this.outIndexTramo.emit(this.indexTramo);
     if (tramo === 3) {
@@ -797,13 +765,13 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       if (value >= this.calendarSalidaValue2) {
         $("#datepickerSalida2").val("");
         this.fechaSalida2 = '';
+        this.outFechaSalida2.emit(this.fechaSalida2);
       }
 
       this.fechaSalida1 = value.getFullYear() + "/" + mes + "/" + dia;
       let fechasalidashow1 = dia + '/' + mes + '/' + value.getFullYear();
       this.outFechaSalida1.emit(this.fechaSalida1);
       this.outFechaSalidaShow1.emit(fechasalidashow1);
-      console.log(this.fechaSalida1);
     }
   }
 
@@ -835,13 +803,13 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       if (value >= this.calendarSalidaValue3) {
         $("#datepickerSalida3").val("");
         this.fechaSalida3 = '';
+        this.outFechaSalida3.emit(this.fechaSalida3);
       }
 
       this.fechaSalida2 = value.getFullYear() + "/" + mes + "/" + dia;
       let fechasalidashow2 = dia + '/' + mes + '/' + value.getFullYear();
       this.outFechaSalidaShow2.emit(fechasalidashow2);
       this.outFechaSalida2.emit(this.fechaSalida2);
-      console.log(this.fechaSalida2);
     }
   }
 
@@ -872,13 +840,13 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       if (value >= this.calendarSalidaValue4) {
         $("#datepickerSalida4").val("");
         this.fechaSalida4 = '';
+        this.outFechaSalida4.emit(this.fechaSalida4);
       }
 
       this.fechaSalida3 = value.getFullYear() + "/" + mes + "/" + dia;
       let fechasalidashow3 = dia + '/' + mes + '/' + value.getFullYear();
       this.outFechaSalida3.emit(this.fechaSalida3);
       this.outFechaSalidaShow3.emit(fechasalidashow3);
-      console.log(this.fechaSalida3);
     }
   }
 
@@ -908,13 +876,13 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       if (value >= this.calendarSalidaValue5) {
         $("#datepickerSalida5").val("");
         this.fechaSalida5 = '';
+        this.outFechaSalida5.emit(this.fechaSalida5);
       }
 
       this.fechaSalida4 = value.getFullYear() + "/" + mes + "/" + dia;
       let fechasalidashow4 = dia + '/' + mes + '/' + value.getFullYear();
       this.outFechaSalida4.emit(this.fechaSalida4);
       this.outFechaSalidaShow4.emit(fechasalidashow4);
-      console.log(this.fechaSalida4);
     }
   }
 
@@ -943,13 +911,13 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       if (value >= this.calendarSalidaValue6) {
         $("#datepickerSalida6").val("");
         this.fechaSalida6 = '';
+        this.outFechaSalida6.emit(this.fechaSalida6);
       }
 
       this.fechaSalida5 = value.getFullYear() + "/" + mes + "/" + dia;
       let fechasalidashow5 = dia + '/' + mes + '/' + value.getFullYear();
       this.outFechaSalida5.emit(this.fechaSalida5);
       this.outFechaSalidaShow5.emit(fechasalidashow5);
-      console.log(this.fechaSalida5);
     }
   }
 
@@ -977,7 +945,6 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       let fechasalidashow6 = dia + '/' + mes + '/' + value.getFullYear();
       this.outFechaSalida6.emit(this.fechaSalida6);
       this.outFechaSalidaShow6.emit(fechasalidashow6);
-      console.log(this.fechaSalida6);
     }
   }
 

@@ -131,7 +131,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('buscador ngOnInit');
     this.indexTramo = this.inIndexTramo;
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
@@ -183,12 +182,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log('buscador ngAfterViewInit');
-    console.log('tipoVuelo: ' + this.tipoVuelo);
-    console.log('origenAuto: ' + this.origenAuto);
-    console.log('destinoAuto: ' + this.destinoAuto);
-    console.log('origenAuto1: ' + this.origenAuto1);
-    console.log('destinoAuto1: ' + this.destinoAuto1);
     $(".x").hide();
     const tipoVuelo = this.tipoVuelo;
     const fechaSalidaShow = this.fechaSalidaShow;
@@ -258,7 +251,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   seleccionarTipoVuelo(valor) {
-    console.log('seleccionarTipoVuelo');
     this.tipoVuelo = valor;
   }
 
@@ -269,8 +261,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.origenText = item.name;
       $("#txtOrigen").removeClass("campo-invalido");
      // $(".x").show();
-      console.log(this.origentTexto);
-
       this.origenAuto1 = this.origenAuto;
       this.origentTexto1 = this.origenText;
       this.origenValue = this.origenAuto;
@@ -282,7 +272,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.destinoText = item.name;
       $("#txtDestino").removeClass("campo-invalido");
      // $(".x").show();
-      console.log(this.destinoTexto);
 
       this.destinoAuto1 = this.destinoAuto;
       this.destinoTexto1 = this.destinoText;
@@ -395,8 +384,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   onFocused(flag, e) {
     // do something when input is focused
-    console.log("onFocused");
-    console.log(e);
   }
 
   onValueChangeSalida(value: Date): void {
@@ -425,20 +412,15 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       }
       $("#txtFechaSalida").removeClass("campo-invalido");
       this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
-      console.log(this.fechaSalida);
     }
   }
 
   Updatefecha1($event) {
-    console.log("Updatefecha1");
-    console.log("$event: " + $event);
     this.fecha1show = "";
     this.fechaSalidaShow = "";
     this.fecha1show = $event;
     this.fechaSalidaShow = $event;
     $('#datepickerSalida').val(this.fechaSalidaShow);
-    console.log("this.fecha1show: " + this.fecha1show);
-    console.log("this.fechaSalidaShow: " + this.fechaSalidaShow);
   }
 
   Updatefecha2($event) {
@@ -642,7 +624,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         objcampos = {
         origen: this.origenText,
         origencode: this.origenAuto,
-        destino: this.destinoText,
+        destino: this.destinoText.name,
         destinocode: this.destinoAuto,
         fechasalida: this.fechaSalida,
         fechadestino: this.fechaRetorno,
@@ -725,7 +707,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
     this.airportService.searchFlight(data).subscribe(
       result => {
-        console.log(result);
         if (result !== null && result.length > 0) {
           if (ss_filterPrecio === 'mas') {
             result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
@@ -742,7 +723,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         this.outIndexTramo.emit(this.indexTramo);
       },
       err => {
-        console.log("ERROR MINI BUSQUEDA: " + JSON.stringify(err));
         this.spinner.hide();
       },
       () => {
@@ -755,7 +735,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     const tipoVuelo = this.tipoVuelo;
     const indexTramo = this.indexTramo;
     let flagVal = true;
-    console.log(this.origentTexto);
     if (tipoVuelo === 'RT') {
       if ($.trim(this.origenText) === '' || $.trim(this.origenText) === undefined) {
         $("#txtOrigen").addClass("campo-invalido");
@@ -1187,58 +1166,40 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   //TRAMO
   updateIndexTramo($event) {
     this.indexTramo = $event;
-    console.log("this.indexTramo: " + this.indexTramo);
   }
 
   //ORIGEN
   updateOrigenTramoValue1($event) {
-    console.log("updateOrigenTramoValue1");
-    console.log("$event: " + $event);
     this.origenAuto1 = "";
     this.origenAuto = "";
     this.origenValue = "";
     this.origenAuto1 = $event;
     this.origenAuto = $event;
     this.origenValue = $event;
-    console.log("this.origenAuto1: " + this.origenAuto1);
-    console.log("this.origenAuto: " + this.origenAuto);
-    console.log("this.origenValue: " + this.origenValue);
   }
   updateOrigenTramoValue2($event) {
     this.origenAuto2 = $event;
-    console.log("updateOrigenTramoValue2");
-    console.log(this.origenAuto2);
   }
   updateOrigenTramoValue3($event) {
     this.origenAuto3 = $event;
-    console.log(this.origenAuto3);
   }
   updateOrigenTramoValue4($event) {
     this.origenAuto4 = $event;
-    console.log(this.origenAuto4);
   }
   updateOrigenTramoValue5($event) {
     this.origenAuto5 = $event;
-    console.log(this.origenAuto5);
   }
   updateOrigenTramoValue6($event) {
     this.origenAuto6 = $event;
-    console.log(this.origenAuto6);
   }
   updateOrigenTramoText1($event) {
-    console.log("updateOrigenTramoText1");
-    console.log("$event: " + $event);
     this.origentTexto1 = "";
     this.origenText = "";
     this.origentTexto1 = $event;
     this.origenText = $event;
-    console.log("this.origentTexto1: " + this.origentTexto1);
-    console.log("this.origenText: " + this.origenText);
   }
   updateOrigenTramoText2($event) {
     this.origentTexto2 = $event;
-    console.log("updateOrigenTramoText2");
-    console.log(this.origentTexto2);
   }
   updateOrigenTramoText3($event) {
     this.origentTexto3 = $event;
@@ -1257,42 +1218,28 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   updateDestinoTramoValue1($event) {
     this.destinoAuto1 = $event;
     this.destinoAuto = $event;
-    console.log("updateDestinoTramoValue1");
-    console.log("this.destinoAuto1: " + this.destinoAuto1);
-    console.log("this.destinoAuto: " + this.destinoAuto);
   }
   updateDestinoTramoValue2($event) {
     this.destinoAuto2 = $event;
-    console.log("updateDestinoTramoValue2");
-    console.log(this.destinoAuto2);
   }
   updateDestinoTramoValue3($event) {
     this.destinoAuto3 = $event;
-    console.log(this.destinoAuto3);
   }
   updateDestinoTramoValue4($event) {
     this.destinoAuto4 = $event;
-    console.log(this.destinoAuto4);
   }
   updateDestinoTramoValue5($event) {
     this.destinoAuto5 = $event;
-    console.log(this.destinoAuto5);
   }
   updateDestinoTramoValue6($event) {
     this.destinoAuto6 = $event;
-    console.log(this.destinoAuto6);
   }
   updateDestinoTramoText1($event) {
     this.destinoTexto1 = $event;
     this.destinoText = $event;
-    console.log("updateDestinoTramoText1");
-    console.log("this.destinoTexto1: " + this.destinoTexto1);
-    console.log("this.destinoText: " + this.destinoText);
   }
   updateDestinoTramoText2($event) {
     this.destinoTexto2 = $event;
-    console.log("updateDestinoTramoText2");
-    console.log(this.destinoTexto2);
   }
   updateDestinoTramoText3($event) {
     this.destinoTexto3 = $event;

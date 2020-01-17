@@ -67,9 +67,6 @@ export class LoginComponent implements OnInit {
     this.sessionStorageService.store('ss_login_data', '');
     this.localStorageService.store('ss_token', '');
     this.localStorageService.store("ss_closedSesion", null);
-    console.log(crypto.SHA256("domiadmin").toString());
-    console.log(crypto.SHA256("domiadmin").toString());
-    console.log(crypto.SHA256("domiadmin").toString());
   }
 
 
@@ -78,7 +75,6 @@ export class LoginComponent implements OnInit {
     var el = document.getElementById('module');
 
     el.onclick = function() {
-        console.log('Click just happened');
     };
   }
 
@@ -92,7 +88,6 @@ export class LoginComponent implements OnInit {
 
     const lstCentralizador = environment.cod_rol_centralizador;
 
-    console.log(this.checkedRecuerdame);
 
     this.loginService.login(datos).subscribe(
       (result) => {
@@ -103,9 +98,7 @@ export class LoginComponent implements OnInit {
             //console.log('login result: ' + JSON.stringify(result));
             let flagCentralizador = false;
             const roleId = result.orole.roleId;
-            console.log('roleId: ' + roleId);
             lstCentralizador.forEach(function(cent) {
-              console.log('cent: ' + cent);
               if (cent === roleId) {
                 flagCentralizador = true;
               }
@@ -113,7 +106,6 @@ export class LoginComponent implements OnInit {
             this.sessionStorageService.store('ss_login_data', result);
             this.token = result.token;
             this.localStorageService.store('ss_token', result.token);
-            console.log(this.token);
             this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
             this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
             this.closedSesion = true;

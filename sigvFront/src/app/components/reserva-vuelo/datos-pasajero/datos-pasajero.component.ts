@@ -7,6 +7,7 @@ import { IReasonFlight } from '../../../models/IReasonFlight';
 import { SessionStorageService } from 'ngx-webstorage';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import { ConfigurationOptions, ContentOptionsEnum, NumberResult } from 'intl-input-phone';
+import { IGetPaisesModel } from '../../../models/IGetPaises';
 
 declare var jquery: any;
 declare var $: any;
@@ -21,8 +22,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
   TooltipLabel = TooltipLabel;
-  CountryISO = CountryISO;
-	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+
 
   @Input() LPolicies;
   @Input() currency;
@@ -30,11 +30,12 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   @Input() index;
   @Input() valtelefono;
   @Output() numtelefono = new EventEmitter<any>();
+  @Input() lstpaises: IGetPaisesModel[];
   selectedvalue;
   fechanacimiento;
   datosPax;
   flagValDatosPAsajeros: boolean = false;
-  datosuser: any[] = [];
+  datosuser;
   mdtelefono: string;
   configOption3 : ConfigurationOptions;
 
@@ -46,24 +47,23 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datos;
   tratamiento;
   fecha;
-  OutputValue1: NumberResult = new NumberResult();
-  numtel: string = "+51 916 596 911";
-  SelectedCountryISOCode: string = "PE";
   //valtelefono = false;
   //valcorreo = false;
 
   @Input() htmlTxtP;
+  bsValue: Date;
 
   constructor(private modalService: BsModalService, private sessionStorageService : SessionStorageService) {
   /*  $("#telephone").intlTelInput({
   });*/
+    let fecha;
     this.datosuser = sessionStorageService.retrieve('objusuarios');
-    this.configOption3 = new ConfigurationOptions();
-    this.configOption3.SelectorClass = "InputValidation2";
-    this.configOption3.OptionTextTypes = [];
-    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.Flag);
-    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.CountryName);
-    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.CountryPhoneCode);
+    this.datosuser.forEach(element => {
+      fecha = new Date(element.birthDate);
+      console.log(element.birthDate);
+      console.log(fecha);
+      this.bsValue = fecha;
+    });
   }
 
   ngOnInit() {
@@ -100,12 +100,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
   }
 
-  onNumberChage(outputResult)
-  {
-    this.OutputValue1 = outputResult;
-    console.log(this.OutputValue1);
-    this.numtelefono.emit(this.OutputValue1);
-  }
 
   Solotexto(event) {
     var regex = new RegExp("^[a-zA-Z ]+$");
@@ -119,7 +113,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   obtenercodigo(value) {
     $("#hdnTel_" + this.index).val(value);
     let valor = $('#cbopaises option:selected').attr('data-countryCode');
-    console.log(valor);
     if (valor === 'CO') {
        $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
@@ -185,11 +178,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
         $('#txtapellidos_' + (index + 1)).addClass('campo-invalido');
       } else {
         $('#txtapellidos_' + (index + 1)).removeClass('campo-invalido');
-      }
-      if ($('#txtnacionalidad_' + (index + 1)).val().length <= 0) {
-        $('#txtnacionalidad_' + (index + 1)).addClass('campo-invalido');
-      } else {
-        $('#txtnacionalidad_' + (index + 1)).removeClass('campo-invalido');
       }
       if ($('#txtnrodocumento_' + (index + 1)).val().length <= 0) {
         $('#txtnrodocumento_' + (index + 1)).addClass('campo-invalido');

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { LocalStorageService } from 'ngx-webstorage';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-modal-sesion-expirada-vuelos',
@@ -17,7 +17,7 @@ export class ModalSesionExpiradaVuelosComponent implements OnInit {
   };
   localfinish;
 
-  constructor(private localStorageService: LocalStorageService,private router: Router, public modalRef: BsModalRef) { }
+  constructor(private localStorageService: LocalStorageService,private SessionStorageService: SessionStorageService, private router: Router, public modalRef: BsModalRef) { }
 
   ngOnInit() {
   }
@@ -25,6 +25,7 @@ export class ModalSesionExpiradaVuelosComponent implements OnInit {
   VolverHome(){
     this.router.navigate(['vuelos']);
     this.modalRef.hide();
+    this.SessionStorageService.store('indregresar', false);
   }
 
 }

@@ -6,7 +6,7 @@
             </div>
             <div class="col-8 m-0 p-0">
                 <div class="row m-0 p-0">
-                    <div (click)="Back()" class="back col-12 m-0 p-0 pb-1 pt-4"><i class="fas fa-chevron-left"></i> Volver atras</div>
+                    <div (click)="Back()" class="back col-12 m-0 p-0 pb-1 pt-4"><i class="fas fa-chevron-left"></i> Volver</div>
                 </div>
                 <p *ngIf="LPolicies.length > 0 && lsapprover.length === 0" class="txtSolicitud m-0 p-0 pb-3">Solicitud de excepción de politica</p>
                 <p *ngIf="LPolicies.length === 0 && lsapprover.length > 0" class="txtSolicitud m-0 p-0 pb-3">Solicitud de aprobación</p>
@@ -65,16 +65,16 @@
                             </div>
                         </ng-template>
                         <div class="col-12 m-0 p-0 pt-4 pb-4">
-                            <div class="row m-0 p-0" *ngIf="lsapprover.length > 0 && loginDataUser.orole.roleDescription === 'Usuario'">
+                            <div class="row m-0 p-0" *ngIf="lsapprover.length > 0">
                                 <div class="col-12 m-0 p-0">
                                     <div class="row m-0 p-0">
-                                        <div *ngIf="LPolicies.length > 0" class="col-12 m-0 p-0 pr-5 text-center">
+                                        <div class="col-12 m-0 p-0 pr-5 text-center">
                                             <button class="btn btnEnviar" (click)="AddPassenger(modalconfirmacion)">Enviar Solicitud</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row m-0 p-0" *ngIf="lsapprover.length === 0 && LPolicies.length === 0 || lsapprover.length === 0 && LPolicies.length > 0 && loginDataUser.orole.roleDescription === 'Autorizador' || lsapprover.length === 0 && LPolicies.length > 0 && loginDataUser.orole.roleDescription === 'Centralizador'">
+                            <div class="row m-0 p-0" *ngIf="lsapprover.length === 0">
                                 <div class="col-6 m-0 p-0">
                                     <div class="row m-0 p-0">
                                         <div class="col-12 m-0 p-0 pr-5 text-right">
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                             <!--CENTRALIZADOR CON POLITICAS-->
-                            <div class="row m-0 p-0" *ngIf="lsapprover.length > 0 && LPolicies.length > 0 && loginDataUser.orole.roleDescription === 'Centralizador' || lsapprover.length > 0 && LPolicies.length > 0 && loginDataUser.orole.roleDescription === 'Autorizador'">
+                            <!--        <div class="row m-0 p-0" *ngIf="lsapprover.length > 0 && LPolicies.length > 0 && loginDataUser.orole.roleDescription === 'Centralizador' || lsapprover.length > 0 && LPolicies.length > 0 && loginDataUser.orole.roleDescription === 'Autorizador'">
                                 <div class="col-12 m-0 p-0">
                                     <div class="row m-0 p-0">
                                         <div class="col-12 m-0 p-0 pr-5 text-right">
@@ -99,7 +99,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                     </div>
