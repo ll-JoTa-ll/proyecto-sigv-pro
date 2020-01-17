@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
+import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { BusquedaGlobalComponent } from './components/busqueda-global/busqueda-global.component';
 import { VuelosComponent } from './components/busqueda-global/vuelos/vuelos.component';
 import { HotelesComponent } from './components/busqueda-global/hoteles/hoteles.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
   { path: 'home', component: BusquedaGlobalComponent, runGuardsAndResolvers: 'always' },
   { path: 'vuelos', component: VuelosComponent, runGuardsAndResolvers: 'always' },
+  { path: 'perfil-usuario', component: PerfilUsuarioComponent, runGuardsAndResolvers: 'always' },
   { path: 'hoteles', component: HotelesComponent, runGuardsAndResolvers: 'always' },
   { path: 'buses', component: BusesComponent, runGuardsAndResolvers: 'always' },
   { path: 'paquetes', component: PaquetesComponent, runGuardsAndResolvers: 'always' },

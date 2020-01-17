@@ -1,0 +1,67 @@
+<ng-container>
+    <app-header>
+        <div class="row m-0 p-0">
+            <div class="col-2">
+
+            </div>
+            <div class="col-8" style="text-align: left;">
+                <div class="row m-0 p-0">
+                    <div class="col-4" style="padding-top: 150px;">
+                        <img *ngIf="gender==='M'" style="border: 13px solid #ED1C24;width: 300px; padding-left: 5px; cursor: pointer;" src="./assets/images/user_boy.png" alt="">
+                        <img *ngIf="gender==='F'" style="border: 13px solid #ED1C24;width: 300px; padding-left: 5px; cursor: pointer;" src="./assets/images/user_girl.png" alt="">
+                    </div>
+                    <div class="col-8" style="padding-top: 150px;">
+                        <div class="row m-0 p-0 pt-3">
+                            <div class="col-6 m-0 p-0">
+                                <span class="title">NOMBRES</span>
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <span class="title">APELLIDOS</span>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                <input disabled="" type="text" value="{{loginDataUser.userName}}" class="input-names box-shadow" style="width: 380px; height: 38px;border-radius: 10px;">
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <input disabled="" type="text" value="{{loginDataUser.userLastName}}" class="input-names box-shadow" style="width: 380px; height: 38px;border-radius: 10px;">
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0 pt-3">
+                            <div class="col-6 m-0 p-0">
+                                <span class="title">GENERO</span>
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <span class="title">ROL</span>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-6 m-0 p-0">
+                                <input disabled="" type="text" value="{{this.genero}}" class="input-names box-shadow" style="width: 380px; height: 38px;border-radius: 10px;">
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <input disabled="" type="text" value="{{loginDataUser.orole.roleDescription}}" class="input-names box-shadow" style="width: 380px; height: 38px;border-radius: 10px;">
+                            </div>
+                        </div>
+
+                        <div style="display: flex;flex-wrap: wrap;padding: 0px;margin: 0px;padding-top: 40px;padding-left: 30px;text-align: center;">
+                            <div class="col-12 m-0 p-0">
+                                <input (click)="cambiarPassword()" type="button" value="Cambiar Contraseña" style="width: 280px; height: 38px;border-radius: 10px;background-color: #ED1C24;color: aliceblue;">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </app-header>
+</ng-container>

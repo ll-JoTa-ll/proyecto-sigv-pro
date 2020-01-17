@@ -187,6 +187,12 @@ FiltrarPnr() {
   this.lsreservas = results;
 }
 
+
+
+
+
+
+
 FiltrarEmitidos() {
   let listado = this.listadoreserva;
   let results;

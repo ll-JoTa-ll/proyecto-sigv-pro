@@ -140,8 +140,62 @@ $(document).on('click', '.number-spinner button', function() {
     btn.closest('.number-spinner').find('input').val(newVal);
 });
 
+
+
+$('#validate').click(function() {
+
+    var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+
+    if (regex.test($('#email1').val().trim())) {
+        alert('Correo validado');
+
+    } else {
+        alert('La direccón de correo no es válida');
+    }
+});
+
+
+
+$(".toggle-password").click(function() {
+
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+    }
+});
+
 function MostrarModal() {
     $("#pop1").show();
+}
+
+function myFunction() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+function myFunction1() {
+    var x = document.getElementById("password1");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+
+function myFunction2() {
+    var x = document.getElementById("password2");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
 }
 
 function AddHabitaciones(position) {

@@ -57,7 +57,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   flagDinData: boolean;
   loginDataUser: ILoginDatosModel;
   token;
-  keyword = 'searchName';
+  keyword = 'name';
   data: any[] = [];
   destinoValue: string;
   destinoText: string;

@@ -21,6 +21,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
+import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { BusquedaGlobalComponent } from './components/busqueda-global/busqueda-global.component';
 import { HeaderComponent } from './components/shared/header/header.component';
 import { VuelosComponent } from './components/busqueda-global/vuelos/vuelos.component';
@@ -138,6 +139,9 @@ import { DetalleReservaHotelComponent } from './components/reserva-vuelo/detalle
 import { ModalAvisoSesionComponent } from './components/shared/modal-aviso-sesion/modal-aviso-sesion.component';
 import { ModalFamiliasVaciasComponent } from './components/shared/modal-familias-vacias/modal-familias-vacias.component';
 import { ModalHotelErroneoComponent } from './components/shared/modal-hotel-erroneo/modal-hotel-erroneo.component';
+import { ModalCambiarPasswordComponent } from './components/shared/modal-cambiar-password/modal-cambiar-password.component';
+import { ModalRecuperarPasswordComponent } from './components/shared/modal-recuperar-password/modal-recuperar-password.component';
+
 
 @NgModule({
   declarations: [
@@ -249,7 +253,10 @@ import { ModalHotelErroneoComponent } from './components/shared/modal-hotel-erro
     ModalAvisoSesionComponent,
     ModalCerrarSesionComponent,
     ModalFamiliasVaciasComponent,
-    ModalHotelErroneoComponent
+    ModalHotelErroneoComponent,
+    PerfilUsuarioComponent,
+    ModalCambiarPasswordComponent,
+    ModalRecuperarPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -286,7 +293,7 @@ import { ModalHotelErroneoComponent } from './components/shared/modal-hotel-erro
     IgxInputGroupModule,
 		IgxSliderModule
   ],
-  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent],
+  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })

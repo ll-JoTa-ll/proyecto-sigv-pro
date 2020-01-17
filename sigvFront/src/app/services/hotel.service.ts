@@ -12,6 +12,7 @@ import { IGetPnrHotel } from '../models/IGetPnrHotel.model';
 import { IGetUserById } from '../models/IGetUserById.model';
 import { IGetReservationHotel } from '../models/IGetReservationHotel.model';
 import { IGetReservaDetalleHotel } from '../models/IGetReservaDetalleHotel.model';
+import { IDisplayLogin } from '../models/IDisplayLogin.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -29,6 +30,9 @@ export class HotelService {
   private url_reserva: string = environment.url_hotel + 'Booking/GenerateReservation';
   private url_user: string = environment.url_usuario + 'User/';
   private url_getreservation: string = environment.url_hotel + 'Booking/';
+  private url_gerUserByPassword: string = environment.url_usuario + 'User/GetUserByPassword';
+  private url_updatePassword: string = environment.url_usuario + 'User/UpdatePassword';
+  private url_displayLogin: string = environment.url_usuario + 'User/DisplayLoginByEmail';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) { }
 
@@ -48,6 +52,31 @@ GetHabitacion(data): Observable<IHabitacionResults> {
     'Content-Type': "application/json",
   });
   return this.http.post<IHabitacionResults>(`${this.url_habitacion}`, data, httpOptions);
+}
+
+GetUserByPassword(data): Observable<boolean> {
+  this.token = this.sessionSt.retrieve('ss_token');
+  httpOptions.headers = new HttpHeaders({
+    'Authorization': "Bearer " + this.token,
+    'Content-Type': "application/json",
+  });
+  return this.http.post<boolean>(`${this.url_gerUserByPassword}`, data, httpOptions);
+}
+
+UpdatePassword(data): Observable<boolean> {
+  this.token = this.sessionSt.retrieve('ss_token');
+  httpOptions.headers = new HttpHeaders({
+    'Authorization': "Bearer " + this.token,
+    'Content-Type': "application/json",
+  });
+  return this.http.post<boolean>(`${this.url_updatePassword}`, data, httpOptions);
+}
+
+GetDisplayLogin(data): Observable<IDisplayLogin> {
+  httpOptions.headers = new HttpHeaders({
+    'Content-Type': "application/json",
+  });
+  return this.http.post<IDisplayLogin>(`${this.url_displayLogin}`, data, httpOptions);
 }
 
   GetConfirmacion(data): Observable<IGetEnhancedHotel> {

@@ -11,6 +11,7 @@ import { ILoginDatosModel } from '../../models/ILoginDatos.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { HotelService } from 'src/app/services/hotel.service';
+import { ModalRecuperarPasswordComponent } from '../shared/modal-recuperar-password/modal-recuperar-password.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -35,8 +36,9 @@ export class LoginComponent implements OnInit {
   datoslogin: ILoginDatosModel;
   msjerrorr: boolean = false;
   closedSesion: boolean;
-
+  modalRefSessionExpired: BsModalRef;
   userid;
+  credenciales: any[] = [];
 
   modalRef: BsModalRef;
   config = {
@@ -134,6 +136,9 @@ export class LoginComponent implements OnInit {
 
           this.spinner.hide();
         } else {
+        var password = $('#txtpass').val();
+        var email = $('#txtemail').val();
+        this.localStorageService.store('ss_credenciales', email);
           this.userid = this.datoslogin.userId;
           this.airportListPriority();
         }
@@ -147,6 +152,10 @@ export class LoginComponent implements OnInit {
         this.login();
       }
     }
+  }
+
+  cambiarPassword(){
+    this.modalRefSessionExpired = this.modalService.show(ModalRecuperarPasswordComponent);
   }
 
   getUser() {
