@@ -33,6 +33,8 @@ export class HotelService {
   private url_gerUserByPassword: string = environment.url_usuario + 'User/GetUserByPassword';
   private url_updatePassword: string = environment.url_usuario + 'User/UpdatePassword';
   private url_displayLogin: string = environment.url_usuario + 'User/DisplayLoginByEmail';
+  private url_validateToken: string = environment.url_usuario + 'User/ValidateTokenByUser';
+  private url_passwordRecovery: string = environment.url_usuario + 'User/ConfirmPasswordRecovery';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) { }
 
@@ -77,6 +79,20 @@ GetDisplayLogin(data): Observable<IDisplayLogin> {
     'Content-Type': "application/json",
   });
   return this.http.post<IDisplayLogin>(`${this.url_displayLogin}`, data, httpOptions);
+}
+
+ValidateToken(data): Observable<IDisplayLogin> {
+  httpOptions.headers = new HttpHeaders({
+    'Content-Type': "application/json",
+  });
+  return this.http.post<IDisplayLogin>(`${this.url_validateToken}`, data, httpOptions);
+}
+
+PasswordRecovery(data): Observable<IDisplayLogin> {
+  httpOptions.headers = new HttpHeaders({
+    'Content-Type': "application/json",
+  });
+  return this.http.post<IDisplayLogin>(`${this.url_passwordRecovery}`, data, httpOptions);
 }
 
   GetConfirmacion(data): Observable<IGetEnhancedHotel> {
