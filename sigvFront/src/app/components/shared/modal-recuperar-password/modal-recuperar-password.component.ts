@@ -5,6 +5,7 @@ import { HotelService } from '../../../services/hotel.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MustMatch } from '../must-match.validator';
+import * as crypto from 'crypto-js';
 
 declare var jquery: any;
 declare var $: any;
@@ -93,7 +94,7 @@ export class ModalRecuperarPasswordComponent implements OnInit {
       LoginUser: this.usuario,
       Email: this.email,
       Token: this.token,
-      LoginPassword: this.pass
+      LoginPassword: crypto.SHA256(this.pass).toString()
     };
     this.spinner.show();
     this.service.PasswordRecovery(datos).subscribe(
@@ -102,6 +103,7 @@ export class ModalRecuperarPasswordComponent implements OnInit {
           this.spinner.hide();
           $("#pass2").prop("disabled", true);
           $("#pass1").prop("disabled", true);
+          $("#validar").prop("disabled", true);
           this.toastr.success('', 'Su contraseña se generó correctamente.', {
             timeOut: 5000
           });
