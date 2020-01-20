@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IGenerateTicket } from '../../../models/IGenerateTicket.model';
+import { Router } from '@angular/router';
 
 declare var jquery: any;
 declare var $: any;
@@ -18,7 +19,7 @@ export class ReservaTicketComponent implements OnInit , AfterViewInit {
   LPolicies;
   ticketresults: IGenerateTicket;
 
-  constructor(private sessionStorageService: SessionStorageService) {
+  constructor(private sessionStorageService: SessionStorageService, private router: Router) {
   this.Lsection = this.sessionStorageService.retrieve('sectioninfo');
   this.lsflightavailability = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
   this.lusers = this.sessionStorageService.retrieve('datosusuario');
@@ -50,6 +51,11 @@ export class ReservaTicketComponent implements OnInit , AfterViewInit {
       window.onpopstate = function() {
         history.go(1);
     };
+  }
+
+  VolverInicio() {
+    this.router.navigate(['/vuelos']);
+    this.sessionStorageService.store('indregresar', false);
   }
 
 }

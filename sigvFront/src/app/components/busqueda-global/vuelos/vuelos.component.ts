@@ -611,7 +611,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     });
     lstAutocomplete.sort((a, b) => b.priority - a.priority );
     this.lstAutocomplete = lstAutocomplete;
-
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
@@ -1741,8 +1740,13 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   busquedaFiltros($event) {
     this.searchData = [];
+    console.log($event);
     if ($event != null) {
+    //  console.log('entro');
       this.searchData = $event;
+      console.log(this.searchData);
+    } else {
+        this.flagDinData = true;
     }
     const spinner = this.spinner;
     setTimeout(function() {

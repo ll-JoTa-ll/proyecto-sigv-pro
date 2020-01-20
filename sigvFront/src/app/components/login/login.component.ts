@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
   modalRefSessionExpired: BsModalRef;
   userid;
   credenciales: any[] = [];
+  idinterval;
+  idinterval1;
 
   modalRef: BsModalRef;
   config = {
@@ -67,6 +69,12 @@ export class LoginComponent implements OnInit {
     this.sessionStorageService.store('ss_login_data', '');
     this.localStorageService.store('ss_token', '');
     this.localStorageService.store("ss_closedSesion", null);
+    this.idinterval = this.sessionStorageService.retrieve("ss_interval");
+    clearInterval(this.idinterval);
+    this.idinterval1 = this.sessionStorageService.retrieve('idinterval');
+    clearInterval(this.idinterval1);
+    this.sessionStorageService.store('count', null);
+    this.sessionStorageService.clear();
   }
 
 
