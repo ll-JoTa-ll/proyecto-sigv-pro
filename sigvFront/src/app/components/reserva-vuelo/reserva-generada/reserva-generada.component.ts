@@ -39,6 +39,9 @@ export class ReservaGeneradaComponent implements OnInit, AfterViewInit {
     this.bloquearBotonAtras();
     this.LPolicies = this.sessionStorageService.retrieve('politicas');
     this.lsapprover = this.sessionStorageService.retrieve('lsapprover');
+    if (this.lsapprover === null) {
+      this.lsapprover = [];
+    }
     this.FormatearFechaPnr();
   }
 

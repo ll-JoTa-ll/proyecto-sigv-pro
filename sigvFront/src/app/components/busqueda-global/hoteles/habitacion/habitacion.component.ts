@@ -96,6 +96,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   showComponent: boolean = false;
   hideComponent: boolean = true;
   hoteles: IHotelResultsModel[] = [];
+  flagDinData;
 
   @Input() urlHotel: string;
   @Input() estrellas: number;
@@ -119,6 +120,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
+    this.flagDinData = false;
  
     this.personas = this.LHoteles.numberPassenger;
     this.divwarning = false;
@@ -273,20 +275,28 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     let menorValor = 1000000;
     let mayorValor = 0;
 
-    this.LlistaHotel.forEach(function(item) {
-      if (item.oprice.pricePerAllNights < menorValor) {
-        menorValor = item.oprice.pricePerAllNights;
-      }
-      if (item.oprice.pricePerAllNights > mayorValor) {
-        mayorValor = item.oprice.pricePerAllNights;
-      }
-
-    });
-
-    this.menorPrecioHotel = menorValor;
-    this.mayorPrecioHotel = mayorValor;
-    this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
-    this.mapafiltro = true;
+    if (this.LlistaHotel[0].oerror != null) {
+       this.flagDinData = true;
+       this.vistalistado = false;
+       this.hideComponent = false;
+       this.showComponent = false;
+    } else {
+      this.vistalistado = true;
+      this.LlistaHotel.forEach(function(item) {
+        if (item.oprice.pricePerAllNights < menorValor) {
+          menorValor = item.oprice.pricePerAllNights;
+        }
+        if (item.oprice.pricePerAllNights > mayorValor) {
+          mayorValor = item.oprice.pricePerAllNights;
+        }
+  
+      });
+  
+      this.menorPrecioHotel = menorValor;
+      this.mayorPrecioHotel = mayorValor;
+      this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
+      this.mapafiltro = true;
+    }
   }
 
   addSlide(): void {

@@ -221,6 +221,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     var counter = seconds;
     var interval = setInterval(() => {
       counter--;
+    //  console.log(counter);
       if (counter === 300) {
         this.modalRefSessionWarning = this.modalService.show(ModalSesionWarningVuelosComponent, this.config);
       }
