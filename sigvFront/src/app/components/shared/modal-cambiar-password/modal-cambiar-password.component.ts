@@ -36,6 +36,8 @@ export class ModalCambiarPasswordComponent implements OnInit {
   passChange: any;
   newPassword: string;
   resultNewPassword: boolean;
+  mostrar: any;
+  show: any;
 
   constructor(private toastr: ToastrService,private service: HotelService,private formBuilder: FormBuilder,private sessionStorageService: SessionStorageService,private localStorageService: LocalStorageService,public modalRef: BsModalRef) {
 
@@ -43,7 +45,8 @@ export class ModalCambiarPasswordComponent implements OnInit {
     this.gender = this.loginDataUser.gender;
     this.email = this.localStorageService.retrieve('ss_credenciales');
     console.log("this.email ======>" + this.email);
-
+    this.mostrar = false;
+    this.show = true;
    }
 
   ngOnInit() {
@@ -77,6 +80,7 @@ export class ModalCambiarPasswordComponent implements OnInit {
           this.toastr.success('', 'Su contraseña ha sido modificada correctamente.', {
             timeOut: 5000
           });
+          this.modalRef.hide();
           this.diferente = "bueno";
         }
       }
@@ -101,11 +105,19 @@ export class ModalCambiarPasswordComponent implements OnInit {
           $("#password2").prop("disabled", false);
           $("#password").prop("disabled", true);
           $("#btnvalidar").prop("disabled", true);
+          this.mostrar = true;
+          this.show = false;
           this.usuario =  $('#password').val();
+          this.toastr.success('', 'Contraseña Correcta.', {
+            timeOut: 3000
+          });
         }else{
           $("#validar").prop("disabled", true);
           $("#password1").prop("disabled", true);
           $("#password2").prop("disabled", true);
+          this.toastr.error('', 'Contraseña Incorrecta.', {
+            timeOut: 3000
+          });
         }
       }
     );
