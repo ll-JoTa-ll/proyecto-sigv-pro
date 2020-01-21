@@ -94,6 +94,8 @@ export class FiltroSuperiorComponent implements OnInit {
         }
       });
       this.searchFilter.emit(searchFlight);
+      console.log('resultados');
+      console.log(searchFlight);
     }
     if (this.flagVDactivo === false) {
       /*

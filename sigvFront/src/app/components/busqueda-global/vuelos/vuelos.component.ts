@@ -837,6 +837,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   searchFlight() {
     this.spinner.show();
+    this.ValidarCiudad();
     this.flagDinData = false;
 
     let origen: any[] = [];
@@ -1740,11 +1741,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   busquedaFiltros($event) {
     this.searchData = [];
-    console.log($event);
+    //console.log($event);
     if ($event != null) {
     //  console.log('entro');
       this.searchData = $event;
-      console.log(this.searchData);
+     // console.log(this.searchData);
     } else {
         this.flagDinData = true;
     }
