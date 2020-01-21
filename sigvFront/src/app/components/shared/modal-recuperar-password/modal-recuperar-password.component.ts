@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MustMatch } from '../must-match.validator';
 import * as crypto from 'crypto-js';
+import { stringify } from '@angular/compiler/src/util';
+import { LocalStorageService } from 'ngx-webstorage';
 
 declare var jquery: any;
 declare var $: any;
@@ -30,9 +32,15 @@ export class ModalRecuperarPasswordComponent implements OnInit {
   mostrar: string;
   token: string;
   pass: string;
+  showDiv: any;
+  showDivTwo: any;
+  showDivThree: any;
 
-  constructor(public spinner: NgxSpinnerService,private toastr: ToastrService,private service: HotelService,private formBuilder: FormBuilder,public modalRef: BsModalRef) { 
+  constructor(private localStorageService: LocalStorageService,public spinner: NgxSpinnerService,private toastr: ToastrService,private service: HotelService,private formBuilder: FormBuilder,public modalRef: BsModalRef) { 
     this.web = $('#inputcode').val();
+    this.showDiv = true;
+    this.showDivTwo = true;
+    this.showDivThree = true;
   }
 
   ngOnInit() {
@@ -59,7 +67,9 @@ export class ModalRecuperarPasswordComponent implements OnInit {
 
   getUpdatePassword(){
     this.usuario = $('#usuario').val();
+    this.localStorageService.store("ss_usuario",this.usuario);
     this.email = $('#email').val();
+    this.localStorageService.store("ss_email",this.email);
     const datos = {
       loginUser: this.usuario,
       email: this.email
@@ -75,6 +85,12 @@ export class ModalRecuperarPasswordComponent implements OnInit {
           this.toastr.success('', 'Por favor verifique su correo electrónico.', {
             timeOut: 5000
           });
+          this.showDivTwo = false;
+          this.showDivThree = true;
+          this.showDiv = false;
+          $("#usuario").prop("disabled", true);
+          $("#email").prop("disabled", true);
+          $("#correo").prop("disabled", true);
         }else{
           this.spinner.hide();
           this.toastr.error('', 'Su correo electrónico es incorrecto.', {
@@ -86,9 +102,9 @@ export class ModalRecuperarPasswordComponent implements OnInit {
   }
 
   getPasswordRecovery(){
-    this.usuario = $('#usuario').val();
-    this.email = $('#email').val();
-    this.token = $('#inputcode').val();
+    this.usuario = this.localStorageService.store("ss_usuario",this.usuario);
+    this.email = this.localStorageService.store("ss_email",this.email);
+    this.token = this.localStorageService.store("ss_tokenValidate",this.codigo);
     this.pass = $('#pass2').val();
     const datos = {
       LoginUser: this.usuario,
@@ -107,6 +123,7 @@ export class ModalRecuperarPasswordComponent implements OnInit {
           this.toastr.success('', 'Su contraseña se generó correctamente.', {
             timeOut: 5000
           });
+          this.modalRef.hide();
         }else{
           this.spinner.hide();
           var error = result.oerror.message;
@@ -120,12 +137,14 @@ export class ModalRecuperarPasswordComponent implements OnInit {
 
   getValidateToken(){
     console.log("entro2")
-    this.usuario = $('#usuario').val();
+    this.usuario = this.localStorageService.store("ss_usuario",this.usuario);
     this.codigo = $('#inputcode').val();
+    this.localStorageService.store("ss_tokenValidate",this.codigo);
     const datos = {
       LoginUser: this.usuario,
       Token: this.codigo 
     };
+    console.log("datos" + JSON.stringify(datos))
     this.spinner.show();
     this.service.ValidateToken(datos).subscribe(
       result => {
@@ -136,6 +155,9 @@ export class ModalRecuperarPasswordComponent implements OnInit {
           this.toastr.success('', 'Codigo Correcto.', {
             timeOut: 5000
           });
+          this.showDivTwo = true;
+          this.showDiv = false;
+          this.showDivThree = false;
         }else{
           this.spinner.hide();
           var error = result.oerror.message;
@@ -151,6 +173,7 @@ export class ModalRecuperarPasswordComponent implements OnInit {
 
   confirmarCodigo(){
     this.codigo = $('#inputcode').val();
+    console.log("latitud =====>" + this.codigo.length)
     if (this.codigo.length === 7) {
       this.getValidateToken();
       console.log("entro")
