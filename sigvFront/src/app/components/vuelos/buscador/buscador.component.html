@@ -137,6 +137,7 @@
                      [minDate]="minDateSalida"
                      bsDatepicker
                      [bsValue]="fechanow"
+                     (onHidden)="ValidarDestinos()"
                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
               >
             </label>
@@ -161,6 +162,7 @@
                      [minDate]="minDateRetorno"
                      bsDatepicker
                      [(ngModel)]="model.retorno"
+                     (onHidden)="ValidarDestinos()"
                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
               >
             </label>

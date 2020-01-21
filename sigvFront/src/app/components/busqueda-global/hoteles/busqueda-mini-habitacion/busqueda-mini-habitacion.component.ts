@@ -339,6 +339,9 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
         result => {
             if (result[0].oerror != null) {
               this.flagDinData = true;
+              this.LResultshotel = result;
+              //this.flagShowMap.emit(true);
+              this.messagelistado.emit(this.LResultshotel);
             }
             else {
             this.sessionStorageService.store('ss_minibuscador', result);

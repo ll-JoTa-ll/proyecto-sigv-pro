@@ -332,6 +332,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   getFlightAvailability(recommendationId, template: TemplateRef<any>) {
     let Lsections_: any[] = [];
+    let datosusuario: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
     lstRadioCheck.sort((a, b) => a.sectionId_ - b.sectionId_);
     this.lstRadioCheck = lstRadioCheck;
@@ -383,6 +384,24 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         Lsegments: Lsegments_
       };
       Lsections_.push(lsection);
+    });
+
+    this.datosuser.forEach(function(item, index) {
+         const obj = {
+          "UserId": item.userId,
+          "PassengerId": index + 1,
+          "PersonId": item.personId,
+          "Name": item.firstName,
+          "LastName": item.lastName,
+          "Gender": item.gender,
+          "PhoneNumber": item.phone,
+          "Email": item.email,
+          "BirthDate": item.birthDate,
+          "Odocument": item.odocument,
+          "FrequentFlyer": item.frequentFlyer,
+          "IsVIP": item.isVIP
+         };
+         datosusuario.push(obj);
     });
 
     let dataFamilias = {

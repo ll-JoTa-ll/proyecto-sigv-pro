@@ -386,6 +386,15 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     // do something when input is focused
   }
 
+  ValidarDestinos() {
+    if (this.origenText.length < 10) {
+      this.origenText = '';
+    }
+    if (this.destinoText.length < 10) {
+      this.destinoText = '';
+    }
+  }
+
   onValueChangeSalida(value: Date): void {
     if (value != null) {
       this.minDateRetorno = value;
@@ -469,6 +478,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
   searchFlight() {
     this.spinner.show();
+    this.ValidarDestinos();
     this.inicioBuscar.emit(false);
 
     let origen: any[] = [];

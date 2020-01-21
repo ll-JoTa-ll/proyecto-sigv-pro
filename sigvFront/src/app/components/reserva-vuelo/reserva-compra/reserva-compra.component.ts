@@ -206,14 +206,11 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
            console.log(err);
       },
       () => {
-        if (this.lsapprover.length > 0 && this.loginDataUser.orole.roleDescription === 'Autorizador' && this.pnrresults.oerror === null) {
-          this.SendEmail();
-        }
-        if (this.lsapprover.length === 0 && this.LPolicies.length === 0 && this.loginDataUser.orole.roleDescription !== 'Autorizador' && this.pnrresults.oerror === null) {
-          this.SendEmailReservaGenerada();
-        }
         if (this.lsapprover.length > 0 && this.pnrresults.oerror === null) {
           this.SendEmail();
+        }
+        if (this.lsapprover.length === 0 && this.pnrresults.oerror === null) {
+          this.SendEmailReservaGenerada();
         }
         if (this.pnrresults.oerror != null) {
             this.spinner.hide();

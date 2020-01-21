@@ -333,21 +333,26 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     let menorValor = 1000000;
     let mayorValor = 0;
 
-
-    this.LlistaHotel.forEach(function(item) {
-      if (item.oprice.pricePerAllNights < menorValor) {
-        menorValor = item.oprice.pricePerAllNights;
-      }
-      if (item.oprice.pricePerAllNights > mayorValor) {
-        mayorValor = item.oprice.pricePerAllNights;
-      }
-
-    });
-
-    this.menorPrecioHotel = menorValor;
-    this.mayorPrecioHotel = mayorValor;
-    this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
-    this.mapafiltro = true;
+    if (this.LlistaHotel[0].oerror != null) {
+      this.flagDinData = true;
+      this.vistalistado = false;
+    } else {
+      this.vistalistado = true;
+      this.LlistaHotel.forEach(function(item) {
+        if (item.oprice.pricePerAllNights < menorValor) {
+          menorValor = item.oprice.pricePerAllNights;
+        }
+        if (item.oprice.pricePerAllNights > mayorValor) {
+          mayorValor = item.oprice.pricePerAllNights;
+        }
+  
+      });
+  
+      this.menorPrecioHotel = menorValor;
+      this.mayorPrecioHotel = mayorValor;
+      this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
+      this.mapafiltro = true;
+    }
   }
 
   ObtenerListFiltro($event) {
