@@ -15,6 +15,7 @@ export class ModalSesionExpiradaComponent implements OnInit {
     ignoreBackdropClick: true,
     keyboard: false
   };
+
   localfinish;
   idinterval;
 
@@ -25,13 +26,8 @@ export class ModalSesionExpiradaComponent implements OnInit {
 
   ngOnInit() {
     var modal = this.modalRef;
-    console.log("modal =========>" + modal);
-    console.log("modal =========>" + modal);
-    console.log("modal =========>" + modal);
-    console.log("modal =========>" + modal);
-    console.log("modal =========>" + modal);
-    console.log("modal =========>" + modal);
   }
+
 
   VolverHome(){
     this.router.navigate(['hoteles']);
@@ -41,4 +37,7 @@ export class ModalSesionExpiradaComponent implements OnInit {
     clearInterval(this.idinterval);
     this.modalRef.hide();
   }
+
+
+
 }

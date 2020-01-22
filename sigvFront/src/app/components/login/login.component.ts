@@ -25,8 +25,6 @@ export class LoginComponent implements OnInit {
 
   public text: String;
 
-
-
   model: any = {};
   checkedRecuerdame: boolean;
   airportlist: any[] = [];
@@ -45,7 +43,8 @@ export class LoginComponent implements OnInit {
   modalRef: BsModalRef;
   config = {
     backdrop: true,
-    ignoreBackdropClick: true
+    ignoreBackdropClick: true,
+    keyboard: false
   };
 
   constructor(
@@ -155,7 +154,7 @@ export class LoginComponent implements OnInit {
   }
 
   cambiarPassword(){
-    this.modalRefSessionExpired = this.modalService.show(ModalRecuperarPasswordComponent);
+    this.modalRefSessionExpired = this.modalService.show(ModalRecuperarPasswordComponent,this.config);
   }
 
   getUser() {
