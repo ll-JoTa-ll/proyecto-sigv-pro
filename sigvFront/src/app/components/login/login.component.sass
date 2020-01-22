@@ -1,3 +1,5 @@
+@import "../../../styles.sass"
+
 ::ng-deep body
   background: url('../../../assets/images/fondo_login_v2.jpg') no-repeat
   background-size: cover !important
@@ -5,6 +7,7 @@
   flex-direction: column
   justify-content: center
   overflow-x: hidden
+  height: 100%
 
 .body1
   background: url('../../../assets/images/login_body_2.png') no-repeat
@@ -151,3 +154,75 @@
   text-align: left
   width: 100%
   font-family: Omnes-med
+
+@include media-breakpoint-up(xs)
+  .text-5
+    color: #3D3D3D !important
+    font-size: 16px
+    text-align: left
+    width: 100%
+    font-family: Omnes-med
+
+  .module-border-wrap
+    max-width: 180px
+
+  .text-bienvenido
+    font-size: 14px
+
+  .text-2
+    font-size: 13px
+
+  .text-4
+    font-size: 13px
+    padding-left: 22px !important
+    padding-right: 22px !important
+
+  .text-8
+    font-size: 13px
+
+@include media-breakpoint-up(sm)
+  .text-5
+    color: #3D3D3D !important
+    font-size: 16px
+    text-align: left
+    width: 100%
+    font-family: Omnes-med
+
+  .module-border-wrap
+    max-width: 180px
+
+  .text-bienvenido
+    font-size: 14px
+
+  .text-2
+    font-size: 13px
+
+  .text-4
+    font-size: 13px
+    padding-left: 22px !important
+    padding-right: 22px !important
+
+  .text-8
+    font-size: 13px
+
+@include media-breakpoint-up(md)
+  .text-5
+    color: #3D3D3D !important
+    font-size: 16px
+    text-align: left
+    width: 100%
+    font-family: Omnes-med
+
+  .module-border-wrap
+    max-width: 250px
+
+@include media-breakpoint-up(lg)
+  .text-5
+    color: #3D3D3D !important
+    font-size: 16px
+    text-align: left
+    width: 100%
+    font-family: Omnes-med
+
+  .module-border-wrap
+    max-width: 250px

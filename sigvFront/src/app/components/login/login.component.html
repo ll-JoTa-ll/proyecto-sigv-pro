@@ -1,153 +1,153 @@
 <div class="body1" style="width: 100%; height: 100vh;">
 
-    <div class="body2" style="width: 100%; height: 100vh;">
+  <div class="body2" style="width: 100%; height: 100vh;">
 
-        <div class="col-12" style="width: 100%; height: 100%;">
+    <div class="col-12" style="width: 100%; height: 100%;">
 
-            <div class="row" style="height: 100%">
-                <div class="col-1 col-sm-2 col-md-3 col-lg-4 m-0 p-0"></div>
+      <div class="row" style="height: 100%">
+        <div class="col-1 col-sm-2 col-md-3 col-lg-4 m-0 p-0"></div>
 
-                <div style="max-width: 500px !important;" class="col-10 col-sm-8 col-md-6 col-lg-4 m-0 p-0 d-block d-lg-flex justify-content-center align-items-center">
+        <div style="max-width: 500px !important;" class="col-10 col-sm-8 col-md-6 col-lg-4 m-0 p-0 d-block d-lg-flex justify-content-center align-items-center">
 
-                    <div class="row m-0 p-0 text-center d-block d-lg-none pb-5 pt-3">
-                        <img class="img-fluid" alt="" src="./assets/images/logoblanco.png">
-                    </div>
+          <div class="row m-0 p-0 text-center d-block d-lg-none pb-5 pt-3">
+            <img class="img-fluid" alt="" src="./assets/images/logoblanco.png">
+          </div>
 
+          <div class="row m-0 p-0">
+
+            <div class="div-padre m-0 p-0">
+
+              <div class="row m-0 p-0">
+
+                <div class="col-12 m-0 p-0">
+
+                  <div class="div-hijo m-0 p-0">
                     <div class="row m-0 p-0">
 
-                        <div class="div-padre m-0 p-0">
+                      <div class="col-12 m-0 p-0 pt-3 pb-4 text-bienvenido">
+                        Bienvenido, estamos felices de que regreses.
+                      </div>
 
+                      <div class="col-12 m-0 p-0">
+
+                        <div class="row m-0 p-0">
+                          <div class="col-4 text-2 d-flex align-items-center">
+                            Mi email
+                          </div>
+                          <div class="col-8 m-0 pl-0 div-pr-1 module-border-wrap">
                             <div class="row m-0 p-0">
+                              <div class="col-12 m-0 p-0 module">
+                                <input id="txtemail" style="border: none !important;" class="text-5" type="text" [(ngModel)]="model.User">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
-                                <div class="col-12 m-0 p-0">
+                      </div>
 
-                                    <div class="div-hijo m-0 p-0">
-                                        <div class="row m-0 p-0">
+                      <div class="col-12 m-0 p-0 pt-3">
+                        <div class="row m-0 p-0">
+                          <div class="col-4 text-2 d-flex align-items-center">
+                            Contraseña
+                          </div>
+                          <div class="col-8 m-0 pl-0 div-pr-1 module-border-wrap">
+                            <div class="row m-0 p-0">
+                              <div class="col-12 m-0 p-0 module">
+                                <input style="border: none !important;" id="txtpass" class="text-5" type="password" [(ngModel)]="model.Password" (keydown)="onKeydown($event)">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-                                            <div class="col-12 m-0 p-0 pt-3 pb-4 text-bienvenido">
-                                                Bienvenido, estamos felices de que regreses.
-                                            </div>
+                      <div class="col-12 m-0 p-0 pt-3">
+                        <div class="row m-0 p-0">
 
-                                            <div class="col-12 m-0 p-0">
+                          <div class="col-4 col-lg-4 m-0 p-0 d-none d-lg-block">
 
-                                                <div class="row m-0 p-0">
-                                                    <div class="col-4 text-2 d-flex justify-content-center align-items-center">
-                                                        Mi email
-                                                    </div>
-                                                    <div class="col-8 m-0 pl-0 div-pr-1 module-border-wrap">
-                                                        <div class="row m-0 p-0">
-                                                            <div class="col-12 m-0 p-0 module">
-                                                                <input id="txtemail" style="border: none !important;" class="form-control text-5" type="text" [(ngModel)]="model.User">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                          </div>
 
-                                            </div>
-
-                                            <div class="col-12 m-0 p-0 pt-3">
-                                                <div class="row m-0 p-0">
-                                                    <div class="col-4 text-2 d-flex justify-content-center align-items-center">
-                                                        Contraseña
-                                                    </div>
-                                                    <div class="col-8 m-0 pl-0 div-pr-1 module-border-wrap">
-                                                        <div class="row m-0 p-0">
-                                                            <div class="col-12 m-0 p-0 module">
-                                                                <input style="border: none !important;" id="txtpass" class="form-control text-5" type="password" [(ngModel)]="model.Password" (keydown)="onKeydown($event)">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-12 m-0 p-0 pt-3">
-                                                <div class="row m-0 p-0">
-
-                                                    <div class="col-4 m-0 p-0">
-
-                                                    </div>
-
-                                                    <div class="col-8 m-0 p-0">
-                                                        <div class="row m-0 p-0">
-                                                            <div class="col-5 m-0 p-0 text-4 d-flex align-items-center">
+                          <div class="col-12 col-lg-8 m-0 p-0">
+                            <div class="row m-0 p-0">
+                              <div class="col-5 m-0 p-0 text-4 d-flex align-items-center">
 
 
-                                                                <label class="checkbox">
+                                <label class="checkbox">
                                   <input [(ngModel)]="checkedRecuerdame" type="checkbox" checked="checked">
                                   <span class="check"></span>
                                 </label>Recuérdame
-                                                            </div>
-                                                            <div class="col-7 m-0 p-0 d-flex align-items-center">
-                                                                <button class="btn m-0 p-0 text-4">
+                              </div>
+                              <div class="col-7 m-0 p-0 d-flex align-items-center">
+                                <button class="btn m-0 p-0 text-4">
                                   <u (click)="cambiarPassword()">Olvidé mi contraseña</u>
                                 </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <!--       <ng-template #modalresumen let-c="close" let-d="dismiss">
-                          <div class="modal-header m-0 p-0" style="border: none;">
-                              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                          </div>
-                          <div class="modal-body m-0 p-0">
-                              <div class="row m-0 p-0">
-                                  <div class="col-12 m-0 p-0 text-error">
-                                      {{datoslogin.oerror.message}}
-                                  </div>
                               </div>
+                            </div>
                           </div>
-                          <div class="modal-footer m-0 p-0">
-                              <div class="col-12 m-0 p-0 text-center pb-3">
-                                  <button (click)="modalRef.hide()" class="btn btn-ok">Ok</button>
-                              </div>
-                          </div>
-                      </ng-template> -->
-                                            <div class="col-12 text-center div-btn-1">
 
-                                                <button class="btn btn-ingresar" (click)="login()">
+                        </div>
+                      </div>
+                      <!--       <ng-template #modalresumen let-c="close" let-d="dismiss">
+    <div class="modal-header m-0 p-0" style="border: none;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+<span aria-hidden="true">&times;</span>
+</button>
+    </div>
+    <div class="modal-body m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 text-error">
+                {{datoslogin.oerror.message}}
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer m-0 p-0">
+        <div class="col-12 m-0 p-0 text-center pb-3">
+            <button (click)="modalRef.hide()" class="btn btn-ok">Ok</button>
+        </div>
+    </div>
+</ng-template> -->
+                      <div class="col-12 text-center div-btn-1">
+
+                        <button class="btn btn-ingresar" (click)="login()">
                           Ingresar
                         </button>
-                                                <div class="col-12 text-center pt-4" style="color: #ED1C24;" *ngIf="msjerrorr">
-                                                    {{datoslogin.oerror.message}}
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12 m-0 p-0 pt-3 pb-3 text-8">
-                                    2019 © Todos los derechos reservados. Domiruth
-                                </div>
-
-                            </div>
-
+                        <div class="col-12 text-center pt-4" style="color: #ED1C24;" *ngIf="msjerrorr">
+                          {{datoslogin.oerror.message}}
                         </div>
+                      </div>
+
 
                     </div>
+                  </div>
 
                 </div>
 
-                <div class="col-1 col-sm-2 col-md-3 col-lg-4 m-0 p-0 text-left">
-                    <div class="row m-0 p-0">
-                        <div class="col-3 m-0 p-0"></div>
-                        <div class="col-6 m-0 p-0 pt-3 text-left">
-                            <img class="d-none d-lg-flex img-fluid" alt="" src="./assets/images/logoblanco.png">
-                        </div>
-                        <div class="col-3 m-0 p-0"></div>
-                    </div>
+                <div class="col-12 m-0 p-0 pt-3 pb-3 text-8">
+                  2019 © Todos los derechos reservados. Domiruth
                 </div>
+
+              </div>
+
             </div>
+
+          </div>
 
         </div>
 
+        <div class="col-1 col-sm-2 col-md-3 col-lg-4 m-0 p-0 text-left">
+          <div class="row m-0 p-0">
+            <div class="col-3 m-0 p-0"></div>
+            <div class="col-6 m-0 p-0 pt-3 text-left">
+              <img class="d-none d-lg-flex img-fluid" alt="" src="./assets/images/logoblanco.png">
+            </div>
+            <div class="col-3 m-0 p-0"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
+  </div>
 
 </div>
 
