@@ -182,7 +182,6 @@ export class FiltroSuperiorComponent implements OnInit {
       data.DepartureArrivalTimeFrom = departureArrivalTimeFrom_;
       data.DepartureArrivalTimeTo = departureArrivalTimeTo_;
     } else {
-
       const ss_horasFrom = this.sessionStorageService.retrieve('ss_horasFrom');
       const ss_horasTo = this.sessionStorageService.retrieve('ss_horasTo');
       console.log('ss_horasFrom: ' + JSON.stringify(ss_horasFrom));

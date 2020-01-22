@@ -477,271 +477,271 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   searchFlight() {
-    this.spinner.show();
-    this.ValidarDestinos();
-    this.inicioBuscar.emit(false);
-
-    let origen: any[] = [];
-    let destino: any[] = [];
-    let fechas: any[] = [];
-    let horasFrom: any[] = [];
-    let horasTo: any[] = [];
-
-    if (this.tipoVuelo === "RT") {
-      origen.push(this.origenAuto);
-      origen.push(this.destinoAuto);
-
-      destino.push(this.destinoAuto);
-      destino.push(this.origenAuto);
-
-      fechas.push(this.fechaSalida);
-      fechas.push(this.fechaRetorno);
-    }
-
-    if (this.tipoVuelo === "OW") {
-      origen.push(this.origenAuto);
-      destino.push(this.destinoAuto);
-      fechas.push(this.fechaSalida);
-    }
-
-    if (this.tipoVuelo === "MC") {
-      const indexTramo = this.indexTramo;
-      switch (indexTramo) {
-        case 2:
-          origen.push(this.origenAuto1);
-          origen.push(this.origenAuto2);
-
-          destino.push(this.destinoAuto1);
-          destino.push(this.destinoAuto2);
-
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          break;
-        case 3:
-          origen.push(this.origenAuto1);
-          origen.push(this.origenAuto2);
-          origen.push(this.origenAuto3);
-
-          destino.push(this.destinoAuto1);
-          destino.push(this.destinoAuto2);
-          destino.push(this.destinoAuto3);
-
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
-          break;
-        case 4:
-          origen.push(this.origenAuto1);
-          origen.push(this.origenAuto2);
-          origen.push(this.origenAuto3);
-          origen.push(this.origenAuto4);
-
-          destino.push(this.destinoAuto1);
-          destino.push(this.destinoAuto2);
-          destino.push(this.destinoAuto3);
-          destino.push(this.destinoAuto4);
-
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
-          fechas.push(this.fechaSalida4);
-          break;
-        case 5:
-          origen.push(this.origenAuto1);
-          origen.push(this.origenAuto2);
-          origen.push(this.origenAuto3);
-          origen.push(this.origenAuto4);
-          origen.push(this.origenAuto5);
-
-          destino.push(this.destinoAuto1);
-          destino.push(this.destinoAuto2);
-          destino.push(this.destinoAuto3);
-          destino.push(this.destinoAuto4);
-          destino.push(this.destinoAuto5);
-
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
-          fechas.push(this.fechaSalida4);
-          fechas.push(this.fechaSalida5);
-          break;
-        case 6:
-          origen.push(this.origenAuto1);
-          origen.push(this.origenAuto2);
-          origen.push(this.origenAuto3);
-          origen.push(this.origenAuto4);
-          origen.push(this.origenAuto5);
-          origen.push(this.origenAuto6);
-
-          destino.push(this.destinoAuto1);
-          destino.push(this.destinoAuto2);
-          destino.push(this.destinoAuto3);
-          destino.push(this.destinoAuto4);
-          destino.push(this.destinoAuto5);
-          destino.push(this.destinoAuto6);
-
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
-          fechas.push(this.fechaSalida4);
-          fechas.push(this.fechaSalida5);
-          fechas.push(this.fechaSalida6);
-          break;
-      }
-    }
-
-    fechas.forEach(function(fe) {
-      horasFrom.push("");
-      horasTo.push("");
-    });
-
-    if (this.flagVuelosManiana === true) {
-      horasFrom[0] = '0500';
-      horasTo[0] = '1159';
-    }
-
-    if (this.flagVuelosNoche === true) {
-      horasFrom[0] = '1900';
-      horasTo[0] = '2359';
-    }
-
-    let lUsers_: any[] = [];
-
-    const lstPasajeros = this.sessionStorageService.retrieve('ss_lstPasajeros');
-    if (lstPasajeros != null) {
-      if (lstPasajeros.length > 0) {
-        lstPasajeros.forEach(function(item, index) {
-          const pax = {
-            "RoleId": item.orole.id,
-            "CostCenterId": null,
-            "UserId": item.userId
-          };
-          lUsers_.push(pax);
-        });
-      }
-    } else {
-      lUsers_.push(
-        {
-          "RoleId": this.loginDataUser.orole.roleId,
-          "CostCenterId": null,
-          "UserId": this.loginDataUser.userId
-        }
-      );
-    }
-    let objcampos;
-
-    if (this.tipoVuelo === 'RT' || this.tipoVuelo === 'OW') {
-        objcampos = {
-        origen: this.origenText,
-        origencode: this.origenAuto,
-        destino: this.destinoText.name,
-        destinocode: this.destinoAuto,
-        fechasalida: this.fechaSalida,
-        fechadestino: this.fechaRetorno,
-        fechasalidashow: $('#datepickerSalida').val(),
-        fecharetornoshow: $('#datepickerRetorno').val(),
-        cabina: this.textoCabina,
-        escala: this.textoEscala,
-        pasajeros: this.pasajeros,
-        tipovuelo: this.tipoVuelo,
-        mindatesalida: this.minDateSalida,
-        mindateretorno: this.minDateRetorno
-      };
-    }
-    if (this.tipoVuelo === 'MC') {
-        objcampos = {
-        origen1: this.origentTexto1,
-        origen2: this.origentTexto2,
-        origen3: this.origentTexto3,
-        origen4: this.origentTexto4,
-        origen5: this.origentTexto5,
-        origen6: this.origentTexto6,
-        origencode1: this.origenAuto1,
-        origencode2: this.origenAuto2,
-        origencode3: this.origenAuto3,
-        origencode4: this.origenAuto4,
-        origencode5: this.origenAuto5,
-        origencode6: this.origenAuto6,
-        destino1: this.destinoTexto1,
-        destino2: this.destinoTexto2,
-        destino3: this.destinoTexto3,
-        destino4: this.destinoTexto4,
-        destino5: this.destinoTexto5,
-        destino6: this.destinoTexto6,
-        destinocode1: this.destinoAuto1,
-        destinocode2: this.destinoAuto2,
-        destinocode3: this.destinoAuto3,
-        destinocode4: this.destinoAuto4,
-        destinocode5: this.destinoAuto5,
-        destinocode6: this.destinoAuto6,
-        fechasalida1: this.fecha1show,
-        fechasalida2: this.fecha2show,
-        fechasalida3: this.fecha3show,
-        fechasalida4: this.fecha4show,
-        fechasalida5: this.fecha5show,
-        fechasalida6: this.fecha6show,
-        tipovuelo: this.tipoVuelo,
-        cabina: this.textoCabina,
-        escala: this.textoEscala,
-        pasajeros: this.pasajeros,
-        indextramo: this.indexTramo
-      };
-    }
-
-    let data = {
-      "Lusers": lUsers_,
-      "NumberPassengers": this.pasajeros,
-      "NumberRecommendations": "50",
-      "CabinType": this.cabina,
-      "Scales": this.escala,
-      "Origin": origen,
-      "Destination": destino,
-      "DepartureArrivalDate": fechas,
-      "DepartureArrivalTimeFrom": horasFrom,
-      "DepartureArrivalTimeTo": horasTo,
-      "Ocompany": this.loginDataUser.ocompany
-    };
-
-    this.sessionStorageService.store('objbuscador', objcampos);
-
-    this.sessionStorageService.store('ss_dataRequestFlight', data);
-    this.sessionStorageService.store('ss_horasFrom', horasFrom);
-    this.sessionStorageService.store('ss_horasTo', horasTo);
-    const ss_filterPrecio = this.sessionStorageService.retrieve('ss_filterPrecio');
-
-    const flagVal = this.validarDataBusqueda(data);
+    const flagVal = this.validarDataBusqueda();
     if (!flagVal) {
       this.spinner.hide();
       return flagVal;
-    }
-
-    this.airportService.searchFlight(data).subscribe(
-      result => {
-        if (result !== null && result.length > 0) {
-          if (ss_filterPrecio === 'mas') {
-            result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
+    } else {
+      this.spinner.show();
+      this.ValidarDestinos();
+      this.inicioBuscar.emit(false);
+  
+      let origen: any[] = [];
+      let destino: any[] = [];
+      let fechas: any[] = [];
+      let horasFrom: any[] = [];
+      let horasTo: any[] = [];
+  
+      if (this.tipoVuelo === "RT") {
+        origen.push(this.origenAuto);
+        origen.push(this.destinoAuto);
+  
+        destino.push(this.destinoAuto);
+        destino.push(this.origenAuto);
+  
+        fechas.push(this.fechaSalida);
+        fechas.push(this.fechaRetorno);
+      }
+  
+      if (this.tipoVuelo === "OW") {
+        origen.push(this.origenAuto);
+        destino.push(this.destinoAuto);
+        fechas.push(this.fechaSalida);
+      }
+  
+      if (this.tipoVuelo === "MC") {
+        const indexTramo = this.indexTramo;
+        switch (indexTramo) {
+          case 2:
+            origen.push(this.origenAuto1);
+            origen.push(this.origenAuto2);
+  
+            destino.push(this.destinoAuto1);
+            destino.push(this.destinoAuto2);
+  
+            fechas.push(this.fechaSalida1);
+            fechas.push(this.fechaSalida2);
+            break;
+          case 3:
+            origen.push(this.origenAuto1);
+            origen.push(this.origenAuto2);
+            origen.push(this.origenAuto3);
+  
+            destino.push(this.destinoAuto1);
+            destino.push(this.destinoAuto2);
+            destino.push(this.destinoAuto3);
+  
+            fechas.push(this.fechaSalida1);
+            fechas.push(this.fechaSalida2);
+            fechas.push(this.fechaSalida3);
+            break;
+          case 4:
+            origen.push(this.origenAuto1);
+            origen.push(this.origenAuto2);
+            origen.push(this.origenAuto3);
+            origen.push(this.origenAuto4);
+  
+            destino.push(this.destinoAuto1);
+            destino.push(this.destinoAuto2);
+            destino.push(this.destinoAuto3);
+            destino.push(this.destinoAuto4);
+  
+            fechas.push(this.fechaSalida1);
+            fechas.push(this.fechaSalida2);
+            fechas.push(this.fechaSalida3);
+            fechas.push(this.fechaSalida4);
+            break;
+          case 5:
+            origen.push(this.origenAuto1);
+            origen.push(this.origenAuto2);
+            origen.push(this.origenAuto3);
+            origen.push(this.origenAuto4);
+            origen.push(this.origenAuto5);
+  
+            destino.push(this.destinoAuto1);
+            destino.push(this.destinoAuto2);
+            destino.push(this.destinoAuto3);
+            destino.push(this.destinoAuto4);
+            destino.push(this.destinoAuto5);
+  
+            fechas.push(this.fechaSalida1);
+            fechas.push(this.fechaSalida2);
+            fechas.push(this.fechaSalida3);
+            fechas.push(this.fechaSalida4);
+            fechas.push(this.fechaSalida5);
+            break;
+          case 6:
+            origen.push(this.origenAuto1);
+            origen.push(this.origenAuto2);
+            origen.push(this.origenAuto3);
+            origen.push(this.origenAuto4);
+            origen.push(this.origenAuto5);
+            origen.push(this.origenAuto6);
+  
+            destino.push(this.destinoAuto1);
+            destino.push(this.destinoAuto2);
+            destino.push(this.destinoAuto3);
+            destino.push(this.destinoAuto4);
+            destino.push(this.destinoAuto5);
+            destino.push(this.destinoAuto6);
+  
+            fechas.push(this.fechaSalida1);
+            fechas.push(this.fechaSalida2);
+            fechas.push(this.fechaSalida3);
+            fechas.push(this.fechaSalida4);
+            fechas.push(this.fechaSalida5);
+            fechas.push(this.fechaSalida6);
+            break;
+        }
+      }
+  
+      fechas.forEach(function(fe) {
+        horasFrom.push("");
+        horasTo.push("");
+      });
+  
+      if (this.flagVuelosManiana === true) {
+        horasFrom[0] = '0500';
+        horasTo[0] = '1159';
+      }
+  
+      if (this.flagVuelosNoche === true) {
+        horasFrom[0] = '1900';
+        horasTo[0] = '2359';
+      }
+  
+      let lUsers_: any[] = [];
+  
+      const lstPasajeros = this.sessionStorageService.retrieve('ss_lstPasajeros');
+      if (lstPasajeros != null) {
+        if (lstPasajeros.length > 0) {
+          lstPasajeros.forEach(function(item, index) {
+            const pax = {
+              "RoleId": item.orole.id,
+              "CostCenterId": null,
+              "UserId": item.userId
+            };
+            lUsers_.push(pax);
+          });
+        }
+      } else {
+        lUsers_.push(
+          {
+            "RoleId": this.loginDataUser.orole.roleId,
+            "CostCenterId": null,
+            "UserId": this.loginDataUser.userId
           }
-          if (ss_filterPrecio === 'menos') {
-            result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
+        );
+      }
+      let objcampos;
+  
+      if (this.tipoVuelo === 'RT' || this.tipoVuelo === 'OW') {
+          objcampos = {
+          origen: this.origenText.name,
+          origencode: this.origenAuto,
+          destino: this.destinoText.name,
+          destinocode: this.destinoAuto,
+          fechasalida: this.fechaSalida,
+          fechadestino: this.fechaRetorno,
+          fechasalidashow: $('#datepickerSalida').val(),
+          fecharetornoshow: $('#datepickerRetorno').val(),
+          cabina: this.textoCabina,
+          escala: this.textoEscala,
+          pasajeros: this.pasajeros,
+          tipovuelo: this.tipoVuelo,
+          mindatesalida: this.minDateSalida,
+          mindateretorno: this.minDateRetorno
+        };
+      }
+      if (this.tipoVuelo === 'MC') {
+          objcampos = {
+          origen1: this.origentTexto1,
+          origen2: this.origentTexto2,
+          origen3: this.origentTexto3,
+          origen4: this.origentTexto4,
+          origen5: this.origentTexto5,
+          origen6: this.origentTexto6,
+          origencode1: this.origenAuto1,
+          origencode2: this.origenAuto2,
+          origencode3: this.origenAuto3,
+          origencode4: this.origenAuto4,
+          origencode5: this.origenAuto5,
+          origencode6: this.origenAuto6,
+          destino1: this.destinoTexto1,
+          destino2: this.destinoTexto2,
+          destino3: this.destinoTexto3,
+          destino4: this.destinoTexto4,
+          destino5: this.destinoTexto5,
+          destino6: this.destinoTexto6,
+          destinocode1: this.destinoAuto1,
+          destinocode2: this.destinoAuto2,
+          destinocode3: this.destinoAuto3,
+          destinocode4: this.destinoAuto4,
+          destinocode5: this.destinoAuto5,
+          destinocode6: this.destinoAuto6,
+          fechasalida1: this.fecha1show,
+          fechasalida2: this.fecha2show,
+          fechasalida3: this.fecha3show,
+          fechasalida4: this.fecha4show,
+          fechasalida5: this.fecha5show,
+          fechasalida6: this.fecha6show,
+          tipovuelo: this.tipoVuelo,
+          cabina: this.textoCabina,
+          escala: this.textoEscala,
+          pasajeros: this.pasajeros,
+          indextramo: this.indexTramo
+        };
+      }
+  
+      let data = {
+        "Lusers": lUsers_,
+        "NumberPassengers": this.pasajeros,
+        "NumberRecommendations": "50",
+        "CabinType": this.cabina,
+        "Scales": this.escala,
+        "Origin": origen,
+        "Destination": destino,
+        "DepartureArrivalDate": fechas,
+        "DepartureArrivalTimeFrom": horasFrom,
+        "DepartureArrivalTimeTo": horasTo,
+        "Ocompany": this.loginDataUser.ocompany
+      };
+  
+      this.sessionStorageService.store('objbuscador', objcampos);
+  
+      this.sessionStorageService.store('ss_dataRequestFlight', data);
+      this.sessionStorageService.store('ss_horasFrom', horasFrom);
+      this.sessionStorageService.store('ss_horasTo', horasTo);
+      const ss_filterPrecio = this.sessionStorageService.retrieve('ss_filterPrecio');
+  
+      this.airportService.searchFlight(data).subscribe(
+        result => {
+          if (result !== null && result.length > 0) {
+            if (ss_filterPrecio === 'mas') {
+              result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
+            }
+            if (ss_filterPrecio === 'menos') {
+              result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
+            }
+            this.sessionStorageService.store('ss_searchFlight', result);
+          } else {
+            this.spinner.hide();
           }
-          this.sessionStorageService.store('ss_searchFlight', result);
-        } else {
+          this.lRecomendaciones.emit(result);
+          this.outTipoVuelo.emit(this.tipoVuelo);
+          this.outIndexTramo.emit(this.indexTramo);
+        },
+        err => {
+          this.spinner.hide();
+        },
+        () => {
           this.spinner.hide();
         }
-        this.lRecomendaciones.emit(result);
-        this.outTipoVuelo.emit(this.tipoVuelo);
-        this.outIndexTramo.emit(this.indexTramo);
-      },
-      err => {
-        this.spinner.hide();
-      },
-      () => {
-        this.spinner.hide();
-      }
-    );
+      );
+    }
   }
 
-  validarDataBusqueda(data) {
+  validarDataBusqueda() {
     const tipoVuelo = this.tipoVuelo;
     const indexTramo = this.indexTramo;
     let flagVal = true;
@@ -1167,8 +1167,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         }
       }
     }
-
-    if (data) {}
 
     return flagVal;
   }

@@ -74,6 +74,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   flagMsgErrorSelFam: boolean;
   lst_rol_autogestion;
   lst_rol_autorizador;
+  lst_rol_centralizador;
   datosuser: any[] = [];
   LPolicies;
   lsapprovers: IGetApprovers[] = [];
@@ -113,6 +114,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     this.flagMsgErrorSelFam = false;
     this.lst_rol_autogestion = environment.cod_rol_autogestion;
     this.lst_rol_autorizador = environment.cod_rol_autorizador;
+    this.lst_rol_centralizador = environment.cod_rol_centralizador;
   }
 
   ngOnInit() {
@@ -589,11 +591,11 @@ TraerAutorizador() {
     this.vuelosComponent.spinner.show();
     if (tipo === 1) {
       // tslint:disable-next-line: max-line-length
-      if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleDescription !== 'Centralizador') {
+      if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
         this.GetUsers();
         this.sessionStorageService.store('objusuarios', this.datosuser);
       }
-      if (this.loginDataUser.orole.roleDescription === 'Centralizador') {
+      if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
         this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
         this.sessionStorageService.store('objusuarios', this.datosuser);
         this.TraerAutorizador();
@@ -633,11 +635,11 @@ TraerAutorizador() {
           }
           if (tipo === 2) {
             // tslint:disable-next-line: max-line-length
-            if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleDescription !== 'Centralizador') {
+            if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
               this.GetUsers();
               this.sessionStorageService.store('objusuarios', this.datosuser);
             }
-            if (this.loginDataUser.orole.roleDescription === 'Centralizador') {
+            if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
               this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
               this.sessionStorageService.store('objusuarios', this.datosuser);
               this.TraerAutorizador();
