@@ -7,7 +7,8 @@
   flex-direction: column
   justify-content: center
   overflow-x: hidden
-  height: 100%
+  height: auto !important
+  max-width: 100% !important
 
 .body1
   background: url('../../../assets/images/login_body_2.png') no-repeat
@@ -175,10 +176,12 @@
   .text-4
     font-size: 13px
     padding-left: 22px !important
-    padding-right: 22px !important
 
   .text-8
     font-size: 13px
+
+  .img-mw
+    max-width: 80% !important
 
 @include media-breakpoint-up(sm)
   .text-5
@@ -200,10 +203,12 @@
   .text-4
     font-size: 13px
     padding-left: 22px !important
-    padding-right: 22px !important
 
   .text-8
     font-size: 13px
+
+  .img-mw
+    max-width: 80% !important
 
 @include media-breakpoint-up(md)
   .text-5
@@ -216,6 +221,9 @@
   .module-border-wrap
     max-width: 250px
 
+  .img-mw
+    max-width: 100% !important
+
 @include media-breakpoint-up(lg)
   .text-5
     color: #3D3D3D !important
@@ -226,3 +234,6 @@
 
   .module-border-wrap
     max-width: 250px
+
+  .img-mw
+    max-width: 100% !important
