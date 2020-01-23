@@ -43,8 +43,8 @@ export class PerfilUsuarioComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     $('#menu-vuelo-1').show();
     $('#menu-vuelo-2').hide();
-    $('#menu-hotel-1').hide();
-    $('#menu-hotel-2').show();
+    $('#menu-hotel-1').show();
+    $('#menu-hotel-2').hide();
     $('#menu-bus-1').show();
     $('#menu-bus-2').hide();
     $('#menu-paquete-1').show();

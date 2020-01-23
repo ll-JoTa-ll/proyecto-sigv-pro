@@ -28,6 +28,18 @@ document.onclick = function(e) {
     $("#divCitydestino ").hide();
 }
 
+$(document).on("click", function(e) {
+
+    var container = $("#hola");
+
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+        var z = document.getElementById("profile");
+        z.style.display = "none";
+    }
+});
+
+
+
 //* funciones modal agregar habitaciones
 $(document).on('click', '.number-spinner button', function() {
 

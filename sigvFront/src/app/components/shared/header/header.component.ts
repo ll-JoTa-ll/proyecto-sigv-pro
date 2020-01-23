@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+import { ThrowStmt } from '@angular/compiler';
+import { VueloFamiliaSectionComponent } from '../../vuelos/familias/vuelo-familia-section/vuelo-familia-section.component';
 declare var jquery: any;
 declare var $: any;
 
@@ -22,6 +24,7 @@ export class HeaderComponent implements OnInit {
   closedSesion: boolean;
   idinterval: any;
   idinterval1: any;
+  showProfile: any;
 
   constructor(
     private router: Router,
@@ -30,15 +33,28 @@ export class HeaderComponent implements OnInit {
   ) {
     this.flagTipo = 1;
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-
+    this.showProfile = this.sessionStorageService.retrieve('ss_profile');
     this.nombreUsuario = this.loginDataUser.userName;
     this.gender = this.loginDataUser.gender;
     this.role = this.loginDataUser.orole.roleDescription;
     this.empresa = this.loginDataUser.ocompany.companyName;
-
+    this.showProfile = false;
+      
   }
 
   ngOnInit() {
+    var z = document.getElementById("profile");
+    z.style.display = "none";
+  }
+
+  changeProfile(){
+    var z = document.getElementById("profile");
+    z.style.display = "block";
+  }
+
+  noneProfile(){
+    var z = document.getElementById("profile");
+    z.style.display = "none";
   }
 
   cambiarTipo(valor) {

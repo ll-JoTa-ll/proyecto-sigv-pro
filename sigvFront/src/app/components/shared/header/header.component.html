@@ -20,37 +20,38 @@
                             <div class="row m-0 p-0" style="height: 100% !important;">
                                 <div class="col-6 m-0 p-0">
                                 </div>
-                                <div class="col-6 m-0 p-0 d-flex align-items-center" style="font-family: Omnes-sem; font-size: 15px; color: white;">
+                                <div id="hola" class="col-6 m-0 p-0 d-flex align-items-center" style="font-family: Omnes-sem; font-size: 15px; color: white;">
                                     <!--
                   {{nombreUsuario}}
                   <img style="width: 30px; padding-left: 5px; cursor: pointer;" src="./assets/images/logo-familia.png" alt="">
                   -->
-
-                                    <div class="btn-group" dropdown style="width: 100%;">
-                                        <button id="button-basic" dropdownToggle type="button" class="btn" style="font-family: Omnes-sem; font-size: 15px; color: white;" aria-controls="dropdown-basic">
-                      <div class="row">
-                        <div class="col-6 m-0 p-0">
-                            <div>{{nombreUsuario}}</div>
-                            <div>{{role}}</div>
-                            <div>{{empresa}}</div>
-                        </div>
-                        <div class="col-6 m-0 p-0" style="text-align: left;">
-                            <img *ngIf="gender==='M'" style="width: 30px; padding-left: 5px; cursor: pointer;" src="./assets/images/user_boy.png" alt="">
-                            <img *ngIf="gender==='F'" style="width: 30px; padding-left: 5px; cursor: pointer;" src="./assets/images/user_girl.png" alt="">
-                        </div>
-                      </div>
-
-                      <span class="caret"></span>
-                    </button>
-                                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                                            <li role="menuitem"><a style="cursor: pointer;" class="dropdown-item" [routerLink]="['/perfil-usuario']">Mi Perfil</a></li>
-                                            <li role="menuitem"><a style="cursor: pointer;" class="dropdown-item" (click)="cerrarSesion()">Cerrar Sesión</a></li>
-                                        </ul>
-
+                                    <div class="col-6 m-0 p-0" style="text-align: left;left: 80px;top: 30px;">
+                                        <img *ngIf="gender==='M'" style="width: 60px; cursor: pointer;" (click)="changeProfile()" src="./assets/images/user_boy.png" alt="">
+                                        <img *ngIf="gender==='F'" style="width: 60px; cursor: pointer;" (click)="changeProfile()" src="./assets/images/user_girl.png" alt="">
                                     </div>
+
+                                    <div id="profile" style="width: 200px;height: 250px;top: 120px;background: #fff;position: absolute;border-radius: 10px;z-index: 999;clear: both;">
+                                        <div style="color: black;width: 200px;text-align: center;padding-bottom: 30px;padding-top: 20px;">
+                                            <div class="name">{{nombreUsuario}}</div>
+                                            <div class="job">{{role}}</div>
+                                            <div class="name">{{empresa}}</div>
+                                        </div>
+                                        <div style="width: 200px !important;">
+                                            <span class="btn" style="cursor: pointer;" [routerLink]="['/perfil-usuario']">Mi perfil</span>
+                                            <span class="btn" style="cursor: pointer;" (click)="cerrarSesion()">Cerrar Cesion</span>
+                                        </div>
+                                    </div>
+
                                 </div>
+
                             </div>
+
+
+
+
+
                         </div>
+
                     </div>
                 </div>
 
@@ -274,5 +275,8 @@
         <ng-content style="width: 100% !important;"></ng-content>
 
     </div>
+
+
+
 
 </div>
