@@ -13,6 +13,9 @@ import { environment } from '../../../../../environments/environment';
 import { IGetApprovers } from '../../../../models/IGetApprovers.model';
 import { stringify } from '@angular/compiler/src/util';
 import { ModalFamiliasVaciasComponent } from '../../../shared/modal-familias-vacias/modal-familias-vacias.component';
+import { setInterval } from 'timers';
+import { BoletosNousadosComponent } from '../boletos-nousados/boletos-nousados.component';
+import { IBnusModel } from '../../../../models/Ibnus.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -61,8 +64,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   lstFamilyResult: IFamilyResultModel;
   lsFlightAvailabilty: IFlightAvailability;
   flagResultFamilias: number;
-  modalRefSessionExpired: BsModalRef;
-
   flagPseudoRepeat: boolean;
   lstPseudoRepeat: any[] = [];
 
@@ -79,6 +80,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   LPolicies;
   lsapprovers: IGetApprovers[] = [];
   osessionflightaval: any;
+  @Input() lstBnus: IBnusModel[];
 
   colorsFare = [
     "white",
@@ -119,7 +121,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-
     const pseudoRepeat = this.pseudoRepeat;
     //console.log('pseudoRepeat: ' + pseudoRepeat);
     if (pseudoRepeat === null) {
@@ -333,6 +334,16 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   getFlightAvailability(recommendationId, template: TemplateRef<any>) {
+    // tslint:disable-next-line: max-line-length
+    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
+      this.GetUsers();
+      this.sessionStorageService.store('objusuarios', this.datosuser);
+    }
+    if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
+      this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+      this.sessionStorageService.store('objusuarios', this.datosuser);
+      this.TraerAutorizador();
+     }
     let Lsections_: any[] = [];
     let datosusuario: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
@@ -388,6 +399,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Lsections_.push(lsection);
     });
 
+
+    console.log(this.datosuser);
     this.datosuser.forEach(function(item, index) {
          const obj = {
           "UserId": item.userId,
@@ -405,7 +418,14 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
          };
          datosusuario.push(obj);
     });
+    console.log(datosusuario);
+    let infraction;
 
+    if (this.lpolicies.length > 0) {
+      infraction = true;
+    } else {
+      infraction = false;
+    }
     let dataFamilias = {
       NumberPassengers: this.numberPassengers,
       Currency: this.currency,
@@ -413,7 +433,14 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Lsections: Lsections_,
       Ocompany: this.loginDataUser.ocompany,
       Gds: this.gds,
-      PSeudo: this.pseudo
+      PSeudo: this.pseudo,
+      Lpassenger: datosusuario,
+      TotalFareAmount: this.totalFareAmount,
+      FareTaxAmountByPassenger: this.fareTaxAmountByPassenger,
+      RecommendationId: this.recommendationId,
+      UserId: this.loginDataUser.userId,
+      Infraction: infraction,
+      FlightNational: true
     };
     this.sessionStorageService.store('ss_FlightAvailability_request1', dataFamilias);
     this.flightAvailability(dataFamilias, template, 1, null, null);
@@ -591,15 +618,6 @@ TraerAutorizador() {
     this.vuelosComponent.spinner.show();
     if (tipo === 1) {
       // tslint:disable-next-line: max-line-length
-      if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
-        this.GetUsers();
-        this.sessionStorageService.store('objusuarios', this.datosuser);
-      }
-      if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
-        this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-        this.sessionStorageService.store('objusuarios', this.datosuser);
-        this.TraerAutorizador();
-       }
     }
     // tslint:disable-next-line: max-line-length
     let flagResult = 0;

@@ -18,6 +18,7 @@ import { IResultAprobacionReserva } from '../models/iResultAprobacion.model';
 import { IQueuePnr } from '../models/IQueuePnr.model';
 import { IAirportList } from '../models/IAirportList.model';
 import { IGetPaisesModel } from '../models/IGetPaises';
+import { IBnusModel } from '../models/Ibnus.model';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -46,6 +47,7 @@ export class AirportService {
   private _url10: string = environment.url_2 + "Authorization/";
   private _url11: string = environment.url_2 + "Cancel/";
   private _url12: string = environment.url_2 + "Country/";
+  private url_bnus: string = environment.url_bnus + "UnusedTickets/";
 
   constructor(
     private http: HttpClient,
@@ -243,5 +245,13 @@ export class AirportService {
       'Content-Type': "application/json",
     });
     return this.http.get<IGetPaisesModel[]>(this._url12  + "GetCountry", httpOptions2);
+  }
+
+  GetBoletosnoUsados(data): Observable<IBnusModel[]> {
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer",
+      'Content-Type': "application/json",
+    });
+    return this.http.post<IBnusModel[]>(this.url_bnus  + "GetUnusedTickets", data, httpOptions2);
   }
 }

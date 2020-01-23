@@ -10,6 +10,9 @@ import { DatepickerDateCustomClasses} from 'ngx-bootstrap/datepicker/models';
 import {consoleTestResultHandler} from 'tslint/lib/test';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as crypto from 'crypto-js';
+import { IBnusModel } from '../../../models/Ibnus.model';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BoletosNousadosComponent } from './boletos-nousados/boletos-nousados.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -134,6 +137,12 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   isOpendate = false;
   bsValue: Date;
   calendarSalidaValue: Date;
+  lstBnus: IBnusModel[];
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true
+  };
+  ModalBoletosnousados: BsModalRef;
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -142,7 +151,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     public spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    private modalService: BsModalService,
   ) {
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
@@ -835,9 +845,42 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
+  GetBoletosNoUsados() {
+    let fechasalida;
+    fechasalida = this.FormatearFecha(this.fechaSalida);
+    let data = {
+      "Vuelo":"N",
+      "RUC":"20546121250",
+      "FecSalida": fechasalida
+    }
+    this.airportService.GetBoletosnoUsados(data).subscribe(
+      result => {
+           this.lstBnus = result;
+           this.sessionStorageService.store('lstbnus', this.lstBnus);
+      },
+      err => {
+
+      },
+      () => {
+      }
+    );
+  }
+
+  FormatearFecha(fechasalida) {
+     let fechatotal;
+     let fecha = fechasalida;
+     let datafecha = fecha.split('/');
+     let año = datafecha[0];
+     let mes = datafecha[1];
+     let dia = datafecha[2];
+     fechatotal = año + '-' + mes + '-' + dia;
+     return fechatotal;
+  }
+
   searchFlight() {
     this.spinner.show();
     this.ValidarCiudad();
+    this.GetBoletosNoUsados();
     this.flagDinData = false;
 
     let origen: any[] = [];
@@ -1121,6 +1164,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       () => {
         this.spinner.hide();
         this.flagBuscadorLateral = false;
+        if (this.lstBnus.length > 0) {
+          this.ModalBoletosnousados = this.modalService.show(BoletosNousadosComponent, this.config);
+        }
       }
     );
   }

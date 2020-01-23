@@ -410,7 +410,7 @@
                             <app-recomendacion *ngFor="let recomendacion of searchData; let i = index" [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency" [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount" [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
                                 [taxAmountByPassenger]="recomendacion.taxAmountByPassenger" [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger" [carrierId]="recomendacion.carrierId" [numberPassengers]="recomendacion.numberPassengers" [pseudo]="recomendacion.pseudo"
                                 [gds]="recomendacion.gds" [flightNational]="recomendacion.flightNational" [lsections]="recomendacion.lsections" [lsectionLength]="recomendacion.lsections.length" [lpolicies]="recomendacion.lpolicies" [recommendationId]="recomendacion.recommendationId"
-                                [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.pseudoRepeat" [index]='i + 1'>
+                                [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.pseudoRepeat" [index]='i + 1' [lstBnus]="lstBnus">
                             </app-recomendacion>
                         </div>
 
