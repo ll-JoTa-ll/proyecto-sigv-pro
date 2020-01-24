@@ -298,7 +298,9 @@
                         </div>
 
                     </div>
-                    <app-filtros *ngIf="LlistaHotel[0].oerror === null" [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)" (vistalistado)="MostrarListado($event)"></app-filtros>
+                    <div *ngIf="LlistaHotel.length > 0">
+                        <app-filtros *ngIf="LlistaHotel[0].oerror === null" [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)" (vistalistado)="MostrarListado($event)"></app-filtros>
+                    </div>
                     <div *ngIf="vistalistado">
                         <app-resultado *ngFor="let lHotel of LlistaHotel; let i = index" [isvisible]="lHotel.isvisible" [name]="lHotel.name" [tipoPago]="lHotel.guaranteeType" [direccion]="lHotel.address" [distancia]="lHotel.oairportDistance.distance" [estrellas]="lHotel.stars"
                             [currency]="lHotel.oprice.currency" [precioxnoche]="lHotel.oprice.pricePerAllNights" [precioprom]="lHotel.oprice.pricePerNight" [urlHotel]="lHotel.limagens | getimghotel" [index]="i + 1" [latitud]="lHotel.oposition.latitude" [longitud]="lHotel.oposition.longitude"

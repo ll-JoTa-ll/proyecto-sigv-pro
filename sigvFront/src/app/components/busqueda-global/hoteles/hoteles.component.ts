@@ -374,8 +374,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.divwarning = false;
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
+    this.flagDinData = false;
     if (this.LlistaHotel.length === 0) {
       this.divwarning = true;
+      this.flagDinData = true;
     }
   }
 
@@ -383,19 +385,20 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.divwarning = false;
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
-
+    this.flagDinData = false;
     if (this.LlistaHotel.length === 0) {
       this.divwarning = true;
+      this.flagDinData = true;
     }
-
   }
 
   ObtenerListaFiltroNombre($event) {
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
-
+    this.flagDinData = false;
     if (this.LlistaHotel.length === 0) {
       this.divwarning = true;
+      this.flagDinData = true;
     }
 
   }
