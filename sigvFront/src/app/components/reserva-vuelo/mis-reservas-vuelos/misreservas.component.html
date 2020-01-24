@@ -132,19 +132,49 @@
                     <div class="row m-0 p-0">
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-
+                            <label class="container" (click)="FiltrarPendientes()">
+                                    <input type="radio" name="radio"> Pendientes
+                                    <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                            <label class="container" (click)="filtrarProcEmision()">
+                            <input type="radio" name="radio"> Proceso de emisión
+                            <span class="checkmark"></span>
+                    </label>
                         </div>
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-
+                            <label class="container" (click)="FiltrarEmitidos()">
+                                    <input type="radio" name="radio"> Emitidos
+                                    <span class="checkmark"></span>
+                            </label>
                         </div>
 
                         <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-
+                            <label class="container" (click)="FiltrarCancelados()">
+                                    <input type="radio" name="radio"> Cancelados
+                                    <span class="checkmark"></span>
+                            </label>
                         </div>
 
-                        <div class="col-1 m-0 p-0 d-flex align-items-center v-texto-2">
+                        <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                            <label class="container" (click)="FiltrarRechazados()">
+                                    <input type="radio" name="radio"> Rechazados
+                                    <span class="checkmark"></span>
+                            </label>
+                        </div>
 
+                        <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+                            <label class="container" (click)="FiltrarTodos()">
+                                    <input type="radio" name="radio" checked> Todos
+                                    <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="col-5 m-0 p-0 pl-5">
+                            <button class="btn btn-buscar" (click)="ShowVuelos()">Reservas Vuelos</button>
+                            <button class="btn btn-buscar" (click)="ShowAll()">Ver Todos</button>
+                            <button class="btn btn-buscar" (click)="ShowHoteles()">Reservas Hoteles</button>
                         </div>
 
                         <!--

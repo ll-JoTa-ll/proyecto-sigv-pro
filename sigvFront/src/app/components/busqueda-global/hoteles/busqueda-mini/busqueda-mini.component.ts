@@ -236,12 +236,13 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
 
   SeachHotel() {
     this.flagBuscarMini.emit(false);
-    this.sessionStorageService.store("ls_search_hotel",null);
+    
     const val= this.ValidarCampos();
     if (!val) {
       return val;
     }
     else{
+      this.sessionStorageService.store("ls_search_hotel",null);
       this.spinner.show();
     this.flagShowMap.emit(false);
     let data = {

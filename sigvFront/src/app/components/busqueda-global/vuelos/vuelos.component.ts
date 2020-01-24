@@ -134,6 +134,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   isOpendate = false;
   bsValue: Date;
   calendarSalidaValue: Date;
+  showProfile: any;
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -178,6 +179,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.flagBuscadorLateral = false;
     this.ss_login_data = this.sessionStorageService.retrieve('ss_login_data');
 
+
     if (this.ss_login_data === '' || this.ss_login_data === null) {
       this.router.navigate(['/']);
     }
@@ -188,6 +190,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.showProfile = this.sessionStorageService.store('ss_profile',false);
     this.bsValue = new Date();
     $(".x").hide();
     $('#menu-vuelo-1').hide();

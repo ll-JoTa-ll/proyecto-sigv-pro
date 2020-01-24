@@ -19,6 +19,12 @@ declare var $: any;
 })
 export class ModalRecuperarPasswordComponent implements OnInit {
 
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
+
   registerForm: FormGroup;
   registerForm1: FormGroup;
   submitted = false;

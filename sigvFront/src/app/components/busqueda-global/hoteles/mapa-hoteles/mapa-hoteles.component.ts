@@ -144,7 +144,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
       if (element.code === hotelcode) {
         hotel = this.lstHotel[i];
       }
-      
+      this.OcultarModal(i + 1);
     }
     this.sessionStorageService.store("lhotel",hotel);
 
@@ -155,7 +155,8 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
         
         this.sessionStorageService.store("lstHabication", this.lstHabication);
 
-        this.router.navigate(['/habitacion']);
+        window.open(window.location.origin + "/habitacion");
+        //this.router.navigate(['/habitacion']);
         //window.open(environment.url_project + "/habitacion");
       },
       err => {

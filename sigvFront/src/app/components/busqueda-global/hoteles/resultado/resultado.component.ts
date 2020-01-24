@@ -67,10 +67,11 @@ export class ResultadoComponent implements OnInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
 
-    if (this.lstHotel[0].numberPassenger > 1) {
-      this.personas = "adultos"
-    }else{
+    console.log("cantpersonas" + this.cantpersonas)
+    if (this.cantpersonas = '1') {
       this.personas = "adulto"
+    }else{
+      this.personas = "adultos"
     }
   }
 

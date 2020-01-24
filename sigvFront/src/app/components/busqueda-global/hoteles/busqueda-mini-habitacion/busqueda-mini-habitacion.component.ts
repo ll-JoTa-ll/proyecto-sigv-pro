@@ -293,8 +293,6 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   }
 
   SeachHotel() {
-    
-    
     let fechaSal;
     let fechaRe;
     fechaSal = this.fechaSalida;
