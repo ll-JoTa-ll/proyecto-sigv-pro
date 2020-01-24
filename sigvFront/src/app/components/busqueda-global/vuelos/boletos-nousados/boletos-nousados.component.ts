@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { SessionStorageService } from 'ngx-webstorage';
+import { IBnusModel } from '../../../../models/Ibnus.model';
 
 @Component({
   selector: 'app-boletos-nousados',
@@ -7,7 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoletosNousadosComponent implements OnInit {
 
-  constructor() { }
+  lstBnus: IBnusModel[];
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
+
+  constructor(public modalRef: BsModalRef, private sessionstorageService: SessionStorageService) {
+      this.lstBnus = this.sessionstorageService.retrieve('lstbnus');
+   }
 
   ngOnInit() {
   }

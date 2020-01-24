@@ -99,7 +99,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     window.scrollTo(0, 0);
     this.LSection = this.flightAvailability_request.Lsections;
     this.LSectionPassenger = this.datarequest.Lsections;
-    this.LPolicies = this.flightAvailability_request.lpolicies;
+    this.LPolicies = this.flightAvailability_result.lpolicies;
     this.ocompany = this.flightAvailability_request.Ocompany;
     this.currency = this.flightAvailability_request.Currency;
     this.numberpassengers = this.flightAvailability_request.NumberPassengers;
@@ -411,9 +411,11 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       email1 = $('#txtcorreo_' + (index + 1)).val();
       telefono1 = $('#txttelefono_' + (index + 1)).val();
       let odocument = {
+        id: item.odocument.id,
+        codeAmadeus: item.odocument.codeAmadeus,
+        codeSabre: item.odocument.codeSabre,
         description: item.odocument.description,
-        number: nrodoc,
-        type: typedoc
+        number: nrodoc
       }
 
       const objuser = {
@@ -430,8 +432,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         "BirthDate": fechanacimiento,
         "Odocument": odocument,
         "FrequentFlyer": item.frequentFlyer,
-        "IsVIP": item.isVIP
-       }
+        "IsVIP": item.isVIP,
+        "LcostCenter": item.lcostCenter,
+        "Orole": item.orole
+       };
       datosusuario.push(objuser);
     });
 

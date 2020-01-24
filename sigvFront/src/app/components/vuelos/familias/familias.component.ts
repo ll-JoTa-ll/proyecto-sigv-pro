@@ -171,8 +171,15 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
       "CarrierId": request.CarrierId,
       "Lsections": request.Lsections,
       "Ocompany": request.Ocompany,
-      "Gds": request.Gds,
-      "PSeudo": request.PSeudo
+      "Gds": request.GDS,
+      "PSeudo": request.Pseudo,
+      "Lpassenger": request.Lpassenger,
+      "TotalFareAmount": request.TotalFareAmount,
+      "FareTaxAmountByPassenger": request.FareTaxAmountByPassenger,
+      "RecommendationId": request.RecommendationId,
+      "UserId": request.UserId,
+      "Infraction": request.Infraction,
+      "FlightNational": request.FlightNational
     }
     this.flightAvailability(data);
   }

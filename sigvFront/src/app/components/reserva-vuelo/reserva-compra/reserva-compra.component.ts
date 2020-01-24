@@ -187,7 +187,11 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "Lauthorizer": this.lsapprover,
     "Comment": $('#motivoviaje').val(),
     "OContactInfo": this.contacto,
-    "FareTaxAmountByPassenger": this.lsflightavailability.fareAmountByPassenger
+    "FareTaxAmountByPassenger": this.lsflightavailability.fareAmountByPassenger,
+    "TotalFareAmount": this.lsflightavailability.totalFareAmount,
+    "Currency": this.lsflightavailability.currency,
+    "NumberPassengers": this.dataflightavalilability.NumberPassengers,
+    "RecommendationId": this.dataflightavalilability.RecommendationId
     };
     this.service.AddPassenger(data).subscribe(
         results => {
@@ -556,7 +560,13 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "CarrierId": this.carrierId,
     "Lpolicies": this.LPolicies,
     "OContactInfo": this.contacto,
-    "FareTaxAmountByPassenger": this.lsflightavailability.fareAmountByPassenger
+    "FareTaxAmountByPassenger": this.lsflightavailability.fareAmountByPassenger,
+    "TotalFareAmount": this.lsflightavailability.totalFareAmount,
+    "Currency": this.lsflightavailability.currency,
+    "NumberPassengers": this.dataflightavalilability.NumberPassengers,
+    "RecommendationId": this.dataflightavalilability.RecommendationId,
+    "Comment": "Reserva de emision",
+    "Lauthorizer": this.lsapprover
     };
       this.service.GenerateTicket(data).subscribe(
         results => {
