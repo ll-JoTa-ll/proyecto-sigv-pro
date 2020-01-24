@@ -15,6 +15,10 @@ export class PrecioFinalComponent implements OnInit {
   @Input() tipo: number;
   @Input() LSection;
   @Input() Litineraries;
+  @Input() montodesc;
+  @Input() porcentajedesc;
+  @Input() odiscount;
+  porcentaje;
 
   modalRef: BsModalRef;
   config = {
@@ -22,7 +26,8 @@ export class PrecioFinalComponent implements OnInit {
     ignoreBackdropClick: true
   };
 
-  constructor(private modalService: BsModalService) { }
+  constructor(private modalService: BsModalService) { 
+  }
 
   ngOnInit() {
   }

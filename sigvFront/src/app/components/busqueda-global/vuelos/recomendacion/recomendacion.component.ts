@@ -146,6 +146,18 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ngAfterViewInit() {
+    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
+      this.GetUsers();
+      this.sessionStorageService.store('objusuarios', this.datosuser);
+    }
+    if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
+      this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+      this.sessionStorageService.store('objusuarios', this.datosuser);
+      this.TraerAutorizador();
+     }
+  }
+
   openModal(template: TemplateRef<any>, recommendationId, modalerror) {
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
@@ -251,10 +263,138 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ArmarSeccionesFlightAvailability() {
+    let Lsections_: any[] = [];
+    let datosusuario: any[] = [];
+    const lstRadioCheck = this.lstRadioCheck;
+    lstRadioCheck.sort((a, b) => a.sectionId_ - b.sectionId_);
+    this.lstRadioCheck = lstRadioCheck;
+    lstRadioCheck.forEach(function(item) {
+      const sectionId = item.sectionId_;
+      const segmentId = item.segmentId_;
+      const segmentIndex = item.segmentIndex_;
+      const recommendationId = item.recommendationId_;
+      const section = item.section_;
+      const segment = item.segment_;
+
+      //LsegmentGroups
+      let LsegmentGroups_: any[] = [];
+      segment.lSegmentGroups.forEach(function(group, i) {
+        const dataGroup = {
+          Id: i + 1,
+          ClassId: section.lSectionGroups[i].classId,
+          CabinId: section.lSectionGroups[i].cabinId,
+          CabinDescription: section.lSectionGroups[i].cabinDescription,
+          DepartureDate: group.departureDate,
+          TimeOfDeparture: group.timeOfDeparture,
+          ArrivalDate: group.arrivalDate,
+          TimeOfArrival: group.timeOfArrival,
+          Origin: group.origin,
+          Destination: group.destination,
+          MarketingCarrier: group.marketingCarrier,
+          FlightOrtrainNumber: group.flightOrtrainNumber,
+          EquipmentType: group.equipmentType,
+          FareBasis: section.lSectionGroups[i].fareBasis,
+          TimeWaitAirport: group.timeWaitAirport,
+          fareFamilyName: ""
+        };
+        LsegmentGroups_.push(dataGroup);
+      });
+
+      //Lsegments
+      let Lsegments_: any[] = [];
+      const lsegment = {
+        SegmentID: segment.segmentId,
+        FareType: section.lSectionGroups[0].fareType,
+        TotalFlightTime: segment.totalFlightTime,
+        LsegmentGroups: LsegmentGroups_
+      };
+      Lsegments_.push(lsegment);
+
+      //Lsections
+      const lsection = {
+        SectionID: section.sectionId,
+        Origin: section.origin,
+        Destination: section.destination,
+        Lsegments: Lsegments_,
+        DepartureDate: section.departureDate
+      };
+      Lsections_.push(lsection);
+    });
+
+
+    console.log(this.datosuser);
+    this.datosuser.forEach(function(item, index) {
+      let recorte;
+      let fecha;
+      let hora;
+      let fechafinal;
+      let fechaformat;
+      let dia;
+      let mes;
+      let año;
+      let fechatotal;
+      recorte = item.birthDate.split("T");
+      fecha = recorte[0];
+      hora =  recorte[1];
+      fechaformat = fecha.split("-");
+      dia = fechaformat[2];
+      mes = fechaformat[1];
+      año = fechaformat[0];
+      fechatotal = año + '/' + mes + '/' + dia;
+    //let fecha = this.Formatearfecha(item.birthDate);
+      const obj = {
+          "UserId": item.userId,
+          "PassengerId": index + 1,
+          "PersonId": item.personId,
+          "Name": item.firstName,
+          "LastName": item.lastName,
+          "Gender": item.gender,
+          "PhoneNumber": item.phone,
+          "Email": item.email,
+          "BirthDate": fechatotal,
+          "Odocument": item.odocument,
+          "FrequentFlyer": item.frequentFlyer,
+          "IsVIP": item.isVIP,
+          "LcostCenter": item.lcostCenter,
+          "Type": "ADT",
+          "Orole": item.orole
+         };
+      datosusuario.push(obj);
+    });
+    console.log(datosusuario);
+    let infraction;
+
+    if (this.lpolicies.length > 0) {
+      infraction = true;
+    } else {
+      infraction = false;
+    }
+    let dataFamilias = {
+      NumberPassengers: this.numberPassengers,
+      Currency: this.currency,
+      CarrierId: this.carrierId,
+      Lsections: Lsections_,
+      Ocompany: this.loginDataUser.ocompany,
+      GDS: this.gds,
+      Pseudo: this.pseudo,
+      Lpassenger: datosusuario,
+      TotalFareAmount: this.totalFareAmount,
+      FareTaxAmountByPassenger: this.fareTaxAmountByPassenger,
+      RecommendationId: this.recommendationId,
+      UserId: this.loginDataUser.userId,
+      Infraction: infraction,
+      FlightNational: this.flightNational
+    };
+
+    return dataFamilias;
+  }
+
   getFareFamily(dataPost, template, modalerror) {
     this.vuelosComponent.spinner.show();
     this.ObtenerSecciones();
     this.dataRequestFamilia = dataPost;
+    let dataflighavailability = this.ArmarSeccionesFlightAvailability();
     let datasecciones = this.ObtenerSecciones();
     //console.log('mis secciones completas:  ' + JSON.stringify(datasecciones));
     let flagResultFamilias = 0;
@@ -276,14 +416,14 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
                 segment.lfareFamilies.forEach(function(fare, indexFare) {
                   if (indexFare === 0) {
                     const fareFamilyName = fare.fareFamilyName;
-                    dataPost.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
+                    dataflighavailability.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
                     datasecciones.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
                   }
                 });
               });
             });
             //console.log("dataPost Family FIN: " + JSON.stringify(dataPost));
-            this.requestFamilia = dataPost;
+            this.requestFamilia = dataflighavailability;
             this.dataseccionesvuelos = datasecciones;
           }
         }
@@ -315,7 +455,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
 
         if (flagResultFamilias === 1) {
-          this.flightAvailability(dataPost, modalerror, 2, template, datasecciones);
+          this.flightAvailability(dataflighavailability, modalerror, 2, template, datasecciones);
           /*
           this.modalRef = this.modalService.show(
             template,
@@ -333,17 +473,31 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     );
   }
 
+  Formatearfecha(value) {
+    let recorte;
+    let fecha;
+    let hora;
+    let fechafinal;
+    let fechaformat;
+    let dia;
+    let mes;
+    let año;
+    let fechatotal;
+    recorte = value.split("T");
+    fecha = recorte[0];
+    hora =  recorte[1];
+    fechaformat = fecha.split("-");
+    dia = fechaformat[2];
+    mes = fechaformat[1];
+    año = fechaformat[0];
+    fechatotal = año + '/' + mes + '/' + dia;
+    hora = hora.substr(0,5);
+    fechafinal = fechatotal;
+    return fechafinal;
+  }
+
   getFlightAvailability(recommendationId, template: TemplateRef<any>) {
     // tslint:disable-next-line: max-line-length
-    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
-      this.GetUsers();
-      this.sessionStorageService.store('objusuarios', this.datosuser);
-    }
-    if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
-      this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-      this.sessionStorageService.store('objusuarios', this.datosuser);
-      this.TraerAutorizador();
-     }
     let Lsections_: any[] = [];
     let datosusuario: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
@@ -361,6 +515,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       let LsegmentGroups_: any[] = [];
       segment.lSegmentGroups.forEach(function(group, i) {
         const dataGroup = {
+          Id: i + 1,
           ClassId: section.lSectionGroups[i].classId,
           CabinId: section.lSectionGroups[i].cabinId,
           CabinDescription: section.lSectionGroups[i].cabinDescription,
@@ -374,7 +529,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           FlightOrtrainNumber: group.flightOrtrainNumber,
           EquipmentType: group.equipmentType,
           FareBasis: section.lSectionGroups[i].fareBasis,
-          TimeWaitAirport: group.timeWaitAirport
+          TimeWaitAirport: group.timeWaitAirport,
+          fareFamilyName: ""
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -394,7 +550,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         SectionID: section.sectionId,
         Origin: section.origin,
         Destination: section.destination,
-        Lsegments: Lsegments_
+        Lsegments: Lsegments_,
+        DepartureDate: section.departureDate
       };
       Lsections_.push(lsection);
     });
@@ -402,7 +559,25 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
     console.log(this.datosuser);
     this.datosuser.forEach(function(item, index) {
-         const obj = {
+      let recorte;
+      let fecha;
+      let hora;
+      let fechafinal;
+      let fechaformat;
+      let dia;
+      let mes;
+      let año;
+      let fechatotal;
+      recorte = item.birthDate.split("T");
+      fecha = recorte[0];
+      hora =  recorte[1];
+      fechaformat = fecha.split("-");
+      dia = fechaformat[2];
+      mes = fechaformat[1];
+      año = fechaformat[0];
+      fechatotal = año + '/' + mes + '/' + dia;  
+     // let fecha = this.Formatearfecha(item.birthDate);
+      const obj = {
           "UserId": item.userId,
           "PassengerId": index + 1,
           "PersonId": item.personId,
@@ -411,10 +586,13 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           "Gender": item.gender,
           "PhoneNumber": item.phone,
           "Email": item.email,
-          "BirthDate": item.birthDate,
+          "BirthDate": fechatotal,
           "Odocument": item.odocument,
           "FrequentFlyer": item.frequentFlyer,
-          "IsVIP": item.isVIP
+          "IsVIP": item.isVIP,
+          "LcostCenter": item.lcostCenter,
+          "Type": "ADT",
+          "Orole": item.orole
          };
          datosusuario.push(obj);
     });
@@ -432,15 +610,15 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       CarrierId: this.carrierId,
       Lsections: Lsections_,
       Ocompany: this.loginDataUser.ocompany,
-      Gds: this.gds,
-      PSeudo: this.pseudo,
+      GDS: this.gds,
+      Pseudo: this.pseudo,
       Lpassenger: datosusuario,
       TotalFareAmount: this.totalFareAmount,
       FareTaxAmountByPassenger: this.fareTaxAmountByPassenger,
       RecommendationId: this.recommendationId,
       UserId: this.loginDataUser.userId,
       Infraction: infraction,
-      FlightNational: true
+      FlightNational: this.flightNational
     };
     this.sessionStorageService.store('ss_FlightAvailability_request1', dataFamilias);
     this.flightAvailability(dataFamilias, template, 1, null, null);
@@ -527,7 +705,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Ocompany: this.loginDataUser.ocompany,
       Gds: this.gds,
       Pseudo: this.pseudo,
-      FlightNational: this.flightNational
+      FlightNational: this.flightNational,
+      RecommendationId: this.recommendationId
     };
     this.sessionStorageService.store('ss_FlightAvailability_request2', dataFamilias);
 
@@ -653,7 +832,7 @@ TraerAutorizador() {
           }
           if (tipo === 2) {
             // tslint:disable-next-line: max-line-length
-            if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
+          /*  if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
               this.GetUsers();
               this.sessionStorageService.store('objusuarios', this.datosuser);
             }
@@ -661,7 +840,7 @@ TraerAutorizador() {
               this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
               this.sessionStorageService.store('objusuarios', this.datosuser);
               this.TraerAutorizador();
-             }
+             }*/
             this.sessionStorageService.store('ss_FlightAvailability_request1', data);
             this.sessionStorageService.store('ss_FlightAvailability_request2', dataseccion);
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
@@ -689,9 +868,6 @@ TraerAutorizador() {
         }
       }
     );
-  }
-
-  ngAfterViewInit() {
   }
 
   openModalPoliticas(template) {
@@ -977,8 +1153,8 @@ TraerAutorizador() {
       "Lsections": request.Lsections,
       "Ocompany": request.Ocompany,
       "osession": this.osessionflightaval,
-      "Gds": request.Gds,
-      "PSeudo": request.PSeudo
+      "Gds": request.GDS,
+      "PSeudo": request.Pseudo
      }
      this.airportService.FlightPrice(data).subscribe(
        result => {

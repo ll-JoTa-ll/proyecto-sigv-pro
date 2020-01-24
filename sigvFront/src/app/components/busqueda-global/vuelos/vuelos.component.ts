@@ -1164,9 +1164,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       () => {
         this.spinner.hide();
         this.flagBuscadorLateral = false;
-        if (this.lstBnus.length > 0) {
+   /*     if (this.lstBnus.length > 0) {
           this.ModalBoletosnousados = this.modalService.show(BoletosNousadosComponent, this.config);
-        }
+        }*/
       }
     );
   }

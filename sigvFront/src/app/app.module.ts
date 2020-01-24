@@ -143,6 +143,7 @@ import { ModalCambiarPasswordComponent } from './components/shared/modal-cambiar
 import { ModalRecuperarPasswordComponent } from './components/shared/modal-recuperar-password/modal-recuperar-password.component';
 
 import { BoletosNousadosComponent } from './components/busqueda-global/vuelos/boletos-nousados/boletos-nousados.component';
+import { FormatporcentajePipe } from './pipes/formatporcentaje.pipe';
 
 @NgModule({
   declarations: [
@@ -258,7 +259,8 @@ import { BoletosNousadosComponent } from './components/busqueda-global/vuelos/bo
     PerfilUsuarioComponent,
     ModalCambiarPasswordComponent,
     ModalRecuperarPasswordComponent,
-    BoletosNousadosComponent
+    BoletosNousadosComponent,
+    FormatporcentajePipe
   ],
   imports: [
     BrowserModule,
