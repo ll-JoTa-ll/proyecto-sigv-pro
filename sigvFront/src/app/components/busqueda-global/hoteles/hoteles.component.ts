@@ -415,6 +415,11 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       this.datesalida = $('#datesalida').val();
       this.cantidadhabitaciones = $('#txthabitacion').val();
       let data = {
+        "Lusers":[{
+          "RoleId": this.loginDataUser.orole.roleId,
+          "LcostCenter": this.loginDataUser.lcostCenter,
+          "UserId": this.loginDataUser.userId
+        }],
         "Lhotel":
           [
             {
