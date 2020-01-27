@@ -179,7 +179,8 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
       "RecommendationId": request.RecommendationId,
       "UserId": request.UserId,
       "Infraction": request.Infraction,
-      "FlightNational": request.FlightNational
+      "FlightNational": request.FlightNational,
+      "Lpolicies": request.Lpolicies
     }
     this.flightAvailability(data);
   }

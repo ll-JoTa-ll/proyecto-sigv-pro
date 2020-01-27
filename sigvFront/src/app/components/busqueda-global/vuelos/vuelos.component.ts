@@ -13,6 +13,7 @@ import * as crypto from 'crypto-js';
 import { IBnusModel } from '../../../models/Ibnus.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BoletosNousadosComponent } from './boletos-nousados/boletos-nousados.component';
+import { environment } from '../../../../environments/environment';
 
 declare var jquery: any;
 declare var $: any;
@@ -143,7 +144,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     backdrop: true,
     ignoreBackdropClick: true
   };
-  ModalBoletosnousados: BsModalRef;
+  modalRef: BsModalRef;
+  lst_rol_autogestion;
+  lst_rol_autorizador;
+  lst_rol_centralizador;
+  datosuser: any[] = [];
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -188,6 +193,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.vueloTurnoFiltro = false;
     this.flagBuscadorLateral = false;
     this.ss_login_data = this.sessionStorageService.retrieve('ss_login_data');
+    this.lst_rol_autogestion = environment.cod_rol_autogestion;
+    this.lst_rol_autorizador = environment.cod_rol_autorizador;
+    this.lst_rol_centralizador = environment.cod_rol_centralizador;
 
 
     if (this.ss_login_data === '' || this.ss_login_data === null) {
@@ -581,6 +589,26 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
+  GetUsers() {
+    let data = {
+      Id: this.loginDataUser.userId
+    }
+    let objuser;
+    this.airportService.GetUser(data.Id).subscribe(
+      results => {
+        objuser = results;
+        this.datosuser.push(objuser);
+        this.sessionStorageService.store('objusuarios', this.datosuser);
+      },
+      err => {
+        
+      },
+      () => {
+       // this.TraerAutorizador();
+      }
+    );
+}
+
   selectEvent(item) {
     // do something with selected item
     this.origenAuto = item.iataCode;
@@ -848,7 +876,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
-  GetBoletosNoUsados() {
+  GetBoletosNoUsados(template) {
     let fechasalida;
     fechasalida = this.FormatearFecha(this.fechaSalida);
     let data = {
@@ -865,6 +893,14 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
       },
       () => {
+        if (this.lstBnus.length > 0) {
+          this.modalRef = this.modalService.show(
+           template,
+           Object.assign({}, { class: 'gray modal-lg' })
+         );
+         } else {
+             this.searchFlight();
+         }
       }
     );
   }
@@ -880,10 +916,13 @@ export class VuelosComponent implements OnInit, AfterViewInit {
      return fechatotal;
   }
 
+  BoletosNousados(template) {
+    this.GetBoletosNoUsados(template);
+  }
+
   searchFlight() {
+    this.modalRef.hide();
     this.spinner.show();
-    this.ValidarCiudad();
-    this.GetBoletosNoUsados();
     this.flagDinData = false;
 
     let origen: any[] = [];
@@ -1167,9 +1206,15 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       () => {
         this.spinner.hide();
         this.flagBuscadorLateral = false;
-   /*     if (this.lstBnus.length > 0) {
-          this.ModalBoletosnousados = this.modalService.show(BoletosNousadosComponent, this.config);
-        }*/
+
+        if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
+          this.GetUsers();
+          this.sessionStorageService.store('objusuarios', this.datosuser);
+        }
+        if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
+          this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+          this.sessionStorageService.store('objusuarios', this.datosuser);
+         }
       }
     );
   }
