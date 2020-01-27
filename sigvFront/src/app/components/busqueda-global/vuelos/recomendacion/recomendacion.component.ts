@@ -117,6 +117,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     this.lst_rol_autogestion = environment.cod_rol_autogestion;
     this.lst_rol_autorizador = environment.cod_rol_autorizador;
     this.lst_rol_centralizador = environment.cod_rol_centralizador;
+    this.datosuser = this.sessionStorageService.retrieve('objusuarios');
   }
 
   ngOnInit() {
@@ -147,15 +148,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
-      this.GetUsers();
-      this.sessionStorageService.store('objusuarios', this.datosuser);
-    }
-    if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
-      this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-      this.sessionStorageService.store('objusuarios', this.datosuser);
-      this.TraerAutorizador();
-     }
   }
 
   openModal(template: TemplateRef<any>, recommendationId, modalerror) {
@@ -384,7 +376,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       RecommendationId: this.recommendationId,
       UserId: this.loginDataUser.userId,
       Infraction: infraction,
-      FlightNational: this.flightNational
+      FlightNational: this.flightNational,
+      Lpolicies: this.lpolicies
     };
 
     return dataFamilias;
@@ -618,7 +611,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       RecommendationId: this.recommendationId,
       UserId: this.loginDataUser.userId,
       Infraction: infraction,
-      FlightNational: this.flightNational
+      FlightNational: this.flightNational,
+      Lpolicies: this.lpolicies
     };
     this.sessionStorageService.store('ss_FlightAvailability_request1', dataFamilias);
     this.flightAvailability(dataFamilias, template, 1, null, null);
@@ -729,7 +723,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         
       },
       () => {
-        this.TraerAutorizador();
+       // this.TraerAutorizador();
       }
     );
 }
@@ -797,6 +791,7 @@ TraerAutorizador() {
     this.vuelosComponent.spinner.show();
     if (tipo === 1) {
       // tslint:disable-next-line: max-line-length
+      this.TraerAutorizador();
     }
     // tslint:disable-next-line: max-line-length
     let flagResult = 0;
@@ -831,6 +826,7 @@ TraerAutorizador() {
             this.router.navigate(['/reserva-vuelo']);
           }
           if (tipo === 2) {
+            this.TraerAutorizador();
             // tslint:disable-next-line: max-line-length
           /*  if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
               this.GetUsers();

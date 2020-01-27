@@ -28,7 +28,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   Lsection;
   Lsectionpassenger;
   lsusuario;
-  lsflightavailability: IFlightAvailability;
+  lsflightavailability;
   LPolicies;
   dataflightavalilability;
   osession;
