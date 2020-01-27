@@ -306,7 +306,7 @@
                     <div *ngIf="vistalistado">
                         <app-resultado *ngFor="let lHotel of LlistaHotel; let i = index" [isvisible]="lHotel.isvisible" [name]="lHotel.name" [tipoPago]="lHotel.guaranteeType" [direccion]="lHotel.address" [distancia]="lHotel.oairportDistance.distance" [estrellas]="lHotel.stars"
                             [currency]="lHotel.oprice.currency" [precioxnoche]="lHotel.oprice.pricePerAllNights" [precioprom]="lHotel.oprice.pricePerNight" [urlHotel]="lHotel.limagens | getimghotel" [index]="i + 1" [latitud]="lHotel.oposition.latitude" [longitud]="lHotel.oposition.longitude"
-                            [cantidadnoche]="lHotel.numberNights" [cantpersonas]="lHotel.numberPassenger" [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida" [hotelcode]="lHotel.code" [cantidadhabitaciones]="cantidadhabitaciones">
+                            [cantidadnoche]="lHotel.numberNights" [cantpersonas]="lHotel.numberPassenger" [lPolicies]="lHotel.lpolicies" [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida" [hotelcode]="lHotel.code" [cantidadhabitaciones]="cantidadhabitaciones">
                         </app-resultado>
                     </div>
                     <app-mapa-hoteles *ngIf="vistamapa && mapafiltro" [listado]="LlistaHotel" [fechasalida]="fechaSalida" [fecharetorno]="fechaRetorno" [estrellas]="estrellas"></app-mapa-hoteles>

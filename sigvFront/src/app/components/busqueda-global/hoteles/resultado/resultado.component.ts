@@ -28,7 +28,7 @@ declare var $: any;
 export class ResultadoComponent implements OnInit {
   @ViewChild(ModalDirective,{static:false}) modal: ModalDirective;
   loginDataUser: ILoginDatosModel;
-
+  modalRefPoliticas: BsModalRef;
   @Input() LHoteles: IHotelResultsModel[];
   @Input() name: string;
   @Input() direccion: string;
@@ -44,6 +44,7 @@ export class ResultadoComponent implements OnInit {
   @Input() latitud: string;
   @Input() longitud: string;
   @Input() cantidadnoche: string;
+  @Input() lPolicies: string[];
   @Input() cantpersonas: string;
   @Input() hotelcode: string;
   @Input() fechasalida: string;
@@ -150,6 +151,13 @@ export class ResultadoComponent implements OnInit {
 
   Mostrarmapa(position) {
     $('#mapa_' + position).show();
+  }
+
+  openModalPoliticas(template) {
+    this.modalRefPoliticas = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray con-politicas' })
+    );
   }
 
 

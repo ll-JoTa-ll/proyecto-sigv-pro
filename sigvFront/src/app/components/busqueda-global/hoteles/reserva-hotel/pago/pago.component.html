@@ -1,7 +1,12 @@
 <div class="m-0 p-0 pb-5">
     <div class="col-12 m-0 p-0 box-shadow">
         <div class="row m-0 p-0">
-            <div class="pago col-12 m-0 p-0 pt-4 pb-2 pl-4"> DEPÓSITO EN GARANTIA</div>
+            <div class="pago col-12 m-0 p-0 pt-4 pb-2 pl-4">
+                DEPÓSITO EN GARANTIA
+                <span (click)="openModal1(modalinfraccion, modalerror)" class="txt-infraccion pr-4" style="cursor: pointer;padding-left: 200px;">Ver infracción</span>
+                <span *ngIf="lhotel.lpolicies.length > 0" class="circulo-politica"></span>
+                <span *ngIf="lhotel.lpolicies.length === 0" class="circulo-politica1"></span>
+            </div>
             <div class="nombreHotel col-12 m-0 p-0 pb-3 pl-4">
                 <span></span>{{reserva.ohotel.name}} - <span>{{habitacion.ohotel.cityName}} .</span> <span>A {{lhotel.oairportDistance.distance}} km  del  aeropuerto</span>
             </div>
@@ -101,4 +106,42 @@
             </div>
         </div>
     </div>
+    <ng-template #modalinfraccion let-c="close" let-d="dismiss">
+        <div class="modal-header m-0 p-0" style="border: none;">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+        </div>
+        <div class="modal-body m-0 p-0">
+            <app-modal-habitacion-hab [currency]="currency" [LPolicies]="lhotel.lpolicies"></app-modal-habitacion-hab>
+        </div>
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 text-center pb-3">
+                <button (click)="modalRef.hide()" class="btn btn-ok">Ok</button>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #modalerror let-c="close" let-d="dismiss">
+
+        <div class="modal-header pb-0" style="border: none;">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </div>
+
+        <div class="modal-body m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                    No se ha infringido ninguna politica
+                </div>
+
+                <div class="col-12 m-0 p-0 pb-4 text-center">
+                    <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+                                      Ok
+                                    </button>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
 </div>

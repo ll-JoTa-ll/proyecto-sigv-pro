@@ -1,0 +1,20 @@
+<div class="row m-0 p-0">
+
+    <!--
+    <div class="col-12 m-0 p-0 ip-text-1">
+      <u>Infracción de Políticas de Viaje</u>
+    </div>
+    -->
+
+    <div class="col-12 m-0 p-0 text-center d-flex justify-content-center align-items-center ip-text-1">
+        <img src="./assets/images/logo-familia.png" alt="" style="width: 20px;">
+        <span class="pl-1">Política: {{politica.name}}</span>
+    </div>
+    <div class="col-12 m-0 p-0 text-center ip-text-2">
+        {{politica.message}}
+    </div>
+    <div class="col-12 m-0 p-0" style="height: 20px !important;">
+        <hr *ngIf="politicaIndex<politicaslength">
+    </div>
+
+</div>

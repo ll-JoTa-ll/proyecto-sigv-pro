@@ -1,7 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, Directive, ElementRef, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Directive, ElementRef, Input, HostListener, TemplateRef } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IGetEnhancedHotel } from 'src/app/models/IGetEnhancedHotel';
 import { IHabitacionResults } from '../../../../../models/IHabitacionResults';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 declare var jquery: any;
 declare var $: any;
@@ -32,17 +33,17 @@ export class PagoComponent implements OnInit {
   codSeguridad: string;
   titular: string;
   nombreTarjeta: string;
-  
+  modalRef: BsModalRef;
   tipoTarjeta: number;
   slash: number;
   model: any = {};
-
+  currency: string;
   opentarjeta = false;
   ss_tarjeta: any;
 
   tarj: any;
 
-  constructor(private sessionStorageService: SessionStorageService) {
+  constructor(private sessionStorageService: SessionStorageService,private modalService: BsModalService) {
     this.tipoTarjeta = 0;
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.sessionStorageService.store("ss_tarjeta",this.opentarjeta);
@@ -56,6 +57,20 @@ export class PagoComponent implements OnInit {
   ngOnInit() {
     this.reserva = this.sessionStorageService.retrieve("confirmacion");
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
+  }
+
+  openModal1(template: TemplateRef<any>, template2: TemplateRef<any>) {
+    if (this.lhotel.lpolicies.length === 0) {
+      this.modalRef = this.modalService.show(
+        template2,
+        Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+      );
+    } else {
+      this.modalRef = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+      );
+    }
   }
 
   validarTarjeta() {

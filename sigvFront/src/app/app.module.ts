@@ -143,7 +143,12 @@ import { ModalCambiarPasswordComponent } from './components/shared/modal-cambiar
 import { ModalRecuperarPasswordComponent } from './components/shared/modal-recuperar-password/modal-recuperar-password.component';
 
 import { BoletosNousadosComponent } from './components/busqueda-global/vuelos/boletos-nousados/boletos-nousados.component';
+<<<<<<< HEAD
 import { FormatporcentajePipe } from './pipes/formatporcentaje.pipe';
+=======
+import { HotelesPoliticasComponent } from './components/busqueda-global/hoteles/hoteles-politicas/hoteles-politicas.component';
+import { ModalHabitacionHabComponent } from './components/busqueda-global/hoteles/habitacion/modal-habitacion-hab/modal-habitacion-hab.component';
+>>>>>>> origin/hoteles-v4
 
 @NgModule({
   declarations: [
@@ -260,7 +265,12 @@ import { FormatporcentajePipe } from './pipes/formatporcentaje.pipe';
     ModalCambiarPasswordComponent,
     ModalRecuperarPasswordComponent,
     BoletosNousadosComponent,
+<<<<<<< HEAD
     FormatporcentajePipe
+=======
+    HotelesPoliticasComponent,
+    ModalHabitacionHabComponent
+>>>>>>> origin/hoteles-v4
   ],
   imports: [
     BrowserModule,

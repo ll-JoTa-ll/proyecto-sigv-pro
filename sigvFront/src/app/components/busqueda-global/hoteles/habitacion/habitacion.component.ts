@@ -224,6 +224,20 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     )
   }
 
+  openModal1(template: TemplateRef<any>, template2: TemplateRef<any>) {
+    if (this.lhotel.lpolicies.length === 0) {
+      this.modalRef = this.modalService.show(
+        template2,
+        Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+      );
+    } else {
+      this.modalRef = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+      );
+    }
+  }
+
 
   showHideMap($event) {
     this.mapafiltro = $event;

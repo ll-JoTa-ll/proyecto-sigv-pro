@@ -60,6 +60,10 @@
                 <div class="col-6 m-0 p-0 text-center div-price">
                     <span>Precio promedio noche</span>
                 </div>
+                <div class="col-6 m-0 p-0 text-center">
+                    <span tooltip="Hospedaje con infracción de políticas." (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer" *ngIf="lPolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
+                    <span tooltip="El hospedaje cumple las políticas de viaje de la empresa." *ngIf="lPolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
+                </div>
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 text-center mt-3">
@@ -93,7 +97,36 @@
                                           </button>
                 </div>
             </div>
+
+
         </div>
+
+        <ng-template #modalPolitica let-c="close" let-d="dismiss">
+
+            <div class="modal-header pb-0" style="border: none;">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+
+            <div class="modal-body m-0 p-0">
+
+                <div class="row m-0 p-0 pb-3">
+                    <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+                        <u>Infracción de Políticas de Hotel</u>
+                    </div>
+                </div>
+
+                <div class="row m-0 p-0">
+
+                    <app-hoteles-politicas [politica]="politica" [politicaIndex]="i+1" [politicaslength]="lPolicies.length" *ngFor="let politica of lPolicies; let i=index"></app-hoteles-politicas>
+
+                </div>
+
+            </div>
+
+        </ng-template>
+
     </div>
 
 </div>
