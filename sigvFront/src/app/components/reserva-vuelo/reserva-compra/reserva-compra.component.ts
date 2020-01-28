@@ -13,6 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { SafeHtml } from '@angular/platform-browser';
 
 declare var jquery: any;
 declare var $: any;
@@ -223,7 +224,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
               Object.assign({}, { class: 'gray modal-lg m-infraccion' })
             );
           }
-
       }
       );
     }
@@ -336,8 +336,34 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     }
 
    PlantillaPreciovuelo() {
+    let html = '';
+    if (this.lsflightavailability.odiscount != null && this.lsflightavailability.odiscount.amount != 0) {
+      html += "<div style='width: 100%; text-align: rigth'>";
+      html += "<span style='font-size: 13px;color: #676767; margin-left: 7px;'>Monto de desc.</span>";
+      html += "<span style=' font-size: 13px;color: #6B253C; margin-left: 25px;'>";
+      html +=  this.lsflightavailability.currency;
+      html +="</span>";
+      html += "<span style='color: #898989; font-size: 13px;'>";
+      html += this.lsflightavailability.odiscount.amount;
+      html += "</span>";
+      html += "</div>";
+    }
+
+    let htmlporcentaje = '';
+    if (this.lsflightavailability.odiscount != null && this.lsflightavailability.odiscount.percentage) {
+      htmlporcentaje += "<div style='width: 100%; text-align: rigth'>";
+      htmlporcentaje += "<span style='font-size: 13px;color: #676767'>Porcentaje de desc.</span>";
+      htmlporcentaje += "<span style='color: #898989; font-size: 13px; margin-left: 14px;'>";
+      htmlporcentaje +=  this.lsflightavailability.odiscount.percentage;
+      htmlporcentaje += "</span>";
+      htmlporcentaje += "<span style=' font-size: 13px;color: #6B253C;'>%</span>";
+      htmlporcentaje += "</div>";
+    }
+
     this.FormatearFechaPnr();
     let motivo = $('#motivoviaje').val();
+    this.emailsolicitud = this.emailsolicitud.replace('@precioconvenio', html);
+    this.emailsolicitud = this.emailsolicitud.replace('@porcentajedescuento', htmlporcentaje);
     this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
     this.emailsolicitud = this.emailsolicitud.replace("@fechatimelimit",this.fechatimelimit);
     this.emailsolicitud = this.emailsolicitud.replace("@horatimelimit",this.horatimelimit);
@@ -351,20 +377,20 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     let html = '';
     for (let j = 0; j < this.lsusuario.length; j++) {
       const item = this.lusers[j];
-    html+="<tr>"
-    html+="<td>"
-    html += item.firstName + " " + item.lastName;
-    html+="</td>"
-    html+="<td>"
-    html += item.odocument.number;
-    html+="</td>"
-    html+="<td>"
-    html += item.email;
-    html+="</td>"
-    html+="<td>"
-    html += item.phone;
+      html+="<tr>"
+      html+="<td>"
+      html += item.firstName + " " + item.lastName;
+      html+="</td>"
+      html+="<td>"
+      html += item.odocument.number;
+      html+="</td>"
+      html+="<td>"
+      html += item.email;
+      html+="</td>"
+      html+="<td>"
+      html += item.phone;
     "</td>"
-    html+="</tr>"
+      html+="</tr>"
     }
     this.htmlpasajeros = html;
     this.emailsolicitud = this.emailsolicitud.replace("@NombreSolicitante",this.lsusuario[0].firstName + " " + this.lsusuario[0].lastName);
@@ -374,26 +400,26 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
    PlantillaPoliticas()
    {
      let html = '';
-    for (let i = 0; i < this.LPolicies.length; i++) {
+     for (let i = 0; i < this.LPolicies.length; i++) {
     const item = this.LPolicies[i];
-     html+= "<div style='width:100% !important'>";
-     html+="<div class='row' style='padding-top: 25px; padding-bottom: 30px; padding-left: 15px;'>";
-     html+="<img style='width: 40px;' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/calendario.png'><label class='m-0 p-0 pl-3' style=' color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;padding-left: 2%;'>";
-     html+= item.name;
-     html+="</label>";
-     html+="</div>";
-     html+="<div class='row'>";
-     html+="<div style='color: #4A4A4A; font-size: 18px; opacity: 1; letter-spacing: 0; padding-bottom: 20px; padding-left: 20px;'>Infraccion</div>";
-     html+="<div style='color: #4A4A4A; font-size: 18px; opacity: 1; letter-spacing: 0; text-align: right; width: 1160px; padding-bottom: 20px;padding-right: 174px;'>Impacto</div>";
-     html+="</div>";
-     html+="<div class='row' style='padding-left: 20px; padding-right: 20px;'>";
-     html+="<div style='width: 60%; text-align: center; color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white;'>";
-     html+=item.message;
-     html+="</div>";
-     html+="<div style='width: 10%;'>";
-     html+="</div>";
-     html+="<div style='width: 30%; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white; text-align: center;'>";
-     if (item.impact === 0)
+    html+= "<div style='width:100% !important'>";
+    html+="<div class='row' style='padding-top: 25px; padding-bottom: 30px; padding-left: 15px;'>";
+    html+="<img style='width: 40px;' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/calendario.png'><label class='m-0 p-0 pl-3' style=' color: #555555; font-size: 20px; opacity: 1; letter-spacing: 0;padding-left: 2%;'>";
+    html+= item.name;
+    html+="</label>";
+    html+="</div>";
+    html+="<div class='row'>";
+    html+="<div style='color: #4A4A4A; font-size: 18px; opacity: 1; letter-spacing: 0; padding-bottom: 20px; padding-left: 20px;'>Infraccion</div>";
+    html+="<div style='color: #4A4A4A; font-size: 18px; opacity: 1; letter-spacing: 0; text-align: right; width: 1160px; padding-bottom: 20px;padding-right: 174px;'>Impacto</div>";
+    html+="</div>";
+    html+="<div class='row' style='padding-left: 20px; padding-right: 20px;'>";
+    html+="<div style='width: 60%; text-align: center; color: #898989; font-size: 15px; opacity: 1; letter-spacing: 0; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white;'>";
+    html+=item.message;
+    html+="</div>";
+    html+="<div style='width: 10%;'>";
+    html+="</div>";
+    html+="<div style='width: 30%; border-radius: 20px 0px 20px 0px; border-top : 6px whitesmoke outset; border-bottom : 6px whitesmoke inset; border-right: 6px whitesmoke inset; border-left: 6px whitesmoke outset; padding: 1em; background: white; text-align: center;'>";
+    if (item.impact === 0)
      {
       html+="<span style='color: #3D3D3D; font-size: 18px; opacity: 1; letter-spacing: 0;'>";
       html+="NO HAY IMPACTO";
@@ -406,9 +432,9 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       html+=item.impact;
       html+="</span>";
      }
-     html+="</div>";
-     html+="</div>";
-     html+="</div>";
+    html+="</div>";
+    html+="</div>";
+    html+="</div>";
     }
      this.htmlpoliticas = html;
      this.emailsolicitud = this.emailsolicitud.replace('@politicas', this.htmlpoliticas);
@@ -464,8 +490,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       let mailcontacto = this.contacto.ContactEmail;
    //   console.log(this.emailsolicitud);
       let email = this.emailsolicitud.replace(/\n|\r/g, '');
-     // console.log(email);
-      //alert(email.trim());
+      console.log(email);
       let data = {
         "AgencyId": 1,
         "Recipients": mails,
@@ -623,16 +648,21 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     }
 
     PlantillaPrecioReserva() {
-    this.FormatearFechaReserva();
-    this.FormatearFechaReserva2();
-    this.emailreserva = this.emailreserva.replace(/@currency/gi, this.lsflightavailability.currency);
-    this.emailreserva = this.emailreserva.replace(/@preciototal/gi, this.lsflightavailability.totalFareAmount);
-    this.emailreserva = this.emailreserva.replace(/@precioadulto/gi, this.lsflightavailability.fareAmountByPassenger);
-    this.emailreserva = this.emailreserva.replace('@solicitadopor', this.loginDataUser.userName + ' ' + this.loginDataUser.userLastName);
-    this.emailreserva = this.emailreserva.replace('@reservadopor', this.loginDataUser.userName + ' ' + this.loginDataUser.userLastName);
-    this.emailreserva = this.emailreserva.replace('@fechacreacion', this.fechacreacion);
-    this.emailreserva = this.emailreserva.replace('@fechaexpiracion', this.fechaexpiracion);
-    this.emailreserva = this.emailreserva.replace('@pnr', this.pnrresults.pnr);
+      this.FormatearFechaReserva();
+      this.FormatearFechaReserva2();
+      if (this.lsflightavailability.odiscount != null) {
+        this.emailreserva = this.emailreserva.replace('@montdesc', this.lsflightavailability.odiscount.amount);
+      } else {
+        this.emailreserva = this.emailreserva.replace('@montdesc', '0.00');
+      }
+      this.emailreserva = this.emailreserva.replace(/@currency/gi, this.lsflightavailability.currency);
+      this.emailreserva = this.emailreserva.replace(/@preciototal/gi, this.lsflightavailability.totalFareAmount);
+      this.emailreserva = this.emailreserva.replace(/@precioadulto/gi, this.lsflightavailability.fareAmountByPassenger);
+      this.emailreserva = this.emailreserva.replace('@solicitadopor', this.loginDataUser.userName + ' ' + this.loginDataUser.userLastName);
+      this.emailreserva = this.emailreserva.replace('@reservadopor', this.loginDataUser.userName + ' ' + this.loginDataUser.userLastName);
+      this.emailreserva = this.emailreserva.replace('@fechacreacion', this.fechacreacion);
+      this.emailreserva = this.emailreserva.replace('@fechaexpiracion', this.fechaexpiracion);
+      this.emailreserva = this.emailreserva.replace('@pnr', this.pnrresults.pnr);
     }
 
     PlantillaItinerarioReserva() {

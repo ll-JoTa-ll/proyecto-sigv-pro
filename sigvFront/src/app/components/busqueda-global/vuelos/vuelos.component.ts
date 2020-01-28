@@ -149,6 +149,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   lst_rol_autorizador;
   lst_rol_centralizador;
   datosuser: any[] = [];
+  p: number[] = [];
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -896,7 +897,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         if (this.lstBnus.length > 0) {
           this.modalRef = this.modalService.show(
            template,
-           Object.assign({}, { class: 'gray modal-lg' })
+           Object.assign({}, { class: 'gray modal-lg m-resumen'})
          );
          } else {
              this.searchFlight();
@@ -921,7 +922,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   searchFlight() {
-    this.modalRef.hide();
+    if (this.lstBnus.length > 0) {
+      this.modalRef.hide();
+    }
     this.spinner.show();
     this.flagDinData = false;
 

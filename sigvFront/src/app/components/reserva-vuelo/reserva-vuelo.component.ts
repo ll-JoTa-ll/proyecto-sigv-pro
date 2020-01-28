@@ -111,7 +111,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.ReasonFlight();
   }
 
-  ngAfterViewInit() { 
+  ngAfterViewInit() {
     let count = this.sessionStorageService.retrieve('count');
     if (count === undefined || count === null || count === '') {
       count = true;
@@ -246,7 +246,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
       },
       () => {
-    
       }
     )
   }
