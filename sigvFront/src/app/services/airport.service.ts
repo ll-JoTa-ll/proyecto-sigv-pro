@@ -19,6 +19,7 @@ import { IQueuePnr } from '../models/IQueuePnr.model';
 import { IAirportList } from '../models/IAirportList.model';
 import { IGetPaisesModel } from '../models/IGetPaises';
 import { IBnusModel } from '../models/Ibnus.model';
+import { iGetAsesors } from '../models/IGetAsesors';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -48,6 +49,8 @@ export class AirportService {
   private _url11: string = environment.url_2 + "Cancel/";
   private _url12: string = environment.url_2 + "Country/";
   private url_bnus: string = environment.url_bnus + "UnusedTickets/";
+  private url_usebnus: string = environment.url_5 + "AsesorCompany/";
+  private url_asesors: string = environment .url_5 + "AsesorCompany/";
 
   constructor(
     private http: HttpClient,
@@ -253,5 +256,24 @@ export class AirportService {
       'Content-Type': "application/json",
     });
     return this.http.post<IBnusModel[]>(this.url_bnus  + "GetUnusedTickets", data, httpOptions2);
+  }
+
+  ValidateInsertUseBnus(data) {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    return this.http.post(this.url_usebnus  + "ValidateInsertUseBNUS", data, httpOptions2);
+  }
+
+  GetAsesors(data): Observable<iGetAsesors[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+    });
+    const url = `${this.url_usebnus + 'GetAsesorByCompany'}?${'Id=' + data}`;
+    return this.http.get<iGetAsesors[]>(url, httpOptions2);
   }
 }

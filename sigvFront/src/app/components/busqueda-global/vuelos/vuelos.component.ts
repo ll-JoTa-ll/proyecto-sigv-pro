@@ -14,6 +14,7 @@ import { IBnusModel } from '../../../models/Ibnus.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BoletosNousadosComponent } from './boletos-nousados/boletos-nousados.component';
 import { environment } from '../../../../environments/environment';
+import { iGetAsesors } from '../../../models/IGetAsesors';
 
 declare var jquery: any;
 declare var $: any;
@@ -150,6 +151,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   lst_rol_centralizador;
   datosuser: any[] = [];
   p: number[] = [];
+  lstAsesors: iGetAsesors[];
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -877,18 +879,48 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
-  GetBoletosNoUsados(template) {
-    let fechasalida;
-    fechasalida = this.FormatearFecha(this.fechaSalida);
-    let data = {
-      "Vuelo":"N",
-      "RUC":"20546121250",
-      "FecSalida": fechasalida
+  UserBnus(tipo, template) {
+    let data: any;
+    if (tipo === 1) {
+        data = {
+        "CompanyID": this.loginDataUser.ocompany.companyId,
+        "UserId": this.loginDataUser.userId,
+        "Use": true
+      };
     }
-    this.airportService.GetBoletosnoUsados(data).subscribe(
+    if (tipo === 2) {
+        data = {
+        "CompanyID": this.loginDataUser.ocompany.companyId,
+        "UserId": this.loginDataUser.userId,
+        "Use": false
+      };
+    }
+    this.airportService.ValidateInsertUseBnus(data).subscribe(
       result => {
-           this.lstBnus = result;
-           this.sessionStorageService.store('lstbnus', this.lstBnus);
+           if (result === true) {
+            this.modalRef.hide();
+            this.modalRef = this.modalService.show(
+              template,
+              Object.assign({}, { class: 'gray modal-lg m-infraccion'})
+            );
+           }
+      },
+      err => {
+
+      },
+      () => {
+
+      }
+    )
+  }
+ 
+  GetAsesors(template) {
+    let data = {
+      Id : this.loginDataUser.ocompany.companyId
+    }
+    this.airportService.GetAsesors(data.Id).subscribe(
+      results => {
+         this.lstAsesors = results;
       },
       err => {
 
@@ -902,6 +934,28 @@ export class VuelosComponent implements OnInit, AfterViewInit {
          } else {
              this.searchFlight();
          }
+      }
+    )
+  }
+
+  GetBoletosNoUsados(template) {
+    let fechasalida;
+    fechasalida = this.FormatearFecha(this.fechaSalida);
+    let data = {
+      "Vuelo":"N",
+      "RUC":this.loginDataUser.ocompany.ruc,
+      "FecSalida": fechasalida
+    }
+    this.airportService.GetBoletosnoUsados(data).subscribe(
+      result => {
+           this.lstBnus = result;
+           this.sessionStorageService.store('lstbnus', this.lstBnus);
+      },
+      err => {
+
+      },
+      () => {
+          this.GetAsesors(template);
       }
     );
   }
@@ -923,6 +977,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   searchFlight() {
     if (this.lstBnus.length > 0) {
+      this.UserBnus(2, null);
       this.modalRef.hide();
     }
     this.spinner.show();
@@ -1163,6 +1218,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.flagPseudoRepeat = true;
         if (result !== null && result.length > 0) {
           this.searchData = result;
+          this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
           this.sessionStorageService.store('ss_searchFlight', result);
           this.flagBuscar = true;
           this.flagBuscadorLateral = true;

@@ -90,7 +90,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.flightAvailability_result = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
-    this.sessionStorageService.store('tipovuelo', null);
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.htmlTxtC = "";
   }
@@ -139,7 +138,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let data = {
       Id: this.ocompany.companyId
     };
-
     this.service.getCostCenter(data).subscribe(
       results => {
          this.lsCostCenter = results;

@@ -712,6 +712,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.sessionStorageService.store('ss_dataRequestFlight', data);
       this.sessionStorageService.store('ss_horasFrom', horasFrom);
       this.sessionStorageService.store('ss_horasTo', horasTo);
+      this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
       const ss_filterPrecio = this.sessionStorageService.retrieve('ss_filterPrecio');
   
       this.airportService.searchFlight(data).subscribe(

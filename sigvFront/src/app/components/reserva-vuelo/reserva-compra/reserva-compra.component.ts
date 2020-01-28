@@ -29,7 +29,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   Lsection;
   Lsectionpassenger;
   lsusuario;
-  lsflightavailability;
+  lsflightavailability: IFlightAvailability;
   LPolicies;
   dataflightavalilability;
   osession;
@@ -70,6 +70,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     backdrop: true,
     ignoreBackdropClick: true
   };
+  tipovuelo;
 
   constructor(private sessionStorageService: SessionStorageService,
               private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService,
@@ -96,6 +97,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.plantillareserva = 'assets/plantillasEmail/plantillareservagenerada.html';
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.contacto = this.sessionStorageService.retrieve('contacto');
+    this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
    }
 
    /*
@@ -105,7 +107,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   }*/
 
   ngOnInit() {
-    this.bloquearBotonAtras();
+    //this.bloquearBotonAtras();
     window.scrollTo(0, 0);
     this.currency = this.dataflightavalilability.Currency;
     this.pseudo = this.dataflightavalilability.Pseudo;
@@ -163,6 +165,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.spinner.show();
     let phones = [];
     let email = [];
+    let amount;
+    let porcentaje;
     let infraction;
     if (this.LPolicies.length > 0) {
       infraction = true;
@@ -171,6 +175,13 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     }
     this.Obtenerstring();
     this.ObtenerstringReserva();
+    if (this.lsflightavailability.odiscount != null) {
+      amount = this.lsflightavailability.odiscount.amount;
+      porcentaje = this.lsflightavailability.odiscount.percentage;
+    } else {
+      amount = 0;
+      porcentaje = 0;
+    }
     let idinterval = this.sessionStorageService.retrieve('idinterval');
     let data = {
     "UserId": this.loginDataUser.userId,
@@ -192,7 +203,11 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "TotalFareAmount": this.lsflightavailability.totalFareAmount,
     "Currency": this.lsflightavailability.currency,
     "NumberPassengers": this.dataflightavalilability.NumberPassengers,
-    "RecommendationId": this.dataflightavalilability.RecommendationId
+    "RecommendationId": this.dataflightavalilability.RecommendationId,
+    "TypeFlight": this.tipovuelo,
+    "TotalDiscount": amount,
+    "PercentageDiscount": porcentaje,
+    "Ltaxes": this.lsflightavailability.ltaxes
     };
     this.service.AddPassenger(data).subscribe(
         results => {
@@ -490,7 +505,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       let mailcontacto = this.contacto.ContactEmail;
    //   console.log(this.emailsolicitud);
       let email = this.emailsolicitud.replace(/\n|\r/g, '');
-      console.log(email);
       let data = {
         "AgencyId": 1,
         "Recipients": mails,
@@ -566,10 +580,19 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       let phones = [];
       let email = [];
       let infraction;
+      let amount;
+      let porcentaje;
       if (this.LPolicies.length > 0) {
       infraction = true;
       } else {
       infraction = false;
+    }
+      if (this.lsflightavailability.odiscount != null) {
+      amount = this.lsflightavailability.odiscount.amount;
+      porcentaje = this.lsflightavailability.odiscount.percentage;
+    } else {
+      amount = 0;
+      porcentaje = 0;
     }
       let data = {
     "UserId": this.userid,
@@ -591,7 +614,11 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "NumberPassengers": this.dataflightavalilability.NumberPassengers,
     "RecommendationId": this.dataflightavalilability.RecommendationId,
     "Comment": "Reserva de emision",
-    "Lauthorizer": this.lsapprover
+    "Lauthorizer": this.lsapprover,
+    "TypeFlight": this.tipovuelo,
+    "TotalDiscount": amount,
+    "PercentageDiscount": porcentaje,
+    "Ltaxes": this.lsflightavailability.ltaxes
     };
       this.service.GenerateTicket(data).subscribe(
         results => {

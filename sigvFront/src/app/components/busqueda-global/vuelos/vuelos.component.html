@@ -413,7 +413,7 @@
                     <div class="col-12 m-0 p-0 text-center pt-2 pb-3">
                         <span class="text-informacion">Asesor asignado:</span>
 
-                        <table class="table table-bordered pt-2" style="width: 866px; margin-left: 60px;">
+                        <table class="table table-bordered pt-2" style="width: 866px; margin-left: 124px;">
                             <thead>
                                 <tr>
                                     <th>Asesor</th>
@@ -422,7 +422,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr *ngFor="let item of lstAsesors">
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.email}}</td>
+                                    <td>{{item.phone}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -430,7 +433,7 @@
                     <div class="col-12 m-0 p-0">
                         <div class="row m-0 p-0 text-center">
                             <div class="col-6 m-0 p-0">
-                                <button class="btn btn-1">Llamaré a mi asesor</button>
+                                <button class="btn btn-1" (click)="UserBnus(1, modalconfirmacion)">Llamaré a mi asesor</button>
                             </div>
                             <div class="col-6 m-0 p-0">
                                 <button class="btn btn-1" (click)="searchFlight()">Continuar</button>
@@ -438,6 +441,33 @@
                         </div>
                     </div>
                 </div>
+            </ng-template>
+
+            <ng-template #modalconfirmacion let-c="close" let-d="dismiss">
+
+                <div class="modal-header pb-0" style="border: none;">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+                </div>
+
+                <div class="modal-body m-0 p-0">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
+                            Ud. esta contribuyendo al ahorro de su empresa
+                        </div>
+                        <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
+                            Su asesor ha sido notificado, comuníquese directamente con él para gestionar la compra del pasaje.
+                        </div>
+
+                        <div class="col-12 m-0 p-0 pb-4 text-center">
+                            <button class="btn btn-1" (click)="modalRef.hide()">
+                              Ok
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             </ng-template>
 
             <!-- flagBuscar -->
