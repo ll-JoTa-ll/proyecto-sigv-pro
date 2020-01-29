@@ -12,6 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalHabitacionErroneaComponent } from '../../../../shared/modal-habitacion-erronea/modal-habitacion-erronea.component';
+import { ModalInfraccionCompraComponent } from '../../../../shared/modal-infraccion-compra/modal-infraccion-compra.component';
 
 @Component({
   selector: 'app-detalle-habitacion',
@@ -72,49 +73,48 @@ export class DetalleHabitacionComponent implements OnInit {
   }
 
   getReservaHabitacion(RoomType,BookingCode,PlanCode){
-    this.spinner.show();
-    let data = {
-    "Pseudo": "LIMPE2235",
-    "CityCode": this.habitacion.ohotel.cityCode,
-    "ChainCode": this.habitacion.ohotel.chainCode,
-    "HotelCode": this.habitacion.ohotel.hotelCode,
-    "StartDate": this.habitacion.ohotel.startDate,
-    "EndDate": this.habitacion.ohotel.endDate,
-    "Starts": this.habitacion.ohotel.stars,
-    "RoomType": RoomType,
-    "BookingCode": BookingCode,
-    "LguestPerRoom": this.habitacion.ohotel.lguestPerRoom,
-    "PlanCode": PlanCode,
-    "Ocompany": this.loginDataUser.ocompany,
-      "osession": this.habitacion.osession
-    }
-
-    
-
-    this.service.GetConfirmacion(data).subscribe(
-      data => {
-
-        this.Confirmacion = data;
-        
-        
-        this.sessionStorageService.store("confirmacion", this.Confirmacion);
-      },
-      err => {
-        this.spinner.hide();
-      
-    },
-   () => {
-    //window.open(environment.url_project + "/reserva-habitacion-hotel");
-    if (this.Confirmacion.oerror != null) {
-      this.modalRefSessionExpired = this.modalService.show(ModalHabitacionErroneaComponent)
+    if(this.loginDataUser.ocompany.blockHotel === true && this.lPolicies.length > 0){
+      this.modalRefSessionExpired = this.modalService.show(ModalInfraccionCompraComponent);
     }else{
-      this.router.navigate(['/reserva-habitacion-hotel']);
+        this.spinner.show();
+      let data = {
+      "Pseudo": "LIMPE2235",
+      "CityCode": this.habitacion.ohotel.cityCode,
+      "ChainCode": this.habitacion.ohotel.chainCode,
+      "HotelCode": this.habitacion.ohotel.hotelCode,
+      "StartDate": this.habitacion.ohotel.startDate,
+      "EndDate": this.habitacion.ohotel.endDate,
+      "Starts": this.habitacion.ohotel.stars,
+      "RoomType": RoomType,
+      "BookingCode": BookingCode,
+      "LguestPerRoom": this.habitacion.ohotel.lguestPerRoom,
+      "PlanCode": PlanCode,
+      "Ocompany": this.loginDataUser.ocompany,
+        "osession": this.habitacion.osession
+      }
+      this.service.GetConfirmacion(data).subscribe(
+        data => {
+          this.Confirmacion = data;
+          this.sessionStorageService.store("confirmacion", this.Confirmacion);
+        },
+        err => {
+          this.spinner.hide();
+        
+      },
+    () => {
+      //window.open(environment.url_project + "/reserva-habitacion-hotel");
+      if (this.Confirmacion.oerror != null) {
+        this.modalRefSessionExpired = this.modalService.show(ModalHabitacionErroneaComponent)
+      }else{
+        this.router.navigate(['/reserva-habitacion-hotel']);
+      }
+      
+      this.spinner.hide();
+      
+    }
+      )
     }
     
-    this.spinner.hide();
-    
-   }
-    )
   }
 
   getUser(){
