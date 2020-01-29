@@ -66,7 +66,8 @@ export class IHabitacionResults {
             totalTax: number;
             totalPrice: number;
             currency: string;
-        }
+        },
+        lpolicies: string;
     }
   ];
   gds: string;

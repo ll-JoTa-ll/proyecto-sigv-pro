@@ -145,6 +145,7 @@ import { ModalRecuperarPasswordComponent } from './components/shared/modal-recup
 import { BoletosNousadosComponent } from './components/busqueda-global/vuelos/boletos-nousados/boletos-nousados.component';
 import { HotelesPoliticasComponent } from './components/busqueda-global/hoteles/hoteles-politicas/hoteles-politicas.component';
 import { ModalHabitacionHabComponent } from './components/busqueda-global/hoteles/habitacion/modal-habitacion-hab/modal-habitacion-hab.component';
+import { ModalInfraccionCompraComponent } from './components/shared/modal-infraccion-compra/modal-infraccion-compra.component';
 
 @NgModule({
   declarations: [
@@ -262,7 +263,8 @@ import { ModalHabitacionHabComponent } from './components/busqueda-global/hotele
     ModalRecuperarPasswordComponent,
     BoletosNousadosComponent,
     HotelesPoliticasComponent,
-    ModalHabitacionHabComponent
+    ModalHabitacionHabComponent,
+    ModalInfraccionCompraComponent
   ],
   imports: [
     BrowserModule,
@@ -299,7 +301,7 @@ import { ModalHabitacionHabComponent } from './components/busqueda-global/hotele
     IgxInputGroupModule,
 		IgxSliderModule
   ],
-  entryComponents: [ ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent],
+  entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })
