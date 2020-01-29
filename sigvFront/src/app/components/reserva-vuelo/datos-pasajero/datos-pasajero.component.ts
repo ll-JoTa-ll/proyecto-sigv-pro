@@ -60,8 +60,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.datosuser.forEach(element => {
       fecha = new Date(element.birthDate);
-      console.log(element.birthDate);
-      console.log(fecha);
       this.bsValue = fecha;
     });
   }
@@ -163,7 +161,9 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     }
   }
 
-  llenarnumero() {
+
+
+   llenarnumero() {
 
   }
 

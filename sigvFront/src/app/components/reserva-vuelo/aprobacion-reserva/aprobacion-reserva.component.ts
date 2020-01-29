@@ -160,7 +160,6 @@ export class AprobacionReservaComponent implements OnInit, AfterViewInit {
 ObtenerSecciones() {
   for (let i = 0; i < this.reserva.litineraries.length; i++) {
     const element = this.reserva.litineraries[i];
-
   }
 }
 

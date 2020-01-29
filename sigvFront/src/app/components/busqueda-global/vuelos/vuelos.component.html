@@ -376,67 +376,98 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                    <div class="m-0 p-0 pt-4">
-                        <div class="col-12 m-0 p-0 text-center text-informacion">
-                            Usted tiene boletos no usados
+                    <div class="col-12 m-0 p-0 text-center text-informacion1 pb-3">
+                        Usted tiene boletos no usados.
+                    </div>
+                    <div class="col-12 m-0 p-0 text-center text-informacion">
+                        <alert type="info" class="text-center">
+                            Algunos pasajeros en su empresa no usaron los boletos que compraron, en algunos casos pueden ser reutilizados y así evitar sobrecostos.
+                        </alert>
+                    </div>
+                    <div class="col-12 m-0 p-0 text-center text-informacion">
+                        Es posible que usted pueda canjear cualquiera de estos boletos para la compra que esta intentando realizar. Seleccione llamar si desea que un asesor gestione esta compra.
+                    </div>
+                    <div class="col-12 m-0 p-0 pt-3 text-center pl-5 pr-5">
+                        <table class="table table-bordered" style="width: 866px; margin-left: 60px;">
+                            <thead class="cabecera-tabla">
+                                <tr>
+                                    <th>Tipo de vuelo</th>
+                                    <th>Fecha Emisión</th>
+                                    <th>Ruta</th>
+                                    <th>Reutilizable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of lstBnus | paginate: { itemsPerPage: 5, currentPage: p}">
+                                    <td>{{item.vuelo}}</td>
+                                    <td>{{item.fecEmision | formatfechareservacreacion}}</td>
+                                    <td>{{item.ruta}}</td>
+                                    <td>Si</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="col-12 m-0 p-0 text-center pt-3">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
                         </div>
-                        <div class="col-12 m-0 p-0 text-center text-informacion">
-                            Es posible que usted pueda canjear cualquiera de estos boletos para la compra que esta intentando hacer
-                        </div>
-                        <div class="col-12 m-0 p-0 pt-3 text-center pl-5 pr-5">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Vuelo nacional</th>
-                                        <th>Fecha Emisión</th>
-                                        <th>Ruta</th>
-                                        <th>Reutilizable</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of lstBnus">
-                                        <td>{{item.vuelo}}</td>
-                                        <td>{{item.fecEmision | formatfechareservacreacion}}</td>
-                                        <td>{{item.ruta}}</td>
-                                        <td>Si</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-12 m-0 p-0 text-center pt-2 pb-3">
-                            <span class="text-informacion">Por favor comuniquese con su asesor asignado</span>
+                    </div>
+                    <div class="col-12 m-0 p-0 text-center pt-2 pb-3">
+                        <span class="text-informacion">Asesor asignado:</span>
 
-                            <table class="table table-bordered pt-2">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Correo</th>
-                                        <th>Asesor</th>
-                                        <th>Numero</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>fgdGGg</td>
-                                        <td>fdgdfg</td>
-                                        <td>fdgfdg</td>
-                                        <td>fdgdfg</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-12 m-0 p-0">
-                            <div class="row m-0 p-0 text-center">
-                                <div class="col-6 m-0 p-0">
-                                    <button class="btn btn-1">Llamaré a mi asesor</button>
-                                </div>
-                                <div class="col-6 m-0 p-0">
-                                    <button class="btn btn-1" (click)="searchFlight()">Continuar</button>
-                                </div>
+                        <table class="table table-bordered pt-2" style="width: 866px; margin-left: 124px;">
+                            <thead>
+                                <tr>
+                                    <th>Asesor</th>
+                                    <th>Email</th>
+                                    <th>Teléfono</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of lstAsesors">
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.email}}</td>
+                                    <td>{{item.phone}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                        <div class="row m-0 p-0 text-center">
+                            <div class="col-6 m-0 p-0">
+                                <button class="btn btn-1" (click)="UserBnus1(modalconfirmacion)">Llamaré a mi asesor</button>
+                            </div>
+                            <div class="col-6 m-0 p-0">
+                                <button class="btn btn-1" (click)="searchFlight()">Continuar</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </ng-template>
+
+            <ng-template #modalconfirmacion let-c="close" let-d="dismiss">
+
+                <div class="modal-header pb-0" style="border: none;">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+                </div>
+
+                <div class="modal-body m-0 p-0">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
+                            Ud. esta contribuyendo al ahorro de su empresa
+                        </div>
+                        <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
+                            Su asesor ha sido notificado, comuníquese directamente con él para gestionar la compra del pasaje.
+                        </div>
+
+                        <div class="col-12 m-0 p-0 pb-4 text-center">
+                            <button class="btn btn-1" (click)="modalRef.hide()">
+                              Ok
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             </ng-template>
 
             <!-- flagBuscar -->

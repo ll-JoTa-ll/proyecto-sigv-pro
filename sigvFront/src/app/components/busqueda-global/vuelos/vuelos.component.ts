@@ -14,6 +14,7 @@ import { IBnusModel } from '../../../models/Ibnus.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BoletosNousadosComponent } from './boletos-nousados/boletos-nousados.component';
 import { environment } from '../../../../environments/environment';
+import { iGetAsesors } from '../../../models/IGetAsesors';
 
 declare var jquery: any;
 declare var $: any;
@@ -149,6 +150,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   lst_rol_autorizador;
   lst_rol_centralizador;
   datosuser: any[] = [];
+  p: number[] = [];
+  lstAsesors: iGetAsesors[];
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -876,12 +879,82 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
+  UserBnus1(template) {
+    let data: any;
+    data = {
+        "CompanyID": this.loginDataUser.ocompany.companyId,
+        "UserId": this.loginDataUser.userId,
+        "Use": true
+      };
+    this.airportService.ValidateInsertUseBnus(data).subscribe(
+      result => {
+           if (result === true) {
+            console.log(result);
+            this.modalRef.hide();
+            this.modalRef = this.modalService.show(
+              template,
+              Object.assign({}, { class: 'gray modal-lg m-infraccion'})
+            );
+           }
+      },
+      err => {
+
+      },
+      () => {
+       // this.modalRef.hide();
+      }
+    )
+  }
+
+  UserBnus2() {
+    let data: any;
+    data = {
+        "CompanyID": this.loginDataUser.ocompany.companyId,
+        "UserId": this.loginDataUser.userId,
+        "Use": false
+      };
+    this.airportService.ValidateInsertUseBnus(data).subscribe(
+      result => {
+      },
+      err => {
+
+      },
+      () => {
+       // this.modalRef.hide();
+      }
+    )
+  }
+ 
+  GetAsesors(template) {
+    let data = {
+      Id : this.loginDataUser.ocompany.companyId
+    }
+    this.airportService.GetAsesors(data.Id).subscribe(
+      results => {
+         this.lstAsesors = results;
+      },
+      err => {
+
+      },
+      () => {
+        if (this.lstBnus.length > 0) {
+          this.modalRef = this.modalService.show(
+           template,
+           Object.assign({}, { class: 'gray modal-lg m-resumen'})
+         );
+         } else {
+             this.searchFlight();
+         }
+      }
+    )
+  }
+
   GetBoletosNoUsados(template) {
     let fechasalida;
     fechasalida = this.FormatearFecha(this.fechaSalida);
     let data = {
       "Vuelo":"N",
-      "RUC":"20546121250",
+      "RUC":this.loginDataUser.ocompany.ruc,
       "FecSalida": fechasalida
     }
     this.airportService.GetBoletosnoUsados(data).subscribe(
@@ -893,14 +966,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
       },
       () => {
-        if (this.lstBnus.length > 0) {
-          this.modalRef = this.modalService.show(
-           template,
-           Object.assign({}, { class: 'gray modal-lg' })
-         );
-         } else {
-             this.searchFlight();
-         }
+          this.GetAsesors(template);
       }
     );
   }
@@ -917,11 +983,20 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   BoletosNousados(template) {
-    this.GetBoletosNoUsados(template);
-  }
+    const flagVal = this.validarDataBusqueda();
+    if (!flagVal) {
+      this.spinner.hide();
+      return flagVal;
+    } else {
+      this.GetBoletosNoUsados(template);
+    }
+ }
 
   searchFlight() {
-    this.modalRef.hide();
+    if (this.lstBnus.length > 0) {
+      this.UserBnus2();
+      this.modalRef.hide();
+    }
     this.spinner.show();
     this.flagDinData = false;
 
@@ -1084,12 +1159,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.sessionStorageService.store('ss_horasTo', horasTo);
     this.sessionStorageService.store('ss_filterPrecio', 'mas');
 
-    const flagVal = this.validarDataBusqueda(data);
-    if (!flagVal) {
-      this.spinner.hide();
-      return flagVal;
-    }
-
 
     let aerolineas = this.aerolineas;
     let objcampos;
@@ -1160,6 +1229,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.flagPseudoRepeat = true;
         if (result !== null && result.length > 0) {
           this.searchData = result;
+          this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
           this.sessionStorageService.store('ss_searchFlight', result);
           this.flagBuscar = true;
           this.flagBuscadorLateral = true;
@@ -1228,7 +1298,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
 
-  validarDataBusqueda(data) {
+  validarDataBusqueda() {
     const tipoVuelo = this.tipoVuelo;
     const indexTramo = this.indexTramo;
     let flagVal = true;
@@ -1664,8 +1734,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         }
       }
     }
-
-    if (data) {}
 
     return flagVal;
   }

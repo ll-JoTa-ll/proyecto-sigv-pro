@@ -21,6 +21,11 @@ export class IFlightAvailability {
             uniqueReference: string;
         }
     ];
+    odiscount: {
+        realPrice: number;
+        amount: number;
+        percentage: number;
+    }
     oerror: string;
     osession: {
         sessionId: string;

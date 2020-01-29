@@ -288,7 +288,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           EquipmentType: group.equipmentType,
           FareBasis: section.lSectionGroups[i].fareBasis,
           TimeWaitAirport: group.timeWaitAirport,
-          fareFamilyName: ""
+          fareFamilyName: "",
+          TotalFlightTimeShow: group.totalFlightTimeShow
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -523,7 +524,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           EquipmentType: group.equipmentType,
           FareBasis: section.lSectionGroups[i].fareBasis,
           TimeWaitAirport: group.timeWaitAirport,
-          fareFamilyName: ""
+          fareFamilyName: "",
+          TotalFlightTimeShow: group.totalFlightTimeShow
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -800,7 +802,7 @@ TraerAutorizador() {
         if (results.oerror === null) {
           this.lsFlightAvailabilty = results;
           this.osessionflightaval = this.lsFlightAvailabilty.osession;
-          this.sessionStorageService.store('ss_FlightAvailability_result', results);
+          this.sessionStorageService.store('ss_FlightAvailability_result', this.lsFlightAvailabilty);
           this.ObtenerSecciones();
           this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
           //this.router.navigate(['/reserva-vuelo']);

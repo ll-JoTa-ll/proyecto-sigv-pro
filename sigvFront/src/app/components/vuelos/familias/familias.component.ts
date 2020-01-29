@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { VuelosComponent } from '../../busqueda-global/vuelos/vuelos.component';
+import { IFlightAvailability } from '../../../models/IFlightAvailability';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   //precioPersona = 0;
   idRadioBtnFareFam: string;
   lstSumaFam: any[] = [];
-  lsFlightAvailabilty;
+  lsFlightAvailabilty: IFlightAvailability;
   //modalRef: BsModalRef;
   flagChangeFare = 0;
   lstFareFamily: any[] = [];
@@ -194,7 +195,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
       results => {
         if (results.oerror === null) {
           this.lsFlightAvailabilty = results;
-          this.sessionStorageService.store('ss_FlightAvailability_result', results);
+          this.sessionStorageService.store('ss_FlightAvailability_result', this.lsFlightAvailabilty);
      /*     this.sessionStorageService.store('ss_flightavailability_request1', data);
           this.sessionStorageService.store('ss_FlightAvailability_request2', this.ss_FlightAvailability_request2);*/
           //this.ObtenerSecciones();
