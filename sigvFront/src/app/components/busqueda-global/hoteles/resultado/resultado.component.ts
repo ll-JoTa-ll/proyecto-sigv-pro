@@ -14,6 +14,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
 import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ModalHotelErroneoComponent } from '../../../shared/modal-hotel-erroneo/modal-hotel-erroneo.component';
+import { ModalInfraccionCompraComponent } from '../../../shared/modal-infraccion-compra/modal-infraccion-compra.component';
 
 
 
@@ -79,74 +80,84 @@ export class ResultadoComponent implements OnInit {
 
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
-    this.localfinish = true;
-    this.localStorageService.store("ss_countersession",null);
-    this.localStorageService.store("ss_countersession",this.localfinish);
-    this.spinner.show();
-    let data = {
-      "Pseudo": "LIMPE2235",
-      "Lhotel":
-        [
-          {
-            "HotelCode": hotelcode,
-            "StartDate": fechasalida,
-            "EndDate": fecharetorno,
-            "LguestPerRoom":
-              [
-                {
-                  "RoomQuantity": $('#txthabitacion').val(),
-                  "NumberPassengers": cantpersonas,
-                  "TypePassenger": "ADT"
-                }
-              ]
-          }
-        ],
-      "Ocompany": this.loginDataUser.ocompany
-    }
-    this.objSearch = {
-      destino: $('#destinos').val(),
-      fechaentrada: $('#fechaInicio').val(),
-      fechasalida: $('#fechaFin').val(),
-      categoria : this.estrellas,
-      habi: $('#txthabitacion').val(),
-      personas: $('#txtpersonas').val()
-    };
-    this.sessionStorageService.store("ss_sessionmini",this.objSearch);
-
-    let hotel;
-    for (let i = 0; i < this.lstHotel.length; i++) {
-      const element = this.lstHotel[i];
-
-      if (element.code === hotelcode) {
-        hotel = this.lstHotel[i];
+    if(this.loginDataUser.ocompany.blockHotel === true && this.lPolicies.length > 0){
+      this.modalRefSessionExpired = this.modalService.show(ModalInfraccionCompraComponent);
+    }else{
+        this.localfinish = true;
+      this.localStorageService.store("ss_countersession",null);
+      this.localStorageService.store("ss_countersession",this.localfinish);
+      this.spinner.show();
+      let data = {
+        "Lusers":[{
+          "RoleId": this.loginDataUser.orole.roleId,
+          "LcostCenter": this.loginDataUser.lcostCenter,
+          "UserId": this.loginDataUser.userId
+        }],
+        "Pseudo": "LIMPE2235",
+        "Lhotel":
+          [
+            {
+              "HotelCode": hotelcode,
+              "StartDate": fechasalida,
+              "EndDate": fecharetorno,
+              "LguestPerRoom":
+                [
+                  {
+                    "RoomQuantity": $('#txthabitacion').val(),
+                    "NumberPassengers": cantpersonas,
+                    "TypePassenger": "ADT"
+                  }
+                ]
+            }
+          ],
+        "Ocompany": this.loginDataUser.ocompany
       }
+      this.objSearch = {
+        destino: $('#destinos').val(),
+        fechaentrada: $('#fechaInicio').val(),
+        fechasalida: $('#fechaFin').val(),
+        categoria : this.estrellas,
+        habi: $('#txthabitacion').val(),
+        personas: $('#txtpersonas').val()
+      };
+      this.sessionStorageService.store("ss_sessionmini",this.objSearch);
 
-    }
-    this.sessionStorageService.store("lhotel", hotel);
+      let hotel;
+      for (let i = 0; i < this.lstHotel.length; i++) {
+        const element = this.lstHotel[i];
 
-    this.service.GetHabitacion(data).subscribe(
-      data => {
-        this.lstHabication = data;
-
-        this.sessionStorageService.store("lstHabication", this.lstHabication);
-        if (this.lstHabication.oerror != null) {
-          this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
-        }else{
-          //this.router.navigate(['/habitacion']);
-          window.open(window.location.origin + "/habitacion");
+        if (element.code === hotelcode) {
+          hotel = this.lstHotel[i];
         }
-        
-        //window.open(window.location.origin + "/habitacion");
-      },
-      err => {
-        this.spinner.hide();
-
-      },
-      () => {
-        this.spinner.hide();
 
       }
-    );
+      this.sessionStorageService.store("lhotel", hotel);
+
+      this.service.GetHabitacion(data).subscribe(
+        data => {
+          this.lstHabication = data;
+
+          this.sessionStorageService.store("lstHabication", this.lstHabication);
+          if (this.lstHabication.oerror != null) {
+            this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
+          }else{
+            //this.router.navigate(['/habitacion']);
+            window.open(window.location.origin + "/habitacion");
+          }
+          
+          //window.open(window.location.origin + "/habitacion");
+        },
+        err => {
+          this.spinner.hide();
+
+        },
+        () => {
+          this.spinner.hide();
+
+        }
+      );
+    }
+    
   }
 
   Mostrarmapa(position) {

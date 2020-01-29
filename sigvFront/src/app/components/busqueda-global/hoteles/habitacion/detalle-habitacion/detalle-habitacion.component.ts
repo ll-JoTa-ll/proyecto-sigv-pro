@@ -24,7 +24,10 @@ export class DetalleHabitacionComponent implements OnInit {
   @Input() index;
   @Input() breakFast;
   @Input() hotel;
+  @Input() lPolicies: string[];
 
+
+  modalRefPoliticas: BsModalRef;
   modalRefSessionExpired: BsModalRef;
   lsthabitacion : IHabitacionResults;
   Confirmacion : IGetEnhancedHotel;
@@ -59,6 +62,13 @@ export class DetalleHabitacionComponent implements OnInit {
     }else {
       this.personas = "persona"
     }
+  }
+
+  openModalPoliticas(template) {
+    this.modalRefPoliticas = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray con-politicas' })
+    );
   }
 
   getReservaHabitacion(RoomType,BookingCode,PlanCode){

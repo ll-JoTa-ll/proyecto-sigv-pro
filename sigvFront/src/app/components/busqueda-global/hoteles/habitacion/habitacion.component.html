@@ -331,7 +331,7 @@
                             </div>
 
 
-                            <app-detalle-habitacion id="destination" *ngFor="let habitacion of lsthabitacion.lroom; let i = index;" [index]="i" [lhabitaciones]="habitacion" [breakFast]="habitacion.breakFast" [hotel]="lsthabitacion.ohotel.lguestPerRoom">
+                            <app-detalle-habitacion id="destination" *ngFor="let habitacion of lsthabitacion.lroom; let i = index;" [index]="i" [lhabitaciones]="habitacion" [breakFast]="habitacion.breakFast" [lPolicies]="habitacion.lpolicies" [hotel]="lsthabitacion.ohotel.lguestPerRoom">
 
                             </app-detalle-habitacion>
 
