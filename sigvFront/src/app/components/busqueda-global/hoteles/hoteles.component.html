@@ -261,7 +261,40 @@
             <div class="col-2 m-0 p-0"></div>
 
         </div>
+        <div *ngIf="flagDinData" class="col-12">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
 
+                <div class="col-3 m-0 p-0"></div>
+
+                <div class="col-6 m-0 p-0">
+                    <div class="col-12 m-0 p-0 text-center">
+
+                        <alert type="warning">
+                            No se encontraron itinerarios para esta búsqueda
+                        </alert>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="flagDinDataMini" class="col-12">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+                <div class="col-3 m-0 p-0"></div>
+
+                <div class="col-6 m-0 p-0">
+                    <div class="col-12 m-0 p-0 text-center" style="left: 200px;">
+
+                        <alert type="warning">
+                            No se encontraron itinerarios para esta búsqueda
+                        </alert>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
             <div class="row m-0 p-0">
                 <div class="col-3 m-0 p-0 pt-4 pr-4 pl-5">
@@ -278,26 +311,7 @@
                     <app-filtro-nombrehotel (resultFiltro)="ObtenerListaFiltroNombre($event)" [listado]="LlistaHotel"></app-filtro-nombrehotel>
                 </div>
                 <div class="col-9 m-0 p-0 pt-4 pl-4 pr-5">
-                    <div *ngIf="flagDinData" class="col-12">
 
-                        <div class="row m-0 p-0">
-
-                            <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
-
-                            <div class="col-3 m-0 p-0"></div>
-
-                            <div class="col-6 m-0 p-0">
-                                <div class="col-12 m-0 p-0 text-center">
-
-                                    <alert type="warning">
-                                        No se encontraron itinerarios para esta búsqueda
-                                    </alert>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
                     <div *ngIf="LlistaHotel.length > 0">
                         <app-filtros *ngIf="LlistaHotel[0].oerror === null" [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)" (vistalistado)="MostrarListado($event)"></app-filtros>
                     </div>
@@ -307,6 +321,7 @@
                             [cantidadnoche]="lHotel.numberNights" [cantpersonas]="lHotel.numberPassenger" [lPolicies]="lHotel.lpolicies" [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida" [hotelcode]="lHotel.code" [cantidadhabitaciones]="cantidadhabitaciones">
                         </app-resultado>
                     </div>
+
                     <app-mapa-hoteles *ngIf="vistamapa && mapafiltro" [listado]="LlistaHotel" [fechasalida]="fechaSalida" [fecharetorno]="fechaRetorno" [estrellas]="estrellas"></app-mapa-hoteles>
 
 

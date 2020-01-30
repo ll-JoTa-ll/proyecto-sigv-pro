@@ -55,6 +55,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   user : IGetUserById;
   flagBuscar: boolean;
   flagDinData: boolean;
+  flagDinDataMini: boolean;
   loginDataUser: ILoginDatosModel;
   token;
   keyword = 'name';
@@ -334,7 +335,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     let mayorValor = 0;
 
     if (this.LlistaHotel[0].oerror != null) {
-      this.flagDinData = true;
+      //this.flagDinData = true;
+      this.flagDinDataMini = true;
       this.vistalistado = false;
     } else {
       this.vistalistado = true;
@@ -374,10 +376,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.divwarning = false;
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
-    this.flagDinData = false;
+    this.flagDinDataMini = false;
     if (this.LlistaHotel.length === 0) {
       this.divwarning = true;
-      this.flagDinData = true;
+      this.flagDinDataMini = true;
     }
   }
 
@@ -385,20 +387,20 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.divwarning = false;
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
-    this.flagDinData = false;
+    this.flagDinDataMini = false;
     if (this.LlistaHotel.length === 0) {
       this.divwarning = true;
-      this.flagDinData = true;
+      this.flagDinDataMini = true;
     }
   }
 
   ObtenerListaFiltroNombre($event) {
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
-    this.flagDinData = false;
+    this.flagDinDataMini = false;
     if (this.LlistaHotel.length === 0) {
       this.divwarning = true;
-      this.flagDinData = true;
+      this.flagDinDataMini = true;
     }
 
   }
@@ -517,10 +519,12 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.sessionStorageService.store('ls_search_hotel', this.LlistaHotel);
 
     if (this.LlistaHotel[0].oerror != null) {
-      this.flagDinData = true;
+      //this.flagDinData = true;
+      this.flagDinDataMini = true;
       this.spinner.hide();
     } else {
-      this.flagDinData = false;
+      //this.flagDinData = false;
+      this.flagDinDataMini = false;
       this.spinner.hide();
 
     }

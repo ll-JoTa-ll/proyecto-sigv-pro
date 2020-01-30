@@ -81,7 +81,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   counter;
 
   opentarjeta = true;
-
+  police: any;
   amenities: any;
 
 
@@ -93,7 +93,14 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     this.user = this.sessionStorageService.retrieve("ss_user");
     this.counter = this.localStorageService.retrieve("ss_countersession");
     this.plantilla = 'assets/plantillashoteles/enviocorreo.html';
-    
+    for (let index = 0; index < this.lsthabitacion.lroom.length; index++) {
+      if (this.lstConfirmacion.oroom.bookingCode === this.lsthabitacion.lroom[index].bookingCode) {
+        const element = this.lsthabitacion.lroom[index];
+        //this.amenities = element.lamenities;
+        this.police = element.lpolicies;
+        this.sessionStorageService.store("ss_roompolicy",this.police)
+      }
+    }
   }
 
   ngOnInit() {
@@ -174,7 +181,6 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           const element = this.lsthabitacion.lroom[index];
           //this.amenities = element.lamenities;
           listaAme = element.lamenities;
-        
         }
       }
       this.amenities = listaAme;
