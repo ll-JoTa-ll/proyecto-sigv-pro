@@ -23,7 +23,12 @@
                     <!--  <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>  -->
                     <agm-map [latitude]="location.latitude | formatoLongitud" [longitude]="location.longitude | formatoLongitud" [zoom]="zoom">
                         <agm-marker *ngFor="let item of listado; let i = index" (markerClick)="abriModal(i + 1)" (mouseOver)="window.open()" (mouseOut)="window.close()" [iconUrl]="urlimg" [latitude]="item.oposition.latitude " [longitude]="item.oposition.longitude" (dragEnd)="markerDragEnd($event)">
-                            <agm-info-window #window>{{item.oprice.currency}} {{item.oprice.pricePerNight}}</agm-info-window>
+                            <agm-info-window #window>{{item.oprice.currency}} {{item.oprice.pricePerNight}}
+                                <div class="pl-4">
+                                    <span tooltip="Hospedaje con infracción de políticas." (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer;" *ngIf="item.lpolicies.length>0" class="circulo-politica2 pl-1 r-span-1"></span>
+                                    <span tooltip="El hospedaje cumple las políticas de viaje de la empresa." *ngIf="item.lpolicies.length===0" class="circulo-politica3 pl-1 r-span-2"></span>
+                                </div>
+                            </agm-info-window>
                         </agm-marker>
                         <agm-marker [latitude]="searchLatitude" [longitude]="searchLongitude"></agm-marker>
                     </agm-map>
@@ -79,15 +84,50 @@
                             <div class="col-12 m-0 p-0">
                                 <span style="margin-right: 10px;">Precio por noche</span>
                                 <span style="font-weight: bold;">{{item.oprice.currency}} </span>
-                                <span style="font-weight: bold;">{{item.oprice.pricePerNight}}</span>
+                                <span style="font-weight: bold;padding-right: 50px;">{{item.oprice.pricePerNight}}</span>
+
+                                <span tooltip="Hospedaje con infracción de políticas." (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer" *ngIf="item.lpolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
+                                <span tooltip="El hospedaje cumple las políticas de viaje de la empresa." *ngIf="item.lpolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
+
                             </div>
                         </div>
                         <div class="btn-detalle">
-                            <button class="btn v-btn-buscar" (click)="getHotel(item.code,fechasalida,fecharetorno,item.numberPassenger)">Ver detalle</button>
+                            <button class="btn v-btn-buscar" (click)="getHotel(item.code,fechasalida,fecharetorno,item.numberPassenger,item.lpolicies)">Ver detalle</button>
                         </div>
+
+
+                        <ng-template #modalPolitica let-c="close" let-d="dismiss">
+
+                            <div class="modal-header pb-0" style="border: none;">
+                                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+
+                            <div class="modal-body m-0 p-0">
+
+                                <div class="row m-0 p-0 pb-3">
+                                    <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+                                        <u>Infracción de Políticas de Hotel</u>
+                                    </div>
+                                </div>
+
+                                <div class="row m-0 p-0">
+
+                                    <app-hoteles-politicas [politica]="politica" [politicaIndex]="i+1" [politicaslength]="item.lpolicies.length" *ngFor="let politica of item.lpolicies; let i=index"></app-hoteles-politicas>
+
+                                </div>
+
+                            </div>
+
+                        </ng-template>
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
 </div>

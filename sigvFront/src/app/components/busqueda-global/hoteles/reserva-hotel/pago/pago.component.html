@@ -5,8 +5,8 @@
                 DEPÓSITO EN GARANTIA
 
                 <span (click)="openModal1(modalinfraccion, modalerror)" class="txt-infraccion pr-4" style="cursor: pointer;padding-left: 300px;">Ver Infraccion</span>
-                <span style="cursor: pointer;" (click)="openModal1(modalinfraccion, modalerror)" *ngIf="lhotel.lpolicies.length > 0" class="circulo-politica"></span>
-                <span *ngIf="lhotel.lpolicies.length === 0" class="circulo-politica1"></span>
+                <span style="cursor: pointer;" (click)="openModal1(modalinfraccion, modalerror)" *ngIf="this.police.length > 0" class="circulo-politica"></span>
+                <span *ngIf="this.police.length === 0" class="circulo-politica1"></span>
 
 
             </div>
@@ -116,11 +116,12 @@
                                 </button>
         </div>
         <div class="modal-body m-0 p-0">
-            <app-modal-habitacion-hab [currency]="currency" [LPolicies]="lhotel.lpolicies"></app-modal-habitacion-hab>
+
+            <app-modal-habitacion-hab [currency]="currency" [LPolicies]="policyroom"></app-modal-habitacion-hab>
         </div>
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 text-center pb-3">
-                <button (click)="modalRef.hide()" class="btn btn-ok">Ok</button>
+                <button (click)="modalRef.hide()" class="btn r-btn-sinfam-1">Ok</button>
             </div>
         </div>
     </ng-template>

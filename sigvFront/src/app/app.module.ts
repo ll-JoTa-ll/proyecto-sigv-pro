@@ -146,10 +146,7 @@ import { BoletosNousadosComponent } from './components/busqueda-global/vuelos/bo
 import { FormatporcentajePipe } from './pipes/formatporcentaje.pipe';
 import { HotelesPoliticasComponent } from './components/busqueda-global/hoteles/hoteles-politicas/hoteles-politicas.component';
 import { ModalHabitacionHabComponent } from './components/busqueda-global/hoteles/habitacion/modal-habitacion-hab/modal-habitacion-hab.component';
-<<<<<<< HEAD
 import { ModalInfraccionCompraComponent } from './components/shared/modal-infraccion-compra/modal-infraccion-compra.component';
-=======
->>>>>>> origin/vuelos-v3
 
 @NgModule({
   declarations: [
@@ -268,12 +265,9 @@ import { ModalInfraccionCompraComponent } from './components/shared/modal-infrac
     BoletosNousadosComponent,
     FormatporcentajePipe,
     HotelesPoliticasComponent,
-<<<<<<< HEAD
     ModalHabitacionHabComponent,
-    ModalInfraccionCompraComponent
-=======
+    ModalInfraccionCompraComponent,
     ModalHabitacionHabComponent
->>>>>>> origin/vuelos-v3
   ],
   imports: [
     BrowserModule,
