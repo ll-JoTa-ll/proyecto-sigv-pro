@@ -53,6 +53,7 @@ export class AprobacionReservaComponent implements OnInit, AfterViewInit {
     backdrop: true,
     ignoreBackdropClick: true
   };
+  odiscount: any;
 
   constructor(private sessionStorageService: SessionStorageService, private modalservice: BsModalService, private service: AirportService,
               private spinner: NgxSpinnerService, private router: Router, private http: HttpClient, private toastr: ToastrService) {
@@ -65,6 +66,10 @@ export class AprobacionReservaComponent implements OnInit, AfterViewInit {
     this.plantillavueloaprobado = 'assets/plantillasEmail/plantilla_vueloaprobado.html';
     this.plantillavuelorechazado = 'assets/plantillasEmail/plantilla_vuelorechazado.html';
     this.plantillavuelocancelado = 'assets/plantillasEmail/plnatilla_vuelocancelado.html';
+    this.odiscount = {
+      amount: this.reserva.totalDiscount,
+      percentage: this.reserva.percentageDiscount
+    }
   }
 
   ngOnInit() {
@@ -462,8 +467,6 @@ CancelarReserva() {
 // SOLICITUD DE EXCEPCION
 PlantillaEmailSolicitud() {
   let htmlsection = '';
-
-
   for (let j = 0; j < this.reserva.litineraries.length; j++) {
        const itemsegmentgroup = this.reserva.litineraries[j];
        htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
@@ -656,9 +659,33 @@ PlantillaPreciovuelo() {
  }
 
  PlantillaPreciovueloAprobado() {
- // let motivo = $('#motivoviaje').val();
- // this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
+ 
+  let html = '';
+  if (this.odiscount != null && this.odiscount.amount != 0) {
+      html += "<div style='width: 100%; text-align: rigth'>";
+      html += "<span style='font-size: 17px;color: #676767; margin-left: 108px;'>Monto de desc.</span>";
+      html += "<span style=' font-size: 17px;color: #6B253C; margin-left: 25px;'>";
+      html +=  this.reserva.currency;
+      html +="</span>";
+      html += "<span style='color: #898989; font-size: 17px;'>";
+      html += this.odiscount.amount;
+      html += "</span>";
+      html += "</div>";
+    }
+
+  let htmlporcentaje = '';
+  if (this.odiscount != null && this.odiscount.percentage) {
+      htmlporcentaje += "<div style='width: 100%; text-align: rigth'>";
+      htmlporcentaje += "<span style='margin-left: 108px;font-size: 17px;color: #676767'>Porcentaje de desc.</span>";
+      htmlporcentaje += "<span style='color: #898989; font-size: 17px; margin-left: 14px;'>";
+      htmlporcentaje +=  this.odiscount.percentage;
+      htmlporcentaje += "</span>";
+      htmlporcentaje += "<span style=' font-size: 17px;color: #6B253C;'>%</span>";
+      htmlporcentaje += "</div>";
+    }
   let motivo = $('#motivoviaje').val();
+  this.emailvueloaprobado = this.emailvueloaprobado.replace('@precioconvenio', html);
+  this.emailvueloaprobado = this.emailvueloaprobado.replace('@porcentajedescuento', htmlporcentaje);
   this.emailvueloaprobado = this.emailvueloaprobado.replace(/@currency/gi, this.reserva.currency);
   this.emailvueloaprobado = this.emailvueloaprobado.replace("@precioTotal", this.reserva.totalAmount);
   this.emailvueloaprobado = this.emailvueloaprobado.replace("@preciounitario", this.reserva.totalAmountByPassenger);
@@ -841,8 +868,32 @@ PlantillaPasajerosVueloRechazado() {
  }
 
  PlantillaPreciovueloRechazado() {
- // this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
+  let html = '';
+  if (this.odiscount != null && this.odiscount.amount != 0) {
+      html += "<div style='width: 100%; text-align: rigth'>";
+      html += "<span style='font-size: 13px;color: #676767; margin-left: 4px;'>Monto de desc.</span>";
+      html += "<span style=' font-size: 13px;color: #6B253C; margin-left: 25px;'>";
+      html +=  this.reserva.currency;
+      html +="</span>";
+      html += "<span style='color: #898989; font-size: 13px;'>";
+      html += this.odiscount.amount;
+      html += "</span>";
+      html += "</div>";
+    }
+
+  let htmlporcentaje = '';
+  if (this.odiscount != null && this.odiscount.percentage) {
+      htmlporcentaje += "<div style='width: 100%; text-align: rigth'>";
+      htmlporcentaje += "<span style='margin-left: 4px; font-size: 13px;color: #676767'>Porcentaje de desc.</span>";
+      htmlporcentaje += "<span style='color: #898989; font-size: 13px; margin-left: 14px;'>";
+      htmlporcentaje +=  this.odiscount.percentage;
+      htmlporcentaje += "</span>";
+      htmlporcentaje += "<span style='font-size: 13px;color: #6B253C;'>%</span>";
+      htmlporcentaje += "</div>";
+    }
   let motivo = $('#motivorechazo').val();
+  this.emailvuelorechazado = this.emailvuelorechazado.replace('@precioconvenio', html);
+  this.emailvuelorechazado = this.emailvuelorechazado.replace('@porcentajedescuento', htmlporcentaje);
   this.emailvuelorechazado = this.emailvuelorechazado.replace(/@currency/gi, this.reserva.currency);
   this.emailvuelorechazado = this.emailvuelorechazado.replace("@precioTotal", this.reserva.totalAmount);
   this.emailvuelorechazado = this.emailvuelorechazado.replace("@preciounitario", this.reserva.totalAmountByPassenger);
@@ -1024,9 +1075,33 @@ PlantillaPasajerosVueloCancelado() {
  }
 
  PlantillaPreciovueloCancelado() {
- // this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
+  let html = '';
+  if (this.odiscount != null && this.odiscount.amount != 0) {
+      html += "<div style='width: 100%; text-align: rigth'>";
+      html += "<span style='font-size: 17px;color: #676767; margin-left: 108px;'>Monto de desc.</span>";
+      html += "<span style=' font-size: 17px;color: #6B253C; margin-left: 25px;'>";
+      html +=  this.reserva.currency;
+      html +="</span>";
+      html += "<span style='color: #898989; font-size: 17px;'>";
+      html += this.odiscount.amount;
+      html += "</span>";
+      html += "</div>";
+    }
+
+  let htmlporcentaje = '';
+  if (this.odiscount != null && this.odiscount.percentage) {
+      htmlporcentaje += "<div style='width: 100%; text-align: rigth'>";
+      htmlporcentaje += "<span style='margin-left: 108px;font-size: 17px;color: #676767'>Porcentaje de desc.</span>";
+      htmlporcentaje += "<span style='color: #898989; font-size: 17px; margin-left: 14px;'>";
+      htmlporcentaje +=  this.odiscount.percentage;
+      htmlporcentaje += "</span>";
+      htmlporcentaje += "<span style='font-size: 17px;color: #6B253C;'>%</span>";
+      htmlporcentaje += "</div>";
+    }
   let motivo;
   motivo = $('#motivorechazo').val();
+  this.emailvuelocancelado = this.emailvuelocancelado.replace('@precioconvenio', html);
+  this.emailvuelocancelado = this.emailvuelocancelado.replace('@porcentajedescuento', htmlporcentaje);
   this.emailvuelocancelado = this.emailvuelocancelado.replace(/@currency/gi, this.reserva.currency);
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@precioTotal", this.reserva.totalAmount);
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@preciounitario", this.reserva.totalAmountByPassenger);

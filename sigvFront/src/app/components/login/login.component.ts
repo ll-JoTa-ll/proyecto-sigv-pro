@@ -75,10 +75,7 @@ export class LoginComponent implements OnInit {
     this.sessionStorageService.store('count', null);
     this.sessionStorageService.clear();
   }
-
-
-
-  click(){
+  click() {
     var el = document.getElementById('module');
 
     el.onclick = function() {

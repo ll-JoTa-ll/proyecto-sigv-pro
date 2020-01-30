@@ -14,7 +14,6 @@ import { IGetApprovers } from '../../../../models/IGetApprovers.model';
 import { stringify } from '@angular/compiler/src/util';
 import { ModalFamiliasVaciasComponent } from '../../../shared/modal-familias-vacias/modal-familias-vacias.component';
 import { setInterval } from 'timers';
-import { BoletosNousadosComponent } from '../boletos-nousados/boletos-nousados.component';
 import { IBnusModel } from '../../../../models/Ibnus.model';
 
 declare var jquery: any;

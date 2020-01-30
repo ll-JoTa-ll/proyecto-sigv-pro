@@ -12,7 +12,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as crypto from 'crypto-js';
 import { IBnusModel } from '../../../models/Ibnus.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { BoletosNousadosComponent } from './boletos-nousados/boletos-nousados.component';
 import { environment } from '../../../../environments/environment';
 import { iGetAsesors } from '../../../models/IGetAsesors';
 
@@ -1236,34 +1235,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
           //aerolineas
           this.setLstAerolineas(result);
-          /*
-          result.forEach(function(reco, indexreco) {
-            if (indexreco === 0) {
-              const dataAero = {
-                carrierId: reco.carrierId,
-                carrierName: reco.carrierName,
-                filter: 0
-              };
-              aerolineas.push(dataAero);
-            } else {
-              let flagAero = 1;
-              aerolineas.forEach(function(aerolinea, indexaero) {
-                if (aerolinea.carrierId === reco.carrierId) {
-                  flagAero = 0;
-                }
-              });
-              if (flagAero === 1) {
-                const dataAeroN = {
-                  carrierId: reco.carrierId,
-                  carrierName: reco.carrierName,
-                  filter: 0
-                };
-                aerolineas.push(dataAeroN);
-              }
-            }
-          });
-          this.aerolineas = aerolineas;
-          */
         } else {
           this.sessionStorageService.store('ss_searchFlight', null);
           this.flagDinData = true;
