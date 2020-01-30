@@ -23,7 +23,7 @@
                 </div>
                 <div class="row m-0 p-0">
                     <div class="col-8 m-0 p-0 pr-4">
-                        <app-pago (outNumTarjeta)="setNumTarjeta($event)" (outVencimiento)="setFechVencimiento($event)" (outTitular)="setTitular($event)" (outCodSeguridad)="setCodSeguridad($event)" (outNomTarjeta)="setNombreTarjeta($event)"></app-pago>
+                        <app-pago [policyroom]="this.police" (outNumTarjeta)="setNumTarjeta($event)" (outVencimiento)="setFechVencimiento($event)" (outTitular)="setTitular($event)" (outCodSeguridad)="setCodSeguridad($event)" (outNomTarjeta)="setNombreTarjeta($event)"></app-pago>
                         <app-titulares-reserva (outTelefono)="setTelefono($event)" (outCorreo)="setCorreo($event)"></app-titulares-reserva>
                         <app-contacto (outArea)="setAreaContacto($event)" (outTelefono)="setTelefonoContacto($event)" (outCorreo)="setCorreoContacto($event)" (outNombre)="setNombreContacto($event)"></app-contacto>
                         <div class="row m-0 p-0">
@@ -63,9 +63,9 @@
                             </div>
                         </div>
                         <ng-template #elseTemplate1 class="row m-0 p-0 pt-3">
-                                <div class="col-12 m-0 p-0 pt-4">
-                                        <span class="info">✓ Políticas y Condiciones sin información</span>
-                                    </div>
+                            <div class="col-12 m-0 p-0 pt-4">
+                                <span class="info">✓ Políticas y Condiciones sin información</span>
+                            </div>
                         </ng-template>
                         <div *ngIf="lstConfirmacion.oroom.lcancelPenalties.length > 0 && lstConfirmacion.oroom.lcancelPenalties != null " class="row m-0 p-0">
                             <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].nonRefundable === false" class="col-12 m-0 p-0">

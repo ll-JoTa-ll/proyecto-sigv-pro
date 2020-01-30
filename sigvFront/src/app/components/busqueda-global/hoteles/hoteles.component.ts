@@ -55,7 +55,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   user : IGetUserById;
   flagBuscar: boolean;
   flagDinData: boolean;
-  flagDinData1: boolean;
+  flagDinDataMini: boolean;
   loginDataUser: ILoginDatosModel;
   token;
   keyword = 'name';
@@ -129,7 +129,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
     this.flagBuscar = false;
     this.flagDinData = false;
-    this.flagDinData1 = false;
     this.divwarning = false
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
@@ -259,7 +258,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   onFocused(e) {
     // do something when input is focused
     this.flagDinData = false;
-    this.flagDinData1 = false;
   }
 
   handlerIngreso(datepickerSalida) {
@@ -338,9 +336,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     let mayorValor = 0;
 
     if (this.LlistaHotel[0].oerror != null) {
-      this.flagDinData = true;
-      $('#caja').hide();
-      this.flagDinData1 = true;
+      //this.flagDinData = true;
+      this.flagDinDataMini = true;
       this.vistalistado = false;
     } else {
       this.vistalistado = true;
@@ -380,10 +377,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.divwarning = false;
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
-    this.flagDinData = false;
+    this.flagDinDataMini = false;
     if (this.LlistaHotel.length === 0) {
       this.divwarning = true;
-      this.flagDinData = true;
+      this.flagDinDataMini = true;
     }
   }
 
@@ -391,20 +388,20 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.divwarning = false;
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
-    this.flagDinData = false;
+    this.flagDinDataMini = false;
     if (this.LlistaHotel.length === 0) {
       this.divwarning = true;
-      this.flagDinData = true;
+      this.flagDinDataMini = true;
     }
   }
 
   ObtenerListaFiltroNombre($event) {
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
-    this.flagDinData = false;
+    this.flagDinDataMini = false;
     if (this.LlistaHotel.length === 0) {
       this.divwarning = true;
-      this.flagDinData = true;
+      this.flagDinDataMini = true;
     }
 
   }
@@ -417,7 +414,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     else{
       this.spinner.show();
       this.flagDinData = false;
-      this.flagDinData1 = false;
       this.dateingreso = $('#dateingreso').val();
       this.datesalida = $('#datesalida').val();
       this.cantidadhabitaciones = $('#txthabitacion').val();
@@ -457,7 +453,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
           if (result.length == 0 || result == null || result[0].oerror != null) {
             //alert("asdasd")
             this.flagDinData = true;
-            this.flagDinData1 = true;
           }
           else{
 
@@ -493,7 +488,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
               this.mayorPrecioHotel = mayorValor;
             } else {
               this.flagDinData = true;
-              this.flagDinData1 = true;
             }
           }
 
@@ -524,12 +518,12 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.sessionStorageService.store('ls_search_hotel', this.LlistaHotel);
 
     if (this.LlistaHotel[0].oerror != null) {
-      this.flagDinData = true;
-      this.flagDinData1 = true;
+      //this.flagDinData = true;
+      this.flagDinDataMini = true;
       this.spinner.hide();
     } else {
-      this.flagDinData = false;
-      this.flagDinData1 = false;
+      //this.flagDinData = false;
+      this.flagDinDataMini = false;
       this.spinner.hide();
 
     }

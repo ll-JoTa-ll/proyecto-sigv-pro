@@ -311,6 +311,11 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
         this.spinner.show();
       this.flagShowMap.emit(false);
       let data = {
+        "Lusers":[{
+          "RoleId": this.loginDataUser.orole.roleId,
+          "LcostCenter": this.loginDataUser.lcostCenter,
+          "UserId": this.loginDataUser.userId
+        }],
         "Lhotel":
         [
           {

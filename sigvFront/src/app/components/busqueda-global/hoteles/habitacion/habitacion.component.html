@@ -19,7 +19,7 @@
                     <!--<app-filtros [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)" (vistalistado)="MostrarListado($event)"></app-filtros>-->
                     <app-resultado-habitacion *ngFor="let lHotels of hoteles; let i = index" [name]="lHotels.name" [tipoPago]="lHotels.guaranteeType" [direccion]="lHotels.address" [distancia]="lHotels.oairportDistance.distance" [estrellas]="lHotels.stars" [currency]="lHotels.oprice.currency"
                         [precioxnoche]="lHotels.oprice.pricePerAllNights" [precioprom]="lHotels.oprice.pricePerNight" [urlHotel]="lHotels.limagens | getimghotel" [index]="i + 1" [latitud]="lHotels.oposition.latitude" [longitud]="lHotels.oposition.longitude"
-                        [cantidadnoche]="lHotels.numberNights" [cantpersonas]="lHotels.numberPassenger" [hotelcode]="lHotels.code" [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida">
+                        [cantidadnoche]="lHotels.numberNights" [cantpersonas]="lHotels.numberPassenger" [lPolicies]="lHotels.lpolicies" [hotelcode]="lHotels.code" [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida">
                     </app-resultado-habitacion>
                 </div>
 
@@ -358,7 +358,7 @@
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0 text-center pb-3">
-                    <button (click)="modalRef.hide()" class="btn btn-ok">Ok</button>
+                    <button (click)="modalRef.hide()" class="btn r-btn-sinfam-1">Ok</button>
                 </div>
             </div>
         </ng-template>

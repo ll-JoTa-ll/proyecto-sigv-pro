@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalHabitacionErroneaComponent } from '../../../shared/modal-habitacion-erronea/modal-habitacion-erronea.component';
 import { ModalHotelErroneoComponent } from '../../../shared/modal-hotel-erroneo/modal-hotel-erroneo.component';
+import { ModalInfraccionCompraComponent } from '../../../shared/modal-infraccion-compra/modal-infraccion-compra.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -23,7 +24,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   loginDataUser: ILoginDatosModel;
   lstHotel : IHotelResultsModel[];
   lstHabication: IHabitacionResults;
-
+  modalRefPoliticas: BsModalRef;
   @Input() urlHotel;
   @Input() name;
   @Input() index;
@@ -37,6 +38,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   @Input() longitud;
   @Input() cantpersonas;
   @Input() estrellas;
+  @Input() lPolicies: string[];
   @Input() cantidadnoche;
   @Input() fechasalida;
   @Input() hotelcode;
@@ -56,62 +58,66 @@ export class ResultadoHabitacionComponent implements OnInit {
   }
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
-    
-    this.spinner.show();
-    let data = {
-      "Pseudo": "LIMPE2235",
-      "Lhotel":
-      [
-        {
-          "HotelCode": hotelcode,
-          "StartDate": this.lstHotel[0].startDate,
-          "EndDate": this.lstHotel[0].endDate,
-          "LguestPerRoom":
-          [
-            {
-              "RoomQuantity": $('#txthabitacion').val(),
-              "NumberPassengers": cantpersonas,
-              "TypePassenger": "ADT"
-            }
-          ]
-        }
-      ],
-      "Ocompany": this.loginDataUser.ocompany
-    }
-
-    let hotel;
-    for (let i = 0; i < this.lstHotel.length; i++) {
-      const element = this.lstHotel[i];
-      
-      if (element.code === hotelcode) {
-        hotel = this.lstHotel[i];
+    if(this.loginDataUser.ocompany.blockHotel === true && this.lPolicies.length > 0){
+      this.modalRefSessionExpired = this.modalService.show(ModalInfraccionCompraComponent);
+    }else{
+      this.spinner.show();
+      let data = {
+        "Pseudo": "LIMPE2235",
+        "Lhotel":
+        [
+          {
+            "HotelCode": hotelcode,
+            "StartDate": this.lstHotel[0].startDate,
+            "EndDate": this.lstHotel[0].endDate,
+            "LguestPerRoom":
+            [
+              {
+                "RoomQuantity": $('#txthabitacion').val(),
+                "NumberPassengers": cantpersonas,
+                "TypePassenger": "ADT"
+              }
+            ]
+          }
+        ],
+        "Ocompany": this.loginDataUser.ocompany
       }
-      
-    }
-    this.sessionStorageService.store("lhotel",hotel);
-
-    this.service.GetHabitacion(data).subscribe(
-      data => {
-        this.lstHabication = data;
+  
+      let hotel;
+      for (let i = 0; i < this.lstHotel.length; i++) {
+        const element = this.lstHotel[i];
         
-        this.sessionStorageService.store("lstHabication", this.lstHabication);
-        //this.router.navigate(['/habitacion']);
-        if (this.lstHabication.oerror != null) {
-          this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
-        }else{
-          window.open(window.location.origin + "/habitacion");
+        if (element.code === hotelcode) {
+          hotel = this.lstHotel[i];
         }
+        
+      }
+      this.sessionStorageService.store("lhotel",hotel);
+  
+      this.service.GetHabitacion(data).subscribe(
+        data => {
+          this.lstHabication = data;
+          
+          this.sessionStorageService.store("lstHabication", this.lstHabication);
+          //this.router.navigate(['/habitacion']);
+          if (this.lstHabication.oerror != null) {
+            this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
+          }else{
+            window.open(window.location.origin + "/habitacion");
+          }
+          
+        },
+        err => {
+        this.spinner.hide();
         
       },
-      err => {
-      this.spinner.hide();
+     () => {
+       this.spinner.hide();
       
-    },
-   () => {
-     this.spinner.hide();
+     }
+      )
+    }
     
-   }
-    )
   }
 
   Mostrarmapa(position) {
@@ -120,6 +126,13 @@ export class ResultadoHabitacionComponent implements OnInit {
 
  OcultarMapa(position) {
   $('#mapa_' + position).hide();
+}
+
+openModalPoliticas(template) {
+  this.modalRefPoliticas = this.modalService.show(
+    template,
+    Object.assign({}, { class: 'gray con-politicas' })
+  );
 }
 
 }

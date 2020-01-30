@@ -3,6 +3,7 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { IGetEnhancedHotel } from 'src/app/models/IGetEnhancedHotel';
 import { IHabitacionResults } from '../../../../../models/IHabitacionResults';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { stringify } from '@angular/compiler/src/util';
 
 declare var jquery: any;
 declare var $: any;
@@ -21,7 +22,7 @@ export class PagoComponent implements OnInit {
   @Output() outVencimiento = new EventEmitter<string>();
   @Output() outCodSeguridad = new EventEmitter<string>();
   @Output() outTitular = new EventEmitter<string>();
-
+  @Input() policyroom;
   
   isCollapsed = false;
   reserva : any;
@@ -40,7 +41,7 @@ export class PagoComponent implements OnInit {
   currency: string;
   opentarjeta = false;
   ss_tarjeta: any;
-
+  police: any[] = [];
   tarj: any;
 
   constructor(private sessionStorageService: SessionStorageService,private modalService: BsModalService) {
@@ -48,6 +49,7 @@ export class PagoComponent implements OnInit {
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.sessionStorageService.store("ss_tarjeta",this.opentarjeta);
     this.opentarjeta = this.sessionStorageService.retrieve("ss_tarjeta");
+    this.police = this.sessionStorageService.retrieve("ss_roompolicy")
    }
 
   
@@ -57,10 +59,12 @@ export class PagoComponent implements OnInit {
   ngOnInit() {
     this.reserva = this.sessionStorageService.retrieve("confirmacion");
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
+    console.log("this.policyroom ========>" + JSON.stringify(this.policyroom))
+    console.log("this.police ========>" + JSON.stringify(this.police))
   }
 
   openModal1(template: TemplateRef<any>, template2: TemplateRef<any>) {
-    if (this.lhotel.lpolicies.length === 0) {
+    if (this.policyroom.length === 0) {
       this.modalRef = this.modalService.show(
         template2,
         Object.assign({}, { class: 'gray modal-lg m-infraccion' })

@@ -9,6 +9,8 @@ import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { environment } from '../../../../../environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalInfraccionCompraComponent } from '../../../shared/modal-infraccion-compra/modal-infraccion-compra.component';
 declare var jquery: any;
 declare var $: any;
 
@@ -19,7 +21,7 @@ declare var $: any;
 })
 export class MapaHotelesComponent implements OnInit, AfterViewInit {
   loginDataUser: ILoginDatosModel;
-
+  @Input() lPolicies: string[];
   @Input() listado: IHotelResultsModel[];
   @Input() hoteldatos: any[];
   @Input() hotelcode: string;
@@ -37,15 +39,15 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
   zoom = 15;
   cantidadnoche: string;
   objSearch: any;
-
+  modalRefSessionExpired: BsModalRef;
   lstHabication: IHabitacionResults;
   lstHotel : IHotelResultsModel[];
-
+  policie: any;
   public location = {
     latitude: 0,
     longitude: 0
   };
-
+  modalRefPoliticas: BsModalRef;
   searchLatitude: number;
   searchLongitude: number;
 
@@ -59,6 +61,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
     private ngZone: NgZone,
     private sessionStorageService: SessionStorageService,
     private router: Router,
+    private modalService: BsModalService,
     private localStorageService: LocalStorageService,
     public spinner: NgxSpinnerService
   ) {
@@ -77,6 +80,11 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
     this.location.latitude =  this.hotel.oposition.latitude;
     this.location.longitude = this.hotel.oposition.longitude;
 
+    for (let i = 0; i < this.listado.length; i++) {
+      const element = this.listado[i];
+      this.policie = this.listado[i].lpolicies;
+      console.log("this.policie ===> acaacaca" + JSON.stringify(this.policie));
+    }
     
 
     //load Places Autocomplete
@@ -106,67 +114,81 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
-    this.spinner.show();
-    let data = {
-      "Pseudo": "LIMPE2235",
-      "Lhotel":
-      [
-        {
-          "HotelCode": hotelcode,
-          "StartDate": fechasalida,
-          "EndDate": fecharetorno,
-          "LguestPerRoom":
-          [
-            {
-              "RoomQuantity": $('#txthabitacion').val(),
-              "NumberPassengers": cantpersonas,
-              "TypePassenger": "ADT"
-            }
-          ]
-        }
-      ],
-      "Ocompany": this.loginDataUser.ocompany
-    }
-    this.objSearch = {
-      destino: $('#destinos').val(),
-      fechaentrada: fechasalida,
-      fechasalida: fecharetorno,
-      categoria : this.estrellas,
-      habi: $('#txthabitacion').val(),
-      personas: cantpersonas
-    };
-    this.sessionStorageService.store("ss_sessionmini",this.objSearch);
 
-    let hotel;
-    for (let i = 0; i < this.lstHotel.length; i++) {
-      const element = this.lstHotel[i];
-      if (element.code === hotelcode) {
-        hotel = this.lstHotel[i];
+
+  getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas,lPolicies){
+    if(this.loginDataUser.ocompany.blockHotel === true && lPolicies.length > 0){
+      this.modalRefSessionExpired = this.modalService.show(ModalInfraccionCompraComponent);
+    }else{
+      this.spinner.show();
+      let data = {
+        "Pseudo": "LIMPE2235",
+        "Lhotel":
+        [
+          {
+            "HotelCode": hotelcode,
+            "StartDate": fechasalida,
+            "EndDate": fecharetorno,
+            "LguestPerRoom":
+            [
+              {
+                "RoomQuantity": $('#txthabitacion').val(),
+                "NumberPassengers": cantpersonas,
+                "TypePassenger": "ADT"
+              }
+            ]
+          }
+        ],
+        "Ocompany": this.loginDataUser.ocompany
       }
-      this.OcultarModal(i + 1);
-    }
-    this.sessionStorageService.store("lhotel",hotel);
-
-    this.service.GetHabitacion(data).subscribe(
-      data => {
-
-        this.lstHabication = data;
-        
-        this.sessionStorageService.store("lstHabication", this.lstHabication);
-
-        window.open(window.location.origin + "/habitacion");
-        //this.router.navigate(['/habitacion']);
-        //window.open(environment.url_project + "/habitacion");
+      this.objSearch = {
+        destino: $('#destinos').val(),
+        fechaentrada: fechasalida,
+        fechasalida: fecharetorno,
+        categoria : this.estrellas,
+        habi: $('#txthabitacion').val(),
+        personas: cantpersonas
+      };
+      this.sessionStorageService.store("ss_sessionmini",this.objSearch);
+  
+      let hotel;
+      for (let i = 0; i < this.lstHotel.length; i++) {
+        const element = this.lstHotel[i];
+        if (element.code === hotelcode) {
+          hotel = this.lstHotel[i];
+        }
+        this.OcultarModal(i + 1);
+      }
+      this.sessionStorageService.store("lhotel",hotel);
+  
+      this.service.GetHabitacion(data).subscribe(
+        data => {
+  
+          this.lstHabication = data;
+          
+          this.sessionStorageService.store("lstHabication", this.lstHabication);
+  
+          window.open(window.location.origin + "/habitacion");
+          //this.router.navigate(['/habitacion']);
+          //window.open(environment.url_project + "/habitacion");
+        },
+        err => {
+        this.spinner.hide();
+   
       },
-      err => {
-      this.spinner.hide();
- 
-    },
-   () => {
-     this.spinner.hide();
-   }
-    )
+     () => {
+       this.spinner.hide();
+     }
+      )
+    }
+    
+  }
+
+  openModalPoliticas(template) {
+    this.modalRefPoliticas = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray con-politicas' })
+    );
   }
 
   ngAfterViewInit() {
@@ -223,6 +245,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
 */
 
 abriModal(position) {
+  $('.tooltipBagDiv').hide();
   $('#info_' + position).show();
  }
 

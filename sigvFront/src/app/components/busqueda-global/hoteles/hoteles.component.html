@@ -261,12 +261,8 @@
             <div class="col-2 m-0 p-0"></div>
 
         </div>
-        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
-
         <div *ngIf="flagDinData" class="col-12">
-
             <div class="row m-0 p-0">
-
                 <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
 
                 <div class="col-3 m-0 p-0"></div>
@@ -275,13 +271,29 @@
                     <div class="col-12 m-0 p-0 text-center">
 
                         <alert type="warning">
-                            No se encontraron hospedajes para esta búsqueda.
+                            No se encontraron itinerarios para esta búsqueda
                         </alert>
 
                     </div>
                 </div>
             </div>
+        </div>
+        <div *ngIf="flagDinDataMini" class="col-12">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
 
+                <div class="col-3 m-0 p-0"></div>
+
+                <div class="col-6 m-0 p-0">
+                    <div class="col-12 m-0 p-0 text-center" style="left: 200px;">
+
+                        <alert type="warning">
+                            No se encontraron itinerarios para esta búsqueda
+                        </alert>
+
+                    </div>
+                </div>
+            </div>
         </div>
         <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
             <div class="row m-0 p-0">
@@ -309,13 +321,14 @@
                             [cantidadnoche]="lHotel.numberNights" [cantpersonas]="lHotel.numberPassenger" [lPolicies]="lHotel.lpolicies" [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida" [hotelcode]="lHotel.code" [cantidadhabitaciones]="cantidadhabitaciones">
                         </app-resultado>
                     </div>
+
                     <app-mapa-hoteles *ngIf="vistamapa && mapafiltro" [listado]="LlistaHotel" [fechasalida]="fechaSalida" [fecharetorno]="fechaRetorno" [estrellas]="estrellas"></app-mapa-hoteles>
 
 
                 </div>
             </div>
         </div>
-
+        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
 
     </app-header>
 </ng-container>
