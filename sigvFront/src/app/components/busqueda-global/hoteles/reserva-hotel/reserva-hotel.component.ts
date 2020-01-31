@@ -341,11 +341,11 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     this.services.SendEmail(data).subscribe(
       results => {
         if (results === true) {
-          this.toastr.success('', 'Se envio correctamente', {
+          this.toastr.success('', 'Se envio correctamente a su correo electrónico.', {
             timeOut: 3000
           });
         } else {
-          this.toastr.error('', 'Error al envio', {
+          this.toastr.error('', 'Error al envio de correo electrónico.', {
             timeOut: 3000
           });
         }
