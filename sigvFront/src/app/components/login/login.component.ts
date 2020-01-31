@@ -99,7 +99,6 @@ export class LoginComponent implements OnInit {
         if (result != null) {
           if (this.datoslogin.oerror === null) {
             this.flagLogin = 1;
-            //console.log('login result: ' + JSON.stringify(result));
             let flagCentralizador = false;
             const roleId = result.orole.roleId;
             lstCentralizador.forEach(function(cent) {

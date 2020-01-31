@@ -871,11 +871,11 @@ PlantillaPasajerosVueloRechazado() {
   let html = '';
   if (this.odiscount != null && this.odiscount.amount != 0) {
       html += "<div style='width: 100%; text-align: rigth'>";
-      html += "<span style='font-size: 13px;color: #676767; margin-left: 4px;'>Monto de desc.</span>";
-      html += "<span style=' font-size: 13px;color: #6B253C; margin-left: 25px;'>";
+      html += "<span style='font-size: 11px;color: #676767; margin-left: 2px;'>Monto de desc.</span>";
+      html += "<span style=' font-size: 11px;color: #6B253C; margin-left: 14px;'>";
       html +=  this.reserva.currency;
       html +="</span>";
-      html += "<span style='color: #898989; font-size: 13px;'>";
+      html += "<span style='color: #898989; font-size: 11px;'>";
       html += this.odiscount.amount;
       html += "</span>";
       html += "</div>";
@@ -884,11 +884,11 @@ PlantillaPasajerosVueloRechazado() {
   let htmlporcentaje = '';
   if (this.odiscount != null && this.odiscount.percentage) {
       htmlporcentaje += "<div style='width: 100%; text-align: rigth'>";
-      htmlporcentaje += "<span style='margin-left: 4px; font-size: 13px;color: #676767'>Porcentaje de desc.</span>";
-      htmlporcentaje += "<span style='color: #898989; font-size: 13px; margin-left: 14px;'>";
+      htmlporcentaje += "<span style='margin-left: 1px; font-size: 11px;color: #676767'>Porcentaje de desc.</span>";
+      htmlporcentaje += "<span style='color: #898989; font-size: 11px; margin-left: 14px;'>";
       htmlporcentaje +=  this.odiscount.percentage;
       htmlporcentaje += "</span>";
-      htmlporcentaje += "<span style='font-size: 13px;color: #6B253C;'>%</span>";
+      htmlporcentaje += "<span style='font-size: 11px;color: #6B253C;'>%</span>";
       htmlporcentaje += "</div>";
     }
   let motivo = $('#motivorechazo').val();

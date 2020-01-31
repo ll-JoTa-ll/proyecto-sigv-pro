@@ -210,7 +210,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.showProfile = this.sessionStorageService.store('ss_profile',false);
+    this.showProfile = this.sessionStorageService.store('ss_profile', false);
     this.bsValue = new Date();
     $(".x").hide();
     $('#menu-vuelo-1').hide();
@@ -223,9 +223,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     $('.menu-paquete-2').hide();
     $('.menu-seguro-1').show();
     $('.menu-seguro-2').hide();
-    //$(".x").hide();
-    //this.localeService.use("es");
-    //this.airportList();
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -235,23 +232,12 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     //console.log('this.flagCentralizador: ' + this.flagCentralizador);
     //console.log(this.locales);
     this.localeService.use(this.locale);
-    if (!this.
-      flagCentralizador) {
+    if (!this.flagCentralizador) {
       this.sessionStorageService.store('ss_lstPasajeros', null);
       this.flagPaxMasMenos = true;
     } else {
       this.flagPaxMasMenos = false;
     }
-    /*
-    let backvuelo;
-    backvuelo = this.sessionStorageService.retrieve('backvuelo');
-    if (backvuelo === true) {
-      this.flagBuscar = false;
-      this.flagBuscadorLateral = false;
-      this.flagCentralizador = false;
-    }
-*/
-
     this.indback = this.sessionStorageService.retrieve('indregresar');
     let tipovuelo;
     if (this.indback === true) {
@@ -1232,7 +1218,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           this.sessionStorageService.store('ss_searchFlight', result);
           this.flagBuscar = true;
           this.flagBuscadorLateral = true;
-
           //aerolineas
           this.setLstAerolineas(result);
         } else {
