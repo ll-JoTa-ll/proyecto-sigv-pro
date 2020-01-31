@@ -99,7 +99,6 @@ import { AprobacionReservaComponent } from './components/reserva-vuelo/aprobacio
 import { FiltroPrecioComponent } from './components/vuelos/filtro-precio/filtro-precio.component';
 import { FiltroHorariosComponent } from './components/vuelos/filtro-horarios/filtro-horarios.component';
 import { FiltroAerolineasComponent } from './components/vuelos/filtro-aerolineas/filtro-aerolineas.component';
-import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/solicitud-aprobacion.component';
 import { FormatfechareservaPipe } from './pipes/formatfechareserva.pipe';
 import { GestionReservaVueloComponent } from './components/reserva-vuelo/gestion-reserva-vuelo/gestion-reserva-vuelo.component';
 import { FormatfechareservacreacionPipe } from './pipes/formatfechareservacreacion.pipe';
@@ -142,7 +141,6 @@ import { ModalHotelErroneoComponent } from './components/shared/modal-hotel-erro
 import { ModalCambiarPasswordComponent } from './components/shared/modal-cambiar-password/modal-cambiar-password.component';
 import { ModalRecuperarPasswordComponent } from './components/shared/modal-recuperar-password/modal-recuperar-password.component';
 
-import { BoletosNousadosComponent } from './components/busqueda-global/vuelos/boletos-nousados/boletos-nousados.component';
 import { FormatporcentajePipe } from './pipes/formatporcentaje.pipe';
 import { HotelesPoliticasComponent } from './components/busqueda-global/hoteles/hoteles-politicas/hoteles-politicas.component';
 import { ModalHabitacionHabComponent } from './components/busqueda-global/hoteles/habitacion/modal-habitacion-hab/modal-habitacion-hab.component';
@@ -229,7 +227,6 @@ import { ModalInfraccionCompraComponent } from './components/shared/modal-infrac
     FiltroPrecioComponent,
     FiltroHorariosComponent,
     FiltroAerolineasComponent,
-    SolicitudAprobacionComponent,
     ReservaGeneradaHotelComponent,
     FilterPipe,
     FormatfechareservaPipe,
@@ -262,7 +259,6 @@ import { ModalInfraccionCompraComponent } from './components/shared/modal-infrac
     PerfilUsuarioComponent,
     ModalCambiarPasswordComponent,
     ModalRecuperarPasswordComponent,
-    BoletosNousadosComponent,
     FormatporcentajePipe,
     HotelesPoliticasComponent,
     ModalHabitacionHabComponent,

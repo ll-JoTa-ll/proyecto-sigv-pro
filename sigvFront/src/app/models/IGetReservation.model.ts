@@ -10,6 +10,8 @@ export class iGetReservation {
     numberPassengers: number;
     totalAmount: string;
     totalAmountByPassenger: string;
+    totalDiscount: string;
+    percentageDiscount: string;
     currency: string;
     isAuthorizer: boolean;
     timeLimit: string;

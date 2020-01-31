@@ -75,10 +75,7 @@ export class LoginComponent implements OnInit {
     this.sessionStorageService.store('count', null);
     this.sessionStorageService.clear();
   }
-
-
-
-  click(){
+  click() {
     var el = document.getElementById('module');
 
     el.onclick = function() {
@@ -102,7 +99,6 @@ export class LoginComponent implements OnInit {
         if (result != null) {
           if (this.datoslogin.oerror === null) {
             this.flagLogin = 1;
-            //console.log('login result: ' + JSON.stringify(result));
             let flagCentralizador = false;
             const roleId = result.orole.roleId;
             lstCentralizador.forEach(function(cent) {

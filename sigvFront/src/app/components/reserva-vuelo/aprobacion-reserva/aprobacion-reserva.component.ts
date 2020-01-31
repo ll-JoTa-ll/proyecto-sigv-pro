@@ -53,6 +53,7 @@ export class AprobacionReservaComponent implements OnInit, AfterViewInit {
     backdrop: true,
     ignoreBackdropClick: true
   };
+  odiscount: any;
 
   constructor(private sessionStorageService: SessionStorageService, private modalservice: BsModalService, private service: AirportService,
               private spinner: NgxSpinnerService, private router: Router, private http: HttpClient, private toastr: ToastrService) {
@@ -65,6 +66,10 @@ export class AprobacionReservaComponent implements OnInit, AfterViewInit {
     this.plantillavueloaprobado = 'assets/plantillasEmail/plantilla_vueloaprobado.html';
     this.plantillavuelorechazado = 'assets/plantillasEmail/plantilla_vuelorechazado.html';
     this.plantillavuelocancelado = 'assets/plantillasEmail/plnatilla_vuelocancelado.html';
+    this.odiscount = {
+      amount: this.reserva.totalDiscount,
+      percentage: this.reserva.percentageDiscount
+    }
   }
 
   ngOnInit() {
@@ -462,8 +467,6 @@ CancelarReserva() {
 // SOLICITUD DE EXCEPCION
 PlantillaEmailSolicitud() {
   let htmlsection = '';
-
-
   for (let j = 0; j < this.reserva.litineraries.length; j++) {
        const itemsegmentgroup = this.reserva.litineraries[j];
        htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
@@ -656,9 +659,33 @@ PlantillaPreciovuelo() {
  }
 
  PlantillaPreciovueloAprobado() {
- // let motivo = $('#motivoviaje').val();
- // this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
+ 
+  let html = '';
+  if (this.odiscount != null && this.odiscount.amount != 0) {
+      html += "<div style='width: 100%; text-align: rigth'>";
+      html += "<span style='font-size: 17px;color: #676767; margin-left: 108px;'>Monto de desc.</span>";
+      html += "<span style=' font-size: 17px;color: #6B253C; margin-left: 25px;'>";
+      html +=  this.reserva.currency;
+      html +="</span>";
+      html += "<span style='color: #898989; font-size: 17px;'>";
+      html += this.odiscount.amount;
+      html += "</span>";
+      html += "</div>";
+    }
+
+  let htmlporcentaje = '';
+  if (this.odiscount != null && this.odiscount.percentage) {
+      htmlporcentaje += "<div style='width: 100%; text-align: rigth'>";
+      htmlporcentaje += "<span style='margin-left: 108px;font-size: 17px;color: #676767'>Porcentaje de desc.</span>";
+      htmlporcentaje += "<span style='color: #898989; font-size: 17px; margin-left: 14px;'>";
+      htmlporcentaje +=  this.odiscount.percentage;
+      htmlporcentaje += "</span>";
+      htmlporcentaje += "<span style=' font-size: 17px;color: #6B253C;'>%</span>";
+      htmlporcentaje += "</div>";
+    }
   let motivo = $('#motivoviaje').val();
+  this.emailvueloaprobado = this.emailvueloaprobado.replace('@precioconvenio', html);
+  this.emailvueloaprobado = this.emailvueloaprobado.replace('@porcentajedescuento', htmlporcentaje);
   this.emailvueloaprobado = this.emailvueloaprobado.replace(/@currency/gi, this.reserva.currency);
   this.emailvueloaprobado = this.emailvueloaprobado.replace("@precioTotal", this.reserva.totalAmount);
   this.emailvueloaprobado = this.emailvueloaprobado.replace("@preciounitario", this.reserva.totalAmountByPassenger);
@@ -841,8 +868,32 @@ PlantillaPasajerosVueloRechazado() {
  }
 
  PlantillaPreciovueloRechazado() {
- // this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
+  let html = '';
+  if (this.odiscount != null && this.odiscount.amount != 0) {
+      html += "<div style='width: 100%; text-align: rigth'>";
+      html += "<span style='font-size: 11px;color: #676767; margin-left: 2px;'>Monto de desc.</span>";
+      html += "<span style=' font-size: 11px;color: #6B253C; margin-left: 14px;'>";
+      html +=  this.reserva.currency;
+      html +="</span>";
+      html += "<span style='color: #898989; font-size: 11px;'>";
+      html += this.odiscount.amount;
+      html += "</span>";
+      html += "</div>";
+    }
+
+  let htmlporcentaje = '';
+  if (this.odiscount != null && this.odiscount.percentage) {
+      htmlporcentaje += "<div style='width: 100%; text-align: rigth'>";
+      htmlporcentaje += "<span style='margin-left: 1px; font-size: 11px;color: #676767'>Porcentaje de desc.</span>";
+      htmlporcentaje += "<span style='color: #898989; font-size: 11px; margin-left: 14px;'>";
+      htmlporcentaje +=  this.odiscount.percentage;
+      htmlporcentaje += "</span>";
+      htmlporcentaje += "<span style='font-size: 11px;color: #6B253C;'>%</span>";
+      htmlporcentaje += "</div>";
+    }
   let motivo = $('#motivorechazo').val();
+  this.emailvuelorechazado = this.emailvuelorechazado.replace('@precioconvenio', html);
+  this.emailvuelorechazado = this.emailvuelorechazado.replace('@porcentajedescuento', htmlporcentaje);
   this.emailvuelorechazado = this.emailvuelorechazado.replace(/@currency/gi, this.reserva.currency);
   this.emailvuelorechazado = this.emailvuelorechazado.replace("@precioTotal", this.reserva.totalAmount);
   this.emailvuelorechazado = this.emailvuelorechazado.replace("@preciounitario", this.reserva.totalAmountByPassenger);
@@ -902,65 +953,65 @@ PlantillaPasajerosVueloRechazado() {
        htmlsection += "<div style='width: 100%; border-radius: 20px 20px 20px 20px; background: white; padding: 1em; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);'>";
        htmlsection += "<div class='row' style='border-bottom: 1px solid #cccccc; padding-bottom: 20px; padding-top: 30px;'>";
        htmlsection += "<div style='width: 40%;'>";
-       htmlsection += "<span class='m-0 p-0'><img style='width: 45px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
+       htmlsection += "<span class='m-0 p-0'><img style='width: 100px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
        htmlsection += itemsegmentgroup.carrier + ".png'></span>";
        htmlsection += "</div>";
-       htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 30px;'>";
-       htmlsection += "<span style='color: #676767; font-size: 12px; opacity: 100%;'>Aerolinea Operadora :";
+       htmlsection += "<div style='width: 20%; text-align: center;  padding-top: 0px;'>";
+       htmlsection += "<span style='color: #676767; font-size: 10px; opacity: 100%;'>Aerolinea Operadora :";
        htmlsection += itemsegmentgroup.carrierName;
        htmlsection += "</span>";
        htmlsection += "</div>";
-       htmlsection += "<div style='width: 40%; text-align: center; padding-top: 30px; padding-left: 50px;'>";
-       htmlsection += "<label style='color: #676767; font-size: 14px; opacity: 100%; width: 40%;'>";
+       htmlsection += "<div style='width: 40%; text-align: center; padding-top: 1px; padding-left: 50px;'>";
+       htmlsection += "<label style='color: #676767; font-size: 11px; opacity: 100%; width: 40%;'>";
        htmlsection += "Vuelo AV140 - Airbus A319";
        htmlsection += "</label>";
        htmlsection += "</div>";
        htmlsection += "</div>";
        htmlsection += "<div class='row' style='padding-top: 40px; padding-bottom: 30px;'>";
        htmlsection += "<div style='width: 40%; text-align: center;'>";
-       htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 14px; opacity: 1;'>";
+       htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 11px; opacity: 1;'>";
        htmlsection += itemsegmentgroup.departureDate;
        htmlsection += "</div>";
-       htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 28px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 21px; opacity: 1; letter-spacing: 0;'>";
        htmlsection += itemsegmentgroup.departureTime;
        htmlsection += "</div>";
-       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 18px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 17px; opacity: 1; letter-spacing: 0;'>";
        htmlsection += itemsegmentgroup.origin;
        htmlsection += "</div>";
        htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 12px; opacity: 1; letter-spacing: 0;'>";
        htmlsection += itemsegmentgroup.cityOrigin;
        htmlsection += "</div>";
-       htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 10px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 11px; opacity: 1; letter-spacing: 0;'>";
        htmlsection += itemsegmentgroup.airportOrigin;
        htmlsection += "</div>";
        htmlsection += "</div>";
        htmlsection += "<div style='width: 20%; padding-left: 40px; padding-top: 30px; text-align: center;'>";
-       htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 14px; opacity: 1;'>";
+       htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 12px; opacity: 1;'>";
        htmlsection += "Duracion";
        htmlsection += "</div>";
-       htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 22px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 16px; opacity: 1; letter-spacing: 0;'>";
        htmlsection += itemsegmentgroup.totalFlightTime;
        htmlsection += "</div>";
-       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 20px; opacity: 1; letter-spacing: 0;'>";
-       htmlsection += "Clase: <label class='m-0 p-0 pl-3' style='color: #898989; font-size: 14px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 13px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += "Clase: <label class='m-0 p-0 pl-3' style='color: #898989; font-size: 11px; opacity: 1; letter-spacing: 0;'>";
        htmlsection += itemsegmentgroup.cabinDescription + " - " + itemsegmentgroup.cabinId;
        htmlsection += "</label>";
        htmlsection += "</div>";
        htmlsection += "</div>";
        htmlsection += "<div style='width: 40%; padding-left: 50px; text-align: center;'>";
-       htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 14px; opacity: 1;'>";
+       htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 11px; opacity: 1;'>";
        htmlsection += itemsegmentgroup.arrivalDate;
        htmlsection += "</div>";
-       htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 28px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 21px; opacity: 1; letter-spacing: 0;'>";
        htmlsection += itemsegmentgroup.arrivalTime;
        htmlsection += "</div>";
-       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 18px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 17px; opacity: 1; letter-spacing: 0;'>";
        htmlsection += itemsegmentgroup.destination;
        htmlsection += "</div>";
        htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 12px; opacity: 1; letter-spacing: 0;'>";
        htmlsection += itemsegmentgroup.cityDestination;
        htmlsection += "</div>";
-       htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 10px; opacity: 1; letter-spacing: 0;'>";
+       htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 11px; opacity: 1; letter-spacing: 0;'>";
        htmlsection += itemsegmentgroup.airportDestination;
        htmlsection += "</div>";
        htmlsection += "</div>";
@@ -1024,9 +1075,33 @@ PlantillaPasajerosVueloCancelado() {
  }
 
  PlantillaPreciovueloCancelado() {
- // this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
+  let html = '';
+  if (this.odiscount != null && this.odiscount.amount != 0) {
+      html += "<div style='width: 100%; text-align: rigth'>";
+      html += "<span style='font-size: 17px;color: #676767; margin-left: 108px;'>Monto de desc.</span>";
+      html += "<span style=' font-size: 17px;color: #6B253C; margin-left: 25px;'>";
+      html +=  this.reserva.currency;
+      html +="</span>";
+      html += "<span style='color: #898989; font-size: 17px;'>";
+      html += this.odiscount.amount;
+      html += "</span>";
+      html += "</div>";
+    }
+
+  let htmlporcentaje = '';
+  if (this.odiscount != null && this.odiscount.percentage) {
+      htmlporcentaje += "<div style='width: 100%; text-align: rigth'>";
+      htmlporcentaje += "<span style='margin-left: 108px;font-size: 17px;color: #676767'>Porcentaje de desc.</span>";
+      htmlporcentaje += "<span style='color: #898989; font-size: 17px; margin-left: 14px;'>";
+      htmlporcentaje +=  this.odiscount.percentage;
+      htmlporcentaje += "</span>";
+      htmlporcentaje += "<span style='font-size: 17px;color: #6B253C;'>%</span>";
+      htmlporcentaje += "</div>";
+    }
   let motivo;
   motivo = $('#motivorechazo').val();
+  this.emailvuelocancelado = this.emailvuelocancelado.replace('@precioconvenio', html);
+  this.emailvuelocancelado = this.emailvuelocancelado.replace('@porcentajedescuento', htmlporcentaje);
   this.emailvuelocancelado = this.emailvuelocancelado.replace(/@currency/gi, this.reserva.currency);
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@precioTotal", this.reserva.totalAmount);
   this.emailvuelocancelado = this.emailvuelocancelado.replace("@preciounitario", this.reserva.totalAmountByPassenger);

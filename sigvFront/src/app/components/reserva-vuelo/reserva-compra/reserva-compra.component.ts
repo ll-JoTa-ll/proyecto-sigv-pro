@@ -117,6 +117,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.ocompany = this.dataflightavalilability.Ocompany;
     this.numberpassengers = this.dataflightavalilability.NumberPassengers;
     this.flightnational = this.dataflightavalilability.FlightNational;
+    this.sessionStorageService.store('count', false);
   }
 
   ngAfterViewInit() {
@@ -243,7 +244,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       );
     }
 
-    
 
     PlantillaEmailSolicitud() {
       let htmlsection = '';
