@@ -99,7 +99,6 @@ import { AprobacionReservaComponent } from './components/reserva-vuelo/aprobacio
 import { FiltroPrecioComponent } from './components/vuelos/filtro-precio/filtro-precio.component';
 import { FiltroHorariosComponent } from './components/vuelos/filtro-horarios/filtro-horarios.component';
 import { FiltroAerolineasComponent } from './components/vuelos/filtro-aerolineas/filtro-aerolineas.component';
-import { SolicitudAprobacionComponent } from './components/solicitud-aprobacion/solicitud-aprobacion.component';
 import { FormatfechareservaPipe } from './pipes/formatfechareserva.pipe';
 import { GestionReservaVueloComponent } from './components/reserva-vuelo/gestion-reserva-vuelo/gestion-reserva-vuelo.component';
 import { FormatfechareservacreacionPipe } from './pipes/formatfechareservacreacion.pipe';
@@ -228,7 +227,6 @@ import { ModalInfraccionCompraComponent } from './components/shared/modal-infrac
     FiltroPrecioComponent,
     FiltroHorariosComponent,
     FiltroAerolineasComponent,
-    SolicitudAprobacionComponent,
     ReservaGeneradaHotelComponent,
     FilterPipe,
     FormatfechareservaPipe,

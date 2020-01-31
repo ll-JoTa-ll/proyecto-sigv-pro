@@ -15,7 +15,6 @@ import { stringify } from '@angular/compiler/src/util';
 import { ModalFamiliasVaciasComponent } from '../../../shared/modal-familias-vacias/modal-familias-vacias.component';
 import { setInterval } from 'timers';
 import { IBnusModel } from '../../../../models/Ibnus.model';
-
 declare var jquery: any;
 declare var $: any;
 
