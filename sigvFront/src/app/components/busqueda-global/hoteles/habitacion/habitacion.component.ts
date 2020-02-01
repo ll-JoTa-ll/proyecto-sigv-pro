@@ -296,6 +296,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
        this.showComponent = false;
     } else {
       this.vistalistado = true;
+      this.flagDinData = false;
       this.LlistaHotel.forEach(function(item) {
         if (item.oprice.pricePerAllNights < menorValor) {
           menorValor = item.oprice.pricePerAllNights;

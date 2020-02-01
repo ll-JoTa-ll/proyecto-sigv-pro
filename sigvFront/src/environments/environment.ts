@@ -15,6 +15,6 @@ export const environment = {
    url_bnus: 'http://ws-bnu.domiruth.com/api/',
    cod_rol_autogestion: [3],
    cod_rol_autorizador: [4],
-   cod_rol_centralizador: [5, 2, 7],
+   cod_rol_centralizador: [5, 2],
    max_pax: 8
 };

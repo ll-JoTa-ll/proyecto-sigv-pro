@@ -80,9 +80,11 @@ export class ResultadoComponent implements OnInit {
 
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
-    if(this.loginDataUser.ocompany.blockHotel === true && this.lPolicies.length > 0){
+    if(this.lPolicies != null){
+      if(this.loginDataUser.ocompany.blockHotel === true && this.lPolicies.length > 0)
       this.modalRefSessionExpired = this.modalService.show(ModalInfraccionCompraComponent);
-    }else{
+    }
+    else{
         this.localfinish = true;
       this.localStorageService.store("ss_countersession",null);
       this.localStorageService.store("ss_countersession",this.localfinish);

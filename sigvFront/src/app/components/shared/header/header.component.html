@@ -25,12 +25,15 @@
                   {{nombreUsuario}}
                   <img style="width: 30px; padding-left: 5px; cursor: pointer;" src="./assets/images/logo-familia.png" alt="">
                   -->
-                                    <div class="col-6 m-0 p-0" style="text-align: left;left: 80px;top: 30px;">
+                                    <div class="col-6 m-0 p-0" style="text-align: center;left: 50px;top: 20px;">
                                         <img *ngIf="gender==='M'" style="width: 60px; cursor: pointer;" (click)="changeProfile()" src="./assets/images/user_boy.png" alt="">
                                         <img *ngIf="gender==='F'" style="width: 60px; cursor: pointer;" (click)="changeProfile()" src="./assets/images/user_girl.png" alt="">
+                                        <div class="name">
+                                            <span>{{nombreUsuario}}</span>
+                                        </div>
                                     </div>
 
-                                    <div id="profile" style="width: 200px;height: 250px;top: 120px;background: #fff;position: absolute;border-radius: 10px;z-index: 999;clear: both;">
+                                    <div id="profile" style="width: 200px;height: 250px;top: 120px;background: #fff;position: absolute;border-radius: 10px;z-index: 999;clear: both;border: 4px solid #ED1C24">
                                         <div style="color: black;width: 200px;text-align: center;padding-bottom: 30px;padding-top: 20px;">
                                             <div class="name">{{nombreUsuario}}</div>
                                             <div class="job">{{role}}</div>
