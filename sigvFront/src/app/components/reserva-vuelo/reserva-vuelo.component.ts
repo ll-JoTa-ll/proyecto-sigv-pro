@@ -219,7 +219,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     var counter = seconds;
     var interval = setInterval(() => {
       counter--;
-      console.log(counter);
       if (counter === 300) {
         this.modalRefSessionWarning = this.modalService.show(ModalSesionWarningVuelosComponent, this.config);
       }
@@ -361,7 +360,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
            }
       },
       err => {
-       console.log(err);
       },
       () => {
       }
@@ -462,7 +460,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
   getUidByCompany() {
     const companyId = this.loginDataUser.ocompany.companyId;
-    this.flightService.getUidByCompany(companyId  ).subscribe(
+    this.flightService.getUidByCompany(companyId).subscribe(
       result => {
         if (result != null) {
           this.uidByCompanyC = result.filter(x => x.typeUid === 'C');

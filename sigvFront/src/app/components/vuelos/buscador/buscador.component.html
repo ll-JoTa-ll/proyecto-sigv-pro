@@ -121,7 +121,7 @@
 
                     <div class="col-6 m-0 p-0 pr-1">
 
-                        <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px;">
+                        <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow fechas" style="width: 100% !important; padding: 0px; border: 3px solid #DFD9D8;">
               <input type="image"
                      src="./assets/images/home/calendario.svg"
                      (click)="datepickerSalida.toggle()"
@@ -146,7 +146,7 @@
 
                     <div class="col-6 m-0 p-0 pl-1" *ngIf="tipoVuelo!=='OW'">
 
-                        <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px;">
+                        <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow fechas" style="width: 100% !important; padding: 0px; border: 3px solid #DFD9D8">
               <input type="image"
                      src="./assets/images/home/calendario.svg"
                      (click)="datepickerRetorno.toggle()"
@@ -229,7 +229,7 @@
                             <div class="col-12 m-0 p-0">
 
                                 <div class="btn-group" style="width: 90% !important;" dropdown>
-                                    <button id="button-basic" dropdownToggle type="button" class="btn bv-texto-2 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                                    <button id="button-basic" dropdownToggle type="button" class="btn bv-texto-2 dropdown-toggle box-shadow btn-combo" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
                     {{textoCabina}}
                   </button>
                                     <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu bv-texto-2" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
@@ -257,7 +257,7 @@
                             <div class="col-12 m-0 p-0">
 
                                 <div class="btn-group" style="width: 90% !important;" dropdown>
-                                    <button id="button-basic-2" dropdownToggle type="button" class="btn bv-texto-2 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                                    <button id="button-basic-2" dropdownToggle type="button" class="btn bv-texto-2 dropdown-toggle box-shadow btn-combo" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
                     {{textoEscala}}
                   </button>
                                     <ul id="dropdown-basic-2" *dropdownMenu class="dropdown-menu bv-texto-2" style="cursor: pointer" role="menu" aria-labelledby="button-basic-2">

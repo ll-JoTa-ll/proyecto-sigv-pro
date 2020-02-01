@@ -139,7 +139,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         this.emailsolicitud = data;
       },
       err => {
-        console.log(err);
       }
     )
   }
@@ -150,7 +149,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         this.emailreserva = data;
       },
       err => {
-        console.log(err);
       }
     )
   }
@@ -217,14 +215,13 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         if (this.pnrresults.pnr != null) {
          clearInterval(idinterval);
         }
-        // tslint:disable-next-line: max-line-length
-        if (this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length > 0 || this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length === 0) {
+    /*    if (this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length > 0 || this.loginDataUser.orole.roleDescription === 'Autorizador' && this.lsapprover.length === 0 && this.LPolicies.length === 0) {
           this.router.navigate(['/reserva-generada-vuelo']);
-        }
+        }*/
         this.sessionStorageService.store('datapnr', this.pnrresults);
         },
         err => {
-           console.log(err);
+          
       },
       () => {
         if (this.lsapprover.length > 0 && this.pnrresults.oerror === null) {
@@ -527,7 +524,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
              }
         },
         err => {
-         console.log(err);
+       
         },
         () => {
           this.spinner.hide();
@@ -566,7 +563,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
              }
         },
         err => {
-         console.log(err);
+ 
         },
         () => {
           this.spinner.hide();
