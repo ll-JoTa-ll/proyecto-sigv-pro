@@ -14,7 +14,11 @@ declare var $: any;
   styleUrls: ['./perfil-usuario.component.sass']
 })
 export class PerfilUsuarioComponent implements OnInit, AfterViewInit {
-
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
   closedSesion: boolean;
   idinterval: any;
   idinterval1: any;
@@ -54,7 +58,7 @@ export class PerfilUsuarioComponent implements OnInit, AfterViewInit {
     }
 
     cambiarPassword(){
-      this.modalRefSessionExpired = this.modalService.show(ModalCambiarPasswordComponent);
+      this.modalRefSessionExpired = this.modalService.show(ModalCambiarPasswordComponent,this.config);
     }
   
 

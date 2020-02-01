@@ -7,6 +7,7 @@ import * as crypto from 'crypto-js';
 import { stringify } from '@angular/compiler/src/util';
 import { HotelService } from '../../../services/hotel.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var jquery: any;
 declare var $: any;
@@ -17,11 +18,17 @@ declare var $: any;
   styleUrls: ['./modal-cambiar-password.component.sass']
 })
 export class ModalCambiarPasswordComponent implements OnInit {
-
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
   gender: string;
   loginDataUser;
   registerForm: FormGroup;
+  registerForm1: FormGroup;
   submitted = false;
+  submitted1 = false;
   email;
   plainText: string;
   conversionEncryptOutput: string;
@@ -39,7 +46,7 @@ export class ModalCambiarPasswordComponent implements OnInit {
   mostrar: any;
   show: any;
 
-  constructor(private toastr: ToastrService,private service: HotelService,private formBuilder: FormBuilder,private sessionStorageService: SessionStorageService,private localStorageService: LocalStorageService,public modalRef: BsModalRef) {
+  constructor(public spinner: NgxSpinnerService,private toastr: ToastrService,private service: HotelService,private formBuilder: FormBuilder,private sessionStorageService: SessionStorageService,private localStorageService: LocalStorageService,public modalRef: BsModalRef) {
 
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.gender = this.loginDataUser.gender;
@@ -50,6 +57,10 @@ export class ModalCambiarPasswordComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.registerForm1 = this.formBuilder.group({
+      password: ['', Validators.required]
+  }, {
+  });
     $("#validar").prop("disabled", true);
     $("#password1").prop("disabled", true);
     $("#password2").prop("disabled", true);
@@ -63,11 +74,14 @@ export class ModalCambiarPasswordComponent implements OnInit {
   });
   }
 
+  
+
   VolverHome(){
     this.modalRef.hide();
   }
 
   getUpdatePassword(){
+    this.spinner.show();
     this.newPassword = $('#password2').val();
     const datos = {
       LoginUser: this.loginDataUser.loginUser,
@@ -77,6 +91,7 @@ export class ModalCambiarPasswordComponent implements OnInit {
       result =>{
         this.resultNewPassword = result;
         if (this.resultNewPassword === true) {
+          this.spinner.hide();
           this.toastr.success('', 'Su contraseña ha sido modificada correctamente.', {
             timeOut: 5000
           });
@@ -88,7 +103,9 @@ export class ModalCambiarPasswordComponent implements OnInit {
   }
 
   getUserByPassword(){
+    this.spinner.show();
     this.plainText = $('#password').val();
+    console.log("this.plainText ===>" + this.plainText)
     const datos = {
       UserId: this.loginDataUser.userId,
       LoginUser: this.loginDataUser.loginUser,
@@ -100,6 +117,7 @@ export class ModalCambiarPasswordComponent implements OnInit {
         this.resultado = result;
         console.log(this.resultado);
         if (this.resultado === true) {
+          this.spinner.hide();
           $("#validar").prop("disabled", false);
           $("#password1").prop("disabled", false);
           $("#password2").prop("disabled", false);
@@ -112,6 +130,7 @@ export class ModalCambiarPasswordComponent implements OnInit {
             timeOut: 3000
           });
         }else{
+          this.spinner.hide();
           $("#validar").prop("disabled", true);
           $("#password1").prop("disabled", true);
           $("#password2").prop("disabled", true);
@@ -125,6 +144,7 @@ export class ModalCambiarPasswordComponent implements OnInit {
 
 
   get f() { return this.registerForm.controls; }
+  get f1() { return this.registerForm1.controls; }
 
     onSubmit() {
       this.submitted = true;
@@ -149,4 +169,17 @@ export class ModalCambiarPasswordComponent implements OnInit {
   
   }
 
+  onSubmit1() {
+    this.submitted1 = true;
+
+    if (this.registerForm1.invalid) {
+    }else{
+          this.getUserByPassword();
+      }
+      
+    }
+
+
 }
+
+

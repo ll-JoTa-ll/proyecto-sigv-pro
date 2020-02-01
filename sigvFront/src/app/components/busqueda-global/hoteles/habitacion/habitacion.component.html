@@ -60,7 +60,7 @@
                                             <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 1"><img src="./assets/images/star.svg"></span>
 
                                         </div>
-                                        <div class="col-2 m-0 p-0">
+                                        <div *ngIf="lhotel.lpolicies != null" class="col-2 m-0 p-0">
                                             <span (click)="openModal1(modalinfraccion, modalerror)" class="txt-infraccion pr-4" style="cursor: pointer;">Ver infracción</span>
                                             <span *ngIf="lhotel.lpolicies.length > 0" class="circulo-politica"></span>
                                             <span *ngIf="lhotel.lpolicies.length === 0" class="circulo-politica1"></span>
