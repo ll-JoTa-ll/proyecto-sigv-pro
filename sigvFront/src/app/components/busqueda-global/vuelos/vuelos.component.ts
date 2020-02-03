@@ -923,6 +923,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       },
       () => {
         if (this.lstBnus.length > 0) {
+          this.spinner.hide();
           this.modalRef = this.modalService.show(
            template,
            Object.assign({}, { class: 'gray modal-lg m-resumen'})
@@ -935,6 +936,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   GetBoletosNoUsados(template) {
+    this.spinner.show();
     let fechasalida;
     fechasalida = this.FormatearFecha(this.fechaSalida);
     let data = {
@@ -982,7 +984,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       this.UserBnus2();
       this.modalRef.hide();
     }
-    this.spinner.show();
+ //   this.spinner.show();
     this.flagDinData = false;
 
     let origen: any[] = [];

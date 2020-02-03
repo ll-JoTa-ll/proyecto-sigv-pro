@@ -273,7 +273,7 @@ export class AirportService {
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
     });
-    const url = `${this.url_usebnus + 'GetAsesorByCompany'}?${'Id=' + data}`;
+    const url = `${this.url_usebnus + 'GetAsesorByCompany'}?${'CompanyId=' + data}`;
     return this.http.get<iGetAsesors[]>(url, httpOptions2);
   }
 }
