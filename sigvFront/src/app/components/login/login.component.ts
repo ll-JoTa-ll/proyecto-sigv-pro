@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   credenciales: any[] = [];
   idinterval;
   idinterval1;
-
+  logout;
   modalRef: BsModalRef;
   config = {
     backdrop: true,

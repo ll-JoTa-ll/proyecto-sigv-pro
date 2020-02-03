@@ -43,7 +43,6 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
       if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-        
       }
     } else {
       this.text = "clicked outside";

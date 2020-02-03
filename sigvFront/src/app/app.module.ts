@@ -300,7 +300,7 @@ import { ModalInfraccionCompraComponent } from './components/shared/modal-infrac
     IgxInputGroupModule,
 		IgxSliderModule
   ],
-  entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent],
+  entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent],
   providers: [BnNgIdleService],
   bootstrap: [AppComponent]
 })

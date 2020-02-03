@@ -132,7 +132,6 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
 
     if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-    
     }
 
     if (this.lhotel.numberPassenger > 1) {

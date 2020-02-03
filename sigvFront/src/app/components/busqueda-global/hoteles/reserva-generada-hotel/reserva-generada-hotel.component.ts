@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalSesionExpiradaComponent } from '../../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
+import { ModalCerrarSesionComponent } from '../../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -32,7 +33,6 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
       if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-    
       }
     } else {
       this.text = "clicked outside";
