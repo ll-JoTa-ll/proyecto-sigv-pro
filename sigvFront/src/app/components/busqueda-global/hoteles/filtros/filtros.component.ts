@@ -62,13 +62,9 @@ export class FiltrosComponent implements OnInit {
 
   MostrarMapa() {
       this.vistamapa.emit(this.mostrarmapa);
-      var z = document.getElementById("filtro");
-      z.style.position = "absolute";
   }
 
   MostrarListado() {
       this.vistalistado.emit(this.mostrarlistado);
-      var z = document.getElementById("filtro");
-      z.style.position = "fixed";
   }
 }

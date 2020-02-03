@@ -163,6 +163,9 @@ export class ResultadoComponent implements OnInit {
 
   Mostrarmapa(position) {
     $('#mapa_' + position).show();
+    var z = document.getElementById("filtro");
+    z.style.position = "absolute";
+    z.style.display = "none"
   }
 
   openModalPoliticas(template) {
@@ -179,6 +182,9 @@ export class ResultadoComponent implements OnInit {
 
   OcultarMapa(position) {
     $('#mapa_' + position).hide();
+    var z = document.getElementById("filtro");
+      z.style.position = "fixed";
+      z.style.display = "block"
   }
 
 }
