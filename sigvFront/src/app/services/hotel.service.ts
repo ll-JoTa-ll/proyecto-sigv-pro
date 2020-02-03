@@ -32,9 +32,9 @@ export class HotelService {
   private url_getreservation: string = environment.url_hotel + 'Booking/';
   private url_gerUserByPassword: string = environment.url_usuario + 'User/GetUserByPassword';
   private url_updatePassword: string = environment.url_usuario + 'User/UpdatePassword';
-  private url_displayLogin: string = environment.url_usuario + 'User/DisplayLoginByEmail';
-  private url_validateToken: string = environment.url_usuario + 'User/ValidateTokenByUser';
-  private url_passwordRecovery: string = environment.url_usuario + 'User/ConfirmPasswordRecovery';
+  private url_displayLogin: string = environment.url_usuario + 'PasswordRecovery/DisplayLoginByEmail';
+  private url_validateToken: string = environment.url_usuario + 'PasswordRecovery/ValidateTokenByUser';
+  private url_passwordRecovery: string = environment.url_usuario + 'PasswordRecovery/ConfirmPasswordRecovery';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) { }
 

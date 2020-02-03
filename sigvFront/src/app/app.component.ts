@@ -19,7 +19,5 @@ export class AppComponent implements OnInit {
     setTimeout(function() {
       $("#divLoaderLogin").hide();
     }, 3000);
-
-   
   }
 }
