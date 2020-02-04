@@ -68,6 +68,7 @@ export class ResultadoComponent implements OnInit {
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
+    
 
     console.log("cantpersonas" + this.cantpersonas)
     if (this.cantpersonas = '1') {

@@ -59,6 +59,7 @@
             <div class="row m-0 p-0 pt-4">
                 <div class="col-6 m-0 p-0 text-center div-price">
                     <span>Precio promedio noche</span>
+
                 </div>
                 <div *ngIf="lPolicies != null" class="col-6 m-0 p-0 text-center">
                     <span tooltip="Hospedaje con infracción de políticas." (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer" *ngIf="lPolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>

@@ -28,6 +28,7 @@ document.onclick = function(e) {
     $("#divCitydestino ").hide();
 }
 
+
 $(document).on("click", function(e) {
 
     var container = $("#hola");

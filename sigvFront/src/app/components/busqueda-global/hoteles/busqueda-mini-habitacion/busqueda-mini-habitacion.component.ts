@@ -232,6 +232,9 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       }
 
       this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
+      if (value >= this.calendarSalidaValue) {
+        this.noches = 0;
+      }
     }
   }
 
