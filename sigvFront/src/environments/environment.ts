@@ -4,7 +4,7 @@
 
 export const environment = {
 
- /* production: true,
+  /*production: true,
   url: "https://sigvsecurity.azurewebsites.net/api/",
   url_2: "http://52.142.32.21/flights/api/",
   url_5: 'http://52.142.32.21/custom/api/',

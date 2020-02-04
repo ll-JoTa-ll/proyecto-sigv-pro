@@ -49,7 +49,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   };
   @ViewChild("modalexpired", {static: false}) modalexpired;
 
-
   locale = 'es';
   locales = listLocales();
   user : IGetUserById;
@@ -101,6 +100,8 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   valfechadestino = false;
   calendarIngresoValue;
   calendarSalidaValue: Date;
+  divScroll: any;
+
 
   constructor(
     private router: Router,
@@ -113,7 +114,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     private modalService: BsModalService,
     private eRef: ElementRef
   ) {
-
     $('.menu-vuelo-1').show();
     $('.menu-vuelo-2').hide();
     $('.menu-hotel-1').hide();
@@ -129,6 +129,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.flagBuscar = false;
     this.flagDinData = false;
     this.divwarning = false
+    this.divScroll = false;
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
     this.mapafiltro = true;
@@ -143,7 +144,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
-
+    
   }
 
   ngOnInit() {
@@ -162,6 +163,15 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
+    window.addEventListener('scroll',() => {
+      const scrolled = window.scrollY;
+      console.log('scrolled ===>' + scrolled);
+      if(scrolled >= 1630){
+        this.divScroll = true;
+      }else{
+        this.divScroll = false;
+      }
+    });
 
     //this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     //this.token = this.sessionStorageService.retrieve('ss_token');
@@ -362,12 +372,27 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.LlistaHotel = $event;
   }
 
+  ObtenerListFiltroMini($event) {
+    this.LlistaHotel = [];
+    this.LlistaHotel = $event;
+  }
+
   MostrarMapa($event) {
     this.vistamapa = $event;
     this.vistalistado = false;
   }
 
+  MostrarMapaMini($event) {
+    this.vistamapa = $event;
+    this.vistalistado = false;
+  }
+
   MostrarListado($event) {
+    this.vistalistado = $event;
+    this.vistamapa = false;
+  }
+
+  MostrarListadoMini($event) {
     this.vistalistado = $event;
     this.vistamapa = false;
   }

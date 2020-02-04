@@ -203,6 +203,9 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
         $("#fechaFin").val("");
       }
       this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
+      if (value >= this.calendarSalidaValue) {
+        this.cantidadnoches = 0;
+      }
     }
   }
 

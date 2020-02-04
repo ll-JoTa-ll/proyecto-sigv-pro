@@ -1,0 +1,68 @@
+<div class="col-12 m-0 p-0" style="z-index: 999;position: fixed;top: 50px;width: 350px;">
+    <div class="row box-shadow">
+        <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0 pl-4 pt-2 text-center">
+                    <label for="" class="text-filtros">Ordenar Por</label>
+                </div>
+            </div>
+            <div class="row m-0 p-0 pt-3">
+                <div class="col-2 m-0 p-0">
+
+                </div>
+                <div class="col-8 m-0 p-0 pr-4">
+                    <div class="btn-group" style="width: 250px;" dropdown>
+                        <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" aria-controls="dropdown-basic">
+                                          {{textoprecio}}<img style="width: 20px;" src="./assets/images/dolar.svg ">
+                                        </button>
+
+                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3" role="menu" aria-labelledby="button-basic">
+                            <li role="menuitem">
+                                <a class="dropdown-item" (click)="FiltrarPrecio(2)">Precio: Mayor a Menor</a>
+                            </li>
+                            <li role="menuitem"><a class="dropdown-item" (click)="FiltrarPrecio(1)">Precio: Menor a Mayor</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-2 m-0 p-0">
+
+                </div>
+            </div>
+            <div class="row m-0 p-0 pt-3">
+                <div class="col-2 m-0 p-0">
+
+                </div>
+                <div class="col-8 m-0 p-0">
+                    <div class="btn-group" style="width: 250px;" dropdown>
+                        <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" aria-controls="dropdown-basic">
+                                                  {{textoestrellas}}<img style="width: 20px;" src="./assets/images/estrella.svg ">
+                                                </button>
+
+                        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3" role="menu" aria-labelledby="button-basic">
+                            <li role="menuitem"><a class="dropdown-item" (click)="FiltrarEstrella(1)">Estrellas: Mayor a Menor</a></li>
+                            <li role="menuitem">
+                                <a class="dropdown-item" (click)="FiltrarEstrella(2)">Estrellas: Menor a Mayor</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-2 m-0 p-0">
+
+                </div>
+            </div>
+            <div class="row m-0 p-0 pt-3 pb-2">
+                <div class="col-12 m-0 p-0 pl-5">
+                    <div class="row p-0 m-0">
+                        <div class="col-12 m-0 p-0" style="left: 25px;">
+                            <div class="btn-group box-shadow m-0 p-0">
+                                <label class="pl-4 pr-4 pt-2 text-vista">Tipo de vista</label>
+                                <button class="btn btn-danger" tooltip="Vista en Lista" btnCheckbox tabindex="0" role="button" (click)="MostrarListado()"><i class="fas fa-list"></i></button>
+                                <button class="btn btn-danger" tooltip="Vista en Mapa" btnCheckbox tabindex="0" role="button" (click)="MostrarMapa()"><i class="fas fa-map-marker-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

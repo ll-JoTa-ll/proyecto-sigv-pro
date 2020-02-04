@@ -71,7 +71,7 @@ export class MapaHotelesComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
-    
+    window.scrollTo(0, 0);
     
     this.hotel = this.sessionStorageService.retrieve('hotel');
 
