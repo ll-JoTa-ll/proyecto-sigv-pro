@@ -30,6 +30,7 @@ export class FlightService {
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
   }
 

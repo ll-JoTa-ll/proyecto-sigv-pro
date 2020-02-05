@@ -83,7 +83,6 @@
                                             <div class="" style="width: 100%">
                                                 <div class="row">
                                                     <div class="col-1">
-
                                                         <img *ngIf="item.categoryId===2;" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
                                                         <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
                                                     </div>
@@ -155,7 +154,7 @@
                                 </div>
 
                                 <div class="m-0 p-0 pr-2" style="width: 42%">
-                                    <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow fechas" style="width: 100% !important; padding: 0px; padding: 9px;border: 3px solid #DFD9D8;">
+                                    <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow fechas" style="width: 100% !important; padding: 0px; padding: 9px;border: 2px solid #DFD9D8;border-radius: 4px">
         <input type="image"
                src="./assets/images/home/calendario.svg"
                (click)="datepickerSalida.toggle()"
@@ -178,9 +177,8 @@
         >
       </label>
                                 </div>
-
                                 <div *ngIf="tipoVuelo!=='OW'" class=" m-0 p-0" style="width: 40%">
-                                    <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px;border: 3px solid #DFD9D8">
+                                    <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px;border: 2px solid #DFD9D8;border-radius: 4px">
       <input type="image"
              src="./assets/images/home/calendario.svg"
              (click)="datepickerRetorno.toggle()"

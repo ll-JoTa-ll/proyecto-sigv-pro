@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { AirportService } from '../../../services/airport.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
@@ -373,131 +373,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     );
   }
 
-  /*
-  mostrarbuscador($event) {
-    let buscar = $event;
-    if (buscar === true) {
-      this.flagBuscar = false;
-      this.flagBuscadorLateral = false;
-      this.flagCentralizador = false;
-      this.origenAuto = null;
-      this.origentTexto = null;
-      this.destinoAuto = null;
-      this.destinoTexto = null;
-      this.textoEscala = null;
-      this.textoCabina = null;
-      this.pasajeros = null;
-      this.fechaSalidaShow = null;
-      this.fechaRetornoShow = null;
-      this.fechaSalida = null;
-      this.fechaRetorno = null;
-      this.tipoVuelo = null;
-    }
-  }
-*/
-  SearchFlight2() {
-    this.spinner.show();
-    this.flagDinData = false;
-    this.sessionStorageService.store('indregresar', null);
 
-    let origen: any[] = [];
-    let destino: any[] = [];
-    let fechas: any[] = [];
-    let horasFrom: any[] = [];
-    let horasTo: any[] = [];
-
-    let dataRequestFlight = this.sessionStorageService.retrieve('ss_databuscador');
-
-    let data = {
-      "Lusers": dataRequestFlight.Lusers,
-      "NumberPassengers": dataRequestFlight.NumberPassengers,
-      "NumberRecommendations": dataRequestFlight.NumberRecommendations,
-      "CabinType": dataRequestFlight.CabinType,
-      "Scales": dataRequestFlight.Scales,
-      "Origin": dataRequestFlight.Origin,
-      "Destination": dataRequestFlight.Destination,
-      "DepartureArrivalDate": dataRequestFlight.DepartureArrivalDate,
-      "DepartureArrivalTimeFrom": dataRequestFlight.DepartureArrivalTimeFrom,
-      "DepartureArrivalTimeTo": dataRequestFlight.DepartureArrivalTimeTo,
-      "Ocompany": dataRequestFlight.Ocompany
-    };
-
-    this.sessionStorageService.store('ss_dataRequestFlight', data);
-    this.sessionStorageService.store('ss_databuscador', data);
-    this.sessionStorageService.store('ss_horasFrom', horasFrom);
-    this.sessionStorageService.store('ss_horasTo', horasTo);
-    this.sessionStorageService.store('ss_filterPrecio', 'mas');
-
-
-    this.airportService.searchFlight(data).subscribe(
-      result => {
-        this.flagPseudoRepeat = true;
-        if (result !== null && result.length > 0) {
-          this.searchData = result;
-          this.sessionStorageService.store('ss_searchFlight', result);
-          this.flagBuscar = true;
-          this.flagBuscadorLateral = true;
-
-          //aerolineas
-          this.setLstAerolineas(result);
-          /*
-          result.forEach(function(reco, indexreco) {
-            if (indexreco === 0) {
-              const dataAero = {
-                carrierId: reco.carrierId,
-                carrierName: reco.carrierName,
-                filter: 0
-              };
-              aerolineas.push(dataAero);
-            } else {
-              let flagAero = 1;
-              aerolineas.forEach(function(aerolinea, indexaero) {
-                if (aerolinea.carrierId === reco.carrierId) {
-                  flagAero = 0;
-                }
-              });
-              if (flagAero === 1) {
-                const dataAeroN = {
-                  carrierId: reco.carrierId,
-                  carrierName: reco.carrierName,
-                  filter: 0
-                };
-                aerolineas.push(dataAeroN);
-              }
-            }
-          });
-          this.aerolineas = aerolineas;
-          */
-        } else {
-          this.sessionStorageService.store('ss_searchFlight', null);
-          this.flagDinData = true;
-        }
-      },
-      err => {
-        this.spinner.hide();
-        this.flagBuscadorLateral = false;
-      },
-      () => {
-        this.spinner.hide();
-        this.flagBuscadorLateral = false;
-      }
-    );
-  }
-  /*
-  airportList() {
-    this.airportService.airportList().subscribe(
-      (result: any) => {
-        console.log(result);
-        this.airportlist = result;
-        this.airportlistFilter = result;
-      },
-      (err) => { console.log("ERROR: " + err); },
-      () => {
-        console.log("Service airportList complete");
-      }
-    );
-  }
-  */
   handlerSalida(datepickerSalida) {
     this.isOpendate = true;
   }
@@ -1214,7 +1090,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.airportService.searchFlight(data).subscribe(
       result => {
         this.flagPseudoRepeat = true;
-        if (result !== null && result.length > 0) {
+        if ( result !== null && result.length > 0) {
           this.searchData = result;
           this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
           this.sessionStorageService.store('ss_searchFlight', result);

@@ -118,6 +118,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     this.datosuser = this.sessionStorageService.retrieve('objusuarios');
   }
 
+
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     const pseudoRepeat = this.pseudoRepeat;

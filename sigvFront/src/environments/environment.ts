@@ -3,9 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-
    production: false,
-   url:"https://sigvsecurityuat.azurewebsites.net/api/",
+   url:"https://domiruth-uat.azure-api.net/security/",
    url_2:"http://52.190.24.114/flights/api/",
    url_hotel: "http://52.190.24.114/hotel/api/",
    url_usuario : "http://52.190.24.114/custom/api/",

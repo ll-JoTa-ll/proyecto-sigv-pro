@@ -474,7 +474,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       this.service.SearchHotel(data).subscribe(
 
         result => {
-          if (result.length == 0 || result == null || result[0].oerror != null) {
+          if (result == null || result.length == 0 || result[0].oerror != null) {
             //alert("asdasd")
             this.flagDinData = true;
           }

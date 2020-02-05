@@ -60,6 +60,7 @@ export class AirportService {
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
   }
 
@@ -68,7 +69,8 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + token,
       'Content-Type': "application/json",
-      'Access-Control-Allow-Origin' : '*'
+      'Access-Control-Allow-Origin' : '*',
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.get<IAirportList>(this._url + "GetAirports", httpOptions2);
   }
@@ -78,7 +80,8 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + token,
       'Content-Type': "application/json",
-      'Access-Control-Allow-Origin' : '*'
+      'Access-Control-Allow-Origin' : '*',
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.get<IAirportList>(this._url + "GetPriorityAirports", httpOptions2);
   }
@@ -88,6 +91,7 @@ export class AirportService {
    httpOptions2.headers = new HttpHeaders({ 
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     console.log(httpOptions2);
     return this.http.post<ISearchFlightModel[]>(this._url3 + "SearchFlight", data, httpOptions2);
@@ -98,6 +102,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<IFlightAvailability>(this._url4 + "FlightAvailability", data, httpOptions2);
   }
@@ -107,6 +112,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<IFlightAvailability>(this._url4 + "FlightPrice", data, httpOptions2);
   }
@@ -116,6 +122,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     const url = `${this._url5 + 'GetUserById'}?${'userId=' + data}`;
     return this.http.get<IDatosUser>(url, httpOptions2);
@@ -126,6 +133,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<ICostCenter[]>(this._url6 + "GetCostCenter", data, httpOptions2);
   }
@@ -135,6 +143,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     const url = `${this._url7 + 'GetReasonFlight'}?${'companyId=' + data}`;
     return this.http.get<IReasonFlight[]>(url, httpOptions2);
@@ -145,6 +154,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<IPnrConfirm>(this._url4 + "GeneratePNR", data, httpOptions2);
   }
@@ -154,6 +164,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<IGetApprovers[]>(this._url4 + "GetApprovers", data, httpOptions2);
   }
@@ -163,6 +174,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post(this._url8 + "SendEmail", data, httpOptions2);
   }
@@ -172,6 +184,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<IGenerateTicket>(this._url4 + "GenerateTicket", data, httpOptions2);
   }
@@ -181,6 +194,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     const url = `${this._url9 + 'GetReservationList'}?${'userId=' + data}`;
     return this.http.get<IReservaModel[]>(url, httpOptions2);
@@ -191,6 +205,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     const url = `${this._url9 + 'GetReservationByAuthorizer'}?${'userId=' + data}`;
     return this.http.get<IReservaModel[]>(url, httpOptions2);
@@ -201,6 +216,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<iGetReservation>(this._url9 + "GetReservation", data, httpOptions2);
   }
@@ -210,6 +226,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<IResultAprobacionReserva>(this._url10 + "ApproveReservation", data, httpOptions2);
   }
@@ -219,6 +236,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<IResultAprobacionReserva>(this._url10 + "RefuseReservation", data, httpOptions2);
   }
@@ -228,6 +246,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post(this._url11  + "CancelPNR", data, httpOptions2);
   }
@@ -237,6 +256,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<IQueuePnr>(this._url4  + "QueuePnr", data, httpOptions2);
   }
@@ -246,6 +266,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.get<IGetPaisesModel[]>(this._url12  + "GetCountry", httpOptions2);
   }
@@ -254,6 +275,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer",
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post<IBnusModel[]>(this.url_bnus  + "GetUnusedTickets", data, httpOptions2);
   }
@@ -263,6 +285,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.post(this.url_usebnus  + "ValidateInsertUseBNUS", data, httpOptions2);
   }
@@ -272,6 +295,7 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     const url = `${this.url_usebnus + 'GetAsesorByCompany'}?${'CompanyId=' + data}`;
     return this.http.get<iGetAsesors[]>(url, httpOptions2);
