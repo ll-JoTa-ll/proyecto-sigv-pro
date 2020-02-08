@@ -69,7 +69,6 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + token,
       'Content-Type': "application/json",
-      'Access-Control-Allow-Origin' : '*',
       'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
     return this.http.get<IAirportList>(this._url + "GetAirports", httpOptions2);
@@ -80,8 +79,8 @@ export class AirportService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + token,
       'Content-Type': "application/json",
-      'Access-Control-Allow-Origin' : '*',
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9",
+      'Origin': 'https://apimanagement.hosting.portal.azure.net'
     });
     return this.http.get<IAirportList>(this._url + "GetPriorityAirports", httpOptions2);
   }

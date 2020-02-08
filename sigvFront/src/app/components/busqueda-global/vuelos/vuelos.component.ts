@@ -1139,6 +1139,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
     if (tipoVuelo === 'RT') {
       if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
+        $('.input-container input').addClass("quitar-borde");
         $("#txtOrigen").addClass("campo-invalido");
         this.isOpen = true;
         flagVal = false;

@@ -55,8 +55,8 @@
                 Origen
             </div>
 
-            <div id="txtOrigen" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
-                <div class="ng-autocomplete" style="width: 100%;">
+            <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
+                <div id="txtOrigen" class="ng-autocomplete" style="width: 100%;">
                     <ng-autocomplete [(ngModel)]="origenText" (closed)="ClosedOrigen()" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent(1, $event)' (inputChanged)='onChangeSearch(1, $event)' (inputFocused)='onFocused(1, $event)' [itemTemplate]="itemTemplate"
                         [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
@@ -85,8 +85,8 @@
                 Destino
             </div>
 
-            <div id="txtDestino" *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
-                <div class="ng-autocomplete" style="width: 100%;">
+            <div *ngIf="tipoVuelo!=='MC'" class="col-12 m-0 p-0 pt-2">
+                <div id="txtDestino" class="ng-autocomplete" style="width: 100%;">
                     <ng-autocomplete [(ngModel)]="destinoText" (closed)="ClosedDestino()" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent(2, $event)' (inputChanged)='onChangeSearch(2, $event)' (inputFocused)='onFocused(2, $event)' [itemTemplate]="itemTemplate2"
                         [notFoundTemplate]="notFoundTemplate2">
                     </ng-autocomplete>
