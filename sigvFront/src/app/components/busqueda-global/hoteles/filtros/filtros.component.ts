@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
 import { parse } from 'url';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-filtros',
@@ -15,6 +16,7 @@ export class FiltrosComponent implements OnInit {
   @Output() vistalistado = new EventEmitter<any>();
   textoprecio: string = 'Precio';
   textoestrellas: string = 'Estrellas';
+  textopoliticas: string = 'Politicas';
 
   mostrarmapa: boolean = true;
   mostrarlistado: boolean = true;
@@ -59,6 +61,35 @@ export class FiltrosComponent implements OnInit {
       this.textoestrellas = 'Estrellas: Menor a Mayor';
     }
   }
+
+  FiltrarPolitica(number) {
+    let lista;
+    if (number === 1) {
+      this.ListaHotel.forEach(function(element) {
+        if(element.lpolicies.length > 0){
+          element.isvisible = true;
+        }else{
+          element.isvisible = false;
+        }
+      });
+      lista = this.ListaHotel;
+     this.messagelistado.emit(lista);
+     this.textopoliticas = 'Politicas Incumplidas';
+    }
+
+    if (number === 2) {
+      this.ListaHotel.forEach(function(element) {
+        if(element.lpolicies.length > 0){
+          element.isvisible = false;
+        }else{
+          element.isvisible = true;
+        }
+      });
+      lista = this.ListaHotel;
+     this.messagelistado.emit(lista);
+     this.textopoliticas = 'Politicas Cumplidas';
+    }
+ }
 
   MostrarMapa() {
       this.vistamapa.emit(this.mostrarmapa);

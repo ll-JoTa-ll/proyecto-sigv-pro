@@ -28,6 +28,41 @@ document.onclick = function(e) {
     $("#divCitydestino ").hide();
 }
 
+function RequestServer(url, method, success, text) {
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, url, true);
+    xhr.setRequestHeader('Content-type', 'application/json;');
+    xhr.setRequestHeader('Ocp-Apim-Subscription-Key', 'eb85131bc9d94c02840aa6961e7f77e9');
+    xhr.onreadystatechange = function() {
+        if (xhr.status === 200 && xhr.readyState === 4) {
+            success(xhr.response);
+        }
+    };
+    if (text === null) xhr.send();
+    else xhr.send(text);
+}
+
+var SendPost = function(url, success, text) {
+    RequestServer(url, "post", success, text);
+};
+
+var SendGet = function(url, success) {
+    RequestServer(url, "get", success);
+};
+
+function LoginXMLHTTPRequest(login, pass) {
+    var loginRequest = new Object();
+    loginRequest.User = login;
+    loginRequest.Password = pass;
+    var jsonRequest = JSON.stringify(loginRequest);
+    SendPost("https://domiruth-uat.azure-api.net/security/Authenticate/LoginUser", ShowResult, jsonRequest);
+}
+
+function ShowResult(text) {
+    var textParsed = JSON.parse(text);
+    console.log(textParsed);
+}
+
 
 $(document).on("click", function(e) {
 

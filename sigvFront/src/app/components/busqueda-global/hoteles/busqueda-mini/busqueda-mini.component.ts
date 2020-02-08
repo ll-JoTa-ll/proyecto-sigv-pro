@@ -206,6 +206,9 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
       if (value >= this.calendarSalidaValue) {
         this.cantidadnoches = 0;
       }
+      if($("#fechaFin").val() === ""){
+        this.cantidadnoches = 0; 
+      }
     }
   }
 
@@ -396,7 +399,6 @@ ObtenerDias2(fecha1, fecha2) {
  
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
- 
   this.sessionStorageService.store("ss_noches",this.cantidadnoches);
 
 }
