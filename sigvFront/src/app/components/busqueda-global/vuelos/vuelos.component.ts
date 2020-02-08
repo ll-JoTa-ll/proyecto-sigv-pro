@@ -324,8 +324,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
      }
     }
   }
-
-
   ngAfterViewInit() {
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();

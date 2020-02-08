@@ -63,6 +63,11 @@ export class ResultadoHabitacionComponent implements OnInit {
     }else{
       this.spinner.show();
       let data = {
+        "Lusers":[{
+          "RoleId": this.loginDataUser.orole.roleId,
+          "LcostCenter": this.loginDataUser.lcostCenter,
+          "UserId": this.loginDataUser.userId
+        }],
         "Pseudo": "LIMPE2235",
         "Lhotel":
         [

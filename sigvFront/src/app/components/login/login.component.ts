@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ɵSWITCH_IVY_ENABLED__POST_R3__ } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import * as crypto from 'crypto-js';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -46,6 +46,8 @@ export class LoginComponent implements OnInit {
     ignoreBackdropClick: true,
     keyboard: false
   };
+  login1;
+  pass;
 
   constructor(
     private service: HotelService,
@@ -62,6 +64,8 @@ export class LoginComponent implements OnInit {
   ) {
     this.checkedRecuerdame = true;
     this.sessionStorageService.store('ss_login_data', '');
+    this.login1 = "05203883";
+    this.pass = "8dae9b8cd31c8650e1e2a3e0bfd9e0689eb9ccc8e4e641e206b8d12fdd668afd";
   }
 
   ngOnInit() {

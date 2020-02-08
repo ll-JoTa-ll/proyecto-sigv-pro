@@ -6,7 +6,7 @@
                     <div class="row m-0 p-0 pb-3">
 
                         <div class="col-12 m-0 p-0 text-center" style="background-color: #FFFFFF">
-                            <span class="tituhabi">Habitacion</span>
+                            <span class="tituhabi">Habitación</span>
                         </div>
                         <div class="col-12 m-0 p-0 text-center pt-4 pb-4">
                             <span class="habidesc">{{lhabitaciones.name}}</span>
@@ -88,11 +88,11 @@
 
                                 <div *ngIf="lhabitaciones.guaranteeType === 'GuaranteeRequired' " class="col-12 m-0 p-0 pb-3">
 
-                                    <span class="Description pl-2">✓ Pago con garantia<img style="width: 30px;" class="pl-1" src="./assets/images/payment.png"></span>
+                                    <span class="Description pl-2">✓ Pago con garantía<img style="width: 30px;" class="pl-1" src="./assets/images/payment.png"></span>
                                 </div>
                                 <div *ngIf="lhabitaciones.guaranteeType === 'Deposit' " class="col-12 m-0 p-0 pb-3">
 
-                                    <span class="Description pl-2">✓ Pago con deposito<img style="width: 30px;" class="pl-1" src="./assets/images/no-money.png"></span>
+                                    <span class="Description pl-2">✓ Pago con depósito<img style="width: 30px;" class="pl-1" src="./assets/images/no-money.png"></span>
                                 </div>
                             </div>
                             <!-- <span class="texcance">✓ Se puede cancelar hasta el {{lhabitaciones.oCancelPenalty.deadline}}</span> -->
@@ -171,7 +171,7 @@
 
             <div class="row m-0 p-0">
 
-                <app-hoteles-politicas [politica]="politica" [politicaIndex]="i+1" [politicaslength]="lPolicies.length" *ngFor="let politica of lPolicies; let i=index"></app-hoteles-politicas>
+                <app-hoteles-politicas style="padding-right: 7px;" [politica]="politica" [politicaIndex]="i+1" [politicaslength]="lPolicies.length" *ngFor="let politica of lPolicies; let i=index"></app-hoteles-politicas>
 
             </div>
 

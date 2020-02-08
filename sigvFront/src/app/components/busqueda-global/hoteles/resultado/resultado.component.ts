@@ -165,8 +165,11 @@ export class ResultadoComponent implements OnInit {
   Mostrarmapa(position) {
     $('#mapa_' + position).show();
     var z = document.getElementById("filtro");
+    if(z != null){
     z.style.position = "absolute";
-    z.style.display = "none"
+    z.style.display = "none";
+    }
+    $('body').css('overflow','hidden');
   }
 
   openModalPoliticas(template) {
@@ -184,8 +187,11 @@ export class ResultadoComponent implements OnInit {
   OcultarMapa(position) {
     $('#mapa_' + position).hide();
     var z = document.getElementById("filtro");
-      z.style.position = "fixed";
-      z.style.display = "block"
+    if(z != null){
+    z.style.position = "fixed";
+    z.style.display = "block"
+    }
+    $('body').css('overflow','visible');
   }
 
 }
