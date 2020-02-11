@@ -54,7 +54,6 @@ export class AddPaxCentralizadorComponent implements OnInit {
   }
 
   search() {
-    
     this.spinner.show();
     const tipoBusqueda = this.tipoBusqueda;
     let freeText = '';
@@ -67,8 +66,10 @@ export class AddPaxCentralizadorComponent implements OnInit {
     }
 
     const datos = {
-      OCompany: this.datoslogin.ocompany,
-      OAgency: this.datoslogin.oAgency,
+      Ocompany: {
+        Id: this.datoslogin.ocompany.companyId,
+      },
+      Oagency: this.datoslogin.oAgency,
       FreeText: freeText,
     };
 

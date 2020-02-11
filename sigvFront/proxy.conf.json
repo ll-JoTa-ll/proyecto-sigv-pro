@@ -1,0 +1,11 @@
+{
+    "/security": {
+        "target": "https://domiruth-uat.azure-api.net",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/security": ""
+        }
+    }
+}

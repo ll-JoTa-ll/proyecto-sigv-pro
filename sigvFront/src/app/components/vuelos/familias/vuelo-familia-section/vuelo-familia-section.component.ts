@@ -10,6 +10,7 @@ export class VueloFamiliaSectionComponent implements OnInit {
   @Input() sectionFamily;
   @Input() sectionFamilyIndex;
   @Input() lstFamilyResultLength;
+  @Input() familyname;
 
   @Output() idRadioBtnFareFam = new EventEmitter<string>();
 

@@ -5,6 +5,10 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { ILoginDatosModel } from '../models/ILoginDatos.model';
 
+let httpOptions = {
+  headers: new HttpHeaders()
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +22,10 @@ export class LoginService {
   ) { }
 
   login(datos): Observable<ILoginDatosModel> {
-    return this.http.post<ILoginDatosModel>(this._url + "LoginUser", datos);
+    httpOptions.headers = new HttpHeaders({
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    });
+    return this.http.post<ILoginDatosModel>(this._url + "LoginUser", datos, httpOptions);
   }
 }

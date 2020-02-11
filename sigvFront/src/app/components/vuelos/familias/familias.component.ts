@@ -7,6 +7,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { VuelosComponent } from '../../busqueda-global/vuelos/vuelos.component';
 import { IFlightAvailability } from '../../../models/IFlightAvailability';
 
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-familias',
@@ -54,6 +56,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+ 
   }
 
   ngAfterViewInit() {

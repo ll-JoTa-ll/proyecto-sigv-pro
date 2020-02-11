@@ -64,7 +64,6 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   emailreserva;
   fechaexpiracion;
   fechacreacion;
-
   modalRef: BsModalRef;
   config = {
     backdrop: true,
