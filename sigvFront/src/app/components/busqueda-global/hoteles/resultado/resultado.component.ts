@@ -58,6 +58,7 @@ export class ResultadoComponent implements OnInit {
   objSearch: any;
   personas: any;
   modalRefSessionExpired: BsModalRef;
+  ocultar: any;
   t: number;
 
   constructor(private modalService: BsModalService,private localStorageService: LocalStorageService,public spinner: NgxSpinnerService,private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router) {
@@ -145,6 +146,8 @@ export class ResultadoComponent implements OnInit {
           }else{
             //this.router.navigate(['/habitacion']);
             window.open(window.location.origin + "/habitacion");
+            this.ocultar = true;
+            this.ocultar = this.sessionStorageService.store("ss_oculta",this.ocultar);
           }
           
           //window.open(window.location.origin + "/habitacion");

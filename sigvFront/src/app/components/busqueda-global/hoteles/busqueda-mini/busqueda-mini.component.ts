@@ -135,6 +135,9 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   }
 
   limpiarSession(){
+    if (this.estrellas === undefined) {
+      this.estrellas = '';
+    }
     this.objSearch = { 
       destino: this.destinoText,
       categoria: this.estrellas,
