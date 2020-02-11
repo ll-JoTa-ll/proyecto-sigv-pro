@@ -12,7 +12,6 @@ export const environment = {
   max_pax: 8,
   url_usuario : "http://52.190.24.114/custom/api/",
   url_bnus: 'http://ws-bnu.domiruth.com/api/'*/
-
   production: true,
   url: "https://domiruth-uat.azure-api.net/security/",
   url_2: "https://domiruth-uat.azure-api.net/flight/",

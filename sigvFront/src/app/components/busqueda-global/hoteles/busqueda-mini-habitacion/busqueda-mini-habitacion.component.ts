@@ -235,6 +235,9 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       if (value >= this.calendarSalidaValue) {
         this.noches = 0;
       }
+      if($("#fechaFin").val() === ""){
+        this.noches = 0; 
+      }
     }
   }
 

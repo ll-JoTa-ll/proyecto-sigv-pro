@@ -57,6 +57,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   lstRadioCheck: any[] = [];
   loginDataUser;
   outSegmentCheck;
+  familyname;
 
   //lstFamilyResult: IFareFamilyModel[] = [];
   lstFamilyResult: IFamilyResultModel;
@@ -120,6 +121,15 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      console.log('scrolled ===>' + scrolled);
+      if (scrolled >= 1630) {
+        $('#precio').css({'position': 'fixed', 'right': '208px', 'width': '372px'});
+      } else {
+        return;
+      }
+    });
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     const pseudoRepeat = this.pseudoRepeat;
     //console.log('pseudoRepeat: ' + pseudoRepeat);
@@ -956,6 +966,7 @@ TraerAutorizador() {
                   seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].FareBasis = fareBasis;
                   seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].fareFamilyName = fareFamilyName;
                 }
+                console.log(fareFamilyName);
               }
             }
           });

@@ -2,7 +2,7 @@
     <div class="col-9 m-0 p-0 fondo">
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 txt-titulo text-center pt-4 pb-4">
-                FAMILIAS TARIFARIAS
+                <span class="pr-3"><img src="assets/images/travel.svg" alt=""></span> <span>FAMILIAS TARIFARIAS</span>
             </div>
         </div>
         <div class="pb-2 pr-2 pl-2">
@@ -69,17 +69,15 @@
                     <div class="col-12 m-0 p-0 text-center pt-4">
                         <span class="f-text-5">{{currency}}</span> <span class="f-text-6 pl-1">{{famTotalFareAmount | number}}</span>
                     </div>
-
                 </div>
-
             </div>
         </div>
         <div class="row m-0 p-0 pt-5">
-            <div class="col-12 m-0 p-0 text-center pb-3" *ngIf="!flagMsgErrorSelFam">
-                <button (click)="seleccionarFamilia(modalerror)" class="btn btn-seleccionar">Seleccionar</button>
+            <div class="col-12 m-0 p-0 text-center pb-3">
+                <button [disabled]="flagMsgErrorSelFam" (click)="seleccionarFamilia(modalerror)" [ngClass]="{'btn-seleccionar': flagMsgErrorSelFam === false, 'btn btn-seleccionar-disabled': flagMsgErrorSelFam === true}">Seleccionar</button>
             </div>
             <div class="col-12 m-0 p-0 text-center pb-5">
-                <button class="btn btn-cerrar">Cerrar</button>
+                <button (click)="modalRef.hide()" class="btn btn-cerrar">Cerrar</button>
             </div>
         </div>
     </div>

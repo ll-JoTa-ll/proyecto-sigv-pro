@@ -52,7 +52,7 @@
                                             <div class="col-6" style="padding-top: 50px;">
                                                 <div class='row m-0 p-0'>
                                                     <div style='width: 50%; height: 55px; padding-top: 13px; background: #6B253C 0% 0% no-repeat padding-box; border-radius: 15px 0px 0px 0px; color: #FFFFFF; text-align: center; font-size: 22px;font-family: Omnes-med;'>Código Reserva</div>
-                                                    <div style='width: 50%; height: 55px; padding-top: 13px; background: #6B253C 0% 0% no-repeat padding-box; border-radius: 0px 15px 0px 0px; color: #FFFFFF; text-align: center; font-size: 22px;font-family: Omnes-med;'>Código Confirmacion</div>
+                                                    <div style='width: 50%; height: 55px; padding-top: 13px; background: #6B253C 0% 0% no-repeat padding-box; border-radius: 0px 15px 0px 0px; color: #FFFFFF; text-align: center; font-size: 22px;font-family: Omnes-med;'>Código de Confirmación</div>
                                                 </div>
                                                 <div class='row m-0 p-0'>
                                                     <div style='width: 50%; padding-top: 13px; font-size: 22px; background: #FBF6F6 0% 0% no-repeat padding-box; border-radius: 0px 0px 0px 15px; color: #898989; text-align: center; font-family: Omnes-med;'>{{reserva.pnr}}</div>
@@ -122,10 +122,10 @@
                                             <div class="col-12 m-0 p-0">
                                                 <div class="check row m-0 p-0">
                                                     <div class="col-6 m-0 p-0">
-                                                        Check in
+                                                        Check-in
                                                     </div>
                                                     <div class="col-6 m-0 p-0 pl-4">
-                                                        Check out
+                                                        Check-out
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,16 +187,16 @@
                                         <span class=""><span class="pl-2"><img src="./assets/images/horarios.svg"></span><span class="Dates pl-3">Horarios</span></span>
                                     </div>
                                     <div class="col-3 m-0 p-0">
-                                        <span class=""><span class="pl-2"></span><span class="Dates">Chek in: {{habitacion.ohotel.checkIn}}</span></span>
+                                        <span class=""><span class="pl-2"></span><span class="Dates">Check-in: {{habitacion.ohotel.checkIn}}</span></span>
                                     </div>
                                     <!--   <div class="col-3 m-0 p-0">
                                         <span class=""><span class="pl-2"></span><span class="Dates">Check out: {{habitacion.ohotel.checkOut}}</span></span>
                                     </div>-->
                                     <ng-container *ngIf="habitacion.ohotel.checkOut != null && habitacion.ohotel.checkOut != ''; else elseTemplate2" class="col-3 m-0 p-0">
-                                        <span class=""><span class="pl-2"></span><span class="Dates">Check out: {{habitacion.ohotel.checkOut}}</span></span>
+                                        <span class=""><span class="pl-2"></span><span class="Dates">Check-out: {{habitacion.ohotel.checkOut}}</span></span>
                                     </ng-container>
                                     <ng-template #elseTemplate2 class="col-3 m-0 p-0">
-                                        <span class=""><span class="pl-2"></span><span class="Dates">Check out: Sin información</span></span>
+                                        <span class=""><span class="pl-2"></span><span class="Dates">Check-out: Sin información</span></span>
                                     </ng-template>
 
                                     <div class="col-3 m-0 p-0">

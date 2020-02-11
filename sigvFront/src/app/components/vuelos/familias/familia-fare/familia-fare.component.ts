@@ -36,8 +36,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   nameRadioBtn: string;
   idRadioBtn: string;
   idNameFamilyName: string;
+  idNameFamilyName1: string;
   classNameFamilyName: string;
-
   colorsFare = [
     "white",
     "#3D5DBB",
@@ -75,6 +75,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     this.idRadioBtn = 'idRadioFam';
 
     this.idNameFamilyName = 'idNameFamilyName';
+    this.idNameFamilyName1 = 'idNameFamilyName1';
     this.classNameFamilyName = 'classNameFamilyName';
   }
 
@@ -124,6 +125,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     //const fareBasis = ss_lstFamilyResult.lsections[this.sectionIndex].lsegments[this.segmentIndex].lfareFamilies[this.fareFamilyIndex].fareBasis;
     const idRadioBtn = this.idRadioBtn;
     const idNameFamilyName = this.idNameFamilyName;
+    const idNameFamilyName1 = this.idNameFamilyName1;
     //const sectionIndex = this.sectionIndex;
     //const segmentIndex = this.segmentIndex;
     const colorsFare = this.colorsFare;
@@ -151,8 +153,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     if (fareBasisVal == fareBasisServ) {
       $('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
       $('#' + idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
+      $('#' + idNameFamilyName1 + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
     }
-
   }
 
   selectRadioBtnFam(id) {
@@ -161,7 +163,9 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     //console.log('familyLength: ' + familyLength);
     for (let i = 1; i <= familyLength; i++) {
       const idCab = '#' + this.idNameFamilyName + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + i;
+      const idcab2 = '#' + this.idNameFamilyName1 + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + i;;
       $(idCab).css({'background-color': '#C6C6C6'});
+      $(idcab2).css({'background-color': '#C6C6C6'});
     }
 
     const selRadio = id.split('_');
@@ -169,6 +173,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     const segmentIndex = selRadio[2];
     const fareFamilyIndex = selRadio[3];
     $('#' + this.idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).css({'background-color': this.colorsFare[fareFamilyIndex]});
+    $('#' + this.idNameFamilyName1 + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).css({'background-color': this.colorsFare[fareFamilyIndex]});
+    console.log(id);
     this.idRadioBtnFareFam.emit(id);
   }
 

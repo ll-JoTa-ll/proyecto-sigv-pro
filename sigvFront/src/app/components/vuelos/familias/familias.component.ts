@@ -56,15 +56,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY;
-      console.log('scrolled ===>' + scrolled);
-      if (scrolled >= 1630) {
-        $('#precio').css({'position': 'fixed', 'right': '208px', 'width': '372px'});
-      } else {
-        return;
-      }
-    });
+ 
   }
 
   ngAfterViewInit() {
