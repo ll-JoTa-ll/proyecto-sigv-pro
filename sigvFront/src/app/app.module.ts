@@ -147,6 +147,7 @@ import { HotelesPoliticasComponent } from './components/busqueda-global/hoteles/
 import { ModalHabitacionHabComponent } from './components/busqueda-global/hoteles/habitacion/modal-habitacion-hab/modal-habitacion-hab.component';
 import { ModalInfraccionCompraComponent } from './components/shared/modal-infraccion-compra/modal-infraccion-compra.component';
 import { FiltrosMiniComponent } from './components/busqueda-global/hoteles/filtros-mini/filtros-mini.component';
+import { AdministradorPasajerosComponent } from './components/administrador-pasajeros/administrador-pasajeros.component';
 
 @NgModule({
   declarations: [
@@ -266,7 +267,8 @@ import { FiltrosMiniComponent } from './components/busqueda-global/hoteles/filtr
     HotelesPoliticasComponent,
     ModalHabitacionHabComponent,
     ModalInfraccionCompraComponent,
-    FiltrosMiniComponent
+    FiltrosMiniComponent,
+    AdministradorPasajerosComponent
   ],
   imports: [
     BrowserModule,

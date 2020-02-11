@@ -43,6 +43,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
 
   sessionMini1;
   sessionMini;
+  sessionMini2;
+  sessionMiniHab;
   estrellasSess;
   ss_minibuscador;
   ls_search_hotel;
@@ -78,6 +80,9 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     Count: 1,
     HotelSegmentCategoryCode: ''
   };
+  viaje: any;
+  entradahab: any;
+  salidahab: any;
 
   constructor(
     private localeService: BsLocaleService,
@@ -157,10 +162,13 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       categoria: this.textoestrellas,
       iata: this.destinoValue,
     };
-    this.sessionStorageService.store("ss_sessionmini1",this.objSearch);
+    this.sessionStorageService.store("ss_sessionmini2",this.objSearch);
   }
 
   limpiarSession(){
+    if (this.estrellas === undefined) {
+      this.estrellas = '';
+    }
     this.objSearch = { 
       destino: this.destinoText,
       categoria: this.estrellas,
@@ -168,6 +176,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     };
     this.sessionStorageService.store("ss_sessionmini1",null);
     this.sessionStorageService.store("ss_sessionmini1",this.objSearch);
+    this.sessionMiniHab = this.sessionStorageService.retrieve('ss_sessionminihab');
+    this.sessionMini2 = this.sessionStorageService.retrieve('ss_sessionmini2');
   }
 
   Enviarlistado() {
@@ -341,9 +351,20 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
         ],
         "Ocompany": this.loginDataUser.ocompany
       }
+
+      this.objSearch = {
+        destino: $('#destinosa').val(),
+        fechaentrada: fechaSal,
+        fechasalida: fechaRe,
+        categoria : this.estrellas,
+        habi: $('#txthabitacion').val(),
+        personas: $('#txtpersonas').val()
+      };
+      this.sessionStorageService.store("ss_sessionmini",this.objSearch);
+
+
       this.habitaciones = $('#txthabitacion').val();
       this.adultos = $('#txtpersonas').val();
-    
       this.service.SearchHotel(data).subscribe(
         result => {
             if (result[0].oerror != null) {
@@ -363,6 +384,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
             this.LResultshotel = result;
             //this.flagShowMap.emit(true);
             this.messagelistado.emit(this.LResultshotel);
+            this.limpiarSession();
             this.ShowComponent.emit(true);
             this.hideComponent.emit(false);
             this.flagDinData = false;

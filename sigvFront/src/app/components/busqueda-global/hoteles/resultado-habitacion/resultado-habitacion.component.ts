@@ -11,6 +11,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalHabitacionErroneaComponent } from '../../../shared/modal-habitacion-erronea/modal-habitacion-erronea.component';
 import { ModalHotelErroneoComponent } from '../../../shared/modal-hotel-erroneo/modal-hotel-erroneo.component';
 import { ModalInfraccionCompraComponent } from '../../../shared/modal-infraccion-compra/modal-infraccion-compra.component';
+import { FamilyService } from '../../../../services/family.service';
 
 declare var jquery: any;
 declare var $: any;
@@ -25,6 +26,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   lstHotel : IHotelResultsModel[];
   lstHabication: IHabitacionResults;
   modalRefPoliticas: BsModalRef;
+  oculta: any;
   @Input() urlHotel;
   @Input() name;
   @Input() index;
@@ -45,7 +47,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   @Input() fecharetorno;
   urlimg = './assets/images/hotel-icon.png';
   modalRefSessionExpired: BsModalRef;
-
+  objSearch: any;
   constructor(private modalService: BsModalService,private router : Router,public spinner: NgxSpinnerService,private service: HotelService,private sessionStorageService: SessionStorageService) {
 
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -87,7 +89,18 @@ export class ResultadoHabitacionComponent implements OnInit {
         ],
         "Ocompany": this.loginDataUser.ocompany
       }
-  
+
+      this.objSearch = {
+        destino: $('#destinosa').val(),
+        fechaentrada: this.lstHotel[0].startDate,
+        fechasalida: this.lstHotel[0].endDate,
+        categoria : this.estrellas,
+        habi: $('#txthabitacion').val(),
+        personas: cantpersonas
+      };
+      this.sessionStorageService.store("ss_sessionminiHab",this.objSearch);
+      this.oculta = false;
+      this.sessionStorageService.store("ss_oculta",this.oculta);
       let hotel;
       for (let i = 0; i < this.lstHotel.length; i++) {
         const element = this.lstHotel[i];
@@ -118,7 +131,8 @@ export class ResultadoHabitacionComponent implements OnInit {
       },
      () => {
        this.spinner.hide();
-      
+       this.oculta = true;
+       this.sessionStorageService.store("ss_oculta",this.oculta);
      }
       )
     }

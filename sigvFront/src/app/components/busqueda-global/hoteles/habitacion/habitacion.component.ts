@@ -38,6 +38,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     ignoreBackdropClick: true,
     keyboard: false
   };
+  ocultar;
 
   public text: String;
 
@@ -120,6 +121,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
+    this.ocultar = this.sessionStorageService.retrieve("ss_oculta");
     this.flagDinData = false;
  
     this.personas = this.LHoteles.numberPassenger;
