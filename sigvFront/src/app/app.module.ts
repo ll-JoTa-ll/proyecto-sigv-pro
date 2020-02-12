@@ -147,6 +147,8 @@ import { ModalHabitacionHabComponent } from './components/busqueda-global/hotele
 import { ModalInfraccionCompraComponent } from './components/shared/modal-infraccion-compra/modal-infraccion-compra.component';
 import { FiltrosMiniComponent } from './components/busqueda-global/hoteles/filtros-mini/filtros-mini.component';
 import { AdministradorPasajerosComponent } from './components/administrador-pasajeros/administrador-pasajeros.component';
+import { FlxUiDatatableModule, FlxUiDataTable } from 'flx-ui-datatable';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 @NgModule({
   declarations: [
@@ -270,6 +272,8 @@ import { AdministradorPasajerosComponent } from './components/administrador-pasa
   ],
   imports: [
     BrowserModule,
+    PerfectScrollbarModule,
+    FlxUiDatatableModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
@@ -304,7 +308,7 @@ import { AdministradorPasajerosComponent } from './components/administrador-pasa
 		IgxSliderModule
   ],
   entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent],
-  providers: [BnNgIdleService],
+  providers: [BnNgIdleService,FlxUiDataTable],
   bootstrap: [AppComponent]
 })
 export class AppModule {

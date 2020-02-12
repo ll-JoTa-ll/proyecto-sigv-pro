@@ -157,6 +157,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     let cumple;
     let listaAme;
     this.telefono = $('#numero').val();
+    let correo = $("#correoTitu").val();
     cumple = this.user.birthDate;
     cumple = cumple.substring(0,10);
     cumple = cumple.replace(/-/gi,"/");
@@ -185,7 +186,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       this.amenities = listaAme;
       let phone = [this.telefono];
       phone.push();
-      let email = [this.correo];
+      let email = [correo];
       email.push();
       this.spinner.show();
       if (this.user.gender === 'F') {
