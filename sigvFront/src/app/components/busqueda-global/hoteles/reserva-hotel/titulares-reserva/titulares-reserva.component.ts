@@ -32,6 +32,8 @@ export class TitularesReservaComponent implements OnInit {
    }
 
   ngOnInit() {
+    let correo = $("#correoTitu").val();
+    this.outCorreo.emit(correo)
   }
 
   validarCorreo() {
