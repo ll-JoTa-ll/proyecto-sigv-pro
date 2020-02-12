@@ -240,7 +240,7 @@
                                     Cabina
                                 </div>
 
-                                <div class="m-0 p-0 d-flex justify-content-center align-items-center" style="width: 73%">
+                                <div class="m-0 p-0 d-flex justify-content-center align-items-center" style="width: 63%">
 
                                     <div class="btn-group" style="width: 90% !important;" dropdown>
                                         <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow btn-combo" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
@@ -262,13 +262,13 @@
 
                         <div class="col-3 m-0 p-0 v-texto-2">
 
-                            <div class="row m-0 p-0" style="height: 40px !important;">
+                            <div class="row m-0 p-0 pl-3" style="height: 40px !important;">
 
                                 <div class="m-0 p-0 d-flex align-items-center" style="width: 25%;font-size: 17px; color:#626262;">
                                     Escala
                                 </div>
 
-                                <div class="m-0 p-0" style="width: 75%">
+                                <div class="m-0 p-0" style="width: 63%">
 
                                     <div class="btn-group" style="width: 90% !important;" dropdown>
                                         <button id="button-basic-2" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow btn-combo" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
@@ -287,15 +287,15 @@
 
                         </div>
 
-                        <div class="col-3 m-0 p-0 v-texto-2">
+                        <div class="col-2 m-0 p-0 v-texto-2">
 
                             <div class="row m-0 p-0" style="height: 40px !important;">
 
-                                <div class="m-0 p-0 d-flex align-items-center" style="width: 35%; font-size: 17px; color:#626262;">
+                                <div class="m-0 p-0 d-flex align-items-center" style="width: 52%; font-size: 17px; color:#626262;">
                                     Pasajeros
                                 </div>
 
-                                <div class="m-0 p-0 d-flex align-items-center justify-content-center" style="width: 65%; padding: 6px !important;">
+                                <div class="m-0 p-0 d-flex align-items-center justify-content-center" style="width: 13%; padding: 6px !important;">
                                     <label for="" style="padding: 0px; margin: 0px;" class=" d-inline-flex justify-content-center align-items-center box-shadow">
                       <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
                       <input readonly type="text" class="text-center v-texto-3" style="width: 60px; outline: none; border: 0" [value]="pasajeros">
@@ -307,7 +307,18 @@
 
                         </div>
 
-                        <div class="col-3 m-0 p-0 text-center v-texto-2">
+                        <div class="col-2 m-0 p-0  v-texto-2">
+                            <div class="row m-0 p-0" style="height: 40px !important;">
+                                <div class="m-0 p-0 d-flex align-items-center" style="width: 52%; font-size: 17px; color:#626262;">
+                                    Incluye maleta
+                                </div>
+                                <div class="m-0 p-0 d-flex align-items-center justify-content-center" style="width: 36%; padding: 6px !important;">
+                                    <input id="chkmaleta" type="checkbox" [(ngModel)]="maleta">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-2 m-0 p-0 text-center v-texto-2">
 
                             <div class="row m-0 p-0" style="height: 40px !important;">
 
@@ -456,14 +467,15 @@
 
                     <div class="col-3 m-0 p-0 pr-3 pl-5">
 
-                        <app-buscador [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto" [destinoAuto]="destinoAuto"
-                            [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida" [fechaRetorno]="fechaRetorno" [minDateSalida]="minDateSalida"
-                            [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2" [fechaSalida3]="fechaSalida3" [fechaSalida4]="fechaSalida4"
-                            [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3" [fechaSalidaShow4]="fechaSalidaShow4" [fechaSalidaShow5]="fechaSalidaShow5"
-                            [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5" [origenAuto6]="origenAuto6" [origentTexto1]="origentTexto1"
-                            [origentTexto2]="origentTexto2" [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1" [destinoAuto2]="destinoAuto2" [destinoAuto3]="destinoAuto3"
-                            [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3" [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5"
-                            [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)" (outTipoVuelo)="setOutputTipoVuelo($event)" (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
+                        <app-buscador [maleta]="maleta" [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto"
+                            [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida" [fechaRetorno]="fechaRetorno"
+                            [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2" [fechaSalida3]="fechaSalida3"
+                            [fechaSalida4]="fechaSalida4" [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3" [fechaSalidaShow4]="fechaSalidaShow4"
+                            [fechaSalidaShow5]="fechaSalidaShow5" [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5" [origenAuto6]="origenAuto6"
+                            [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2" [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1" [destinoAuto2]="destinoAuto2"
+                            [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3" [destinoTexto4]="destinoTexto4"
+                            [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)" (outTipoVuelo)="setOutputTipoVuelo($event)"
+                            (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
 
                         <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
 

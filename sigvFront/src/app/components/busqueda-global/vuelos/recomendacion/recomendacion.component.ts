@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, TemplateRef, Output, EventEmitter, AfterViewInit} from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, Output, EventEmitter, AfterViewInit, HostListener } from '@angular/core';
 import { ISearchFlightModel } from '../../../../models/ISearchFlight.model';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
@@ -121,7 +121,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    window.addEventListener('scroll', () => {
+  /*  window.addEventListener('scroll', () => {
       const scrolled = window.scrollY;
       console.log('scrolled ===>' + scrolled);
       if (scrolled >= 1630) {
@@ -129,7 +129,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       } else {
         return;
       }
-    });
+    });*/
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     const pseudoRepeat = this.pseudoRepeat;
     //console.log('pseudoRepeat: ' + pseudoRepeat);
@@ -923,6 +923,7 @@ TraerAutorizador() {
               //console.log("idSecuencial: " + idSecuencial);
               $("#idRadioFam_" + idSecuencial).prop("checked", false);
               $('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
+              $('#idNameFamilyName1_' + idSecuencial).css({'background-color': '#C6C6C6'});
             });
           }
         });
@@ -947,6 +948,7 @@ TraerAutorizador() {
                   //console.log("idSecuencial: " + idSecuencial);
                   $("#idRadioFam_" + idSecuencial).prop("checked", true);
                   $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
+                  $('#idNameFamilyName1_' + idSecuencial).css({'background-color': colorsFare[index_]});
 
                   //console.log("classId: " + classId);
                   //console.log("classId: " + classId);
@@ -1049,11 +1051,13 @@ TraerAutorizador() {
                 let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
                 $("#idRadioFam_" + idSecuencial).prop("checked", false);
                 $('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
+                $('#idNameFamilyName1_' + idSecuencial).css({'background-color': '#C6C6C6'});
                 const fareBasisNew = fare.fareBasis;
                 if (fareBasis == fareBasisNew) {
                   flagFareComp = 1;
                   $("#idRadioFam_" + idSecuencial).prop("checked", true);
                   $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
+                  $('#idNameFamilyName1_' + idSecuencial).css({'background-color': colorsFare[index_]});
                   requestFamilia.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].ClassId = classId;
                   requestFamilia.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].FareBasis = fareBasis;
                   requestFamilia.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;

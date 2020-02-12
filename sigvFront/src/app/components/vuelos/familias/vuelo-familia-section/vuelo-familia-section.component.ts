@@ -1,5 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
+
+declare var jquery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-vuelo-familia-section',
   templateUrl: './vuelo-familia-section.component.html',
@@ -10,7 +14,7 @@ export class VueloFamiliaSectionComponent implements OnInit {
   @Input() sectionFamily;
   @Input() sectionFamilyIndex;
   @Input() lstFamilyResultLength;
-  @Input() familyname;
+  familyname;
 
   @Output() idRadioBtnFareFam = new EventEmitter<string>();
 
@@ -53,15 +57,29 @@ export class VueloFamiliaSectionComponent implements OnInit {
   showSegments() {
     const isCollapsed = this.isCollapsed;
     this.isCollapsed = !isCollapsed;
+    $('#divfamilia_' + this.sectionFamilyIndex).hide();
   }
 
   hideSegments() {
     const isCollapsed = this.isCollapsed;
     this.isCollapsed = !isCollapsed;
+    if (this.familyname != null) {
+      $('#divfamilia_' + this.sectionFamilyIndex).show();
+    }
   }
 
   selectRadioBtnFam($event) {
     this.idRadioBtnFareFam.emit($event);
   }
 
+  EvtNamefamily($event) {
+    this.familyname = $event;
+  }
+
+  EvtColorFamily($event) {
+    console.log('"' + $event + '"');
+    if (this.isCollapsed === false) {
+      $('#namefamilia_' + this.sectionFamilyIndex).css({'background-color': '"' + $event + '"'});
+    }
+  }
 }

@@ -16,6 +16,8 @@ export class VueloFamiliaSegmentComponent implements OnInit {
   @Input() sectionFamilyIndex;
 
   @Output() idRadioBtnFareFam = new EventEmitter<string>();
+  @Output() namefamily = new EventEmitter<string>();
+  @Output() colorfamily = new EventEmitter<string>();
 
   marketingCarrier;
   flagCountInc: number;
@@ -91,4 +93,11 @@ export class VueloFamiliaSegmentComponent implements OnInit {
     this.idRadioBtnFareFam.emit($event);
   }
 
+  EventNameFamilia($event) {
+    this.namefamily.emit($event);
+  }
+
+  EventColorFamilia($event) {
+    this.colorfamily.emit($event);
+  }
 }

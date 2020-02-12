@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter, HostListener} from '@angular/core';
 import { AirportService } from '../../../services/airport.service';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { VuelosComponent } from '../../busqueda-global/vuelos/vuelos.component';
 import { IFlightAvailability } from '../../../models/IFlightAvailability';
+import { fromEvent } from 'rxjs';
 
 declare var jquery: any;
 declare var $: any;
@@ -39,7 +40,6 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   flagChangeFare = 0;
   lstFareFamily: any[] = [];
   ss_FlightAvailability_request2;
-  //flagMsgErrorSelFam: boolean;
 
   constructor(
     private airportService: AirportService,
@@ -56,7 +56,6 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
- 
   }
 
   ngAfterViewInit() {

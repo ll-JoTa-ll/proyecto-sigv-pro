@@ -78,6 +78,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   @Input() flagVuelosManiana: boolean;
   @Input() flagVuelosNoche: boolean;
   @Input() flagFilterVuelo: boolean;
+  @Input() maleta: boolean;
 
   @Output() lRecomendaciones = new EventEmitter<ISearchFlightModel[]>();
   @Output() inicioBuscar = new EventEmitter<boolean>();
@@ -704,7 +705,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         "DepartureArrivalDate": fechas,
         "DepartureArrivalTimeFrom": horasFrom,
         "DepartureArrivalTimeTo": horasTo,
-        "Ocompany": this.loginDataUser.ocompany
+        "Ocompany": this.loginDataUser.ocompany,
+        "IncludesBaggage": this.maleta
       };
   
       this.sessionStorageService.store('objbuscador', objcampos);

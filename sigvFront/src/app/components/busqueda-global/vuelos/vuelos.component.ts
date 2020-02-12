@@ -151,6 +151,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   datosuser: any[] = [];
   p: number[] = [];
   lstAsesors: iGetAsesors[];
+  maleta: boolean = false;
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -1011,7 +1012,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       "DepartureArrivalDate": fechas,
       "DepartureArrivalTimeFrom": horasFrom,
       "DepartureArrivalTimeTo": horasTo,
-      "Ocompany": this.loginDataUser.ocompany
+      "Ocompany": this.loginDataUser.ocompany,
+      "IncludesBaggage": this.maleta
     };
 
     this.sessionStorageService.store('ss_dataRequestFlight', data);
@@ -1740,6 +1742,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if ($event != null) {
     //  console.log('entro');
       this.searchData = $event;
+      this.setLstAerolineas(this.searchData);
      // console.log(this.searchData);
     } else {
         this.flagDinData = true;
@@ -1796,31 +1799,32 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.aerolineas = [];
     let aerolineas = this.aerolineas;
     searchData.forEach(function(reco, indexreco) {
-      if (indexreco === 0) {
-        const dataAero = {
-          carrierId: reco.carrierId,
-          carrierName: reco.carrierName,
-          filter: 0
-        };
-        aerolineas.push(dataAero);
-      } else {
-        let flagAero = 1;
-        aerolineas.forEach(function(aerolinea, indexaero) {
-          if (aerolinea.carrierId === reco.carrierId) {
-            flagAero = 0;
-          }
-        });
-        if (flagAero === 1) {
-          const dataAeroN = {
+      if (reco.isVisible === true) {
+        if (indexreco === 0) {
+          const dataAero = {
             carrierId: reco.carrierId,
             carrierName: reco.carrierName,
             filter: 0
           };
-          aerolineas.push(dataAeroN);
+          aerolineas.push(dataAero);
+        } else {
+          let flagAero = 1;
+          aerolineas.forEach(function(aerolinea, indexaero) {
+            if (aerolinea.carrierId === reco.carrierId) {
+              flagAero = 0;
+            }
+          });
+          if (flagAero === 1) {
+            const dataAeroN = {
+              carrierId: reco.carrierId,
+              carrierName: reco.carrierName,
+              filter: 0
+            };
+            aerolineas.push(dataAeroN);
+          }
         }
       }
     });
     this.aerolineas = aerolineas;
   }
-
 }

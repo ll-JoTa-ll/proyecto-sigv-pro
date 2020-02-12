@@ -23,6 +23,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   @Input() sectionIndex;
 
   @Output() idRadioBtnFareFam = new EventEmitter<string>();
+  @Output() namefamily = new EventEmitter<string>();
+  @Output() colorfamily = new EventEmitter<string>();
 
   idDivInc: string;
   idDivNof: string;
@@ -167,7 +169,6 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
       $(idCab).css({'background-color': '#C6C6C6'});
       $(idcab2).css({'background-color': '#C6C6C6'});
     }
-
     const selRadio = id.split('_');
     const sectionIndex = selRadio[1];
     const segmentIndex = selRadio[2];
@@ -175,6 +176,11 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     $('#' + this.idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).css({'background-color': this.colorsFare[fareFamilyIndex]});
     $('#' + this.idNameFamilyName1 + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).css({'background-color': this.colorsFare[fareFamilyIndex]});
     console.log(id);
+    let namefamilia = $('#' + this.idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).html();
+    let colorfamilia = this.colorsFare[fareFamilyIndex];
+    this.namefamily.emit(namefamilia);
+    this.colorfamily.emit(colorfamilia);
+    console.log(namefamilia);
     this.idRadioBtnFareFam.emit(id);
   }
 
