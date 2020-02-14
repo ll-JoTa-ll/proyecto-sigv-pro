@@ -149,6 +149,8 @@ import { FiltrosMiniComponent } from './components/busqueda-global/hoteles/filtr
 import { AdministradorPasajerosComponent } from './components/administrador-pasajeros/administrador-pasajeros.component';
 import { FlxUiDatatableModule, FlxUiDataTable } from 'flx-ui-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 @NgModule({
   declarations: [
@@ -275,6 +277,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     PerfectScrollbarModule,
     FlxUiDatatableModule,
     AppRoutingModule,
+    NgSelectModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
     AlertModule.forRoot(),

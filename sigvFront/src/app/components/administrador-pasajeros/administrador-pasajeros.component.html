@@ -24,7 +24,7 @@
                         <span class="title box-shadow" (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Nuevo Pasajero / Usuario</span>
                     </div>
                     <div class="col-3" style="padding-top: 50px;">
-                        <span class="title box-shadow" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Reestablecer Contraseña</span>
+                        <span class="title box-shadow" (click)="openModalPoliticasMedium(modalReestablecer)" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Reestablecer Contraseña</span>
                     </div>
                     <div class="col-2" style="padding-top: 50px;">
                         <span class="title box-shadow" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Carga Masiva</span>
@@ -57,13 +57,10 @@
                     <tbody>
                         <tr *ngFor="let emp of this.lstPerson | paginate: { itemsPerPage: 7, currentPage: p};let i=index;" id="fila_{{i}}">
                             <td>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck1_{{i}}" name="box_{{i}}" unchecked>
-                                    <label class="custom-control-label" for="customCheck1_{{i}}"></label>
-                                </div>
+                                <input type="checkbox" (click)="Seleccionar(i)" id="myTextEditBox{{i}}" value="checked" />
                             </td>
                             <td>
-                                <span id="edit_{{i}}" style="cursor: pointer;" (click)="Editar(emp.personId);openModalPoliticas(modalEditar)"><img style="width: 20px;" src="./assets/images/editar.svg"></span>
+                                <span id="edit_{{i}}" style="cursor: pointer;" (click)="Editar(emp.personId,modalEditar);"><img style="width: 20px;" src="./assets/images/editar.svg"></span>
                             </td>
 
                             <td id="nombre_{{i}}">{{emp.firstName}}</td>
@@ -92,7 +89,7 @@
 
 
 
-        <ng-template #modalPolitica let-c="close" let-d="dismiss" style="height: 600px;right: 400px;width: 1400px;">
+        <ng-template #modalPolitica let-c="close" let-d="dismiss" style="height: 600px;">
 
             <div class="modal-header pb-0" style="border: none;">
                 <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
@@ -106,76 +103,404 @@
                         <span class="tituloModal">Registrar Nuevo Pasajero o Usuario</span>
                     </div>
                 </div>
-                <div class="row m-0 p-0">
-                    <div class="col-4 m-0 p-0">
-                        <span class="titulo1">Nombre</span>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Nombres :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" id="nombre" (keypress)="validarLetras($event)" (paste)="false" placeholder="Ingrese el nombre" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-8 m-0 p-0">
-                        <input type="text" id="nombre" placeholder="Ingrese el nombre" class="input-names box-shadow" style="width: 350px; height: 44px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Apellidos :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" id="apellido" (keypress)="validarLetras($event)" (paste)="false" placeholder="Ingrese el apellido" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Telefono :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" id="telefono" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el telefono" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Correo :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" id="correo" placeholder="Ingrese el correo" (keydown)="validarCorreo()" (keyup)="validarCorreo()" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;" (paste)="false">
+                                <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La direccion de correo es invalida</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Numero de Identidad :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" id="dni" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el documento de identidad" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Documento de Identidad :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <select class="input-pasajero" name="" id="cbo_document">
+                                    <option *ngFor="let item of this.Document" value="{{item.id}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Perfil :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <select class="input-pasajero" name="" id="cbo_perfil">
+                                    <option *ngFor="let item of this.getRole" value="{{item.id}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Fecha de Nacimiento :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input class="input-pasajero" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;text-align: center;" type="text" id="txtfecha" maxlength="10" #datepickerSalida="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Nacionalidad :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <select class="input-pasajero" name="" id="cbo_nacionalidad">
+                                    <option *ngFor="let item of lstpaises" value="{{item.iataCode}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Genero :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <select class="input-pasajero" type="text" id="cbo_genero">
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Vip :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+
+                                <div class="toggle-btn active" (click)="active()">
+                                    <input type="checkbox" checked class="cb-value" />
+                                    <span class="round-btn"></span>
+                                </div>
+                                <!--   <div class="boxes">
+                                    <input class="check" type="checkbox" id="box-1">
+                                    <label for="box-1"></label>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Pasajero Frecuente :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" id="pasajero" placeholder="Ingrese el pasajero Frecuente" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Activo</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <div class="toggle-btn1 active" (click)="active1()">
+                                    <input type="checkbox" checked class="cb-value1" />
+                                    <span class="round-btn"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-12 m-0 text-center">
+                        <span class="title box-shadow" (click)="registrar()" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Registrar Pasajero</span>
+                    </div>
+                </div>
+
+            </div>
         </ng-template>
 
-        <ng-template #modalEditar let-c="close" let-d="dismiss" style="height: 600px;">
+        <ng-template #modalEditar let-c="close" let-d="dismiss">
 
             <div class="modal-header pb-0" style="border: none;">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
-              <span aria-hidden="true">&times;</span>
-            </button>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="limpiar()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
             </div>
 
             <div class="modal-body m-0 p-0">
                 <div class="row m-0 p-0 pb-3">
                     <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
-                        <span class="tituloModal">Registrar Nuevo Pasajero o Usuario</span>
+                        <span class="tituloModal">Actualizar Nuevo Pasajero o Usuario</span>
                     </div>
                 </div>
-                <div class="row" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-4 m-0 p-0 text-center">
-                        <span class="titulo1">Nombres</span>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Nombres :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" value="{{this.PersonId.firstName}}" id="nombre" placeholder="Ingrese el nombre" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-8 m-0 p-0">
-                        <input type="text" value="{{this.PersonId.firstName}}" id="nombre" placeholder="Ingrese el nombre" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Apellidos :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" value="{{this.PersonId.lastName}}" id="nombre" placeholder="Ingrese el apellido" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Telefono :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" value="{{this.PersonId.phone}}" id="nombre" placeholder="Ingrese el telefono" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Correo :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" value="{{this.PersonId.email}}" id="nombre" placeholder="Ingrese el correo" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row" style="padding-bottom: 30px">
-                    <div class="col-4 m-0 p-0 text-center">
-                        <span class="titulo1">Apellidos</span>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Numero de Identidad :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" value="{{this.PersonId.odocument.number}}" id="nombre" placeholder="Ingrese el documento de identidad" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-8 m-0 p-0">
-                        <input type="text" value="{{this.PersonId.lastName}}" id="nombre" placeholder="Ingrese el nombre" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
-                    </div>
-                </div>
-                <div class="row" style="padding-bottom: 30px">
-                    <div class="col-4 m-0 p-0 text-center">
-                        <span class="titulo1">Telefono</span>
-                    </div>
-                    <div class="col-8 m-0 p-0">
-                        <input type="text" value="{{this.PersonId.phone}}" id="nombre" placeholder="Ingrese el nombre" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
-                    </div>
-                </div>
-                <div class="row" style="padding-bottom: 30px">
-                    <div class="col-4 m-0 p-0 text-center">
-                        <span class="titulo1">Correo</span>
-                    </div>
-                    <div class="col-8 m-0 p-0">
-                        <input type="text" value="{{this.PersonId.email}}" id="nombre" placeholder="Ingrese el nombre" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
-                    </div>
-                </div>
-                <div class="row" style="padding-bottom: 30px">
-                    <div class="col-4 m-0 p-0 text-center">
-                        <span class="titulo1">Nombre</span>
-                    </div>
-                    <div class="col-8 m-0 p-0">
-                        <input type="text" value="{{this.PersonId.isActive}}" id="nombre" placeholder="Ingrese el nombre" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Documento de Identidad :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <select class="input-pasajero" name="" id="cbo_document" value="{{this.PersonId.odocument.id}}">
+                                    <option *ngFor="let item of this.Document" value="{{item.id}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Perfil :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <select class="input-pasajero" name="" id="cbo_perfil" value="{{this.PersonId.orole.id}}">
+                                    <option *ngFor="let item of this.getRole" value="{{item.id}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Fecha de Nacimiento :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input class="input-pasajero" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;text-align: center;" type="text" id="txtfecha" [(bsValue)]="bsValue" value="{{this.PersonId.birthDate | fechaformat}}" maxlength="10" #datepickerSalida="bsDatepicker"
+                                    bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Nacionalidad :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <select class="input-pasajero" name="" id="cbo_nacionalidad" value="{{this.PersonId.onationality.iataCode}}">
+                                    <option *ngFor="let item of lstpaises" value="{{item.iataCode}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Genero :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <select class="input-pasajero" type="text" id="cbo_genero" value={{this.PersonId.gender}}>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Femenino</option>
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Vip :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <div class="toggle-btn active" (click)="activeEditVip()">
+                                    <input type="checkbox" checked class="cb-value" />
+                                    <span class="round-btn"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Pasajero Frecuente :</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <input type="text" id="pasajero" value="{{this.PersonId.frequentFlyer}}" placeholder="Ingrese el pasajero Frecuente" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-6 m-0">
+                        <div class="row m-0">
+                            <div class="col-4 m-0 text-center">
+                                <span class="titulo1">Activo</span>
+                            </div>
+                            <div class="col-8 m-0 p-0">
+                                <div class="toggle-btn1 active" (click)="activeEditActive()">
+                                    <input type="checkbox" checked class="cb-value1" />
+                                    <span class="round-btn"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-12 m-0 text-center">
+
+                        <span class="title box-shadow" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Actualizar Pasajero</span>
+
+                    </div>
+                </div>
+
 
             </div>
 
+
         </ng-template>
+
+        <ng-template #modalReestablecer let-c="close" let-d="dismiss">
+
+            <div class="modal-header pb-0" style="border: none;">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body m-0 p-0">
+                <div class="row m-0 p-0 pb-3">
+                    <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+                        <span class="tituloModal">Reestablecer Contraseña</span>
+                    </div>
+                </div>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-12 m-0">
+                        <input type="password" id="password" placeholder="Ingrese la contraseña" class="input-names box-shadow" style="width: 100%; height: 44px;border-radius: 10px;border: 1px solid;">
+                    </div>
+                </div>
+                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    <div class="col-12 m-0 text-center">
+                        <span class="title box-shadow" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Grabar Nueva Contraseña</span>
+                    </div>
+                </div>
+            </div>
+
+        </ng-template>
+
 
         <style>
             table th,
@@ -191,7 +516,189 @@
                 cursor: pointer;
             }
             
-            table tbody tr {}
+            .toggle-btn,
+            .toggle-EditVip,
+            .toggle-EditActive,
+            .toggle-btn1 {
+                width: 80px;
+                height: 40px;
+                margin: 10px;
+                border-radius: 50px;
+                display: inline-block;
+                position: relative;
+                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAyklEQVQ4T42TaxHCQAyENw5wAhLACVUAUkABOCkSwEkdhNmbpHNckzv689L98toIAKjqGcAFwElEFr5ln6ruAMwA7iLyFBM/TPDuQSrxwf6fCKBoX2UMIYGYkg8BLOnVg2RiAEexGaQQq4w9e9klcxGLLAUwgDAcihlYAR1IvZA1sz/+AAaQjXhTQQVoe2Yo3E7UQiT2ijeQdojRtClOfVKvMVyVpU594kZK9zzySWTlcNqZY9tjCsUds00+A57z1e35xzlzJjee8xf0HYp+cOZQUQAAAABJRU5ErkJggg==") no-repeat 50px center #e74c3c;
+                cursor: pointer;
+                -webkit-transition: background-color .40s ease-in-out;
+                -moz-transition: background-color .40s ease-in-out;
+                -o-transition: background-color .40s ease-in-out;
+                transition: background-color .40s ease-in-out;
+                cursor: pointer;
+            }
+            
+            .toggle-btn.active,
+            .toggle-EditVip.active,
+            .toggle-EditActive.active,
+            .toggle-btn1.active {
+                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmUlEQVQ4T6WT0RWDMAhFeZs4ipu0mawZpaO4yevBc6hUIWLNd+4NeQDk5sE/PMkZwFvZywKSTxF5iUgH0C4JHGyF97IggFVSqyCFga0CvQSg70Mdwd8QSSr4sGBMcgavAgdvwQCtApvA2uKr1x7Pu++06ItrF5LXPB/CP4M0kKTwYRIDyRAOR9lJTuF0F0hOAJbKopVHOZN9ACS0UgowIx8ZAAAAAElFTkSuQmCC") no-repeat 10px center #2ecc71;
+            }
+            
+            .toggle-btn.active .round-btn {
+                left: 45px;
+            }
+            
+            .toggle-EditVip.active .round-btn {
+                left: 45px;
+            }
+            
+            .toggle-EditActive.active .round-btn {
+                left: 45px;
+            }
+            
+            .toggle-btn1.active .round-btn {
+                left: 45px;
+            }
+            
+            .toggle-btn .round-btn {
+                width: 30px;
+                height: 30px;
+                background-color: #fff;
+                border-radius: 50%;
+                display: inline-block;
+                position: absolute;
+                left: 5px;
+                top: 50%;
+                margin-top: -15px;
+                -webkit-transition: all .30s ease-in-out;
+                -moz-transition: all .30s ease-in-out;
+                -o-transition: all .30s ease-in-out;
+                transition: all .30s ease-in-out;
+            }
+            
+            .toggle-btn .cb-value {
+                position: absolute;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                z-index: 9;
+                cursor: pointer;
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+            }
+            
+            .toggle-btn1 .round-btn {
+                width: 30px;
+                height: 30px;
+                background-color: #fff;
+                border-radius: 50%;
+                display: inline-block;
+                position: absolute;
+                left: 5px;
+                top: 50%;
+                margin-top: -15px;
+                -webkit-transition: all .30s ease-in-out;
+                -moz-transition: all .30s ease-in-out;
+                -o-transition: all .30s ease-in-out;
+                transition: all .30s ease-in-out;
+            }
+            
+            .toggle-btn1 .cb-value1 {
+                position: absolute;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                z-index: 9;
+                cursor: pointer;
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+            }
+            
+            .toggle-EditVip .round-btn {
+                width: 30px;
+                height: 30px;
+                background-color: #fff;
+                border-radius: 50%;
+                display: inline-block;
+                position: absolute;
+                left: 5px;
+                top: 50%;
+                margin-top: -15px;
+                -webkit-transition: all .30s ease-in-out;
+                -moz-transition: all .30s ease-in-out;
+                -o-transition: all .30s ease-in-out;
+                transition: all .30s ease-in-out;
+            }
+            
+            .toggle-EditVip .cb-EditVip {
+                position: absolute;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                z-index: 9;
+                cursor: pointer;
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+            }
+            
+            .toggle-EditActive .round-btn {
+                width: 30px;
+                height: 30px;
+                background-color: #fff;
+                border-radius: 50%;
+                display: inline-block;
+                position: absolute;
+                left: 5px;
+                top: 50%;
+                margin-top: -15px;
+                -webkit-transition: all .30s ease-in-out;
+                -moz-transition: all .30s ease-in-out;
+                -o-transition: all .30s ease-in-out;
+                transition: all .30s ease-in-out;
+            }
+            
+            .toggle-EditActive .cb-EditActive {
+                position: absolute;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                z-index: 9;
+                cursor: pointer;
+                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+            }
+            
+            .made-with-love {
+                position: fixed;
+                left: 0;
+                width: 100%;
+                bottom: 10px;
+                text-align: center;
+                font-size: 10px;
+                z-index: 9999;
+                font-family: arial;
+                color: #fff;
+            }
+            
+            .made-with-love i {
+                font-style: normal;
+                color: #F50057;
+                font-size: 14px;
+                position: relative;
+                top: 2px;
+            }
+            
+            .made-with-love a {
+                color: #fff;
+                text-decoration: none;
+            }
+            
+            .made-with-love a:hover {
+                text-decoration: underline;
+            }
         </style>
+
     </app-header>
 </ng-container>
