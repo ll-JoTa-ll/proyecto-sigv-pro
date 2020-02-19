@@ -15,5 +15,6 @@ export const environment = {
    cod_rol_autogestion: [3],
    cod_rol_autorizador: [4],
    cod_rol_centralizador: [5, 2],
-   max_pax: 8
+   max_pax: 8,
+   key: "eb85131bc9d94c02840aa6961e7f77e9"
 };

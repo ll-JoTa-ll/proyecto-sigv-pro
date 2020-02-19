@@ -18,6 +18,7 @@ export class FiltroSuperiorComponent implements OnInit {
   //@Output() vuelosNoche = new EventEmitter<boolean>();
   //@Output() filtroTurnos = new EventEmitter<boolean>();
   @Output() filterTurn = new EventEmitter<any>();
+  @Output() refreshdata = new EventEmitter<ISearchFlightModel[]>();
 
   searchFlight: ISearchFlightModel[] = [];
   flagVD: boolean;
@@ -94,6 +95,7 @@ export class FiltroSuperiorComponent implements OnInit {
         }
       });
       this.searchFilter.emit(searchFlight);
+      this.refreshdata.emit(searchFlight);
       console.log('resultados');
       console.log(searchFlight);
     }
@@ -115,6 +117,7 @@ export class FiltroSuperiorComponent implements OnInit {
         });
       });
       this.searchFilter.emit(searchFlight);
+      this.refreshdata.emit(searchFlight);
     }
   }
 

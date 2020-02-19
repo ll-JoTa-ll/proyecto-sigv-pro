@@ -15,16 +15,19 @@ let httpOptions = {
 export class LoginService {
 
   private _url: string = environment.url + "Authenticate/";
+  key;
 
   constructor(
     private http: HttpClient,
     private sessionSt: SessionStorageService
-  ) { }
+  ) {
+    this.key = environment.key;
+   }
 
   login(datos): Observable<ILoginDatosModel> {
     httpOptions.headers = new HttpHeaders({
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     return this.http.post<ILoginDatosModel>(this._url + "LoginUser", datos, httpOptions);
   }

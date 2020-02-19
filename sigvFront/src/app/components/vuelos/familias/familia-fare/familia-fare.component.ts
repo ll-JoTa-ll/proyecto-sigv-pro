@@ -25,6 +25,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   @Output() idRadioBtnFareFam = new EventEmitter<string>();
   @Output() namefamily = new EventEmitter<string>();
   @Output() colorfamily = new EventEmitter<string>();
+  @Output() hidesection = new EventEmitter<boolean>();
 
   idDivInc: string;
   idDivNof: string;
@@ -40,6 +41,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   idNameFamilyName: string;
   idNameFamilyName1: string;
   classNameFamilyName: string;
+  seleccionado: boolean;
   colorsFare = [
     "white",
     "#3D5DBB",
@@ -94,13 +96,13 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     let heightDivNof = 20 * this.flagCountNof;
     let heightDivCha = 20 * this.flagCountCha;
     if (heightDivInc === 0 || this.flagCountInc === 1) {
-      heightDivInc = 43;
+      heightDivInc = 180;
     }
     if (heightDivNof === 0 || this.flagCountNof === 1) {
-      heightDivNof = 43;
+      heightDivNof = 210;
     }
     if (heightDivCha === 0 || this.flagCountCha === 1) {
-      heightDivCha = 43;
+      heightDivCha = 160;
     }
 
 
@@ -117,10 +119,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     //this.sessionStorageService.store('ss_FlightAvailability_request1', dataFamilias);
     const ss_FlightAvailability_request1 = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
     const ss_lstFamilyResult = this.sessionStorageService.retrieve('ss_lstFamilyResult');
-
     //console.log("ss_FlightAvailability_request1: " + JSON.stringify(ss_FlightAvailability_request1));
     //console.log("ss_lstFamilyResult: " + JSON.stringify(ss_lstFamilyResult));
-
     const sectionIndex = this.sectionIndex;
     const segmentIndex = this.segmentIndex;
     const fareFamilyIndex = this.fareFamilyIndex;
@@ -148,15 +148,23 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
       });
     });
     */
-
     const fareBasisVal = ss_lstFamilyResult.lsections[this.sectionIndex].lsegments[this.segmentIndex].lfareFamilies[(this.fareFamilyIndex - 1)].fareBasis;
     const fareBasisServ = ss_FlightAvailability_request1.Lsections[sectionIndex].Lsegments[0].LsegmentGroups[this.segmentIndex].FareBasis;
-
     if (fareBasisVal == fareBasisServ) {
       $('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
       $('#' + idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
+      let nombrefamilia = $('#' + idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).html();
+      let colorfamilia = colorsFare[fareFamilyIndex];
+      this.namefamily.emit(nombrefamilia);
+      this.colorfamily.emit(colorfamilia);
+      console.log(colorfamilia);
       $('#' + idNameFamilyName1 + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
     }
+  /*  let name =  this.nameRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex;
+    if ($('input[name="' + name + '"]').is(':checked')) {
+     let nombrefamilia = $('#' + idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).html();
+     console.log('seleccionado', nombrefamilia);
+   }*/
   }
 
   selectRadioBtnFam(id) {
@@ -165,7 +173,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     //console.log('familyLength: ' + familyLength);
     for (let i = 1; i <= familyLength; i++) {
       const idCab = '#' + this.idNameFamilyName + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + i;
-      const idcab2 = '#' + this.idNameFamilyName1 + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + i;;
+      const idcab2 = '#' + this.idNameFamilyName1 + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + i;
       $(idCab).css({'background-color': '#C6C6C6'});
       $(idcab2).css({'background-color': '#C6C6C6'});
     }
@@ -182,6 +190,6 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     this.colorfamily.emit(colorfamilia);
     console.log(namefamilia);
     this.idRadioBtnFareFam.emit(id);
+    this.hidesection.emit(true);
   }
-
 }

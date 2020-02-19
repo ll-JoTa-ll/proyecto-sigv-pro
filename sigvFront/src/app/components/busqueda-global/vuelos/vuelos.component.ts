@@ -152,6 +152,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   p: number[] = [];
   lstAsesors: iGetAsesors[];
   maleta: boolean = false;
+  flagDinData2: boolean = false;
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -199,8 +200,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.lst_rol_autogestion = environment.cod_rol_autogestion;
     this.lst_rol_autorizador = environment.cod_rol_autorizador;
     this.lst_rol_centralizador = environment.cod_rol_centralizador;
-
-
+  //  this.sessionStorageService.store('objusuarios', null);
     if (this.ss_login_data === '' || this.ss_login_data === null) {
       this.router.navigate(['/']);
     }
@@ -331,6 +331,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
      }
     }
   }
+
   ngAfterViewInit() {
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
@@ -1110,15 +1111,16 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       () => {
         this.spinner.hide();
         this.flagBuscadorLateral = false;
-
-        if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
-          this.GetUsers();
-          this.sessionStorageService.store('objusuarios', this.datosuser);
+        if (this.searchData.length > 0) {
+          if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
+            this.GetUsers();
+           // this.sessionStorageService.store('objusuarios', this.datosuser);
+          }
+          if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
+            this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+            this.sessionStorageService.store('objusuarios', this.datosuser);
+           }
         }
-        if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
-          this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-          this.sessionStorageService.store('objusuarios', this.datosuser);
-         }
       }
     );
   }
@@ -1733,7 +1735,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   inicioBuscadorLateral($event) {
     this.inicioBuscador = $event;
-    //this.searchData = [];
   }
 
   busquedaFiltros($event) {
@@ -1742,8 +1743,17 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if ($event != null) {
     //  console.log('entro');
       this.searchData = $event;
-      this.setLstAerolineas(this.searchData);
-     // console.log(this.searchData);
+     /* this.searchData.forEach(function(item) {
+        if (item.isVisible === true)
+      });*/
+      let data = this.searchData.filter(x => x.isVisible === true);
+      if (data.length === 0) {
+        this.flagDinData2 = true;
+      } else {
+        this.flagDinData2 = false;
+      }
+     // this.setLstAerolineas(this.searchData);
+      console.log(this.searchData);
     } else {
         this.flagDinData = true;
     }
@@ -1787,6 +1797,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }, 500);
   }
 
+  Datafiltrosuperior($event) {
+    this.setLstAerolineas($event);
+  }
+
   setOutputTipoVuelo($event) {
     this.tipoVuelo = $event;
   }
@@ -1823,7 +1837,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
             aerolineas.push(dataAeroN);
           }
         }
-      }
+     }
     });
     this.aerolineas = aerolineas;
   }

@@ -35,15 +35,18 @@ export class HotelService {
   private url_displayLogin: string = environment.url_usuario + 'PasswordRecovery/DisplayLoginByEmail';
   private url_validateToken: string = environment.url_usuario + 'PasswordRecovery/ValidateTokenByUser';
   private url_passwordRecovery: string = environment.url_usuario + 'PasswordRecovery/ConfirmPasswordRecovery';
+  key;
 
-  constructor(  private http: HttpClient,private sessionSt: SessionStorageService) { }
+  constructor(  private http: HttpClient,private sessionSt: SessionStorageService) {
+    this.key = environment.key;
+   }
 
   SearchHotel(data): Observable<IHotelResultsModel[]> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     return this.http.post<IHotelResultsModel[]>(`${this.url_search}`, data, httpOptions);
 }
@@ -53,7 +56,7 @@ GetHabitacion(data): Observable<IHabitacionResults> {
   httpOptions.headers = new HttpHeaders({
     'Authorization': "Bearer " + this.token,
     'Content-Type': "application/json",
-    'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    'Ocp-Apim-Subscription-Key': this.key
   });
   return this.http.post<IHabitacionResults>(`${this.url_habitacion}`, data, httpOptions);
 }
@@ -63,7 +66,7 @@ GetUserByPassword(data): Observable<boolean> {
   httpOptions.headers = new HttpHeaders({
     'Authorization': "Bearer " + this.token,
     'Content-Type': "application/json",
-    'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    'Ocp-Apim-Subscription-Key': this.key
   });
   return this.http.post<boolean>(`${this.url_gerUserByPassword}`, data, httpOptions);
 }
@@ -73,7 +76,7 @@ UpdatePassword(data): Observable<boolean> {
   httpOptions.headers = new HttpHeaders({
     'Authorization': "Bearer " + this.token,
     'Content-Type': "application/json",
-    'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    'Ocp-Apim-Subscription-Key': this.key
   });
   return this.http.post<boolean>(`${this.url_updatePassword}`, data, httpOptions);
 }
@@ -81,7 +84,7 @@ UpdatePassword(data): Observable<boolean> {
 GetDisplayLogin(data): Observable<IDisplayLogin> {
   httpOptions.headers = new HttpHeaders({
     'Content-Type': "application/json",
-    'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    'Ocp-Apim-Subscription-Key': this.key
   });
   return this.http.post<IDisplayLogin>(`${this.url_displayLogin}`, data, httpOptions);
 }
@@ -89,7 +92,7 @@ GetDisplayLogin(data): Observable<IDisplayLogin> {
 ValidateToken(data): Observable<IDisplayLogin> {
   httpOptions.headers = new HttpHeaders({
     'Content-Type': "application/json",
-    'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    'Ocp-Apim-Subscription-Key': this.key
   });
   return this.http.post<IDisplayLogin>(`${this.url_validateToken}`, data, httpOptions);
 }
@@ -97,7 +100,7 @@ ValidateToken(data): Observable<IDisplayLogin> {
 PasswordRecovery(data): Observable<IDisplayLogin> {
   httpOptions.headers = new HttpHeaders({
     'Content-Type': "application/json",
-    'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    'Ocp-Apim-Subscription-Key': this.key
   });
   return this.http.post<IDisplayLogin>(`${this.url_passwordRecovery}`, data, httpOptions);
 }
@@ -108,7 +111,7 @@ PasswordRecovery(data): Observable<IDisplayLogin> {
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     console.log(httpOptions);
     //return this.http.post<IGetEnhancedHotel>(`${this.url_confirmacion}`, data, httpOptions);
@@ -121,7 +124,7 @@ PasswordRecovery(data): Observable<IDisplayLogin> {
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     console.log(httpOptions);
     //return this.http.post<IGetEnhancedHotel>(`${this.url_confirmacion}`, data, httpOptions);
@@ -133,7 +136,7 @@ PasswordRecovery(data): Observable<IDisplayLogin> {
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     const url = `${this.url_user + 'GetUserById'}?${'userId=' + data}`;
     return this.http.get<IGetUserById>(url, httpOptions);
@@ -153,7 +156,7 @@ PasswordRecovery(data): Observable<IDisplayLogin> {
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     const url = `${this.url_getreservation + 'GetReservation'}?${'userId=' + data}`;
     return this.http.get<IGetReservationHotel[]>(url, httpOptions);
@@ -164,7 +167,7 @@ PasswordRecovery(data): Observable<IDisplayLogin> {
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     const url = `${this.url_getreservation + 'GetReservationDetails'}?${'pnr=' + data}`;
     return this.http.get<IGetReservaDetalleHotel>(url, httpOptions);

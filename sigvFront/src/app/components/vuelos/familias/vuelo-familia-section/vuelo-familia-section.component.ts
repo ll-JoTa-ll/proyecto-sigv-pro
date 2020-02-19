@@ -68,6 +68,13 @@ export class VueloFamiliaSectionComponent implements OnInit {
     }
   }
 
+  hidesection($event) {
+   this.isCollapsed = $event;
+   if (this.familyname != null) {
+    $('#divfamilia_' + this.sectionFamilyIndex).show();
+  }
+  }
+
   selectRadioBtnFam($event) {
     this.idRadioBtnFareFam.emit($event);
   }

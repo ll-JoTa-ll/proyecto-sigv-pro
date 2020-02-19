@@ -17,6 +17,7 @@ let httpOptions2 = {
 export class UserCompanyService {
 
   token;
+  key;
 
   private _url5: string = environment.url_5 + "User/";
   private url_getreservation: string = environment.url_5 + 'Person/';
@@ -24,14 +25,16 @@ export class UserCompanyService {
   constructor(
     private http: HttpClient,
     private sessionSt: SessionStorageService
-  ) { }
+  ) { 
+    this.key = environment.key;
+  }
 
   getUserByCompany(data): Observable<IUserCompanyModel[]> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     return this.http.post<IUserCompanyModel[]>(this._url5 + "GetUserByFreeText", data, httpOptions2);
   }
@@ -41,7 +44,7 @@ export class UserCompanyService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     const url = `${this.url_getreservation + 'GetPersonByCompany'}?${'companyId=' + data}`;
     return this.http.get<IPersonCompany[]>(url, httpOptions2);
@@ -52,7 +55,7 @@ export class UserCompanyService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     const url = `${this.url_getreservation + 'GetPersonById'}?${'personId=' + data}`;
     return this.http.get<IPersonId[]>(url, httpOptions2);

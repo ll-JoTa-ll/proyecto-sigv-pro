@@ -20,6 +20,7 @@ let httpOptions2 = {
 export class FamilyService {
 
   token;
+  key;
 
   private _url3: string = environment.url_2 + "Search/";
 
@@ -27,11 +28,12 @@ export class FamilyService {
     private http: HttpClient,
     private sessionSt: SessionStorageService
   ) {
+    this.key = environment.key;
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
   }
 

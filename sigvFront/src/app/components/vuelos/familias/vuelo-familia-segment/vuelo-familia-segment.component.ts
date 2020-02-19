@@ -18,6 +18,7 @@ export class VueloFamiliaSegmentComponent implements OnInit {
   @Output() idRadioBtnFareFam = new EventEmitter<string>();
   @Output() namefamily = new EventEmitter<string>();
   @Output() colorfamily = new EventEmitter<string>();
+  @Output() hidesection = new EventEmitter<boolean>();
 
   marketingCarrier;
   flagCountInc: number;
@@ -72,13 +73,13 @@ export class VueloFamiliaSegmentComponent implements OnInit {
       let heightDivNof = 30 * flagCountNof;
       let heightDivCha = 30 * flagCountCha;
       if (heightDivInc === 0 || flagCountInc === 1) {
-        heightDivInc = 43;
+        heightDivInc = 180;
       }
       if (heightDivNof === 0 || flagCountNof === 1) {
-        heightDivNof = 43;
+        heightDivNof = 210;
       }
       if (heightDivCha === 0 || flagCountCha === 1) {
-        heightDivCha = 43;
+        heightDivCha = 160;
       }
       $("." + classDivInc + segmentIndex).height(heightDivInc);
       $("." + classDivNof + segmentIndex).height(heightDivNof);
@@ -88,6 +89,7 @@ export class VueloFamiliaSegmentComponent implements OnInit {
       $("." + classDivCha + segmentIndex).addClass('div-height');
     }, 50);
   }
+
 
   selectRadioBtnFam($event) {
     this.idRadioBtnFareFam.emit($event);
@@ -99,5 +101,9 @@ export class VueloFamiliaSegmentComponent implements OnInit {
 
   EventColorFamilia($event) {
     this.colorfamily.emit($event);
+  }
+
+  Hidesection($event) {
+    this.hidesection.emit($event);
   }
 }

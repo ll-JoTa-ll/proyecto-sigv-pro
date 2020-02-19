@@ -328,11 +328,8 @@
                       Buscar
                     </button>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
                     <div class="row pb-5">
                     </div>
@@ -434,13 +431,11 @@
             </ng-template>
 
             <ng-template #modalconfirmacion let-c="close" let-d="dismiss">
-
                 <div class="modal-header pb-0" style="border: none;">
                     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
                 </div>
-
                 <div class="modal-body m-0 p-0">
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
@@ -457,16 +452,11 @@
                         </div>
                     </div>
                 </div>
-
             </ng-template>
-
             <!-- flagBuscar -->
             <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
-
                 <div class="row m-0 p-0">
-
                     <div class="col-3 m-0 p-0 pr-3 pl-5">
-
                         <app-buscador [maleta]="maleta" [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto"
                             [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida" [fechaRetorno]="fechaRetorno"
                             [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2" [fechaSalida3]="fechaSalida3"
@@ -476,13 +466,10 @@
                             [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3" [destinoTexto4]="destinoTexto4"
                             [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)" (outTipoVuelo)="setOutputTipoVuelo($event)"
                             (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
-
                         <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
-
                         <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)" [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
 
                         <app-filtro-aerolineas [lstAerolineas]="aerolineas" (searchFlightFilter)="busquedaFiltros($event)"></app-filtro-aerolineas>
-
                     </div>
 
                     <div class="col-9 m-0 p-0 pr-5" *ngIf="inicioBuscador">
@@ -495,8 +482,26 @@
 
                         <div *ngIf="searchData.length > 0" class="row m-0 p-0 pt-5">
                             <div class="col-12 m-0 p-0">
-                                <app-filtro-superior [tipoEscala]="escala" (searchFilter)="busquedaFiltros($event)"></app-filtro-superior>
+                                <app-filtro-superior [tipoEscala]="escala" (refreshdata)="Datafiltrosuperior($event)" (searchFilter)="busquedaFiltros($event)"></app-filtro-superior>
                             </div>
+                        </div>
+
+                        <div *ngIf="flagDinData2" class="col-12">
+
+                            <div class="row m-0 p-0">
+
+                                <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+                                <div class="col-3 m-0 p-0"></div>
+
+                                <div class="col-6 m-0 p-0 text-center">
+                                    <alert type="warning" class="text-center">
+                                        No se encontraron itinerarios para esta búsqueda
+                                    </alert>
+                                </div>
+
+                            </div>
+
                         </div>
 
                         <div class="row m-0 p-0" *ngIf="searchData.length > 0">
