@@ -63,6 +63,7 @@ export class VueloFamiliaSectionComponent implements OnInit {
   hideSegments() {
     const isCollapsed = this.isCollapsed;
     this.isCollapsed = !isCollapsed;
+    console.log(this.familyname);
     if (this.familyname != null) {
       $('#divfamilia_' + this.sectionFamilyIndex).show();
     }
