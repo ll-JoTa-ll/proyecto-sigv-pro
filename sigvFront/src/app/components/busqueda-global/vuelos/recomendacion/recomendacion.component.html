@@ -14,9 +14,10 @@
             </div>
         </div>
 
+
         <div class="col-9 m-0 p-0" style="">
-            <!-- border-right: 1px solid #898989; -->
-            <app-recomendacion-section [sectionLength]="lsectionLength" [posicion]="i+1" [recommendationId]="recommendationId" [recommendationIndex]="i+1" [tipoVuelo]="tipoVuelo" (outSegmentCheck)="setearRadioId($event)" [section]="section" *ngFor="let section of lsections; let i=index">
+
+            <app-recomendacion-section [sectionLength]="lsectionLength" [posicion]="i + 1" [recommendationId]="recommendationId" [recommendationIndex]="i + 1" [tipoVuelo]="tipoVuelo" (outSegmentCheck)="setearRadioId($event)" [section]="section" *ngFor="let section of lsections; let i = index">
             </app-recomendacion-section>
         </div>
         <div class="col-3 m-0 p-0 pt-4">
@@ -24,9 +25,12 @@
 
                 <div class="col-12 m-0 p-0"></div>
 
+
                 <div class="col-12 m-0 p-0">
 
+
                     <div class="row m-0 p-0">
+
                         <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
                             Precio Final
                         </div>
@@ -53,6 +57,7 @@
                     <span class="text-currency-2 pr-1" style="color: #6B253C">{{currency}}</span>
                     <span class="text-currency-monto-2">{{fareTaxAmountByPassenger}}</span>
                 </div>
+
                 <div class="col-1 m-0 p-0"></div>
 
                 <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 30px !important;">
@@ -122,6 +127,81 @@
                     </ng-template>
 
                 </div>
+
+
+
+                <div class="col-1 m-0 p-0"></div>
+
+                <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 12px !important;">
+                    <button class="btn r-btn-1" (click)="GetRegulaciones(modalRegulaciones,modalerror)">
+Ver Regulaciones
+</button>
+
+
+                    <ng-template #modalRegulaciones let-c="close" let-d="dismiss" id="modalfamilias">
+
+                        <div class="m-0 pb-0" style="border: none; background: #EBEBEB 0% 0% no-repeat padding-box;">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()" style="position: absolute;left: 1495px;z-index: 1;">
+<span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+</button>
+                            <app-familias *ngIf="flagResultFamilias===1" [lstFamilyResult]="lstFamilyResult.lsections" [nroPersonas]="numberPassengers" [currency]="currency" [dataRequestFamilia]="dataRequestFamilia" [tipoVuelo]="tipoVuelo" (flagCloseModal)="closeModalFamilia($event)"
+                                [famFareAmountByPassenger]="famFareAmountByPassenger" [famTotalFareAmount]="famTotalFareAmount" [flagMsgErrorSelFam]="flagMsgErrorSelFam" [modalRef]="modalRef" (outIdRadioBtnFareFam)="famFlightAvailability($event)" (flagCloseModal)="flagCloseModal($event)"></app-familias>
+                        </div>
+
+
+                        <div *ngIf="flagResultFamilias===0" class="row m-0 p-0 pt-4">
+                            <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+                                ¡Lo sentimos!
+                            </div>
+
+                            <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                                No hemos encontrado familias disponibles para este vuelo en particular. Por favor, selecciona otras de las opciones.
+                            </div>
+
+                            <div class="col-12 m-0 p-0 pb-4 text-center">
+                                <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+            <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+            Continuar con mi busqueda
+          </button>
+                            </div>
+                        </div>
+
+
+                    </ng-template>
+
+                    <ng-template #modalerror let-c="close" let-d="dismiss">
+
+                        <div class="modal-header pb-0" style="border: none;">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+<span aria-hidden="true">&times;</span>
+</button>
+                        </div>
+
+                        <div class="modal-body m-0 p-0">
+                            <div class="row m-0 p-0">
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+                                    ¡Lo sentimos!
+                                </div>
+
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                                    {{lstRegulaciones.oError}}
+                                </div>
+
+                                <div class="col-12 m-0 p-0 pb-4 text-center">
+                                    <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+                      <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                      Continuar con mi busqueda
+                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-template>
+
+                </div>
+
+
+
                 <div class="col-1 m-0 p-0"></div>
 
                 <div class="col-11 m-0 p-0 text-right r-div-btn-2">
@@ -186,6 +266,7 @@
             Comunmente son los acuerdos iniciales que se realizan con cada aerolínea.
         </p>
     </div>
+
     <div class="modal-footer text-right">
         <button (click)="modalRefDsctCorp.hide()" class="btn" style="color: white; background-color: #ED1C24; font-family: Omnes-med; font-size: 16px;">
       Entendido

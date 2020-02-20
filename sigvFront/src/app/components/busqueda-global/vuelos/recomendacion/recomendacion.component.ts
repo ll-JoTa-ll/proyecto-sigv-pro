@@ -15,6 +15,7 @@ import { stringify } from '@angular/compiler/src/util';
 import { ModalFamiliasVaciasComponent } from '../../../shared/modal-familias-vacias/modal-familias-vacias.component';
 import { setInterval } from 'timers';
 import { IBnusModel } from '../../../../models/Ibnus.model';
+import { IRegulationsModel } from '../../../../models/IRegulations';
 declare var jquery: any;
 declare var $: any;
 
@@ -58,6 +59,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   loginDataUser;
   outSegmentCheck;
   familyname;
+  lstRegulaciones: IRegulationsModel;
 
   //lstFamilyResult: IFareFamilyModel[] = [];
   lstFamilyResult: IFamilyResultModel;
@@ -393,6 +395,53 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     return dataFamilias;
   }
 
+  GetRegulaciones(template, template2) {
+    const lstradiocheck = this.lstRadioCheck;
+    let segmenttrip: any[] = [];
+
+    lstradiocheck.forEach(function(item) {
+      const section = item.section_;
+      const lstsegment = item.segment_;
+
+      const segment = {
+      SegmentType:"A",
+			DepartureDate: section.departureDate,
+			ReservationStatus:"DS",
+			DepartureAirport: section.origin,
+			ArrivalAirport:section.destination,
+			MarketingAirline: lstsegment.lSegmentGroups[0].marketingCarrier,
+			OperatingAirline:lstsegment.lSegmentGroups[0].marketingCarrier,
+		  SegmentNumber:"01",
+			OPaxTypeInformation:
+			{
+				TypePassenger:"ADT",
+				FareComponentNumber:"1",
+				FareBasisCode: section.lSectionGroups[0].fareBasis
+			}
+      };
+      segmenttrip.push(segment);
+    });
+
+    let data = {
+      CompanyId: this.loginDataUser.ocompany.companyId,
+      Currency: this.currency,
+      Code: '1',
+      LOriginDestinationOption: segmenttrip
+    };
+
+    this.airportService.GetRegulations(data).subscribe(
+      result => {
+          this.lstRegulaciones = result;
+      },
+      err => {
+
+      },
+      () => {
+
+      }
+    )
+  }
+
   getFareFamily(dataPost, template, modalerror) {
     this.vuelosComponent.spinner.show();
     this.ObtenerSecciones();
@@ -504,6 +553,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     let Lsections_: any[] = [];
     let datosusuario: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
+    console.log(lstRadioCheck);
     lstRadioCheck.sort((a, b) => a.sectionId_ - b.sectionId_);
     this.lstRadioCheck = lstRadioCheck;
     lstRadioCheck.forEach(function(item) {

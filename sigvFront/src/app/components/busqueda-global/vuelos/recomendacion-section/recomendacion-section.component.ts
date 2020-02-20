@@ -9,7 +9,7 @@ export class RecomendacionSectionComponent implements OnInit, AfterViewInit {
 
   @Input() section;
   @Input() sectionLength: number;
-  @Input() posicion: number;
+  @Input() posicion;
   @Input() recommendationId: number;
   @Input() recommendationIndex: number;
   @Input() tipoVuelo: string;

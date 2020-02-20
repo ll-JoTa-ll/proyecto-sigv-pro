@@ -20,6 +20,7 @@ import { IAirportList } from '../models/IAirportList.model';
 import { IGetPaisesModel } from '../models/IGetPaises';
 import { IBnusModel } from '../models/Ibnus.model';
 import { iGetAsesors } from '../models/IGetAsesors';
+import { IRegulationsModel } from '../models/IRegulations';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -52,6 +53,7 @@ export class AirportService {
   private url_bnus: string = environment.url_bnus + "UnusedTickets/";
   private url_usebnus: string = environment.url_5 + "AsesorCompany/";
   private url_asesors: string = environment .url_5 + "AsesorCompany/";
+  private url_regulaciones: string = environment.url_2 + "Search/";
 
   constructor(
     private http: HttpClient,
@@ -300,4 +302,14 @@ export class AirportService {
     const url = `${this.url_usebnus + 'GetAsesorByCompany'}?${'CompanyId=' + data}`;
     return this.http.get<iGetAsesors[]>(url, httpOptions2);
   }
+
+  GetRegulations(data): Observable<IRegulationsModel> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': this.key
+    });
+    return this.http.post<IRegulationsModel>(this.url_regulaciones  + "GetRegulation", data, httpOptions2);
+  } 
 }
