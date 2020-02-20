@@ -1,17 +1,20 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { UserCompanyService } from '../../services/user-company.service';
 import { IUserCompanyModel } from '../../models/IUserCompany.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IPersonCompany } from '../../models/IPersonCompany.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { MustMatch } from '../shared/must-match.validator';
 import { IPersonId } from '../../models/IPersonId.model';
 import { IDocumentType } from 'src/app/models/IDocumentType.model';
 import { IRole } from 'src/app/models/IRole.model';
 import { AirportService } from '../../services/airport.service';
 import { IGetPaisesModel } from '../../models/IGetPaises';
+import { SCREEN_SIZE } from '../../pipes/screen-size.enum';
+import { ResizeService } from 'src/app/services/resize.service';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination/public_api';
 
 declare var jquery: any;
 declare var $: any;
@@ -23,6 +26,25 @@ declare var $: any;
 })
 export class AdministradorPasajerosComponent implements OnInit {
 
+
+  prefix = 'is-';
+  sizes = [
+    {
+      id: SCREEN_SIZE.XS, name: 'xs', css: `d-block d-sm-none`
+    },
+    {
+      id: SCREEN_SIZE.SM, name: 'sm', css: `d-none d-sm-block d-md-none`
+    },
+    {
+      id: SCREEN_SIZE.MD, name: 'md', css: `d-none d-md-block d-lg-none`
+    },
+    {
+      id: SCREEN_SIZE.LG, name: 'lg', css: `d-none d-lg-block d-xl-none`
+    },
+    {
+      id: SCREEN_SIZE.XL, name: 'xl', css: `d-none d-xl-block`
+    },
+  ];
   registerForm: FormGroup;
   submitted = false;
   inderror: boolean;
@@ -56,26 +78,52 @@ export class AdministradorPasajerosComponent implements OnInit {
   activoEditActive: any;
   objectUsu: any;
   marked = false;
-  form:any;
+  form: FormGroup;
   theCheckbox = false;
   p: number[] = [];
-  constructor(private service: AirportService,private formBuilder: FormBuilder,private modalService: BsModalService,private userCompanyService: UserCompanyService,private sessionStorageService: SessionStorageService,private spinner: NgxSpinnerService,) {
+  lista: string[] = [];
+  page1 = 1;
+  pageSize =10;
+  constructor(
+    private service: AirportService,
+    private formBuilder: FormBuilder,
+    private modalService: BsModalService,
+    private userCompanyService: UserCompanyService,
+    private sessionStorageService: SessionStorageService,
+    private spinner: NgxSpinnerService,
+    private elementRef: ElementRef,
+    private resizeSvc: ResizeService
+    ) {
     this.datoslogin = this.sessionStorageService.retrieve('ss_login_data');
 
+    this.form = this.formBuilder.group({
+      checkArray: this.formBuilder.array([])
+    })
+   }
 
+   @HostListener("window:resize", [])
+   private onResize() {
+    this.detectScreenSize();
+   }
+   
+
+
+   private detectScreenSize(){
+     const currentSize = this.sizes.find(x => {
+       const el = this.elementRef.nativeElement.querySelector(`.${this.prefix}${x.id}`);
+       const isVisible = window.getComputedStyle(el).display != 'none';
+
+       return isVisible;
+     });
+
+     this.resizeSvc.onResize(currentSize.id);
    }
 
   ngOnInit() {
-
-
-
-    
-    
     this.cargar();
     this.document();
     this.role();
     this.GetPaises();
-
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -92,6 +140,36 @@ export class AdministradorPasajerosComponent implements OnInit {
       this.previousPage = page;
       this.cargar();
     }
+  }
+
+  select(i){
+  var x = document.getElementById("fila_" + i);
+  x.style.background = "#CCC"
+  console.log(i);
+  }
+
+ 
+
+  onCheckboxChange(e){
+    const checkArray: FormArray = this.form.get('checkArray') as FormArray;
+    if (e.target.checked) {
+      checkArray.push(new FormControl(e.target.value));
+    }else {
+      let i: number = 0;
+      checkArray.controls.forEach((item: FormControl) => {
+        if (item.value == e.target.value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+  }
+
+  
+
+  submitForm(){
+    console.log(this.form.value)
   }
 
 
@@ -209,8 +287,10 @@ toggleVisibility(e,i){
 
 limpiar(){
   this.modalRefPoliticas.hide();
-
 }
+
+
+
 
 
   openModalPoliticas(template) {
@@ -239,6 +319,7 @@ limpiar(){
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+    $('#table1').paging({limit:5});
     }
 
   registrar(){
@@ -440,20 +521,43 @@ limpiar(){
   Seleccionar(i){
     this.spinner.show();
     this.personId = i;
-    var hola = $("#myTextEditBox" + i).val();
+    var hola = $("#usuario_"+ i).text();
     console.log(hola);
     $('#myTextEditBox'+ i).change(function() {
       if (this.checked) {
         this.usu = $("#usuario_"+ i).text();
+        this.lista.push(this.usu);
         this.objectUsu = {
           usuario: this.usu
         }
       console.log(JSON.stringify(this.objectUsu));
       } else {
+        this.lista.slice(i);
         console.log("NADADAADADADADA");
       }
+      console.log("LA LISTA " +JSON.stringify(this.lista))
   });
   }
+
+  Seleccionado(i,event : any){
+    var hola = $("#usuario_"+ i).text();
+    console.log("Indice es ==> " + i);
+    console.log(event.target.checked);
+    if(event.target.checked === true){
+      this.lista.push(hola)
+      console.log("Aca añade")
+    }else{
+      var index = this.lista.indexOf(hola);
+      if(index > -1){
+        this.lista.splice(index,1);
+      }
+      //this.lista.splice(i,1)
+      console.log("Aca borra")
+    }
+    console.log(JSON.stringify(this.lista));
+  }
+
+ 
 
   
 

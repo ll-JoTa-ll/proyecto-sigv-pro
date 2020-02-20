@@ -150,7 +150,7 @@ import { AdministradorPasajerosComponent } from './components/administrador-pasa
 import { FlxUiDatatableModule, FlxUiDataTable } from 'flx-ui-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+import { ResizeService } from './services/resize.service';
 
 @NgModule({
   declarations: [
@@ -296,9 +296,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
       libraries: ['places']
     }),
     ModalModule.forRoot(),
+    PaginationModule.forRoot(),
     CollapseModule.forRoot(),
     TimepickerModule.forRoot(),
-    PaginationModule.forRoot(),
     NgxPaginationModule,
     ToastrModule.forRoot(),
     TooltipModule.forRoot(),
@@ -311,7 +311,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 		IgxSliderModule
   ],
   entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent],
-  providers: [BnNgIdleService,FlxUiDataTable],
+  providers: [BnNgIdleService,FlxUiDataTable,ResizeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

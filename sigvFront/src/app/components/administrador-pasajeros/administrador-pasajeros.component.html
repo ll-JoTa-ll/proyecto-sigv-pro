@@ -55,9 +55,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let emp of this.lstPerson | paginate: { itemsPerPage: 7, currentPage: p};let i=index;" id="fila_{{i}}">
+                        <tr style="cursor: pointer;" *ngFor="let emp of this.lstPerson | paginate: { itemsPerPage: 7, currentPage: p};let i=index;" id="fila_{{i}}" (click)="select(i)">
                             <td>
-                                <input type="checkbox" (click)="Seleccionar(i)" id="myTextEditBox{{i}}" value="checked" />
+                                <input (change)="Seleccionado(i,$event)" type="checkbox" [value]="emp.loginUser" id="myTextEditBox{{i}}" />
                             </td>
                             <td>
                                 <span id="edit_{{i}}" style="cursor: pointer;" (click)="Editar(emp.personId,modalEditar);"><img style="width: 20px;" src="./assets/images/editar.svg"></span>
@@ -78,8 +78,10 @@
                         </tr>
                     </tbody>
                 </table>
+
                 <div class="col-12 m-0 p-0 text-center pt-5">
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    <pagination-controls autoHide="true" responsive="true" (pageChange)="p = $event"></pagination-controls>
+
                 </div>
             </div>
             <div class="col-2 m-0 p-0">
@@ -699,6 +701,5 @@
                 text-decoration: underline;
             }
         </style>
-
     </app-header>
 </ng-container>

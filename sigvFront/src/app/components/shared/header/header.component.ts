@@ -1,8 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { ThrowStmt } from '@angular/compiler';
 import { VueloFamiliaSectionComponent } from '../../vuelos/familias/vuelo-familia-section/vuelo-familia-section.component';
+import { SCREEN_SIZE } from '../../../pipes/screen-size.enum';
+import { ResizeService } from '../../../services/resize.service';
 declare var jquery: any;
 declare var $: any;
 
@@ -12,7 +14,7 @@ declare var $: any;
   styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent implements OnInit {
-
+ 
   flagTipo: number;
   nombreUsuario: string;
   gender: string;
@@ -29,7 +31,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private sessionStorageService: SessionStorageService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
   ) {
     this.flagTipo = 1;
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -42,10 +44,17 @@ export class HeaderComponent implements OnInit {
       
   }
 
+
+  
+
+  
+
   ngOnInit() {
     var z = document.getElementById("profile");
     z.style.display = "none";
   }
+
+
 
   changeProfile(){
     var z = document.getElementById("profile");

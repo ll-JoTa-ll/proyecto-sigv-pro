@@ -95,21 +95,6 @@
     <script src="extensions/accent-neutralise/bootstrap-table-accent-neutralise.js"></script>
     <!--  <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="assets/js/intlTelInput-jquery.min.js"></script> -->
-    <script>
-        $(document).ready(function() {
-            console.log("ready!");
-            $('.dropdown-el').click(function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                $(this).toggleClass('expanded');
-                $('#' + $(e.target).attr('for')).prop('checked', true);
-            });
-
-            $(document).click(function() {
-                $('.dropdown-el').removeClass('expanded');
-            });
-        });
-    </script>
 </body>
 
 </html>
