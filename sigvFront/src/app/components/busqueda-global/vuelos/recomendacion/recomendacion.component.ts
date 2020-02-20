@@ -397,13 +397,15 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   GetRegulaciones(template, template2) {
     const lstradiocheck = this.lstRadioCheck;
-    let segmenttrip: any[] = [];
 
-    lstradiocheck.forEach(function(item) {
-      const section = item.section_;
-      const lstsegment = item.segment_;
+  //  lstradiocheck.forEach(function(item) {
+    for (let i = 0; i < lstradiocheck.length; i++) {
+      const element = lstradiocheck[i];
+      const section = element.section_;
+      const lstsegment = element.segment_;
 
-      const segment = {
+      const segment = [
+      {
       SegmentType:"A",
 			DepartureDate: section.departureDate,
 			ReservationStatus:"DS",
@@ -418,17 +420,21 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 				FareComponentNumber:"1",
 				FareBasisCode: section.lSectionGroups[0].fareBasis
 			}
+      }];
+
+      let data = {
+        CompanyId: this.loginDataUser.ocompany.companyId,
+        Currency: this.currency,
+        Code: '1',
+        LOriginDestinationOption: segment
       };
-      segmenttrip.push(segment);
-    });
 
-    let data = {
-      CompanyId: this.loginDataUser.ocompany.companyId,
-      Currency: this.currency,
-      Code: '1',
-      LOriginDestinationOption: segmenttrip
-    };
+      this.RegulacionesService(data);
+    }
+  //  });
+  }
 
+  RegulacionesService(data) {
     this.airportService.GetRegulations(data).subscribe(
       result => {
           this.lstRegulaciones = result;

@@ -147,6 +147,7 @@ import { ModalHabitacionHabComponent } from './components/busqueda-global/hotele
 import { ModalInfraccionCompraComponent } from './components/shared/modal-infraccion-compra/modal-infraccion-compra.component';
 import { FiltrosMiniComponent } from './components/busqueda-global/hoteles/filtros-mini/filtros-mini.component';
 import { AdministradorPasajerosComponent } from './components/administrador-pasajeros/administrador-pasajeros.component';
+import { ResizeService } from './services/resize.service';
 
 @NgModule({
   declarations: [
@@ -289,9 +290,9 @@ import { AdministradorPasajerosComponent } from './components/administrador-pasa
       libraries: ['places']
     }),
     ModalModule.forRoot(),
+    PaginationModule.forRoot(),
     CollapseModule.forRoot(),
     TimepickerModule.forRoot(),
-    PaginationModule.forRoot(),
     NgxPaginationModule,
     ToastrModule.forRoot(),
     TooltipModule.forRoot(),
@@ -304,7 +305,7 @@ import { AdministradorPasajerosComponent } from './components/administrador-pasa
 		IgxSliderModule
   ],
   entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent],
-  providers: [BnNgIdleService],
+  providers: [BnNgIdleService,ResizeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -23,19 +23,19 @@ let httpOptions = {
 })
 export class HotelService {
   token;
+  key;
 
   private url_search: string = environment.url_hotel + 'HotelSearch/SearchHotel';
   private url_habitacion: string = environment.url_hotel + 'HotelSearch/SearchRoom';
   private url_confirmacion: string = environment.url_hotel + 'Booking/SelectRoom';
   private url_reserva: string = environment.url_hotel + 'Booking/GenerateReservation';
-  private url_user: string = environment.url_usuario + 'User/';
+  private url_user: string = environment.url_5 + 'User/';
   private url_getreservation: string = environment.url_hotel + 'Booking/';
-  private url_gerUserByPassword: string = environment.url_usuario + 'User/GetUserByPassword';
-  private url_updatePassword: string = environment.url_usuario + 'User/UpdatePassword';
-  private url_displayLogin: string = environment.url_usuario + 'PasswordRecovery/DisplayLoginByEmail';
-  private url_validateToken: string = environment.url_usuario + 'PasswordRecovery/ValidateTokenByUser';
-  private url_passwordRecovery: string = environment.url_usuario + 'PasswordRecovery/ConfirmPasswordRecovery';
-  key;
+  private url_gerUserByPassword: string = environment.url_5 + 'User/GetUserByPassword';
+  private url_updatePassword: string = environment.url_5 + 'User/UpdatePassword';
+  private url_displayLogin: string = environment.url_5 + 'PasswordRecovery/DisplayLoginByEmail';
+  private url_validateToken: string = environment.url_5 + 'PasswordRecovery/ValidateTokenByUser';
+  private url_passwordRecovery: string = environment.url_5 + 'PasswordRecovery/ConfirmPasswordRecovery';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) {
     this.key = environment.key;

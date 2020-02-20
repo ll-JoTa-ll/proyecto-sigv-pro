@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { IUserCompanyModel } from '../models/IUserCompany.model';
 import { IPersonCompany } from '../models/IPersonCompany.model';
 import { IPersonId } from '../models/IPersonId.model';
+import { IDocumentType } from '../models/IDocumentType.model';
+import { IRole } from '../models/IRole.model';
 
 let httpOptions2 = {
   headers: new HttpHeaders()
@@ -21,6 +23,8 @@ export class UserCompanyService {
 
   private _url5: string = environment.url_5 + "User/";
   private url_getreservation: string = environment.url_5 + 'Person/';
+  private url_document: string = environment.url_5 + 'DocumentType/';
+  private url_role: string = environment.url_5 + 'Role/';
 
   constructor(
     private http: HttpClient,
@@ -37,6 +41,16 @@ export class UserCompanyService {
       'Ocp-Apim-Subscription-Key': this.key
     });
     return this.http.post<IUserCompanyModel[]>(this._url5 + "GetUserByFreeText", data, httpOptions2);
+  }
+
+  getRole(data): Observable<IRole[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    });
+    return this.http.post<IRole[]>(this.url_role + "GetRole", data, httpOptions2);
   }
 
   getPersonByCompany(data): Observable<IPersonCompany[]> {
@@ -60,4 +74,16 @@ export class UserCompanyService {
     const url = `${this.url_getreservation + 'GetPersonById'}?${'personId=' + data}`;
     return this.http.get<IPersonId[]>(url, httpOptions2);
   }
+
+  getDocument(): Observable<IDocumentType[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    });
+    const url = `${this.url_document + 'GetDocumentType'}`;
+    return this.http.get<IDocumentType[]>(url, httpOptions2);
+  }
+
 }

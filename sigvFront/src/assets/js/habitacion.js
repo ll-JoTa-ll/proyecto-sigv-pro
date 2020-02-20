@@ -28,6 +28,10 @@ document.onclick = function(e) {
     $("#divCitydestino ").hide();
 }
 
+
+
+
+
 function RequestServer(url, method, success, text) {
     var xhr = new XMLHttpRequest();
     xhr.open(method, url, true);

@@ -7,7 +7,6 @@ export const environment = {
    url:"https://domiruth-uat.azure-api.net/security/",
    url_2:"https://domiruth-uat.azure-api.net/flight/",
    url_hotel: "http://52.190.24.114/hotel/api/",
-   url_usuario : "http://52.190.24.114/custom/api/",
    url_project :"http://localhost:4200",
    url_5: 'http://52.190.24.114/custom/api/',
    url_6: 'http://52.190.24.114/notify/api/',
