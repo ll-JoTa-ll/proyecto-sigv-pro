@@ -148,6 +148,7 @@ import { ModalInfraccionCompraComponent } from './components/shared/modal-infrac
 import { FiltrosMiniComponent } from './components/busqueda-global/hoteles/filtros-mini/filtros-mini.component';
 import { AdministradorPasajerosComponent } from './components/administrador-pasajeros/administrador-pasajeros.component';
 import { ResizeService } from './services/resize.service';
+import { RegulacionesTramoComponent } from './components/busqueda-global/vuelos/recomendacion/regulaciones-tramo/regulaciones-tramo.component';
 
 @NgModule({
   declarations: [
@@ -267,7 +268,8 @@ import { ResizeService } from './services/resize.service';
     ModalHabitacionHabComponent,
     ModalInfraccionCompraComponent,
     FiltrosMiniComponent,
-    AdministradorPasajerosComponent
+    AdministradorPasajerosComponent,
+    RegulacionesTramoComponent
   ],
   imports: [
     BrowserModule,

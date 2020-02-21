@@ -16,6 +16,7 @@ import { ModalSesionExpiradaComponent } from '../shared/modal-sesion-expirada/mo
 import { ModalSesionExpiradaVuelosComponent } from '../shared/modal-sesion-expirada-vuelos/modal-sesion-expirada-vuelos.component';
 import { ModalSesionWarningVuelosComponent } from '../shared/modal-sesion-warning-vuelos/modal-sesion-warning-vuelos.component';
 import { IGetPaisesModel } from '../../models/IGetPaises';
+import { IRegulationsModel } from '../../models/IRegulations';
 
 declare var jquery: any;
 declare var $: any;
@@ -74,6 +75,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   telefonocontacto: any;
   lstpaises: IGetPaisesModel[] = [];
   emailsolicitud;
+  lstRegulaciones: IRegulationsModel;
+  lstrulestramo: any[] = [];
 
   constructor(
     private modalService: BsModalService,
@@ -362,6 +365,70 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       err => {
       },
       () => {
+      }
+    );
+  }
+
+  GetRegulaciones(template) {
+    this.lstrulestramo = [];
+    let lsection: any[] = [];
+    lsection = this.flightAvailability_request.Lsections;
+  //  lstradiocheck.forEach(function(item) {
+    for (let i = 0; i < lsection.length; i++) {
+      const section = lsection[i];
+      const segment = [
+      {
+      SegmentType:"A",
+			DepartureDate: section.DepartureDate,
+			ReservationStatus:"DS",
+			DepartureAirport: section.Origin,
+			ArrivalAirport:section.Destination,
+			MarketingAirline: section.Lsegments[0].LsegmentGroups[0].MarketingCarrier,
+			OperatingAirline: section.Lsegments[0].LsegmentGroups[0].MarketingCarrier,
+		  SegmentNumber:"01",
+			OPaxTypeInformation:
+			{
+				TypePassenger:"ADT",
+				FareComponentNumber:"1",
+				FareBasisCode: section.lsectionGroups.fareBasis
+			}
+      }];
+
+      let data = {
+        CompanyId: this.loginDataUser.ocompany.companyId,
+        Currency: this.currency,
+        Code: '1',
+        LOriginDestinationOption: segment
+      };
+
+      this.RegulacionesService(data);
+    }
+    var interval = setInterval(() => {
+      if (this.lstrulestramo.length > 0) {
+        this.modalRef = this.modalService.show(
+          template,
+          Object.assign({}, { class: 'gray modal-lg m-regulaciones'})
+        );
+        clearInterval(interval);
+      }
+    }, 4000);
+    console.log(this.lstrulestramo);
+  //  });
+  }
+
+  RegulacionesService(data) {
+    this.service.GetRegulations(data).subscribe(
+      result => {
+          this.lstRegulaciones = result;
+          if (this.lstRegulaciones.oError === null) {
+            this.lstrulestramo.push(this.lstRegulaciones);
+          }
+      },
+      err => {
+
+      },
+      () => {
+
       }
     );
   }

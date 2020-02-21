@@ -40,6 +40,39 @@
                     <div class="col-5 m-0 p-0">
                         <app-precio-final [LSection]="LSection" [tipo]="1" [Lpolicies]="LPolicies" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount" [odiscount]="flightAvailability_result.odiscount"></app-precio-final>
                         <app-info-recomendacion [tipovuelo]="tipovuelo" [LSection]="LSection"></app-info-recomendacion>
+                        <div class="row m-0 p-0 pt-4 pb-5">
+                            <div class="col-12 p-0 m-0 text-center">
+                                <button class="btn bv-texto-3" (click)="GetRegulaciones(modalRegulaciones)">VER REGULACIONES</button>
+                            </div>
+                            <ng-template #modalRegulaciones let-c="close" let-d="dismiss" id="modalfamilias">
+
+                                <div class="modal-header m-0 pb-0" style="border: none;">
+                                    <button type="button" class="close pull-right" aria-label="Close">
+        <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+        </button>
+                                </div>
+                                <div class="modal-body m-0 p-0">
+                                    <app-regulaciones-tramo *ngFor="let itemregulacion of lstrulestramo" [lstrules]="itemregulacion"></app-regulaciones-tramo>
+                                </div>
+                                <!--
+                                <div class="row m-0 p-0 pt-4">
+                                    <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+                                        ¡Lo sentimos!
+                                    </div>
+        
+                                    <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                                        No hemos encontrado familias disponibles para este vuelo en particular. Por favor, selecciona otras de las opciones.
+                                    </div>
+        
+                                    <div class="col-12 m-0 p-0 pb-4 text-center">
+                                        <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+                    <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                    Continuar con mi busqueda
+                  </button>
+                                    </div>
+                                    -->
+                            </ng-template>
+                        </div>
                     </div>
                 </div>
             </div>

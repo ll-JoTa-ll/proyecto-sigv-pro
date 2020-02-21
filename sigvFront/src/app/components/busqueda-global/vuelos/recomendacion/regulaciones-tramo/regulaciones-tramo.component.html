@@ -1,0 +1,65 @@
+<div class="m-0 p-0 pl-5 pr-5">
+    <div class="col-12 m-0 p-0 text-description">
+        <span>Regulacion: </span><span>{{lstrules.text}}</span>
+    </div>
+    <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 text-center pt-3 pb-3 text-rules">
+                EXCHANGE
+            </div>
+            <div class="col-12 m-0 p-0">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th></th>
+                            <th>Before</th>
+                            <th>After</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td>Cambios</td>
+                            <td><span><img style="width: 33px;" *ngIf="lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[0].changeable === 'true'" src="assets/images/check.png"><img style="width: 33px;" *ngIf="lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[0].changeable === 'false'" src="assets/images/cerrar.png"></span></td>
+                            <td><span><img style="width: 33px;" *ngIf="lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[1].changeable === 'true'" src="assets/images/check.png"><img style="width: 33px;" *ngIf="lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[1].changeable === 'false'" src="assets/images/cerrar.png"></span></td>
+                        </tr>
+                        <tr class="text-center">
+                            <td>Amount</td>
+                            <td><span>{{lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[0].currency}} {{lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[0].price}}</span></td>
+                            <td><span>{{lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[1].currency}} {{lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[1].price}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 text-center pt-3 pb-3 text-rules">
+                REFUND
+            </div>
+            <div class="col-12 m-0 p-0">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="text-center">
+                            <th></th>
+                            <th>Before</th>
+                            <th>After</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center">
+                            <td>Reembolsable</td>
+                            <td><span><img style="width: 33px;" *ngIf="lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[2].refundable === 'true'" src="assets/images/check.png"><img style="width: 33px;" *ngIf="lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[2].refundable === 'false'" src="assets/images/cerrar.png"></span></td>
+                            <td><span><img style="width: 33px;" *ngIf="lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[3].refundable === 'true'" src="assets/images/check.png"><img style="width: 33px;" *ngIf="lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[3].refundable === 'false'" src="assets/images/cerrar.png"></span></td>
+                        </tr>
+                        <tr class="text-center">
+                            <td>Amount</td>
+                            <td><span>{{lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[2].currency}} {{lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[2].price}}</span></td>
+                            <td><span>{{lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[3].currency}} {{lstrules.lpassengerDetail[0].oPenaltiesInfo.lPenalties[3].price}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

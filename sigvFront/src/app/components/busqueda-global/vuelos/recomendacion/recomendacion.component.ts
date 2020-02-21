@@ -13,7 +13,6 @@ import { environment } from '../../../../../environments/environment';
 import { IGetApprovers } from '../../../../models/IGetApprovers.model';
 import { stringify } from '@angular/compiler/src/util';
 import { ModalFamiliasVaciasComponent } from '../../../shared/modal-familias-vacias/modal-familias-vacias.component';
-import { setInterval } from 'timers';
 import { IBnusModel } from '../../../../models/Ibnus.model';
 import { IRegulationsModel } from '../../../../models/IRegulations';
 declare var jquery: any;
@@ -67,6 +66,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   flagResultFamilias: number;
   flagPseudoRepeat: boolean;
   lstPseudoRepeat: any[] = [];
+  lstrulestramo: any[] = [];
 
   dataRequestFamilia;
   dataseccionesvuelos;
@@ -118,7 +118,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     this.lst_rol_autogestion = environment.cod_rol_autogestion;
     this.lst_rol_autorizador = environment.cod_rol_autorizador;
     this.lst_rol_centralizador = environment.cod_rol_centralizador;
-    this.datosuser = this.sessionStorageService.retrieve('objusuarios');
   }
 
 
@@ -162,6 +161,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   openModal(template: TemplateRef<any>, recommendationId, modalerror) {
+    this.datosuser = this.sessionStorageService.retrieve('objusuarios');
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
     let idVal = 1;
@@ -395,7 +395,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     return dataFamilias;
   }
 
-  GetRegulaciones(template, template2) {
+  GetRegulaciones(template) {
+    this.lstrulestramo = [];
     const lstradiocheck = this.lstRadioCheck;
 
   //  lstradiocheck.forEach(function(item) {
@@ -431,6 +432,16 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       this.RegulacionesService(data);
     }
+    var interval = setInterval(() => {
+      if (this.lstrulestramo.length > 0) {
+        this.modalRef = this.modalService.show(
+          template,
+          Object.assign({}, { class: 'gray modal-lg m-resumen' })
+        );
+        clearInterval(interval);
+      }
+    }, 4000);
+    console.log(this.lstrulestramo);
   //  });
   }
 
@@ -438,6 +449,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     this.airportService.GetRegulations(data).subscribe(
       result => {
           this.lstRegulaciones = result;
+          if (this.lstRegulaciones.oError === null) {
+            this.lstrulestramo.push(this.lstRegulaciones);
+          }
       },
       err => {
 
@@ -445,7 +459,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       () => {
 
       }
-    )
+    );
   }
 
   getFareFamily(dataPost, template, modalerror) {
@@ -555,6 +569,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   getFlightAvailability(recommendationId, template: TemplateRef<any>) {
+    this.datosuser = this.sessionStorageService.retrieve('objusuarios');
     // tslint:disable-next-line: max-line-length
     let Lsections_: any[] = [];
     let datosusuario: any[] = [];
@@ -750,7 +765,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         DepartureDateShow: section.departureDateShow,
         BagAllowed: section.bagAllowed,
         BagQuantity: section.bagQuantity,
-        Lsegments: Lsegments_
+        Lsegments: Lsegments_,
+        lsectionGroups: section.lSectionGroups[0],
+        DepartureDate: section.departureDate
       };
 
 
