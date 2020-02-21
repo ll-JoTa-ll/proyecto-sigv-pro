@@ -142,7 +142,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   lstBnus: IBnusModel[];
   config = {
     backdrop: true,
-    ignoreBackdropClick: true
+    ignoreBackdropClick: true,
+    keyboard: false
   };
   modalRef: BsModalRef;
   lst_rol_autogestion;
@@ -741,11 +742,123 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   UserBnus1(template) {
+    let origen: any[] = [];
+    let destino: any[] = [];
+    let fechas: any[] = [];
+    let horasFrom: any[] = [];
+    let horasTo: any[] = [];
+
+    if (this.tipoVuelo === "RT") {
+      origen.push(this.origenAuto);
+      origen.push(this.destinoAuto);
+
+      destino.push(this.destinoAuto);
+      destino.push(this.origenAuto);
+
+      fechas.push(this.fechaSalida);
+      fechas.push(this.fechaRetorno);
+    }
+
+    if (this.tipoVuelo === "OW") {
+      origen.push(this.origenAuto);
+      destino.push(this.destinoAuto);
+      fechas.push(this.fechaSalida);
+    }
+
+    if (this.tipoVuelo === "MC") {
+      const indexTramo = this.indexTramo;
+      switch (indexTramo) {
+        case 2:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          break;
+        case 3:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          break;
+        case 4:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          break;
+        case 5:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          fechas.push(this.fechaSalida5);
+          break;
+        case 6:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+          origen.push(this.origenAuto6);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+          destino.push(this.destinoAuto6);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          fechas.push(this.fechaSalida5);
+          fechas.push(this.fechaSalida6);
+          break;
+      }
+    }
+
     let data: any;
     data = {
         "CompanyID": this.loginDataUser.ocompany.companyId,
         "UserId": this.loginDataUser.userId,
-        "Use": true
+        "Use": true,
+        "Origin": origen,
+        "Destination": destino,
+        "Dates": fechas
       };
     this.airportService.ValidateInsertUseBnus(data).subscribe(
       result => {
@@ -768,11 +881,123 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   UserBnus2() {
+    this.spinner.show();
+    let origen: any[] = [];
+    let destino: any[] = [];
+    let fechas: any[] = [];
+    let horasFrom: any[] = [];
+    let horasTo: any[] = [];
+
+    if (this.tipoVuelo === "RT") {
+      origen.push(this.origenAuto);
+      origen.push(this.destinoAuto);
+
+      destino.push(this.destinoAuto);
+      destino.push(this.origenAuto);
+
+      fechas.push(this.fechaSalida);
+      fechas.push(this.fechaRetorno);
+    }
+
+    if (this.tipoVuelo === "OW") {
+      origen.push(this.origenAuto);
+      destino.push(this.destinoAuto);
+      fechas.push(this.fechaSalida);
+    }
+
+    if (this.tipoVuelo === "MC") {
+      const indexTramo = this.indexTramo;
+      switch (indexTramo) {
+        case 2:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          break;
+        case 3:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          break;
+        case 4:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          break;
+        case 5:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          fechas.push(this.fechaSalida5);
+          break;
+        case 6:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+          origen.push(this.origenAuto6);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+          destino.push(this.destinoAuto6);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          fechas.push(this.fechaSalida5);
+          fechas.push(this.fechaSalida6);
+          break;
+      }
+    }
     let data: any;
     data = {
         "CompanyID": this.loginDataUser.ocompany.companyId,
         "UserId": this.loginDataUser.userId,
-        "Use": false
+        "Use": false,
+        "Origin": origen,
+        "Destination": destino,
+        "Dates": fechas
       };
     this.airportService.ValidateInsertUseBnus(data).subscribe(
       result => {
@@ -784,6 +1009,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
        // this.modalRef.hide();
       }
     )
+  }
+
+  CloseModal() {
+    this.searchFlight();
   }
  
   GetAsesors(template) {
@@ -802,7 +1031,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           this.spinner.hide();
           this.modalRef = this.modalService.show(
            template,
-           Object.assign({}, { class: 'gray modal-lg m-resumen'})
+           Object.assign({}, { class: 'gray modal-lg m-resumen'}, this.config)
          );
          } else {
              this.searchFlight();

@@ -85,8 +85,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     private service: AirportService,
     private router: Router,
     private bnIdle: BnNgIdleService,
-    private flightService: FlightService
-  ) {
+    private flightService: FlightService,
+    private spinner: NgxSpinnerService) {
     this.GetPaises();
     this.datarequest = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
     this.flightAvailability_request = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
@@ -370,6 +370,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   GetRegulaciones(template) {
+    this.spinner.show();
     this.lstrulestramo = [];
     let lsection: any[] = [];
     lsection = this.flightAvailability_request.Lsections;
@@ -405,6 +406,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     }
     var interval = setInterval(() => {
       if (this.lstrulestramo.length > 0) {
+        this.spinner.hide();
         this.modalRef = this.modalService.show(
           template,
           Object.assign({}, { class: 'gray modal-lg m-regulaciones'})
