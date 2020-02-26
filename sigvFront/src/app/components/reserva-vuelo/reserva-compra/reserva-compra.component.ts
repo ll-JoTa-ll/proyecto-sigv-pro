@@ -388,20 +388,29 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     let html = '';
     for (let j = 0; j < this.lsusuario.length; j++) {
       const item = this.lusers[j];
-      html+="<tr>"
-      html+="<td>"
+      html +="<tr>"
+      html +="<td>"
       html += item.firstName + " " + item.lastName;
-      html+="</td>"
-      html+="<td>"
+      html +="</td>"
+      html +="<td>"
       html += item.odocument.number;
-      html+="</td>"
-      html+="<td>"
+      html +="</td>"
+      html +="<td>"
       html += item.email;
-      html+="</td>"
-      html+="<td>"
+      html +="</td>"
+      html +="<td>"
       html += item.phone;
-    "</td>"
-      html+="</tr>"
+      html += "</td>";
+      if (item.isVIP === true) {
+        html +="<td>"
+        html += 'Si';
+        html += "</td>";
+      } else {
+        html +="<td>"
+        html += 'No';
+        html += "</td>";
+      }
+      html +="</tr>"
     }
     this.htmlpasajeros = html;
     this.emailsolicitud = this.emailsolicitud.replace("@NombreSolicitante",this.lsusuario[0].firstName + " " + this.lsusuario[0].lastName);
@@ -803,10 +812,17 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         const item = this.lusers[j];
         html +="<div style='width: 100% !important;'>";
         html +="<div class='row ' style='padding-left: 2%; padding-bottom: 1%;'>";
-        html +="<div style='width: 100% !important;'>";
+        html +="<div style='width: 50% !important;'>";
         html +="<span style='color: #676767;'>Tipo de pasajero:  </span>";
         html +="<span style='color: #898989;'>Adulto</span>"
         html +="</div>";
+
+        if (item.isVIP === true) {
+          html +="<div style='width: 50% !important;'>";
+          html +="<span style='color: #676767;'>Pasajero Vip:  </span>";
+          html +="<span style='color: #898989;'>Si</span>"
+          html +="</div>";
+        }
         html +="</div>";
         html +="<div class='row ' style='padding-left: 2%; padding-bottom: 1%;'>";
         html +="<div style='width: 50% !important;'>";

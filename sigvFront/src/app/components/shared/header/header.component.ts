@@ -27,6 +27,7 @@ export class HeaderComponent implements OnInit {
   idinterval: any;
   idinterval1: any;
   showProfile: any;
+  isvip;
 
   constructor(
     private router: Router,
@@ -40,14 +41,9 @@ export class HeaderComponent implements OnInit {
     this.gender = this.loginDataUser.gender;
     this.role = this.loginDataUser.orole.roleDescription;
     this.empresa = this.loginDataUser.ocompany.companyName;
+    this.isvip = this.loginDataUser.vip;
     this.showProfile = false;
-      
   }
-
-
-  
-
-  
 
   ngOnInit() {
     var z = document.getElementById("profile");

@@ -75,7 +75,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   telefonocontacto: any;
   lstpaises: IGetPaisesModel[] = [];
   emailsolicitud;
-  lstRegulaciones: IRegulationsModel;
+  lstRegulaciones: IRegulationsModel[];
   lstrulestramo: any[] = [];
 
   constructor(
@@ -373,64 +373,36 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.spinner.show();
     this.lstrulestramo = [];
     let lsection: any[] = [];
-    lsection = this.flightAvailability_request.Lsections;
+    lsection = this.LSectionPassenger;
   //  lstradiocheck.forEach(function(item) {
-    for (let i = 0; i < lsection.length; i++) {
-      const section = lsection[i];
-      const segment = [
-      {
-      SegmentType:"A",
-			DepartureDate: section.DepartureDate,
-			ReservationStatus:"DS",
-			DepartureAirport: section.Origin,
-			ArrivalAirport:section.Destination,
-			MarketingAirline: section.Lsegments[0].LsegmentGroups[0].MarketingCarrier,
-			OperatingAirline: section.Lsegments[0].LsegmentGroups[0].MarketingCarrier,
-		  SegmentNumber:"01",
-			OPaxTypeInformation:
-			{
-				TypePassenger:"ADT",
-				FareComponentNumber:"1",
-				FareBasisCode: section.lsectionGroups.fareBasis
-			}
-      }];
 
-      let data = {
-        CompanyId: this.loginDataUser.ocompany.companyId,
-        Currency: this.currency,
-        Code: '1',
-        LOriginDestinationOption: segment
-      };
-
-      this.RegulacionesService(data);
-    }
-    var interval = setInterval(() => {
-      if (this.lstrulestramo.length > 0) {
-        this.spinner.hide();
-        this.modalRef = this.modalService.show(
-          template,
-          Object.assign({}, { class: 'gray modal-lg m-regulaciones'})
-        );
-        clearInterval(interval);
-      }
-    }, 4000);
-    console.log(this.lstrulestramo);
+    let data = {
+      CompanyId: this.loginDataUser.ocompany.companyId,
+      Currency: this.currency,
+      Code: '1',
+      Lsection: lsection
+    };
+    console.log(data);
+    this.RegulacionesService(data, template);
   //  });
   }
 
-  RegulacionesService(data) {
+  RegulacionesService(data, template) {
     this.service.GetRegulations(data).subscribe(
       result => {
           this.lstRegulaciones = result;
-          if (this.lstRegulaciones.oError === null) {
-            this.lstrulestramo.push(this.lstRegulaciones);
-          }
       },
       err => {
 
       },
       () => {
-
+        if (this.lstRegulaciones.length > 0) {
+          this.spinner.hide();
+          this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg m-regulaciones'})
+          );
+        }
       }
     );
   }

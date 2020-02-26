@@ -56,7 +56,6 @@ export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.indexSegment === 1) {
-
       const segmentCheck = {
         indexSegment_: this.indexSegment,
         radioId_: this.radioButtonName + '_' + this.recommendationId + '_' + this.sectionId + '_' + this.segment.segmentId + '_' + this.indexSegment,

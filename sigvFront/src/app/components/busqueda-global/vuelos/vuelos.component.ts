@@ -14,6 +14,7 @@ import { IBnusModel } from '../../../models/Ibnus.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { environment } from '../../../../environments/environment';
 import { iGetAsesors } from '../../../models/IGetAsesors';
+import { FILE } from 'dns';
 
 declare var jquery: any;
 declare var $: any;
@@ -1091,13 +1092,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
  //   this.spinner.show();
     this.flagDinData = false;
-
     let origen: any[] = [];
     let destino: any[] = [];
     let fechas: any[] = [];
     let horasFrom: any[] = [];
     let horasTo: any[] = [];
-
     if (this.tipoVuelo === "RT") {
       origen.push(this.origenAuto);
       origen.push(this.destinoAuto);
@@ -1200,7 +1199,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           break;
       }
     }
-
     fechas.forEach(function(fe) {
       horasFrom.push("");
       horasTo.push("");

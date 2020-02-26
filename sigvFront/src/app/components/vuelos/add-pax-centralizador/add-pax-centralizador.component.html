@@ -95,7 +95,10 @@
 
         <div class="row m-0 p-0">
 
-            <div class="col-10 m-0 p-0">
+            <div class="col-1 m-0 p-0">
+
+            </div>
+            <div class="col-9 m-0 p-0">
                 <div class="row m-0 p-0 box-shadow">
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;">Nombre</div>
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 40% !important;">Apellidos</div>
@@ -117,7 +120,12 @@
 
         <div class="row m-0 p-0" *ngFor="let person of lstPerson | paginate: { itemsPerPage: 10, currentPage: p}">
 
-            <div class="col-10 m-0 p-0">
+            <div class="col-1 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="m-0 p-0 text-center apc-text-2" style="width: 100% !important;"><img *ngIf="person.isVIP === true" style="width: 30px;" src="assets/images/vip.png"></div>
+                </div>
+            </div>
+            <div class="col-9 m-0 p-0">
                 <div class="row m-0 p-0 box-shadow">
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;">{{person.firstName}}</div>
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 40% !important;">{{person.lastName}}</div>

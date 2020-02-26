@@ -9,7 +9,7 @@ export const environment = {
    url_hotel: "http://52.190.24.114/hotel/api/",
    url_project :"http://localhost:4200",
    url_5: 'http://52.190.24.114/custom/api/',
-   url_6: 'http://52.190.24.114/notify/api/',
+   url_6: 'https://domiruth-uat.azure-api.net/notify/',
    url_bnus: 'https://ws-bnu.domiruth.com/api/',
    cod_rol_autogestion: [3],
    cod_rol_autorizador: [4],

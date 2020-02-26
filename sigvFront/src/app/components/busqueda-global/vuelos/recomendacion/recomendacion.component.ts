@@ -58,7 +58,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   loginDataUser;
   outSegmentCheck;
   familyname;
-  lstRegulaciones: IRegulationsModel;
 
   //lstFamilyResult: IFareFamilyModel[] = [];
   lstFamilyResult: IFamilyResultModel;
@@ -393,73 +392,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     };
 
     return dataFamilias;
-  }
-
-  GetRegulaciones(template) {
-    this.lstrulestramo = [];
-    const lstradiocheck = this.lstRadioCheck;
-
-  //  lstradiocheck.forEach(function(item) {
-    for (let i = 0; i < lstradiocheck.length; i++) {
-      const element = lstradiocheck[i];
-      const section = element.section_;
-      const lstsegment = element.segment_;
-
-      const segment = [
-      {
-      SegmentType:"A",
-			DepartureDate: section.departureDate,
-			ReservationStatus:"DS",
-			DepartureAirport: section.origin,
-			ArrivalAirport:section.destination,
-			MarketingAirline: lstsegment.lSegmentGroups[0].marketingCarrier,
-			OperatingAirline:lstsegment.lSegmentGroups[0].marketingCarrier,
-		  SegmentNumber:"01",
-			OPaxTypeInformation:
-			{
-				TypePassenger:"ADT",
-				FareComponentNumber:"1",
-				FareBasisCode: section.lSectionGroups[0].fareBasis
-			}
-      }];
-
-      let data = {
-        CompanyId: this.loginDataUser.ocompany.companyId,
-        Currency: this.currency,
-        Code: '1',
-        LOriginDestinationOption: segment
-      };
-
-      this.RegulacionesService(data);
-    }
-    var interval = setInterval(() => {
-      if (this.lstrulestramo.length > 0) {
-        this.modalRef = this.modalService.show(
-          template,
-          Object.assign({}, { class: 'gray modal-lg m-resumen' })
-        );
-        clearInterval(interval);
-      }
-    }, 4000);
-    console.log(this.lstrulestramo);
-  //  });
-  }
-
-  RegulacionesService(data) {
-    this.airportService.GetRegulations(data).subscribe(
-      result => {
-          this.lstRegulaciones = result;
-          if (this.lstRegulaciones.oError === null) {
-            this.lstrulestramo.push(this.lstRegulaciones);
-          }
-      },
-      err => {
-
-      },
-      () => {
-
-      }
-    );
   }
 
   getFareFamily(dataPost, template, modalerror) {
