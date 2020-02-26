@@ -95,6 +95,10 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
     this.calendarSalidaValue = new Date();
     this.calendarSalidaValue.setDate(this.calendarSalidaValue.getDate() + 1);
+    this.minDateSalida = new Date();
+    this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
+    let hola1 = $('#fechaInicio').val();
+    console.log("minDateSalida =======================>" + this.minDateSalida);
   }
   
   ngOnInit() {
@@ -109,6 +113,9 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
    // this.sessionStorageService.store('ss_token', this.loginDataUser.token);
   //  this.token = this.sessionStorageService.retrieve('ss_token');
     this.textoestrellas = this.sessionMini1.categoria;
+    if(this.textoestrellas === ""){
+      this.textoestrellas = '';
+    }
     this.destinoValue = this.sessionMini1.iata;
     this.fechaSalidaShow = this.sessionMini.fechaentrada;
     this.fechaRetornoShow = this.sessionMini.fechasalida;
@@ -167,7 +174,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
 
   limpiarSession(){
     if (this.estrellas === undefined) {
-      this.estrellas = '';
+      this.estrellas = 'Todas';
     }
     this.objSearch = { 
       destino: this.destinoText,
@@ -311,8 +318,17 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   SeachHotel() {
     let fechaSal;
     let fechaRe;
+    let fechaSalShow;
+    let fechaReShow;
     fechaSal = this.fechaSalida;
     fechaRe = this.fechaRetorno;
+
+    fechaSalShow = this.fechaSalida;
+    fechaReShow = this.fechaRetorno;
+    let fechaSalss = fechaSalShow.split('-');
+    let fechaRess = fechaRe.split('-');
+    fechaSalShow = fechaSalss[2] + "-" + fechaSalss[1] + "-" + fechaSalss[0];
+    fechaReShow = fechaRess[2] + "-" + fechaRess[1] + "-" + fechaRess[0];
     if ( this.fchingreso == undefined) {
       //fechaSal = fechaSal.split("-");
       //fechaRe = fechaRe.split("-");
@@ -354,13 +370,14 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
 
       this.objSearch = {
         destino: $('#destinosa').val(),
-        fechaentrada: fechaSal,
-        fechasalida: fechaRe,
+        fechaentrada: fechaSalShow,
+        fechasalida: fechaReShow,
         categoria : this.estrellas,
         habi: $('#txthabitacion').val(),
         personas: $('#txtpersonas').val()
       };
       this.sessionStorageService.store("ss_sessionmini",this.objSearch);
+      console.log("SESIOM MINI ====>" + JSON.stringify(this.objSearch));
 
 
       this.habitaciones = $('#txthabitacion').val();

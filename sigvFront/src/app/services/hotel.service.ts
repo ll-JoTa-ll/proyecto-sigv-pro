@@ -36,6 +36,7 @@ export class HotelService {
   private url_displayLogin: string = environment.url_5 + 'PasswordRecovery/DisplayLoginByEmail';
   private url_validateToken: string = environment.url_5 + 'PasswordRecovery/ValidateTokenByUser';
   private url_passwordRecovery: string = environment.url_5 + 'PasswordRecovery/ConfirmPasswordRecovery';
+  private url_changePassword: string = environment.url_5 + 'User/ChangePassword';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) {
     this.key = environment.key;
@@ -69,6 +70,16 @@ GetUserByPassword(data): Observable<boolean> {
     'Ocp-Apim-Subscription-Key': this.key
   });
   return this.http.post<boolean>(`${this.url_gerUserByPassword}`, data, httpOptions);
+}
+
+GetChangePassword(data): Observable<boolean> {
+  this.token = this.sessionSt.retrieve('ss_token');
+  httpOptions.headers = new HttpHeaders({
+    'Authorization': "Bearer " + this.token,
+    'Content-Type': "application/json",
+    'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+  });
+  return this.http.post<boolean>(`${this.url_changePassword}`, data, httpOptions);
 }
 
 UpdatePassword(data): Observable<boolean> {

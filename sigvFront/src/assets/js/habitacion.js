@@ -311,6 +311,16 @@ function AddHabitaciones(position) {
 
 }
 
+$(document).ready(function() {
+    $('#table3').DataTable({
+        select: {
+            style: 'multi'
+        }
+    });
+});
+
+
+
 function RemoveHabitaciones(position) {
 
     var hdnCountAddHab = parseFloat($("#hdnCountAddHab").val());
