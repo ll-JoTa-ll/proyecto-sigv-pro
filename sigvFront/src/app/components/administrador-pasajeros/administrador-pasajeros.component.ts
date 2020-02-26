@@ -15,13 +15,10 @@ import { IGetPaisesModel } from '../../models/IGetPaises';
 import { SCREEN_SIZE } from '../../pipes/screen-size.enum';
 import { ResizeService } from 'src/app/services/resize.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/public_api';
-import { MatTableDataSource } from '@angular/material';
-import { EditSettingsModel, ToolbarItems } from '@syncfusion/ej2-angular-grids';
 import * as crypto from 'crypto-js';
 import { HotelService } from '../../services/hotel.service';
 import { ToastrService } from 'ngx-toastr';
 import { ICostCenterCompany } from 'src/app/models/ICostCenterCompany.model';
-import * as XLSX from 'xlsx';
 
 type AOA = any[][];
 
@@ -35,12 +32,8 @@ declare var $: any;
 })
 export class AdministradorPasajerosComponent implements OnInit {
   public selectOptions: Object;
-  public editSettings: EditSettingsModel;
-  public toolbar: ToolbarItems[];
-  dataSource = new MatTableDataSource();
 
   data: AOA = [[1, 2], [3, 4]];
-  wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   fileName: string = 'SheetJS.xlsx';
 
 
@@ -155,9 +148,6 @@ export class AdministradorPasajerosComponent implements OnInit {
     this.GetCostCenter();
     this.file();
     this.selectOptions = { persistSelection: true};
-    this.editSettings = { allowDeleting: true };
-    this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true };
-    this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -185,43 +175,6 @@ realFileBtn.addEventListener("change", function() {
     }
 })*/
   }
-
-
-  onFileChange(evt: any) {
-    /* wire up file reader */
-    const target: DataTransfer = <DataTransfer>(evt.target);
-    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
-    const reader: FileReader = new FileReader();
-    reader.onload = (e: any) => {
-      /* read workbook */
-      const bstr: string = e.target.result;
-      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-
-      /* grab first sheet */
-      const wsname: string = wb.SheetNames[0];
-      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
-      /* save data */
-      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-      console.log(this.data);
-    };
-    reader.readAsBinaryString(target.files[0]);
-  }
-
-
-
-  export(): void {
-    /* generate worksheet */
-    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
-
-    /* generate workbook and add the worksheet */
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-    /* save to file */
-    XLSX.writeFile(wb, this.fileName);
-  }
-
 
   onChange(value){
     if(value === '1'){
