@@ -22,11 +22,13 @@ import { DetalleReservaHotelComponent } from './components/reserva-vuelo/detalle
 import { ReservaGeneradaHotelComponent } from './components/busqueda-global/hoteles/reserva-generada-hotel/reserva-generada-hotel.component';
 import { GestionReservaVueloComponent } from './components/reserva-vuelo/gestion-reserva-vuelo/gestion-reserva-vuelo.component';
 import { AdministradorPasajerosComponent } from './components/administrador-pasajeros/administrador-pasajeros.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
   { path: 'home', component: BusquedaGlobalComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reportes', component: DashboardComponent, runGuardsAndResolvers: 'always' },
   { path: 'vuelos', component: VuelosComponent, runGuardsAndResolvers: 'always' },
   { path: 'perfil-usuario', component: PerfilUsuarioComponent, runGuardsAndResolvers: 'always' },
   { path: 'administrador-pasajeros', component: AdministradorPasajerosComponent, runGuardsAndResolvers: 'always' },
@@ -46,7 +48,8 @@ const routes: Routes = [
   { path: 'gestion-reserva-vuelo', component: GestionReservaVueloComponent, runGuardsAndResolvers: 'always' },
   { path: 'aprobar-reserva-vuelo', component: AprobacionReservaComponent, runGuardsAndResolvers: 'always' },
   { path: 'detalle-reserva-hotel', component: DetalleReservaHotelComponent, runGuardsAndResolvers: 'always' },
-  { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' }
+  { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' },
+  
 ];
 
 @NgModule({

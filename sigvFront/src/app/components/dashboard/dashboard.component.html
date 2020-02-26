@@ -1,0 +1,32 @@
+<ng-container>
+    <app-header>
+        <div class="row m-0 p-0">
+            <div class="col-1 m-0 p-0"></div>
+            <div *ngIf="dashboard" class="col-10 m-0 p-0 container">
+                <div class="chart" *ngIf="dashboard.lpolicyPercentages?.length > 0">
+                    <div [chart]="policyPercentagesChart" class="chart-svg"></div>
+                </div>
+                <div class="chart" *ngIf="dashboard.lanticipationDays?.length === 2">
+                    <div>
+                        <div class="title">Días de Anticipación</div>
+                        <span class="subtitle">{{dashboard.lanticipationDays[0].flight}}</span><br>
+                        <span class="value">{{dashboard.lanticipationDays[0].days | number:'1.0-1'}}</span>
+                        <span class="label">días promedio de anticipación</span>
+                        <br>
+                        <span class="subtitle">{{dashboard.lanticipationDays[1].flight}}</span><br>
+                        <span class="value">{{dashboard.lanticipationDays[1].days | number:'1.1-2'}}</span>
+                        <span class="label">días promedio de anticipación</span>
+                    </div>
+                </div>
+                <div class="chart" *ngIf="dashboard.lpolicyAmounts?.length > 0">
+                    <div [chart]="policyAmountsChart" class="chart-svg"></div>
+                </div>
+                <div class="chart" *ngIf="dashboard.lcostCenterPolicies?.length > 0">
+                    <div [chart]="costCenterPoliciesChart" class="chart-svg"></div>
+                </div>
+            </div>
+        </div>
+        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+
+    </app-header>
+</ng-container>

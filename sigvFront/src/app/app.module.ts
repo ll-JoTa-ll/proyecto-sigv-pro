@@ -149,6 +149,8 @@ import { FiltrosMiniComponent } from './components/busqueda-global/hoteles/filtr
 import { AdministradorPasajerosComponent } from './components/administrador-pasajeros/administrador-pasajeros.component';
 import { ResizeService } from './services/resize.service';
 import { RegulacionesTramoComponent } from './components/busqueda-global/vuelos/recomendacion/regulaciones-tramo/regulaciones-tramo.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ChartModule } from 'angular-highcharts';
 
 @NgModule({
   declarations: [
@@ -269,7 +271,8 @@ import { RegulacionesTramoComponent } from './components/busqueda-global/vuelos/
     ModalInfraccionCompraComponent,
     FiltrosMiniComponent,
     AdministradorPasajerosComponent,
-    RegulacionesTramoComponent
+    RegulacionesTramoComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -304,7 +307,8 @@ import { RegulacionesTramoComponent } from './components/busqueda-global/vuelos/
     IntlInputPhoneModule,
     NgxBootstrapSliderModule,
     IgxInputGroupModule,
-		IgxSliderModule
+    IgxSliderModule,
+    ChartModule
   ],
   entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent],
   providers: [BnNgIdleService,ResizeService],
