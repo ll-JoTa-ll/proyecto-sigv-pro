@@ -382,6 +382,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       Code: '1',
       Lsection: lsection
     };
+    console.log(data);
     this.RegulacionesService(data, template);
   //  });
   }
