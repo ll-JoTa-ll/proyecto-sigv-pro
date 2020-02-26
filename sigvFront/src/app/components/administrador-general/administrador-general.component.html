@@ -1,0 +1,46 @@
+<ng-container>
+    <app-header>
+        <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0">
+
+            </div>
+            <div class="col-8 m-0 p-0 pb-5">
+                <div class="row m-0 p-0">
+                    <div class="col-12" style="padding-top: 50px;padding-bottom: 60px;text-align: center;">
+                        <span class="titulo">Configuración General</span>
+                    </div>
+                </div>
+                <div class="row m-0 p-0">
+                    <div class="col-4" style="cursor: pointer;text-align: center;background: lightgray;padding-bottom: 16px;padding-top: 20px;border: 3px solid #ED1C24;border-radius: 30px;right: 30px;">
+                        <img style="width: 220px;" src="./assets/images/edificio.png">
+                        <label class="subtitle" style="inline-size: inherit;padding-top: 30px;">Empresa y Grupos</label>
+                    </div>
+                    <div class="col-4" [routerLink]="['/administrador-pasajeros']" style="cursor: pointer;text-align: center;background: lightgray;padding-bottom: 16px;padding-top: 20px;border: 3px solid #ED1C24;border-radius: 30px;">
+                        <img style="width: 220px;" src="./assets/images/grupo.png">
+                        <label class="subtitle" style="inline-size: inherit;padding-top: 30px;">Usuarios y Pasajeros</label>
+                    </div>
+                    <div class="col-4" style="cursor: pointer;text-align: center;background: lightgray;padding-bottom: 16px;padding-top: 20px;border: 3px solid #ED1C24;border-radius: 30px;left: 30px;">
+                        <img style="width: 220px;" src="./assets/images/cerebro.png">
+                        <label class="subtitle" style="inline-size: inherit;padding-top: 30px;">Flujos de Autorización</label>
+                    </div>
+                </div>
+                <div class="row m-0 p-0 pt-4">
+                    <div class="col-4" style="cursor: pointer;text-align: center;background: lightgray;padding-bottom: 16px;padding-top: 20px;border: 3px solid #ED1C24;border-radius: 30px;right: 30px;">
+                        <img style="width: 220px;" src="./assets/images/citacion.png">
+                        <label class="subtitle" style="inline-size: inherit;padding-top: 30px;">Políticas de Viaje</label>
+                    </div>
+                    <div class="col-4" style="cursor: pointer;text-align: center;background: lightgray;padding-bottom: 16px;padding-top: 20px;border: 3px solid #ED1C24;border-radius: 30px;">
+                        <img style="width: 220px;" src="./assets/images/usuario.png">
+                        <label class="subtitle" style="inline-size: inherit;padding-top: 30px;">Cuenta</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 m-0 p-0">
+
+            </div>
+        </div>
+
+        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+
+    </app-header>
+</ng-container>

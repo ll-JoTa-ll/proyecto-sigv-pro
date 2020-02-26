@@ -22,7 +22,7 @@ import { DetalleReservaHotelComponent } from './components/reserva-vuelo/detalle
 import { ReservaGeneradaHotelComponent } from './components/busqueda-global/hoteles/reserva-generada-hotel/reserva-generada-hotel.component';
 import { GestionReservaVueloComponent } from './components/reserva-vuelo/gestion-reserva-vuelo/gestion-reserva-vuelo.component';
 import { AdministradorPasajerosComponent } from './components/administrador-pasajeros/administrador-pasajeros.component';
-
+import { AdministradorGeneralComponent } from './components/administrador-general/administrador-general.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -30,6 +30,7 @@ const routes: Routes = [
   { path: 'vuelos', component: VuelosComponent, runGuardsAndResolvers: 'always' },
   { path: 'perfil-usuario', component: PerfilUsuarioComponent, runGuardsAndResolvers: 'always' },
   { path: 'administrador-pasajeros', component: AdministradorPasajerosComponent, runGuardsAndResolvers: 'always' },
+  { path: 'administrador-general', component: AdministradorGeneralComponent, runGuardsAndResolvers: 'always' },
   { path: 'hoteles', component: HotelesComponent, runGuardsAndResolvers: 'always' },
   { path: 'buses', component: BusesComponent, runGuardsAndResolvers: 'always' },
   { path: 'paquetes', component: PaquetesComponent, runGuardsAndResolvers: 'always' },

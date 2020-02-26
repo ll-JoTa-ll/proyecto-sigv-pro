@@ -78,6 +78,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
+    console.log("minDateSalida =======================>" + this.minDateSalida);
     this.calendarSalidaValue = new Date();
     this.calendarSalidaValue.setDate(this.calendarSalidaValue.getDate() + 1);
   }
@@ -129,7 +130,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.objSearch = { 
       destino: this.destinoText,
       categoria: this.textoestrellas,
-      iata: this.destinoValue,
+      iata: this.destinoValue
     };
     this.sessionStorageService.store("ss_sessionmini1",this.objSearch);
   }

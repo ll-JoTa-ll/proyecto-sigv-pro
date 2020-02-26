@@ -70,7 +70,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   localfinish;
   sessionFinish: boolean;
   
-  
+  counter: any;
   @Input() LlistaHotel: IHotelResultsModel[] = [];
   urlhotel: string;
   urlimg = './assets/images/hotel-icon.png';
@@ -167,6 +167,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
       var counter = seconds;
       var interval = setInterval(() => {
         counter--;
+        this.counter = counter;
         console.log(counter);
         this.idinterval = interval;
         this.sessionStorageService.store("ss_interval",this.idinterval);

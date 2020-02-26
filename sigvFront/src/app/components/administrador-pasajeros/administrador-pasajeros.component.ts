@@ -15,6 +15,15 @@ import { IGetPaisesModel } from '../../models/IGetPaises';
 import { SCREEN_SIZE } from '../../pipes/screen-size.enum';
 import { ResizeService } from 'src/app/services/resize.service';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination/public_api';
+import { MatTableDataSource } from '@angular/material';
+import { EditSettingsModel, ToolbarItems } from '@syncfusion/ej2-angular-grids';
+import * as crypto from 'crypto-js';
+import { HotelService } from '../../services/hotel.service';
+import { ToastrService } from 'ngx-toastr';
+import { ICostCenterCompany } from 'src/app/models/ICostCenterCompany.model';
+import * as XLSX from 'xlsx';
+
+type AOA = any[][];
 
 declare var jquery: any;
 declare var $: any;
@@ -25,6 +34,14 @@ declare var $: any;
   styleUrls: ['./administrador-pasajeros.component.sass']
 })
 export class AdministradorPasajerosComponent implements OnInit {
+  public selectOptions: Object;
+  public editSettings: EditSettingsModel;
+  public toolbar: ToolbarItems[];
+  dataSource = new MatTableDataSource();
+
+  data: AOA = [[1, 2], [3, 4]];
+  wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
+  fileName: string = 'SheetJS.xlsx';
 
 
   prefix = 'is-';
@@ -47,11 +64,13 @@ export class AdministradorPasajerosComponent implements OnInit {
   ];
   registerForm: FormGroup;
   submitted = false;
+  selectValue: any;
   inderror: boolean;
   modalRefPoliticas: BsModalRef;
   itemsPerPage: number=10;
   totalItems: any;
   page: any=1;
+  nameFile: any;
   previousPage: any;
   datoslogin;
   lstPerson: IPersonCompany[] = [];
@@ -61,6 +80,7 @@ export class AdministradorPasajerosComponent implements OnInit {
   lstPersonShow;
   hola;
   lstpaises: IGetPaisesModel[] = [];
+  lstCostCenter: ICostCenterCompany[] = [];
   seleccionado;
   nombreShow: any;
   apellidoShow: any;
@@ -74,18 +94,26 @@ export class AdministradorPasajerosComponent implements OnInit {
   activo:any;
   activo1: any;
   usu: any;
+  resultNewPassword: any;
   activoEditVip: any;
   activoEditActive: any;
   objectUsu: any;
   marked = false;
   form: FormGroup;
   theCheckbox = false;
-  p: number[] = [];
+  p: number;
   lista: string[] = [];
   page1 = 1;
   pageSize =10;
+  allNewPass: any;
+  fileToUpload: File = null;
+  forDni = false;
+  forCarne = false;
+  listaUsuariosPass: string[] = [];
   constructor(
     private service: AirportService,
+    private toastr: ToastrService,
+    private serviceHotel: HotelService,
     private formBuilder: FormBuilder,
     private modalService: BsModalService,
     private userCompanyService: UserCompanyService,
@@ -124,6 +152,12 @@ export class AdministradorPasajerosComponent implements OnInit {
     this.document();
     this.role();
     this.GetPaises();
+    this.GetCostCenter();
+    this.file();
+    this.selectOptions = { persistSelection: true};
+    this.editSettings = { allowDeleting: true };
+    this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true };
+    this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -133,6 +167,95 @@ export class AdministradorPasajerosComponent implements OnInit {
   }, {
       validator: MustMatch('password', 'confirmPassword')
   });
+  }
+
+  file(){
+  /*  const realFileBtn = document.getElementById("real-file");
+    const customBtn = document.getElementById("custom-button");
+    const customTxt = document.getElementById("custom-text");
+
+customBtn.addEventListener("click", function() {
+    realFileBtn.click();
+});
+realFileBtn.addEventListener("change", function() {
+    if (realFileBtn.value) {
+        customTxt.innerHTML = realFileBtn.value;
+    } else {
+        customTxt.innerHTML = "No file chosen, yet.";
+    }
+})*/
+  }
+
+
+  onFileChange(evt: any) {
+    /* wire up file reader */
+    const target: DataTransfer = <DataTransfer>(evt.target);
+    if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+    const reader: FileReader = new FileReader();
+    reader.onload = (e: any) => {
+      /* read workbook */
+      const bstr: string = e.target.result;
+      const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+
+      /* grab first sheet */
+      const wsname: string = wb.SheetNames[0];
+      const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+      /* save data */
+      this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+      console.log(this.data);
+    };
+    reader.readAsBinaryString(target.files[0]);
+  }
+
+
+
+  export(): void {
+    /* generate worksheet */
+    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
+
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+  }
+
+
+  onChange(value){
+    if(value === '1'){
+      $('#dni').val('');
+      $('#dni').prop("maxlength", 8)
+    }
+    if(value === '2'){
+      $('#dni').val('');
+      $('#dni').prop("maxlength", 15)
+    }
+    if(value === '3'){
+      $('#dni').val('');
+      $('#dni').prop("maxlength", 10)
+    }
+  }
+
+  onChangeEdit(value){
+    if(value === '1'){
+      $('#dniEdit').val('');
+      $('#dniEdit').prop("maxlength", 8)
+    }
+    if(value === '2'){
+      $('#dniEdit').val('');
+      $('#dniEdit').prop("maxlength", 15)
+    }
+    if(value === '3'){
+      $('#dniEdit').val('');
+      $('#dniEdit').prop("maxlength", 10)
+    }
+  }
+
+  limpiarVal(){
+    this.forCarne = false;
+    this.forDni = false;
   }
 
   loadPage(page: number) {
@@ -147,6 +270,41 @@ export class AdministradorPasajerosComponent implements OnInit {
   x.style.background = "#CCC"
   console.log(i);
   }
+
+  handleFileInput(files: FileList,template){
+    $('input[type=file]').change(function () {
+      console.log(this.files[0].mozFullPath);
+  });
+  }
+
+
+  changePassword(){
+    this.spinner.show();
+    this.allNewPass = $('#allNewPass').val();
+    const datos = {
+      Users: this.lista,
+      NewPass: crypto.SHA256(this.allNewPass).toString()
+    };
+    this.serviceHotel.GetChangePassword(datos).subscribe(
+      result =>{
+        this.resultNewPassword = result;
+        if (this.resultNewPassword === true) {
+          this.spinner.hide();
+          this.toastr.success('', 'La contraseña ha sido reestablecida correctamente.', {
+            timeOut: 5000
+          });
+          this.modalRefPoliticas.hide();
+        }else{
+          this.spinner.hide();
+          this.toastr.error('','Ocurrió un problema al reestabler la contraseña.',{
+            timeOut: 5000
+          });
+        }
+      }
+    )
+  }
+
+
 
  
 
@@ -258,7 +416,7 @@ active1(){
 /* Activar Vip y Desactivar en el boton Editar */
 activeEditVip(){
   var mainParent = $('.cb-EditVip').parent('.toggle-EditVip');
-  if($(mainParent).find('input.cb-valueEditVip').is(':checked')) {
+  if($(mainParent).find('input.cb-EditVip').is(':checked')) {
     $(mainParent).addClass('active');
     this.activoEditVip = true; 
   } else {
@@ -269,7 +427,7 @@ activeEditVip(){
 
 activeEditActive(){
   var mainParent = $('.cb-EditActive').parent('.toggle-EditActive');
-  if($(mainParent).find('input.cb-valueEditActive').is(':checked')) {
+  if($(mainParent).find('input.cb-EditActive').is(':checked')) {
     $(mainParent).addClass('active');
     this.activoEditActive = true; 
   } else {
@@ -319,7 +477,6 @@ limpiar(){
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
-    $('#table1').paging({limit:5});
     }
 
   registrar(){
@@ -375,6 +532,25 @@ limpiar(){
       }
     )
   }
+
+
+  GetCostCenter(){
+    const data = {
+      CompanyId: this.datoslogin.ocompany.companyId,
+      AgencyId: null
+    }
+    this.userCompanyService.getCostCenterCompany(data.CompanyId).subscribe(
+      result => {
+          this.lstCostCenter = result;
+      },
+      err => {
+      },
+      () => {
+      }
+    )
+  }
+
+ 
 
   role(){
     const data = {
@@ -473,6 +649,8 @@ limpiar(){
     this.FiltrarNombre();
  }
 
+ 
+
   FiltrarNombre() {
     let nombre;
     let results;
@@ -493,14 +671,14 @@ limpiar(){
         console.log("hola" + JSON.stringify(this.PersonId))
         this.bsValue = new Date(this.PersonId.birthDate);
         console.log("asdasdasd" + this.bsValue);
-        var mainParent = $('.cb-value').parent('.toggle-btn');
+        var mainParent = $('.cb-EditVip').parent('.toggle-EditVip');
         if(this.PersonId.vip === false){
           $(mainParent).removeClass('active');
         }else{
           $(mainParent).addClass('active');
         }
 
-        var mainParent1 = $('.cb-value1').parent('.toggle-btn1');
+        var mainParent1 = $('.cb-EditActive').parent('.toggle-EditActive');
         if(this.PersonId.isActive === false){
           $(mainParent1).removeClass('active');
         }else{

@@ -8,6 +8,8 @@ import { IPersonCompany } from '../models/IPersonCompany.model';
 import { IPersonId } from '../models/IPersonId.model';
 import { IDocumentType } from '../models/IDocumentType.model';
 import { IRole } from '../models/IRole.model';
+import { ICostCenter } from '../models/ICostCenter';
+import { ICostCenterCompany } from '../models/ICostCenterCompany.model';
 
 let httpOptions2 = {
   headers: new HttpHeaders()
@@ -24,6 +26,7 @@ export class UserCompanyService {
   private url_getreservation: string = environment.url_5 + 'Person/';
   private url_document: string = environment.url_5 + 'DocumentType/';
   private url_role: string = environment.url_5 + 'Role/';
+  private url_costCenter: string = environment.url_5 + 'CostCenter/'
 
   constructor(
     private http: HttpClient,
@@ -81,6 +84,17 @@ export class UserCompanyService {
     });
     const url = `${this.url_document + 'GetDocumentType'}`;
     return this.http.get<IDocumentType[]>(url, httpOptions2);
+  }
+
+  getCostCenterCompany(data): Observable<ICostCenterCompany[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    });
+    const url = `${this.url_costCenter + 'GetCostCenterByCompany'}?${'companyId=' + data}`;
+    return this.http.get<ICostCenterCompany[]>(url, httpOptions2);
   }
 
 }
