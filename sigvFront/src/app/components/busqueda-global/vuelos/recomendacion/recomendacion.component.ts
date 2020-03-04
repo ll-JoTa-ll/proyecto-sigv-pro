@@ -536,7 +536,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           EquipmentType: group.equipmentType,
           FareBasis: section.lSectionGroups[i].fareBasis,
           TimeWaitAirport: group.timeWaitAirport,
-          fareFamilyName: "",
+          fareFamilyName: section.lSectionGroups[i].fareFamilyName,
           TotalFlightTimeShow: group.totalFlightTimeShow
         };
         LsegmentGroups_.push(dataGroup);
@@ -671,7 +671,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           CabinDescription: section.lSectionGroups[i].cabinDescription,
           TimeWaitAirport: group.timeWaitAirport,
           DateVariation: group.dateVariation,
-          fareFamilyName: ""
+          fareFamilyName: section.lSectionGroups[i].fareFamilyName
         };
         LsegmentGroups_.push(dataGroup);
       });

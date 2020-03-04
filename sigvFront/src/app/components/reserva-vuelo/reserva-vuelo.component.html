@@ -41,9 +41,9 @@
                         <app-precio-final [LSection]="LSection" [tipo]="1" [Lpolicies]="LPolicies" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount" [odiscount]="flightAvailability_result.odiscount"></app-precio-final>
                         <app-info-recomendacion [tipovuelo]="tipovuelo" [LSection]="LSection"></app-info-recomendacion>
                         <div class="row m-0 p-0 pt-4 pb-5">
-                            <div class="col-12 p-0 m-0 text-center">
+                            <!--   <div class="col-12 p-0 m-0 text-center">
                                 <button class="btn bv-texto-3" (click)="GetRegulaciones(modalRegulaciones)">VER REGULACIONES</button>
-                            </div>
+                            </div> -->
                             <ng-template #modalRegulaciones let-c="close" let-d="dismiss" id="modalfamilias">
 
                                 <div class="modal-header m-0 pb-0" style="border: none;">
