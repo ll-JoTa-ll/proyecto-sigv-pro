@@ -150,6 +150,8 @@ import { AdministradorPasajerosComponent } from './components/administrador-pasa
 import { ResizeService } from './services/resize.service';
 import { RegulacionesTramoComponent } from './components/busqueda-global/vuelos/recomendacion/regulaciones-tramo/regulaciones-tramo.component';
 import { AdministradorGeneralComponent } from './components/administrador-general/administrador-general.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ChartModule } from 'angular-highcharts';
 
 @NgModule({
   declarations: [
@@ -271,7 +273,8 @@ import { AdministradorGeneralComponent } from './components/administrador-genera
     FiltrosMiniComponent,
     AdministradorPasajerosComponent,
     RegulacionesTramoComponent,
-    AdministradorGeneralComponent
+    AdministradorGeneralComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -306,7 +309,8 @@ import { AdministradorGeneralComponent } from './components/administrador-genera
     IntlInputPhoneModule,
     NgxBootstrapSliderModule,
     IgxInputGroupModule,
-		IgxSliderModule
+    IgxSliderModule,
+    ChartModule
   ],
   entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent],
   providers: [BnNgIdleService,ResizeService],

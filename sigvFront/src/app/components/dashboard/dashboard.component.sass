@@ -1,0 +1,57 @@
+.container
+    display: flex
+    width: 100%
+    height: 100%
+    flex-wrap: wrap
+    justify-content: center
+    align-items: center
+
+.chart
+    width: 45%
+    height: 45%
+    display: flex
+    align-items: center
+    justify-content: center
+    margin: 5px
+
+.chart-svg
+    box-shadow: 0 12px 12px #00000029
+
+.title
+    text-align: left
+    font: 31px/52px Roboto
+    letter-spacing: 0
+    color: #606060
+    opacity: 1
+
+.subtitle
+    text-decoration: underline
+    text-align: left
+    font: 24px/52px Roboto
+    letter-spacing: 0
+    color: #606060
+    opacity: 1
+
+.value
+    text-align: center
+    font: Bold 73px/73px Roboto
+    letter-spacing: 0
+    color: #E82D56
+    opacity: 1
+
+.label
+    text-align: left
+    font: 19px/25px Roboto
+    letter-spacing: 0
+    color: #727272
+    opacity: 1
+
+@media only screen and (max-width: 1000px)
+    .container
+        width: 100%
+        margin: 0 auto
+        flex-wrap: nowrap
+        flex-direction: column
+    .chart
+        width: 100%
+        height: 100%
