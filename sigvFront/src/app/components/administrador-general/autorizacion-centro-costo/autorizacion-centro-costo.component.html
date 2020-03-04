@@ -1,0 +1,61 @@
+<ng-container>
+    <app-header>
+        <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0">
+
+            </div>
+            <div class="col-8 m-0 p-0 pb-5">
+                <div class="row m-0 p-0">
+                    <div class="col-12" style="padding-top: 50px;padding-bottom: 60px;text-align: center;">
+                        <span class="titulo">Autorizaciones por centro de costos y áreas</span>
+                    </div>
+                </div>
+                <div class="row m-0 p-0">
+                    <div class="col-4" style="padding-top: 50px;padding-bottom: 60px;">
+                        <span class="title pr-2">Buscar</span>
+                        <input (keyup)="change($event)" class="input-names" style="width: 290px; height: 44px;" placeholder="Ingresa el centro de costo" id="centrocosto">
+                    </div>
+                </div>
+                <div class="row m-0 p-0">
+                    <div class="col-12" style="padding-top: 30px;padding-bottom: 60px;">
+                        <span class="titulo1">Listado de centro de costo:</span>
+                    </div>
+                </div>
+                <table id="tableCost" class="table table-hover table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">Codigo
+                            </th>
+                            <th class="th-sm">Descripción
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let emp of this.lstCostCenter | paginate: { itemsPerPage: 7, currentPage: p};let i=index;" id="fila_{{i}}">
+                            <td>
+                                <input type="checkbox" id="myCheckBox_{{i}}">
+                            </td>
+                            <td id="codigo_{{i}}">{{emp.code}}</td>
+                            <td id="description_{{i}}">{{emp.description}}</td>
+                            <td style="text-align: center;">
+                                <span class="title box-shadow" id="mySpan_{{i}}" style="cursor: pointer;padding: 9px 20px;border-radius: 10px;color: white;border: 1px solid;background: #3e4854;">Configurar</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="col-12 m-0 p-0 text-center pt-5">
+                    <pagination-controls autoHide="true" responsive="true" (pageChange)="p = $event"></pagination-controls>
+
+                </div>
+            </div>
+            <div class="col-2 m-0 p-0">
+
+            </div>
+        </div>
+    </app-header>
+</ng-container>

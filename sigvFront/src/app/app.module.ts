@@ -140,7 +140,6 @@ import { ModalFamiliasVaciasComponent } from './components/shared/modal-familias
 import { ModalHotelErroneoComponent } from './components/shared/modal-hotel-erroneo/modal-hotel-erroneo.component';
 import { ModalCambiarPasswordComponent } from './components/shared/modal-cambiar-password/modal-cambiar-password.component';
 import { ModalRecuperarPasswordComponent } from './components/shared/modal-recuperar-password/modal-recuperar-password.component';
-
 import { FormatporcentajePipe } from './pipes/formatporcentaje.pipe';
 import { HotelesPoliticasComponent } from './components/busqueda-global/hoteles/hoteles-politicas/hoteles-politicas.component';
 import { ModalHabitacionHabComponent } from './components/busqueda-global/hoteles/habitacion/modal-habitacion-hab/modal-habitacion-hab.component';
@@ -152,17 +151,14 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ResizeService } from './services/resize.service';
 import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
-
 import { DatePickerAllModule } from '@syncfusion/ej2-angular-calendars';
-
 import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
-
 import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
-
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
-
 import { GridAllModule } from '@syncfusion/ej2-angular-grids';
 import { AdministradorGeneralComponent } from './components/administrador-general/administrador-general.component';
+import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
+
 
 @NgModule({
   declarations: [
@@ -283,7 +279,8 @@ import { AdministradorGeneralComponent } from './components/administrador-genera
     ModalInfraccionCompraComponent,
     FiltrosMiniComponent,
     AdministradorPasajerosComponent,
-    AdministradorGeneralComponent
+    AdministradorGeneralComponent,
+    AutorizacionCentroCostoComponent
   ],
   imports: [
     ToolbarModule,

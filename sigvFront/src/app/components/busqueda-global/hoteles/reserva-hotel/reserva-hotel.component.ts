@@ -204,6 +204,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
         "LPassenger":
           [
             {
+              "UserId": this.user.userId,
               "PassengerId": 1,
               "PersonId": this.user.personId,
               "Prefix": this.genero,
@@ -284,7 +285,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
         },
         () => {
-          if (message != null) {
+          if (message != null || this.Reserva === null) {
             this.modalRefSessionExpired = this.modalService.show(ModalHotelesVaciosComponent)
             //alert(this.Reserva.oerror.message)
             this.spinner.hide();

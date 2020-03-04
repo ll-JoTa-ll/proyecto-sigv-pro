@@ -1,4 +1,5 @@
 import { Component,AfterViewInit, OnInit } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 declare var jquery: any;
 declare var $: any;
@@ -10,7 +11,9 @@ declare var $: any;
 })
 export class AdministradorGeneralComponent implements OnInit {
 
-  constructor() { }
+
+  modalRefPoliticas: BsModalRef;
+  constructor(private modalService: BsModalService,) { }
 
   ngOnInit() {
   }
@@ -26,6 +29,14 @@ export class AdministradorGeneralComponent implements OnInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+    }
+
+
+    openModalPoliticasMedium(template) {
+      this.modalRefPoliticas = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'modal-lg2' })
+      );
     }
 
 }

@@ -366,3 +366,17 @@ function Aplicar(position) {
     $("#pop1").hide();
 
 }
+
+$('#tableCost').DataTable({
+    dom: 'Blfrtip',
+    buttons: [
+        'selectAll',
+        'selectNone'
+    ],
+    language: {
+        buttons: {
+            selectAll: "Select all items",
+            selectNone: "Select none"
+        }
+    }
+});
