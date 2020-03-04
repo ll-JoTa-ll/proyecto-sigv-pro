@@ -3,26 +3,49 @@
         <div class="row m-0 p-0">
             <div class="col-1 m-0 p-0"></div>
             <div *ngIf="dashboard" class="col-10 m-0 p-0 container">
-                <div class="chart" *ngIf="dashboard.lpolicyPercentages?.length > 0">
-                    <div [chart]="policyPercentagesChart" class="chart-svg"></div>
+                <div class="chart">
+                    <div *ngIf="dashboard.lpolicyPercentages?.length > 0; else emptyPolicyPercentagesChart" [chart]="policyPercentagesChart" class="chart-svg"></div>
+                    <ng-template #emptyPolicyPercentagesChart>
+                        <div class="chart-empty">
+                            <div class="title">Políticas Infringidas</div>
+                            <div class="empty">Sin datos</div>
+                        </div>
+                    </ng-template>
                 </div>
-                <div class="chart" *ngIf="dashboard.lanticipationDays?.length === 2">
+                <div class="chart">
                     <div>
                         <div class="title">Días de Anticipación</div>
-                        <span class="subtitle">{{dashboard.lanticipationDays[0].flight}}</span><br>
-                        <span class="value">{{dashboard.lanticipationDays[0].days | number:'1.0-1'}}</span>
-                        <span class="label">días promedio de anticipación</span>
-                        <br>
-                        <span class="subtitle">{{dashboard.lanticipationDays[1].flight}}</span><br>
-                        <span class="value">{{dashboard.lanticipationDays[1].days | number:'1.1-2'}}</span>
-                        <span class="label">días promedio de anticipación</span>
+                        <div *ngIf="dashboard.lanticipationDays?.length >= 1; else emptyAnticipationDays">
+                            <div *ngFor="let item of dashboard.lanticipationDays">
+                                <span class="subtitle">{{item.flight}}</span><br>
+                                <span class="value">{{item.days | number:'1.0-1'}}</span>
+                                <span class="label">días promedio de anticipación</span>
+                                <br>
+                            </div>
+                        </div>
+
+                        <ng-template #emptyAnticipationDays>
+                            <div class="empty">Sin datos</div>
+                        </ng-template>
                     </div>
                 </div>
-                <div class="chart" *ngIf="dashboard.lpolicyAmounts?.length > 0">
-                    <div [chart]="policyAmountsChart" class="chart-svg"></div>
+                <div class="chart">
+                    <div *ngIf="dashboard.lpolicyAmounts?.length > 0; else emptyPolicyAmounts" [chart]="policyAmountsChart" class="chart-svg"></div>
+                    <ng-template #emptyPolicyAmounts>
+                        <div class="chart-empty">
+                            <div class="title">Impacto en Costos</div>
+                            <div class="empty">Sin datos</div>
+                        </div>
+                    </ng-template>
                 </div>
-                <div class="chart" *ngIf="dashboard.lcostCenterPolicies?.length > 0">
-                    <div [chart]="costCenterPoliciesChart" class="chart-svg"></div>
+                <div class="chart">
+                    <div *ngIf="dashboard.lcostCenterPolicies?.length > 0; else emptyCostCenterPolicies" [chart]="costCenterPoliciesChart" class="chart-svg"></div>
+                    <ng-template #emptyCostCenterPolicies>
+                        <div class="chart-empty">
+                            <div class="title">Impacto en Costos por Centro de Costos</div>
+                            <div class="empty">Sin datos</div>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
         </div>
