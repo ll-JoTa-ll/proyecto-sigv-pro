@@ -13,6 +13,7 @@ export class RegulacionesTramoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.lstrules);
   }
 
 }

@@ -75,8 +75,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   telefonocontacto: any;
   lstpaises: IGetPaisesModel[] = [];
   emailsolicitud;
-  lstRegulaciones: IRegulationsModel[];
+  lstRegulaciones: IRegulationsModel;
   lstrulestramo: any[] = [];
+  flagrules;
+  flagerror;
 
   constructor(
     private modalService: BsModalService,
@@ -95,6 +97,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.htmlTxtC = "";
+    this.flagrules = false;
+    this.flagerror = false;
   }
 
   ngOnInit() {
@@ -396,8 +400,16 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
       },
       () => {
-        if (this.lstRegulaciones.length > 0) {
+        if (this.lstRegulaciones.oError === null) {
+          this.flagrules = true;
           this.spinner.hide();
+          this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg m-regulaciones'})
+          );
+        } else {
+          this.spinner.hide();
+          this.flagerror = true;
           this.modalRef = this.modalService.show(
             template,
             Object.assign({}, { class: 'gray modal-lg m-regulaciones'})

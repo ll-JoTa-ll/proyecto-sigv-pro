@@ -303,13 +303,13 @@ export class AirportService {
     return this.http.get<iGetAsesors[]>(url, httpOptions2);
   }
 
-  GetRegulations(data): Observable<IRegulationsModel[]> {
+  GetRegulations(data): Observable<IRegulationsModel> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    return this.http.post<IRegulationsModel[]>(this.url_regulaciones  + "GetRegulation", data, httpOptions2);
+    return this.http.post<IRegulationsModel>(this.url_regulaciones  + "GetRegulation", data, httpOptions2);
   } 
 }

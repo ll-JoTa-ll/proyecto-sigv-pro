@@ -6,9 +6,9 @@ export const environment = {
   url_6: 'https://domiruth-uat.azure-api.net/notify/',
   url_hotel: "https://domiruth-uat.azure-api.net/hotel/",
   url_project :"http://sigvplus.azurewebsites.net",
-  cod_rol_autogestion: [3],
-  cod_rol_autorizador: [4],
-  cod_rol_centralizador: [5, 2, 7],
+  cod_rol_autogestion: [1],
+  cod_rol_autorizador: [2],
+  cod_rol_centralizador: [3],
   max_pax: 8,
   url_bnus: 'https://ws-bnu.domiruth.com/api/',
   key: "eb85131bc9d94c02840aa6961e7f77e9"

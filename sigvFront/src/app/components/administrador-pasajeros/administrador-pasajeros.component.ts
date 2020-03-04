@@ -129,14 +129,12 @@ export class AdministradorPasajerosComponent implements OnInit {
    
 
 
-   private detectScreenSize(){
+   private detectScreenSize() {
      const currentSize = this.sizes.find(x => {
        const el = this.elementRef.nativeElement.querySelector(`.${this.prefix}${x.id}`);
        const isVisible = window.getComputedStyle(el).display != 'none';
-
        return isVisible;
      });
-
      this.resizeSvc.onResize(currentSize.id);
    }
 
@@ -147,7 +145,7 @@ export class AdministradorPasajerosComponent implements OnInit {
     this.GetPaises();
     this.GetCostCenter();
     this.file();
-    this.selectOptions = { persistSelection: true};
+    this.selectOptions = { persistSelection: true };
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -277,8 +275,6 @@ realFileBtn.addEventListener("change", function() {
     }
   }
 
-  
-
   submitForm(){
     console.log(this.form.value)
   }
@@ -317,21 +313,17 @@ realFileBtn.addEventListener("change", function() {
 
 }
 
-  
   hi(e){
-    
       e.preventDefault();
       e.stopPropagation();
       $('.dropdown-el').toggleClass('expanded');
       $('#' + $(e.target).attr('for')).prop('checked', true);
- 
-  
   $(document).click(function() {
       $('.dropdown-el').removeClass('expanded');
   });
   }
 
-  hi1(e){
+  hi1(e) {
     e.preventDefault();
     e.stopPropagation();
     $('.dropdown-el').toggleClass('expanded');
@@ -339,12 +331,11 @@ realFileBtn.addEventListener("change", function() {
     $(document).click(function() {
         $('.dropdown-el').removeClass('expanded');
     });
-
 }
 
 /* Activar Vip y Desactivar en el boton Registrar */
 
-active(){
+active() {
     var mainParent = $('.cb-value').parent('.toggle-btn');
     if($(mainParent).find('input.cb-value').is(':checked')) {
       $(mainParent).addClass('active');
@@ -355,7 +346,7 @@ active(){
     }
 }
 
-active1(){
+active1() {
   var mainParent = $('.cb-value1').parent('.toggle-btn1');
   if($(mainParent).find('input.cb-value1').is(':checked')) {
     $(mainParent).addClass('active');

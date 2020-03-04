@@ -768,6 +768,7 @@ TraerAutorizador() {
     let dia = fechaformat[2];
     fechatotal = año + '/' + mes + '/' + dia;
     const objuser = {
+        "UserId": item.userId,
         "PassengerId": 1,
         "PersonId": item.personId,
         "Prefix": prefix,

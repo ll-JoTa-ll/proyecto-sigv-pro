@@ -48,29 +48,27 @@
 
                                 <div class="modal-header m-0 pb-0" style="border: none;">
                                     <button type="button" class="close pull-right" aria-label="Close">
-        <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>+
+        <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
         </button>
                                 </div>
                                 <div class="modal-body m-0 p-0">
-                                    <app-regulaciones-tramo *ngFor="let itemregulacion of lstrulestramo" [lstrules]="itemregulacion"></app-regulaciones-tramo>
+                                    <app-regulaciones-tramo *ngIf="flagrules" [lstrules]="lstRegulaciones"></app-regulaciones-tramo>
                                 </div>
-                                <!--
-                                <div class="row m-0 p-0 pt-4">
+
+
+                                <div class="row m-0 p-0 pt-4" *ngIf="flagerror">
                                     <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
                                         ¡Lo sentimos!
                                     </div>
-        
+
                                     <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
-                                        No hemos encontrado familias disponibles para este vuelo en particular. Por favor, selecciona otras de las opciones.
+                                        {{lstRegulaciones.oError.message}}
                                     </div>
-        
+
                                     <div class="col-12 m-0 p-0 pb-4 text-center">
-                                        <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
-                    <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-                    Continuar con mi busqueda
-                  </button>
+                                        <button class="btn bv-texto-3" (click)="modalRef.hide()">OK</button>
                                     </div>
-                                    -->
+                                </div>
                             </ng-template>
                         </div>
                     </div>

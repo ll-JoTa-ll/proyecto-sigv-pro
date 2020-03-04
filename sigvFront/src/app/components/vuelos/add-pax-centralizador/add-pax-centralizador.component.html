@@ -168,24 +168,16 @@
             <div class="col-12 m-0 p-0 pb-3 apc-text-1">
                 Pasajeros agregados
             </div>
-
         </div>
-
     </div>
-
     <div class="col-2 m-0 p-0"></div>
-
 </div>
-
 <div class="row m-0 p-0 pt-2 pb-5">
-
     <div class="col-2 m-0 p-0"></div>
-
     <div class="col-8 m-0 p-0">
-
         <div class="row m-0 p-0">
-
-            <div class="col-10 m-0 p-0">
+            <div class="col-1 m-0 p-0"></div>
+            <div class="col-9 m-0 p-0">
                 <div class="row m-0 p-0 box-shadow">
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;">Nombre</div>
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 40% !important;">Apellidos</div>
@@ -202,12 +194,14 @@
                     <div class="m-0 p-0" style="width: 15%"></div>
                 </div>
             </div>
-
         </div>
-
         <div class="row m-0 p-0" *ngFor="let pasajero of lstPasajeros">
-
-            <div class="col-10 m-0 p-0">
+            <div class="col-1 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="m-0 p-0 text-center apc-text-2" style="width: 100% !important;"><img *ngIf="pasajero.isVIP === true" style="width: 30px;" src="assets/images/vip.png"></div>
+                </div>
+            </div>
+            <div class="col-9 m-0 p-0">
                 <div class="row m-0 p-0 box-shadow">
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;">{{pasajero.firstName}}</div>
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 40% !important;">{{pasajero.lastName}}</div>
@@ -226,15 +220,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
-
     <div class="col-2 m-0 p-0"></div>
-
 </div>
-
 <ng-template #modalvalidacion let-c="close" let-d="dismiss">
     <div class="modal-header m-0 p-0" style="border: none;">
         <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
@@ -264,5 +253,4 @@
     </div>
     <div class="col-2 m-0 p-0"></div>
 </div>
-
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>

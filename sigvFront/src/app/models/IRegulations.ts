@@ -1,5 +1,5 @@
 export class IRegulationsModel {
-    text: [];
+    regulationDescription: [];
     lpassengerDetail: [
         {
             oPenaltiesInfo: {
@@ -17,5 +17,11 @@ export class IRegulationsModel {
             oAdvancedPurchaseData: string;
         }
     ];
-    oError: string;
+    oError: {
+        message;
+    };
+    osection: {
+        origin;
+        destination;
+    };
 }
