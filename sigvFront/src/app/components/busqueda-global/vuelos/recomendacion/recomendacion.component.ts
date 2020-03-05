@@ -897,7 +897,7 @@ TraerAutorizador() {
   closeModal() {
     this.modalRef.hide();
     this.datosuser = [];
-    this.sessionStorageService.store('objusuarios', null);
+    //this.sessionStorageService.store('objusuarios', null); XQQQQQQQQQQQQQQQQQQ ?????
   }
 
   famFlightAvailability($event) {

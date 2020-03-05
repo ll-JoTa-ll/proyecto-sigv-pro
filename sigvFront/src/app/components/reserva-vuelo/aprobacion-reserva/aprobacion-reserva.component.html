@@ -291,7 +291,7 @@
                         <button class="btn btn-cerrar" (click)="openModal(modalrechazar)">Rechazar</button>
                     </div>
                 </div>
-                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && loginDataUser.orole.roleDescription !== 'Usuario' && reserva.isAuthorizer === true">
+                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && reserva.isAuthorizer === true">
                     <div class="col-6 m-0 p-0">
                         <button class="btn btn-aceptar" (click)="openModal(modalaprobacionconfirmacion)">Emitir</button>
                     </div>
@@ -299,7 +299,7 @@
                         <button class="btn btn-cerrar" (click)="openModal(modalrechazar)">Rechazar</button>
                     </div>
                 </div>
-                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false && loginDataUser.orole.roleDescription === 'Usuario' || loginDataUser.orole.roleDescription === 'Autogestión' || reserva.allowedIssue === true && reserva.allowedApproved === false && loginDataUser.orole.roleDescription === 'Centralizador' && reserva.isAuthorizer === false ">
+                <div class="row m-0 p-0 pt-5 pb-5 text-center" style="width: 90%;" *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === false  && reserva.isAuthorizer === false ">
                     <div class="col-6 m-0 p-0">
                         <button class="btn btn-aceptar" (click)="openModal(modalaprobacionconfirmacion)">Emitir</button>
                     </div>

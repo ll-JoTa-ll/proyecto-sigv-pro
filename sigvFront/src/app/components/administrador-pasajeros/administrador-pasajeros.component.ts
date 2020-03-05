@@ -56,11 +56,20 @@ export class AdministradorPasajerosComponent implements OnInit {
     },
   ];
   registerForm: FormGroup;
+
+  numPasaporte = '2';
+  numCarné = '3';
+  showDoc = 'Pasaporte';
+  showDocOne = 'Carné de Extranjería';
+
   submitted = false;
   selectValue: any;
   inderror: boolean;
   modalRefPoliticas: BsModalRef;
   itemsPerPage: number=10;
+  documento = false;
+  documento2 = false;
+  documento3 = false;
   totalItems: any;
   page: any=1;
   nameFile: any;
@@ -71,6 +80,7 @@ export class AdministradorPasajerosComponent implements OnInit {
   Document: IDocumentType[] = [];
   getRole;
   lstPersonShow;
+  tipoDoc = '1';
   hola;
   lstpaises: IGetPaisesModel[] = [];
   lstCostCenter: ICostCenterCompany[] = [];
@@ -93,11 +103,14 @@ export class AdministradorPasajerosComponent implements OnInit {
   objectUsu: any;
   marked = false;
   form: FormGroup;
+  resultInsertUpdate: any;
   theCheckbox = false;
   p: number;
   lista: string[] = [];
   page1 = 1;
   pageSize =10;
+  lstDocument = [];
+  lstCost = [];
   allNewPass: any;
   fileToUpload: File = null;
   forDni = false;
@@ -144,6 +157,7 @@ export class AdministradorPasajerosComponent implements OnInit {
     this.role();
     this.GetPaises();
     this.GetCostCenter();
+
     this.file();
     this.selectOptions = { persistSelection: true };
     this.registerForm = this.formBuilder.group({
@@ -174,7 +188,24 @@ realFileBtn.addEventListener("change", function() {
 })*/
   }
 
+
+  hola1(){
+    $(document).ready(function() {
+      var table = $('#table1').DataTable();
+  
+      $('#table1 tbody').on('click', 'tr', function() {
+          $(this).toggleClass('selected');
+      });
+  
+      $('#button').click(function() {
+          alert(table.rows('.selected').data().length + ' row(s) selected');
+      });
+  });
+  }
+
+
   onChange(value){
+    this.tipoDoc = value;
     if(value === '1'){
       $('#dni').val('');
       $('#dni').prop("maxlength", 8)
@@ -204,6 +235,33 @@ realFileBtn.addEventListener("change", function() {
     }
   }
 
+  removePasaporte(){
+    this.documento = false;
+  }
+
+  removeDocument(){
+    this.documento2 = false;
+  }
+
+  removeDocument3(){
+    this.documento3 = false;
+  }
+
+  
+
+  addDocument(){
+    if(this.tipoDoc === '1' ){
+      this.documento = true;
+    }
+    else if(this.tipoDoc === '2'){
+      this.documento2 = true;
+    }else{
+      this.documento3 = true;
+    }
+  }
+
+
+
   limpiarVal(){
     this.forCarne = false;
     this.forDni = false;
@@ -222,10 +280,8 @@ realFileBtn.addEventListener("change", function() {
   console.log(i);
   }
 
-  handleFileInput(files: FileList,template){
-    $('input[type=file]').change(function () {
-      console.log(this.files[0].mozFullPath);
-  });
+  handleFileInput(files: FileList){
+    this.fileToUpload = files.item(0);
   }
 
 
@@ -407,7 +463,6 @@ limpiar(){
       template,
       Object.assign({}, { class: 'gray.modal-lg.m-infraccion' })
     );
-    $('#customCheck1_')
   }
 
   ngAfterViewInit() {
@@ -430,23 +485,55 @@ limpiar(){
     if(this.activo1 === undefined){
       this.activo1 = true;
     }
-    let nombre = $("#nombre").val();
-    let apellido = $("#apellido").val();
-    let telefono = $("#telefono").val();
-    let correo = $("#correo").val();
     let dni = $("#dni").val();
     let tipoDoc = $("#cbo_document").val();
-    let tipoPer = $("#cbo_perfil").val();
-    let fechaNac = $("#txtfecha").val();
-    let nacionalidad = $("#cbo_nacionalidad").val();
-    let genero = $("#cbo_genero").val();
-    let vip = this.activo;
-    let pasajero = $("#pasajero").val();
-    let activo = this.activo1;
-    console.log("ACTIVOOO??? ======>" + vip);
-    console.log("ACTIVOOO11??? ======>" + activo);
+    let tipoCost = $("#cbo_costo").val();
+    let IsActive = 1;
+    this.lstDocument.push(dni,tipoDoc);
+    this.lstCost.push(tipoCost,IsActive)
+    const data = {
+      PersonId: "",
+      FirstName: $("#nombre").val(),
+      LastName : $("#apellido").val(),
+      Phone : $("#telefono").val(),
+      Email : $("#correo").val(),
+      ProfileId : 1,
+      BirthDate : $("#txtfecha").val(),
+      CountryIataCode : $("#cbo_nacionalidad").val(),
+      Gender : $("#cbo_genero").val(),
+      VIP : this.activo,
+      LpersonUserDocuments : this.lstDocument,
+      UserId : 0,
+      LoginUser : $("#usuario").val(),
+      FrequentFlyer : $("#pasajero").val(),
+      Ocompany : this.datoslogin.ocompany,
+      Oagency : null,
+      RoleId : $("#cbo_perfil").val(),
+      IsActive : this.activo1,
+      LpersonUserCostCenters: this.lstCost
+    }
     this.ValidarCampos();
     this.validarCorreo();
+    this.userCompanyService.insertUpdateUser(data).subscribe(
+      result => {
+        this.resultInsertUpdate = result;
+        if(this.resultInsertUpdate === true){
+          this.toastr.success('', 'Usuario agregado correctamente.', {
+            timeOut: 5000
+          });
+        }else {
+          this.toastr.error('','Ocurrió un problema al reestabler la contraseña.',{
+            timeOut: 5000
+          });
+        }
+      },
+      err => {
+
+      },
+      ()=>{
+
+      }
+    )
   }
 
   document(){

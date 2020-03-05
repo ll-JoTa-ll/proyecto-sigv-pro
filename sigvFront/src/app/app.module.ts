@@ -140,7 +140,6 @@ import { ModalFamiliasVaciasComponent } from './components/shared/modal-familias
 import { ModalHotelErroneoComponent } from './components/shared/modal-hotel-erroneo/modal-hotel-erroneo.component';
 import { ModalCambiarPasswordComponent } from './components/shared/modal-cambiar-password/modal-cambiar-password.component';
 import { ModalRecuperarPasswordComponent } from './components/shared/modal-recuperar-password/modal-recuperar-password.component';
-
 import { FormatporcentajePipe } from './pipes/formatporcentaje.pipe';
 import { HotelesPoliticasComponent } from './components/busqueda-global/hoteles/hoteles-politicas/hoteles-politicas.component';
 import { ModalHabitacionHabComponent } from './components/busqueda-global/hoteles/habitacion/modal-habitacion-hab/modal-habitacion-hab.component';
@@ -152,6 +151,8 @@ import { RegulacionesTramoComponent } from './components/busqueda-global/vuelos/
 import { AdministradorGeneralComponent } from './components/administrador-general/administrador-general.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChartModule } from 'angular-highcharts';
+import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
+
 
 @NgModule({
   declarations: [
@@ -274,7 +275,8 @@ import { ChartModule } from 'angular-highcharts';
     AdministradorPasajerosComponent,
     RegulacionesTramoComponent,
     AdministradorGeneralComponent,
-    DashboardComponent
+    DashboardComponent,
+    AutorizacionCentroCostoComponent
   ],
   imports: [
     BrowserModule,

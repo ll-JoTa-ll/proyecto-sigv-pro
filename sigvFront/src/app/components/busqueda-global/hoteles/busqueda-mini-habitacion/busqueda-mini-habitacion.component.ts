@@ -69,6 +69,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   lstAutocomplete: any[] = [];
   citylist: any[] = [];
   objSearch : any;
+  objDestino: any;
   fechaSalidaShow;
   fechaRetornoShow;
   calendarSalidaValue: Date;
@@ -368,6 +369,11 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
         "Ocompany": this.loginDataUser.ocompany
       }
 
+      this.objDestino = { 
+        destino: this.destinoText,
+        desc: $("#dest").val()
+      };
+      this.sessionStorageService.store("ss_destino",this.objDestino);
       this.objSearch = {
         destino: $('#destinosa').val(),
         fechaentrada: fechaSalShow,

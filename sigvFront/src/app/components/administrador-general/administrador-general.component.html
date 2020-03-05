@@ -11,33 +11,227 @@
                     </div>
                 </div>
                 <div class="row m-0 p-0">
-                    <div class="col-4" style="cursor: pointer;text-align: center;background: lightgray;padding-bottom: 16px;padding-top: 20px;border: 3px solid #ED1C24;border-radius: 30px;right: 30px;">
-                        <img style="width: 220px;" src="./assets/images/edificio.png">
-                        <label class="subtitle" style="inline-size: inherit;padding-top: 30px;">Empresa y Grupos</label>
+                    <div class="col-6">
+                        <figure class="snip1104 red">
+                            <img style="width: 220px;padding-top: 30px;" src="./assets/images/edificio.png" />
+                            <figcaption>
+                                <h2>Empresas y <span> Grupos</span></h2>
+                            </figcaption>
+                        </figure>
                     </div>
-                    <div class="col-4" [routerLink]="['/administrador-pasajeros']" style="cursor: pointer;text-align: center;background: lightgray;padding-bottom: 16px;padding-top: 20px;border: 3px solid #ED1C24;border-radius: 30px;">
-                        <img style="width: 220px;" src="./assets/images/grupo.png">
-                        <label class="subtitle" style="inline-size: inherit;padding-top: 30px;">Usuarios y Pasajeros</label>
-                    </div>
-                    <div class="col-4" style="cursor: pointer;text-align: center;background: lightgray;padding-bottom: 16px;padding-top: 20px;border: 3px solid #ED1C24;border-radius: 30px;left: 30px;">
-                        <img style="width: 220px;" src="./assets/images/cerebro.png">
-                        <label class="subtitle" style="inline-size: inherit;padding-top: 30px;">Flujos de Autorización</label>
+                    <div class="col-6">
+                        <figure style="cursor: pointer;" [routerLink]="['/administrador-pasajeros']" class="snip1104 red">
+                            <img style="width: 220px;padding-top: 30px;" src="./assets/images/grupo.png" />
+                            <figcaption>
+                                <h2>Usuarios y <span> Pasajeros</span></h2>
+                            </figcaption>
+                        </figure>
                     </div>
                 </div>
                 <div class="row m-0 p-0 pt-4">
-                    <div class="col-4" style="cursor: pointer;text-align: center;background: lightgray;padding-bottom: 16px;padding-top: 20px;border: 3px solid #ED1C24;border-radius: 30px;right: 30px;">
-                        <img style="width: 220px;" src="./assets/images/citacion.png">
-                        <label class="subtitle" style="inline-size: inherit;padding-top: 30px;">Políticas de Viaje</label>
+                    <div class="col-6">
+                        <figure class="snip1104 red">
+                            <img style="width: 220px;padding-top: 30px;" src="./assets/images/citacion.png" />
+                            <figcaption>
+                                <h2>Políticas <span>de Viaje</span></h2>
+                            </figcaption>
+                        </figure>
                     </div>
-                    <div class="col-4" style="cursor: pointer;text-align: center;background: lightgray;padding-bottom: 16px;padding-top: 20px;border: 3px solid #ED1C24;border-radius: 30px;">
-                        <img style="width: 220px;" src="./assets/images/usuario.png">
-                        <label class="subtitle" style="inline-size: inherit;padding-top: 30px;">Cuenta</label>
+                    <div class="col-6">
+                        <figure (click)="openModalPoliticasMedium(modalFlujos)" style="cursor: pointer;" class="snip1104 red">
+                            <img style="width: 220px;padding-top: 30px;" src="./assets/images/cerebro.png" />
+                            <figcaption>
+                                <h2>Flujos de <span>Autorización</span></h2>
+                            </figcaption>
+                        </figure>
                     </div>
                 </div>
             </div>
             <div class="col-2 m-0 p-0">
             </div>
         </div>
+
+        <ng-template #modalFlujos let-c="close" let-d="dismiss">
+
+            <div class="modal-header pb-0" style="border: none;">
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body m-0 p-0">
+                <div class="row m-0 p-0 pb-3">
+                    <div class="col-4 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+                        <a class="column col-xs-6" id="caption">
+                            <span class="text">
+                                <label>Jefatura</label>
+                            </span>
+                            <img style="width: 220px;padding-top: 30px;cursor: pointer;" src="./assets/images/liderazgo.png" /></a>
+                    </div>
+                    <div class="col-4 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+                        <a class="column col-xs-6" id="caption"><span class = "text"><label>Centro de Costo</label></span> <img [routerLink]="['/autorizacion-centro-costo']" (click)="modalRefPoliticas.hide()" style="width: 220px;padding-top: 30px;cursor: pointer;" src="./assets/images/proceso.png" /></a>
+                    </div>
+                    <div class="col-4 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+                        <a class="column col-xs-6" id="caption"><span class = "text"><label>Global</label></span> <img style="width: 220px;padding-top: 30px;cursor: pointer;" src="./assets/images/objetivo.png" /></a>
+                    </div>
+                </div>
+            </div>
+
+        </ng-template>
+
         <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+        <script>
+            $("figure").mouseleave(
+                function() {
+                    $(this).removeClass("hover");
+                }
+            );
+        </script>
+        <style>
+            .column#caption {
+                position: relative;
+            }
+            
+            .column#caption .text {
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 10;
+                opacity: 0;
+                transition: all 0.8s ease;
+            }
+            
+            .column#caption .text label {
+                margin: 0;
+                color: black;
+                font-size: 25px;
+            }
+            
+            .column#caption:hover .text {
+                opacity: 1;
+            }
+            
+            .column#caption:hover img {
+                -webkit-filter: sepia(90%);
+            }
+            
+            @import url(https://fonts.googleapis.com/css?family=Raleway:400,800);
+            figure.snip1104 {
+                font-family: 'Raleway', Arial, sans-serif;
+                position: relative;
+                overflow: hidden;
+                margin: 10px;
+                border-radius: 20px;
+                height: 300px;
+                color: #ffffff;
+                text-align: center;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+            }
+            
+            figure.snip1104 * {
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                -webkit-transition: all 0.4s ease-in-out;
+                transition: all 0.4s ease-in-out;
+            }
+            
+            figure.snip1104 img {
+                max-width: 100%;
+                position: relative;
+                opacity: 0.4;
+            }
+            
+            figure.snip1104 figcaption {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+            }
+            
+            figure.snip1104 h2 {
+                position: absolute;
+                left: 40px;
+                right: 40px;
+                display: inline-block;
+                background: #000000;
+                -webkit-transform: skew(-10deg) rotate(-10deg) translate(0, -50%);
+                transform: skew(-10deg) rotate(-10deg) translate(0, -50%);
+                padding: 12px 5px;
+                margin: 0;
+                top: 50%;
+                text-transform: uppercase;
+                font-weight: 400;
+            }
+            
+            figure.snip1104 h2 span {
+                font-weight: 800;
+            }
+            
+            figure.snip1104:before {
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+                content: '';
+                background: #ffffff;
+                position: absolute;
+                -webkit-transition: all 0.3s ease-in-out;
+                transition: all 0.3s ease-in-out;
+                -webkit-transform: rotate(110deg) translateY(-50%);
+                transform: rotate(110deg) translateY(-50%);
+            }
+            
+            figure.snip1104 a {
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                position: absolute;
+                z-index: 1;
+            }
+            
+            figure.snip1104.blue {
+                background: #123851;
+            }
+            
+            figure.snip1104.blue h2 {
+                background: #0a212f;
+            }
+            
+            figure.snip1104.red {
+                background: #d66d63;
+            }
+            
+            figure.snip1104.red h2 {
+                background: #b86158;
+            }
+            
+            figure.snip1104.yellow {
+                background: #7f5006;
+            }
+            
+            figure.snip1104.yellow h2 {
+                background: #583804;
+            }
+            
+            figure.snip1104:hover img,
+            figure.snip1104.hover img {
+                opacity: 1;
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+            
+            figure.snip1104:hover h2,
+            figure.snip1104.hover h2 {
+                -webkit-transform: skew(-10deg) rotate(-10deg) translate(-150%, -50%);
+                transform: skew(-10deg) rotate(-10deg) translate(-150%, -50%);
+            }
+            
+            figure.snip1104:hover:before,
+            figure.snip1104.hover:before {
+                -webkit-transform: rotate(110deg) translateY(-150%);
+                transform: rotate(110deg) translateY(-150%);
+            }
+        </style>
     </app-header>
 </ng-container>
