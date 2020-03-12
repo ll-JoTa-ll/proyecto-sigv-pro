@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { VuelosComponent } from '../../busqueda-global/vuelos/vuelos.component';
 import { IFlightAvailability } from '../../../models/IFlightAvailability';
 import { fromEvent } from 'rxjs';
+import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -33,6 +34,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
 
   //precioTotal = 0;
   //precioPersona = 0;
+  modalerror: BsModalRef;
   idRadioBtnFareFam: string;
   lstSumaFam: any[] = [];
   lsFlightAvailabilty: IFlightAvailability;
@@ -40,6 +42,11 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   flagChangeFare = 0;
   lstFareFamily: any[] = [];
   ss_FlightAvailability_request2;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
 
   constructor(
     private airportService: AirportService,
@@ -209,6 +216,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
       },
       err => {
         this.vuelosComponent.spinner.hide();
+        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
         this.vuelosComponent.spinner.hide();

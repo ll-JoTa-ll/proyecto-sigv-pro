@@ -17,6 +17,7 @@ import { ModalSesionExpiradaVuelosComponent } from '../shared/modal-sesion-expir
 import { ModalSesionWarningVuelosComponent } from '../shared/modal-sesion-warning-vuelos/modal-sesion-warning-vuelos.component';
 import { IGetPaisesModel } from '../../models/IGetPaises';
 import { IRegulationsModel } from '../../models/IRegulations';
+import { ModalErrorServiceComponent } from '../shared/modal-error-service/modal-error-service.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -37,6 +38,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     keyboard: false
   };
 
+  modalerror: BsModalRef;
   @ViewChild("modalexpired", {static: false}) modalexpired;
   flightAvailability_request;
   datarequest;
@@ -397,7 +399,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           this.lstRegulaciones = result;
       },
       err => {
-
+        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
         if (this.lstRegulaciones.oError === null) {
@@ -520,7 +522,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           this.uidByCompanyP = result.filter(x => x.typeUid === 'P');
         }
       },
-      err => {},
+      err => {
+        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
+      },
       () => {
         if (this.uidByCompanyC.length > 0) {
           this.setInformacionAdicional(this.uidByCompanyC);

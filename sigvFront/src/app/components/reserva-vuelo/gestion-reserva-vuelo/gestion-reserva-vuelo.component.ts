@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { IReservaModel } from '../../../models/iReserva.model';
 import { iGetReservation } from '../../../models/IGetReservation.model';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -29,6 +30,7 @@ export class GestionReservaVueloComponent implements OnInit, AfterViewInit {
     ignoreBackdropClick: true
   };
   listadoreserva;
+  modalerror;
 
   constructor(private service: AirportService,
               private sessionstorage: SessionStorageService,
@@ -69,7 +71,8 @@ export class GestionReservaVueloComponent implements OnInit, AfterViewInit {
            this.spinner.hide();
       },
       err => {
-      console.log(err);
+        this.spinner.hide();
+        this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
       }
     );
 }
@@ -90,6 +93,7 @@ GetReserva(pnr, pseudo ,template) {
       this.router.navigate(['/aprobar-reserva-vuelo']);
     },
     err => {
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
     },
     () => {
      this.spinner.hide();

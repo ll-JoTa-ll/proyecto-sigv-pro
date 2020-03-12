@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { IResultAprobacionReserva } from '../../../models/iResultAprobacion.model';
 import { IQueuePnr } from '../../../models/IQueuePnr.model';
 import { ToastrService } from 'ngx-toastr';
+import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -54,6 +55,7 @@ export class AprobacionReservaComponent implements OnInit, AfterViewInit {
     ignoreBackdropClick: true
   };
   odiscount: any;
+  modalerror: BsModalRef;
 
   constructor(private sessionStorageService: SessionStorageService, private modalservice: BsModalService, private service: AirportService,
               private spinner: NgxSpinnerService, private router: Router, private http: HttpClient, private toastr: ToastrService) {
@@ -199,7 +201,8 @@ AprobarReserva(template) {
        this.CapturarHoraAprobacion();
      },
      err => {
-
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
      },
      () => {
      }
@@ -225,7 +228,8 @@ EncolarReserva() {
         }
     },
     err => {
-
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
     },
     () => {
     this.spinner.hide();
@@ -272,7 +276,8 @@ SendMailVueloAprobado() {
          }
     },
     err => {
-     console.log(err);
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
     },
     () => {
       this.spinner.hide();
@@ -312,7 +317,8 @@ SendMail() {
          }
     },
     err => {
-     console.log(err);
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
     },
     () => {
       this.spinner.hide();
@@ -359,7 +365,8 @@ SendMailVueloRechazado() {
          }
     },
     err => {
-     console.log(err);
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
     },
     () => {
       this.spinner.hide();
@@ -404,7 +411,8 @@ SendMailVueloCancelado() {
          }
     },
     err => {
-     console.log(err);
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
     },
     () => {
       this.spinner.hide();
@@ -427,7 +435,8 @@ RechazarReserva() {
       this.CapturarHoraAprobacion();
      },
      err => {
-
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
      },
      () => {
      this.SendMailVueloRechazado();
@@ -454,15 +463,14 @@ CancelarReserva() {
       }
      },
      err => {
-
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
      },
      () => {
         this.SendMailVueloCancelado();
      }
    );
 }
-
-
 
 // SOLICITUD DE EXCEPCION
 PlantillaEmailSolicitud() {

@@ -15,6 +15,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { environment } from '../../../../environments/environment';
 import { iGetAsesors } from '../../../models/IGetAsesors';
 import { FILE } from 'dns';
+import { Status } from 'tslint/lib/runner';
+import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -146,6 +148,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     ignoreBackdropClick: true,
     keyboard: false
   };
+  modalerror: BsModalRef;
   modalRef: BsModalRef;
   lst_rol_autogestion;
   lst_rol_autorizador;
@@ -335,6 +338,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.startCountDown(28800, null);
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
     $('#menu-hotel-1').show();
@@ -374,7 +378,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
 
   handlerSalida(datepickerSalida) {
     this.isOpendate = true;
@@ -1025,7 +1028,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
          this.lstAsesors = results;
       },
       err => {
-
+        this.spinner.hide();
+        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
         if (this.lstBnus.length > 0) {
@@ -1056,12 +1060,23 @@ export class VuelosComponent implements OnInit, AfterViewInit {
            this.sessionStorageService.store('lstbnus', this.lstBnus);
       },
       err => {
-
       },
       () => {
           this.GetAsesors(template);
       }
     );
+  }
+
+  startCountDown(seconds, template) {
+    var counter = seconds;
+    var interval = setInterval(() => {
+      counter--;
+      if (counter < 0 ) {
+        clearInterval(interval);
+        this.router.navigate(['login']);
+      }
+    }, 1000);
+    return interval;
   }
 
   FormatearFecha(fechasalida) {
@@ -1334,6 +1349,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       err => {
         this.spinner.hide();
         this.flagBuscadorLateral = false;
+        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
         this.spinner.hide();
