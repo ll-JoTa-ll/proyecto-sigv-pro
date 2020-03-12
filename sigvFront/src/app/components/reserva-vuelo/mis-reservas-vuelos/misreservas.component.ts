@@ -9,6 +9,8 @@ import { IGetReservationHotel } from '../../../models/IGetReservationHotel.model
 import { HotelService } from '../../../services/hotel.service';
 import { IGetReservaDetalleHotel } from '../../../models/IGetReservaDetalleHotel.model';
 import { stringify } from '@angular/compiler/src/util';
+import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 declare var jquery: any;
 declare var $: any;
@@ -29,9 +31,16 @@ export class MisReservasVueloComponent implements OnInit, AfterViewInit {
   p: number[] = [];
   idinterval: any;
   idinterval1: any;
+  modalerror: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
 
   constructor(private service: AirportService,
               private serviceHotel: HotelService,
+              private modalservice: BsModalService,
               private sessionstorage: SessionStorageService,
               private router: Router,
               private spinner: NgxSpinnerService) {
@@ -74,12 +83,13 @@ export class MisReservasVueloComponent implements OnInit, AfterViewInit {
            this.spinner.hide();
       },
       err => {
-      console.log(err);
+        this.spinner.hide();
+        this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
       }
     );
 }
 
-ObtenerReservasHoteles(){
+ObtenerReservasHoteles() {
   this.spinner.show();
   const data = {
     Id: this.loginDataUser.userId
@@ -92,7 +102,8 @@ ObtenerReservasHoteles(){
         this.spinner.hide();
     },
     err => {
-      console.log(err);
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
     }
   );
 }
@@ -113,6 +124,8 @@ GetReserva(pnr, pseudo) {
      this.sessionstorage.store('isgestion', false);
     },
     err => {
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
     },
     () => {
      this.spinner.hide();
@@ -133,6 +146,8 @@ GetReservaHotel(pnr){
       this.router.navigate(['/detalle-reserva-hotel']);
     },
     err => {
+      this.spinner.hide();
+      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
     },
     () => {
       this.spinner.hide();

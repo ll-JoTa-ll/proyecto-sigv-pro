@@ -152,6 +152,7 @@ import { AdministradorGeneralComponent } from './components/administrador-genera
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChartModule } from 'angular-highcharts';
 import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
+import { ModalErrorServiceComponent } from './components/shared/modal-error-service/modal-error-service.component';
 
 
 @NgModule({
@@ -276,7 +277,8 @@ import { AutorizacionCentroCostoComponent } from './components/administrador-gen
     RegulacionesTramoComponent,
     AdministradorGeneralComponent,
     DashboardComponent,
-    AutorizacionCentroCostoComponent
+    AutorizacionCentroCostoComponent,
+    ModalErrorServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -314,7 +316,7 @@ import { AutorizacionCentroCostoComponent } from './components/administrador-gen
     IgxSliderModule,
     ChartModule
   ],
-  entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent],
+  entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent, ModalErrorServiceComponent],
   providers: [BnNgIdleService,ResizeService],
   bootstrap: [AppComponent]
 })

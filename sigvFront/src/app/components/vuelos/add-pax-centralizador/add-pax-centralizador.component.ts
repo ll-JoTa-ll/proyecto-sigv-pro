@@ -6,6 +6,7 @@ import { IUserCompanyModel } from '../../../models/IUserCompany.model';
 import { environment } from '../../../../environments/environment';
 import { Router } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
 
 @Component({
   selector: 'app-add-pax-centralizador',
@@ -30,6 +31,7 @@ export class AddPaxCentralizadorComponent implements OnInit {
     backdrop: true,
     ignoreBackdropClick: true
   };
+  modalerror;
 
   constructor(
     private userCompanyService: UserCompanyService,
@@ -79,6 +81,7 @@ export class AddPaxCentralizadorComponent implements OnInit {
       },
       err => {
         this.spinner.hide();
+        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
         this.spinner.hide();

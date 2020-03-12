@@ -15,6 +15,7 @@ import { stringify } from '@angular/compiler/src/util';
 import { ModalFamiliasVaciasComponent } from '../../../shared/modal-familias-vacias/modal-familias-vacias.component';
 import { IBnusModel } from '../../../../models/Ibnus.model';
 import { IRegulationsModel } from '../../../../models/IRegulations';
+import { ModalErrorServiceComponent } from '../../../shared/modal-error-service/modal-error-service.component';
 declare var jquery: any;
 declare var $: any;
 
@@ -53,6 +54,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   @Input() flightNational;
   @Input() isVisible;
 
+  modalerror : BsModalRef;
   segmentRadioCheckId;
   lstRadioCheck: any[] = [];
   loginDataUser;
@@ -436,6 +438,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       err => {
         console.log('ERROR: ' + JSON.stringify(err));
         this.vuelosComponent.spinner.hide();
+        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
         //this.vuelosComponent.spinner.hide();
@@ -799,7 +802,7 @@ TraerAutorizador() {
       this.sessionStorageService.store('lsapprover', this.lsapprovers);
     },
     err => {
-    
+    //  this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
     }
   );
 }
@@ -833,6 +836,7 @@ TraerAutorizador() {
       },
       err => {
         this.vuelosComponent.spinner.hide();
+        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
         this.vuelosComponent.spinner.hide();

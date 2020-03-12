@@ -12,6 +12,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { IGetUserById } from 'src/app/models/IGetUserById.model';
 import { HotelService } from 'src/app/services/hotel.service';
 import { ModalRecuperarPasswordComponent } from '../shared/modal-recuperar-password/modal-recuperar-password.component';
+import { ModalErrorServiceComponent } from '../shared/modal-error-service/modal-error-service.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -24,7 +25,7 @@ declare var $: any;
 export class LoginComponent implements OnInit {
 
   public text: String;
-
+  modalError: BsModalRef;
   model: any = {};
   checkedRecuerdame: boolean;
   airportlist: any[] = [];
@@ -174,8 +175,7 @@ export class LoginComponent implements OnInit {
 
       },
       () => {
-
-
+  
       }
     );
   }
@@ -220,6 +220,7 @@ export class LoginComponent implements OnInit {
 
       (err) => {
         this.spinner.hide();
+        this.modalError = this.modalService.show(ModalErrorServiceComponent, this.config);
         },
 
       () => {

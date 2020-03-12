@@ -4,6 +4,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
 import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import { AirportService } from '../../../services/airport.service';
+import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 declare var jquery: any;
 declare var $: any;
@@ -112,6 +114,12 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   @Input() textorigen;
   @Input() textdestino;
 
+  modalerror: BsModalRef;
+  config = {
+    backdrop: true,
+    ignoreBackdropClick: true,
+    keyboard: false
+  };
   origenValue;
   origenText;
   destinoValue;
@@ -127,7 +135,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
     private spinner: NgxSpinnerService,
-    private airportService: AirportService
+    private airportService: AirportService,
+    private modalService: BsModalService
   ) {
   }
 
@@ -736,6 +745,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         },
         err => {
           this.spinner.hide();
+          this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
         },
         () => {
           this.spinner.hide();

@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { BnNgIdleService } from 'bn-ng-idle';
 import { SafeHtml } from '@angular/platform-browser';
+import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -70,6 +71,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     ignoreBackdropClick: true
   };
   tipovuelo;
+  blockflight;
+  modalerror: BsModalRef;
 
   constructor(private sessionStorageService: SessionStorageService,
               private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService,
@@ -97,6 +100,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.contacto = this.sessionStorageService.retrieve('contacto');
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
+    this.blockflight = this.loginDataUser.ocompany.blockFlight;
    }
 
    /*
@@ -220,7 +224,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         this.sessionStorageService.store('datapnr', this.pnrresults);
         },
         err => {
-          
+          this.spinner.hide();
+          this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
       },
       () => {
         if (this.lsapprover.length > 0 && this.pnrresults.oerror === null) {
@@ -637,7 +642,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
           }
         },
         err => {
-
+          this.spinner.hide();
+          this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
         },
         () => {
         this.spinner.hide();
