@@ -38,7 +38,7 @@ export class AdministradorPasajerosComponent implements OnInit {
   public editSettings: EditSettingsModel;
   public toolbar: ToolbarItems[];
   dataSource = new MatTableDataSource();
-
+  lstPasajeros: IPersonCompany[] = [];
   data: AOA = [[1, 2], [3, 4]];
   wopts: XLSX.WritingOptions = { bookType: 'xlsx', type: 'array' };
   fileName: string = 'SheetJS.xlsx';
@@ -72,9 +72,11 @@ export class AdministradorPasajerosComponent implements OnInit {
   submitted = false;
   selectValue: any;
   inderror: boolean;
+  inderrorEdit: boolean;
   modalRefPoliticas: BsModalRef;
   itemsPerPage: number=10;
   documento = false;
+  validPass = false;
   documento2 = false;
   documento3 = false;
   totalItems: any;
@@ -87,6 +89,7 @@ export class AdministradorPasajerosComponent implements OnInit {
   Document: IDocumentType[] = [];
   getRole;
   lstPersonShow;
+  lstPersonChange;
   tipoDoc = '1';
   hola;
   lstpaises: IGetPaisesModel[] = [];
@@ -96,6 +99,7 @@ export class AdministradorPasajerosComponent implements OnInit {
   apellidoShow: any;
   usuarioShow: any;
   correoShow: any;
+  max = false;
   documentShow: any;
   roleShow: any;
   activeShow: any;
@@ -114,10 +118,14 @@ export class AdministradorPasajerosComponent implements OnInit {
   theCheckbox = false;
   p: number;
   lista: string[] = [];
+  listaChange: string [] = [];
   page1 = 1;
+  isInsert: any;
+  UserId: any;
   pageSize =10;
   lstDocument = [];
   lstCost = [];
+  maxPax = 10;
   allNewPass: any;
   fileToUpload: File = null;
   forDni = false;
@@ -307,6 +315,10 @@ realFileBtn.addEventListener("change", function() {
     }
   }
 
+  closeValid(){
+    this.validPass = false;
+  }
+
 
 
   limpiarVal(){
@@ -333,29 +345,41 @@ realFileBtn.addEventListener("change", function() {
 
 
   changePassword(){
-    this.spinner.show();
-    this.allNewPass = $('#allNewPass').val();
-    const datos = {
-      Users: this.lista,
-      NewPass: crypto.SHA256(this.allNewPass).toString()
-    };
-    this.serviceHotel.GetChangePassword(datos).subscribe(
-      result =>{
-        this.resultNewPassword = result;
-        if (this.resultNewPassword === true) {
-          this.spinner.hide();
-          this.toastr.success('', 'La contraseña ha sido reestablecida correctamente.', {
-            timeOut: 5000
-          });
-          this.modalRefPoliticas.hide();
-        }else{
-          this.spinner.hide();
-          this.toastr.error('','Ocurrió un problema al reestabler la contraseña.',{
-            timeOut: 5000
-          });
+    var x = document.getElementById("allNewPass");
+    if($("#allNewPass").val().length === 0){
+      x.style.border = "2px solid red";
+      this.validPass = true;
+    }else{
+      this.listaChange = [];
+      this.spinner.show();
+      this.allNewPass = $('#allNewPass').val();
+      this.lstPasajeros.forEach(element => {
+        this.listaChange.push(element.loginUser);
+      });
+      const datos = {
+        Users: this.listaChange,
+        NewPass: crypto.SHA256(this.allNewPass).toString()
+      };
+      this.serviceHotel.GetChangePassword(datos).subscribe(
+        result =>{
+          this.resultNewPassword = result;
+          if (this.resultNewPassword === true) {
+            this.spinner.hide();
+            this.toastr.success('', 'La contraseña ha sido reestablecida correctamente.', {
+              timeOut: 5000
+            });
+            this.lstPasajeros = [];
+            this.modalRefPoliticas.hide();
+          }else{
+            this.spinner.hide();
+            this.toastr.error('','Ocurrió un problema al reestabler la contraseña.',{
+              timeOut: 5000
+            });
+          }
         }
-      }
-    )
+      )
+    }
+   
   }
 
 
@@ -403,7 +427,7 @@ realFileBtn.addEventListener("change", function() {
         return patron.test(teclaFinal);
  };
 
- validarCorreo() {
+ ValidarCorreo() {
   let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   if ($('#correo').val().length <= 0) {
     $('#correo').addClass('campo-invalido');
@@ -414,6 +438,21 @@ realFileBtn.addEventListener("change", function() {
     this.inderror = false;
   } else {
     this.inderror = true;
+  }
+
+}
+
+ValidarCorreoEdit() {
+  let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if ($('#correoEdit').val().length <= 0) {
+    $('#correoEdit').addClass('campo-invalido');
+  } else {
+    $('#correoEdit').removeClass('campo-invalido');
+  }
+  if (regex.test($('#correoEdit').val().trim())) {
+    this.inderrorEdit = false;
+  } else {
+    this.inderrorEdit = true;
   }
 
 }
@@ -501,6 +540,12 @@ limpiar(){
   this.modalRefPoliticas.hide();
 }
 
+write(){
+  var x = document.getElementById("allNewPass");
+  x.style.border = "1px solid";
+  this.validPass = false;
+}
+
 
 
 
@@ -510,13 +555,31 @@ limpiar(){
       template,
       Object.assign({}, { class: 'modal-lg1' })
     );
+    this.isInsert = 1;
+    this.UserId = 0;
+  }
+
+  open(template){
+    if(this.lstPasajeros.length === 0){
+      this.toastr.error('', 'Por favor seleccionar al menos un usuario.', {
+        timeOut: 4000
+      });
+    }else{
+      this.modalRefPoliticas = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'gray.modal-lg.m-infraccion' })
+      );
+    }
   }
 
   openModalPoliticasMedium(template) {
-    this.modalRefPoliticas = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'gray.modal-lg.m-infraccion' })
-    );
+
+      this.modalRefPoliticas = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'gray.modal-lg.m-infraccion' })
+      );
+    
+    
   }
 
   ngAfterViewInit() {
@@ -532,62 +595,208 @@ limpiar(){
     $('#menu-seguro-2').hide();
     }
 
+    ValidarCorreoA() {
+      let val;
+      let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      if (regex.test($('#correo').val().trim())) {
+       val = true;
+      } else {
+       val = false;
+      }
+      return val;
+    }
+
   registrar(){
-    if(this.activo === undefined){
-      this.activo = true;
-    }
-    if(this.activo1 === undefined){
-      this.activo1 = true;
-    }
-    let dni = $("#dni").val();
-    let tipoDoc = $("#cbo_document").val();
-    let tipoCost = $("#cbo_costo").val();
-    let IsActive = 1;
-    this.lstDocument.push(dni,tipoDoc);
-    this.lstCost.push(tipoCost,IsActive)
-    const data = {
-      PersonId: "",
-      FirstName: $("#nombre").val(),
-      LastName : $("#apellido").val(),
-      Phone : $("#telefono").val(),
-      Email : $("#correo").val(),
-      ProfileId : 1,
-      BirthDate : $("#txtfecha").val(),
-      CountryIataCode : $("#cbo_nacionalidad").val(),
-      Gender : $("#cbo_genero").val(),
-      VIP : this.activo,
-      LpersonUserDocuments : this.lstDocument,
-      UserId : 0,
-      LoginUser : $("#usuario").val(),
-      FrequentFlyer : $("#pasajero").val(),
-      Ocompany : this.datoslogin.ocompany,
-      Oagency : null,
-      RoleId : $("#cbo_perfil").val(),
-      IsActive : this.activo1,
-      LpersonUserCostCenters: this.lstCost
-    }
-    this.ValidarCampos();
-    this.validarCorreo();
-    this.userCompanyService.insertUpdateUser(data).subscribe(
-      result => {
-        this.resultInsertUpdate = result;
-        if(this.resultInsertUpdate === true){
-          this.toastr.success('', 'Usuario agregado correctamente.', {
-            timeOut: 5000
-          });
-        }else {
-          this.toastr.error('','Ocurrió un problema al reestabler la contraseña.',{
-            timeOut: 5000
-          });
+    const val= this.ValidarCampos();
+    if (!val) {
+      return val;
+    }else{
+      this.spinner.show();
+      if(this.activo === undefined || this.activo === true){
+        this.activo = 1;
+      }
+      if(this.activo1 === undefined || this.activo1 === true){
+        this.activo1 = 1;
+      }
+      if(this.activo === false){
+        this.activo = 0;
+      }
+      if(this.activo1 === false){
+        this.activo1 = 0;
+      }
+      let dni = $("#dni").val();
+      let tipoDoc = $("#cbo_document").val();
+      let tipoCost = $("#cbo_costo").val();
+      let activado = 1;
+      let objDocument = {
+        DocTypeId:tipoDoc,
+        DocumentNumber: dni
+      };
+      let objCost = {
+        CostCenterId:tipoCost,
+        IsActive:activado
+      }
+      let company = {
+        Id: this.datoslogin.ocompany.companyId
+      }
+      this.lstDocument = [];
+      this.lstCost = [];
+      this.lstDocument.push(objDocument);
+      this.lstCost.push(objCost);
+      const data = {
+        IsInsert: 1,
+        PersonId: "",
+        FirstName: $("#nombre").val(),
+        LastName : $("#apellido").val(),
+        Phone : $("#telefono").val(),
+        Email : $("#correo").val(),
+        ProfileId : 1,
+        BirthDate : $("#txtfecha").val(),
+        CountryIataCode : $("#cbo_nacionalidad").val(),
+        Gender : $("#cbo_genero").val(),
+        VIP : this.activo,
+        LpersonUserDocuments : this.lstDocument,
+        UserId : this.UserId,
+        LoginUser : $("#usuario").val(),
+        FrequentFlyer : $("#pasajero").val(),
+        Ocompany : company,
+        Oagency : null,
+        RoleId : $("#cbo_perfil").val(),
+        IsActive : this.activo1,
+        LpersonUserCostCenters: this.lstCost
+      }
+      this.serviceHotel.insertUpdateUser(data).subscribe(
+        result => {
+          this.resultInsertUpdate = result;
+          if (this.resultInsertUpdate.oerror != null) {
+            this.spinner.hide();
+            this.toastr.error('', 'Ocurrió un problema al registrar el usuario.', {
+              timeOut: 5000
+            });
+          }else{
+            this.spinner.hide();
+            this.lstPerson = this.resultInsertUpdate.lpersonByCompanies;
+            this.toastr.success('', 'El usuario se registró correctamente.', {
+              timeOut: 5000
+            });
+            this.modalRefPoliticas.hide();
+          }
+        },
+        err => {
+          this.spinner.hide();
+        },
+        ()=>{
+          this.spinner.hide();
         }
+      );
+      this.lstPerson = this.resultInsertUpdate.lpersonByCompanies;
+    }
+    
+  }
+
+  refrescar(){
+    const datos = {
+      companyId: this.datoslogin.ocompany.companyId
+    };
+    this.userCompanyService.getPersonByCompany(datos.companyId).subscribe(
+      result => {
+        this.lstPerson = result;
       },
       err => {
-
+        
       },
-      ()=>{
+      () => {
 
       }
-    )
+    );
+  }
+
+  actualizar(){
+    const val= this.ValidarCamposEdit();
+    if (!val) {
+      return val;
+    }else{
+      this.spinner.show();
+      if(this.activoEditActive === undefined || this.activoEditActive === true){
+        this.activoEditActive = 1;
+      }
+      if(this.activoEditVip === undefined || this.activoEditVip === true){
+        this.activoEditVip = 1;
+      }
+      if(this.activoEditActive === false){
+        this.activoEditActive = 0;
+      }
+      if(this.activoEditVip === false){
+        this.activoEditVip = 0;
+      }
+      let dni = $("#dniEdit").val();
+      let tipoDoc = $("#cbo_documentEdit").val();
+      let tipoCost = $("#cbo_costoEdit").val();
+      let activado = 1;
+      let objDocument = {
+        DocTypeId:tipoDoc,
+        DocumentNumber: dni
+      };
+      let objCost = {
+        CostCenterId:tipoCost,
+        IsActive:activado
+      }
+      let company = {
+        Id: this.datoslogin.ocompany.companyId
+      }
+      this.lstDocument = [];
+      this.lstCost = [];
+      this.lstDocument.push(objDocument);
+      this.lstCost.push(objCost);
+      const data = {
+        IsInsert: 0,
+        PersonId: this.PersonId.personId,
+        FirstName: $("#nombreEdit").val(),
+        LastName : $("#apellidoEdit").val(),
+        Phone : $("#telefonoEdit").val(),
+        Email : $("#correoEdit").val(),
+        ProfileId : 1,
+        BirthDate : $("#txtfechaEdit").val(),
+        CountryIataCode : $("#cbo_nacionalidadEdit").val(),
+        Gender : $("#cbo_generoEdit").val(),
+        VIP : this.activoEditVip,
+        LpersonUserDocuments : this.lstDocument,
+        UserId : this.UserId,
+        LoginUser : $("#usuarioEdit").val(),
+        FrequentFlyer : $("#pasajeroEdit").val(),
+        Ocompany : company,
+        Oagency : null,
+        RoleId : $("#cbo_perfilEdit").val(),
+        IsActive : this.activoEditActive,
+        LpersonUserCostCenters: this.lstCost
+      }
+      this.serviceHotel.insertUpdateUser(data).subscribe(
+        result => {
+          this.resultInsertUpdate = result;
+          if (this.resultInsertUpdate.oerror != null) {
+            this.spinner.hide();
+            this.toastr.error('', 'Ocurrió un problema al actualizar el usuario.', {
+              timeOut: 5000
+            });
+          }else{
+            this.spinner.hide();
+            this.lstPersonChange = this.resultInsertUpdate.l
+            this.lstPerson = this.resultInsertUpdate.lpersonByCompanies;
+            this.toastr.success('', 'El usuario se actualizó correctamente.', {
+              timeOut: 5000
+            });
+            this.modalRefPoliticas.hide();
+          }
+        },
+        err => {
+          this.spinner.hide();
+        },
+        ()=>{
+          this.spinner.hide();
+        }
+      );
+      this.lstPerson = this.resultInsertUpdate.lpersonByCompanies;
+    }
   }
 
   document(){
@@ -597,7 +806,6 @@ limpiar(){
       },
       err => {
         this.spinner.hide();
-        
       },
       () => {
         this.spinner.hide();
@@ -635,6 +843,44 @@ limpiar(){
     )
   }
 
+  agregarPasajero(emp) {
+    const maxPax = this.maxPax;
+    let flagVal = 0;
+    let lstPasajeros = this.lstPasajeros;
+    if (lstPasajeros.length === maxPax) {
+      this.max = true;
+      return false;
+    }else{
+      this.max = false;
+    }
+    lstPasajeros.forEach(function(item) {
+      if (item.personId === emp.personId) {
+        flagVal = 1;
+      }
+    });
+
+    if (flagVal === 0) {
+      this.lstPasajeros.push(emp);
+    }
+
+    this.lstPasajeros = lstPasajeros;
+  }
+
+  eliminarPasajero(pasajero) {
+    this.max = false;
+    let flagIndex = 0;
+    let lstPasajeros = this.lstPasajeros;
+    lstPasajeros.forEach(function(item, index) {
+      if (item.personId === pasajero.personId) {
+        flagIndex = index;
+      }
+    });
+
+    lstPasajeros.splice(flagIndex, 1);
+
+    this.lstPasajeros = lstPasajeros;
+  }
+
  
 
   role(){
@@ -659,7 +905,7 @@ limpiar(){
   ValidarCampos() {
     let val = true;
     let correo;
-    this.validarCorreo();
+    this.ValidarCorreo();
     correo = $("#correoTitu").val();
 
     if ($('#nombre').val().length <= 0) {
@@ -697,6 +943,62 @@ limpiar(){
     } else {
       $('#pasajero').removeClass('campo-invalido');
     }
+    if ($('#usuario').val().length <= 0) {
+      $('#usuario').addClass('campo-invalido');
+      val = false;
+    } else {
+      $('#usuario').removeClass('campo-invalido');
+    }
+    return val;
+  }
+
+  ValidarCamposEdit() {
+    let val = true;
+    let correo;
+    this.ValidarCorreoEdit();
+    correo = $("#correoTitu").val();
+
+    if ($('#nombreEdit').val().length <= 0) {
+      $('#nombreEdit').addClass('campo-invalido');
+    } else {
+      $('#nombreEdit').removeClass('campo-invalido');
+    }
+    if ($('#apellidoEdit').val().length <= 0) {
+      val = false;
+      $('#apellidoEdit').addClass('campo-invalido');
+    } else {
+      $('#apellidoEdit').removeClass('campo-invalido');
+    }
+    if ($('#telefonoEdit').val().length <= 0) {
+      $('#telefonoEdit').addClass('campo-invalido');
+      val = false;
+    } else {
+      $('#telefonoEdit').removeClass('campo-invalido');
+    }
+    if ($('#dniEdit').val().length <= 0) {
+      $('#dniEdit').addClass('campo-invalido');
+      val = false;
+    } else {
+      $('#dniEdit').removeClass('campo-invalido');
+    }
+    if ($('#txtfechaEdit').val().length <= 0) {
+      $('#txtfechaEdit').addClass('campo-invalido');
+      val = false;
+    } else {
+      $('#txtfechaEdit').removeClass('campo-invalido');
+    }
+    if ($('#pasajeroEdit').val().length <= 0) {
+      $('#pasajeroEdit').addClass('campo-invalido');
+      val = false;
+    } else {
+      $('#pasajeroEdit').removeClass('campo-invalido');
+    }
+    if ($('#usuarioEdit').val().length <= 0) {
+      $('#usuarioEdit').addClass('campo-invalido');
+      val = false;
+    } else {
+      $('#usuarioEdit').removeClass('campo-invalido');
+    }
     return val;
   }
 
@@ -713,7 +1015,7 @@ limpiar(){
         this.lstPersonShow = result;
         for (let index = 0; index < this.lstPersonShow.length; index++) {
           const element = this.lstPersonShow[index];
-          element.fullname = element.firstName + element.lastName;
+          element.fullname = element.firstName + ' ' + element.lastName;
         }
         this.hola = {
           Status: 200,
@@ -748,6 +1050,7 @@ limpiar(){
   }
 
   Editar(i,template){
+    this.isInsert = 0;
     this.spinner.show();
     this.personId = i;
     this.userCompanyService.getPersonById(this.personId).subscribe(
@@ -756,13 +1059,13 @@ limpiar(){
         console.log("hola" + JSON.stringify(this.PersonId))
         this.bsValue = new Date(this.PersonId.birthDate);
         console.log("asdasdasd" + this.bsValue);
+        this.UserId = this.PersonId.userId;
         var mainParent = $('.cb-EditVip').parent('.toggle-EditVip');
         if(this.PersonId.vip === false){
           $(mainParent).removeClass('active');
         }else{
           $(mainParent).addClass('active');
         }
-
         var mainParent1 = $('.cb-EditActive').parent('.toggle-EditActive');
         if(this.PersonId.isActive === false){
           $(mainParent1).removeClass('active');

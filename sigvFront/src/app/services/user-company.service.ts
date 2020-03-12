@@ -27,7 +27,7 @@ export class UserCompanyService {
   private url_document: string = environment.url_5 + 'DocumentType/';
   private url_role: string = environment.url_5 + 'Role/';
   private url_costCenter: string = environment.url_5 + 'CostCenter/';
-  private url_insertUpdate: string = environment.url_5 + 'User/InsertUpdateUser';
+ 
 
   constructor(
     private http: HttpClient,
@@ -98,14 +98,6 @@ export class UserCompanyService {
     return this.http.get<ICostCenterCompany[]>(url, httpOptions2);
   }
 
-  insertUpdateUser(data): Observable<boolean> {
-    this.token = this.sessionSt.retrieve('ss_token');
-    httpOptions2.headers = new HttpHeaders({
-      'Authorization': "Bearer " + this.token,
-      'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
-    });
-    return this.http.post<boolean>(`${this.url_insertUpdate}`, data, httpOptions2);
-  }
+  
 
 }

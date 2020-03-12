@@ -150,12 +150,6 @@ import { FlxUiDatatableModule, FlxUiDataTable } from 'flx-ui-datatable';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ResizeService } from './services/resize.service';
-import { DropDownListAllModule } from '@syncfusion/ej2-angular-dropdowns';
-import { DatePickerAllModule } from '@syncfusion/ej2-angular-calendars';
-import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
-import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
-import { DialogModule } from '@syncfusion/ej2-angular-popups';
-import { GridAllModule } from '@syncfusion/ej2-angular-grids';
 import { AdministradorGeneralComponent } from './components/administrador-general/administrador-general.component';
 import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
 
@@ -283,12 +277,6 @@ import { AutorizacionCentroCostoComponent } from './components/administrador-gen
     AutorizacionCentroCostoComponent
   ],
   imports: [
-    ToolbarModule,
-    GridAllModule,
-    NumericTextBoxAllModule,
-    DialogModule,
-    DatePickerAllModule,
-    DropDownListAllModule,
     BrowserModule,
     PerfectScrollbarModule,
     FlxUiDatatableModule,

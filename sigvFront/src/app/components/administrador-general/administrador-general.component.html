@@ -60,19 +60,26 @@
                 </button>
             </div>
             <div class="modal-body m-0 p-0">
-                <div class="row m-0 p-0 pb-3">
-                    <div class="col-4 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
-                        <a class="column col-xs-6" id="caption">
-                            <span class="text">
-                                <label>Jefatura</label>
-                            </span>
-                            <img style="width: 220px;padding-top: 30px;cursor: pointer;" src="./assets/images/liderazgo.png" /></a>
+                <div class="row m-0 p-0 pb-3 pl-2">
+                    <div class="col-4 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 34px; color: #6B253C">
+                        <span>Jefatura</span>
                     </div>
-                    <div class="col-4 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
-                        <a class="column col-xs-6" id="caption"><span class = "text"><label>Centro de Costo</label></span> <img [routerLink]="['/autorizacion-centro-costo']" (click)="modalRefPoliticas.hide()" style="width: 220px;padding-top: 30px;cursor: pointer;" src="./assets/images/proceso.png" /></a>
+                    <div class="col-4 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 34px; color: #6B253C">
+                        <span>Centro de Costo</span>
                     </div>
-                    <div class="col-4 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
-                        <a class="column col-xs-6" id="caption"><span class = "text"><label>Global</label></span> <img style="width: 220px;padding-top: 30px;cursor: pointer;" src="./assets/images/objetivo.png" /></a>
+                    <div class="col-4 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 34px; color: #6B253C">
+                        <span>Global</span>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 110px;padding-bottom: 40px;">
+                    <div class="col-4">
+                        <a id="grayscale"><img style="width: 220px;padding-top: 30px;cursor: pointer;" src="./assets/images/leadership.png" /></a>
+                    </div>
+                    <div class="col-4">
+                        <a id="grayscale"> <img [routerLink]="['/autorizacion-centro-costo']" (click)="modalRefPoliticas.hide()" style="width: 220px;padding-top: 30px;cursor: pointer;" src="./assets/images/proceso.png" /></a>
+                    </div>
+                    <div class="col-4">
+                        <a id="grayscale"> <img style="width: 220px;padding-top: 30px;cursor: pointer;" src="./assets/images/round.svg" /></a>
                     </div>
                 </div>
             </div>
@@ -88,6 +95,18 @@
             );
         </script>
         <style>
+            #grayscale img {
+                -webkit-filter: grayscale(100%);
+                filter: grayscale(100%);
+                -webkit-transition: .3s ease-in-out;
+                transition: .3s ease-in-out;
+            }
+            
+            #grayscale:hover img {
+                -webkit-filter: grayscale(0);
+                filter: grayscale(0);
+            }
+            
             .column#caption {
                 position: relative;
             }
