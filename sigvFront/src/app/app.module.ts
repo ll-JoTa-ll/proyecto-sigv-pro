@@ -132,7 +132,6 @@ import { ModalCerrarSesionComponent } from './components/shared/modal-cerrar-ses
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { IntlInputPhoneModule } from 'intl-input-phone';
 import { ModalSesionWarningVuelosComponent } from './components/shared/modal-sesion-warning-vuelos/modal-sesion-warning-vuelos.component';
-import { NgxBootstrapSliderModule } from 'ngx-bootstrap-slider';
 import { IgxInputGroupModule,IgxSliderModule } from 'igniteui-angular';
 import { DetalleReservaHotelComponent } from './components/reserva-vuelo/detalle-reserva-hotel/detalle-reserva-hotel.component';
 import { ModalAvisoSesionComponent } from './components/shared/modal-aviso-sesion/modal-aviso-sesion.component';
@@ -311,7 +310,6 @@ import { ModalErrorServiceComponent } from './components/shared/modal-error-serv
     SessionExpirationAlert.forRoot(),
     NgbModule,
     IntlInputPhoneModule,
-    NgxBootstrapSliderModule,
     IgxInputGroupModule,
     IgxSliderModule,
     ChartModule
