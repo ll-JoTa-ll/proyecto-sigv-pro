@@ -72,7 +72,7 @@ export class ResultadoComponent implements OnInit {
     
 
     console.log("cantpersonas" + this.cantpersonas)
-    if (this.cantpersonas = '1') {
+    if (this.cantpersonas === '1') {
       this.personas = "adulto"
     }else{
       this.personas = "adultos"

@@ -6,6 +6,7 @@ export interface IPersonCompany {
         fullname,
         loginUser,
         email,
+        documentType,
         numberDocument,
         role,
         isActive,

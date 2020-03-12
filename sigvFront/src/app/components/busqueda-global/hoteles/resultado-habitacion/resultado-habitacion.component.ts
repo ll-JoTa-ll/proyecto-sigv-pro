@@ -47,6 +47,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   @Input() fecharetorno;
   urlimg = './assets/images/hotel-icon.png';
   modalRefSessionExpired: BsModalRef;
+  personas: any;
   objSearch: any;
   constructor(private modalService: BsModalService,private router : Router,public spinner: NgxSpinnerService,private service: HotelService,private sessionStorageService: SessionStorageService) {
 
@@ -55,6 +56,13 @@ export class ResultadoHabitacionComponent implements OnInit {
    }
 
   ngOnInit() {
+
+    console.log("cantpersonas" + this.cantpersonas)
+    if (this.cantpersonas === '1') {
+      this.personas = "adulto"
+    }else{
+      this.personas = "adultos"
+    }
 
     
   }

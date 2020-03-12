@@ -38,6 +38,7 @@ export class DetalleHabitacionComponent implements OnInit {
   habitacion;
   userId;
   personas: any;
+  itemsPerSlide = 6;
 
   constructor(
     private modalService: BsModalService,
