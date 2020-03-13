@@ -77,6 +77,7 @@ export class AdministradorPasajerosComponent implements OnInit {
   nameFile: any;
   previousPage: any;
   datoslogin;
+  maxDate: Date;
   lstPerson: IPersonCompany[] = [];
   PersonId;
   Document: IDocumentType[] = [];
@@ -137,7 +138,8 @@ export class AdministradorPasajerosComponent implements OnInit {
     private resizeSvc: ResizeService
     ) {
     this.datoslogin = this.sessionStorageService.retrieve('ss_login_data');
-
+      this.maxDate = new Date();
+      this.maxDate.setDate(this.maxDate.getDate() - 6575);
     this.form = this.formBuilder.group({
       checkArray: this.formBuilder.array([])
     })
@@ -318,6 +320,7 @@ realFileBtn.addEventListener("change", function() {
           this.resultNewPassword = result;
           if (this.resultNewPassword === true) {
             this.spinner.hide();
+            this.max = false;
             this.toastr.success('', 'La contraseña ha sido reestablecida correctamente.', {
               timeOut: 5000
             });
