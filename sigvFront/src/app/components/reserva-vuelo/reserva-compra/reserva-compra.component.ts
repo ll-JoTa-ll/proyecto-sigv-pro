@@ -547,7 +547,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
              }
         },
         err => {
-       
+
         },
         () => {
           this.spinner.hide();
@@ -586,7 +586,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
              }
         },
         err => {
- 
+
         },
         () => {
           this.spinner.hide();
@@ -621,7 +621,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       porcentaje = 0;
     }
       let data = {
-    "UserId": this.userid,
+    "UserId": this.loginDataUser.userid,
     "GDS": this.gds,
     "Pseudo": this.pseudo,
     "FlightNational": this.flightnational,
