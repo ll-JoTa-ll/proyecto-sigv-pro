@@ -21,6 +21,7 @@ import { IGetPaisesModel } from '../models/IGetPaises';
 import { IBnusModel } from '../models/Ibnus.model';
 import { iGetAsesors } from '../models/IGetAsesors';
 import { IRegulationsModel } from '../models/IRegulations';
+import { IProfileModel } from '../models/IProfileModel';
 
 let httpOptions = {
   headers: new HttpHeaders()
@@ -311,5 +312,16 @@ export class AirportService {
       'Ocp-Apim-Subscription-Key': this.key
     });
     return this.http.post<IRegulationsModel>(this.url_regulaciones  + "GetRegulation", data, httpOptions2);
-  } 
+  }
+
+  GetExtraProfile(data): Observable<IProfileModel> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': this.key
+    });
+    const url = `${this._url5 + 'GetExtraProfile'}?${'userId=' + data}`;
+    return this.http.get<IProfileModel>(url, httpOptions2);
+  }
 }

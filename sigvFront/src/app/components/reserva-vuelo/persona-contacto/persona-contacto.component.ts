@@ -17,28 +17,22 @@ export class PersonaContactoComponent implements OnInit {
   @Output() numero1 = new EventEmitter<any>();
   datosuser: any[] = [];
   inderror: boolean;
-  OutputValue2: NumberResult = new NumberResult();
-  configOption3 : ConfigurationOptions;
+  logindata;
+  nombre;
+  telefono;
+  correo;
 
   constructor(private sessionStorageService: SessionStorageService) {
     this.datosuser = sessionStorageService.retrieve('objusuarios');
-    this.configOption3 = new ConfigurationOptions();
-    this.configOption3.SelectorClass = "OptionType3";
-    this.configOption3.OptionTextTypes = [];
-    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.Flag);
-    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.CountryName);
-    this.configOption3.OptionTextTypes.push(ContentOptionsEnum.CountryPhoneCode);
+    this.logindata = sessionStorageService.retrieve('ss_login_data');
+    if (this.logindata.orole.roleDescription === 'Centralizador') {
+      this.nombre = this.logindata.userName + ' ' + this.logindata.userLastName;
+      this.correo = this.logindata.email;
+      this.telefono = this.logindata.phoneNumber;
+    }
    }
 
   ngOnInit() {}
-
-  onNumberChage2(outputResult)
-  {
-    this.OutputValue2 = outputResult;
-    console.log(this.OutputValue2);
-    this.numero1.emit(this.OutputValue2);
-    $('input[name="InputPhone').removeClass('campo-invalido');
-  }
 
   Solotexto(event) {
     var regex = new RegExp("^[a-zA-Z ]+$");

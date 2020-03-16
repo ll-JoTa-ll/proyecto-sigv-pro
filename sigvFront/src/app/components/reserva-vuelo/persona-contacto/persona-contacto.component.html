@@ -14,7 +14,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" id="nombrecontacto" (keypress)="Solotexto($event)" (keydown)="ValidarCampos(3)" (keyup)="ValidarCampos(3)">
+                                <input class="input-pasajero" type="text" id="nombrecontacto" [(ngModel)]="nombre" (keypress)="Solotexto($event)" (keydown)="ValidarCampos(3)" (keyup)="ValidarCampos(3)">
                             </div>
                         </div>
                     </div>
@@ -250,7 +250,7 @@
                                         <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
                                     </optgroup>
                                 </select>
-                                <input class="input-pasajerotel" maxlength="9" (keypress)="ValidarCampos(2)" (keydown)="ValidarCampos(2)" (keyup)="ValidarCampos(2)" (keydown)="ValidarSoloNumero($event)" data-value="" type="text" name="" id="contactotelefono">
+                                <input class="input-pasajerotel" [(ngModel)]="telefono" maxlength="9" (keypress)="ValidarCampos(2)" (keydown)="ValidarCampos(2)" (keyup)="ValidarCampos(2)" (keydown)="ValidarSoloNumero($event)" data-value="" type="text" name="" id="contactotelefono">
                                 <input type="hidden" id="hdnTel" value="51">
                             </div>
                         </div>
@@ -265,7 +265,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input class="input-pasajero" type="text" id="contactocorreo" maxlength="70" (keyup)="ValidarCampos(1)">
+                                <input class="input-pasajero" [(ngModel)]="correo" type="text" id="contactocorreo" maxlength="70" (keyup)="ValidarCampos(1)">
                                 <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La direccion de correo es invalida</div>
                             </div>
                         </div>

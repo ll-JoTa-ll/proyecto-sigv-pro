@@ -73,6 +73,7 @@ export class AddPaxCentralizadorComponent implements OnInit {
       },
       Oagency: this.datoslogin.oAgency,
       FreeText: freeText,
+      UserId: this.datoslogin.userId
     };
 
     this.userCompanyService.getUserByCompany(datos).subscribe(

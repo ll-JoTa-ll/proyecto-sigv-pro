@@ -73,6 +73,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   tipovuelo;
   blockflight;
   modalerror: BsModalRef;
+  idprofile;
 
   constructor(private sessionStorageService: SessionStorageService,
               private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService,
@@ -101,6 +102,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.contacto = this.sessionStorageService.retrieve('contacto');
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
     this.blockflight = this.loginDataUser.ocompany.blockFlight;
+    this.idprofile = this.sessionStorageService.retrieve('idprofile');
    }
 
    /*
@@ -170,10 +172,16 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     let amount;
     let porcentaje;
     let infraction;
+    let extraprofile;
     if (this.LPolicies.length > 0) {
       infraction = true;
     } else {
       infraction = false;
+    }
+    if (this.idprofile != null) {
+      extraprofile = true;
+    } else {
+      extraprofile = false;
     }
     this.Obtenerstring();
     this.ObtenerstringReserva();
@@ -199,6 +207,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "CarrierId": this.carrierId,
     "Lpolicies": this.LPolicies,
     "Lauthorizer": this.lsapprover,
+    "ExtraProfile": extraprofile,
+    "ProfileName": this.idprofile,
     "Comment": $('#motivoviaje').val(),
     "OContactInfo": this.contacto,
     "FareTaxAmountByPassenger": this.lsflightavailability.fareAmountByPassenger,
@@ -589,6 +599,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       let idinterval = this.sessionStorageService.retrieve('idinterval');
       let phones = [];
       let email = [];
+      let extraprofile;
       let infraction;
       let amount;
       let porcentaje;
@@ -596,6 +607,11 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       infraction = true;
       } else {
       infraction = false;
+    }
+      if (this.idprofile != null) {
+      extraprofile = true;
+    } else {
+      extraprofile = false;
     }
       if (this.lsflightavailability.odiscount != null) {
       amount = this.lsflightavailability.odiscount.amount;
@@ -618,6 +634,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "CarrierId": this.carrierId,
     "Lpolicies": this.LPolicies,
     "OContactInfo": this.contacto,
+    "ExtraProfile": extraprofile,
+    "ProfileName": this.idprofile,
     "FareTaxAmountByPassenger": this.lsflightavailability.fareAmountByPassenger,
     "TotalFareAmount": this.lsflightavailability.totalFareAmount,
     "Currency": this.lsflightavailability.currency,

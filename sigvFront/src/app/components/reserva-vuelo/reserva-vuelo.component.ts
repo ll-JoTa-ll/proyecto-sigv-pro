@@ -18,7 +18,7 @@ import { ModalSesionWarningVuelosComponent } from '../shared/modal-sesion-warnin
 import { IGetPaisesModel } from '../../models/IGetPaises';
 import { IRegulationsModel } from '../../models/IRegulations';
 import { ModalErrorServiceComponent } from '../shared/modal-error-service/modal-error-service.component';
-
+import { IProfileModel } from '../../models/IProfileModel';
 declare var jquery: any;
 declare var $: any;
 
@@ -81,6 +81,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   lstrulestramo: any[] = [];
   flagrules;
   flagerror;
+  lstprofiles: IProfileModel;
+  flagactive: boolean;
+  numeropasajero;
 
   constructor(
     private modalService: BsModalService,
@@ -104,6 +107,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.GetExtraProfile();
     window.scrollTo(0, 0);
     this.LSection = this.flightAvailability_request.Lsections;
     this.LSectionPassenger = this.datarequest.Lsections;
@@ -141,6 +145,31 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let interval;
     back = true;
     this.sessionStorageService.store('indregresar', back);
+  }
+
+  GetExtraProfile() {
+    let data = {
+      userId: this.loginDataUser.userId
+    };
+    this.service.GetExtraProfile(data.userId).subscribe(
+       result => {
+          this.lstprofiles = result;
+          if (this.lstprofiles != null) {
+            if (this.lstprofiles.oerror === null) {
+              this.flagactive = true;
+            } else {
+              this.flagactive = false;
+            }
+          } else {
+            this.flagactive = true;
+          }
+       },
+       err => {
+
+       },
+       () => {
+       }
+     )
   }
 
   CostCenter() {
@@ -421,8 +450,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     );
   }
 
-  Comprar() {
+  Comprar(template, template2) {
     let idmotivo = $('#cbomotivo option:selected').val();
+    let idprofile = $('#cboprofile option:selected').val();
     let datosusuario: any[] = [];
     let contacto: any;
     let mail : any = [];
@@ -430,6 +460,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let email2;
     let telefono2;
     let nombrecontacto;
+    let correocentralizador;
     email2 = $('#contactocorreo').val();
     telefono2 = $('#contactotelefono').val();
     nombrecontacto = $('#nombrecontacto').val();
@@ -489,6 +520,63 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       datosusuario.push(objuser);
     });
 
+    let flagValIgualEmail = 0;
+    let lstEmail = [];
+
+    datosusuario.forEach(function(item, index) {
+      lstEmail.push(item.Email);
+    });
+
+    lstEmail.forEach(function(correo1) {
+      let flagCountEmail = 0;
+      lstEmail.forEach(function(correo2) {
+        if (correo1 == correo2) {
+          flagCountEmail++;
+        }
+      });
+      if (flagCountEmail > 1) {
+        flagValIgualEmail = 1;
+      }
+    });
+
+    if (flagValIgualEmail == 1) {
+      this.modalRef = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+      );
+      return false;
+    }
+
+    if (this.loginDataUser.orole.roleDescription === 'Centralizador') {
+      let correocentralizador;
+      let correoigual = 0;
+      let pasajeros = [];
+      correocentralizador = this.loginDataUser.email;
+      lstEmail.forEach(function(correo, index) {
+        let flagcountemail;
+        flagcountemail = 0;
+        if (correo === correocentralizador) {
+            flagcountemail++;
+            pasajeros.push(index + 1);
+          }
+        if (flagcountemail === 1 || flagcountemail > 1) {
+            correoigual = 1;
+          }
+      });
+      let pasajero;
+      pasajeros.forEach(function(item) {
+        pasajero = item;
+      });
+      this.numeropasajero = pasajero;
+      if (correoigual == 1) {
+        console.log(this.numeropasajero);
+        this.modalRef = this.modalService.show(
+          template2,
+          Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+        );
+        return false;
+       }
+    }
 
     contacto = {
       "ContactName": nombrecontacto,
@@ -501,6 +589,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     if (!val || !valcorreo || !valmail) {
       return val;
     } else {
+      this.sessionStorageService.store('idprofile', idprofile);
       this.sessionStorageService.store('contacto', contacto);
       this.sessionStorageService.store('datosusuario', datosusuario);
       this.sessionStorageService.store('sectioninfo', this.LSection);
@@ -510,8 +599,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/reserva-vuelo-compra']);
     }
   }
-
-
 
   getUidByCompany() {
     const companyId = this.loginDataUser.ocompany.companyId;

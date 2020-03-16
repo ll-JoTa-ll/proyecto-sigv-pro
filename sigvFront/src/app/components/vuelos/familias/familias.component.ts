@@ -192,10 +192,10 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
       "FlightNational": request.FlightNational,
       "Lpolicies": request.Lpolicies
     }
-    this.flightAvailability(data);
+    this.flightAvailability(data, template);
   }
 
-  flightAvailability(data) {
+  flightAvailability(data,template) {
     this.vuelosComponent.spinner.show();
   //  this.spinner.show();
     this.flagMsgErrorSelFam = false;
@@ -212,6 +212,10 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
           flagResult = 1;
         } else {
           flagResult = 2;
+          this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg sin-familias' })
+          );
         }
       },
       err => {
