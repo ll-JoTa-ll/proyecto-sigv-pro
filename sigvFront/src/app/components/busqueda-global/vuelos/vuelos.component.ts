@@ -1032,15 +1032,19 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
-        if (this.lstBnus.length > 0 || this.lstBnus != null) {
-          this.spinner.hide();
-          this.modalRef = this.modalService.show(
-           template,
-           Object.assign({}, { class: 'gray modal-lg m-resumen'}, this.config)
-         );
-         } else {
-             this.searchFlight();
-         }
+        if (this.lstBnus != null) {
+          if (this.lstBnus.length > 0) {
+            this.spinner.hide();
+            this.modalRef = this.modalService.show(
+             template,
+             Object.assign({}, { class: 'gray modal-lg m-resumen'}, this.config)
+           );
+           } else {
+               this.searchFlight();
+           }
+        } else {
+          this.searchFlight();
+        }
       }
     )
   }
@@ -1179,9 +1183,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
  }
 
   searchFlight() {
-    if (this.lstBnus.length > 0) {
-      this.UserBnus2();
-      this.modalRef.hide();
+    if (this.lstBnus != null) {
+      if (this.lstBnus.length > 0) {
+        this.UserBnus2();
+        this.modalRef.hide();
+      }
     }
  //   this.spinner.show();
     this.flagDinData = false;
