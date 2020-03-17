@@ -621,7 +621,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       porcentaje = 0;
     }
       let data = {
-    "UserId": this.loginDataUser.userid,
+    "UserId": this.loginDataUser.userId,
     "GDS": this.gds,
     "Pseudo": this.pseudo,
     "FlightNational": this.flightnational,

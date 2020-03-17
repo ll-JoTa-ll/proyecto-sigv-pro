@@ -470,7 +470,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.sessionStorageService.store('objusuarios', this.datosuser);
       },
       err => {
-        
+
       },
       () => {
        // this.TraerAutorizador();
@@ -1018,7 +1018,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   CloseModal() {
     this.searchFlight();
   }
- 
+
   GetAsesors(template) {
     let data = {
       Id : this.loginDataUser.ocompany.companyId
@@ -1032,7 +1032,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
-        if (this.lstBnus.length > 0) {
+        if (this.lstBnus.length > 0 || this.lstBnus != null) {
           this.spinner.hide();
           this.modalRef = this.modalService.show(
            template,
@@ -1047,12 +1047,90 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   GetBoletosNoUsados(template) {
     this.spinner.show();
+    let origen: any[] = [];
+    let destino: any[] = [];
     let fechasalida;
     fechasalida = this.FormatearFecha(this.fechaSalida);
+    if (this.tipoVuelo === "RT") {
+      origen.push(this.origenAuto);
+      origen.push(this.destinoAuto);
+
+      destino.push(this.destinoAuto);
+      destino.push(this.origenAuto);
+    }
+
+    if (this.tipoVuelo === "OW") {
+      origen.push(this.origenAuto);
+      destino.push(this.destinoAuto);
+    }
+
+    if (this.tipoVuelo === "MC") {
+      const indexTramo = this.indexTramo;
+      switch (indexTramo) {
+        case 2:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          break;
+        case 3:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          break;
+        case 4:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          break;
+        case 5:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+          break;
+        case 6:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+          origen.push(this.origenAuto6);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+          destino.push(this.destinoAuto6);
+          break;
+      }
+    }
+
     let data = {
-      "Vuelo":"N",
       "RUC":this.loginDataUser.ocompany.ruc,
-      "FecSalida": fechasalida
+      "DepartureDate": fechasalida,
+      "Origin": origen,
+      "Destination": destino,
+      "CountryCode": this.loginDataUser.ocompany.countryCode
     }
     this.airportService.GetBoletosnoUsados(data).subscribe(
       result => {
