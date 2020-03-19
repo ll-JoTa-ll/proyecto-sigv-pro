@@ -224,7 +224,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     );
   }
 
-  
+
 
 
   ValidarCorreo() {
@@ -551,7 +551,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       let correocentralizador;
       let correoigual = 0;
       let pasajeros = [];
-      correocentralizador = this.loginDataUser.email;
+      correocentralizador = email2;
       lstEmail.forEach(function(correo, index) {
         let flagcountemail;
         flagcountemail = 0;
@@ -623,7 +623,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  
+
 
   setInformacionAdicional(lstUidByCompanyC) {
     if (lstUidByCompanyC.length > 0) {
@@ -689,7 +689,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           });
           htmlTxtC += "</select>";
 
- 
+
           htmlTxtC += "</div>";
         }
       });

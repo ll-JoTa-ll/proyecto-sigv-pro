@@ -495,40 +495,40 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.spinner.show();
       this.ValidarDestinos();
       this.inicioBuscar.emit(false);
-  
+
       let origen: any[] = [];
       let destino: any[] = [];
       let fechas: any[] = [];
       let horasFrom: any[] = [];
       let horasTo: any[] = [];
-  
+
       if (this.tipoVuelo === "RT") {
         origen.push(this.origenAuto);
         origen.push(this.destinoAuto);
-  
+
         destino.push(this.destinoAuto);
         destino.push(this.origenAuto);
-  
+
         fechas.push(this.fechaSalida);
         fechas.push(this.fechaRetorno);
       }
-  
+
       if (this.tipoVuelo === "OW") {
         origen.push(this.origenAuto);
         destino.push(this.destinoAuto);
         fechas.push(this.fechaSalida);
       }
-  
+
       if (this.tipoVuelo === "MC") {
         const indexTramo = this.indexTramo;
         switch (indexTramo) {
           case 2:
             origen.push(this.origenAuto1);
             origen.push(this.origenAuto2);
-  
+
             destino.push(this.destinoAuto1);
             destino.push(this.destinoAuto2);
-  
+
             fechas.push(this.fechaSalida1);
             fechas.push(this.fechaSalida2);
             break;
@@ -536,11 +536,11 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             origen.push(this.origenAuto1);
             origen.push(this.origenAuto2);
             origen.push(this.origenAuto3);
-  
+
             destino.push(this.destinoAuto1);
             destino.push(this.destinoAuto2);
             destino.push(this.destinoAuto3);
-  
+
             fechas.push(this.fechaSalida1);
             fechas.push(this.fechaSalida2);
             fechas.push(this.fechaSalida3);
@@ -550,12 +550,12 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             origen.push(this.origenAuto2);
             origen.push(this.origenAuto3);
             origen.push(this.origenAuto4);
-  
+
             destino.push(this.destinoAuto1);
             destino.push(this.destinoAuto2);
             destino.push(this.destinoAuto3);
             destino.push(this.destinoAuto4);
-  
+
             fechas.push(this.fechaSalida1);
             fechas.push(this.fechaSalida2);
             fechas.push(this.fechaSalida3);
@@ -567,13 +567,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             origen.push(this.origenAuto3);
             origen.push(this.origenAuto4);
             origen.push(this.origenAuto5);
-  
+
             destino.push(this.destinoAuto1);
             destino.push(this.destinoAuto2);
             destino.push(this.destinoAuto3);
             destino.push(this.destinoAuto4);
             destino.push(this.destinoAuto5);
-  
+
             fechas.push(this.fechaSalida1);
             fechas.push(this.fechaSalida2);
             fechas.push(this.fechaSalida3);
@@ -587,14 +587,14 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             origen.push(this.origenAuto4);
             origen.push(this.origenAuto5);
             origen.push(this.origenAuto6);
-  
+
             destino.push(this.destinoAuto1);
             destino.push(this.destinoAuto2);
             destino.push(this.destinoAuto3);
             destino.push(this.destinoAuto4);
             destino.push(this.destinoAuto5);
             destino.push(this.destinoAuto6);
-  
+
             fechas.push(this.fechaSalida1);
             fechas.push(this.fechaSalida2);
             fechas.push(this.fechaSalida3);
@@ -604,24 +604,24 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             break;
         }
       }
-  
+
       fechas.forEach(function(fe) {
         horasFrom.push("");
         horasTo.push("");
       });
-  
+
       if (this.flagVuelosManiana === true) {
         horasFrom[0] = '0500';
         horasTo[0] = '1159';
       }
-  
+
       if (this.flagVuelosNoche === true) {
         horasFrom[0] = '1900';
         horasTo[0] = '2359';
       }
-  
+
       let lUsers_: any[] = [];
-  
+
       const lstPasajeros = this.sessionStorageService.retrieve('ss_lstPasajeros');
       if (lstPasajeros != null) {
         if (lstPasajeros.length > 0) {
@@ -644,7 +644,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         );
       }
       let objcampos;
-  
+
       if (this.tipoVuelo === 'RT' || this.tipoVuelo === 'OW') {
           objcampos = {
           origen: this.origenText.name,
@@ -702,7 +702,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
           indextramo: this.indexTramo
         };
       }
-  
+
       let data = {
         "Lusers": lUsers_,
         "NumberPassengers": this.pasajeros,
@@ -717,15 +717,15 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         "Ocompany": this.loginDataUser.ocompany,
         "IncludesBaggage": this.maleta
       };
-  
+
       this.sessionStorageService.store('objbuscador', objcampos);
-  
+
       this.sessionStorageService.store('ss_dataRequestFlight', data);
       this.sessionStorageService.store('ss_horasFrom', horasFrom);
       this.sessionStorageService.store('ss_horasTo', horasTo);
       this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
       const ss_filterPrecio = this.sessionStorageService.retrieve('ss_filterPrecio');
-  
+
       this.airportService.searchFlight(data).subscribe(
         result => {
           if (result !== null && result.length > 0) {
