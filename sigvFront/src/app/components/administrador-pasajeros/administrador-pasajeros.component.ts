@@ -77,6 +77,7 @@ export class AdministradorPasajerosComponent implements OnInit {
   nameFile: any;
   previousPage: any;
   datoslogin;
+  maxDate: Date;
   lstPerson: IPersonCompany[] = [];
   PersonId;
   Document: IDocumentType[] = [];
@@ -137,7 +138,8 @@ export class AdministradorPasajerosComponent implements OnInit {
     private resizeSvc: ResizeService
     ) {
     this.datoslogin = this.sessionStorageService.retrieve('ss_login_data');
-
+      this.maxDate = new Date();
+      this.maxDate.setDate(this.maxDate.getDate() - 6575);
     this.form = this.formBuilder.group({
       checkArray: this.formBuilder.array([])
     })
@@ -277,6 +279,7 @@ realFileBtn.addEventListener("change", function() {
   limpiarVal(){
     this.forCarne = false;
     this.forDni = false;
+    this.inderror = false;
   }
 
   loadPage(page: number) {
@@ -318,6 +321,7 @@ realFileBtn.addEventListener("change", function() {
           this.resultNewPassword = result;
           if (this.resultNewPassword === true) {
             this.spinner.hide();
+            this.max = false;
             this.toastr.success('', 'La contraseña ha sido reestablecida correctamente.', {
               timeOut: 5000
             });
@@ -379,11 +383,12 @@ realFileBtn.addEventListener("change", function() {
  };
 
  ValidarCorreo() {
+  var correo = document.getElementById("correo");
   let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   if ($('#correo').val().length <= 0) {
-    $('#correo').addClass('campo-invalido');
+    correo.style.borderBottom = '2px solid #ED1C24';
   } else {
-    $('#correo').removeClass('campo-invalido');
+    correo.style.borderBottom = '2px solid #9b9b9b;';
   }
   if (regex.test($('#correo').val().trim())) {
     this.inderror = false;
@@ -394,11 +399,12 @@ realFileBtn.addEventListener("change", function() {
 }
 
 ValidarCorreoEdit() {
+  var correoEdit = document.getElementById("correoEdit");
   let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   if ($('#correoEdit').val().length <= 0) {
-    $('#correoEdit').addClass('campo-invalido');
+    correoEdit.style.borderBottom = '2px solid #ED1C24';
   } else {
-    $('#correoEdit').removeClass('campo-invalido');
+    correoEdit.style.borderBottom = '2px solid #9b9b9b;';
   }
   if (regex.test($('#correoEdit').val().trim())) {
     this.inderrorEdit = false;
@@ -485,6 +491,7 @@ toggleVisibility(e,i){
 
 limpiar(){
   this.modalRefPoliticas.hide();
+  this.inderrorEdit = false;
 }
 
 write(){
@@ -493,8 +500,91 @@ write(){
   this.validPass = false;
 }
 
+writeNombre(){
+  var nombre = document.getElementById("nombre");
+  nombre.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeApellido(){
+  var apellido = document.getElementById("apellido");
+  apellido.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeCorreo(){
+  var correo = document.getElementById("correo");
+  correo.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeTelefono(){
+  var telefono = document.getElementById("telefono");
+  telefono.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeDni(){
+  var dni = document.getElementById("dni");
+  dni.style.borderBottom = "2px solid #9b9b9b";
+}
 
 
+onValueChangeIngreso(value: Date): void {
+  if(value != null){
+    var txtfecha = document.getElementById("txtfecha");
+  txtfecha.style.borderBottom = "2px solid #9b9b9b";
+  }
+}
+
+writePasajero(){
+  var pasajero = document.getElementById("pasajero");
+  pasajero.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeUsuario(){
+  var usuario = document.getElementById("usuario");
+  usuario.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeNombreEdit(){
+  var nombreEdit = document.getElementById("nombreEdit");
+  nombreEdit.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeApellidoEdit(){
+  var apellidoEdit = document.getElementById("apellidoEdit");
+  apellidoEdit.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeCorreoEdit(){
+  var correoEdit = document.getElementById("correoEdit");
+  correoEdit.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeTelefonoEdit(){
+  var telefonoEdit = document.getElementById("telefonoEdit");
+  telefonoEdit.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeDniEdit(){
+  var dniEdit = document.getElementById("dniEdit");
+  dniEdit.style.borderBottom = "2px solid #9b9b9b";
+}
+
+
+onValueChangeIngresoEdit(value: Date): void {
+  if(value != null){
+    var txtfechaEdit = document.getElementById("txtfechaEdit");
+  txtfechaEdit.style.borderBottom = "2px solid #9b9b9b";
+  }
+}
+
+writePasajeroEdit(){
+  var pasajeroEdit = document.getElementById("pasajeroEdit");
+  pasajeroEdit.style.borderBottom = "2px solid #9b9b9b";
+}
+
+writeUsuarioEdit(){
+  var usuarioEdit = document.getElementById("usuarioEdit");
+  usuarioEdit.style.borderBottom = "2px solid #9b9b9b";
+}
 
 
   openModalPoliticas(template) {
@@ -850,101 +940,115 @@ write(){
   }
 
   ValidarCampos() {
+    var nombre = document.getElementById("nombre");
+    var apellido = document.getElementById("apellido");
+    var telefono = document.getElementById("telefono");
+    var dni = document.getElementById("dni");
+    var txtfecha = document.getElementById("txtfecha");
+    var pasajero = document.getElementById("pasajero");
+    var usuario = document.getElementById("usuario");
     let val = true;
     let correo;
     this.ValidarCorreo();
     correo = $("#correoTitu").val();
 
     if ($('#nombre').val().length <= 0) {
-      $('#nombre').addClass('campo-invalido');
+      nombre.style.borderBottom = '2px solid #ED1C24';
     } else {
-      $('#nombre').removeClass('campo-invalido');
+      nombre.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#apellido').val().length <= 0) {
       val = false;
-      $('#apellido').addClass('campo-invalido');
+      apellido.style.borderBottom = '2px solid #ED1C24';
     } else {
-      $('#apellido').removeClass('campo-invalido');
+      apellido.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#telefono').val().length <= 0) {
-      $('#telefono').addClass('campo-invalido');
+      telefono.style.borderBottom = '2px solid #ED1C24';
       val = false;
     } else {
-      $('#telefono').removeClass('campo-invalido');
+      telefono.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#dni').val().length <= 0) {
-      $('#dni').addClass('campo-invalido');
+      dni.style.borderBottom = '2px solid #ED1C24';
       val = false;
     } else {
-      $('#dni').removeClass('campo-invalido');
+      dni.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#txtfecha').val().length <= 0) {
-      $('#txtfecha').addClass('campo-invalido');
+      txtfecha.style.borderBottom = '2px solid #ED1C24';
       val = false;
     } else {
-      $('#txtfecha').removeClass('campo-invalido');
+      txtfecha.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#pasajero').val().length <= 0) {
-      $('#pasajero').addClass('campo-invalido');
+      pasajero.style.borderBottom = '2px solid #ED1C24';
       val = false;
     } else {
-      $('#pasajero').removeClass('campo-invalido');
+      pasajero.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#usuario').val().length <= 0) {
-      $('#usuario').addClass('campo-invalido');
+      usuario.style.borderBottom = '2px solid #ED1C24';
       val = false;
     } else {
-      $('#usuario').removeClass('campo-invalido');
+      usuario.style.borderBottom = '2px solid #9b9b9b;';
     }
     return val;
   }
 
   ValidarCamposEdit() {
+    var nombreEdit = document.getElementById("nombreEdit");
+    var apellidoEdit = document.getElementById("apellidoEdit");
+    var telefonoEdit = document.getElementById("telefonoEdit");
+    var dniEdit = document.getElementById("dniEdit");
+    var txtfechaEdit = document.getElementById("txtfechaEdit");
+    var pasajeroEdit = document.getElementById("pasajeroEdit");
+    var usuarioEdit = document.getElementById("usuarioEdit");
     let val = true;
     let correo;
     this.ValidarCorreoEdit();
     correo = $("#correoTitu").val();
 
     if ($('#nombreEdit').val().length <= 0) {
-      $('#nombreEdit').addClass('campo-invalido');
+      nombreEdit.style.borderBottom = '2px solid #ED1C24';
     } else {
-      $('#nombreEdit').removeClass('campo-invalido');
+      nombreEdit.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#apellidoEdit').val().length <= 0) {
       val = false;
-      $('#apellidoEdit').addClass('campo-invalido');
+      apellidoEdit.style.borderBottom = '2px solid #ED1C24';
     } else {
-      $('#apellidoEdit').removeClass('campo-invalido');
+      apellidoEdit.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#telefonoEdit').val().length <= 0) {
-      $('#telefonoEdit').addClass('campo-invalido');
+      telefonoEdit.style.borderBottom = '2px solid #ED1C24';
       val = false;
     } else {
-      $('#telefonoEdit').removeClass('campo-invalido');
+      telefonoEdit.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#dniEdit').val().length <= 0) {
-      $('#dniEdit').addClass('campo-invalido');
+      dniEdit.style.borderBottom = '2px solid #ED1C24';
       val = false;
     } else {
-      $('#dniEdit').removeClass('campo-invalido');
+      dniEdit.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#txtfechaEdit').val().length <= 0) {
-      $('#txtfechaEdit').addClass('campo-invalido');
+      txtfechaEdit.style.borderBottom = '2px solid #ED1C24';
       val = false;
     } else {
-      $('#txtfechaEdit').removeClass('campo-invalido');
+      txtfechaEdit.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#pasajeroEdit').val().length <= 0) {
-      $('#pasajeroEdit').addClass('campo-invalido');
+      pasajeroEdit.style.borderBottom = '2px solid #ED1C24';
       val = false;
     } else {
-      $('#pasajeroEdit').removeClass('campo-invalido');
+      pasajeroEdit.style.borderBottom = '2px solid #9b9b9b;';
     }
     if ($('#usuarioEdit').val().length <= 0) {
-      $('#usuarioEdit').addClass('campo-invalido');
+      usuarioEdit.style.borderBottom = '2px solid #ED1C24';
       val = false;
     } else {
-      $('#usuarioEdit').removeClass('campo-invalido');
+      usuarioEdit.style.borderBottom = '2px solid #9b9b9b;';
     }
     return val;
   }

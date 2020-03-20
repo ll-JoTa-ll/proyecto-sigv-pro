@@ -15,19 +15,19 @@
                         <span class="titulo1">En este modulo puedes crear, ver y administrar usuarios.</span>
                     </div>
                 </div>
-                <div class="row m-0 p-0">
-                    <div class="col-4" style="padding-top: 50px;padding-bottom: 60px;">
+                <div class="row m-0 p-0" style="display: flex;flex-wrap: wrap;">
+                    <div class="col-4" style="padding-top: 32px;padding-bottom: 60px;">
                         <span class="title pr-2">Buscar</span>
-                        <input (keyup)="change($event)" (click)="refrescar()" class="input-names" style="width: 290px; height: 44px;" placeholder="Ingresa el nombre o apellido del pasajero" id="nombrehotel">
+                        <input (keyup)="change($event)" (click)="refrescar()" class="input-names" style="width: 75%; height: 79%;display: flex;flex-wrap: wrap;" placeholder="Ingresa el nombre o apellido del pasajero" id="nombrehotel">
                     </div>
                     <div class="col-3" style="padding-top: 50px;">
-                        <span class="title box-shadow" (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Nuevo Pasajero / Usuario</span>
+                        <span class="title box-shadow" (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 95%;justify-content: center;">Nuevo Pasajero / Usuario</span>
                     </div>
                     <div class="col-3" style="padding-top: 50px;">
-                        <span class="title box-shadow" (click)="open(modalReestablecer)" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Reestablecer Contraseña</span>
+                        <span class="title box-shadow" (click)="open(modalReestablecer)" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 93%;justify-content: center;">Reestablecer Contraseña</span>
                     </div>
                     <div class="col-2" style="padding-top: 50px;">
-                        <span class="title box-shadow" (click)="openModalPoliticasMedium(modalMasivo)" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Carga Masiva</span>
+                        <span class="title box-shadow" (click)="openModalPoliticasMedium(modalMasivo)" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 94%;justify-content: center;">Carga Masiva</span>
                         <!--  <input type="file" id="file" class="title box-shadow" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;" />
                       
                         <input (click)="openModalPoliticasMedium(modalMasivo)" accept=".xlsx" type="file" id="real-file" hidden="hidden" />
@@ -177,23 +177,20 @@
                     </div>
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+                    
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Nombres :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="nombre" (keypress)="validarLetras($event)" (paste)="false" placeholder="Ingrese el nombre" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeNombre()" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Nombres" name="nombre" id='nombre' required />
+                                <label for="nombre" class="form__label">Nombres</label>
                             </div>
                         </div>
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Apellidos :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="apellido" (keypress)="validarLetras($event)" (paste)="false" placeholder="Ingrese el apellido" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeApellido()" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Apellidos" name="apellido" id='apellido' required />
+                                <label for="apellido" class="form__label">Apellidos</label>
                             </div>
                         </div>
                     </div>
@@ -202,22 +199,18 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Telefono :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="telefono" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el telefono" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeTelefono()" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Telefono" name="telefono" id='telefono' required />
+                                <label for="telefono" class="form__label">Telefono</label>
                             </div>
                         </div>
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Correo :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="correo" placeholder="Ingrese el correo" (keydown)="ValidarCorreo()" (keyup)="ValidarCorreo()" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;" (paste)="false">
-                                <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La direccion de correo es invalida</div>
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeCorreo()" (keydown)="ValidarCorreo()" (keyup)="ValidarCorreo()" class="form__field" placeholder="Correo" name="correo" id='correo' required />
+                                <label for="correo" class="form__label">Correo</label>
+                                <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La dirección de correo es invalida</div>
                             </div>
                         </div>
                     </div>
@@ -225,11 +218,8 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Documento de Identidad :</span>
-                            </div>
                             <div class="col-8 m-0 p-0">
-                                <select (change)="onChange($event.target.value)" class="input-pasajero" name="" id="cbo_document">
+                                <select (change)="onChange($event.target.value)" type="text" name="" id="cbo_document">
                                     <option *ngFor="let item of this.Document" value="{{item.id}}">{{item.name}}</option>
                                 </select>
                             </div>
@@ -237,13 +227,9 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Numero de Identidad :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="dni" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el documento de identidad" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;" maxlength="8">
-                                <label *ngIf="forDni" for="dni" style="color: red;">El numero de DNI debe tener 8 digitos.</label>
-                                <label *ngIf="forCarne" for="dni" style="color: red;">El numero de carné de extranjeria debe tener 8 digitos.</label>
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeDni()" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Documento de Identidad" name="dni" id='dni' maxlength="8" required />
+                                <label for="dni" class="form__label">Documento de Identidad</label>
                             </div>
                         </div>
                     </div>
@@ -255,7 +241,7 @@
                                 <span class="titulo1">Pasaporte :</span>
                             </div>
                             <div class="col-8 m-0 p-0">
-                                <select (change)="onChange($event.target.value)" class="input-pasajero" name="" id="cbo_document">
+                                <select (change)="onChange($event.target.value)" type="text" name="" id="cbo_document">
                                     <option value="2">Pasaporte</option>
                                     <option value="3">Carné de Extranjería</option>
                                 </select>
@@ -264,11 +250,9 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Numero de Pasaporte :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="pasaporte" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el documento de identidad" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;" maxlength="8">
+                            <div class="form__group field">
+                                <input type="input" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Pasaporte" name="pasaporte" maxlength="8" id='pasaporte' required />
+                                <label for="pasaporte" class="form__label">Pasaporte</label>
                                 <img style="width: 30px;margin-left: 15px;cursor: pointer;" src="./assets/images/eliminar.png" (click)="removePasaporte()">
                             </div>
                         </div>
@@ -281,7 +265,7 @@
                                 <span class="titulo1">Documento de Identidad :</span>
                             </div>
                             <div class="col-8 m-0 p-0">
-                                <select (change)="onChange($event.target.value)" class="input-pasajero" name="" id="cbo_document">
+                                <select (change)="onChange($event.target.value)" type="text" name="" id="cbo_document">
                                     <option value="1">Documento Nacional</option>
                                     <option value="3">Carné de Extranjería</option>
                                 </select>
@@ -294,7 +278,7 @@
                                 <span class="titulo1">Numero de Identidad :</span>
                             </div>
                             <div class="col-8 m-0 p-0">
-                                <input type="text" id="pasaporte" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el documento de identidad" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;" maxlength="8">
+                                <input type="text" id="pasaporte" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el documento de identidad" maxlength="8">
                                 <img style="width: 30px;margin-left: 15px;cursor: pointer;" src="./assets/images/eliminar.png" (click)="removeDocument()">
                             </div>
                         </div>
@@ -307,7 +291,7 @@
                                 <span class="titulo1">Documento de Identidad :</span>
                             </div>
                             <div class="col-8 m-0 p-0">
-                                <select (change)="onChange($event.target.value)" class="input-pasajero" name="" id="cbo_document">
+                                <select (change)="onChange($event.target.value)" type="text" name="" id="cbo_document">
                                     <option value="1">Documento Nacional</option>
                                     <option value="2">Pasaporte</option>
                                 </select>
@@ -320,7 +304,7 @@
                                 <span class="titulo1">Numero de Identidad :</span>
                             </div>
                             <div class="col-8 m-0 p-0">
-                                <input type="text" id="pasaporte" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el documento de identidad" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;" maxlength="8">
+                                <input type="text" id="pasaporte" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el documento de identidad" maxlength="8">
                                 <img style="width: 30px;margin-left: 15px;cursor: pointer;" src="./assets/images/eliminar.png" (click)="removeDocument3()">
                             </div>
                         </div>
@@ -329,11 +313,8 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Perfil :</span>
-                            </div>
                             <div class="col-8 m-0 p-0">
-                                <select class="input-pasajero" name="" id="cbo_perfil">
+                                <select type="text" name="" id="cbo_perfil">
                                     <option *ngFor="let item of this.getRole" value="{{item.id}}">{{item.name}}</option>
                                 </select>
                             </div>
@@ -341,11 +322,9 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Fecha de Nacimiento :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input class="input-pasajero" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;text-align: center;" type="text" id="txtfecha" maxlength="10" #datepickerSalida="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }">
+                            <div class="form__group field">
+                                <input type="input" (bsValueChange)="onValueChangeIngreso($event)" (keypress)="validarNumeros($event)" [maxDate]="maxDate" maxlength="10" #datepickerSalida="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }" (paste)="false" class="form__field" placeholder="Fecha de Nacimiento" name="txtfecha" id='txtfecha' required />
+                                <label for="txtfecha" class="form__label">Fecha de Nacimiento</label>
                             </div>
                         </div>
                     </div>
@@ -353,11 +332,8 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Nacionalidad :</span>
-                            </div>
                             <div class="col-8 m-0 p-0">
-                                <select class="input-pasajero" name="" id="cbo_nacionalidad">
+                                <select type="text" name="" id="cbo_nacionalidad">
                                     <option *ngFor="let item of lstpaises" value="{{item.iataCode}}">{{item.name}}</option>
                                 </select>
                             </div>
@@ -365,11 +341,8 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Genero :</span>
-                            </div>
                             <div class="col-8 m-0 p-0">
-                                <select class="input-pasajero" type="text" id="cbo_genero">
+                                <select type="text" id="cbo_genero">
                                     <option value="M">Masculino</option>
                                     <option value="F">Femenino</option>
                                     </select>
@@ -381,7 +354,7 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
+                            <div class="col-4 m-0 text-center" style="padding-left: 60px;">
                                 <span class="titulo1">Vip :</span>
                             </div>
                             <div class="col-8 m-0 p-0">
@@ -398,11 +371,9 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Pasajero Frecuente :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="pasajero" placeholder="Ingrese el pasajero Frecuente" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writePasajero()" (paste)="false" class="form__field" placeholder="Pasajero Frecuente" name="pasajero" id='pasajero' required />
+                                <label for="pasajero" class="form__label">Pasajero Frecuente</label>
                             </div>
                         </div>
                     </div>
@@ -411,7 +382,7 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
+                            <div class="col-4 m-0 text-center" style="padding-left: 80px;">
                                 <span class="titulo1">Activo</span>
                             </div>
                             <div class="col-8 m-0 p-0">
@@ -424,11 +395,8 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Centro de Costo :</span>
-                            </div>
                             <div class="col-8 m-0 p-0">
-                                <select class="input-pasajero" name="" id="cbo_costo">
+                                <select type="text" name="" id="cbo_costo">
                                     <option *ngFor="let item of this.lstCostCenter" value="{{item.costCenterId}}">{{item.description}}</option>
                                 </select>
                             </div>
@@ -440,11 +408,9 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Usuario :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="usuario" placeholder="Ingrese el usuario" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeUsuario()"  (paste)="false" class="form__field" placeholder="Usuario" name="usuario" id='usuario' required />
+                                <label for="usuario" class="form__label">Usuario</label>
                             </div>
                         </div>
                     </div>
@@ -465,9 +431,9 @@
                     <div class="col-2">
 
                     </div>
-                    <div class="col-3" style="cursor: pointer;" (click)="addDocument()">
+              <!--     <div class="col-3" style="cursor: pointer;" (click)="addDocument()">
                         <img style="width: 30px;" src="./assets/images/add.png"> Agregar documento de Identidad
-                    </div>
+                    </div>-->
                 </div>
 
             </div>
@@ -490,21 +456,17 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Nombres :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" value="{{this.PersonId.firstName}}" id="nombreEdit" placeholder="Ingrese el nombre" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeNombreEdit()" value="{{this.PersonId.firstName}}" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Nombres" name="nombreEdit" id='nombreEdit' required />
+                                <label for="nombreEdit" class="form__label">Nombres</label>
                             </div>
                         </div>
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Apellidos :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" value="{{this.PersonId.lastName}}" id="apellidoEdit" placeholder="Ingrese el apellido" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeApellidoEdit()" value="{{this.PersonId.lastName}}" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Apellidos" name="apellidoEdit" id='apellidoEdit' required />
+                                <label for="apellidoEdit" class="form__label">Apellidos</label>
                             </div>
                         </div>
                     </div>
@@ -513,22 +475,18 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Telefono :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" value="{{this.PersonId.phone}}" id="telefonoEdit" placeholder="Ingrese el telefono" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeTelefonoEdit()" value="{{this.PersonId.phone}}" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Telefono" name="telefonoEdit" id='telefonoEdit' required />
+                                <label for="telefonoEdit" class="form__label">Telefono</label>
                             </div>
                         </div>
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Correo :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" value="{{this.PersonId.email}}" id="correoEdit" placeholder="Ingrese el correo" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
-                                <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La direccion de correo es invalida</div>
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeCorreoEdit()" value="{{this.PersonId.email}}" (keydown)="ValidarCorreo()" (keyup)="ValidarCorreo()" (paste)="false" class="form__field" placeholder="Correo" name="correoEdit" id='correoEdit' required />
+                                <label for="correoEdit" class="form__label">Correo</label>
+                                <div *ngIf="inderrorEdit" class="pt-2" style="color: #ED1C24;">La dirección de correo es invalida</div>
                             </div>
                         </div>
                     </div>
@@ -536,11 +494,8 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Documento de Identidad :</span>
-                            </div>
                             <div class="col-8 m-0 p-0">
-                                <select (change)="onChangeEdit($event.target.value)" class="input-pasajero" name="" id="cbo_documentEdit" value="{{this.PersonId.odocument.id}}">
+                                <select (change)="onChangeEdit($event.target.value)" type="text" name="" id="cbo_documentEdit" value="{{this.PersonId.odocument.id}}">
                                     <option *ngFor="let item of this.Document" value="{{item.id}}">{{item.name}}</option>
                                 </select>
                             </div>
@@ -548,11 +503,9 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Numero de Identidad :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" value="{{this.PersonId.odocument.number}}" id="dniEdit" placeholder="Ingrese el documento de identidad" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeDniEdit()" value="{{this.PersonId.odocument.number}}" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Documento de Identidad" name="dniEdit" id='dniEdit' maxlength="15" required />
+                                <label for="dniEdit" class="form__label">Documento de Identidad</label>
                             </div>
                         </div>
                     </div>
@@ -560,11 +513,8 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Perfil :</span>
-                            </div>
                             <div class="col-8 m-0 p-0">
-                                <select class="input-pasajero" name="" id="cbo_perfilEdit" value="{{this.PersonId.orole.id}}">
+                                <select type="text" name="" id="cbo_perfilEdit" value="{{this.PersonId.orole.id}}">
                                     <option *ngFor="let item of this.getRole" value="{{item.id}}">{{item.name}}</option>
                                 </select>
                             </div>
@@ -572,12 +522,9 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Fecha de Nacimiento :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input class="input-pasajero" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;text-align: center;" type="text" id="txtfechaEdit" [(bsValue)]="bsValue" value="{{this.PersonId.birthDate | fechaformat}}" maxlength="10" #datepickerSalida="bsDatepicker"
-                                    bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }">
+                            <div class="form__group field">
+                                <input type="input" (bsValueChange)="onValueChangeIngresoEdit($event)" (keyup)="writeFechaEdit()" (keypress)="validarNumeros($event)" [maxDate]="maxDate" [(bsValue)]="bsValue" value="{{this.PersonId.birthDate | fechaformat}}"  [maxDate]="maxDate" #datepickerSalida="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }" (paste)="false" class="form__field" placeholder="Fecha de Nacimiento" name="txtfechaEdit" id='txtfechaEdit' required />
+                                <label for="txtfecha" class="form__label">Fecha de Nacimiento</label>
                             </div>
                         </div>
                     </div>
@@ -585,11 +532,8 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Nacionalidad :</span>
-                            </div>
                             <div class="col-8 m-0 p-0">
-                                <select class="input-pasajero" name="" id="cbo_nacionalidadEdit" value="{{this.PersonId.onationality.iataCode}}">
+                                <select type="text" name="" id="cbo_nacionalidadEdit" value="{{this.PersonId.onationality.iataCode}}">
                                     <option *ngFor="let item of lstpaises" value="{{item.iataCode}}">{{item.name}}</option>
                                 </select>
                             </div>
@@ -597,14 +541,11 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Genero :</span>
-                            </div>
                             <div class="col-8 m-0 p-0">
-                                <select class="input-pasajero" type="text" id="cbo_generoEdit" value={{this.PersonId.gender}}>
+                                <select type="text" id="cbo_generoEdit" value={{this.PersonId.gender}}>
                                     <option value="M">Masculino</option>
                                     <option value="F">Femenino</option>
-                                    </select>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -613,7 +554,7 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
+                            <div class="col-4 m-0 text-center" style="padding-left: 60px;">
                                 <span class="titulo1">Vip :</span>
                             </div>
                             <div class="col-8 m-0 p-0">
@@ -626,11 +567,9 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Pasajero Frecuente :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="pasajeroEdit" value="{{this.PersonId.frequentFlyer}}" placeholder="Ingrese el pasajero Frecuente" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writePasajeroEdit()" (paste)="false" value="{{this.PersonId.frequentFlyer}}" class="form__field" placeholder="Pasajero Frecuente" name="pasajeroEdit" id='pasajeroEdit' required />
+                                <label for="pasajeroEdit" class="form__label">Pasajero Frecuente</label>
                             </div>
                         </div>
                     </div>
@@ -638,7 +577,7 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
+                            <div class="col-4 m-0 text-center" style="padding-left: 80px;">
                                 <span class="titulo1">Activo</span>
                             </div>
                             <div class="col-8 m-0 p-0">
@@ -651,11 +590,8 @@
                     </div>
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Centro de Costo :</span>
-                            </div>
                             <div class="col-8 m-0 p-0">
-                                <select class="input-pasajero" name="" id="cbo_costoEdit" value="{{this.PersonId.ocostCenter.costCenterId}}">
+                                <select type="text" name="" id="cbo_costoEdit" value="{{this.PersonId.ocostCenter.costCenterId}}">
                                     <option *ngFor="let item of this.lstCostCenter" value="{{item.costCenterId}}">{{item.description}}</option>
                                 </select>
                             </div>
@@ -666,11 +602,9 @@
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     <div class="col-6 m-0">
                         <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Usuario :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" value="{{this.PersonId.loginUser}}" id="usuarioEdit" placeholder="Ingrese el apellido" class="input-names box-shadow" style="width: 299px; height: 44px;border-radius: 10px;border: 1px solid;">
+                            <div class="form__group field">
+                                <input type="input" (keyup)="writeUsuarioEdit()"  disabled value="{{this.PersonId.loginUser}}" class="form__field" placeholder="Usuario" name="usuarioEdit" id='usuarioEdit' required />
+                                <label for="usuarioEdit" class="form__label">Usuario</label>
                             </div>
                         </div>
                     </div>
@@ -767,6 +701,64 @@
         </ng-template>
 
         <style>
+            .form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 50%;
+  margin-left: 100px;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  font-size: 1.3rem;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+}
+.form__field::placeholder {
+  color: transparent;
+}
+.form__field:placeholder-shown ~ .form__label {
+  font-size: 1.3rem;
+  cursor: text;
+  top: 20px;
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #9b9b9b;
+}
+
+.form__field:focus {
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #11998e, #38ef7d);
+  border-image-slice: 1;
+}
+.form__field:focus ~ .form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #11998e;
+  font-weight: 700;
+}
+
+/* reset input */
+.form__field:required, .form__field:invalid {
+  box-shadow: none;
+}
             input[type="file"] {
                 position: relative;
                 top: 6px;
@@ -793,6 +785,44 @@
                 position: relative;
             }
             
+            input[type=text] {
+                display: block;
+                margin: 0 auto;
+                width: 80%;
+                border: 0;
+                border-bottom: 1px solid rgba(0, 0, 0, .2);
+                height: 45px;
+                line-height: 45px;
+                margin-bottom: 10px;
+                font-size: 1em;
+                color: rgba(0, 0, 0, .4);
+            }
+            
+            input[type='text']:focus {
+                outline: none;
+                border-color: #53CACE;
+            }
+            
+            select[type=text] {
+                display: block;
+                margin: 0 auto;
+                width: 76%;
+                border: 0;
+                border-bottom: 2px solid #9b9b9b;
+                height: 45px;
+                line-height: 45px;
+                margin-bottom: 10px;
+                font-size: 1em;
+                margin-left: 98px;
+                color: rgba(0, 0, 0, .4);
+                margin-top: 15px;
+            }
+            
+            select[type='text']:focus {
+                outline: none;
+                border-color: #53CACE;
+            }
+            
             .toggle-btn,
             .toggle-EditVip,
             .toggle-EditActive,
@@ -810,6 +840,7 @@
                 -o-transition: background-color .40s ease-in-out;
                 transition: background-color .40s ease-in-out;
                 cursor: pointer;
+                margin-left: 40px;
             }
             
             .toggle-btn.active,
