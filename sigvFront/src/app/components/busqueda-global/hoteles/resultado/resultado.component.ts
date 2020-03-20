@@ -40,6 +40,7 @@ export class ResultadoComponent implements OnInit {
   @Input() precioprom: string;
   @Input() isvisible: string;
   @Input() currency: string;
+  @Input() businessName: string;
   @Input() urlHotel: string;
   @Input() index: string;
   @Input() latitud: string;

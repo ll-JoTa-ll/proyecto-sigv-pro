@@ -37,6 +37,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   @Input() currency;
   @Input() precioprom;
   @Input() precioxnoche;
+  @Input() businessName: string;
   @Input() longitud;
   @Input() cantpersonas;
   @Input() estrellas;
