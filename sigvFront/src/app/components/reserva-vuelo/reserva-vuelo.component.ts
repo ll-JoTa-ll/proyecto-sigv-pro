@@ -84,6 +84,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   lstprofiles: IProfileModel;
   flagactive: boolean;
   numeropasajero;
+  lstbag;
 
   constructor(
     private modalService: BsModalService,
@@ -104,6 +105,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.htmlTxtC = "";
     this.flagrules = false;
     this.flagerror = false;
+    this.lstbag = this.flightAvailability_result.lsectionBaggages;
   }
 
   ngOnInit() {

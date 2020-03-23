@@ -9,6 +9,7 @@ export class InfoRecomendacionComponent implements OnInit {
 
   @Input() LSection;
   @Input() tipovuelo;
+  @Input() lstBag;
 
   constructor() { }
 

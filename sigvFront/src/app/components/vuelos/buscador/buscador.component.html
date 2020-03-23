@@ -161,6 +161,7 @@
                      (bsValueChange)="onValueChangeRetorno($event)"
                      [minDate]="minDateRetorno"
                      bsDatepicker
+                     [dateCustomClasses]="dateCustomClasses"
                      (onHidden)="ValidarDestinos()"
                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
               >

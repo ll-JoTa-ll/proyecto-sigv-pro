@@ -17,7 +17,11 @@ declare var $: any;
 export class MultidestinosLgComponent implements OnInit {
 
   model: any = {};
-  dateCustomClasses: DatepickerDateCustomClasses[];
+  dateCustomClasses2: DatepickerDateCustomClasses[];
+  dateCustomClasses3: DatepickerDateCustomClasses[];
+  dateCustomClasses4: DatepickerDateCustomClasses[];
+  dateCustomClasses5: DatepickerDateCustomClasses[];
+  dateCustomClasses6: DatepickerDateCustomClasses[];
 
   @Input() inOrigenValue;
   @Input() inOrigenText;
@@ -160,10 +164,6 @@ export class MultidestinosLgComponent implements OnInit {
     this.minDateSalida5.setDate(this.minDateSalida5.getDate());
     this.minDateSalida6 = new Date();
     this.minDateSalida6.setDate(this.minDateSalida6.getDate());
-    const now = new Date();
-    this.dateCustomClasses = [
-      { date: now, classes: ['bg-danger', 'text-warning'] }
-    ];
   }
 
   ngOnInit() {
@@ -569,6 +569,9 @@ export class MultidestinosLgComponent implements OnInit {
     this.minDateSalida4 = value;
     this.minDateSalida5 = value;
     this.minDateSalida6 = value;
+    this.dateCustomClasses2 = [
+      { date: this.minDateSalida2, classes: ['bg-danger','text-warning'] }
+    ];
 
     let mes = "";
     let getMonth = value.getMonth() + 1;
@@ -602,6 +605,12 @@ export class MultidestinosLgComponent implements OnInit {
     this.minDateSalida5 = value;
     this.minDateSalida6 = value;
     this.calendarSalidaValue2 = value;
+    this.dateCustomClasses3 = [
+      { date: this.minDateSalida3, classes: ['bg-danger','text-warning'] }
+    ];
+    this.dateCustomClasses2 = [
+      { date: null, classes: ['bg-danger','text-warning'] }
+    ];
 
     let mes = "";
     let getMonth = value.getMonth() + 1;
@@ -637,6 +646,14 @@ export class MultidestinosLgComponent implements OnInit {
     this.minDateSalida6 = value;
     this.calendarSalidaValue3 = value;
 
+    this.dateCustomClasses3 = [
+      { date: null, classes: ['bg-danger','text-warning'] }
+    ];
+
+    this.dateCustomClasses4 = [
+      { date: this.minDateSalida4, classes: ['bg-danger','text-warning'] }
+    ];
+
     let mes = "";
     let getMonth = value.getMonth() + 1;
     if (getMonth < 10) {
@@ -670,6 +687,13 @@ export class MultidestinosLgComponent implements OnInit {
     this.minDateSalida6 = value;
     this.calendarSalidaValue4 = value;
 
+    this.dateCustomClasses4 = [
+      { date: null, classes: ['bg-danger','text-warning'] }
+    ];
+
+    this.dateCustomClasses5 = [
+      { date: this.minDateSalida5, classes: ['bg-danger','text-warning'] }
+    ];
     let mes = "";
     let getMonth = value.getMonth() + 1;
     if (getMonth < 10) {
@@ -702,6 +726,14 @@ export class MultidestinosLgComponent implements OnInit {
     this.minDateSalida6 = value;
     this.calendarSalidaValue5 = value;
 
+    this.dateCustomClasses5 = [
+      { date: null, classes: ['bg-danger','text-warning'] }
+    ];
+
+    this.dateCustomClasses6 = [
+      { date: this.minDateSalida6, classes: ['bg-danger','text-warning'] }
+    ];
+
     let mes = "";
     let getMonth = value.getMonth() + 1;
     if (getMonth < 10) {
@@ -732,6 +764,10 @@ export class MultidestinosLgComponent implements OnInit {
   onValueChangeSalida6(value: Date): void {
     $("#txtFechaSalida6").removeClass("campo-invalido");
     this.calendarSalidaValue6 = value;
+
+    this.dateCustomClasses6 = [
+      { date: null, classes: ['bg-danger','text-warning'] }
+    ];
     let mes = "";
     let getMonth = value.getMonth() + 1;
     if (getMonth < 10) {

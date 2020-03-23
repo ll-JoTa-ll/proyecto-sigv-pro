@@ -39,7 +39,6 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   airportlistFilter: any[] = [];
   loginDataUser: ILoginDatosModel;
   searchData: ISearchFlightModel[] = [];
-  dateCustomClasses: DatepickerDateCustomClasses[];
 
   origenAuto: string;
   origentTexto: string;
@@ -158,6 +157,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   lstAsesors: iGetAsesors[];
   maleta: boolean = false;
   flagDinData2: boolean = false;
+  dateCustomClasses: DatepickerDateCustomClasses[];
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -391,6 +391,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.valfechasalida = false;
     $("#txtFechaSalida").removeClass("campo-invalido");
     this.minDateRetorno = value;
+    this.dateCustomClasses = [
+      { date: this.minDateRetorno, classes: ['bg-danger','text-warning'] }
+    ];
     //console.log("dpSalida: " + this.dpSalida);
 
     if (value != null) {
@@ -436,6 +439,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     if (value != null) {
       this.valfechadestino = false;
       this.calendarSalidaValue = value;
+      this.dateCustomClasses = [
+        { date: null , classes: ['bg-danger','text-warning'] }
+      ];
       $("#txtFechaDestino").removeClass("campo-invalido");
       let mes = "";
       let getMonth = value.getMonth() + 1;

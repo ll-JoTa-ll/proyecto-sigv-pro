@@ -191,9 +191,9 @@
              #datepickerRetorno="bsDatepicker"
              (bsValueChange)="onValueChangeRetorno($event)"
              [minDate]="minDateRetorno"
+             [dateCustomClasses]="dateCustomClasses"
              bsDatepicker
              [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-             [(ngModel)]="model.retorno"
              id="fechadestino"
              (onHidden)="ValidarCiudad()"
       >

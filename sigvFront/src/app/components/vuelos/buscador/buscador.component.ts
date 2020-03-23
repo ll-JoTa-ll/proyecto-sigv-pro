@@ -6,6 +6,7 @@ import { ISearchFlightModel } from '../../../models/ISearchFlight.model';
 import { AirportService } from '../../../services/airport.service';
 import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 
 declare var jquery: any;
 declare var $: any;
@@ -130,6 +131,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   lstAutocomplete: any[] = [];
   fechanow: Date;
   calendarSalidaValue: Date;
+  dateCustomClasses: DatepickerDateCustomClasses[];
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -408,6 +410,9 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   onValueChangeSalida(value: Date): void {
     if (value != null) {
       this.minDateRetorno = value;
+      this.dateCustomClasses = [
+        { date: this.minDateRetorno, classes: ['bg-danger','text-warning'] }
+      ];
       //console.log("dpSalida: " + this.dpSalida);
 
       let mes = "";
@@ -465,6 +470,9 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   onValueChangeRetorno(value: Date): void {
     if (value != null) {
       this.calendarSalidaValue = value;
+      this.dateCustomClasses = [
+        { date: null, classes: ['bg-danger','text-warning'] }
+      ];
       let mes = "";
       let getMonth = value.getMonth() + 1;
       if (getMonth < 10) {

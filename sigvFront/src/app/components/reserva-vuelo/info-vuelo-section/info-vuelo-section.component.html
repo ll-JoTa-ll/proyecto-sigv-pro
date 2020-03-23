@@ -34,7 +34,7 @@
                         </div>
                         <div class="modal-body m-0 p-0">
 
-                            <app-modal-resumen-vuelo [LSection]="LSection"></app-modal-resumen-vuelo>
+                            <app-modal-resumen-vuelo [lstBag]="lstBag" [LSection]="LSection"></app-modal-resumen-vuelo>
                         </div>
                     </ng-template>
                 </div>
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="col-12 m-0 p-0">
-                <app-info-vuelo-segment (msjairline)="ObtenerAirline($event)" *ngFor="let segment of section.Lsegments; let i = index" [segment]="segment" [bagAllowed]="section.BagAllowed" [bagquantity]="section.BagQuantity"></app-info-vuelo-segment>
+                <app-info-vuelo-segment (msjairline)="ObtenerAirline($event)" *ngFor="let segment of section.Lsegments; let i = index" [segment]="segment" [bagAllowed]="lstBag[index].bagAllowed" [bagquantity]="lstBag[index].bagQuantity"></app-info-vuelo-segment>
             </div>
         </div>
     </div>

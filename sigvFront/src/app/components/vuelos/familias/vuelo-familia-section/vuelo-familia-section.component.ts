@@ -87,7 +87,8 @@ export class VueloFamiliaSectionComponent implements OnInit {
   EvtColorFamily($event) {
     console.log('"' + $event + '"');
     if (this.isCollapsed === false) {
-      $('#namefamilia_' + this.sectionFamilyIndex).css({'background-color': '"' + $event + '"'});
+      console.log('Aqui esta el color: ', $event);
+      $('#nombrefamilia_' + this.sectionFamilyIndex).css({'background-color': '"' + $event + '"'});
     }
   }
 }

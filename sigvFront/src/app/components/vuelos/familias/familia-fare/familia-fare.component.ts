@@ -186,9 +186,9 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     console.log(id);
     let namefamilia = $('#' + this.idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).html();
     let colorfamilia = this.colorsFare[fareFamilyIndex];
-    this.namefamily.emit(namefamilia);
     this.colorfamily.emit(colorfamilia);
-    console.log(namefamilia);
+    this.namefamily.emit(namefamilia);
+    console.log(colorfamilia);
     this.idRadioBtnFareFam.emit(id);
     this.hidesection.emit(true);
   }

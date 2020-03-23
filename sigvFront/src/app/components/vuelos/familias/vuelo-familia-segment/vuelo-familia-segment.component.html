@@ -96,7 +96,7 @@
 
                 <div class="row m-0 p-0" style="width: 100%; display: flex; flex-wrap: nowrap; overflow-x: auto">
 
-                    <app-familia-fare (hidesection)="Hidesection($event)" (colorfamily)="EventColorFamilia($event)" (namefamily)="EventNameFamilia($event)" [fareFamily]="fareFamily" [currency]="" [fareFamilyIndex]="i+1" [flagCountInc]="flagCountInc" [flagCountNof]="flagCountNof"
+                    <app-familia-fare (colorfamily)="EventColorFamilia($event)" (hidesection)="Hidesection($event)" (namefamily)="EventNameFamilia($event)" [fareFamily]="fareFamily" [currency]="" [fareFamilyIndex]="i+1" [flagCountInc]="flagCountInc" [flagCountNof]="flagCountNof"
                         [flagCountCha]="flagCountCha" [segmentIndex]="segmentIndex" [sectionIndex]="sectionFamilyIndex" [familyLength]="segment.lfareFamilies.length" (idRadioBtnFareFam)="selectRadioBtnFam($event)" *ngFor="let fareFamily of segment.lfareFamilies; let i=index"></app-familia-fare>
 
                 </div>
