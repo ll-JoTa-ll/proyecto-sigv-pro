@@ -3,6 +3,7 @@
 @import "../node_modules/bootstrap/scss/mixins"
 @import "../node_modules/bootstrap/scss/functions"
 @import "../node_modules/bootstrap/scss/variables"
+@import '../node_modules/react-dates/lib/css/_datepicker'
 
 $company-color: #ED1C24
 $secondary-color: #ED1C24
@@ -76,7 +77,7 @@ $my-color-palette: igx-palette($primary: $company-color,$secondary: $secondary-c
   border-radius: 4px
   -webkit-transition: 0.5s
   transition: 0.5s
-  
+
 .autocomplete-container .input-container input:focus
   border: 3px solid #6B253C !important
   border-radius: 4px
@@ -105,10 +106,10 @@ $my-color-palette: igx-palette($primary: $company-color,$secondary: $secondary-c
 
 .gray.modal-lg.m-resumen
   max-width: 60% !important
-  
+
 
 .gray.modal-lg.m-regulaciones
-  max-width: 50% !important  
+  max-width: 50% !important
 
 .gray.modal-lg.m-infraccion
   max-width: 45% !important
@@ -138,7 +139,7 @@ $my-color-palette: igx-palette($primary: $company-color,$secondary: $secondary-c
 
 .fadeIn
   animation-name: fadeIn
-  
+
 .modal-lg.m-galeria
     max-width: 1000px !important
 
@@ -146,7 +147,7 @@ $my-color-palette: igx-palette($primary: $company-color,$secondary: $secondary-c
   border: 3px solid red !important
 
 .quitar-borde
-  border: none !important  
+  border: none !important
 
 .tooltip-inner
   background-color: #009688
@@ -366,3 +367,83 @@ $my-color-palette: igx-palette($primary: $company-color,$secondary: $secondary-c
 
 
 
+.DateInput__display-text.DateInput__display-text--focused
+  background-color: #9a0303 !important
+  border-color: #9a0303 !important
+  color: white !important
+
+.CalendarDay.CalendarDay--today.CalendarDay--valid
+  border-bottom: 5px solid red !important
+
+.CalendarDay.CalendarDay--today.CalendarDay--valid.CalendarDay--selected-start
+  background-color: #9a0303 !important
+  border-color: #9a0303 !important
+  background: #9a0303 !important
+  border: #9a0303 !important
+  color: white !important
+
+.CalendarDay.CalendarDay--valid.CalendarDay--selected-start
+  background-color: #9a0303 !important
+  border-color: #9a0303 !important
+  background: #9a0303 !important
+  border: #9a0303 !important
+  color: white !important
+
+.CalendarDay.CalendarDay--valid.CalendarDay--selected-end
+  background-color: #9a0303 !important
+  border-color: #9a0303 !important
+  background: #9a0303 !important
+  border: #9a0303 !important
+  color: white !important
+
+.CalendarDay.CalendarDay--valid.CalendarDay--selected-span
+  background-color: #9a0303 !important
+  border-color: #9a0303 !important
+  background: #9a0303 !important
+  border: #9a0303 !important
+  color: white !important
+
+.CalendarDay.CalendarDay--valid.CalendarDay--hovered-span
+  background-color: #9a0303 !important
+  border-color: #9a0303 !important
+  background: #9a0303 !important
+  border: #9a0303 !important
+  color: white !important
+
+.CalendarDay.CalendarDay--valid.CalendarDay--hovered.CalendarDay--hovered-span
+  background-color: #9a0303 !important
+  border-color: #9a0303 !important
+  background: #9a0303 !important
+  border: #9a0303 !important
+  color: white !important
+
+.CalendarDay.CalendarDay--valid.CalendarDay--after-hovered-start
+  background-color: #9a0303 !important
+  border-color: #9a0303 !important
+  background: #9a0303 !important
+  border: #9a0303 !important
+  color: white !important
+
+.DateRangePickerInput
+  border: 2px solid #DFD9D8 !important
+  box-shadow: none !important
+  border-radius: 4px !important
+  display: flex !important
+  justify-content: center !important
+  align-items: center !important
+  height: 40px !important
+  width: 100% !important
+
+.SingleDatePickerInput
+  border: 2px solid #DFD9D8 !important
+  box-shadow: none !important
+  border-radius: 4px !important
+  display: flex !important
+  justify-content: center !important
+  align-items: center !important
+  height: 40px !important
+  width: 100% !important
+
+.DateInput
+  padding: 0px !important
+  padding-left: 8px !important

@@ -159,6 +159,21 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   maleta: boolean = false;
   flagDinData2: boolean = false;
 
+  dateRangePickerProps = {
+    "startDatePlaceholderText": "Salida",
+    "endDatePlaceholderText": "Retorno",
+    "displayFormat": "DD/MM/YYYY"
+  };
+  selectedDateRange = {
+    "start": null,
+    "end": null
+  };
+  singleDatePickerProps = {
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY"
+  };
+  selectedDate;
+
   constructor(
     private rutaActiva: ActivatedRoute,
     private airportService: AirportService,
@@ -899,8 +914,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       destino.push(this.destinoAuto);
       destino.push(this.origenAuto);
 
-      fechas.push(this.fechaSalida);
-      fechas.push(this.fechaRetorno);
+      //fechas.push(this.fechaSalida);
+      //fechas.push(this.fechaRetorno);
+      fechas.push(this.selectedDateRange.start);
+      fechas.push(this.selectedDateRange.end);
     }
 
     if (this.tipoVuelo === "OW") {
@@ -1050,22 +1067,29 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   GetBoletosNoUsados(template) {
+    console.log("GetBoletosNoUsados");
     this.spinner.show();
     let origen: any[] = [];
     let destino: any[] = [];
     let fechasalida;
-    fechasalida = this.FormatearFecha(this.fechaSalida);
+    //fechasalida = this.FormatearFecha(this.fechaSalida);
     if (this.tipoVuelo === "RT") {
       origen.push(this.origenAuto);
       origen.push(this.destinoAuto);
 
       destino.push(this.destinoAuto);
       destino.push(this.origenAuto);
+
+      console.log("this.selectedDateRange.start: " + this.selectedDateRange.start);
+      fechasalida = this.formatDate1(this.selectedDateRange.start);
     }
 
     if (this.tipoVuelo === "OW") {
       origen.push(this.origenAuto);
       destino.push(this.destinoAuto);
+
+      console.log("this.selectedDate: " + this.selectedDate);
+      fechasalida = this.formatDate1(this.selectedDate);
     }
 
     if (this.tipoVuelo === "MC") {
@@ -1135,7 +1159,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       "Origin": origen,
       "Destination": destino,
       "CountryCode": this.loginDataUser.ocompany.countryCode
-    }
+    };
     this.airportService.GetBoletosnoUsados(data).subscribe(
       result => {
            this.lstBnus = result;
@@ -1172,6 +1196,16 @@ export class VuelosComponent implements OnInit, AfterViewInit {
      return fechatotal;
   }
 
+  formatDate1(value) {
+    console.log("formatDate1");
+    var dd = value.getDate();
+    var mm = value.getMonth() + 1;
+    var yyyy = value.getFullYear();
+    const fechatotal = yyyy + '-' + mm + '-' + dd;
+    console.log("fechatotal: " + fechatotal);
+    return fechatotal;
+  }
+
   BoletosNousados(template) {
     const flagVal = this.validarDataBusqueda();
     if (!flagVal) {
@@ -1183,6 +1217,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
  }
 
   searchFlight() {
+    console.log("searchFlight");
     if (this.lstBnus != null) {
       if (this.lstBnus.length > 0) {
         this.UserBnus2();
@@ -1203,14 +1238,19 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       destino.push(this.destinoAuto);
       destino.push(this.origenAuto);
 
-      fechas.push(this.fechaSalida);
-      fechas.push(this.fechaRetorno);
+      //fechas.push(this.fechaSalida);
+      //fechas.push(this.fechaRetorno);
+      console.log("this.selectedDateRange.start: " + this.selectedDateRange.start);
+      fechas.push(this.formatDate1(this.selectedDateRange.start));
+      console.log("this.selectedDateRange.end: " + this.selectedDateRange.end);
+      fechas.push(this.formatDate1(this.selectedDateRange.end));
     }
 
     if (this.tipoVuelo === "OW") {
       origen.push(this.origenAuto);
       destino.push(this.destinoAuto);
-      fechas.push(this.fechaSalida);
+      //fechas.push(this.fechaSalida);
+      fechas.push(this.formatDate1(this.selectedDate));
     }
 
     if (this.tipoVuelo === "MC") {
@@ -1484,6 +1524,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         this.valdestino = false;
         $("#txtDestino").removeClass("campo-invalido");
       }
+      /*
       if ($.trim(this.fechaSalida) === '') {
         $("#txtFechaSalida").addClass("campo-invalido");
         this.valfechasalida = true;
@@ -1499,6 +1540,37 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       } else {
         this.valfechadestino = false;
         $("#txtFechaDestino").removeClass("campo-invalido");
+      }
+      */
+      console.log("this.selectedDateRange: " + JSON.stringify(this.selectedDateRange));
+      if (this.selectedDateRange === undefined) {
+        console.log(666);
+        $("#txtSelectedDateRange").addClass("campo-invalido");
+        this.valfechasalida = true;
+        flagVal = false;
+      } else {
+        console.log(777);
+        this.valfechasalida = false;
+        $("#txtSelectedDateRange").removeClass("campo-invalido");
+
+        console.log("this.selectedDateRange.start: " + this.selectedDateRange.start);
+        console.log("this.selectedDateRange.end: " + this.selectedDateRange.end);
+        if (this.selectedDateRange.start == null) {
+          $("#txtSelectedDateRange").addClass("campo-invalido");
+          this.valfechasalida = true;
+          flagVal = false;
+        } else {
+          this.valfechasalida = false;
+          $("#txtSelectedDateRange").removeClass("campo-invalido");
+        }
+        if (this.selectedDateRange.end == null) {
+          $("#txtSelectedDateRange").addClass("campo-invalido");
+          this.valfechadestino = true;
+          flagVal = false;
+        } else {
+          this.valfechadestino = false;
+          $("#txtSelectedDateRange").removeClass("campo-invalido");
+        }
       }
     }
 
@@ -1517,12 +1589,22 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
+      /*
       if ($.trim(this.fechaSalida) === '') {
         $("#txtFechaSalida").addClass("campo-invalido");
         this.valfechasalida = true;
         flagVal = false;
       } else {
         $("#txtFechaSalida").removeClass("campo-invalido");
+      }
+      */
+      console.log("this.selectedDate: " + this.selectedDate);
+      if (this.selectedDate == null) {
+        $("#txtSelectedDate").addClass("campo-invalido");
+        this.valfechasalida = true;
+        flagVal = false;
+      } else {
+        $("#txtSelectedDate").removeClass("campo-invalido");
       }
     }
 
