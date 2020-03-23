@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AirportService } from '../../../services/airport.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTypeaheadWindow } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window';
+import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 
 declare var jquery: any;
 declare var $: any;
@@ -111,6 +112,11 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   @Output() outFechaSalidaShow5 = new EventEmitter<string>();
   @Output() outFechaSalidaShow6 = new EventEmitter<string>();
 
+  dateCustomClasses2: DatepickerDateCustomClasses[];
+  dateCustomClasses3: DatepickerDateCustomClasses[];
+  dateCustomClasses4: DatepickerDateCustomClasses[];
+  dateCustomClasses5: DatepickerDateCustomClasses[];
+  dateCustomClasses6: DatepickerDateCustomClasses[];
   lstDestinos: any[] = [];
 
   airportlist: any[] = [];
@@ -746,6 +752,10 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.minDateSalida5 = value;
       this.minDateSalida6 = value;
 
+      this.dateCustomClasses2 = [
+        { date: this.minDateSalida2, classes: ['bg-danger','text-warning'] }
+      ];
+
       let mes = "";
       let getMonth = value.getMonth() + 1;
       if (getMonth < 10) {
@@ -783,6 +793,12 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.minDateSalida5 = value;
       this.minDateSalida6 = value;
       this.calendarSalidaValue2 = value;
+      this.dateCustomClasses3 = [
+        { date: this.minDateSalida3, classes: ['bg-danger','text-warning'] }
+      ];
+      this.dateCustomClasses2 = [
+        { date: null, classes: ['bg-danger','text-warning'] }
+      ];
 
       let mes = "";
       let getMonth = value.getMonth() + 1;
@@ -820,6 +836,12 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.minDateSalida5 = value;
       this.minDateSalida6 = value;
       this.calendarSalidaValue3 = value;
+       this.dateCustomClasses4 = [
+        { date: this.minDateSalida4, classes: ['bg-danger','text-warning'] }
+      ];
+      this.dateCustomClasses3 = [
+        { date: null, classes: ['bg-danger','text-warning'] }
+      ];
 
       let mes = "";
       let getMonth = value.getMonth() + 1;
@@ -856,6 +878,12 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.minDateSalida5 = value;
       this.minDateSalida6 = value;
       this.calendarSalidaValue4 = value;
+      this.dateCustomClasses5 = [
+        { date: this.minDateSalida5, classes: ['bg-danger','text-warning'] }
+      ];
+      this.dateCustomClasses4 = [
+        { date: null, classes: ['bg-danger','text-warning'] }
+      ];
 
       let mes = "";
       let getMonth = value.getMonth() + 1;
@@ -892,6 +920,13 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
       this.minDateSalida6 = value;
       this.calendarSalidaValue5 = value;
 
+      this.dateCustomClasses6 = [
+        { date: this.calendarSalidaValue5, classes: ['bg-danger','text-warning'] }
+      ];
+      this.dateCustomClasses5 = [
+        { date: null, classes: ['bg-danger','text-warning'] }
+      ];
+
       let mes = "";
       let getMonth = value.getMonth() + 1;
       if (getMonth < 10) {
@@ -925,6 +960,9 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (value != null) {
       $("#txtFechaSalida6").removeClass("campo-invalido");
       this.calendarSalidaValue6 = value;
+      this.dateCustomClasses6 = [
+        { date: null, classes: ['bg-danger','text-warning'] }
+      ];
       let mes = "";
       let getMonth = value.getMonth() + 1;
       if (getMonth < 10) {

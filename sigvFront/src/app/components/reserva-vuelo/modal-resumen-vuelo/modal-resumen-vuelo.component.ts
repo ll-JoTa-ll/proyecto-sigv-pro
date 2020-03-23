@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ModalResumenVueloComponent implements OnInit {
 
   @Input() LSection;
+  @Input() lstBag;
 
   constructor() { }
 
