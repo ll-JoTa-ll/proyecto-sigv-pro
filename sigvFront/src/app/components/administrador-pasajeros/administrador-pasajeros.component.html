@@ -178,7 +178,7 @@
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
                     
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeNombre()" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Nombres" name="nombre" id='nombre' required />
@@ -186,7 +186,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeApellido()" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Apellidos" name="apellido" id='apellido' required />
@@ -197,7 +197,7 @@
 
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeTelefono()" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Telefono" name="telefono" id='telefono' required />
@@ -205,7 +205,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeCorreo()" (keydown)="ValidarCorreo()" (keyup)="ValidarCorreo()" class="form__field" placeholder="Correo" name="correo" id='correo' required />
@@ -216,7 +216,7 @@
                     </div>
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-8 m-0 p-0">
                                 <select (change)="onChange($event.target.value)" type="text" name="" id="cbo_document">
@@ -225,7 +225,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeDni()" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Documento de Identidad" name="dni" id='dni' maxlength="8" required />
@@ -235,7 +235,7 @@
                     </div>
                 </div>
                 <div *ngIf="documento" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-4 m-0 text-center">
                                 <span class="titulo1">Pasaporte :</span>
@@ -248,7 +248,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Pasaporte" name="pasaporte" maxlength="8" id='pasaporte' required />
@@ -259,7 +259,7 @@
                     </div>
                 </div>
                 <div *ngIf="documento2" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-4 m-0 text-center">
                                 <span class="titulo1">Documento de Identidad :</span>
@@ -272,7 +272,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-4 m-0 text-center">
                                 <span class="titulo1">Numero de Identidad :</span>
@@ -285,7 +285,7 @@
                     </div>
                 </div>
                 <div *ngIf="documento3" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-4 m-0 text-center">
                                 <span class="titulo1">Documento de Identidad :</span>
@@ -298,7 +298,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-4 m-0 text-center">
                                 <span class="titulo1">Numero de Identidad :</span>
@@ -311,7 +311,7 @@
                     </div>
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-8 m-0 p-0">
                                 <select type="text" name="" id="cbo_perfil">
@@ -320,7 +320,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (bsValueChange)="onValueChangeIngreso($event)" (keypress)="validarNumeros($event)" [maxDate]="maxDate" maxlength="10" #datepickerSalida="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }" (paste)="false" class="form__field" placeholder="Fecha de Nacimiento" name="txtfecha" id='txtfecha' required />
@@ -330,7 +330,7 @@
                     </div>
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-8 m-0 p-0">
                                 <select type="text" name="" id="cbo_nacionalidad">
@@ -339,7 +339,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-8 m-0 p-0">
                                 <select type="text" id="cbo_genero">
@@ -352,7 +352,7 @@
                 </div>
 
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-4 m-0 text-center" style="padding-left: 60px;">
                                 <span class="titulo1">Vip :</span>
@@ -369,7 +369,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writePasajero()" (paste)="false" class="form__field" placeholder="Pasajero Frecuente" name="pasajero" id='pasajero' required />
@@ -380,7 +380,7 @@
                 </div>
 
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-4 m-0 text-center" style="padding-left: 80px;">
                                 <span class="titulo1">Activo</span>
@@ -393,7 +393,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-8 m-0 p-0">
                                 <select type="text" name="" id="cbo_costo">
@@ -406,7 +406,7 @@
 
 
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeUsuario()"  (paste)="false" class="form__field" placeholder="Usuario" name="usuario" id='usuario' required />
@@ -454,7 +454,7 @@
                     </div>
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeNombreEdit()" value="{{this.PersonId.firstName}}" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Nombres" name="nombreEdit" id='nombreEdit' required />
@@ -462,7 +462,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeApellidoEdit()" value="{{this.PersonId.lastName}}" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Apellidos" name="apellidoEdit" id='apellidoEdit' required />
@@ -473,7 +473,7 @@
 
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeTelefonoEdit()" value="{{this.PersonId.phone}}" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Telefono" name="telefonoEdit" id='telefonoEdit' required />
@@ -481,7 +481,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeCorreoEdit()" value="{{this.PersonId.email}}" (keydown)="ValidarCorreo()" (keyup)="ValidarCorreo()" (paste)="false" class="form__field" placeholder="Correo" name="correoEdit" id='correoEdit' required />
@@ -492,7 +492,7 @@
                     </div>
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-8 m-0 p-0">
                                 <select (change)="onChangeEdit($event.target.value)" type="text" name="" id="cbo_documentEdit" value="{{this.PersonId.odocument.id}}">
@@ -501,7 +501,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeDniEdit()" value="{{this.PersonId.odocument.number}}" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Documento de Identidad" name="dniEdit" id='dniEdit' maxlength="15" required />
@@ -511,7 +511,7 @@
                     </div>
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-8 m-0 p-0">
                                 <select type="text" name="" id="cbo_perfilEdit" value="{{this.PersonId.orole.id}}">
@@ -520,7 +520,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (bsValueChange)="onValueChangeIngresoEdit($event)" (keyup)="writeFechaEdit()" (keypress)="validarNumeros($event)" [maxDate]="maxDate" [(bsValue)]="bsValue" value="{{this.PersonId.birthDate | fechaformat}}"  [maxDate]="maxDate" #datepickerSalida="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }" (paste)="false" class="form__field" placeholder="Fecha de Nacimiento" name="txtfechaEdit" id='txtfechaEdit' required />
@@ -530,7 +530,7 @@
                     </div>
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-8 m-0 p-0">
                                 <select type="text" name="" id="cbo_nacionalidadEdit" value="{{this.PersonId.onationality.iataCode}}">
@@ -539,7 +539,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-8 m-0 p-0">
                                 <select type="text" id="cbo_generoEdit" value={{this.PersonId.gender}}>
@@ -552,7 +552,7 @@
                 </div>
 
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-4 m-0 text-center" style="padding-left: 60px;">
                                 <span class="titulo1">Vip :</span>
@@ -565,7 +565,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writePasajeroEdit()" (paste)="false" value="{{this.PersonId.frequentFlyer}}" class="form__field" placeholder="Pasajero Frecuente" name="pasajeroEdit" id='pasajeroEdit' required />
@@ -575,7 +575,7 @@
                     </div>
                 </div>
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-4 m-0 text-center" style="padding-left: 80px;">
                                 <span class="titulo1">Activo</span>
@@ -588,7 +588,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="col-8 m-0 p-0">
                                 <select type="text" name="" id="cbo_costoEdit" value="{{this.PersonId.ocostCenter.costCenterId}}">
@@ -600,7 +600,7 @@
                 </div>
 
                 <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0">
+                    <div class="col-md-6 m-0">
                         <div class="row m-0">
                             <div class="form__group field">
                                 <input type="input" (keyup)="writeUsuarioEdit()"  disabled value="{{this.PersonId.loginUser}}" class="form__field" placeholder="Usuario" name="usuarioEdit" id='usuarioEdit' required />
