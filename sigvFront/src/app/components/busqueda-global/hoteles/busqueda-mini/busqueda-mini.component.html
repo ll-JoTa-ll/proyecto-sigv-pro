@@ -55,7 +55,7 @@
                                        (onHidden)="handlerIngreso(datepickerIngreso)"
                                        (bsValueChange)="onValueChangeIngreso($event)"
                                        [minDate]="minDateIngreso"
-                                      
+
                                        bsDatepicker
                                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
                                 >
@@ -76,6 +76,7 @@
                                        (keypress)="validarTodo($event)"
                                        (bsValueChange)="onValueChangeSalida($event)"
                                        [minDate]="minDateSalida"
+                                       [dateCustomClasses]="dateCustomClasses"
                                        bsDatepicker
                                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
                                 >
@@ -199,7 +200,7 @@
                           <input type="image"
                           src="./assets/images/cama.svg"
                           class="input-img"
-                          
+
                           >
                           <input readonly (keypress)="validarNumerosN($event)" type="text"
                           id="txthabitacion"

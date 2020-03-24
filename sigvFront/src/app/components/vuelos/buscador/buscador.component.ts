@@ -411,7 +411,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (value != null) {
       this.minDateRetorno = value;
       this.dateCustomClasses = [
-        { date: this.minDateRetorno, classes: ['bg-danger','text-warning'] }
+        { date: this.minDateRetorno, classes: ['bg-danger', 'text-warning'] }
       ];
       //console.log("dpSalida: " + this.dpSalida);
 
@@ -429,10 +429,6 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         dia = "0" + value.getDate();
       } else {
         dia = "" + value.getDate();
-      }
-      if (value >= this.calendarSalidaValue) {
-        $("#datepickerRetorno").val("");
-        this.fechaRetorno = '';
       }
       $("#txtFechaSalida").removeClass("campo-invalido");
       this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;

@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ModalSesionExpiradaComponent } from '../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
 import { ModalCerrarSesionComponent } from '../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
-
+import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 declare var jquery: any;
 declare var $: any;
 
@@ -27,6 +27,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
   public text: String;
   bsValue = new Date();
+  dateCustomClasses: DatepickerDateCustomClasses[];
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
@@ -138,13 +139,13 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.calendarSalidaValue = new Date();
     this.calendarSalidaValue.setDate(this.calendarSalidaValue.getDate() + 1);
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
-    
+
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
-    
+
   }
 
   ngOnInit() {
@@ -213,7 +214,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       };
       lstAutocomplete.push(obj1);
     });
-    
+
     lstAutocomplete.sort((a, b) => a.name - b.name );
     this.lstAutocomplete = lstAutocomplete;
   }
@@ -294,7 +295,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
 
     this.minDateSalida = value;
-    
+    this.dateCustomClasses = [
+      { date: this.minDateSalida, classes: ['bg-danger','text-warning'] }
+    ];
+
     if (value >= this.calendarSalidaValue) {
       $("#datesalida").val("");
     }
@@ -316,6 +320,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     if (value != null) {
       this.calendarSalidaValue = value;
       this.maxDateIngreso  = value;
+      this.dateCustomClasses = [
+        { date: null, classes: ['bg-danger','text-warning'] }
+      ];
     this.valfechadestino = false;
     let mes = "";
     if ((value.getMonth() + 1) < 10) {
@@ -357,9 +364,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
         if (item.oprice.pricePerAllNights > mayorValor) {
           mayorValor = item.oprice.pricePerAllNights;
         }
-  
+
       });
-  
+
       this.menorPrecioHotel = menorValor;
       this.mayorPrecioHotel = mayorValor;
       this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
@@ -634,6 +641,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.flagPriceHotel = $event;
   }
 
- 
+
 
 }

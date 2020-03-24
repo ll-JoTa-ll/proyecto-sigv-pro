@@ -57,7 +57,7 @@
                                            (onHidden)="handlerIngreso(datepickerIngreso)"
                                            (bsValueChange)="onValueChangeIngreso($event)"
                                            [minDate]="minDateIngreso"
-                                           
+
                                            bsDatepicker
                                            [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
                                     >
@@ -77,6 +77,7 @@
                                            class="p-0 pl-2 v-texto-3"
                                            #datepickerSalida="bsDatepicker"
                                            (keypress)="validarTodo($event)"
+                                           [dateCustomClasses]="dateCustomClasses"
                                            (bsValueChange)="onValueChangeSalida($event)"
                                            [minDate]="minDateSalida"
                                            bsDatepicker
@@ -147,7 +148,7 @@
                         src="./assets/images/cama.svg"
                         class="input-img2">
                         <input readonly (keypress)="validarNumeros($event)" type="text"
-                        
+
                         id="txthabitacion"
                         class="input-habitacion"
                         value="{{sessionMini.habi}}">
@@ -157,7 +158,7 @@
                       src="./assets/images/pasajero.svg"
                       class="input-img2">
                       <input readonly (keypress)="validarNumeros($event)" type="text"
-                     
+
                       id="txtpersonas"
                       class="input-habitacion"
                       value="{{sessionMini.personas}}">
@@ -208,7 +209,7 @@
                               <input type="image"
                               src="./assets/images/cama.svg"
                               class="input-img"
-                              
+
                               >
                               <input readonly (keypress)="validarNumerosN($event)" type="text"
                               id="txthabitacion"

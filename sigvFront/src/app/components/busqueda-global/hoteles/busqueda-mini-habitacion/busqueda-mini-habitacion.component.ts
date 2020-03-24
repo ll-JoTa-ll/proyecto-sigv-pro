@@ -7,6 +7,7 @@ import { HotelService } from '../../../../services/hotel.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { environment } from '../../../../../environments/environment.prod';
+import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 declare var jquery: any;
 declare var $: any;
 
@@ -36,7 +37,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   @Output() hideComponent = new EventEmitter<boolean>();
   @Output() listado = new EventEmitter<IHotelResultsModel[]>();
 
-  
+
 
   @Input() destinoValue: string;
   @Input() destinoText: string;
@@ -73,7 +74,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   fechaSalidaShow;
   fechaRetornoShow;
   calendarSalidaValue: Date;
-  SearchObj: any = { 
+  SearchObj: any = {
     HotelCityCode: '',
     Start: '',
     End: '',
@@ -84,6 +85,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   viaje: any;
   entradahab: any;
   salidahab: any;
+  dateCustomClasses: DatepickerDateCustomClasses[];
 
   constructor(
     private localeService: BsLocaleService,
@@ -91,7 +93,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     private localStorageService: LocalStorageService,
     private spinner: NgxSpinnerService,
     private service: HotelService
-  ) { 
+  ) {
     this.minDateIngreso = new Date();
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
     this.calendarSalidaValue = new Date();
@@ -101,7 +103,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     let hola1 = $('#fechaInicio').val();
     console.log("minDateSalida =======================>" + this.minDateSalida);
   }
-  
+
   ngOnInit() {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -153,19 +155,19 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       };
       lstAutocomplete.push(obj1);
     });
-    
+
     lstAutocomplete.sort((a, b) => a.name - b.name );
     this.lstAutocomplete = lstAutocomplete;
   }
-  
+
 
   ngAfterViewInit() {
     //cantidadnoches
-    
+
     //this.fechaSalida = this.fchingreso;
     //this.fechaRetorno = this.fchsalida;
     this.ObtenerDias(this.fchingreso, this.fchsalida);
-    this.objSearch = { 
+    this.objSearch = {
       destino: this.destinoText,
       categoria: this.textoestrellas,
       iata: this.destinoValue,
@@ -177,7 +179,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     if (this.estrellas === undefined) {
       this.estrellas = 'Todas';
     }
-    this.objSearch = { 
+    this.objSearch = {
       destino: this.destinoText,
       categoria: this.estrellas,
       iata: this.destinoValue
@@ -192,11 +194,11 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     this.messagelistado.emit(this.LResultshotel);
   }
 
-  
+
 
   selectEvent(item) {
     // do something with selected item
-    
+
     this.destinoValue = item.iataCode;
     this.destinoText = item.name;
     setTimeout(function() {
@@ -218,11 +220,11 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
 
   onFocused(e) {
     // do something when input is focused
-    
+
   }
 
   handlerIngreso(datepickerSalida) {
-    
+
   }
 
   onValueChangeIngreso(value: Date): void {
@@ -243,6 +245,9 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       }
       this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
       this.minDateSalida = value;
+      this.dateCustomClasses = [
+        { date: this.minDateSalida, classes: ['bg-danger','text-warning'] }
+      ];
       console.log("value ====>" + value);
     console.log("calendarSalidaValue ====>" + this.calendarSalidaValue);
       if (value >= this.calendarSalidaValue) {
@@ -254,7 +259,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
         this.noches = 0;
       }
       if($("#fechaFin").val() === ""){
-        this.noches = 0; 
+        this.noches = 0;
       }
     }
   }
@@ -263,6 +268,9 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     if (value != null) {
       this.calendarSalidaValue = value;
       this.maxDateIngreso = value;
+      this.dateCustomClasses = [
+        { date: null, classes: ['bg-danger','text-warning'] }
+      ];
       if (value === null) {
         return;
       } else {
@@ -279,18 +287,18 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
           dia = "" + value.getDate();
         }
         this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
-      
+
         this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
       }
     }
-  
-    
+
+
   }
 
   ValidarCampos() {
     let val = true;
-     
-      
+
+
 
 
       if ($.trim(this.sessionMini1.destino) === '' || $.trim(this.sessionMini1.destino) === undefined) {
@@ -311,8 +319,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       } else {
         $("#destinoa").removeClass("campo-invalido");
       }
-      
-        
+
+
     return val;
   }
 
@@ -355,7 +363,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
             "HotelCityCode": this.destinoValue,
             "Stars": this.estrellas,
             "StartDate": fechaSal,
-            "EndDate": fechaRe,	
+            "EndDate": fechaRe,
             "LguestPerRoom":
             [
               {
@@ -369,7 +377,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
         "Ocompany": this.loginDataUser.ocompany
       }
 
-      this.objDestino = { 
+      this.objDestino = {
         destino: this.destinoText,
         desc: $("#dest").val()
       };
@@ -418,11 +426,11 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
         },
         () => {
           this.spinner.hide();
-          
+
         }
     );
     }
-    
+
  }
 
  SeleccionarEstrella(codeestrella, texto) {
@@ -450,13 +458,13 @@ ObtenerDias(fecha1, fecha2) {
   let nuevafecha2 = new Date(parseInt(n2[2]), parseInt(n2[1]) - 1, parseInt(n2[0]));
   //const dias = nuevafecha2.diff(nuevafecha, 'days');
   //let dias = nuevafecha2 - nuevafecha;
-  
+
 
   const r1 = nuevafecha.getTime();
   const r2 = nuevafecha2.getTime();
 
   const r = r2 - r1;
-  
+
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
 
@@ -475,13 +483,13 @@ ObtenerDias2(fecha1, fecha2) {
   let nuevafecha2 = new Date(parseInt(n2[0]), parseInt(n2[1]) - 1, parseInt(n2[2]));
   //const dias = nuevafecha2.diff(nuevafecha, 'days');
   //let dias = nuevafecha2 - nuevafecha;
-  
+
 
   const r1 = nuevafecha.getTime();
   const r2 = nuevafecha2.getTime();
 
   const r = r2 - r1;
- 
+
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
   this.noches = this.sessionStorageService.store('ss_noches',this.cantidadnoches);
