@@ -157,11 +157,16 @@
                   <angular-date-range-picker
                     [props]="dateRangePickerProps"
                     [(ngModel)]="selectedDateRange"
+                    (ngModelChange)="changeDateRangeAdv($event)"
                   ></angular-date-range-picker>
                 </div>
 
                 <div *ngIf="tipoVuelo=='OW'" class="" id="txtSelectedDate">
-                  <angular-single-date-picker [props]="singleDatePickerProps" [(ngModel)]="selectedDate"></angular-single-date-picker>
+                  <angular-single-date-picker
+                    [props]="singleDatePickerProps"
+                    [(ngModel)]="selectedDate"
+                    (ngModelChange)="changeDateAdv($event)"
+                  ></angular-single-date-picker>
                 </div>
 
                 <!--
@@ -230,7 +235,14 @@
                                   (outDestinoText3)="updateDestinoTramoText3($event)" (outDestinoText4)="updateDestinoTramoText4($event)" (outDestinoText5)="updateDestinoTramoText5($event)" (outDestinoText6)="updateDestinoTramoText6($event)" (outFechaSalida1)="updateFechaSalida1($event)"
                                   (outFechaSalida2)="updateFechaSalida2($event)" (outFechaSalida3)="updateFechaSalida3($event)" (outFechaSalida4)="updateFechaSalida4($event)" (outFechaSalida5)="updateFechaSalida5($event)" (outFechaSalida6)="updateFechaSalida6($event)"
                                   (outFechaSalidaShow1)="updateFechaSalidaShow1($event)" (outFechaSalidaShow2)="updateFechaSalidaShow2($event)" (outFechaSalidaShow3)="updateFechaSalidaShow3($event)" (outFechaSalidaShow4)="updateFechaSalidaShow4($event)" (outFechaSalidaShow5)="updateFechaSalidaShow5($event)"
-                                  (outFechaSalidaShow6)="updateFechaSalidaShow6($event)" style="width: 100% !important;"></app-multidestinos-lg>
+                                  (outFechaSalidaShow6)="updateFechaSalidaShow6($event)" style="width: 100% !important;"
+                                  (outSelectedDate1)="updateSelectedDate1($event)"
+                                  (outSelectedDate2)="updateSelectedDate2($event)"
+                                  (outSelectedDate3)="updateSelectedDate3($event)"
+                                  (outSelectedDate4)="updateSelectedDate4($event)"
+                                  (outSelectedDate5)="updateSelectedDate5($event)"
+                                  (outSelectedDate6)="updateSelectedDate6($event)"
+            ></app-multidestinos-lg>
 
             <!--    <app-multidestinos-lg [inOrigenValue]="origenAuto" [inOrigenText]="origentTexto" [inDestinoValue]="destinoAuto" [inDestinoText]="destinoTexto" (outIndexTramo)="updateIndexTramo($event)" (outOrigenValue1)="updateOrigenTramoValue1($event)" (outOrigenValue2)="updateOrigenTramoValue2($event)"
       (outOrigenValue3)="updateOrigenTramoValue3($event)" (outOrigenValue4)="updateOrigenTramoValue4($event)" (outOrigenValue5)="updateOrigenTramoValue5($event)" (outOrigenValue6)="updateOrigenTramoValue6($event)" (outOrigenText1)="updateOrigenTramoText1($event)"
@@ -452,7 +464,16 @@
                           [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2" [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1" [destinoAuto2]="destinoAuto2"
                           [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3" [destinoTexto4]="destinoTexto4"
                           [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)" (outTipoVuelo)="setOutputTipoVuelo($event)"
-                          (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
+                          (outIndexTramo)="setOutIndexTramo($event)"
+                          [inSelectedDateRange]="selectedDateRange"
+                          [inSelectedDate]="selectedDate"
+                          [inSelectedDate1]="selectedDate1"
+                          [inSelectedDate2]="selectedDate2"
+                          [inSelectedDate3]="selectedDate3"
+                          [inSelectedDate4]="selectedDate4"
+                          [inSelectedDate5]="selectedDate5"
+                          [inSelectedDate6]="selectedDate6"
+            ></app-buscador>
             <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
             <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)" [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
 

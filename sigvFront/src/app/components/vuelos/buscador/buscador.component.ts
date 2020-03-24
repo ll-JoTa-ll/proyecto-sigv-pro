@@ -131,6 +131,38 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   fechanow: Date;
   calendarSalidaValue: Date;
 
+  @Input() inSelectedDateRange;
+  @Input() inSelectedDate;
+
+  dateRangePickerProps = {
+    "startDatePlaceholderText": "Salida",
+    "endDatePlaceholderText": "Retorno",
+    "displayFormat": "DD/MM/YYYY"
+  };
+  selectedDateRange = {
+    "start": null,
+    "end": null
+  };
+  selectedDate;
+  singleDatePickerProps = {
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY"
+  };
+
+  selectedDate1;
+  selectedDate2;
+  selectedDate3;
+  selectedDate4;
+  selectedDate5;
+  selectedDate6;
+
+  @Input() inSelectedDate1;
+  @Input() inSelectedDate2;
+  @Input() inSelectedDate3;
+  @Input() inSelectedDate4;
+  @Input() inSelectedDate5;
+  @Input() inSelectedDate6;
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
@@ -138,9 +170,21 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     private airportService: AirportService,
     private modalService: BsModalService
   ) {
+    console.log("BuscadorComponent constructor");
   }
 
   ngOnInit() {
+    console.log("BuscadorComponent ngOnInit");
+    this.selectedDateRange = this.inSelectedDateRange;
+    this.selectedDate = this.inSelectedDate;
+
+    this.selectedDate1 = this.inSelectedDate1;
+    this.selectedDate2 = this.inSelectedDate2;
+    this.selectedDate3 = this.inSelectedDate3;
+    this.selectedDate4 = this.inSelectedDate4;
+    this.selectedDate5 = this.inSelectedDate5;
+    this.selectedDate6 = this.inSelectedDate6;
+
     this.indexTramo = this.inIndexTramo;
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
@@ -192,28 +236,32 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    console.log("BuscadorComponent ngAfterViewInit");
+
     $(".x").hide();
     const tipoVuelo = this.tipoVuelo;
-    const fechaSalidaShow = this.fechaSalidaShow;
-    const fechaRetornoShow = this.fechaRetornoShow;
-    this.fechaSalidaShow1 = this.fechaSalidaShow;
+    //const fechaSalidaShow = this.fechaSalidaShow;
+    //const fechaRetornoShow = this.fechaRetornoShow;
+    //this.fechaSalidaShow1 = this.fechaSalidaShow;
     switch (tipoVuelo) {
       case 'RT':
         $('#radio_b_tv_1').prop("checked", true);
-        $('#datepickerSalida').val(fechaSalidaShow);
-        $('#datepickerRetorno').val(fechaRetornoShow);
+        //$('#datepickerSalida').val(fechaSalidaShow);
+        //$('#datepickerRetorno').val(fechaRetornoShow);
         break;
       case 'OW':
         $('#radio_b_tv_2').prop("checked", true);
-        $('#datepickerSalida').val(fechaSalidaShow);
+        //$('#datepickerSalida').val(fechaSalidaShow);
         break;
       case 'MC':
         $('#radio_b_tv_3').prop("checked", true);
         break;
     }
+    /*
     if (fechaSalidaShow === null) {
       this.fechanow = new Date();
     }
+    */
 
     if (this.flagFilterVuelo === true) {
       //this.searchFlight();
@@ -509,14 +557,16 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         destino.push(this.destinoAuto);
         destino.push(this.origenAuto);
 
-        fechas.push(this.fechaSalida);
-        fechas.push(this.fechaRetorno);
+        //fechas.push(this.fechaSalida);
+        //fechas.push(this.fechaRetorno);
+        fechas.push(this.formatDate1(this.selectedDateRange.start));
+        fechas.push(this.formatDate1(this.selectedDateRange.end));
       }
 
       if (this.tipoVuelo === "OW") {
         origen.push(this.origenAuto);
         destino.push(this.destinoAuto);
-        fechas.push(this.fechaSalida);
+        fechas.push(this.formatDate1(this.selectedDate));
       }
 
       if (this.tipoVuelo === "MC") {
@@ -529,8 +579,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             destino.push(this.destinoAuto1);
             destino.push(this.destinoAuto2);
 
-            fechas.push(this.fechaSalida1);
-            fechas.push(this.fechaSalida2);
+            fechas.push(this.formatDate1(this.selectedDate1));
+            fechas.push(this.formatDate1(this.selectedDate2));
             break;
           case 3:
             origen.push(this.origenAuto1);
@@ -541,9 +591,9 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             destino.push(this.destinoAuto2);
             destino.push(this.destinoAuto3);
 
-            fechas.push(this.fechaSalida1);
-            fechas.push(this.fechaSalida2);
-            fechas.push(this.fechaSalida3);
+            fechas.push(this.formatDate1(this.selectedDate1));
+            fechas.push(this.formatDate1(this.selectedDate2));
+            fechas.push(this.formatDate1(this.selectedDate3));
             break;
           case 4:
             origen.push(this.origenAuto1);
@@ -556,10 +606,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             destino.push(this.destinoAuto3);
             destino.push(this.destinoAuto4);
 
-            fechas.push(this.fechaSalida1);
-            fechas.push(this.fechaSalida2);
-            fechas.push(this.fechaSalida3);
-            fechas.push(this.fechaSalida4);
+            fechas.push(this.formatDate1(this.selectedDate1));
+            fechas.push(this.formatDate1(this.selectedDate2));
+            fechas.push(this.formatDate1(this.selectedDate3));
+            fechas.push(this.formatDate1(this.selectedDate4));
             break;
           case 5:
             origen.push(this.origenAuto1);
@@ -574,11 +624,11 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             destino.push(this.destinoAuto4);
             destino.push(this.destinoAuto5);
 
-            fechas.push(this.fechaSalida1);
-            fechas.push(this.fechaSalida2);
-            fechas.push(this.fechaSalida3);
-            fechas.push(this.fechaSalida4);
-            fechas.push(this.fechaSalida5);
+            fechas.push(this.formatDate1(this.selectedDate1));
+            fechas.push(this.formatDate1(this.selectedDate2));
+            fechas.push(this.formatDate1(this.selectedDate3));
+            fechas.push(this.formatDate1(this.selectedDate4));
+            fechas.push(this.formatDate1(this.selectedDate5));
             break;
           case 6:
             origen.push(this.origenAuto1);
@@ -595,12 +645,12 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             destino.push(this.destinoAuto5);
             destino.push(this.destinoAuto6);
 
-            fechas.push(this.fechaSalida1);
-            fechas.push(this.fechaSalida2);
-            fechas.push(this.fechaSalida3);
-            fechas.push(this.fechaSalida4);
-            fechas.push(this.fechaSalida5);
-            fechas.push(this.fechaSalida6);
+            fechas.push(this.formatDate1(this.selectedDate1));
+            fechas.push(this.formatDate1(this.selectedDate2));
+            fechas.push(this.formatDate1(this.selectedDate3));
+            fechas.push(this.formatDate1(this.selectedDate4));
+            fechas.push(this.formatDate1(this.selectedDate5));
+            fechas.push(this.formatDate1(this.selectedDate6));
             break;
         }
       }
@@ -653,8 +703,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
           destinocode: this.destinoAuto,
           fechasalida: this.fechaSalida,
           fechadestino: this.fechaRetorno,
-          fechasalidashow: $('#datepickerSalida').val(),
-          fecharetornoshow: $('#datepickerRetorno').val(),
+          fechasalidashow: this.formatDate2(this.selectedDateRange.start),
+          fecharetornoshow: this.formatDate2(this.selectedDateRange.end),
           cabina: this.textoCabina,
           escala: this.textoEscala,
           pasajeros: this.pasajeros,
@@ -689,12 +739,12 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
           destinocode4: this.destinoAuto4,
           destinocode5: this.destinoAuto5,
           destinocode6: this.destinoAuto6,
-          fechasalida1: this.fecha1show,
-          fechasalida2: this.fecha2show,
-          fechasalida3: this.fecha3show,
-          fechasalida4: this.fecha4show,
-          fechasalida5: this.fecha5show,
-          fechasalida6: this.fecha6show,
+          fechasalida1: this.formatDate2(this.selectedDate1),
+          fechasalida2: this.formatDate2(this.selectedDate2),
+          fechasalida3: this.formatDate2(this.selectedDate3),
+          fechasalida4: this.formatDate2(this.selectedDate4),
+          fechasalida5: this.formatDate2(this.selectedDate5),
+          fechasalida6: this.formatDate2(this.selectedDate6),
           tipovuelo: this.tipoVuelo,
           cabina: this.textoCabina,
           escala: this.textoEscala,
@@ -771,19 +821,25 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      // tslint:disable-next-line: max-line-length
-      if ($('#datepickerSalida').val().length === 0/*this.model.salida === null || this.model.salida === '' || this.model.salida === undefined*/) {
-        $("#txtFechaSalida").addClass("campo-invalido");
+      if (this.selectedDateRange === undefined) {
+        console.log(666);
+        $("#txtSelectedDateRange").addClass("campo-invalido");
         flagVal = false;
       } else {
-        $("#txtFechaSalida").removeClass("campo-invalido");
-      }
-      // tslint:disable-next-line: max-line-length
-      if ($('#datepickerRetorno').val().length === 0/*this.model.retorno === null || this.model.retorno === '' || this.model.retorno === undefined*/) {
-        $("#txtFechaDestino").addClass("campo-invalido");
-        flagVal = false;
-      } else {
-        $("#txtFechaDestino").removeClass("campo-invalido");
+        console.log(777);
+        $("#txtSelectedDateRange").removeClass("campo-invalido");
+        if (this.selectedDateRange.start == null) {
+          $("#txtSelectedDateRange").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtSelectedDateRange").removeClass("campo-invalido");
+        }
+        if (this.selectedDateRange.end == null) {
+          $("#txtSelectedDateRange").addClass("campo-invalido");
+          flagVal = false;
+        } else {
+          $("#txtSelectedDateRange").removeClass("campo-invalido");
+        }
       }
     }
 
@@ -800,11 +856,11 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       } else {
         $("#txtDestino").removeClass("campo-invalido");
       }
-      if ($('#datepickerSalida').val().length === 0/*this.model.salida === null || this.model.salida === '' || this.model.salida === undefined*/) {
-        $("#txtFechaSalida").addClass("campo-invalido");
+      if (this.selectedDate == null) {
+        $("#txtSelectedDate").addClass("campo-invalido");
         flagVal = false;
       } else {
-        $("#txtFechaSalida").removeClass("campo-invalido");
+        $("#txtSelectedDate").removeClass("campo-invalido");
       }
     }
 
@@ -834,13 +890,13 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtDestino2").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida1) === '') {
+        if (this.selectedDate1 === undefined) {
           $("#txtFechaSalida1").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida1").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida2) === '') {
+        if (this.selectedDate2 === undefined) {
           $("#txtFechaSalida2").addClass("campo-invalido");
           flagVal = false;
         } else {
@@ -884,19 +940,19 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtDestino3").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida1) === '') {
+        if (this.selectedDate1 === undefined) {
           $("#txtFechaSalida1").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida1").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida2) === '') {
+        if (this.selectedDate2 === undefined) {
           $("#txtFechaSalida2").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida2").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida3) === '') {
+        if (this.selectedDate3 === undefined) {
           $("#txtFechaSalida3").addClass("campo-invalido");
           flagVal = false;
         } else {
@@ -952,25 +1008,25 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtDestino4").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida1) === '') {
+        if (this.selectedDate1 === undefined) {
           $("#txtFechaSalida1").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida1").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida2) === '') {
+        if (this.selectedDate2 === undefined) {
           $("#txtFechaSalida2").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida2").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida3) === '') {
+        if (this.selectedDate3 === undefined) {
           $("#txtFechaSalida3").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida3").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida4) === '') {
+        if (this.selectedDate4 === undefined) {
           $("#txtFechaSalida4").addClass("campo-invalido");
           flagVal = false;
         } else {
@@ -1038,31 +1094,31 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtDestino5").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida1) === '') {
+        if (this.selectedDate1 === undefined) {
           $("#txtFechaSalida1").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida1").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida2) === '') {
+        if (this.selectedDate2 === undefined) {
           $("#txtFechaSalida2").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida2").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida3) === '') {
+        if (this.selectedDate3 === undefined) {
           $("#txtFechaSalida3").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida3").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida4) === '') {
+        if (this.selectedDate4 === undefined) {
           $("#txtFechaSalida4").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida4").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida5) === '') {
+        if (this.selectedDate5 === undefined) {
           $("#txtFechaSalida5").addClass("campo-invalido");
           flagVal = false;
         } else {
@@ -1142,37 +1198,37 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtDestino6").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida1) === '') {
+        if (this.selectedDate1 === undefined) {
           $("#txtFechaSalida1").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida1").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida2) === '') {
+        if (this.selectedDate2 === undefined) {
           $("#txtFechaSalida2").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida2").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida3) === '') {
+        if (this.selectedDate3 === undefined) {
           $("#txtFechaSalida3").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida3").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida4) === '') {
+        if (this.selectedDate4 === undefined) {
           $("#txtFechaSalida4").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida4").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida5) === '') {
+        if (this.selectedDate5 === undefined) {
           $("#txtFechaSalida5").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida5").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida6) === '') {
+        if (this.selectedDate6 === undefined) {
           $("#txtFechaSalida6").addClass("campo-invalido");
           flagVal = false;
         } else {
@@ -1295,6 +1351,85 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
   updateFechaSalida6($event) {
     this.fechaSalida6 = $event;
+  }
+
+  changeDateRangeAdv(event) {
+    console.log("changeDateRangeAdv");
+    console.log(event);
+    if (event != undefined) {
+      console.log(event.start);
+      console.log(event.end);
+      this.selectedDate = event.start;
+    }
+  }
+
+  changeDateAdv(event) {
+    console.log("changeDateAdv");
+    console.log(event);
+    if (event != null) {
+      if (this.selectedDateRange === undefined) {
+        const dateRange = {
+          "start": event,
+          "end": null
+        };
+        this.selectedDateRange = dateRange;
+      } else {
+        this.selectedDateRange.start = event;
+      }
+    }
+  }
+
+  updateSelectedDate1(event) {
+    console.log("updateSelectedDate1");
+    console.log(event);
+    this.selectedDate1 = event;
+    console.log("this.selectedDate1: " + this.selectedDate1);
+  }
+
+  updateSelectedDate2(event) {
+    console.log("updateSelectedDate2");
+    console.log(event);
+    this.selectedDate2 = event;
+    console.log("this.selectedDate2: " + this.selectedDate2);
+  }
+
+  updateSelectedDate3(event) {
+    this.selectedDate3 = event;
+  }
+
+  updateSelectedDate4(event) {
+    this.selectedDate4 = event;
+  }
+
+  updateSelectedDate5(event) {
+    this.selectedDate5 = event;
+  }
+
+  updateSelectedDate6(event) {
+    this.selectedDate6 = event;
+  }
+
+  formatDate1(value) {
+    console.log("formatDate1");
+    var dd = value.getDate();
+    var mm = value.getMonth() + 1;
+    var yyyy = value.getFullYear();
+    const fechatotal = yyyy + '-' + mm + '-' + dd;
+    console.log("fechatotal: " + fechatotal);
+    return fechatotal;
+  }
+
+  formatDate2(value) {
+    if (value === null || value === undefined) {
+      return "";
+    }
+    console.log("formatDate1");
+    var dd = value.getDate();
+    var mm = value.getMonth() + 1;
+    var yyyy = value.getFullYear();
+    const fechatotal = dd + '/' + mm + '/' + yyyy;
+    console.log("fechatotal: " + fechatotal);
+    return fechatotal;
   }
 
 }

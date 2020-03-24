@@ -137,6 +137,52 @@ export class MultidestinosLgComponent implements OnInit {
   calendarSalidaValue4: Date;
   calendarSalidaValue5: Date;
   calendarSalidaValue6: Date;
+
+  singleDatePickerProps1 = {
+    "id": "singleDate1",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY"
+  };
+  singleDatePickerProps2 = {
+    "id": "singleDate2",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY"
+  };
+  singleDatePickerProps3 = {
+    "id": "singleDate3",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY"
+  };
+  singleDatePickerProps4 = {
+    "id": "singleDate4",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY"
+  };
+  singleDatePickerProps5 = {
+    "id": "singleDate5",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY"
+  };
+  singleDatePickerProps6 = {
+    "id": "singleDate6",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY"
+  };
+
+  selectedDate1;
+  selectedDate2;
+  selectedDate3;
+  selectedDate4;
+  selectedDate5;
+  selectedDate6;
+
+  @Output() outSelectedDate1 = new EventEmitter<Date>();
+  @Output() outSelectedDate2 = new EventEmitter<Date>();
+  @Output() outSelectedDate3 = new EventEmitter<Date>();
+  @Output() outSelectedDate4 = new EventEmitter<Date>();
+  @Output() outSelectedDate5 = new EventEmitter<Date>();
+  @Output() outSelectedDate6 = new EventEmitter<Date>();
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
@@ -751,6 +797,49 @@ export class MultidestinosLgComponent implements OnInit {
     this.fechaSalida6 = value.getFullYear() + "/" + mes + "/" + dia;
     this.outFechaSalida6.emit(this.fechaSalida6);
     this.outFechaSalidaShow6.emit(dia + "/" + mes + "/" +  value.getFullYear());
+  }
+
+  _changeDateAdv1(event) {
+    console.log("changeDateAdv1");
+    console.log(event);
+    if (event != null) {
+      this.outSelectedDate1.emit(event);
+    }
+  }
+  _changeDateAdv2(event) {
+    console.log("changeDateAdv2");
+    console.log(event);
+    if (event != null) {
+      this.outSelectedDate2.emit(event);
+    }
+  }
+  changeDateAdv3(event) {
+    console.log("changeDateAdv3");
+    console.log(event);
+    if (event != null) {
+      this.outSelectedDate3.emit(event);
+    }
+  }
+  changeDateAdv4(event) {
+    console.log("changeDateAdv4");
+    console.log(event);
+    if (event != null) {
+      this.outSelectedDate4.emit(event);
+    }
+  }
+  changeDateAdv5(event) {
+    console.log("changeDateAdv5");
+    console.log(event);
+    if (event != null) {
+      this.outSelectedDate5.emit(event);
+    }
+  }
+  changeDateAdv6(event) {
+    console.log("changeDateAdv6");
+    console.log(event);
+    if (event != null) {
+      this.outSelectedDate6.emit(event);
+    }
   }
 
 }

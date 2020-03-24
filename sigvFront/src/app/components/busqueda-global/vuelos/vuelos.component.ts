@@ -164,6 +164,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     "endDatePlaceholderText": "Retorno",
     "displayFormat": "DD/MM/YYYY"
   };
+  hoy = new Date();
   selectedDateRange = {
     "start": null,
     "end": null
@@ -173,6 +174,13 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     "displayFormat": "DD/MM/YYYY"
   };
   selectedDate;
+
+  selectedDate1;
+  selectedDate2;
+  selectedDate3;
+  selectedDate4;
+  selectedDate5;
+  selectedDate6;
 
   constructor(
     private rutaActiva: ActivatedRoute,
@@ -774,14 +782,16 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       destino.push(this.destinoAuto);
       destino.push(this.origenAuto);
 
-      fechas.push(this.fechaSalida);
-      fechas.push(this.fechaRetorno);
+      //fechas.push(this.fechaSalida);
+      //fechas.push(this.fechaRetorno);
+      fechas.push(this.formatDate1(this.selectedDateRange.start));
+      fechas.push(this.formatDate1(this.selectedDateRange.end));
     }
 
     if (this.tipoVuelo === "OW") {
       origen.push(this.origenAuto);
       destino.push(this.destinoAuto);
-      fechas.push(this.fechaSalida);
+      fechas.push(this.formatDate1(this.selectedDate));
     }
 
     if (this.tipoVuelo === "MC") {
@@ -794,8 +804,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto1);
           destino.push(this.destinoAuto2);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
           break;
         case 3:
           origen.push(this.origenAuto1);
@@ -806,9 +816,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto2);
           destino.push(this.destinoAuto3);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
           break;
         case 4:
           origen.push(this.origenAuto1);
@@ -821,10 +831,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto3);
           destino.push(this.destinoAuto4);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
-          fechas.push(this.fechaSalida4);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
+          fechas.push(this.formatDate1(this.selectedDate4));
           break;
         case 5:
           origen.push(this.origenAuto1);
@@ -839,11 +849,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto4);
           destino.push(this.destinoAuto5);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
-          fechas.push(this.fechaSalida4);
-          fechas.push(this.fechaSalida5);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
+          fechas.push(this.formatDate1(this.selectedDate4));
+          fechas.push(this.formatDate1(this.selectedDate5));
           break;
         case 6:
           origen.push(this.origenAuto1);
@@ -860,12 +870,12 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto5);
           destino.push(this.destinoAuto6);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
-          fechas.push(this.fechaSalida4);
-          fechas.push(this.fechaSalida5);
-          fechas.push(this.fechaSalida6);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
+          fechas.push(this.formatDate1(this.selectedDate4));
+          fechas.push(this.formatDate1(this.selectedDate5));
+          fechas.push(this.formatDate1(this.selectedDate6));
           break;
       }
     }
@@ -916,14 +926,14 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
       //fechas.push(this.fechaSalida);
       //fechas.push(this.fechaRetorno);
-      fechas.push(this.selectedDateRange.start);
-      fechas.push(this.selectedDateRange.end);
+      fechas.push(this.formatDate1(this.selectedDateRange.start));
+      fechas.push(this.formatDate1(this.selectedDateRange.end));
     }
 
     if (this.tipoVuelo === "OW") {
       origen.push(this.origenAuto);
       destino.push(this.destinoAuto);
-      fechas.push(this.fechaSalida);
+      fechas.push(this.formatDate1(this.selectedDate));
     }
 
     if (this.tipoVuelo === "MC") {
@@ -936,8 +946,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto1);
           destino.push(this.destinoAuto2);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
           break;
         case 3:
           origen.push(this.origenAuto1);
@@ -948,9 +958,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto2);
           destino.push(this.destinoAuto3);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
           break;
         case 4:
           origen.push(this.origenAuto1);
@@ -963,10 +973,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto3);
           destino.push(this.destinoAuto4);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
-          fechas.push(this.fechaSalida4);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
+          fechas.push(this.formatDate1(this.selectedDate4));
           break;
         case 5:
           origen.push(this.origenAuto1);
@@ -981,11 +991,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto4);
           destino.push(this.destinoAuto5);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
-          fechas.push(this.fechaSalida4);
-          fechas.push(this.fechaSalida5);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
+          fechas.push(this.formatDate1(this.selectedDate4));
+          fechas.push(this.formatDate1(this.selectedDate5));
           break;
         case 6:
           origen.push(this.origenAuto1);
@@ -1002,12 +1012,12 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto5);
           destino.push(this.destinoAuto6);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
-          fechas.push(this.fechaSalida3);
-          fechas.push(this.fechaSalida4);
-          fechas.push(this.fechaSalida5);
-          fechas.push(this.fechaSalida6);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
+          fechas.push(this.formatDate1(this.selectedDate4));
+          fechas.push(this.formatDate1(this.selectedDate5));
+          fechas.push(this.formatDate1(this.selectedDate6));
           break;
       }
     }
@@ -1240,9 +1250,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
       //fechas.push(this.fechaSalida);
       //fechas.push(this.fechaRetorno);
-      console.log("this.selectedDateRange.start: " + this.selectedDateRange.start);
+      //console.log("this.selectedDateRange.start: " + this.selectedDateRange.start);
       fechas.push(this.formatDate1(this.selectedDateRange.start));
-      console.log("this.selectedDateRange.end: " + this.selectedDateRange.end);
+      this.selectedDate = this.selectedDateRange.start;
+      //console.log("this.selectedDateRange.end: " + this.selectedDateRange.end);
       fechas.push(this.formatDate1(this.selectedDateRange.end));
     }
 
@@ -1251,6 +1262,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       destino.push(this.destinoAuto);
       //fechas.push(this.fechaSalida);
       fechas.push(this.formatDate1(this.selectedDate));
+      this.selectedDateRange.start = this.selectedDate;
     }
 
     if (this.tipoVuelo === "MC") {
@@ -1263,8 +1275,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto1);
           destino.push(this.destinoAuto2);
 
-          fechas.push(this.fechaSalida1);
-          fechas.push(this.fechaSalida2);
+          //fechas.push(this.fechaSalida1);
+          //fechas.push(this.fechaSalida2);
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
           break;
         case 3:
           origen.push(this.origenAuto1);
@@ -1275,9 +1289,14 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto2);
           destino.push(this.destinoAuto3);
 
+          /*
           fechas.push(this.fechaSalida1);
           fechas.push(this.fechaSalida2);
           fechas.push(this.fechaSalida3);
+          */
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
           break;
         case 4:
           origen.push(this.origenAuto1);
@@ -1290,10 +1309,16 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto3);
           destino.push(this.destinoAuto4);
 
+          /*
           fechas.push(this.fechaSalida1);
           fechas.push(this.fechaSalida2);
           fechas.push(this.fechaSalida3);
           fechas.push(this.fechaSalida4);
+          */
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
+          fechas.push(this.formatDate1(this.selectedDate4));
           break;
         case 5:
           origen.push(this.origenAuto1);
@@ -1308,11 +1333,18 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto4);
           destino.push(this.destinoAuto5);
 
+          /*
           fechas.push(this.fechaSalida1);
           fechas.push(this.fechaSalida2);
           fechas.push(this.fechaSalida3);
           fechas.push(this.fechaSalida4);
           fechas.push(this.fechaSalida5);
+          */
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
+          fechas.push(this.formatDate1(this.selectedDate4));
+          fechas.push(this.formatDate1(this.selectedDate5));
           break;
         case 6:
           origen.push(this.origenAuto1);
@@ -1329,12 +1361,20 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           destino.push(this.destinoAuto5);
           destino.push(this.destinoAuto6);
 
+          /*
           fechas.push(this.fechaSalida1);
           fechas.push(this.fechaSalida2);
           fechas.push(this.fechaSalida3);
           fechas.push(this.fechaSalida4);
           fechas.push(this.fechaSalida5);
           fechas.push(this.fechaSalida6);
+          */
+          fechas.push(this.formatDate1(this.selectedDate1));
+          fechas.push(this.formatDate1(this.selectedDate2));
+          fechas.push(this.formatDate1(this.selectedDate3));
+          fechas.push(this.formatDate1(this.selectedDate4));
+          fechas.push(this.formatDate1(this.selectedDate5));
+          fechas.push(this.formatDate1(this.selectedDate6));
           break;
       }
     }
@@ -1634,13 +1674,15 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtDestino2").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida1) === '') {
+        console.log("this.selectedDate1: " + this.selectedDate1);
+        if (this.selectedDate1 === undefined) {
           $("#txtFechaSalida1").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida1").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida2) === '') {
+        console.log("this.selectedDate2: " + this.selectedDate2);
+        if (this.selectedDate2 === undefined) {
           $("#txtFechaSalida2").addClass("campo-invalido");
           flagVal = false;
         } else {
@@ -1684,19 +1726,19 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtDestino3").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida1) === '') {
+        if (this.selectedDate1 === undefined) {
           $("#txtFechaSalida1").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida1").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida2) === '') {
+        if (this.selectedDate2 === undefined) {
           $("#txtFechaSalida2").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida2").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida3) === '') {
+        if (this.selectedDate3 === undefined) {
           $("#txtFechaSalida3").addClass("campo-invalido");
           flagVal = false;
         } else {
@@ -1752,25 +1794,25 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtDestino4").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida1) === '') {
+        if (this.selectedDate1 === undefined) {
           $("#txtFechaSalida1").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida1").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida2) === '') {
+        if (this.selectedDate2 === undefined) {
           $("#txtFechaSalida2").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida2").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida3) === '') {
+        if (this.selectedDate3 === undefined) {
           $("#txtFechaSalida3").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida3").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida4) === '') {
+        if (this.selectedDate4 === undefined) {
           $("#txtFechaSalida4").addClass("campo-invalido");
           flagVal = false;
         } else {
@@ -1838,31 +1880,31 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtDestino5").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida1) === '') {
+        if (this.selectedDate1 === undefined) {
           $("#txtFechaSalida1").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida1").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida2) === '') {
+        if (this.selectedDate2 === undefined) {
           $("#txtFechaSalida2").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida2").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida3) === '') {
+        if (this.selectedDate3 === undefined) {
           $("#txtFechaSalida3").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida3").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida4) === '') {
+        if (this.selectedDate4 === undefined) {
           $("#txtFechaSalida4").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida4").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida5) === '') {
+        if (this.selectedDate5 === undefined) {
           $("#txtFechaSalida5").addClass("campo-invalido");
           flagVal = false;
         } else {
@@ -1942,37 +1984,37 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         } else {
           $("#txtDestino6").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida1) === '') {
+        if (this.selectedDate1 === undefined) {
           $("#txtFechaSalida1").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida1").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida2) === '') {
+        if (this.selectedDate2 === undefined) {
           $("#txtFechaSalida2").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida2").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida3) === '') {
+        if (this.selectedDate3 === undefined) {
           $("#txtFechaSalida3").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida3").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida4) === '') {
+        if (this.selectedDate4 === undefined) {
           $("#txtFechaSalida4").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida4").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida5) === '') {
+        if (this.selectedDate5 === undefined) {
           $("#txtFechaSalida5").addClass("campo-invalido");
           flagVal = false;
         } else {
           $("#txtFechaSalida5").removeClass("campo-invalido");
         }
-        if ($.trim(this.fechaSalida6) === '') {
+        if (this.selectedDate6 === undefined) {
           $("#txtFechaSalida6").addClass("campo-invalido");
           flagVal = false;
         } else {
@@ -2249,5 +2291,61 @@ export class VuelosComponent implements OnInit, AfterViewInit {
      }
     });
     this.aerolineas = aerolineas;
+  }
+
+  changeDateRangeAdv(event) {
+    console.log("changeDateRangeAdv");
+    console.log(event);
+    if (event != undefined) {
+      console.log(event.start);
+      console.log(event.end);
+      this.selectedDate = event.start;
+    }
+  }
+
+  changeDateAdv(event) {
+    console.log("changeDateAdv");
+    console.log(event);
+    if (event != null) {
+      if (this.selectedDateRange === undefined) {
+        const dateRange = {
+          "start": event,
+          "end": null
+        };
+        this.selectedDateRange = dateRange;
+      } else {
+        this.selectedDateRange.start = event;
+      }
+    }
+  }
+
+  updateSelectedDate1(event) {
+    console.log("updateSelectedDate1");
+    console.log(event);
+    this.selectedDate1 = event;
+    console.log("this.selectedDate1: " + this.selectedDate1);
+  }
+
+  updateSelectedDate2(event) {
+    console.log("updateSelectedDate2");
+    console.log(event);
+    this.selectedDate2 = event;
+    console.log("this.selectedDate2: " + this.selectedDate2);
+  }
+
+  updateSelectedDate3(event) {
+    this.selectedDate3 = event;
+  }
+
+  updateSelectedDate4(event) {
+    this.selectedDate4 = event;
+  }
+
+  updateSelectedDate5(event) {
+    this.selectedDate5 = event;
+  }
+
+  updateSelectedDate6(event) {
+    this.selectedDate6 = event;
   }
 }

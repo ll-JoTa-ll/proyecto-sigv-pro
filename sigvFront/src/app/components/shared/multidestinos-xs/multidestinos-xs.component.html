@@ -70,6 +70,7 @@
 </div>
 <div class="col-12 m-0 p-0">
 
+  <!--
     <label id="txtFechaSalida1" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
            src="./assets/images/home/calendario.svg"
@@ -88,6 +89,17 @@
            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red' }"
     >
   </label>
+  -->
+  <div class="row m-0 p-0">
+    <div id="txtFechaSalida1" class="col-12 m-0 p-0">
+      <angular-single-date-picker
+        id="dateSingle1"
+        [props]="singleDatePickerProps1"
+        [(ngModel)]="selectedDate1"
+        (ngModelChange)="_changeDateAdv1($event)"
+      ></angular-single-date-picker>
+    </div>
+  </div>
 
 </div>
 
@@ -158,6 +170,7 @@
 </div>
 <div class="col-12 m-0 p-0 v-texto-2">Fecha</div>
 <div class="col-12 m-0 p-0">
+  <!--
     <label id="txtFechaSalida2" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
            src="./assets/images/home/calendario.svg"
@@ -176,6 +189,17 @@
            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red' }"
     >
   </label>
+  -->
+  <div class="row m-0 p-0">
+    <div id="txtFechaSalida2" class="col-12 m-0 p-0">
+      <angular-single-date-picker
+        id="dateSingle2"
+        [props]="singleDatePickerProps2"
+        [(ngModel)]="selectedDate2"
+        (ngModelChange)="_changeDateAdv2($event)"
+      ></angular-single-date-picker>
+    </div>
+  </div>
 </div>
 <div class="col-12 m-0 p-0">
     <button *ngIf="!flagTramo3" (click)="agregarTramo(3)" class="btn add-tramo pt-0 pb-0"> + Agregar tramo</button>
@@ -247,6 +271,7 @@
 </div>
 <div *ngIf="flagTramo3" class="col-12 m-0 p-0 v-texto-2">Fecha</div>
 <div *ngIf="flagTramo3" class="col-12 m-0 p-0">
+  <!--
     <label id="txtFechaSalida3" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
            src="./assets/images/home/calendario.svg"
@@ -265,6 +290,16 @@
            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red' }"
     >
   </label>
+  -->
+  <div class="row m-0 p-0">
+    <div id="txtFechaSalida3" class="col-12 m-0 p-0">
+      <angular-single-date-picker
+        [props]="singleDatePickerProps3"
+        [(ngModel)]="selectedDate3"
+        (ngModelChange)="changeDateAdv3($event)"
+      ></angular-single-date-picker>
+    </div>
+  </div>
 </div>
 <div class="col-12 m-0 p-0">
     <button *ngIf="flagTramo3 && !flagTramo4" (click)="eliminarTramo(3)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
@@ -339,6 +374,7 @@
 </div>
 <div *ngIf="flagTramo4" class="col-12 m-0 p-0 v-texto-2">Fecha</div>
 <div *ngIf="flagTramo4" class="col-12 m-0 p-0">
+  <!--
     <label id="txtFechaSalida4" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
            src="./assets/images/home/calendario.svg"
@@ -357,6 +393,16 @@
            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red' }"
     >
   </label>
+  -->
+  <div class="row m-0 p-0">
+    <div id="txtFechaSalida4" class="col-12 m-0 p-0">
+      <angular-single-date-picker
+        [props]="singleDatePickerProps4"
+        [(ngModel)]="selectedDate4"
+        (ngModelChange)="changeDateAdv4($event)"
+      ></angular-single-date-picker>
+    </div>
+  </div>
 </div>
 <div class="col-12 m-0 p-0">
     <button *ngIf="flagTramo4 && !flagTramo5" (click)="eliminarTramo(4)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
@@ -431,6 +477,7 @@
 </div>
 <div *ngIf="flagTramo5" class="col-12 m-0 p-0 v-texto-2">Fecha</div>
 <div *ngIf="flagTramo5" class="col-12 m-0 p-0">
+  <!--
     <label id="txtFechaSalida5" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
            src="./assets/images/home/calendario.svg"
@@ -449,6 +496,16 @@
            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red' }"
     >
   </label>
+  -->
+  <div class="row m-0 p-0">
+    <div id="txtFechaSalida5" class="col-12 m-0 p-0">
+      <angular-single-date-picker
+        [props]="singleDatePickerProps5"
+        [(ngModel)]="selectedDate5"
+        (ngModelChange)="changeDateAdv5($event)"
+      ></angular-single-date-picker>
+    </div>
+  </div>
 </div>
 <div class="col-12 m-0 p-0">
     <button *ngIf="flagTramo5 && !flagTramo6" (click)="eliminarTramo(5)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
@@ -523,6 +580,7 @@
 </div>
 <div *ngIf="flagTramo6" class="col-12 m-0 p-0 v-texto-2">Fecha</div>
 <div *ngIf="flagTramo6" class="col-12 m-0 p-0">
+  <!--
     <label id="txtFechaSalida6" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px">
     <input type="image"
            src="./assets/images/home/calendario.svg"
@@ -541,6 +599,16 @@
            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red' }"
     >
   </label>
+  -->
+  <div class="row m-0 p-0">
+    <div id="txtFechaSalida6" class="col-12 m-0 p-0">
+      <angular-single-date-picker
+        [props]="singleDatePickerProps6"
+        [(ngModel)]="selectedDate6"
+        (ngModelChange)="changeDateAdv6($event)"
+      ></angular-single-date-picker>
+    </div>
+  </div>
 </div>
 <div class="col-12 m-0 p-0">
     <button *ngIf="flagTramo6" (click)="eliminarTramo(6)" class="btn delete-tramo pt-0 pb-0"> - Eliminar tramo</button>
