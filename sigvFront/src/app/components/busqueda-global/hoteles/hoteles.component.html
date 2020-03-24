@@ -67,7 +67,6 @@
                                                    (onHidden)="handlerIngreso($event)"
                                                    (bsValueChange)="onValueChangeIngreso($event)"
                                                    [minDate]="minDateIngreso"
-                                              
                                                    bsDatepicker
                                                    id="dateingreso"
                                                    [(bsValue)]="bsValue"
@@ -82,13 +81,13 @@
                                                    (click)="datepickerSalida.toggle()"
                                                    class="input-img">
                                             <input type="text"
-                                                   [(ngModel)]="model.origentTextos1"
                                                    placeholder="Salida"
                                                    class="p-0 pl-2 input-date"
                                                    #datepickerSalida="bsDatepicker"
                                                    (keypress)="validarTodo($event)"
                                                    (bsValueChange)="onValueChangeSalida($event)"
                                                    [minDate]="minDateSalida"
+                                                   [dateCustomClasses]="dateCustomClasses"
                                                    bsDatepicker
                                                    id="datesalida"
                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
@@ -111,7 +110,7 @@
                                       <input type="image"
                                       src="./assets/images/cama.svg"
                                       class="input-img"
-                                      
+
                                       >
                                       <input readonly (keypress)="validarNumeros($event)" type="text"
                                       id="txthabitacion"
@@ -138,7 +137,7 @@
                                       <input readonly type="image"
                                       src="./assets/images/cama.svg"
                                       class="input-img"
-                                      
+
                                       >
                                       <input readonly (keypress)="validarNumerosN($event)" type="text"
                                       id="txthabitacion"

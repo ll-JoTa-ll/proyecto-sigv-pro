@@ -7,6 +7,7 @@ import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
 import { ILoginDatosModel } from '../../../../models/ILoginDatos.model';
 import { HotelService } from '../../../../services/hotel.service';
+import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
 declare var jquery: any;
 declare var $: any;
 
@@ -54,7 +55,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   salida: any;
   objSearch : any;
   calendarSalidaValue: Date;
-  SearchObj: any = { 
+  SearchObj: any = {
     HotelCityCode: '',
     Start: '',
     End: '',
@@ -62,6 +63,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     Count: 1,
     HotelSegmentCategoryCode: ''
   };
+  dateCustomClasses: DatepickerDateCustomClasses[];
 
   @Output() flagBuscarMini = new EventEmitter<boolean>();
 
@@ -71,9 +73,9 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     private localStorageService: LocalStorageService,
     private spinner: NgxSpinnerService,
     private service: HotelService
-    
-    
-  ) { 
+
+
+  ) {
     this.minDateIngreso = new Date();
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
     this.minDateSalida = new Date();
@@ -88,7 +90,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
    // this.sessionStorageService.store('ss_token', this.loginDataUser.token);
   //  this.token = this.sessionStorageService.retrieve('ss_token');
-  
+
     this.localeService.use(this.locale);
 
     const lstAutocomplete = this.lstAutocomplete;
@@ -116,18 +118,18 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
       };
       lstAutocomplete.push(obj1);
     });
-   
+
     lstAutocomplete.sort((a, b) => a.name - b.name );
     this.lstAutocomplete = lstAutocomplete;
   }
 
   ngAfterViewInit() {
     //cantidadnoches
-    
+
     //this.fechaSalida = this.fchingreso;
     //this.fechaRetorno = this.fchsalida;
     this.ObtenerDias(this.fchingreso, this.fchsalida);
-    this.objSearch = { 
+    this.objSearch = {
       destino: this.destinoText,
       categoria: this.textoestrellas,
       iata: this.destinoValue
@@ -139,7 +141,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     if (this.estrellas === undefined) {
       this.estrellas = '';
     }
-    this.objSearch = { 
+    this.objSearch = {
       destino: this.destinoText,
       categoria: this.estrellas,
       iata: this.destinoValue
@@ -152,11 +154,11 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.messagelistado.emit(this.LResultshotel);
   }
 
-  
+
 
   selectEvent(item) {
     // do something with selected item
-    
+
     this.destinoValue = item.iataCode;
     this.destinoText = item.name;
     setTimeout(function() {
@@ -178,11 +180,11 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
 
   onFocused(e) {
     // do something when input is focused
-    
+
   }
 
   handlerIngreso(datepickerSalida) {
-    
+
   }
 
   onValueChangeIngreso(value: Date): void {
@@ -203,15 +205,15 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
       }
       this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
       this.minDateSalida = value;
-      if (value >= this.calendarSalidaValue) {
-        $("#fechaFin").val("");
-      }
+      this.dateCustomClasses = [
+        { date: this.minDateSalida, classes: ['bg-danger','text-warning'] }
+      ];
       this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
       if (value >= this.calendarSalidaValue) {
         this.cantidadnoches = 0;
       }
-      if($("#fechaFin").val() === ""){
-        this.cantidadnoches = 0; 
+      if($("#fechaFin").val() === "") {
+        this.cantidadnoches = 0;
       }
     }
   }
@@ -220,6 +222,9 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     if (value != null) {
       this.calendarSalidaValue = value;
       this.maxDateIngreso = value;
+      this.dateCustomClasses = [
+        { date: null, classes: ['bg-danger','text-warning'] }
+      ];
       if (value === null) {
         return;
       } else {
@@ -236,17 +241,17 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
           dia = "" + value.getDate();
         }
         this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
-      
+
         this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
       }
     }
-  
-    
+
+
   }
 
   SeachHotel() {
     this.flagBuscarMini.emit(false);
-    
+
     const val= this.ValidarCampos();
     if (!val) {
       return val;
@@ -267,7 +272,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
           "HotelCityCode": this.destinoValue,
           "Stars": this.estrellas,
           "StartDate": this.fechaSalida,
-          "EndDate": this.fechaRetorno,	
+          "EndDate": this.fechaRetorno,
           "LguestPerRoom":
           [
             {
@@ -280,11 +285,11 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
       ],
       "Ocompany": this.loginDataUser.ocompany
     }
-    
-    
+
+
     this.habitaciones = $('#txthabitacion').val();
     this.adultos = $('#txtpersonas').val();
-   
+
     this.service.SearchHotel(data).subscribe(
        result => {
           if (result[0].oerror != null) {
@@ -297,7 +302,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
           this.sessionStorageService.store('ss_minibuscador', result);
           //this.sessionStorageService.store('ls_search_hotel', result);
           //this.LlistaHotel = result;
-          
+
           this.sessionStorageService.store('hotel', null);
           this.sessionStorageService.store('hotel', result[0]);
 
@@ -311,7 +316,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
        },
        err => {
         this.spinner.hide();
-        
+
        },
        () => {
         this.flagBuscarMini.emit(true);
@@ -319,7 +324,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
        }
    );
     }
-    
+
  }
 
  SeleccionarEstrella(codeestrella, texto) {
@@ -329,7 +334,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
 
 ValidarCampos() {
   let val = true;
-   
+
   if ($.trim(this.destino) === '' || $.trim(this.destino) === undefined) {
     $("#destinos").addClass("campo-invalido");
     val = false;
@@ -348,8 +353,8 @@ ValidarCampos() {
   } else {
     $("#destino").removeClass("campo-invalido");
   }
-    
-      
+
+
   return val;
 }
 
@@ -371,16 +376,16 @@ ObtenerDias(fecha1, fecha2) {
   let nuevafecha2 = new Date(parseInt(n2[2]), parseInt(n2[1]) - 1, parseInt(n2[0]));
   //const dias = nuevafecha2.diff(nuevafecha, 'days');
   //let dias = nuevafecha2 - nuevafecha;
-  
+
 
   const r1 = nuevafecha.getTime();
   const r2 = nuevafecha2.getTime();
 
   const r = r2 - r1;
-  
+
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
-  
+
   this.fechaSalida = n1[2] + "-" + n1[1] + "-" + n1[0];
   this.fechaRetorno = n2[2] + "-" + n2[1] + "-" + n2[0];
 }
@@ -394,13 +399,13 @@ ObtenerDias2(fecha1, fecha2) {
   let nuevafecha2 = new Date(parseInt(n2[0]), parseInt(n2[1]) - 1, parseInt(n2[2]));
   //const dias = nuevafecha2.diff(nuevafecha, 'days');
   //let dias = nuevafecha2 - nuevafecha;
-  
+
 
   const r1 = nuevafecha.getTime();
   const r2 = nuevafecha2.getTime();
 
   const r = r2 - r1;
- 
+
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
   this.sessionStorageService.store("ss_noches",this.cantidadnoches);

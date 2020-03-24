@@ -136,6 +136,7 @@
                      (bsValueChange)="onValueChangeSalida($event)"
                      [minDate]="minDateSalida"
                      bsDatepicker
+                     [(ngModel)]="fechaSalidaShow"
                      [bsValue]="fechanow"
                      (onHidden)="ValidarDestinos()"
                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
@@ -161,6 +162,7 @@
                      (bsValueChange)="onValueChangeRetorno($event)"
                      [minDate]="minDateRetorno"
                      bsDatepicker
+                     [(ngModel)]="fechaRetornoShow"
                      [dateCustomClasses]="dateCustomClasses"
                      (onHidden)="ValidarDestinos()"
                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red', selectFromOtherMonth: true }"
