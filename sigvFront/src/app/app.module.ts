@@ -153,7 +153,7 @@ import { ChartModule } from 'angular-highcharts';
 import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
 import { ModalErrorServiceComponent } from './components/shared/modal-error-service/modal-error-service.component';
 import { AngularReactDatesModule } from 'angular-react-dates';
-
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   declarations: [
@@ -314,7 +314,8 @@ import { AngularReactDatesModule } from 'angular-react-dates';
     IgxInputGroupModule,
     IgxSliderModule,
     ChartModule,
-    AngularReactDatesModule.forRoot()
+    AngularReactDatesModule.forRoot(),
+    MomentModule
   ],
   entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent, ModalErrorServiceComponent],
   providers: [BnNgIdleService,ResizeService],

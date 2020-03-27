@@ -115,7 +115,12 @@
       </label>
       -->
       <div class="row m-0 p-0">
-        <div id="txtFechaSalida1" class="col-12 m-0 p-0">
+        <div class="col-12"
+             [popover]="popTemplate"
+             [isOpen]="isOpen1"
+             triggers=""
+        ></div>
+        <div id="txtFechaSalida1" class="col-12 m-0 p-0" [popover]="txtPopover1" [isOpen]="isOpen1" triggers="">
           <angular-single-date-picker
             id="dateSingle1"
             [props]="singleDatePickerProps1"
@@ -249,6 +254,11 @@
       </label>
       -->
       <div class="row m-0 p-0">
+        <div class="col-12"
+             [popover]="popTemplate"
+             [isOpen]="isOpen2"
+             triggers=""
+        ></div>
         <div id="txtFechaSalida2" class="col-12 m-0 p-0">
           <angular-single-date-picker
             id="dateSingle2"
@@ -386,6 +396,11 @@
       </label>
       -->
       <div class="row m-0 p-0">
+        <div class="col-12"
+             [popover]="popTemplate"
+             [isOpen]="isOpen3"
+             triggers=""
+        ></div>
         <div id="txtFechaSalida3" class="col-12 m-0 p-0">
           <angular-single-date-picker
             [props]="singleDatePickerProps3"
@@ -523,6 +538,11 @@
       </label>
       -->
       <div class="row m-0 p-0">
+        <div class="col-12"
+             [popover]="popTemplate"
+             [isOpen]="isOpen4"
+             triggers=""
+        ></div>
         <div id="txtFechaSalida4" class="col-12 m-0 p-0">
           <angular-single-date-picker
             [props]="singleDatePickerProps4"
@@ -660,6 +680,11 @@
       </label>
       -->
       <div class="row m-0 p-0">
+        <div class="col-12"
+             [popover]="popTemplate"
+             [isOpen]="isOpen5"
+             triggers=""
+        ></div>
         <div id="txtFechaSalida5" class="col-12 m-0 p-0">
           <angular-single-date-picker
             [props]="singleDatePickerProps5"
@@ -797,6 +822,11 @@
       </label>
       -->
       <div class="row m-0 p-0">
+        <div class="col-12"
+             [popover]="popTemplate"
+             [isOpen]="isOpen6"
+             triggers=""
+        ></div>
         <div id="txtFechaSalida6" class="col-12 m-0 p-0">
           <angular-single-date-picker
             [props]="singleDatePickerProps6"
@@ -815,3 +845,14 @@
   </div>
 
 </div>
+
+<ng-template
+  class="m-0 p-0"
+  style="background-color: whitesmoke !important; color: darkred !important;"
+  #popTemplate let-message="message"
+>
+  <div class="m-0 p-0" style="background-color: whitesmoke !important; color: darkred !important; padding: 3px !important;">
+    {{ txtPopover1 }}
+  </div>
+</ng-template>
+

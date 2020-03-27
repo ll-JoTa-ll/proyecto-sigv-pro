@@ -17,6 +17,7 @@ import { iGetAsesors } from '../../../models/IGetAsesors';
 import { FILE } from 'dns';
 import { Status } from 'tslint/lib/runner';
 import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
+import * as moment from "moment";
 
 declare var jquery: any;
 declare var $: any;
@@ -171,7 +172,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   };
   singleDatePickerProps = {
     "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true,
+    "small": true
   };
   selectedDate;
 
@@ -236,6 +239,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.dateCustomClasses = [
       { date: now, classes: ['bg-danger', 'text-warning'] }
     ];
+
+    moment.locale('es');
   }
 
   ngOnInit() {

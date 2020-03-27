@@ -240,6 +240,15 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   @Output() outSelectedDate5 = new EventEmitter<Date>();
   @Output() outSelectedDate6 = new EventEmitter<Date>();
 
+  txtPopover1 = "Fecha fuera de rango!!!";
+
+  isOpen1 = false;
+  isOpen2 = false;
+  isOpen3 = false;
+  isOpen4 = false;
+  isOpen5 = false;
+  isOpen6 = false;
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
@@ -1009,7 +1018,17 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
 
   _changeDateAdv1(event) {
     console.log("changeDateAdv1");
-    console.log(event);
+    console.log("event" + event);
+    this.isOpen1 = false;
+
+    if (this.selectedDate2 !== null) {
+      if (event >= this.selectedDate2) {
+        this.selectedDate1 = null;
+        this.isOpen1 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate1.emit(event);
     }
@@ -1017,6 +1036,29 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   _changeDateAdv2(event) {
     console.log("changeDateAdv2");
     console.log(event);
+    this.isOpen2 = false;
+
+    if (this.selectedDate1 !== null) {
+      if (event < this.selectedDate1) {
+        this.isOpen2 = true;
+        this.selectedDate2 = null;
+        console.log(this.selectedDate2);
+        console.log(this.selectedDate2);
+        console.log(this.selectedDate2);
+        console.log(this.selectedDate2);
+        console.log(this.selectedDate2);
+        return false;
+      }
+    }
+
+    if (this.selectedDate3 !== null) {
+      if (event >= this.selectedDate3) {
+        this.selectedDate2 = null;
+        this.isOpen2 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate2.emit(event);
     }
@@ -1024,6 +1066,24 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   changeDateAdv3(event) {
     console.log("changeDateAdv3");
     console.log(event);
+    this.isOpen3 = false;
+
+    if (this.selectedDate2 !== null) {
+      if (event < this.selectedDate2) {
+        this.selectedDate3 = null;
+        this.isOpen3 = true;
+        return false;
+      }
+    }
+
+    if (this.selectedDate4 !== null) {
+      if (event >= this.selectedDate4) {
+        this.selectedDate3 = null;
+        this.isOpen3 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate3.emit(event);
     }
@@ -1031,6 +1091,24 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   changeDateAdv4(event) {
     console.log("changeDateAdv4");
     console.log(event);
+    this.isOpen4 = false;
+
+    if (this.selectedDate3 !== null) {
+      if (event < this.selectedDate3) {
+        this.selectedDate4 = null;
+        this.isOpen4 = true;
+        return false;
+      }
+    }
+
+    if (this.selectedDate5 !== null) {
+      if (event >= this.selectedDate5) {
+        this.selectedDate4 = null;
+        this.isOpen4 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate4.emit(event);
     }
@@ -1038,6 +1116,24 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   changeDateAdv5(event) {
     console.log("changeDateAdv5");
     console.log(event);
+    this.isOpen5 = false;
+
+    if (this.selectedDate4 !== null) {
+      if (event < this.selectedDate4) {
+        this.selectedDate5 = null;
+        this.isOpen5 = true;
+        return false;
+      }
+    }
+
+    if (this.selectedDate6 !== null) {
+      if (event >= this.selectedDate6) {
+        this.selectedDate5 = null;
+        this.isOpen5 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate5.emit(event);
     }
@@ -1045,6 +1141,16 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   changeDateAdv6(event) {
     console.log("changeDateAdv6");
     console.log(event);
+    this.isOpen6 = false;
+
+    if (this.selectedDate5 !== null) {
+      if (event < this.selectedDate5) {
+        this.selectedDate6 = null;
+        this.isOpen6 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate6.emit(event);
     }

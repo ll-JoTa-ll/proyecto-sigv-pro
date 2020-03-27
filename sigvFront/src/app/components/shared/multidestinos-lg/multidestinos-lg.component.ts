@@ -138,36 +138,8 @@ export class MultidestinosLgComponent implements OnInit {
   calendarSalidaValue5: Date;
   calendarSalidaValue6: Date;
 
-  singleDatePickerProps1 = {
-    "id": "singleDate1",
-    "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
-  };
-  singleDatePickerProps2 = {
-    "id": "singleDate2",
-    "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
-  };
-  singleDatePickerProps3 = {
-    "id": "singleDate3",
-    "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
-  };
-  singleDatePickerProps4 = {
-    "id": "singleDate4",
-    "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
-  };
-  singleDatePickerProps5 = {
-    "id": "singleDate5",
-    "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
-  };
-  singleDatePickerProps6 = {
-    "id": "singleDate6",
-    "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
-  };
+  hoy = new Date();
+  maxDate = new Date(2200, 12, 12);
 
   selectedDate1;
   selectedDate2;
@@ -176,12 +148,58 @@ export class MultidestinosLgComponent implements OnInit {
   selectedDate5;
   selectedDate6;
 
+  singleDatePickerProps1 = {
+    "id": "singleDate1",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true
+  };
+  singleDatePickerProps2 = {
+    "id": "singleDate2",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true
+  };
+  singleDatePickerProps3 = {
+    "id": "singleDate3",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true
+  };
+  singleDatePickerProps4 = {
+    "id": "singleDate4",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true
+  };
+  singleDatePickerProps5 = {
+    "id": "singleDate5",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true
+  };
+  singleDatePickerProps6 = {
+    "id": "singleDate6",
+    "placeholder": "Salida",
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true
+  };
+
   @Output() outSelectedDate1 = new EventEmitter<Date>();
   @Output() outSelectedDate2 = new EventEmitter<Date>();
   @Output() outSelectedDate3 = new EventEmitter<Date>();
   @Output() outSelectedDate4 = new EventEmitter<Date>();
   @Output() outSelectedDate5 = new EventEmitter<Date>();
   @Output() outSelectedDate6 = new EventEmitter<Date>();
+
+  txtPopover1 = "Fecha fuera de rango!!!";
+
+  isOpen1 = false;
+  isOpen2 = false;
+  isOpen3 = false;
+  isOpen4 = false;
+  isOpen5 = false;
+  isOpen6 = false;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -801,7 +819,17 @@ export class MultidestinosLgComponent implements OnInit {
 
   _changeDateAdv1(event) {
     console.log("changeDateAdv1");
-    console.log(event);
+    console.log("event" + event);
+    this.isOpen1 = false;
+
+    if (this.selectedDate2 !== null) {
+      if (event >= this.selectedDate2) {
+        this.selectedDate1 = null;
+        this.isOpen1 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate1.emit(event);
     }
@@ -809,6 +837,29 @@ export class MultidestinosLgComponent implements OnInit {
   _changeDateAdv2(event) {
     console.log("changeDateAdv2");
     console.log(event);
+    this.isOpen2 = false;
+
+    if (this.selectedDate1 !== null) {
+      if (event < this.selectedDate1) {
+        this.isOpen2 = true;
+        this.selectedDate2 = null;
+        console.log(this.selectedDate2);
+        console.log(this.selectedDate2);
+        console.log(this.selectedDate2);
+        console.log(this.selectedDate2);
+        console.log(this.selectedDate2);
+        return false;
+      }
+    }
+
+    if (this.selectedDate3 !== null) {
+      if (event >= this.selectedDate3) {
+        this.selectedDate2 = null;
+        this.isOpen2 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate2.emit(event);
     }
@@ -816,6 +867,24 @@ export class MultidestinosLgComponent implements OnInit {
   changeDateAdv3(event) {
     console.log("changeDateAdv3");
     console.log(event);
+    this.isOpen3 = false;
+
+    if (this.selectedDate2 !== null) {
+      if (event < this.selectedDate2) {
+        this.selectedDate3 = null;
+        this.isOpen3 = true;
+        return false;
+      }
+    }
+
+    if (this.selectedDate4 !== null) {
+      if (event >= this.selectedDate4) {
+        this.selectedDate3 = null;
+        this.isOpen3 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate3.emit(event);
     }
@@ -823,6 +892,24 @@ export class MultidestinosLgComponent implements OnInit {
   changeDateAdv4(event) {
     console.log("changeDateAdv4");
     console.log(event);
+    this.isOpen4 = false;
+
+    if (this.selectedDate3 !== null) {
+      if (event < this.selectedDate3) {
+        this.selectedDate4 = null;
+        this.isOpen4 = true;
+        return false;
+      }
+    }
+
+    if (this.selectedDate5 !== null) {
+      if (event >= this.selectedDate5) {
+        this.selectedDate4 = null;
+        this.isOpen4 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate4.emit(event);
     }
@@ -830,6 +917,24 @@ export class MultidestinosLgComponent implements OnInit {
   changeDateAdv5(event) {
     console.log("changeDateAdv5");
     console.log(event);
+    this.isOpen5 = false;
+
+    if (this.selectedDate4 !== null) {
+      if (event < this.selectedDate4) {
+        this.selectedDate5 = null;
+        this.isOpen5 = true;
+        return false;
+      }
+    }
+
+    if (this.selectedDate6 !== null) {
+      if (event >= this.selectedDate6) {
+        this.selectedDate5 = null;
+        this.isOpen5 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate5.emit(event);
     }
@@ -837,9 +942,24 @@ export class MultidestinosLgComponent implements OnInit {
   changeDateAdv6(event) {
     console.log("changeDateAdv6");
     console.log(event);
+    this.isOpen6 = false;
+
+    if (this.selectedDate5 !== null) {
+      if (event < this.selectedDate5) {
+        this.selectedDate6 = null;
+        this.isOpen6 = true;
+        return false;
+      }
+    }
+
     if (event != null) {
       this.outSelectedDate6.emit(event);
     }
+  }
+
+  showPopover(popover) {
+    this.txtPopover1 = "Fecha fuera de rango!!!";
+    popover.show();
   }
 
 }
