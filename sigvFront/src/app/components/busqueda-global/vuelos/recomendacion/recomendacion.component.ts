@@ -449,7 +449,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
         if (lstFamilyResult === undefined) {
           //this.modalRefSessionExpired = this.modalService.show(ModalFamiliasVaciasComponent,this.config);
-        }else{
+        } else {
 
           requestFamilia.Lsections.forEach(function (section, indexSection) {
             lstFamilyResult.lsections.forEach(function (section2, indexSection2) {
@@ -585,7 +585,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       dia = fechaformat[2];
       mes = fechaformat[1];
       año = fechaformat[0];
-      fechatotal = año + '/' + mes + '/' + dia;  
+      fechatotal = año + '/' + mes + '/' + dia;
      // let fecha = this.Formatearfecha(item.birthDate);
       const obj = {
           "UserId": item.userId,
@@ -739,7 +739,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         this.sessionStorageService.store('objusuarios', this.datosuser);
       },
       err => {
-        
+
       },
       () => {
        // this.TraerAutorizador();
