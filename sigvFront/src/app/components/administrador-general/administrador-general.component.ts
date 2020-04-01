@@ -13,7 +13,7 @@ export class AdministradorGeneralComponent implements OnInit {
 
 
   modalRefPoliticas: BsModalRef;
-  constructor(private modalService: BsModalService,) { }
+  constructor(private modalService: BsModalService) { }
 
   ngOnInit() {
   }

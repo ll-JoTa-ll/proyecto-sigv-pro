@@ -5,6 +5,8 @@ import { ICostCenterCompany } from '../../../models/ICostCenterCompany.model';
 import { ICostCenterApproval } from 'src/app/models/ICostCenterApproval.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { BsModalRef,BsModalService } from 'ngx-bootstrap/modal';
+import { IUserApproval } from 'src/app/models/IUserApproval.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -18,6 +20,7 @@ export class AutorizacionCentroCostoComponent implements OnInit {
 
   datoslogin;
   lstCostCenter: ICostCenterCompany[] = [];
+  lstUserApproval: IUserApproval[] = [];
   p: number;
   lstCostCenterShow;
   Ids;
@@ -29,13 +32,17 @@ export class AutorizacionCentroCostoComponent implements OnInit {
   divNacional = false;
   divInternacional = false;
   max = false;
+  showDivPlus = true;
   divCostMasivo = true;
+  modalRefPoliticas: BsModalRef;
   maxPax = 6;
   lstPasajeros = [];
+  lstAutorizadores = [];
   constructor(
     private sessionStorageService: SessionStorageService,
     private userCompanyService: UserCompanyService,
     private spinner: NgxSpinnerService,
+    private modalService: BsModalService,
     private toastr: ToastrService
   ) {
 
@@ -78,6 +85,57 @@ export class AutorizacionCentroCostoComponent implements OnInit {
         () => {
         }
       )
+    }
+
+    GetUserApproval(template){
+      this.modalRefPoliticas = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'modal-lg1' })
+      );
+      this.spinner.show();
+      const data = {
+        CompanyId: this.datoslogin.ocompany.companyId,
+      }
+      this.userCompanyService.getUserApprovers(data.CompanyId).subscribe(
+        result => {
+            this.lstUserApproval = result;
+        },
+        err => {
+          this.spinner.hide();
+        },
+        () => {
+          this.spinner.hide();
+        }
+      )
+      this.spinner.hide();
+    }
+
+    editarAutorizador(emp,template) {
+      this.lstAutorizadores = [];
+      this.modalRefPoliticas = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'modal-lg1' })
+      );
+      const maxPax = this.maxPax;
+      let flagVal = 0;
+      let lstPasajeros = this.lstAutorizadores;
+      if (lstPasajeros.length === maxPax) {
+        this.max = true;
+        return false;
+      } else {
+        this.max = false;
+      }
+      lstPasajeros.forEach(function(item) {
+        if (item.userId === emp.userId) {
+          flagVal = 1;
+        }
+      });
+  
+      if (flagVal === 0) {
+        this.lstAutorizadores.push(emp);
+      }
+  
+      this.lstAutorizadores = lstPasajeros;
     }
 
     nacional(){
@@ -158,6 +216,11 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       this.userCompanyService.getCostCenterApproval(data).subscribe(
         result => {
             this.lstCostCenterApproval = result;
+            this.lstCostCenterApproval.forEach(function(item, index) {
+              if (item.national === false) {
+                $('#box-1_0').prop('checked', true)
+              }
+            });
         },
         err => {
           this.spinner.hide();
@@ -167,8 +230,20 @@ export class AutorizacionCentroCostoComponent implements OnInit {
         }
       )
       this.spinner.hide();
-      this.showDivCost= true;
+      this.showDivCost = true;
       this.divCostMasivo = false;
+      this.showDivPlus = false;
+    }
+
+    nacionalCheck(event: any){
+      console.log(event.target.checked);
+    }
+
+    openAddAutorization(template) {
+      this.modalRefPoliticas = this.modalService.show(
+        template,
+        Object.assign({}, { class: 'modal-lg1' })
+      );
     }
 
     GetCostCenterApprovalMasivo(){
@@ -199,6 +274,7 @@ export class AutorizacionCentroCostoComponent implements OnInit {
         this.spinner.hide();
         this.showDivCost = true;
         this.divCostMasivo = false;
+        this.showDivPlus = false;
       }
     }
 
