@@ -153,7 +153,6 @@ import { ChartModule } from 'angular-highcharts';
 import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
 import { ModalErrorServiceComponent } from './components/shared/modal-error-service/modal-error-service.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
