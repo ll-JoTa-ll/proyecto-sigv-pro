@@ -522,12 +522,12 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lSegmentGroups.forEach(function(group, i) {
+      segment.lsegmentGroups.forEach(function(group, i) {
         const dataGroup = {
           Id: i + 1,
-          ClassId: section.lSectionGroups[i].classId,
-          CabinId: section.lSectionGroups[i].cabinId,
-          CabinDescription: section.lSectionGroups[i].cabinDescription,
+          ClassId: section.lsectionGroups[i].classId,
+          CabinId: section.lsectionGroups[i].cabinId,
+          CabinDescription: section.lsectionGroups[i].cabinDescription,
           DepartureDate: group.departureDate,
           TimeOfDeparture: group.timeOfDeparture,
           ArrivalDate: group.arrivalDate,
@@ -537,9 +537,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           MarketingCarrier: group.marketingCarrier,
           FlightOrtrainNumber: group.flightOrtrainNumber,
           EquipmentType: group.equipmentType,
-          FareBasis: section.lSectionGroups[i].fareBasis,
+          FareBasis: section.lsectionGroups[i].fareBasis,
           TimeWaitAirport: group.timeWaitAirport,
-          fareFamilyName: section.lSectionGroups[i].fareFamilyName,
+          fareFamilyName: section.lsectionGroups[i].fareFamilyName,
           TotalFlightTimeShow: group.totalFlightTimeShow
         };
         LsegmentGroups_.push(dataGroup);
@@ -549,7 +549,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       let Lsegments_: any[] = [];
       const lsegment = {
         SegmentID: segment.segmentId,
-        FareType: section.lSectionGroups[0].fareType,
+        FareType: section.lsectionGroups[0].fareType,
         TotalFlightTime: segment.totalFlightTime,
         LsegmentGroups: LsegmentGroups_
       };
@@ -648,9 +648,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lSegmentGroups.forEach(function(group, i) {
+      segment.lsegmentGroups.forEach(function(group, i) {
         const dataGroup = {
-          ClassId: section.lSectionGroups[i].classId,
+          ClassId: section.lsectionGroups[i].classId,
           DepartureDate: group.departureDate,
           TimeOfDeparture: group.timeOfDeparture,
           TimeOfDepartureShow: group.timeOfDepartureShow,
@@ -664,17 +664,17 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           MarketingCarrier: group.marketingCarrier,
           FlightOrtrainNumber: group.flightOrtrainNumber,
           EquipmentType: group.equipmentType,
-          FareBasis: section.lSectionGroups[i].fareBasis,
+          FareBasis: section.lsectionGroups[i].fareBasis,
           TotalFlightTimeShow: group.totalFlightTimeShow,
           CityOrigin: group.cityOrigin,
           CityDestination: group.cityDestination,
           CarrierName: group.carrierName,
           AirportOrigin: group.airportOrigin,
           AirportDestination: group.airportDestination,
-          CabinDescription: section.lSectionGroups[i].cabinDescription,
+          CabinDescription: section.lsectionGroups[i].cabinDescription,
           TimeWaitAirport: group.timeWaitAirport,
           DateVariation: group.dateVariation,
-          fareFamilyName: section.lSectionGroups[i].fareFamilyName
+          fareFamilyName: section.lsectionGroups[i].fareFamilyName
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -683,7 +683,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       let Lsegments_: any[] = [];
       const lsegment = {
         SegmentID: segment.segmentId,
-        FareType: section.lSectionGroups[0].fareType,
+        FareType: section.lsectionGroups[0].fareType,
         TotalFlightTime: segment.totalFlightTime,
         TotalFlightTimeShow: segment.totalFlightTimeShow,
         LsegmentGroups: LsegmentGroups_
@@ -701,7 +701,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         BagAllowed: section.bagAllowed,
         BagQuantity: section.bagQuantity,
         Lsegments: Lsegments_,
-        lsectionGroups: section.lSectionGroups[0],
+        lsectionGroups: section.lsectionGroups[0],
         DepartureDate: section.departureDate
       };
 

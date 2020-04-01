@@ -74,11 +74,11 @@ export class FiltroSuperiorComponent implements OnInit {
         const lsections = recomendacion.lsections;
         let sectionCount = 0;
         lsections.forEach(function(section, index2) {
-          const lSegments = section.lSegments;
+          const lSegments = section.lsegments;
           const lSegmentsLength = lSegments.length;
           let segmentCount = 0;
           lSegments.forEach(function(segment, index3) {
-            const lSegmentGroups = segment.lSegmentGroups;
+            const lSegmentGroups = segment.lsegmentGroups;
             const nroEscalas = lSegmentGroups.length - 1;
             if (nroEscalas > 0) {
               segment.isVisible = false;
@@ -110,7 +110,7 @@ export class FiltroSuperiorComponent implements OnInit {
         const lsections = recomendacion.lsections;
         lsections.forEach(function(section, index2) {
           section.isVisible = true;
-          const lSegments = section.lSegments;
+          const lSegments = section.lsegments;
           lSegments.forEach(function(segment, index3) {
             segment.isVisible = true;
           });

@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-                    <img *ngIf="lSegmentGroups.length === 0" style="width: 40px; cursor: pointer;" (click)="listSegmentGroups(flagSegmentId, segment.lSegmentGroups)" src="./assets/images/arrow-down.svg" alt="">
+                    <img *ngIf="lSegmentGroups.length === 0" style="width: 40px; cursor: pointer;" (click)="listSegmentGroups(flagSegmentId, segment.lsegmentGroups)" src="./assets/images/arrow-down.svg" alt="">
                     <img *ngIf="lSegmentGroups.length > 0" style="width: 40px; cursor: pointer;" (click)="hideSegmentGroups(flagSegmentId)" src="./assets/images/arrow-up.svg" alt="">
                 </div>
 
@@ -121,7 +121,7 @@
 
     <div class="row m-0 p-0 pb-5 animated fadeIn fast" [id]="flagSegmentId" *ngIf="lSegmentGroups.length > 0">
         <div class="col-12 m-0 p-0">
-            <app-recomendacion-segment-group [lSegmentGroupsLength]="segment.lSegmentGroups.length" [totalFlightTimeShow]="segment.totalFlightTimeShow" [segmentGroup]="segmentGroup" [lSegmentGroupsIndex]="i+1" [sectionGroup]="lSectionGroups[i]" *ngFor="let segmentGroup of lSegmentGroups; let i=index"></app-recomendacion-segment-group>
+            <app-recomendacion-segment-group [lSegmentGroupsLength]="segment.lsegmentGroups.length" [totalFlightTimeShow]="segment.totalFlightTimeShow" [segmentGroup]="segmentGroup" [lSegmentGroupsIndex]="i+1" [sectionGroup]="lSectionGroups[i]" *ngFor="let segmentGroup of lSegmentGroups; let i=index"></app-recomendacion-segment-group>
         </div>
         <div class="col-12 m-0 p-0 p-4">
             <div class="row m-0 p-0 box-shadow p-3">
