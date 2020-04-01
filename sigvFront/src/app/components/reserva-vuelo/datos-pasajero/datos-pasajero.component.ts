@@ -38,7 +38,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datosuser;
   mdtelefono: string;
   configOption3 : ConfigurationOptions;
-
+  centroCosto;
   modalRef: BsModalRef;
   config = {
     backdrop: true,
@@ -65,12 +65,19 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
     } else {
       this.tratamiento = 'MRS';
     }
     this.fecha = this.user.birthDate;
+
+    if (this.user.lcostCenter.length > 0 && this.user.lcostCenter[0].description != null){
+      this.centroCosto = this.user.lcostCenter[0].description;
+    } else {
+      this.centroCosto = "Sin Información"
+    }
   }
 
   ngAfterViewInit() {

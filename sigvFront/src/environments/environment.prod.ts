@@ -12,7 +12,7 @@ export const environment = {
   max_pax: 8,
   url_bnus: 'https://ws-bnu.domiruth.com/api/',
   key: "eb85131bc9d94c02840aa6961e7f77e9"
- /* production: true,
+  /*production: true,
   url: "https://domiruth-prd.azure-api.net/security/",
   url_2: "https://domiruth-prd.azure-api.net/flight/",
   url_5: 'https://domiruth-prd.azure-api.net/customer/',
