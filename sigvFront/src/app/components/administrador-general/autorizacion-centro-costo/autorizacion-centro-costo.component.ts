@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { BsModalRef,BsModalService } from 'ngx-bootstrap/modal';
 import { IUserApproval } from 'src/app/models/IUserApproval.model';
+import { parse } from 'querystring';
 
 declare var jquery: any;
 declare var $: any;
@@ -18,11 +19,22 @@ declare var $: any;
 })
 export class AutorizacionCentroCostoComponent implements OnInit {
 
+  nacionalApproval;
+  internacionalApproval;
+  infraccionApproval;
+  reservaApproval;
+  rangeApproval;
+  divExecption;
+  lstException = [];
+  lstReservation = [];
+  divReserva;
   datoslogin;
   lstCostCenter: ICostCenterCompany[] = [];
   lstUserApproval: IUserApproval[] = [];
   p: number;
+  x: number;
   lstCostCenterShow;
+  lstUserApprovalShow;
   Ids;
   lstIds = [];
   lstCostMasivo = [];
@@ -38,6 +50,8 @@ export class AutorizacionCentroCostoComponent implements OnInit {
   maxPax = 6;
   lstPasajeros = [];
   lstAutorizadores = [];
+  indice;
+  tipo = 'tipoAprovacion';
   constructor(
     private sessionStorageService: SessionStorageService,
     private userCompanyService: UserCompanyService,
@@ -99,6 +113,11 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       this.userCompanyService.getUserApprovers(data.CompanyId).subscribe(
         result => {
             this.lstUserApproval = result;
+            this.lstUserApprovalShow = result;
+            for (let index = 0; index < this.lstUserApprovalShow.length; index++) {
+              const element = this.lstUserApprovalShow[index];
+              element.fullname = element.firstName + element.lastName;
+            }
         },
         err => {
           this.spinner.hide();
@@ -130,27 +149,14 @@ export class AutorizacionCentroCostoComponent implements OnInit {
           flagVal = 1;
         }
       });
-  
+
       if (flagVal === 0) {
         this.lstAutorizadores.push(emp);
       }
-  
+
       this.lstAutorizadores = lstPasajeros;
     }
 
-    nacional(){
-      var nacional = document.getElementById("nacional");
-      if(this.divNacional === false){
-        this.divNacional = true;
-        nacional.style.background = "darkred";
-        nacional.style.color = "white";
-        return false;
-      }else{
-        nacional.style.background = "none";
-        nacional.style.color = "black";
-        this.divNacional = false;
-      }
-    }
 
     agregarPasajero(emp){
       const maxPax = this.maxPax;
@@ -184,31 +190,138 @@ export class AutorizacionCentroCostoComponent implements OnInit {
           flagIndex = index;
         }
       });
-  
+
       lstPasajeros.splice(flagIndex, 1);
-  
+
       this.lstPasajeros = lstPasajeros;
     }
 
-    internacional(){
-      var internacional = document.getElementById("internacional");
-      if(this.divInternacional === false){
-        this.divInternacional = true;
-        internacional.style.background = "darkred";
-        internacional.style.color = "white";
-        return false;
-      }else{
-        internacional.style.background = "none";
-        internacional.style.color = "black";
-        this.divInternacional = false;
+    agregarAprobador(emp, i) {
+      if ($('#chkNacional_' + i).is(':checked')) {
+        this.nacionalApproval = true;
+      } else {
+        this.nacionalApproval = false;
       }
+      if ($('#chkInternacional_' + i).is(':checked')) {
+        this.internacionalApproval = true;
+      } else {
+        this.internacionalApproval = false;
+      }
+      if ($('#chkInfracciones_' + i).is(':checked')) {
+        this.infraccionApproval = true;
+      } else {
+        this.infraccionApproval = false;
+      }
+      if ($('#chkReservas_' + i).is(':checked')) {
+        this.reservaApproval = true;
+      } else {
+        this.reservaApproval = false;
+      }
+      if ($('#chkRange_' + i).is(':checked')) {
+        this.rangeApproval = true;
+      } else {
+        this.rangeApproval = false;
+      }
+      const empt = {
+        priority: this.lstCostCenterApproval.length + 1,
+        userId: emp.userId,
+        firstName: $('#firstNameApproval_' + i)[0].innerText,
+        lastName: $('#lastNameApproval_' + i)[0].innerText,
+        national: this.nacionalApproval,
+        international: this.internacionalApproval,
+        reservation: this.reservaApproval,
+        exception: this.infraccionApproval,
+        approvalRange: this.rangeApproval
+      }
+      const maxPax = this.maxPax;
+    let flagVal = 0;
+    let lstPasajeros = this.lstCostCenterApproval;
+    if (lstPasajeros.length === maxPax) {
+      this.max = true;
+      this.toastr.error('', 'Puede tener como maximo 6 aprobadores.', {
+        timeOut: 4000
+      });
+      return false;
+    }else{
+      this.max = false;
+    }
+    lstPasajeros.forEach(function(item) {
+      if (item.userId === empt.userId) {
+        flagVal = 1;
+      }
+    });
+
+    if (flagVal === 0) {
+
+      if (empt.exception === true && empt.reservation === false) {
+        this.divExecption = true;
+        this.lstException.push(empt);
+      } else {
+        if (this.divExecption === true && this.divReserva === true) {
+          this.divExecption = true;
+        } else {
+          this.divExecption = false;
+        }
+
+      }
+      if (empt.reservation === true && empt.exception === false) {
+        this.divReserva = true;
+        this.lstReservation.push(empt);
+      } else {
+        if (this.divExecption === true && this.divReserva === true){
+          this.divReserva = true;
+        } else {
+          this.divReserva = false;
+        }
+
+      }
+      if (empt.reservation === false && empt.exception === false) {
+        this.divReserva = true;
+        this.divExecption = true;
+        this.lstReservation.push(empt);
+        this.lstException.push(empt);
+      } else {
+
+      }
+      if (empt.reservation === true && empt.exception === true) {
+        this.divReserva = true;
+        this.divExecption = true;
+        this.lstReservation.push(empt);
+        this.lstException.push(empt);
+      } else {
+
+      }
+
+     // this.lstCostCenterApproval.push(empt);
+      this.toastr.success('', 'Aprobador agregado.', {
+        timeOut: 4000
+      });
+    } else {
+      this.toastr.error('', 'Por favor intente nuevamente.', {
+        timeOut: 4000
+      });
+    }
+
+    this.lstCostCenterApproval = lstPasajeros;
+    }
+
+    cancelar(){
+      this.showDivCost = false;
+      this.lstCostCenterApproval = [];
     }
 
 
     GetCostCenterApproval(costCenterId, nameCostCenter) {
+      this.divExecption = false;
+      this.divReserva = false;
+      this.lstReservation = [];
+      this.lstException = [];
+      this.indice = 0;
       this.spinner.show();
       this.nameCostCenter = nameCostCenter;
       this.lstIds = [];
+      let nombre;
+      nombre = $('#box_1').val();
       this.lstIds.push(costCenterId);
       const data = {
         Ids: this.lstIds
@@ -216,9 +329,44 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       this.userCompanyService.getCostCenterApproval(data).subscribe(
         result => {
             this.lstCostCenterApproval = result;
-            this.lstCostCenterApproval.forEach(function(item, index) {
-              if (item.national === false) {
-                $('#box-1_0').prop('checked', true)
+            this.lstCostCenterApproval.forEach(element => {
+              if (element.exception === true && element.reservation === false) {
+                this.divExecption = true;
+                this.lstException.push(element);
+              } else {
+                if (this.divExecption === true && this.divReserva === true) {
+                  this.divExecption = true;
+                } else {
+                  this.divExecption = false;
+                }
+
+              }
+              if (element.reservation === true && element.exception === false) {
+                this.divReserva = true;
+                this.lstReservation.push(element);
+              } else {
+                if (this.divExecption === true && this.divReserva === true){
+                  this.divReserva = true;
+                } else {
+                  this.divReserva = false;
+                }
+
+              }
+              if (element.reservation === false && element.exception === false) {
+                this.divReserva = true;
+                this.divExecption = true;
+                this.lstReservation.push(element);
+                this.lstException.push(element);
+              } else {
+
+              }
+              if (element.reservation === true && element.exception === true) {
+                this.divReserva = true;
+                this.divExecption = true;
+                this.lstReservation.push(element);
+                this.lstException.push(element);
+              } else {
+
               }
             });
         },
@@ -283,6 +431,10 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       this.FiltrarNombre();
    }
 
+   public changeAdd(event) {
+    this.FiltrarNombreAddApproval();
+ }
+
     FiltrarNombre() {
       let nombre;
       let results;
@@ -291,6 +443,16 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       nombre = $('#centrocosto').val();
       results = listado.filter(m => m.fullname.toUpperCase().includes(nombre.toUpperCase()))
       this.lstCostCenter = results;
+    }
+
+    FiltrarNombreAddApproval() {
+      let nombre;
+      let results;
+      let listado;
+      listado = this.lstUserApprovalShow;
+      nombre = $('#inputApproval').val();
+      results = listado.filter(m => m.fullname.toUpperCase().includes(nombre.toUpperCase()))
+      this.lstUserApproval = results;
     }
 
 }
