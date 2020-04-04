@@ -329,10 +329,10 @@
                               <div class="row" style="margin-left: 40px;" *ngFor="let emp of this.lstUserApproval | paginate: { itemsPerPage: 7, currentPage: x};let i=index;" id="filaUserApproval_{{i}}">
 
                                 <div class="col-11">
-                                    <div class="row box-shadow">
+                                    <div class="row box-shadow" style="padding-right: 60px;">
 
                                         <div id="firstNameApproval_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;">{{emp.firstName}}</div>
-                                        <div id="lastNameApproval_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;">{{emp.lastName}}</div>
+                                        <div id="lastNameApproval_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;padding-left: 10px;">{{emp.lastName}}</div>
 
 
 

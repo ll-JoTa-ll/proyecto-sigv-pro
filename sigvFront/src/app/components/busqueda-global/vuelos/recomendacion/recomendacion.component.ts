@@ -176,10 +176,10 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lSegmentGroups.forEach(function(group, i) {
+      segment.lsegmentGroups.forEach(function(group, i) {
         const dataGroup = {
           Id: idVal,
-          ClassId: section.lSectionGroups[i].classId,
+          ClassId: section.lsectionGroups[i].classId,
           DepartureDate: group.departureDate,
           TimeOfDeparture: group.timeOfDeparture,
           ArrivalDate: group.arrivalDate,
@@ -189,9 +189,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           MarketingCarrier: group.marketingCarrier,
           FlightOrtrainNumber: group.flightOrtrainNumber,
           EquipmentType: group.equipmentType,
-          FareBasis: section.lSectionGroups[i].fareBasis,
-          CabinId: section.lSectionGroups[i].cabinId,
-          CabinDescription: section.lSectionGroups[i].cabinDescription,
+          FareBasis: section.lsectionGroups[i].fareBasis,
+          CabinId: section.lsectionGroups[i].cabinId,
+          CabinDescription: section.lsectionGroups[i].cabinDescription,
           TimeWaitAirport: group.timeWaitAirport,
           fareFamilyName: ""
         };
@@ -203,7 +203,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       let Lsegments_: any[] = [];
       const lsegment = {
         SegmentID: segment.segmentId,
-        FareType: section.lSectionGroups[0].fareType,
+        FareType: section.lsectionGroups[0].fareType,
         TotalFlightTime: segment.totalFlightTime,
         LsegmentGroups: LsegmentGroups_
       };
@@ -283,12 +283,12 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lSegmentGroups.forEach(function(group, i) {
+      segment.lsegmentGroups.forEach(function(group, i) {
         const dataGroup = {
           Id: i + 1,
-          ClassId: section.lSectionGroups[i].classId,
-          CabinId: section.lSectionGroups[i].cabinId,
-          CabinDescription: section.lSectionGroups[i].cabinDescription,
+          ClassId: section.lsectionGroups[i].classId,
+          CabinId: section.lsectionGroups[i].cabinId,
+          CabinDescription: section.lsectionGroups[i].cabinDescription,
           DepartureDate: group.departureDate,
           TimeOfDeparture: group.timeOfDeparture,
           ArrivalDate: group.arrivalDate,
@@ -298,7 +298,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           MarketingCarrier: group.marketingCarrier,
           FlightOrtrainNumber: group.flightOrtrainNumber,
           EquipmentType: group.equipmentType,
-          FareBasis: section.lSectionGroups[i].fareBasis,
+          FareBasis: section.lsectionGroups[i].fareBasis,
           TimeWaitAirport: group.timeWaitAirport,
           fareFamilyName: "",
           TotalFlightTimeShow: group.totalFlightTimeShow
@@ -310,7 +310,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       let Lsegments_: any[] = [];
       const lsegment = {
         SegmentID: segment.segmentId,
-        FareType: section.lSectionGroups[0].fareType,
+        FareType: section.lsectionGroups[0].fareType,
         TotalFlightTime: segment.totalFlightTime,
         LsegmentGroups: LsegmentGroups_
       };
