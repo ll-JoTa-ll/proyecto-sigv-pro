@@ -5,6 +5,7 @@ import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AirportService } from '../../../services/airport.service';
 import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
+import * as moment from "moment";
 
 declare var jquery: any;
 declare var $: any;
@@ -140,6 +141,7 @@ export class MultidestinosLgComponent implements OnInit {
 
   hoy = new Date();
   maxDate = new Date(2200, 12, 12);
+  maxDate2 = new Date(2021, 12, 12);
 
   selectedDate1;
   selectedDate2;
@@ -148,41 +150,54 @@ export class MultidestinosLgComponent implements OnInit {
   selectedDate5;
   selectedDate6;
 
+
   singleDatePickerProps1 = {
     "id": "singleDate1",
     "placeholder": "Salida",
     "displayFormat": "DD/MM/YYYY",
-    "showDefaultInputIcon": true
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => moment(),
+    "focused": false
   };
   singleDatePickerProps2 = {
     "id": "singleDate2",
     "placeholder": "Salida",
     "displayFormat": "DD/MM/YYYY",
-    "showDefaultInputIcon": true
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => this.formatDateMoment(this.selectedDate1, 1),
+    "focused": false
   };
   singleDatePickerProps3 = {
     "id": "singleDate3",
     "placeholder": "Salida",
     "displayFormat": "DD/MM/YYYY",
-    "showDefaultInputIcon": true
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => this.formatDateMoment(this.selectedDate2, 2),
+    "focused": false
   };
   singleDatePickerProps4 = {
     "id": "singleDate4",
     "placeholder": "Salida",
     "displayFormat": "DD/MM/YYYY",
-    "showDefaultInputIcon": true
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => this.formatDateMoment(this.selectedDate3, 3),
+    "focused": false
   };
   singleDatePickerProps5 = {
     "id": "singleDate5",
     "placeholder": "Salida",
     "displayFormat": "DD/MM/YYYY",
-    "showDefaultInputIcon": true
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => this.formatDateMoment(this.selectedDate4, 4),
+    "focused": false
   };
   singleDatePickerProps6 = {
     "id": "singleDate6",
     "placeholder": "Salida",
     "displayFormat": "DD/MM/YYYY",
-    "showDefaultInputIcon": true
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => this.formatDateMoment(this.selectedDate5, 5),
+    "focused": false
   };
 
   @Output() outSelectedDate1 = new EventEmitter<Date>();
@@ -207,6 +222,10 @@ export class MultidestinosLgComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private airportService: AirportService
   ) {
+    console.log("moment(): " + moment());
+    console.log("moment(): " + moment());
+    console.log("moment(): " + moment());
+    console.log("moment(): " + moment("2020-12-12", "YYYY-MM-DD"));
     this.flagTramo3 = false;
     this.flagTramo4 = false;
     this.flagTramo5 = false;
@@ -843,11 +862,6 @@ export class MultidestinosLgComponent implements OnInit {
       if (event < this.selectedDate1) {
         this.isOpen2 = true;
         this.selectedDate2 = null;
-        console.log(this.selectedDate2);
-        console.log(this.selectedDate2);
-        console.log(this.selectedDate2);
-        console.log(this.selectedDate2);
-        console.log(this.selectedDate2);
         return false;
       }
     }
@@ -859,6 +873,7 @@ export class MultidestinosLgComponent implements OnInit {
         return false;
       }
     }
+
 
     if (event != null) {
       this.outSelectedDate2.emit(event);
@@ -957,9 +972,60 @@ export class MultidestinosLgComponent implements OnInit {
     }
   }
 
+  showMonth(value) {
+    const day = moment("2020-12-12", "YYYY-MM-DD");
+    console.log("day: " + day);
+    console.log("day: " + day);
+    console.log("day: " + day);
+    console.log("day: " + day);
+    return day;
+  }
+
   showPopover(popover) {
-    this.txtPopover1 = "Fecha fuera de rango!!!";
+    this.txtPopover1 = "XXX";
     popover.show();
+  }
+
+  formatDateMoment(value, index) {
+    console.log("formatDate1");
+    console.log("value: " + value);
+    console.log("value: " + value);
+    console.log("value: " + value);
+    if (value === null) {
+      //alert("Ingreser la fecha anterior!!!");
+      //console.log("this.singleDatePickerProps1.focused: " + this.singleDatePickerProps1.focused);
+      //this.singleDatePickerProps1.focused = true;
+      //console.log("this.singleDatePickerProps1.focused: " + this.singleDatePickerProps1.focused);
+      return moment();
+    }
+    var dd = value.getDate();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    var mm = value.getMonth() + 1;
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    var yyyy = value.getFullYear();
+    const fechatotal = yyyy + '-' + mm + '-' + dd;
+    console.log("fechatotal: " + fechatotal);
+    const momentDate = moment(fechatotal, "YYYY-MM-DD");
+    return momentDate;
+  }
+
+  formatDateYYYYMMDD(value) {
+    console.log("formatDate1");
+    var dd = value.getDate();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    var mm = value.getMonth() + 1;
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    var yyyy = value.getFullYear();
+    const fechatotal = yyyy + '-' + mm + '-' + dd;
+    return fechatotal;
   }
 
 }

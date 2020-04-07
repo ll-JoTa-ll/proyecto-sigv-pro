@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AirportService } from '../../../services/airport.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTypeaheadWindow } from '@ng-bootstrap/ng-bootstrap/typeahead/typeahead-window';
+import * as moment from 'moment';
 
 declare var jquery: any;
 declare var $: any;
@@ -191,32 +192,50 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
   singleDatePickerProps1 = {
     "id": "singleDate1",
     "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => moment(),
+    "focused": false
   };
   singleDatePickerProps2 = {
     "id": "singleDate2",
     "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => this.formatDateMoment(this.selectedDate1, 1),
+    "focused": false
   };
   singleDatePickerProps3 = {
     "id": "singleDate3",
     "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => this.formatDateMoment(this.selectedDate2, 2),
+    "focused": false
   };
   singleDatePickerProps4 = {
     "id": "singleDate4",
     "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => this.formatDateMoment(this.selectedDate3, 3),
+    "focused": false
   };
   singleDatePickerProps5 = {
     "id": "singleDate5",
     "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => this.formatDateMoment(this.selectedDate4, 4),
+    "focused": false
   };
   singleDatePickerProps6 = {
     "id": "singleDate6",
     "placeholder": "Salida",
-    "displayFormat": "DD/MM/YYYY"
+    "displayFormat": "DD/MM/YYYY",
+    "showDefaultInputIcon": true,
+    "initialVisibleMonth": () => this.formatDateMoment(this.selectedDate5, 5),
+    "focused": false
   };
 
   selectedDate1;
@@ -1154,6 +1173,25 @@ export class MultidestinosXsComponent implements OnInit, AfterViewInit {
     if (event != null) {
       this.outSelectedDate6.emit(event);
     }
+  }
+
+  formatDateMoment(value, index) {
+    if (value === null) {
+      return moment();
+    }
+    var dd = value.getDate();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+    var mm = value.getMonth() + 1;
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+    var yyyy = value.getFullYear();
+    const fechatotal = yyyy + '-' + mm + '-' + dd;
+    console.log("fechatotal: " + fechatotal);
+    const momentDate = moment(fechatotal, "YYYY-MM-DD");
+    return momentDate;
   }
 
 }
