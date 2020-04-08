@@ -17,10 +17,10 @@
                     </div>
                 </div>
                 <div class="row m-0 p-0">
-                    <div class="col-8" style="padding-top: 15px;padding-bottom: 30px;">
+                    <div class="col-7" style="padding-top: 15px;padding-bottom: 30px;">
                         <span class="titulo1">Listado de centro de costo:</span>
                     </div>
-                    <div class="col-4" style="padding-top: 15px;padding-bottom: 30px;">
+                    <div class="col-5" style="padding-top: 15px;padding-bottom: 30px;">
                         <span class="title box-shadow" id="selectAll" (click)="GetCostCenterApprovalMasivo()" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Configurar Seleccionados</span>
                     </div>
                 </div>
@@ -275,14 +275,21 @@
 
                     </div>
 
-                    <div class="row pt-5 pb-3">
+                    <div *ngIf="divVacio" class="row m-0 p-0">
+                      <div class="col-12" style="padding-top: 50px;padding-bottom: 60px;text-align: center;">
+                          <span>Centro de costo sin autorizadores, por favor agregue.</span>
+                      </div>
+                  </div>
+
+                    <div *ngIf="divGuardar" class="row pt-5 pb-3">
                         <div class="col-sm-6" style="padding-top: 15px;padding-bottom: 30px;text-align: center;">
-                            <span class="title box-shadow" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Guardar</span>
+                            <span class="title box-shadow" style="padding: 12px 44px;cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Guardar</span>
                         </div>
                         <div class="col-sm-6" style="padding-top: 15px;padding-bottom: 30px;text-align: center;">
-                            <span class="title box-shadow" (click)="cancelar()" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Cancelar</span>
+                            <span class="title box-shadow" (click)="cancelar()" style="padding: 12px 44px;cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Cancelar</span>
                         </div>
                     </div>
+
                     <ng-template #modalAddAutorization let-c="close" let-d="dismiss">
 
                         <div class="modal-header pb-0" style="border: none;">
@@ -401,19 +408,20 @@
                                     <span class="tituloModal">Editar Autorizador</span>
                                 </div>
                             </div>
-                            <div class="row m-0 p-0">
+                            <div class="row" style="padding-left: 50px;">
 
-                                <div class="col-11 m-0 p-0">
-                                    <div class="row m-0 p-0 box-shadow">
-                                        <div class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;font-weight: 700;">Nombres</div>
-                                        <div class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;font-weight: 700;">Apellidos</div>
-                                        <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;font-weight: 700;">Nacional</div>
-                                        <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;font-weight: 700;">Internacional</div>
-                                        <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;font-weight: 700;">Infracciones</div>
-                                        <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;font-weight: 700;">Reservas</div>
+                                <div class="col-11">
+                                    <div class="row box-shadow">
+                                        <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Nombres</div>
+                                        <div class="m-0 p-0 text-center apc-text-2" style="width: 18% !important;font-weight: 700;">Apellidos</div>
+                                        <div class="text-center apc-text-2" style="width: 13% !important;font-weight: 700;padding-left: 40px;">Nacional</div>
+                                        <div class="text-center apc-text-2" style="width: 15% !important;font-weight: 700;padding-left: 40px;">Internacional</div>
+                                        <div class="text-center apc-text-2" style="width: 15% !important;font-weight: 700;padding-left: 40px;">Infracciones</div>
+                                        <div class="text-center apc-text-2" style="width: 15% !important;font-weight: 700;padding-left: 40px;">Reservas</div>
+                                        <div class="text-center apc-text-2" style="width: 14% !important;font-weight: 700;padding-left: 40px;">Rango</div>
                                     </div>
                                 </div>
-                                <div class="col-1 m-0 p-0 text-center">
+                                <div class="col-1 text-center">
                                     <div class="row m-0 p-0">
                                         <div class="m-0 p-0" style="width: 10%"></div>
                                         <div class="m-0 p-0" style="width: 15%"></div>
@@ -421,37 +429,59 @@
                                 </div>
 
                             </div>
-                            <div class="row m-0 p-0" *ngFor="let pasajero of lstAutorizadores;let i=index">
+                            <div class="row" style="padding-left: 50px;" *ngFor="let pasajero of lstAutorizadores;let i=index">
 
-                                <div class="col-11 m-0 p-0">
-                                    <div class="row m-0 p-0 box-shadow">
-                                        <div id="nombre_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;">{{pasajero.firstName}}</div>
-                                        <div id="apellido_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;">{{pasajero.lastName}}</div>
-                                        <div id="box1_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">
-                                            <input (change)="nacionalCheck($event)" type="checkbox" id="box-1_{{i}}">
+                                <div class="col-11">
+                                    <div class="row box-shadow">
+                                        <div id="nombre_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;">{{pasajero.firstName}}</div>
+                                        <div id="apellido_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 18% !important;">{{pasajero.lastName}}</div>
+
+                                        <div id="box1_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 13% !important;">
+                                            <input *ngIf="pasajero.national === true;else nationalAut" checked type="checkbox" id="box-1_{{i}}">
+                                            <ng-template #nationalAut>
+                                              <input type="checkbox" id="box-1_{{i}}">
+                                            </ng-template>
                                             <label for="box-1_{{i}}"> </label>
                                     </div>
                                     <div id="box3_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">
 
-                                            <input type="checkbox" id="box-3_{{i}}">
+                                            <input *ngIf="pasajero.international === true;else internationalAut" checked type="checkbox" id="box-3_{{i}}">
+                                            <ng-template #internationalAut>
+                                              <input type="checkbox" id="box-3_{{i}}">
+                                            </ng-template>
                                             <label for="box-3_{{i}}"> </label>
 
                                     </div>
                                     <div id="box5_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">
 
-                                            <input type="checkbox" id="box-5_{{i}}">
+                                            <input *ngIf="pasajero.exception === true;else exceptionAut" checked type="checkbox" id="box-5_{{i}}">
+                                            <ng-template #exceptionAut>
+                                              <input type="checkbox" id="box-5_{{i}}">
+                                            </ng-template>
                                             <label for="box-5_{{i}}"> </label>
 
                                     </div>
                                     <div id="box7_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">
 
-                                            <input type="checkbox" id="box-7_{{i}}">
+                                            <input *ngIf="pasajero.reservation === true;else reservationAut" checked type="checkbox" id="box-7_{{i}}">
+                                            <ng-template #reservationAut>
+                                              <input type="checkbox" id="box-7_{{i}}">
+                                            </ng-template>
                                             <label for="box-7_{{i}}"> </label>
 
                                     </div>
+                                    <div id="box9_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 14% !important;">
+
+                                      <input *ngIf="pasajero.approvalRange === true;else approvalRangeAut" checked type="checkbox" id="box-9_{{i}}">
+                                      <ng-template #approvalRangeAut>
+                                        <input type="checkbox" id="box-9_{{i}}">
+                                      </ng-template>
+                                      <label for="box-9_{{i}}"> </label>
+
+                              </div>
                                     </div>
                                 </div>
-                                <div class="col-1 m-0 p-0 text-center">
+                                <div class="col-1 text-center">
                                     <div class="row m-0 p-0">
 
                                     </div>
@@ -465,8 +495,8 @@
                                 <div class="col-md-3" style="padding-top: 15px;padding-bottom: 30px;">
 
                                 </div>
-                                <div class="col-md-6" style="padding-top: 15px;padding-bottom: 30px;text-align: center;">
-                                    <span class="title box-shadow" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Guardar</span>
+                                <div class="col-md-6" style="padding-top: 40px;padding-bottom: 30px;text-align: center;">
+                                    <span class="title box-shadow" style="padding: 12px 44px;cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;">Guardar</span>
                                 </div>
                                 <div class="col-md-3" style="padding-top: 15px;padding-bottom: 30px;">
 
@@ -477,6 +507,7 @@
                     </ng-template>
 
                 </div>
+
                 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
 
             </div>
