@@ -19,6 +19,7 @@ declare var $: any;
 })
 export class AutorizacionCentroCostoComponent implements OnInit {
 
+  newList = [];
   approvalNacional;
   approvalInternacional;
   approvalInfraccion;
@@ -58,6 +59,7 @@ export class AutorizacionCentroCostoComponent implements OnInit {
   lstAutorizadores = [];
   divGuardar = false;
   indice;
+  lstService = [];
   tipo = 'tipoAprovacion';
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -88,6 +90,7 @@ export class AutorizacionCentroCostoComponent implements OnInit {
     }
 
     GetCostCenter(){
+      this.spinner.show();
       const data = {
         CompanyId: this.datoslogin.ocompany.companyId,
         AgencyId: null
@@ -100,6 +103,45 @@ export class AutorizacionCentroCostoComponent implements OnInit {
               const element = this.lstCostCenterShow[index];
               element.fullname = element.code + element.description;
             }
+            this.spinner.hide();
+        },
+        err => {
+        },
+        () => {
+        }
+      )
+
+    }
+
+    InsertUpdateApproval() {
+      this.newList = [];
+      this.lstService = this.lstReservation.concat(this.lstException);
+      for (let index = 0; index < this.lstService.length; index++) {
+        const newList = {
+              BossId: this.lstService[index].userId,
+              Priority: this.lstService[index].priority,
+              IsActive: 1,
+              National: this.lstService[index].national,
+              International: this.lstService[index].international,
+              Exception: this.lstService[index].exception,
+              Reservation: this.lstService[index].reservation,
+              ApprovalRange: this.lstService[index].approvalRange,
+              RangeInfraction: 0,
+              InitialRange: 0,
+              FinalRange: 0
+        }
+        this.newList.push(newList);
+      }
+      const data = {
+        TypeApproval: 1,
+        CompanyId: this.datoslogin.ocompany.companyId,
+        UserId: this.datoslogin.userId,
+        CostCenterId: null,
+        Lapprovers: this.newList
+      }
+      this.userCompanyService.getInsertApprovers(data).subscribe(
+        result => {
+
         },
         err => {
         },
@@ -124,16 +166,17 @@ export class AutorizacionCentroCostoComponent implements OnInit {
             for (let index = 0; index < this.lstUserApprovalShow.length; index++) {
               const element = this.lstUserApprovalShow[index];
               element.fullname = element.firstName + element.lastName;
+              this.spinner.hide();
             }
         },
         err => {
           this.spinner.hide();
         },
         () => {
-          this.spinner.hide();
+
         }
       )
-      this.spinner.hide();
+
     }
 
     editarAutorizador(emp, template) {
@@ -390,15 +433,16 @@ export class AutorizacionCentroCostoComponent implements OnInit {
 
               }
             });
+            this.lstService = this.lstReservation.concat(this.lstException);
+            this.spinner.hide();
         },
         err => {
-          this.spinner.hide();
+
         },
         () => {
-          this.spinner.hide();
+
         }
       )
-      this.spinner.hide();
       this.divCostMasivo = false;
       this.showDivPlus = false;
     }
@@ -420,6 +464,9 @@ export class AutorizacionCentroCostoComponent implements OnInit {
           timeOut: 4000
         });
       } else {
+        this.lstCostCenterApproval = [];
+        this.lstReservation = [];
+        this.lstException = [];
         this.spinner.show();
         for (let index = 0; index < this.lstPasajeros.length; index++) {
           const element = this.lstPasajeros[index].costCenterId;
@@ -480,15 +527,15 @@ export class AutorizacionCentroCostoComponent implements OnInit {
 
                 }
               });
+              this.spinner.hide();
           },
           err => {
-            this.spinner.hide();
+
           },
           () => {
-            this.spinner.hide();
+
           }
         )
-        this.spinner.hide();
         this.showDivCost = true;
         this.divCostMasivo = false;
         this.showDivPlus = false;

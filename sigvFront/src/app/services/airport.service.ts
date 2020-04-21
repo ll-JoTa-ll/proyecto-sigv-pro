@@ -39,7 +39,7 @@ export class AirportService {
   token;
   key;
 
-  private _url: string = environment.url_2 + "Airport/";
+  private _url: string = environment.url_2 + "CityAirport/";
   private _url2: string = environment.url_2 + "Search/";
   private _url3: string = environment.url_2 + "Search/";
   private _url4: string = environment.url_2 + "Booking/";
@@ -79,6 +79,17 @@ export class AirportService {
     return this.http.get<IAirportList>(this._url + "GetAirports", httpOptions2);
   }
 
+  getAirportList(token, data): Observable<IAirportList[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + token,
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': this.key
+    });
+    const url = `${this._url + 'GetCityAirport'}?${'priority=' + data}`;
+    return this.http.get<IAirportList[]>(url, httpOptions2);
+  }
+
   airportListPriority(token): Observable<IAirportList> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
@@ -91,7 +102,7 @@ export class AirportService {
 
   searchFlight(data): Observable<ISearchFlightModel[]> {
    this.token = this.sessionSt.retrieve('ss_token');
-   httpOptions2.headers = new HttpHeaders({ 
+   httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
