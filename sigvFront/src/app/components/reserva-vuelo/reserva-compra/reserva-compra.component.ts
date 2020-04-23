@@ -101,7 +101,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.contacto = this.sessionStorageService.retrieve('contacto');
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
-    this.blockflight = this.loginDataUser.ocompany.blockFlight;
+    this.blockflight = this.loginDataUser.ocompany.ocompanyConfiguration.blockFlight;
     this.idprofile = this.sessionStorageService.retrieve('idprofile');
    }
 
@@ -888,13 +888,13 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         html +="<div style='width: 50% !important;'>";
         html +="<span style='color: #676767;'>Tipo de documento:  </span>";
         html +="<span style='color: #898989;'>";
-        html += item.odocument.description;
+        html += item.lpersonDocuments[0].docName;
         html +="</span>";
         html +="</div>";
         html +="<div style='width: 50% !important;'>";
         html +="<span style='color: #676767;'>Número de documento:  </span>";
         html +="<span style='color: #898989;'>";
-        html += item.odocument.number;
+        html += item.lpersonDocuments[0].docNumber;
         html +="</span>";
         html +="</div>";
         html +="</div>";

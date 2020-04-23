@@ -50,6 +50,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   LSection;
   LPolicies;
   datosuser: any[] = [];
+  listadocument: any[] = [];
   currency;
   ocompany;
   lsCostCenter: ICostCenter[];
@@ -74,6 +75,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   flagHtmlP = false;
   idinterval: any;
   numero1: any;
+  lstCodes: any[] = [];
   telefonocontacto: any;
   lstpaises: IGetPaisesModel[] = [];
   emailsolicitud;
@@ -493,12 +495,58 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       prefix = $('#cbotratamiento_' + (index + 1) + ' '  + 'option:selected').val();
       email1 = $('#txtcorreo_' + (index + 1)).val();
       telefono1 = $('#txttelefono_' + (index + 1)).val();
+      const lcodes =
+      [
+        {
+          Code: 'PP',
+          Gds: 'Amadeus'
+        },
+        {
+          Code: 'CE',
+          Gds: 'Sabre'
+        }
+      ]
+
+      const lcodesOne =
+      [
+        {
+          Code: 'PP',
+          Gds: 'Amadeus'
+        },
+        {
+          Code: 'PP',
+          Gds: 'Sabre'
+        }
+      ]
+
+      const lcodesTwo =
+      [
+        {
+          Code: 'NI',
+          Gds: 'Amadeus'
+        },
+        {
+          Code: 'D',
+          Gds: 'Sabre'
+        }
+      ]
+
+
       let odocument = {
-        id: item.odocument.id,
-        codeAmadeus: item.odocument.codeAmadeus,
-        codeSabre: item.odocument.codeSabre,
-        description: item.odocument.description,
-        number: nrodoc
+        Id: item.lpersonDocuments[0].docTypeId,
+        Description: item.lpersonDocuments[0].docName,
+        number: nrodoc,
+        Lcodes: null,
+      }
+
+      if (item.lpersonDocuments[0].docTypeId === '7F0B8721-FC7F-4735-A1AD-7DD8EC485A3C') {
+        odocument.Lcodes = lcodes;
+      }
+      if (item.lpersonDocuments[0].docTypeId === 'DD8D0D83-5E9B-4377-AC1A-A4A806EB0C3A') {
+        odocument.Lcodes = lcodesOne;
+      }
+      if (item.lpersonDocuments[0].docTypeId === 'F3F05B20-412E-4A1A-BA31-B69B1E6D0392') {
+        odocument.Lcodes = lcodesTwo;
       }
 
       const objuser = {

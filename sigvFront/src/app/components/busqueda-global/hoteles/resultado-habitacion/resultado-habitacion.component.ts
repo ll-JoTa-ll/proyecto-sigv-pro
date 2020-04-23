@@ -38,6 +38,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   @Input() precioprom;
   @Input() precioxnoche;
   @Input() businessName: string;
+  @Input() typeHotel: string;
   @Input() longitud;
   @Input() cantpersonas;
   @Input() estrellas;
@@ -65,7 +66,7 @@ export class ResultadoHabitacionComponent implements OnInit {
       this.personas = "adultos"
     }
 
-    
+
   }
 
   getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
@@ -113,18 +114,18 @@ export class ResultadoHabitacionComponent implements OnInit {
       let hotel;
       for (let i = 0; i < this.lstHotel.length; i++) {
         const element = this.lstHotel[i];
-        
+
         if (element.code === hotelcode) {
           hotel = this.lstHotel[i];
         }
-        
+
       }
       this.sessionStorageService.store("lhotel",hotel);
-  
+
       this.service.GetHabitacion(data).subscribe(
         data => {
           this.lstHabication = data;
-          
+
           this.sessionStorageService.store("lstHabication", this.lstHabication);
           //this.router.navigate(['/habitacion']);
           if (this.lstHabication.oerror != null) {
@@ -132,11 +133,11 @@ export class ResultadoHabitacionComponent implements OnInit {
           }else{
             window.open(window.location.origin + "/habitacion");
           }
-          
+
         },
         err => {
         this.spinner.hide();
-        
+
       },
      () => {
        this.spinner.hide();
@@ -145,7 +146,7 @@ export class ResultadoHabitacionComponent implements OnInit {
      }
       )
     }
-    
+
   }
 
   Mostrarmapa(position) {

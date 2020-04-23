@@ -8,6 +8,8 @@ import { SessionStorageService } from 'ngx-webstorage';
 import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
 import { ConfigurationOptions, ContentOptionsEnum, NumberResult } from 'intl-input-phone';
 import { IGetPaisesModel } from '../../../models/IGetPaises';
+import { UserCompanyService } from 'src/app/services/user-company.service';
+import { IDocumentType } from 'src/app/models/IDocumentType.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -36,6 +38,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datosPax;
   flagValDatosPAsajeros: boolean = false;
   datosuser;
+  Document: IDocumentType[] = [];
   mdtelefono: string;
   configOption3 : ConfigurationOptions;
   centroCosto;
@@ -53,7 +56,10 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   @Input() htmlTxtP;
   bsValue: Date;
 
-  constructor(private modalService: BsModalService, private sessionStorageService : SessionStorageService) {
+  constructor(
+    private userCompanyService: UserCompanyService,
+    private modalService: BsModalService,
+    private sessionStorageService : SessionStorageService) {
   /*  $("#telephone").intlTelInput({
   });*/
     let fecha;
@@ -65,7 +71,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    
+    this.document();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
     } else {
@@ -82,6 +88,21 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     $("#divHtmlTxtP").html(this.htmlTxtP);
+  }
+
+
+  document(){
+    this.userCompanyService.getDocument().subscribe(
+      result => {
+        this.Document = result;
+      },
+      err => {
+
+      },
+      () => {
+
+      }
+    );
   }
 
   openModal(template: TemplateRef<any>, template2: TemplateRef<any>) {
@@ -138,22 +159,22 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     }
     if (valor === 'UY') {
         $('#txttelefono_' + this.index).attr('maxlength', '9');
-    } 
+    }
     if (valor === 'VE') {
       $('#txttelefono_' + this.index).attr('maxlength', '11');
-    } 
+    }
     if (valor === 'CL') {
     $('#txttelefono_' + this.index).attr('maxlength', '9');
-    } 
+    }
     if (valor === 'BR') {
     $('#txttelefono_' + this.index).attr('maxlength', '11');
-    } 
+    }
     if (valor === 'BO') {
     $('#txttelefono_' + this.index).attr('maxlength', '8');
-    } 
+    }
     if (valor === 'US') {
     $('#txttelefono_' + this.index).attr('maxlength', '10');
-    } 
+    }
     if (valor === 'MX') {
     $('#txttelefono_' + this.index).attr('maxlength', '13');
     }
