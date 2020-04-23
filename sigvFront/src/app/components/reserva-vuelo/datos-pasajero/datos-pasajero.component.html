@@ -105,9 +105,8 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <select class="input-pasajero" type="text" [(ngModel)]="user.odocument.codeAmadeus" id="cbo_tipodocumento_{{index}}">
-                                            <option value="NI">CÉDULA DE IDENTIDAD</option>
-                                            <option value="PP">PASAPORTE</option>
+                                <select class="input-pasajero" type="text" [(ngModel)]="user.lpersonDocuments[0].docTypeId" id="cbo_tipodocumento_{{index}}">
+                                            <option *ngFor="let item of this.Document" value="{{item.docTypeId}}">{{item.name}}</option>
                                             </select>
                             </div>
                         </div>
@@ -122,7 +121,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
-                                <input (keydown)="ValidarSoloNumero($event)" (keypress)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.odocument.number" id="txtnrodocumento_{{index}}" maxlength="8">
+                                <input (keydown)="ValidarSoloNumero($event)" (keypress)="ValidarCampos()" (keyup)="ValidarCampos()" class="input-pasajero" type="text" [(ngModel)]="user.lpersonDocuments[0].docNumber" id="txtnrodocumento_{{index}}" maxlength="8">
                             </div>
                         </div>
                     </div>

@@ -14,7 +14,7 @@
                 <span></span>{{reserva.ohotel.name}} - <span>{{habitacion.ohotel.cityName}} .</span> <span>A {{lhotel.oairportDistance.distance}} km  del  aeropuerto</span>
             </div>
 
-            <div class="col-12 m-0 p-0 pb-5">
+            <div  class="col-12 m-0 p-0 pb-5">
                 <div class="row m-0 p-0 pt-3">
                     <div class="col-8 m-0 p-0 pl-4">
                         <div class="row m-0 p-0">
@@ -35,7 +35,7 @@
                         <button class="btn btn-danger" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
                     <span class="lblSelecciona"> Agrega tu tarjeta <img src="./assets/images/tarjeta-de-credito.svg" class="pl-2">
                     </span>
-                                   
+
                   </button>
 
                     </div>
@@ -90,9 +90,9 @@
             <div class="FormadePago col-12 m-0 p-0 pt-4 pb-4" style="background: #F8F8F8;">
                 <span class="lblFormaPago pr-3"> Formato de pago aceptada </span>
                 <span>
-              <img *ngIf="tipoTarjeta === 1 && this.reserva.oroom.paymentCards.includes('MC') === true" src="./assets/images/mastercard.png"  class="pr-3" style="width: 70px;">     
-              <img *ngIf="tipoTarjeta === 2 && this.reserva.oroom.paymentCards.includes('DS') === true" src="./assets/images/discover.png"  class="pr-3 pl-3" style="width: 80px;">    
-              <img *ngIf="tipoTarjeta === 3 && this.reserva.oroom.paymentCards.includes('AX') === true" src="./assets/images/amex.png"  class="pr-3 pl-3" style="width: 80px;">   
+              <img *ngIf="tipoTarjeta === 1 && this.reserva.oroom.paymentCards.includes('MC') === true" src="./assets/images/mastercard.png"  class="pr-3" style="width: 70px;">
+              <img *ngIf="tipoTarjeta === 2 && this.reserva.oroom.paymentCards.includes('DS') === true" src="./assets/images/discover.png"  class="pr-3 pl-3" style="width: 80px;">
+              <img *ngIf="tipoTarjeta === 3 && this.reserva.oroom.paymentCards.includes('AX') === true" src="./assets/images/amex.png"  class="pr-3 pl-3" style="width: 80px;">
               <img *ngIf="tipoTarjeta === 4 && this.reserva.oroom.paymentCards.includes('VI') === true" src="./assets/images/visa.svg" class="pr-3 pl-3">
               <img *ngIf="tipoTarjeta === 5 && this.reserva.oroom.paymentCards.includes('JC') === true" src="./assets/images/jcb.png" class="pr-3 pl-3" style="width: 80px;">
               <img *ngIf="tipoTarjeta === 6 && this.reserva.oroom.paymentCards.includes('DC') === true" src="./assets/images/dinersclub.png" class="pr-3 pl-3" style="width: 80px;">

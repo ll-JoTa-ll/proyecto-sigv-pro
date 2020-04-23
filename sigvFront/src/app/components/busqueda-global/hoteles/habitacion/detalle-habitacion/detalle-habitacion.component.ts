@@ -55,7 +55,7 @@ export class DetalleHabitacionComponent implements OnInit {
    }
 
   ngOnInit() {
-    
+
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.getUser();
@@ -80,6 +80,7 @@ export class DetalleHabitacionComponent implements OnInit {
         this.spinner.show();
       let data = {
       "Pseudo": "LIMPE2235",
+      "GDS": "Amadeus",
       "CityCode": this.habitacion.ohotel.cityCode,
       "ChainCode": this.habitacion.ohotel.chainCode,
       "HotelCode": this.habitacion.ohotel.hotelCode,
@@ -100,7 +101,7 @@ export class DetalleHabitacionComponent implements OnInit {
         },
         err => {
           this.spinner.hide();
-        
+
       },
     () => {
       //window.open(environment.url_project + "/reserva-habitacion-hotel");
@@ -109,13 +110,13 @@ export class DetalleHabitacionComponent implements OnInit {
       }else{
         this.router.navigate(['/reserva-habitacion-hotel']);
       }
-      
+
       this.spinner.hide();
-      
+
     }
       )
     }
-    
+
   }
 
   getUser(){
@@ -125,19 +126,19 @@ export class DetalleHabitacionComponent implements OnInit {
 
       this.service.GetUser(data.userId).subscribe(
         result => {
-  
+
           this.User = result;
-          
+
           this.sessionStorageService.store("ss_user", this.User);
           //this.router.navigate(['/reserva-habitacion-hotel']);
         },
         err => {
           this.spinner.hide();
-       
+
       },
      () => {
 
-      
+
      }
       )
   }
