@@ -48,7 +48,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       this.text = "clicked outside";
     }
   }
-  
+
   modalref: BsModalRef;
 
   genero: any;
@@ -174,7 +174,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       //this.fechVencimiento = this.fechVencimiento.substring(0,2) + this.fechVencimiento.substring(3,5);
 
       var listaroom = this.lsthabitacion.lroom.length;
-    
+
 
       for (let index = 0; index < this.lsthabitacion.lroom.length; index++) {
         if (this.lstConfirmacion.oroom.bookingCode === this.lsthabitacion.lroom[index].bookingCode) {
@@ -332,7 +332,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
 
     let data = {
-      "AgencyId": 1,
+      "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
       "Recipients": mails,
       "RecipientsCopy": ['analista6@domiruth.com'],
       "RecipientsHiddenCopy": [],

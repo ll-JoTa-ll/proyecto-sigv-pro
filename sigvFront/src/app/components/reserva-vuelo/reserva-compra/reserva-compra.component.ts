@@ -526,7 +526,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
    //   console.log(this.emailsolicitud);
       let email = this.emailsolicitud.replace(/\n|\r/g, '');
       let data = {
-        "AgencyId": 1,
+        "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
         "Recipients": mails,
         "RecipientsCopy": [mailcontacto, 'analista8@gmail.com'],
         "RecipientsHiddenCopy": [],
@@ -565,7 +565,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       });
       let mailcontacto = this.contacto.ContactEmail;
       let data = {
-        "AgencyId": 1,
+        "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
         "Recipients": mails,
         "RecipientsCopy": ['analista8@domiruth.com', mailcontacto],
         "RecipientsHiddenCopy": [],
