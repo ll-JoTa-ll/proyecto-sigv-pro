@@ -129,15 +129,15 @@
                 <div class="row m-0 p-0 box-shadow">
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;">{{person.firstName}}</div>
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">{{person.lastName}}</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">{{person.odocument.description}}</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">{{person.odocument.number}}</div>
+                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">{{person.lpersonDocuments[0].docName}}</div>
+                    <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">{{person.lpersonDocuments[0].docNumber}}</div>
                 </div>
             </div>
             <div class="col-2 m-0 p-0 text-center">
                 <div class="row m-0 p-0">
                     <div class="m-0 p-0" style="width: 10%"></div>
                     <div class="m-0 p-0 box-shadow apc-text-2" style="width: 75%">
-                        {{person.orole.description}}
+                        {{person.orole.name}}
                     </div>
                     <div class="m-0 p-0 d-flex pl-1 justify-content-center align-items-center" style="width: 15%">
                         <!--<button (click)="agregarPasajero(person)" class="" style="background-color: #6B253C; color: white; border-radius: 25px 25px 25px 25px">+</button>-->
@@ -205,15 +205,15 @@
                 <div class="row m-0 p-0 box-shadow">
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;">{{pasajero.firstName}}</div>
                     <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">{{pasajero.lastName}}</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">{{pasajero.odocument.description}}</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">{{pasajero.odocument.number}}</div>
+                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">{{pasajero.lpersonDocuments[0].docName}}</div>
+                    <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">{{pasajero.lpersonDocuments[0].docNumber}}</div>
                 </div>
             </div>
             <div class="col-2 m-0 p-0 text-center">
                 <div class="row m-0 p-0">
                     <div class="m-0 p-0" style="width: 10%"></div>
                     <div class="m-0 p-0 box-shadow apc-text-2" style="width: 75%">
-                        {{pasajero.orole.description}}
+                        {{pasajero.orole.name}}
                     </div>
                     <div class="m-0 p-0 d-flex pl-1 justify-content-center align-items-center" style="width: 15%">
                         <img (click)="eliminarPasajero(pasajero)" style="width: 15px; cursor: pointer" src="./assets/images/papelera_reciclaje.svg" alt="">

@@ -19,6 +19,12 @@ declare var $: any;
 })
 export class AutorizacionCentroCostoComponent implements OnInit {
 
+  newList = [];
+  approvalNacional;
+  approvalInternacional;
+  approvalInfraccion;
+  approvalReserva;
+  approvalRange;
   nacionalApproval;
   internacionalApproval;
   infraccionApproval;
@@ -48,9 +54,12 @@ export class AutorizacionCentroCostoComponent implements OnInit {
   divCostMasivo = true;
   modalRefPoliticas: BsModalRef;
   maxPax = 6;
+  divVacio = false;
   lstPasajeros = [];
   lstAutorizadores = [];
+  divGuardar = false;
   indice;
+  lstService = [];
   tipo = 'tipoAprovacion';
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -81,6 +90,7 @@ export class AutorizacionCentroCostoComponent implements OnInit {
     }
 
     GetCostCenter(){
+      this.spinner.show();
       const data = {
         CompanyId: this.datoslogin.ocompany.companyId,
         AgencyId: null
@@ -93,6 +103,45 @@ export class AutorizacionCentroCostoComponent implements OnInit {
               const element = this.lstCostCenterShow[index];
               element.fullname = element.code + element.description;
             }
+            this.spinner.hide();
+        },
+        err => {
+        },
+        () => {
+        }
+      )
+
+    }
+
+    InsertUpdateApproval() {
+      this.newList = [];
+      this.lstService = this.lstReservation.concat(this.lstException);
+      for (let index = 0; index < this.lstService.length; index++) {
+        const newList = {
+              BossId: this.lstService[index].userId,
+              Priority: this.lstService[index].priority,
+              IsActive: 1,
+              National: this.lstService[index].national,
+              International: this.lstService[index].international,
+              Exception: this.lstService[index].exception,
+              Reservation: this.lstService[index].reservation,
+              ApprovalRange: this.lstService[index].approvalRange,
+              RangeInfraction: 0,
+              InitialRange: 0,
+              FinalRange: 0
+        }
+        this.newList.push(newList);
+      }
+      const data = {
+        TypeApproval: 1,
+        CompanyId: this.datoslogin.ocompany.companyId,
+        UserId: this.datoslogin.userId,
+        CostCenterId: null,
+        Lapprovers: this.newList
+      }
+      this.userCompanyService.getInsertApprovers(data).subscribe(
+        result => {
+
         },
         err => {
         },
@@ -117,19 +166,20 @@ export class AutorizacionCentroCostoComponent implements OnInit {
             for (let index = 0; index < this.lstUserApprovalShow.length; index++) {
               const element = this.lstUserApprovalShow[index];
               element.fullname = element.firstName + element.lastName;
+              this.spinner.hide();
             }
         },
         err => {
           this.spinner.hide();
         },
         () => {
-          this.spinner.hide();
+
         }
       )
-      this.spinner.hide();
+
     }
 
-    editarAutorizador(emp,template) {
+    editarAutorizador(emp, template) {
       this.lstAutorizadores = [];
       this.modalRefPoliticas = this.modalService.show(
         template,
@@ -176,6 +226,7 @@ export class AutorizacionCentroCostoComponent implements OnInit {
 
     if (flagVal === 0) {
       this.lstPasajeros.push(emp);
+      this.divCostMasivo = true;
     }
 
     this.lstPasajeros = lstPasajeros;
@@ -293,6 +344,8 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       }
 
      // this.lstCostCenterApproval.push(empt);
+     this.divVacio = false;
+     this.divGuardar = true;
       this.toastr.success('', 'Aprobador agregado.', {
         timeOut: 4000
       });
@@ -307,11 +360,13 @@ export class AutorizacionCentroCostoComponent implements OnInit {
 
     cancelar(){
       this.showDivCost = false;
+      this.showDivPlus = true;
       this.lstCostCenterApproval = [];
     }
 
 
     GetCostCenterApproval(costCenterId, nameCostCenter) {
+      this.lstCostCenterApproval = [];
       this.divExecption = false;
       this.divReserva = false;
       this.lstReservation = [];
@@ -329,6 +384,15 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       this.userCompanyService.getCostCenterApproval(data).subscribe(
         result => {
             this.lstCostCenterApproval = result;
+            if (this.lstCostCenterApproval.length === 0) {
+              this.divVacio = true;
+              this.showDivCost = true;
+              this.divGuardar = false;
+            } else {
+              this.showDivCost = true;
+              this.divVacio = false;
+              this.divGuardar = true;
+            }
             this.lstCostCenterApproval.forEach(element => {
               if (element.exception === true && element.reservation === false) {
                 this.divExecption = true;
@@ -369,16 +433,16 @@ export class AutorizacionCentroCostoComponent implements OnInit {
 
               }
             });
+            this.lstService = this.lstReservation.concat(this.lstException);
+            this.spinner.hide();
         },
         err => {
-          this.spinner.hide();
+
         },
         () => {
-          this.spinner.hide();
+
         }
       )
-      this.spinner.hide();
-      this.showDivCost = true;
       this.divCostMasivo = false;
       this.showDivPlus = false;
     }
@@ -400,6 +464,9 @@ export class AutorizacionCentroCostoComponent implements OnInit {
           timeOut: 4000
         });
       } else {
+        this.lstCostCenterApproval = [];
+        this.lstReservation = [];
+        this.lstException = [];
         this.spinner.show();
         for (let index = 0; index < this.lstPasajeros.length; index++) {
           const element = this.lstPasajeros[index].costCenterId;
@@ -411,15 +478,64 @@ export class AutorizacionCentroCostoComponent implements OnInit {
         this.userCompanyService.getCostCenterApproval(data).subscribe(
           result => {
               this.lstCostCenterApproval = result;
+              if (this.lstCostCenterApproval.length === 0) {
+                this.divVacio = true;
+                this.showDivCost = true;
+                this.divGuardar = false;
+              } else {
+                this.showDivCost = true;
+                this.divVacio = false;
+                this.divGuardar = true;
+              }
+              this.lstCostCenterApproval.forEach(element => {
+                if (element.exception === true && element.reservation === false) {
+                  this.divExecption = true;
+                  this.lstException.push(element);
+                } else {
+                  if (this.divExecption === true && this.divReserva === true) {
+                    this.divExecption = true;
+                  } else {
+                    this.divExecption = false;
+                  }
+
+                }
+                if (element.reservation === true && element.exception === false) {
+                  this.divReserva = true;
+                  this.lstReservation.push(element);
+                } else {
+                  if (this.divExecption === true && this.divReserva === true){
+                    this.divReserva = true;
+                  } else {
+                    this.divReserva = false;
+                  }
+
+                }
+                if (element.reservation === false && element.exception === false) {
+                  this.divReserva = true;
+                  this.divExecption = true;
+                  this.lstReservation.push(element);
+                  this.lstException.push(element);
+                } else {
+
+                }
+                if (element.reservation === true && element.exception === true) {
+                  this.divReserva = true;
+                  this.divExecption = true;
+                  this.lstReservation.push(element);
+                  this.lstException.push(element);
+                } else {
+
+                }
+              });
+              this.spinner.hide();
           },
           err => {
-            this.spinner.hide();
+
           },
           () => {
-            this.spinner.hide();
+
           }
         )
-        this.spinner.hide();
         this.showDivCost = true;
         this.divCostMasivo = false;
         this.showDivPlus = false;

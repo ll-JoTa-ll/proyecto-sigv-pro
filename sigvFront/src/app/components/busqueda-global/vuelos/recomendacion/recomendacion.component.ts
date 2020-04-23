@@ -792,7 +792,9 @@ TraerAutorizador() {
     "Ocompany": this.loginDataUser.ocompany,
     "FlightNational": this.flightNational,
     'Infraction': infraction,
-    "Lpassenger": datosusuario
+    "Lpassenger": datosusuario,
+    "FareTaxAmountByPassenger": this.fareTaxAmountByPassenger,
+    "Lpolicies" : this.lpolicies
   };
 
   this.airportService.GetApprovers(data).subscribe(

@@ -183,13 +183,16 @@ export class LoginComponent implements OnInit {
 
 
   airportList() {
-    this.airportService.airportList(this.token).subscribe(
+    const data = {
+      priority : 0
+    }
+    this.airportService.getAirportList(this.token, data.priority).subscribe(
       (result: any) => {
         let lstairport;
         //console.log(result);
         //this.airportlist = result.lairport;
-        this.localStorageService.store('ls_airportlist', result.lairport);
-        this.localStorageService.store('ls_citylist', result.lcity);
+        this.localStorageService.store('ls_airportlist', result.lairports);
+        this.localStorageService.store('ls_citylist', result.lcities);
       },
 
       (err) => {
@@ -209,13 +212,16 @@ export class LoginComponent implements OnInit {
   }
 
   airportListPriority() {
-    this.airportService.airportListPriority(this.token).subscribe(
+    const data = {
+      priority: 1
+    }
+    this.airportService.getAirportList(this.token, data.priority).subscribe(
       (result: any) => {
         let lstairport;
         //console.log(result);
         //this.airportlist = result.lairport;
-        this.localStorageService.store('ls_airportlist', result.lairport);
-        this.localStorageService.store('ls_citylist', result.lcity);
+        this.localStorageService.store('ls_airportlist', result.lairports);
+        this.localStorageService.store('ls_citylist', result.lcities);
       },
 
       (err) => {

@@ -32,12 +32,12 @@ export class UserCompanyService {
   private url_costCenter: string = environment.url_5 + 'CostCenter/';
   private url_costCenterApproval: string = environment.url_5 + "Approval/";
 
- 
+
 
   constructor(
     private http: HttpClient,
     private sessionSt: SessionStorageService
-  ) { 
+  ) {
     this.key = environment.key;
   }
 
@@ -124,6 +124,16 @@ export class UserCompanyService {
     });
     const url = `${this.url_costCenterApproval + 'GetUserApprovers'}?${'companyId=' + data}`;
     return this.http.get<IUserApproval[]>(url, httpOptions2);
+  }
+
+  getInsertApprovers(data):  Observable<ICostCenterApproval[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+    });
+    return this.http.post<ICostCenterApproval[]>(this.url_costCenterApproval + "InsertUpdateApprovers", data, httpOptions2);
   }
 
 }
