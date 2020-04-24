@@ -403,8 +403,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   getFareFamily(dataPost, template, modalerror) {
-    console.log("getFareFamily");
-    console.log("dataPost: " + JSON.stringify(dataPost));
     this.vuelosComponent.spinner.show();
     this.ObtenerSecciones();
     this.dataRequestFamilia = dataPost;
@@ -424,7 +422,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           if (this.lstFamilyResult.lsections.length === 0) {
             flagResultFamilias = 0;
           } else {
-            //this.resultGetFareFamily(this.lstFamilyResult);
             flagResultFamilias = 1;
             this.lstFamilyResult.lsections.forEach(function(section, indexSection) {
               section.lsegments.forEach(function(segment, indexSegment) {
