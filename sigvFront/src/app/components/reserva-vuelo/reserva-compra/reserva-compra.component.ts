@@ -408,7 +408,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       html += item.firstName + " " + item.lastName;
       html +="</td>"
       html +="<td>"
-      html += item.odocument.number;
+      html += item.lpersonDocuments[0].docNumber;
       html +="</td>"
       html +="<td>"
       html += item.email;
