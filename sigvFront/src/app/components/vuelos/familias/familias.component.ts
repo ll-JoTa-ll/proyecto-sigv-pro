@@ -57,15 +57,18 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     private spinner: NgxSpinnerService,
     private vuelosComponent: VuelosComponent
   ) {
+    console.log("FamiliasComponent constructor");
     //this.precioTotal = 0;
     //this.precioPersona = 0;
     //this.flagMsgErrorSelFam = false;
   }
 
   ngOnInit() {
+    console.log("FamiliasComponent ngOnInit");
   }
 
   ngAfterViewInit() {
+    console.log("FamiliasComponent ngAfterViewInit");
     /*
     console.log('modal familia ngAfterViewInit');
     let precioTotal = 0;
@@ -103,6 +106,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   selectRadioBtnFam($event) {
+    console.log("selectRadioBtnFam");
     //this.modalRef.hide();
     this.outIdRadioBtnFareFam.emit($event);
     /*
@@ -172,6 +176,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
 
 
   seleccionarFamilia(template) {
+    console.log("seleccionarFamilia");
     this.flagCloseModal.emit(true);
  //   this.router.navigate(['/reserva-vuelo']);
     let request = this.sessionStorageService.retrieve('ss_flightavailability_request1');

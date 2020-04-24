@@ -71,8 +71,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   dataRequestFamilia;
   dataseccionesvuelos;
-  famTotalFareAmount;
-  famFareAmountByPassenger;
+  famTotalFareAmount = 0;
+  famFareAmountByPassenger = 0;
   requestFamilia;
   flagMsgErrorSelFam: boolean;
   lst_rol_autogestion;
@@ -104,6 +104,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     "#4C2C69",
     "#C33C54"
   ];
+
+  lstFareBasis: any[] = [];
 
   constructor(
     private modalService: BsModalService,
@@ -166,6 +168,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
     let idVal = 1;
+    let lstFareBasis = this.lstFareBasis;
     lstRadioCheck.forEach(function(item) {
       const sectionId = item.sectionId_;
       const segmentId = item.segmentId_;
@@ -197,6 +200,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         };
         LsegmentGroups_.push(dataGroup);
         idVal++;
+        lstFareBasis.push(section.lsectionGroups[i].fareBasis);
       });
 
       //Lsegments
@@ -219,6 +223,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Lsections_.push(lsection);
     });
 
+    this.lstFareBasis = lstFareBasis;
+
     Lsections_ = Lsections_.sort((a, b) => a.sectionId - b.sectionId);
 
     let dataFamilias = {
@@ -231,7 +237,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       PSeudo: this.pseudo
     };
     this.requestFamilia = dataFamilias;
-    this.getFareFamily(dataFamilias, template, modalerror);
+    this.getFareFamilyV2(dataFamilias, template, modalerror);
   }
 
   setearRadioId($event) {
@@ -397,6 +403,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   getFareFamily(dataPost, template, modalerror) {
+    console.log("getFareFamily");
+    console.log("dataPost: " + JSON.stringify(dataPost));
     this.vuelosComponent.spinner.show();
     this.ObtenerSecciones();
     this.dataRequestFamilia = dataPost;
@@ -416,6 +424,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           if (this.lstFamilyResult.lsections.length === 0) {
             flagResultFamilias = 0;
           } else {
+            //this.resultGetFareFamily(this.lstFamilyResult);
             flagResultFamilias = 1;
             this.lstFamilyResult.lsections.forEach(function(section, indexSection) {
               section.lsegments.forEach(function(segment, indexSegment) {
@@ -810,6 +819,7 @@ TraerAutorizador() {
 }
 
   flightAvailability(data, template, tipo, modalFam, dataseccion) {
+    console.log("flightAvailability");
     this.vuelosComponent.spinner.show();
     if (tipo === 1) {
       // tslint:disable-next-line: max-line-length
@@ -817,6 +827,7 @@ TraerAutorizador() {
     }
     // tslint:disable-next-line: max-line-length
     let flagResult = 0;
+    console.log("data: " + JSON.stringify(data));
     this.airportService.fligthAvailibility(data).subscribe(
       results => {
         if (results.oerror === null) {
@@ -872,6 +883,7 @@ TraerAutorizador() {
           }
 
           if (tipo === 3) {
+            console.log("click en radio button OK");
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
             this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
             this.flagMsgErrorSelFam = false;
@@ -1165,10 +1177,41 @@ TraerAutorizador() {
     //console.log("requestFamiliaRadio: " + JSON.stringify(requestFamilia));
 
  //   this.flightAvailability(requestFamilia, null, 3, null, seccionvuelos);
-    this.FlightPrice(requestFamilia, seccionvuelos);
+    //this.FlightPrice(requestFamilia, seccionvuelos);
+
+    console.log("VALIDANDO CLICK DEL RADIO BUTTON");
+
+    console.log("requestFamilia: " + JSON.stringify(requestFamilia));
+
+    let lstFareBasis = this.lstFareBasis;
+    lstFareBasis = [];
+
+    requestFamilia.Lsections.forEach(function(sectionVal) {
+      sectionVal.Lsegments.forEach(function(segmentVal) {
+        segmentVal.LsegmentGroups.forEach(function(segmentGroupVal) {
+          lstFareBasis.push(segmentGroupVal.FareBasis);
+        });
+      });
+    });
+
+    this.lstFareBasis = lstFareBasis;
+
+    if (this.resultGetFareFamily()) {
+      this.flagMsgErrorSelFam = false;
+      this.sessionStorageService.store('ss_FlightAvailability_request1', requestFamilia);
+      this.sessionStorageService.store('ss_FlightAvailability_request2', seccionvuelos);
+      //this.flightAvailability(requestFamilia, null, 3, null, seccionvuelos);
+    } else {
+      this.vuelosComponent.spinner.hide();
+      this.flagMsgErrorSelFam = true;
+      this.famTotalFareAmount = 0;
+      this.famFareAmountByPassenger = 0;
+      this.flagMsgErrorSelFam = true;
+    }
   }
 
   FlightPrice(request, seccionvuelos) {
+    console.log("FlightPrice");
      this.vuelosComponent.spinner.show();
      console.log(request);
      let data = {
@@ -1179,7 +1222,8 @@ TraerAutorizador() {
       "osession": this.osessionflightaval,
       "Gds": request.GDS,
       "PSeudo": request.Pseudo
-     }
+     };
+    console.log("data: " + JSON.stringify(data));
      this.airportService.FlightPrice(data).subscribe(
        result => {
         this.lsFlightAvailabilty = result;
@@ -1214,5 +1258,125 @@ TraerAutorizador() {
 
   openModalDsctCop(template: TemplateRef<any>) {
     this.modalRefDsctCorp = this.modalService.show(template);
+  }
+
+  getFareFamilyV2(dataPost, template, modalerror) {
+    console.log("getFareFamily");
+    console.log("dataPost: " + JSON.stringify(dataPost));
+    this.vuelosComponent.spinner.show();
+    this.ObtenerSecciones();
+    this.dataRequestFamilia = dataPost;
+    let dataflighavailability = this.ArmarSeccionesFlightAvailability();
+    let datasecciones = this.ObtenerSecciones();
+    //console.log('mis secciones completas:  ' + JSON.stringify(datasecciones));
+    let flagResultFamilias = 0;
+    //console.log("dataPost Family INI: " + JSON.stringify(dataPost));
+    this.familyService.getFareFamily(dataPost).subscribe(
+      result => {
+        //console.log("result getFareFamily: " + JSON.stringify(result));
+        if (result === null) {
+          flagResultFamilias = 0;
+        } else {
+          this.lstFamilyResult = result;
+          this.sessionStorageService.store('ss_lstFamilyResult', this.lstFamilyResult);
+          if (this.lstFamilyResult.lsections.length === 0) {
+            flagResultFamilias = 0;
+          } else {
+            //this.resultGetFareFamily(this.lstFamilyResult);
+            flagResultFamilias = 1;
+            this.lstFamilyResult.lsections.forEach(function(section, indexSection) {
+              section.lsegments.forEach(function(segment, indexSegment) {
+                segment.lfareFamilies.forEach(function(fare, indexFare) {
+                  if (indexFare === 0) {
+                    const fareFamilyName = fare.fareFamilyName;
+                    dataflighavailability.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
+                    datasecciones.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
+                  }
+                });
+              });
+            });
+            //console.log("dataPost Family FIN: " + JSON.stringify(dataPost));
+            this.requestFamilia = dataflighavailability;
+            this.dataseccionesvuelos = datasecciones;
+          }
+        }
+        this.flagResultFamilias = flagResultFamilias;
+      },
+      err => {
+        console.log('ERROR: ' + JSON.stringify(err));
+        this.vuelosComponent.spinner.hide();
+        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
+      },
+      () => {
+        //this.vuelosComponent.spinner.hide();
+
+        const requestFamilia = this.requestFamilia;
+        const lstFamilyResult = this.lstFamilyResult;
+
+
+        if (lstFamilyResult === undefined) {
+          //this.modalRefSessionExpired = this.modalService.show(ModalFamiliasVaciasComponent,this.config);
+        } else {
+
+          requestFamilia.Lsections.forEach(function (section, indexSection) {
+            lstFamilyResult.lsections.forEach(function (section2, indexSection2) {
+              if (indexSection === indexSection2) {
+                //const fff = section.Lsegments[0]
+              }
+            });
+          });
+        }
+
+
+        if (flagResultFamilias === 1) {
+          this.flightAvailability(dataflighavailability, modalerror, 2, template, datasecciones);
+        } else {
+          this.vuelosComponent.spinner.hide();
+          this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg sin-familias' })
+          );
+        }
+      }
+    );
+  }
+
+  resultGetFareFamily() {
+    console.log("resultGetFareFamily");
+    const lcombinations = this.lstFamilyResult.lcombinations;
+    const lstFareBasis = this.lstFareBasis;
+    console.log("lstFareBasis: " + JSON.stringify(lstFareBasis));
+    let flagExistCount = 0;
+    let flagExist = 0;
+    let totalPrice = "";
+    let currency = "";
+    lcombinations.forEach(function(item) {
+      flagExistCount = 0;
+      console.log("item.fareBasis: " + JSON.stringify(item.fareBasis));
+      lstFareBasis.forEach(function(fareBasis, indexFareBasis) {
+        if (fareBasis === item.fareBasis[indexFareBasis]) {
+          flagExistCount++;
+        }
+      });
+
+      if (flagExistCount === lstFareBasis.length) {
+        flagExist = 1;
+        totalPrice = item.totalPrice;
+        currency = item.currency;
+      }
+
+    });
+
+
+    console.log("flagExist: " + flagExist);
+
+    if (flagExist === 1) {
+      this.famTotalFareAmount = Number(totalPrice);
+      this.currency = currency;
+      this.famFareAmountByPassenger = this.famTotalFareAmount / this.numberPassengers;
+      return true;
+    } else {
+      return false;
+    }
   }
 }
