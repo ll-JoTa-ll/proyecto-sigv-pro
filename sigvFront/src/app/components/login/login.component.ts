@@ -184,7 +184,7 @@ export class LoginComponent implements OnInit {
 
   airportList() {
     const data = {
-      priority : 0
+      priority : false
     }
     this.airportService.getAirportList(this.token, data.priority).subscribe(
       (result: any) => {
@@ -213,7 +213,7 @@ export class LoginComponent implements OnInit {
 
   airportListPriority() {
     const data = {
-      priority: 1
+      priority: true
     }
     this.airportService.getAirportList(this.token, data.priority).subscribe(
       (result: any) => {

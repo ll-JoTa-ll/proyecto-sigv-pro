@@ -186,11 +186,10 @@ export class AirportService {
   SendEmail(data) {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
-      'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    return this.http.post(this._url8 + "SendEmail", data, httpOptions2);
+    return this.http.post(this._url8 + "SendMail", data, httpOptions2);
   }
 
   GenerateTicket(data): Observable<IGenerateTicket> {
