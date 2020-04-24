@@ -255,7 +255,7 @@ SendMailVueloAprobado() {
   });
   this.modalRef.hide();
   let data = {
-    "AgencyId": 1,
+    "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
     "Recipients": mails,
     "RecipientsCopy": ['analista8@domiruth.com'],
     "RecipientsHiddenCopy": [],
@@ -296,7 +296,7 @@ SendMail() {
        mails.push(item.authorizerEmail);
   });
   let data = {
-    "AgencyId": 1,
+    "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
     "Recipients": mails,
     "RecipientsCopy": ['analista8@domiruth.com'],
     "RecipientsHiddenCopy": [],
@@ -343,7 +343,7 @@ SendMailVueloRechazado() {
     }
   });
   let data = {
-    "AgencyId": 1,
+    "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
     "Recipients": mails,
     "RecipientsCopy": ['analista8@domiruth.com'],
     "RecipientsHiddenCopy": [],
@@ -389,7 +389,7 @@ SendMailVueloCancelado() {
     }
   });
   let data = {
-    "AgencyId": 1,
+    "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
     "Recipients": mails,
     "RecipientsCopy": ['analista8@domiruth.com'],
     "RecipientsHiddenCopy": [],
@@ -667,7 +667,7 @@ PlantillaPreciovuelo() {
  }
 
  PlantillaPreciovueloAprobado() {
- 
+
   let html = '';
   if (this.odiscount != null && this.odiscount.amount != 0) {
       html += "<div style='width: 100%; text-align: rigth'>";

@@ -48,7 +48,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       this.text = "clicked outside";
     }
   }
-  
+
   modalref: BsModalRef;
 
   genero: any;
@@ -174,7 +174,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       //this.fechVencimiento = this.fechVencimiento.substring(0,2) + this.fechVencimiento.substring(3,5);
 
       var listaroom = this.lsthabitacion.lroom.length;
-    
+
 
       for (let index = 0; index < this.lsthabitacion.lroom.length; index++) {
         if (this.lstConfirmacion.oroom.bookingCode === this.lsthabitacion.lroom[index].bookingCode) {
@@ -195,6 +195,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
         this.genero = "MR";
       }
       let data = {
+        "UserId" : this.loginDataUser.userId,
         "Pseudo": "LIMPE2235",
         "GDS": "Amadeus",
         "Ocompany": this.loginDataUser.ocompany,
@@ -216,8 +217,8 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
               "IsVIP": this.user.isVIP,
               "Odocument":
                 {
-                  "Type": this.user.odocument.codeAmadeus,
-                  "Number": this.user.odocument.number
+                  "Type": 'NI',
+                  "Number": this.user.lpersonDocuments[0].docNumber
                 }
             }
           ],
@@ -332,7 +333,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
 
     let data = {
-      "AgencyId": 1,
+      "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
       "Recipients": mails,
       "RecipientsCopy": ['analista6@domiruth.com'],
       "RecipientsHiddenCopy": [],
@@ -502,69 +503,117 @@ ValidarCorreo() {
     let correo;
     correo = $("#correoTitu").val();
 
-    if ($('#correo').val().length <= 0) {
-      $('#correo').addClass('campo-invalido');
+    if(this.lstConfirmacion.ohotel.typeHotel === 'Value Hotel'){
+      if ($('#correo').val().length <= 0) {
+        $('#correo').addClass('campo-invalido');
+      } else {
+        $('#correo').removeClass('campo-invalido');
+      }
+      if ($('#correoTitu').val().length <= 0) {
+        val = false;
+        $('#correoTitu').addClass('campo-invalido');
+        this.isOpen = true;
+      } else {
+        $('#correoTitu').removeClass('campo-invalido');
+        this.isOpen = false;
+      }
+      if ($('#fonoTitu').val().length <= 0) {
+        $('#fonoTitu').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#fonoTitu').removeClass('campo-invalido');
+      }
+
+
+      if ($('#nombre').val().length <= 0) {
+        $('#nombre').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#nombre').removeClass('campo-invalido');
+      }
+      if ($('#correo').val().length <= 0) {
+        $('#correo').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#correo').removeClass('campo-invalido');
+      }
+      if ($('#numero').val().length <= 0) {
+        $('#numero').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#numero').removeClass('campo-invalido');
+      }
     } else {
-      $('#correo').removeClass('campo-invalido');
+      if ($('#correo').val().length <= 0) {
+        $('#correo').addClass('campo-invalido');
+      } else {
+        $('#correo').removeClass('campo-invalido');
+      }
+      if ($('#correoTitu').val().length <= 0) {
+        val = false;
+        $('#correoTitu').addClass('campo-invalido');
+        this.isOpen = true;
+      } else {
+        $('#correoTitu').removeClass('campo-invalido');
+        this.isOpen = false;
+      }
+      if ($('#fonoTitu').val().length <= 0) {
+        $('#fonoTitu').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#fonoTitu').removeClass('campo-invalido');
+      }
+
+
+      if ($('#nombre').val().length <= 0) {
+        $('#nombre').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#nombre').removeClass('campo-invalido');
+      }
+      if ($('#correo').val().length <= 0) {
+        $('#correo').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#correo').removeClass('campo-invalido');
+      }
+      if ($('#numero').val().length <= 0) {
+        $('#numero').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#numero').removeClass('campo-invalido');
+      }
+
+      if ($('#numeroTarjeta').val().length <= 0) {
+        $('#numeroTarjeta').addClass('campo-invalido');
+        this.sessionStorageService.store("ss_tarjeta",this.opentarjeta);
+        val = false;
+      } else {
+        $('#numeroTarjeta').removeClass('campo-invalido');
+        this.sessionStorageService.store("ss_tarjeta",false);
+      }
+
+      if ($('#fechaVencimiento').val().length <= 0) {
+        $('#fechaVencimiento').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#fechaVencimiento').removeClass('campo-invalido');
+      }
+      if ($('#codSeguridad').val().length <= 0) {
+        $('#codSeguridad').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#codSeguridad').removeClass('campo-invalido');
+      }
+      if ($('#titularTarjeta').val().length <= 0) {
+        $('#titularTarjeta').addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#titularTarjeta').removeClass('campo-invalido');
+      }
     }
-    if ($('#correoTitu').val().length <= 0) {
-      val = false;
-      $('#correoTitu').addClass('campo-invalido');
-      this.isOpen = true;
-    } else {
-      $('#correoTitu').removeClass('campo-invalido');
-      this.isOpen = false;
-    }
-    if ($('#fonoTitu').val().length <= 0) {
-      $('#fonoTitu').addClass('campo-invalido');
-      val = false;
-    } else {
-      $('#fonoTitu').removeClass('campo-invalido');
-    }
-    if ($('#numeroTarjeta').val().length <= 0) {
-      $('#numeroTarjeta').addClass('campo-invalido');
-      this.sessionStorageService.store("ss_tarjeta",this.opentarjeta);
-      val = false;
-    } else {
-      $('#numeroTarjeta').removeClass('campo-invalido');
-      this.sessionStorageService.store("ss_tarjeta",false);
-    }
-    if ($('#fechaVencimiento').val().length <= 0) {
-      $('#fechaVencimiento').addClass('campo-invalido');
-      val = false;
-    } else {
-      $('#fechaVencimiento').removeClass('campo-invalido');
-    }
-    if ($('#codSeguridad').val().length <= 0) {
-      $('#codSeguridad').addClass('campo-invalido');
-      val = false;
-    } else {
-      $('#codSeguridad').removeClass('campo-invalido');
-    }
-    if ($('#titularTarjeta').val().length <= 0) {
-      $('#titularTarjeta').addClass('campo-invalido');
-      val = false;
-    } else {
-      $('#titularTarjeta').removeClass('campo-invalido');
-    }
-    if ($('#nombre').val().length <= 0) {
-      $('#nombre').addClass('campo-invalido');
-      val = false;
-    } else {
-      $('#nombre').removeClass('campo-invalido');
-    }
-    if ($('#correo').val().length <= 0) {
-      $('#correo').addClass('campo-invalido');
-      val = false;
-    } else {
-      $('#correo').removeClass('campo-invalido');
-    }
-    if ($('#numero').val().length <= 0) {
-      $('#numero').addClass('campo-invalido');
-      val = false;
-    } else {
-      $('#numero').removeClass('campo-invalido');
-    }
+
+
 
 
     return val;

@@ -41,6 +41,7 @@ export class ResultadoComponent implements OnInit {
   @Input() isvisible: string;
   @Input() currency: string;
   @Input() businessName: string;
+  @Input() typeHotel: string;
   @Input() urlHotel: string;
   @Input() index: string;
   @Input() latitud: string;
@@ -70,7 +71,7 @@ export class ResultadoComponent implements OnInit {
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
-    
+
 
     console.log("cantpersonas" + this.cantpersonas)
     if (this.cantpersonas === '1') {
@@ -150,7 +151,7 @@ export class ResultadoComponent implements OnInit {
             this.ocultar = true;
             this.ocultar = this.sessionStorageService.store("ss_oculta",this.ocultar);
           }
-          
+
           //window.open(window.location.origin + "/habitacion");
         },
         err => {
@@ -163,7 +164,7 @@ export class ResultadoComponent implements OnInit {
         }
       );
     }
-    
+
   }
 
   Mostrarmapa(position) {
