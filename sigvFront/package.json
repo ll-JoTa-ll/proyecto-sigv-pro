@@ -48,7 +48,7 @@
         "intl-input-phone": "0.0.7",
         "intl-tel-input": "^14.1.0",
         "ionic-scroller": "0.0.4",
-        "jquery": "^3.4.1",
+        "jquery": "^3.5.0",
         "jsgrid": "^1.5.3",
         "jszip": "^3.1.5",
         "material-table": "^1.57.2",
