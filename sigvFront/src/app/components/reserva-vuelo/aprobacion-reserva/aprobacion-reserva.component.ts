@@ -188,6 +188,7 @@ AprobarReserva(template) {
     "Comment": "Aprobacion de vuelo con emision",
     "Ocompany": this.loginDataUser.ocompany
    }
+   this.spinner.show();
    this.service.AprobarReserva(data).subscribe(
      result => {
        this.resultAprobacion = result;
@@ -205,6 +206,7 @@ AprobarReserva(template) {
       this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
      },
      () => {
+      this.spinner.hide();
      }
    );
 }
