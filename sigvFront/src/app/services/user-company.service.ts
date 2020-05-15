@@ -101,7 +101,7 @@ export class UserCompanyService {
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
-    const url = `${this.url_costCenter + 'GetCostCenterByCompany'}?${'companyId=' + data}`;
+    const url = `${this.url_costCenter + 'GetCostCenter'}?${'companyId=' + data}`;
     return this.http.get<ICostCenterCompany[]>(url, httpOptions2);
   }
 
@@ -112,7 +112,7 @@ export class UserCompanyService {
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
     });
-    return this.http.post<ICostCenterApproval[]>(this.url_costCenterApproval + "GetCostCenterApprovalByCostCenters", data, httpOptions2);
+    return this.http.post<ICostCenterApproval[]>(this.url_costCenterApproval + "GetCostCenterApprovers", data, httpOptions2);
   }
 
   getUserApprovers(data): Observable<IUserApproval[]> {
