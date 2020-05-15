@@ -56,7 +56,7 @@ export class UserCompanyService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     return this.http.post<IRole[]>(this.url_role + "GetRole", data, httpOptions2);
   }
@@ -88,7 +88,7 @@ export class UserCompanyService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     const url = `${this.url_document + 'GetDocumentType'}`;
     return this.http.get<IDocumentType[]>(url, httpOptions2);
@@ -99,7 +99,7 @@ export class UserCompanyService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     const url = `${this.url_costCenter + 'GetCostCenterByCompany'}?${'companyId=' + data}`;
     return this.http.get<ICostCenterCompany[]>(url, httpOptions2);
@@ -110,7 +110,7 @@ export class UserCompanyService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     return this.http.post<ICostCenterApproval[]>(this.url_costCenterApproval + "GetCostCenterApprovalByCostCenters", data, httpOptions2);
   }
@@ -120,7 +120,7 @@ export class UserCompanyService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     const url = `${this.url_costCenterApproval + 'GetUserApprovers'}?${'companyId=' + data}`;
     return this.http.get<IUserApproval[]>(url, httpOptions2);
@@ -131,7 +131,7 @@ export class UserCompanyService {
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
-      'Ocp-Apim-Subscription-Key': "eb85131bc9d94c02840aa6961e7f77e9"
+      'Ocp-Apim-Subscription-Key': this.key
     });
     return this.http.post<ICostCenterApproval[]>(this.url_costCenterApproval + "InsertUpdateApprovers", data, httpOptions2);
   }
