@@ -31,6 +31,8 @@ export class AutorizacionCentroCostoComponent implements OnInit {
   reservaApproval;
   rangeApproval;
   divExecption;
+  nacional;
+  internacional;
   lstException = [];
   lstReservation = [];
   divReserva;
@@ -43,6 +45,7 @@ export class AutorizacionCentroCostoComponent implements OnInit {
   lstUserApprovalShow;
   Ids;
   lstIds = [];
+  lstIdsInsert = [];
   lstCostMasivo = [];
   nameCostCenter;
   lstCostCenterApproval: ICostCenterApproval[] = [];
@@ -59,6 +62,7 @@ export class AutorizacionCentroCostoComponent implements OnInit {
   lstAutorizadores = [];
   divGuardar = false;
   indice;
+  estado;
   lstService = [];
   tipo = 'tipoAprovacion';
   constructor(
@@ -113,41 +117,150 @@ export class AutorizacionCentroCostoComponent implements OnInit {
 
     }
 
+    onKey(event: any,indice: any) {
+      var x = document.getElementById('RangeOrImpacto_' + indice);
+      if (event.target.value === '' || event.target.value === '0' || event.target.value === '.') {
+        x.style.display = 'none';
+      } else {
+        x.style.display = 'block';
+      }
+    }
+
+    validarNumeros(e){
+      var tecla = (document.all) ? e.keyCode : e.which;
+       if (tecla == 8) return true;
+        var patron = /^([0-9.])*$/;
+         var teclaFinal = String.fromCharCode(tecla);
+          return patron.test(teclaFinal);
+   };
+
     InsertUpdateApproval() {
+      this.spinner.show();
       this.newList = [];
       this.lstService = this.lstReservation.concat(this.lstException);
-      for (let index = 0; index < this.lstService.length; index++) {
+      for (let index = 0; index < this.lstCostCenterApproval.length; index++) {
+        if ($('#infApprovalNacional_' + index).is(':checked')) {
+          this.nacional = true;
+        } else {
+          this.nacional = false;
+        }
+        if ($('#infApprovalInternacional_' + index).is(':checked')) {
+          this.internacional = true;
+        } else {
+          this.internacional = false;
+        }
+        if ($('#infActivo_' + index).is(':checked')) {
+          this.estado = true;
+        } else {
+          this.estado = false;
+        }
         const newList = {
-              BossId: this.lstService[index].userId,
-              Priority: this.lstService[index].priority,
-              IsActive: 1,
-              National: this.lstService[index].national,
-              International: this.lstService[index].international,
-              Exception: this.lstService[index].exception,
-              Reservation: this.lstService[index].reservation,
-              ApprovalRange: this.lstService[index].approvalRange,
-              RangeInfraction: 0,
-              InitialRange: 0,
-              FinalRange: 0
+              ConfigureApprovalId: this.lstCostCenterApproval[index].configureApprovalId,
+              UserId: this.lstCostCenterApproval[index].userId,
+              Priority: $('#priority_' + index).val(),
+              IsActive: this.estado,
+              National: this.nacional,
+              International: this.internacional,
+              Exception: this.lstCostCenterApproval[index].exception,
+              Reservation: this.lstCostCenterApproval[index].reservation,
+              ApprovalRange: this.lstCostCenterApproval[index].approvalRange,
+              RangeInfraction: this.lstCostCenterApproval[index].rangeInfraction,
+              InitialRange: $('#RangeI_' + index).val(),
+              FinalRange: $('#RangeF_' + index).val()
         }
         this.newList.push(newList);
+        this.newList.forEach(element => {
+
+          if (element.InitialRange === '0' && element.FinalRange === '0' ||element.InitialRange === 0 && element.FinalRange === 0 || element.InitialRange === '' && element.FinalRange === '' || element.InitialRange === undefined && element.FinalRange === undefined){
+            element.ApprovalRange = 0;
+            element.RangeInfraction = 0;
+          } else {
+            element.ApprovalRange = 1;
+          }
+          if (element.ApprovalRange === 0) {
+            element.RangeInfraction = 0;
+          } else {
+            element.RangeInfraction = element.RangeInfraction;
+          }
+          if (element.Exception === true || element.Exception === 1) {
+            element.Exception = 1;
+          } else {
+            element.Exception = 0;
+          }
+          if (element.International === true || element.International === 1) {
+            element.International = 1;
+          } else {
+            element.International = 0;
+          }
+          if (element.National === true || element.National === 1) {
+            element.National = 1;
+          } else {
+            element.National = 0;
+          }
+          if (element.Reservation === true || element.Reservation === 1) {
+            element.Reservation = 1;
+          } else {
+            element.Reservation = 0;
+          }
+          if (element.InitialRange === undefined) {
+            element.InitialRange = 0;
+          } else {
+            element.InitialRange = element.InitialRange;
+          }
+          if (element.FinalRange === undefined) {
+            element.FinalRange = 0;
+          } else {
+            element.FinalRange = element.FinalRange;
+          }
+          const x = element.Priority;
+          const y = +x;
+          element.Priority = y;
+          const i = element.InitialRange;
+          const ini = +i;
+          element.InitialRange = ini;
+          const f = element.FinalRange;
+          const fin = +f;
+          element.FinalRange = fin;
+        });
+      }
+      if(this.lstIds !== null && this.lstIds.length > 0){
+        this.lstIdsInsert = this.lstIds;
+      } else {
+        this.lstIdsInsert = this.lstCostMasivo;
       }
       const data = {
-        TypeApproval: 1,
-        CompanyId: this.datoslogin.ocompany.companyId,
-        UserId: this.datoslogin.userId,
-        CostCenterId: null,
+        TypeApproval: 2,
+        CompanyId: null,
+        UserId: null,
+        CostCenterId: this.lstIdsInsert,
         Lapprovers: this.newList
       }
       this.userCompanyService.getInsertApprovers(data).subscribe(
         result => {
-
+          if(result !== null && result.length > 0){
+            this.showDivCost = false;
+            this.showDivPlus = true;
+            this.lstCostCenterApproval = [];
+            this.lstIds = [];
+            this.lstCostMasivo = [];
+            this.lstPasajeros = [];
+            this.toastr.success('', 'Aprobadores insertados correctamente.', {
+              timeOut: 4000
+            });
+          } else {
+            this.toastr.error('', 'Ocurrio un error por favor intente nuevamente.', {
+              timeOut: 4000
+            });
+          }
         },
         err => {
+          this.spinner.hide();
         },
         () => {
+          this.spinner.hide();
         }
       )
+      this.spinner.hide();
     }
 
     GetUserApproval(template){
@@ -249,31 +362,27 @@ export class AutorizacionCentroCostoComponent implements OnInit {
 
     agregarAprobador(emp, i) {
       if ($('#chkNacional_' + i).is(':checked')) {
-        this.nacionalApproval = true;
+        this.nacionalApproval = 1;
       } else {
-        this.nacionalApproval = false;
+        this.nacionalApproval = 0;
       }
       if ($('#chkInternacional_' + i).is(':checked')) {
-        this.internacionalApproval = true;
+        this.internacionalApproval = 1;
       } else {
-        this.internacionalApproval = false;
+        this.internacionalApproval = 0;
       }
       if ($('#chkInfracciones_' + i).is(':checked')) {
-        this.infraccionApproval = true;
+        this.infraccionApproval = 1;
       } else {
-        this.infraccionApproval = false;
+        this.infraccionApproval = 0;
       }
       if ($('#chkReservas_' + i).is(':checked')) {
-        this.reservaApproval = true;
+        this.reservaApproval = 1;
       } else {
-        this.reservaApproval = false;
-      }
-      if ($('#chkRange_' + i).is(':checked')) {
-        this.rangeApproval = true;
-      } else {
-        this.rangeApproval = false;
+        this.reservaApproval = 0;
       }
       const empt = {
+        configureApprovalId: '',
         priority: this.lstCostCenterApproval.length + 1,
         userId: emp.userId,
         firstName: $('#firstNameApproval_' + i)[0].innerText,
@@ -282,7 +391,9 @@ export class AutorizacionCentroCostoComponent implements OnInit {
         international: this.internacionalApproval,
         reservation: this.reservaApproval,
         exception: this.infraccionApproval,
-        approvalRange: this.rangeApproval
+        approvalRange: 0,
+        initialRange: 0,
+        finalRange: 0,
       }
       const maxPax = this.maxPax;
     let flagVal = 0;
@@ -303,50 +414,11 @@ export class AutorizacionCentroCostoComponent implements OnInit {
     });
 
     if (flagVal === 0) {
-
-      if (empt.exception === true && empt.reservation === false) {
-        this.divExecption = true;
-        this.lstException.push(empt);
-      } else {
-        if (this.divExecption === true && this.divReserva === true) {
-          this.divExecption = true;
-        } else {
-          this.divExecption = false;
-        }
-
-      }
-      if (empt.reservation === true && empt.exception === false) {
-        this.divReserva = true;
-        this.lstReservation.push(empt);
-      } else {
-        if (this.divExecption === true && this.divReserva === true){
-          this.divReserva = true;
-        } else {
-          this.divReserva = false;
-        }
-
-      }
-      if (empt.reservation === false && empt.exception === false) {
-        this.divReserva = true;
-        this.divExecption = true;
-        this.lstReservation.push(empt);
-        this.lstException.push(empt);
-      } else {
-
-      }
-      if (empt.reservation === true && empt.exception === true) {
-        this.divReserva = true;
-        this.divExecption = true;
-        this.lstReservation.push(empt);
-        this.lstException.push(empt);
-      } else {
-
-      }
-
-     // this.lstCostCenterApproval.push(empt);
      this.divVacio = false;
      this.divGuardar = true;
-      this.toastr.success('', 'Aprobador agregado.', {
+     this.divExecption = true;
+     this.lstCostCenterApproval.push(empt);
+     this.toastr.success('', 'Aprobador agregado.', {
         timeOut: 4000
       });
     } else {
@@ -362,7 +434,32 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       this.showDivCost = false;
       this.showDivPlus = true;
       this.lstCostCenterApproval = [];
+      this.lstIds = [];
+      this.lstCostMasivo = [];
+      this.lstPasajeros = [];
     }
+
+    changeInfraction(emp) {
+      if(emp.exception === 1 && emp.reservation === 1 || emp.exception === 0 && emp.reservation === 0){
+        emp.exception = 1;
+        emp.reservation = 0;
+      } else if(emp.exception === 1 && emp.reservation === 0){
+        emp.reservation = 1;
+        emp.exception = 0;
+      } else if(emp.exception === 0 && emp.reservation === 1){
+        emp.reservation = 1;
+        emp.exception = 1;
+      }
+    }
+
+    changeRange(emp) {
+      if(emp.rangeInfraction === 1){
+        emp.rangeInfraction = 0;
+      } else {
+        emp.rangeInfraction = 1;
+      }
+    }
+
 
 
     GetCostCenterApproval(costCenterId, nameCostCenter) {
@@ -379,11 +476,61 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       nombre = $('#box_1').val();
       this.lstIds.push(costCenterId);
       const data = {
-        Ids: this.lstIds
+        CenterId: this.lstIds
       }
       this.userCompanyService.getCostCenterApproval(data).subscribe(
         result => {
             this.lstCostCenterApproval = result;
+
+            this.lstCostCenterApproval.forEach(element => {
+              if (element.approvalRange === true) {
+                element.approvalRange = 1;
+              } else {
+                element.approvalRange = 0;
+              }
+              if (element.exception === true) {
+                element.exception = 1;
+              } else {
+                element.exception = 0;
+              }
+              if (element.international === true) {
+                element.international = 1;
+              } else {
+                element.international = 0;
+              }
+              if (element.national === true) {
+                element.national = 1;
+              } else {
+                element.national = 0;
+              }
+              if (element.reservation === true) {
+                element.reservation = 1;
+              } else {
+                element.reservation = 0;
+              }
+              if (element.initialRange === undefined) {
+                element.initialRange = 0;
+              } else {
+                element.initialRange = element.initialRange;
+              }
+              if (element.finalRange === undefined) {
+                element.finalRange = 0;
+              } else {
+                element.finalRange = element.finalRange;
+              }
+              if (element.isActive === true) {
+                element.isActive = 1;
+              } else {
+                element.isActive = 0;
+              }
+              if (element.rangeInfraction === true) {
+                element.rangeInfraction = 1;
+              } else {
+                element.rangeInfraction = 0;
+              }
+            });
+
+
             if (this.lstCostCenterApproval.length === 0) {
               this.divVacio = true;
               this.showDivCost = true;
@@ -392,47 +539,8 @@ export class AutorizacionCentroCostoComponent implements OnInit {
               this.showDivCost = true;
               this.divVacio = false;
               this.divGuardar = true;
+              this.divExecption = true;
             }
-            this.lstCostCenterApproval.forEach(element => {
-              if (element.exception === true && element.reservation === false) {
-                this.divExecption = true;
-                this.lstException.push(element);
-              } else {
-                if (this.divExecption === true && this.divReserva === true) {
-                  this.divExecption = true;
-                } else {
-                  this.divExecption = false;
-                }
-
-              }
-              if (element.reservation === true && element.exception === false) {
-                this.divReserva = true;
-                this.lstReservation.push(element);
-              } else {
-                if (this.divExecption === true && this.divReserva === true){
-                  this.divReserva = true;
-                } else {
-                  this.divReserva = false;
-                }
-
-              }
-              if (element.reservation === false && element.exception === false) {
-                this.divReserva = true;
-                this.divExecption = true;
-                this.lstReservation.push(element);
-                this.lstException.push(element);
-              } else {
-
-              }
-              if (element.reservation === true && element.exception === true) {
-                this.divReserva = true;
-                this.divExecption = true;
-                this.lstReservation.push(element);
-                this.lstException.push(element);
-              } else {
-
-              }
-            });
             this.lstService = this.lstReservation.concat(this.lstException);
             this.spinner.hide();
         },
@@ -445,6 +553,7 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       )
       this.divCostMasivo = false;
       this.showDivPlus = false;
+
     }
 
     nacionalCheck(event: any){
@@ -473,11 +582,58 @@ export class AutorizacionCentroCostoComponent implements OnInit {
           this.lstCostMasivo.push(element);
         }
         const data = {
-          Ids: this.lstCostMasivo
+          CenterId: this.lstCostMasivo
         }
         this.userCompanyService.getCostCenterApproval(data).subscribe(
           result => {
               this.lstCostCenterApproval = result;
+              this.lstCostCenterApproval.forEach(element => {
+                if (element.approvalRange === true) {
+                  element.approvalRange = 1;
+                } else {
+                  element.approvalRange = 0;
+                }
+                if (element.exception === true) {
+                  element.exception = 1;
+                } else {
+                  element.exception = 0;
+                }
+                if (element.international === true) {
+                  element.international = 1;
+                } else {
+                  element.international = 0;
+                }
+                if (element.national === true) {
+                  element.national = 1;
+                } else {
+                  element.national = 0;
+                }
+                if (element.reservation === true) {
+                  element.reservation = 1;
+                } else {
+                  element.reservation = 0;
+                }
+                if (element.initialRange === undefined) {
+                  element.initialRange = 0;
+                } else {
+                  element.initialRange = element.initialRange;
+                }
+                if (element.finalRange === undefined) {
+                  element.finalRange = 0;
+                } else {
+                  element.finalRange = element.finalRange;
+                }
+                if (element.isActive === true) {
+                  element.isActive = 1;
+                } else {
+                  element.isActive = 0;
+                }
+                if (element.rangeInfraction === true) {
+                  element.rangeInfraction = 1;
+                } else {
+                  element.rangeInfraction = 0;
+                }
+              });
               if (this.lstCostCenterApproval.length === 0) {
                 this.divVacio = true;
                 this.showDivCost = true;
@@ -486,47 +642,8 @@ export class AutorizacionCentroCostoComponent implements OnInit {
                 this.showDivCost = true;
                 this.divVacio = false;
                 this.divGuardar = true;
+                this.divExecption = true;
               }
-              this.lstCostCenterApproval.forEach(element => {
-                if (element.exception === true && element.reservation === false) {
-                  this.divExecption = true;
-                  this.lstException.push(element);
-                } else {
-                  if (this.divExecption === true && this.divReserva === true) {
-                    this.divExecption = true;
-                  } else {
-                    this.divExecption = false;
-                  }
-
-                }
-                if (element.reservation === true && element.exception === false) {
-                  this.divReserva = true;
-                  this.lstReservation.push(element);
-                } else {
-                  if (this.divExecption === true && this.divReserva === true){
-                    this.divReserva = true;
-                  } else {
-                    this.divReserva = false;
-                  }
-
-                }
-                if (element.reservation === false && element.exception === false) {
-                  this.divReserva = true;
-                  this.divExecption = true;
-                  this.lstReservation.push(element);
-                  this.lstException.push(element);
-                } else {
-
-                }
-                if (element.reservation === true && element.exception === true) {
-                  this.divReserva = true;
-                  this.divExecption = true;
-                  this.lstReservation.push(element);
-                  this.lstException.push(element);
-                } else {
-
-                }
-              });
               this.spinner.hide();
           },
           err => {
@@ -560,6 +677,8 @@ export class AutorizacionCentroCostoComponent implements OnInit {
       results = listado.filter(m => m.fullname.toUpperCase().includes(nombre.toUpperCase()))
       this.lstCostCenter = results;
     }
+
+
 
     FiltrarNombreAddApproval() {
       let nombre;
