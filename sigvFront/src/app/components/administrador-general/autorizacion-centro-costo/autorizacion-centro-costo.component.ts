@@ -394,6 +394,8 @@ export class AutorizacionCentroCostoComponent implements OnInit {
         approvalRange: 0,
         initialRange: 0,
         finalRange: 0,
+        isActive: 1,
+        rangeInfraction: 0
       }
       const maxPax = this.maxPax;
     let flagVal = 0;
