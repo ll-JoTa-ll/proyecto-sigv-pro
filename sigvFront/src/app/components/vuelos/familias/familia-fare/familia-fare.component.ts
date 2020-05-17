@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import { IFareFamilyServiceModel } from '../../../../models/IFareFamilyService.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+import { IFamilyResultModel } from '../../../../models/IFamilyResult.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -63,6 +64,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     "#C33C54"
   ];
 
+  lstFamilyResult: IFamilyResultModel;
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService
@@ -81,6 +84,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     this.idNameFamilyName = 'idNameFamilyName';
     this.idNameFamilyName1 = 'idNameFamilyName1';
     this.classNameFamilyName = 'classNameFamilyName';
+
+    this.lstFamilyResult = this.sessionStorageService.retrieve('ss_lstFamilyResult');
   }
 
   ngOnInit() {
@@ -159,6 +164,16 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
       this.colorfamily.emit(colorfamilia);
       console.log(colorfamilia);
       $('#' + idNameFamilyName1 + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
+    } else {
+      console.log("sectionIndex 666");
+      console.log(sectionIndex);
+      console.log(sectionIndex);
+      console.log(sectionIndex);
+      console.log(sectionIndex);
+      console.log(sectionIndex);
+      if (sectionIndex > 0) {
+        $('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).hide();
+      }
     }
   /*  let name =  this.nameRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex;
     if ($('input[name="' + name + '"]').is(':checked')) {
@@ -168,6 +183,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   }
 
   selectRadioBtnFam(id) {
+    console.log("selectRadioBtnFam");
     //console.log('id: ' + id);
     const familyLength = this.familyLength;
     //console.log('familyLength: ' + familyLength);
@@ -186,6 +202,19 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     console.log(id);
     let namefamilia = $('#' + this.idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).html();
     let colorfamilia = this.colorsFare[fareFamilyIndex];
+
+    //VALIDACION DE CHECK RADIO
+    let count1 = 0;
+    const lstFamilyResult = this.lstFamilyResult;
+    const sectionIndex_int = parseInt(sectionIndex);
+    const segmentIndex_int = parseInt(segmentIndex);
+    const fareFamilyIndex_int = parseInt(fareFamilyIndex);
+
+    const sectionX = lstFamilyResult.lsections[sectionIndex_int];
+    const segmentX = sectionX.lsegments[segmentIndex_int];
+    const fareFamilyX = segmentX.lfareFamilies[fareFamilyIndex_int];
+    const fareBasisX = fareFamilyX.fareBasis;
+
     this.colorfamily.emit(colorfamilia);
     this.namefamily.emit(namefamilia);
     console.log(colorfamilia);

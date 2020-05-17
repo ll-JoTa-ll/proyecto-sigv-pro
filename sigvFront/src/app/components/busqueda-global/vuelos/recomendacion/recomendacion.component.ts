@@ -106,6 +106,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   ];
 
   lstFareBasis: any[] = [];
+  lstConCombinacion: any[] = [];
 
   constructor(
     private modalService: BsModalService,
@@ -993,6 +994,8 @@ TraerAutorizador() {
               }
             }
           });
+        } else {
+          //
         }
       });
     });
@@ -1183,12 +1186,89 @@ TraerAutorizador() {
     let lstFareBasis = this.lstFareBasis;
     lstFareBasis = [];
 
+    const lcombinations = this.lstFamilyResult.lcombinations;
+
     requestFamilia.Lsections.forEach(function(sectionVal) {
       sectionVal.Lsegments.forEach(function(segmentVal) {
         segmentVal.LsegmentGroups.forEach(function(segmentGroupVal) {
           lstFareBasis.push(segmentGroupVal.FareBasis);
         });
       });
+    });
+
+    //PASO 1: identificar lo seleccionado en la section 0
+    let section0_fareBasis = [];
+    requestFamilia.Lsections.forEach(function(sectionVal, indexSectionVal) {
+      if (indexSectionVal === 0) {
+        sectionVal.Lsegments.forEach(function(segmentVal) {
+          segmentVal.LsegmentGroups.forEach(function(segmentGroupVal) {
+            section0_fareBasis.push(segmentGroupVal.FareBasis);
+          });
+        });
+      }
+    });
+    console.log("section0_fareBasis: " + JSON.stringify(section0_fareBasis));
+
+    //PASO 2: buscar esas sections en el listado de combinaciones
+    let lstCombinacionesSection = [];
+    let flagSection0 = 0;
+    lcombinations.forEach(function(combinacion, indexCombinacion) {
+      const lbasisCombinations = combinacion.lbasisCombinations;
+      flagSection0 = 0;
+      lbasisCombinations.forEach(function(valor, indexValor) {
+        if (valor.sectionId == 1) {
+          if (valor.fareBasis == section0_fareBasis[indexValor]) {
+            flagSection0++;
+          }
+        }
+      });
+      if (flagSection0 === section0_fareBasis.length) {
+        lstCombinacionesSection.push(combinacion);
+      }
+    });
+    console.log("lstCombinacionesSection: " + JSON.stringify(lstCombinacionesSection));
+
+    //PASO 3: teniendo las combinaciones q existe para el section seleccionado
+    //        vamos ocultar los radio q no existan
+    lstCombinacionesSection.forEach(function(valor, valorIndex) {
+      //
+    });
+    lstFamilyResult.lsections.forEach(function(section, indexSection) {
+      if (indexSection > 0) {
+        section.lsegments.forEach(function(segment, indexSegment) {
+          if (indexSegment == segment_) {
+            segment.lfareFamilies.forEach(function(fare, indexFare) {
+              const fareBasisGG = fare.fareBasis;
+              let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+              //console.log("idSecuencial: " + idSecuencial);
+              $("#idRadioFam_" + idSecuencial).hide();
+
+
+              let flagSectionGG = 0;
+              lstCombinacionesSection.forEach(function(combinacion, indexCombinacion) {
+                flagSectionGG = 0;
+                const lbasisCombinations = combinacion.lbasisCombinations;
+                const lstSecComb = lbasisCombinations.filter(x => x.sectionId == (indexSection + 1));
+                console.log("lstSecComb: " + JSON.stringify(lstSecComb));
+                const countSecComb = lstSecComb.length;
+                lstSecComb.forEach(function(valor, indexValor) {
+                  if (valor.sectionId != 1) {
+                    if (valor.fareBasis == fareBasisGG) {
+                      flagSectionGG++;
+                    }
+                  }
+                });
+                if (flagSectionGG === countSecComb) {
+                  $("#idRadioFam_" + idSecuencial).show();
+                }
+              });
+
+
+
+            });
+          }
+        });
+      }
     });
 
     this.lstFareBasis = lstFareBasis;
@@ -1347,14 +1427,22 @@ TraerAutorizador() {
     let flagExist = 0;
     let totalPrice = "";
     let currency = "";
-    lcombinations.forEach(function(item) {
+    lcombinations.forEach(function(item, indexItem) {
       flagExistCount = 0;
+
       console.log("item.fareBasis: " + JSON.stringify(item.fareBasis));
       lstFareBasis.forEach(function(fareBasis, indexFareBasis) {
+        /*
         if (fareBasis === item.fareBasis[indexFareBasis]) {
           flagExistCount++;
         }
+        */
+        if (fareBasis === item.lbasisCombinations[indexFareBasis].fareBasis) {
+          flagExistCount++;
+        }
       });
+
+      console.log("item.fareBasis: " + JSON.stringify(item.fareBasis));
 
       if (flagExistCount === lstFareBasis.length) {
         flagExist = 1;
