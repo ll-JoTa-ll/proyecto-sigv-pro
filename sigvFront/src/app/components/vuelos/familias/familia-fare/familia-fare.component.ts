@@ -203,18 +203,6 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     let namefamilia = $('#' + this.idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).html();
     let colorfamilia = this.colorsFare[fareFamilyIndex];
 
-    //VALIDACION DE CHECK RADIO
-    let count1 = 0;
-    const lstFamilyResult = this.lstFamilyResult;
-    const sectionIndex_int = parseInt(sectionIndex);
-    const segmentIndex_int = parseInt(segmentIndex);
-    const fareFamilyIndex_int = parseInt(fareFamilyIndex);
-
-    const sectionX = lstFamilyResult.lsections[sectionIndex_int];
-    const segmentX = sectionX.lsegments[segmentIndex_int];
-    const fareFamilyX = segmentX.lfareFamilies[fareFamilyIndex_int];
-    const fareBasisX = fareFamilyX.fareBasis;
-
     this.colorfamily.emit(colorfamilia);
     this.namefamily.emit(namefamilia);
     console.log(colorfamilia);

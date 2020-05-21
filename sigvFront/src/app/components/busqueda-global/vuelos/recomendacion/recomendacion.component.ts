@@ -1197,6 +1197,7 @@ TraerAutorizador() {
     });
 
     //PASO 1: identificar lo seleccionado en la section 0
+    console.log("//PASO 1: identificar lo seleccionado en la section 0");
     let section0_fareBasis = [];
     requestFamilia.Lsections.forEach(function(sectionVal, indexSectionVal) {
       if (indexSectionVal === 0) {
@@ -1210,6 +1211,7 @@ TraerAutorizador() {
     console.log("section0_fareBasis: " + JSON.stringify(section0_fareBasis));
 
     //PASO 2: buscar esas sections en el listado de combinaciones
+    console.log("//PASO 2: buscar esas sections en el listado de combinaciones");
     let lstCombinacionesSection = [];
     let flagSection0 = 0;
     lcombinations.forEach(function(combinacion, indexCombinacion) {
@@ -1229,6 +1231,7 @@ TraerAutorizador() {
     console.log("lstCombinacionesSection: " + JSON.stringify(lstCombinacionesSection));
 
     //PASO 3: teniendo las combinaciones q existe para el section seleccionado
+    console.log("//PASO 3: teniendo las combinaciones q existe para el section seleccionado");
     //        vamos ocultar los radio q no existan
     lstCombinacionesSection.forEach(function(valor, valorIndex) {
       //
@@ -1236,14 +1239,15 @@ TraerAutorizador() {
     lstFamilyResult.lsections.forEach(function(section, indexSection) {
       if (indexSection > 0) {
         section.lsegments.forEach(function(segment, indexSegment) {
-          if (indexSegment == segment_) {
+
             segment.lfareFamilies.forEach(function(fare, indexFare) {
               const fareBasisGG = fare.fareBasis;
               let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
-              //console.log("idSecuencial: " + idSecuencial);
-              $("#idRadioFam_" + idSecuencial).hide();
+              console.log("idSecuencial: " + idSecuencial);
+              //$("#idRadioFam_" + idSecuencial).hide();
 
 
+              /*
               let flagSectionGG = 0;
               lstCombinacionesSection.forEach(function(combinacion, indexCombinacion) {
                 flagSectionGG = 0;
@@ -1261,12 +1265,12 @@ TraerAutorizador() {
                 if (flagSectionGG === countSecComb) {
                   $("#idRadioFam_" + idSecuencial).show();
                 }
-              });
+              });*/
 
 
 
             });
-          }
+
         });
       }
     });
@@ -1406,7 +1410,8 @@ TraerAutorizador() {
 
 
         if (flagResultFamilias === 1) {
-          this.flightAvailability(dataflighavailability, modalerror, 2, template, datasecciones);
+          this.sessionStorageService.store('ss_FlightAvailability_request1', dataflighavailability);
+          //this.flightAvailability(dataflighavailability, modalerror, 2, template, datasecciones);
         } else {
           this.vuelosComponent.spinner.hide();
           this.modalRef = this.modalService.show(
