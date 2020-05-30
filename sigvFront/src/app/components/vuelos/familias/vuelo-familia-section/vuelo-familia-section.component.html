@@ -1,78 +1,86 @@
 <div class="m-0 p-0 pt-3">
-    <div class="row m-0 p-0 pb-3 pt-4 pl-2" style="width: 100%; background: #FFFFFF 0% 0% no-repeat padding-box;">
+  <div class="row m-0 p-0 pb-3 pt-4 pl-2" style="width: 100%; background: #FFFFFF 0% 0% no-repeat padding-box;">
 
+    <div class="col-2 m-0 p-0">
+      <div class="row m-0 p-0">
         <div class="col-2 m-0 p-0">
-            <div class="row m-0 p-0">
-                <div class="col-2 m-0 p-0">
-                    <img src="./assets/images/{{imgIdaVuelta}}" alt="">
-                </div>
-                <div class="col-10 m-0 p-0 pl-4">
-                    <div class="row m-0 p-0">
-                        <div class="col-12 m-0 p-0 ff-text-1">
-                            {{textoTipo}}
-                        </div>
-                        <div class="col-12 m-0 p-0 ff-text-2">
-                            {{sectionFamily.lsegments[0].odeparture.dateShow}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row m-0 p-0"></div>
+          <img src="./assets/images/{{imgIdaVuelta}}" alt="">
         </div>
-        <div class="col-2 m-0 p-0">
-            <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0 ff-text-1">{{sectionFamily.oorigin.city}}</div>
-                <div class="col-12 m-0 p-0 ff-text-2">{{sectionFamily.oorigin.airportCity}}</div>
+        <div class="col-10 m-0 p-0 pl-4">
+          <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 ff-text-1">
+              {{textoTipo}}
             </div>
-            <div class="row m-0 p-0">
-                <!-- <div class="col-12 m-0 p-0 ff-text-3">{{sectionFamily.lsegments[sectionFamilyIndex].odeparture.timeShow}}</div> -->
+            <div class="col-12 m-0 p-0 ff-text-2">
+              {{sectionFamily.lsegments[0].odeparture.dateShow}}
             </div>
+          </div>
         </div>
-
-        <div class="col-3 m-0 p-0">
-            <div class="row m-0 p-0" style="height: 40px;"></div>
-
-            <div class="row m-0 p-0">
-                <div *ngIf="sectionFamily.lsegments[0].numberScales>0" class="col-12 m-0 p-0 ff-text-5 text-center">
-                    {{sectionFamily.lsegments[0].numberScales}} escala(s)
-                </div>
-
-                <div *ngIf="sectionFamily.lsegments[0].numberScales===0" class="col-12 m-0 p-0 ff-text-5 text-center">
-                    Directo
-                </div>
-
-                <div *ngIf="sectionFamily.lsegments[0].numberScales>0" class="col-12 m-0 p-0 text-center" style="width: 205px;height: 4px;">
-                    <img src="./assets/images/home/escala.png" alt="">
-                </div>
-
-                <div *ngIf="sectionFamily.lsegments[0].numberScales===0" class="col-12 m-0 p-0 text-center" style="width: 205px;height: 4px;">
-                    <img src="./assets/images/home/directo.png" alt="">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-4 m-0 p-0">
-            <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0 ff-text-1">{{sectionFamily.odestination.city}}</div>
-                <div class="col-12 m-0 p-0 ff-text-2">{{sectionFamily.odestination.airportCity}}</div>
-            </div>
-
-            <div class="row m-0 p-0">
-                <!--   <div class="col-4 m-0 p-0 ff-text-3">{{sectionFamily.lsegments[sectionFamilyIndex].oarrival.timeShow}}</div> -->
-                <div class="col-4 m-0 p-0 ff-text-4 d-flex align-items-center">{{sectionFamily.lsegments[sectionFamily.lsegments.length - 1].otime.totalFlightTimeShow}}</div>
-                <div class="col-4 m-0 p-0">
-                    <img *ngIf="isCollapsed" style="width: 20px; cursor: pointer;" (click)="showSegments()" src="./assets/images/arrow-down.svg" alt="">
-                    <img *ngIf="!isCollapsed" style="width: 20px; cursor: pointer;" (click)="hideSegments()" src="./assets/images/arrow-up.svg" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="col-12 m-0 p-0"></div>
+      </div>
+      <div class="row m-0 p-0"></div>
     </div>
+    <div class="col-2 m-0 p-0">
+      <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0 ff-text-1">{{sectionFamily.oorigin.city}}</div>
+        <div class="col-12 m-0 p-0 ff-text-2">{{sectionFamily.oorigin.airportCity}}</div>
+      </div>
+      <div class="row m-0 p-0">
+        <!-- <div class="col-12 m-0 p-0 ff-text-3">{{sectionFamily.lsegments[sectionFamilyIndex].odeparture.timeShow}}</div> -->
+      </div>
+    </div>
+
+    <div class="col-3 m-0 p-0">
+      <div class="row m-0 p-0" style="height: 40px;"></div>
+
+      <div class="row m-0 p-0">
+        <div *ngIf="sectionFamily.lsegments[0].numberScales>0" class="col-12 m-0 p-0 ff-text-5 text-center">
+          {{sectionFamily.lsegments[0].numberScales}} escala(s)
+        </div>
+
+        <div *ngIf="sectionFamily.lsegments[0].numberScales===0" class="col-12 m-0 p-0 ff-text-5 text-center">
+          Directo
+        </div>
+
+        <div *ngIf="sectionFamily.lsegments[0].numberScales>0" class="col-12 m-0 p-0 text-center" style="width: 205px;height: 4px;">
+          <img src="./assets/images/home/escala.png" alt="">
+        </div>
+
+        <div *ngIf="sectionFamily.lsegments[0].numberScales===0" class="col-12 m-0 p-0 text-center" style="width: 205px;height: 4px;">
+          <img src="./assets/images/home/directo.png" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4 m-0 p-0">
+      <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0 ff-text-1">{{sectionFamily.odestination.city}}</div>
+        <div class="col-12 m-0 p-0 ff-text-2">{{sectionFamily.odestination.airportCity}}</div>
+      </div>
+
+      <div class="row m-0 p-0">
+        <!--   <div class="col-4 m-0 p-0 ff-text-3">{{sectionFamily.lsegments[sectionFamilyIndex].oarrival.timeShow}}</div> -->
+        <div class="col-4 m-0 p-0 ff-text-4 d-flex align-items-center">{{sectionFamily.lsegments[sectionFamily.lsegments.length - 1].otime.totalFlightTimeShow}}</div>
+        <div class="col-4 m-0 p-0">
+          <img *ngIf="isCollapsed" style="width: 20px; cursor: pointer;" (click)="showSegments()" src="./assets/images/arrow-down.svg" alt="">
+          <img *ngIf="!isCollapsed" style="width: 20px; cursor: pointer;" (click)="hideSegments()" src="./assets/images/arrow-up.svg" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="col-12 m-0 p-0"></div>
+  </div>
 </div>
 <div id="divfamilia_{{sectionFamilyIndex}}" class="col-12 m-0 p-0 pl-5 pt-4 pb-4 fade-in" style="background: #FFFFFF 0% 0% no-repeat padding-box; display: none;">
-    <span class="ind-familia pr-5">Familia Seleccionada:</span><span id="nombrefamilia_{{sectionFamilyIndex}}" class="namefamily">{{familyname}}</span>
+  <span class="ind-familia pr-5">Familia Seleccionada:</span><span id="nombrefamilia_{{sectionFamilyIndex}}" class="namefamily">{{familyname}}</span>
 </div>
 <div *ngIf="sectionFamily.lsegments.length>0" [collapse]="isCollapsed" [isAnimated]="true" class="row m-0 p-0" style="width: 100%;" [id]="idSectionSegment">
-    <app-vuelo-familia-segment (colorfamily)="EvtColorFamily($event)" (hidesection)="hidesection($event)" (namefamily)="EvtNamefamily($event)" *ngFor="let segment of sectionFamily.lsegments; let i=index" [segment]="segment" [segmentIndex]="i" [segmentsLength]="sectionFamily.lsegments.length"
-        [sectionFamilyIndex]="sectionFamilyIndex" (idRadioBtnFareFam)="selectRadioBtnFam($event)"></app-vuelo-familia-segment>
+  <app-vuelo-familia-segment (colorfamily)="EvtColorFamily($event)"
+                             (hidesection)="hidesection($event)"
+                             (namefamily)="EvtNamefamily($event)"
+                             *ngFor="let segment of sectionFamily.lsegments; let i=index"
+                             [segment]="segment"
+                             [segmentIndex]="i"
+                             [segmentsLength]="sectionFamily.lsegments.length"
+                             [sectionFamilyIndex]="sectionFamilyIndex"
+                             (idRadioBtnFareFam)="selectRadioBtnFam($event)"
+  ></app-vuelo-familia-segment>
 </div>

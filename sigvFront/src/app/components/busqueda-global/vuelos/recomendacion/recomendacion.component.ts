@@ -1230,50 +1230,38 @@ TraerAutorizador() {
     });
     console.log("lstCombinacionesSection: " + JSON.stringify(lstCombinacionesSection));
 
-    //PASO 3: teniendo las combinaciones q existe para el section seleccionado
-    console.log("//PASO 3: teniendo las combinaciones q existe para el section seleccionado");
-    //        vamos ocultar los radio q no existan
-    lstCombinacionesSection.forEach(function(valor, valorIndex) {
-      //
-    });
+    //PASO 3: hide los cards
+    console.log("PASO 3: hide los cards");
     lstFamilyResult.lsections.forEach(function(section, indexSection) {
       if (indexSection > 0) {
         section.lsegments.forEach(function(segment, indexSegment) {
 
-            segment.lfareFamilies.forEach(function(fare, indexFare) {
-              const fareBasisGG = fare.fareBasis;
-              let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
-              console.log("idSecuencial: " + idSecuencial);
-              //$("#idRadioFam_" + idSecuencial).hide();
-
-
-              /*
-              let flagSectionGG = 0;
-              lstCombinacionesSection.forEach(function(combinacion, indexCombinacion) {
-                flagSectionGG = 0;
-                const lbasisCombinations = combinacion.lbasisCombinations;
-                const lstSecComb = lbasisCombinations.filter(x => x.sectionId == (indexSection + 1));
-                console.log("lstSecComb: " + JSON.stringify(lstSecComb));
-                const countSecComb = lstSecComb.length;
-                lstSecComb.forEach(function(valor, indexValor) {
-                  if (valor.sectionId != 1) {
-                    if (valor.fareBasis == fareBasisGG) {
-                      flagSectionGG++;
-                    }
-                  }
-                });
-                if (flagSectionGG === countSecComb) {
-                  $("#idRadioFam_" + idSecuencial).show();
-                }
-              });*/
-
-
-
-            });
+          segment.lfareFamilies.forEach(function(fare, indexFare) {
+            const fareBasisGG = fare.fareBasis;
+            let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+            const cardId = 'cardId_' + section.sectionId + '_' + (indexSegment+1) + '_' + fareBasisGG;
+            console.log("cardId hide: " + cardId);
+            $("#" + cardId).hide();
+          });
 
         });
       }
     });
+
+    //PASO 4: teniendo las combinaciones q existe para el section seleccionado
+    console.log("//PASO 4: teniendo las combinaciones q existe para el section seleccionado");
+    //        vamos ocultar los radio q no existan
+    lstCombinacionesSection.forEach(function(valor, valorIndex) {
+      const lbasisCombinations = valor.lbasisCombinations;
+      lbasisCombinations.forEach(function(combi, combiIndex) {
+        if (combi.sectionId != '1') {
+          const cardId = 'cardId_' + combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
+          console.log("cardId show: " + cardId);
+          $("#" + cardId).show();
+        }
+      });
+    });
+
 
     this.lstFareBasis = lstFareBasis;
 
@@ -1409,8 +1397,22 @@ TraerAutorizador() {
         }
 
 
+        console.log("flagResultFamilias: " +  flagResultFamilias);
+        console.log("flagResultFamilias: " +  flagResultFamilias);
+        console.log("flagResultFamilias: " +  flagResultFamilias);
+        console.log("flagResultFamilias: " +  flagResultFamilias);
+        console.log("flagResultFamilias: " +  flagResultFamilias);
+        console.log("flagResultFamilias: " +  flagResultFamilias);
+        console.log("flagResultFamilias: " +  flagResultFamilias);
         if (flagResultFamilias === 1) {
+          this.famTotalFareAmount = this.totalFareAmount;
+          this.famFareAmountByPassenger = this.fareTaxAmountByPassenger;
           this.sessionStorageService.store('ss_FlightAvailability_request1', dataflighavailability);
+          this.vuelosComponent.spinner.hide();
+          this.modalRef = this.modalService.show(
+            template,
+            Object.assign({}, { class: 'gray modal-lg' })
+          );
           //this.flightAvailability(dataflighavailability, modalerror, 2, template, datasecciones);
         } else {
           this.vuelosComponent.spinner.hide();

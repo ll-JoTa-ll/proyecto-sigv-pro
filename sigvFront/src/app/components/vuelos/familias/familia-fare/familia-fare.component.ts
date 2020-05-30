@@ -22,6 +22,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   @Input() segmentIndex;
   @Input() familyLength;
   @Input() sectionIndex;
+  @Input() fareBasisXD;
 
   @Output() idRadioBtnFareFam = new EventEmitter<string>();
   @Output() namefamily = new EventEmitter<string>();
@@ -66,6 +67,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
 
   lstFamilyResult: IFamilyResultModel;
 
+  cardId: string;
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService
@@ -86,6 +89,8 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     this.classNameFamilyName = 'classNameFamilyName';
 
     this.lstFamilyResult = this.sessionStorageService.retrieve('ss_lstFamilyResult');
+
+    this.cardId = 'cardId';
   }
 
   ngOnInit() {
@@ -167,12 +172,9 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     } else {
       console.log("sectionIndex 666");
       console.log(sectionIndex);
-      console.log(sectionIndex);
-      console.log(sectionIndex);
-      console.log(sectionIndex);
-      console.log(sectionIndex);
       if (sectionIndex > 0) {
-        $('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).hide();
+        //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).hide();
+        //const lcombinations = ss_lstFamilyResult.lcombinations;
       }
     }
   /*  let name =  this.nameRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex;
