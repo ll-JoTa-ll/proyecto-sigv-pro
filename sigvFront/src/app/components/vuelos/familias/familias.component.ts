@@ -28,6 +28,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   @Input() famFareAmountByPassenger;
   @Input() flagMsgErrorSelFam: boolean;
   @Input() modalRef: BsModalRef;
+  @Input() lcombinations;
 
   @Output() flagCloseModal = new EventEmitter<boolean>();
   @Output() outIdRadioBtnFareFam = new EventEmitter<string>();
@@ -99,6 +100,73 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     this.precioTotal = precioTotal;
     this.precioPersona = this.precioTotal / this.nroPersonas;
     */
+
+    //PASO 1: identificar lo seleccionado en la section 0
+    console.log("//PASO 1: identificar lo seleccionado en la section 0");
+    let section0_fareBasis = [];
+    this.dataRequestFamilia.Lsections.forEach(function(sectionVal, indexSectionVal) {
+      if (indexSectionVal === 0) {
+        sectionVal.Lsegments.forEach(function(segmentVal) {
+          segmentVal.LsegmentGroups.forEach(function(segmentGroupVal) {
+            section0_fareBasis.push(segmentGroupVal.FareBasis);
+          });
+        });
+      }
+    });
+    console.log("section0_fareBasis: " + JSON.stringify(section0_fareBasis));
+
+    //PASO 2: buscar esas sections en el listado de combinaciones
+    const lcombinations = this.lcombinations;
+    console.log("//PASO 2: buscar esas sections en el listado de combinaciones");
+    let lstCombinacionesSection = [];
+    let flagSection0 = 0;
+    lcombinations.forEach(function(combinacion, indexCombinacion) {
+      const lbasisCombinations = combinacion.lbasisCombinations;
+      flagSection0 = 0;
+      lbasisCombinations.forEach(function(valor, indexValor) {
+        if (valor.sectionId == 1) {
+          if (valor.fareBasis == section0_fareBasis[indexValor]) {
+            flagSection0++;
+          }
+        }
+      });
+      if (flagSection0 === section0_fareBasis.length) {
+        lstCombinacionesSection.push(combinacion);
+      }
+    });
+
+    //PASO 3: hide los cards
+    console.log("PASO 3: hide los cards");
+    this.lstFamilyResult.forEach(function(section, indexSection) {
+      if (indexSection > 0) {
+        section.lsegments.forEach(function(segment, indexSegment) {
+
+          segment.lfareFamilies.forEach(function(fare, indexFare) {
+            const fareBasisGG = fare.fareBasis;
+            let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+            const cardId = 'cardId_' + section.sectionId + '_' + (indexSegment+1) + '_' + fareBasisGG;
+            console.log("cardId hide: " + cardId);
+            $("#" + cardId).hide();
+          });
+
+        });
+      }
+    });
+
+    //PASO 4: teniendo las combinaciones q existe para el section seleccionado
+    console.log("//PASO 4: teniendo las combinaciones q existe para el section seleccionado");
+    //        vamos ocultar los radio q no existan
+    lstCombinacionesSection.forEach(function(valor, valorIndex) {
+      const lbasisCombinations = valor.lbasisCombinations;
+      lbasisCombinations.forEach(function(combi, combiIndex) {
+        if (combi.sectionId != '1') {
+          const cardId = 'cardId_' + combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
+          console.log("cardId show: " + cardId);
+          $("#" + cardId).show();
+        }
+      });
+    });
+
   }
 
   sumTotal($event) {
