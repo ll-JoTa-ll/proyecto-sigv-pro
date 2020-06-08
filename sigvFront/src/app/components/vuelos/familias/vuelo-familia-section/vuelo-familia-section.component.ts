@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, AfterViewInit} from '@angular/core';
 
 
 declare var jquery: any;
@@ -9,7 +9,7 @@ declare var $: any;
   templateUrl: './vuelo-familia-section.component.html',
   styleUrls: ['./vuelo-familia-section.component.sass']
 })
-export class VueloFamiliaSectionComponent implements OnInit {
+export class VueloFamiliaSectionComponent implements OnInit, AfterViewInit {
 
   @Input() sectionFamily;
   @Input() sectionFamilyIndex;
@@ -48,9 +48,14 @@ export class VueloFamiliaSectionComponent implements OnInit {
     }
 
     this.idSectionSegment += this.sectionFamily.sectionId;
+  }
 
+  ngAfterViewInit() {
     if (this.sectionFamilyIndex === 0) {
       this.isCollapsed = false;
+    } else {
+      $("#" + this.idSectionSegment).hide();
+      //$('#divfamilia_' + this.sectionFamilyIndex).show();
     }
   }
 
@@ -58,6 +63,7 @@ export class VueloFamiliaSectionComponent implements OnInit {
     const isCollapsed = this.isCollapsed;
     this.isCollapsed = !isCollapsed;
     $('#divfamilia_' + this.sectionFamilyIndex).hide();
+    $('#' + this.idSectionSegment).show();
   }
 
   hideSegments() {
@@ -67,13 +73,14 @@ export class VueloFamiliaSectionComponent implements OnInit {
     if (this.familyname != null) {
       $('#divfamilia_' + this.sectionFamilyIndex).show();
     }
+    $('#' + this.idSectionSegment).hide();
   }
 
   hidesection($event) {
-   this.isCollapsed = $event;
-   if (this.familyname != null) {
-    $('#divfamilia_' + this.sectionFamilyIndex).show();
-  }
+    this.isCollapsed = $event;
+    if (this.familyname != null) {
+      $('#divfamilia_' + this.sectionFamilyIndex).show();
+    }
   }
 
   selectRadioBtnFam($event) {

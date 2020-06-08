@@ -70,9 +70,14 @@
   </div>
 </div>
 <div id="divfamilia_{{sectionFamilyIndex}}" class="col-12 m-0 p-0 pl-5 pt-4 pb-4 fade-in" style="background: #FFFFFF 0% 0% no-repeat padding-box; display: none;">
-  <span class="ind-familia pr-5">Familia Seleccionada:</span><span id="nombrefamilia_{{sectionFamilyIndex}}" class="namefamily">{{familyname}}</span>
+  <span class="ind-familia pr-5">Familia Seleccionada:</span>
+  <span id="nombrefamilia_{{sectionFamilyIndex}}" class="namefamily">{{familyname}}</span>
 </div>
-<div *ngIf="sectionFamily.lsegments.length>0" [collapse]="isCollapsed" [isAnimated]="true" class="row m-0 p-0" style="width: 100%;" [id]="idSectionSegment">
+<div
+  *ngIf="sectionFamily.lsegments.length>0"
+  class="row m-0 p-0"
+  style="width: 100%;"
+  [id]="idSectionSegment">
   <app-vuelo-familia-segment (colorfamily)="EvtColorFamily($event)"
                              (hidesection)="hidesection($event)"
                              (namefamily)="EvtNamefamily($event)"

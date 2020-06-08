@@ -167,6 +167,34 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
       });
     });
 
+    //PASO 5
+    console.log("PASO 5");
+    const combinacionInicial = lstCombinacionesSection[0];
+    const totalPrice_0 = combinacionInicial.totalPrice;
+    const currency_0 = combinacionInicial.currency;
+    const lbasisCombinations_0 = combinacionInicial.lbasisCombinations;
+    lbasisCombinations_0.forEach(function(combo, comboIndex) {
+      //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
+    });
+    this.lstFamilyResult.forEach(function(section, sectionIndex) {
+      const sectionId = section.sectionId;
+      section.lsegments.forEach(function(segment, segmentIndex) {
+        segment.lfareFamilies.forEach(function(fare, fareFamilyIndex) {
+          const fareBasisGG = fare.fareBasis;
+          const idRadioBtn = sectionId + '_' + (segmentIndex + 1) + '_' + fareBasisGG;
+          lbasisCombinations_0.forEach(function(combi, comboIndex) {
+            //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
+            const combiIdRadioBtn = combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
+            if (idRadioBtn === combiIdRadioBtn) {
+              $('#idRadioFam_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
+            }
+          });
+        });
+      });
+    });
+    this.famTotalFareAmount = totalPrice_0;
+    this.famFareAmountByPassenger = Number(totalPrice_0) / this.nroPersonas;
+
   }
 
   sumTotal($event) {

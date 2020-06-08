@@ -107,6 +107,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   lstFareBasis: any[] = [];
   lstConCombinacion: any[] = [];
+  modalRefSinFares: BsModalRef;
 
   constructor(
     private modalService: BsModalService,
@@ -164,7 +165,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
-  openModal(template: TemplateRef<any>, recommendationId, modalerror) {
+  openModal(template: TemplateRef<any>, recommendationId, modalerror, templateSinFares) {
     this.datosuser = this.sessionStorageService.retrieve('objusuarios');
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
@@ -238,7 +239,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       PSeudo: this.pseudo
     };
     this.requestFamilia = dataFamilias;
-    this.getFareFamilyV2(dataFamilias, template, modalerror);
+    this.getFareFamilyV2(dataFamilias, template, modalerror, templateSinFares);
   }
 
   setearRadioId($event) {
@@ -1262,6 +1263,11 @@ TraerAutorizador() {
       });
     });
 
+    const grupoActual = "idSegment_" + (Number(section_) + 1);
+    const grupoSiguiente = "idSegment_" + (Number(section_) + 2);
+    $("#" + grupoActual).hide();
+    $("#" + grupoSiguiente).show();
+
 
     this.lstFareBasis = lstFareBasis;
 
@@ -1329,7 +1335,7 @@ TraerAutorizador() {
     this.modalRefDsctCorp = this.modalService.show(template);
   }
 
-  getFareFamilyV2(dataPost, template, modalerror) {
+  getFareFamilyV2(dataPost, template, modalerror, templateSinFares) {
     console.log("getFareFamily");
     console.log("dataPost: " + JSON.stringify(dataPost));
     this.vuelosComponent.spinner.show();
@@ -1405,14 +1411,34 @@ TraerAutorizador() {
         console.log("flagResultFamilias: " +  flagResultFamilias);
         console.log("flagResultFamilias: " +  flagResultFamilias);
         if (flagResultFamilias === 1) {
-          this.famTotalFareAmount = this.totalFareAmount;
-          this.famFareAmountByPassenger = this.fareTaxAmountByPassenger;
-          this.sessionStorageService.store('ss_FlightAvailability_request1', dataflighavailability);
-          this.vuelosComponent.spinner.hide();
-          this.modalRef = this.modalService.show(
-            template,
-            Object.assign({}, { class: 'gray modal-lg' })
-          );
+          //vaidando
+          let flagValFareFamilies = 1;
+          const lsections = this.lstFamilyResult.lsections;
+          lsections.forEach(function(section, indexSEction) {
+            section.lsegments.forEach(function(segment, indexSegment) {
+              if (segment.lfareFamilies.length === 0) {
+                flagValFareFamilies = 0;
+              }
+            });
+          });
+
+          if (flagValFareFamilies === 1) {
+            this.famTotalFareAmount = this.totalFareAmount;
+            this.famFareAmountByPassenger = this.fareTaxAmountByPassenger;
+            this.sessionStorageService.store('ss_FlightAvailability_request1', dataflighavailability);
+            this.vuelosComponent.spinner.hide();
+            this.modalRef = this.modalService.show(
+              template,
+              Object.assign({}, { class: 'gray modal-lg' })
+            );
+          } else {
+            this.vuelosComponent.spinner.hide();
+            this.modalRefSinFares = this.modalService.show(
+              templateSinFares,
+              Object.assign({}, { class: 'gray modal-sm' })
+            );
+          }
+
           //this.flightAvailability(dataflighavailability, modalerror, 2, template, datasecciones);
         } else {
           this.vuelosComponent.spinner.hide();

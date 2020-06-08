@@ -60,16 +60,18 @@
         <div class="col-1 m-0 p-0"></div>
 
         <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 30px !important;">
-          <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId, modalerror)">
+          <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId, modalerror, templateSinFares)">
             Ver familias
           </button>
 
           <ng-template #modalFamilias let-c="close" let-d="dismiss" id="modalfamilias">
 
             <div class="m-0 pb-0" style="border: none; background: #EBEBEB 0% 0% no-repeat padding-box;">
+              <!--
               <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()" style="position: absolute;left: 1709px;z-index: 1;">
                 <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
               </button>
+              -->
               <app-familias
                 *ngIf="flagResultFamilias===1"
                 [lstFamilyResult]="lstFamilyResult.lsections"
@@ -253,6 +255,26 @@ Ver Regulaciones
 
   <div class="modal-footer text-right">
     <button (click)="modalRefDsctCorp.hide()" class="btn" style="color: white; background-color: #ED1C24; font-family: Omnes-med; font-size: 16px;">
+      Entendido
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #templateSinFares>
+  <div class="modal-header d-flex align-items-center">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefSinFares.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body" style="font-family: Omnes-med; font-size: 16px; text-align: justify">
+    <p>
+      La aerolínea no dispone de familias tarifarias.
+    </p>
+  </div>
+
+  <div class="modal-footer text-right">
+    <button (click)="modalRefSinFares.hide()" class="btn" style="color: white; background-color: #ED1C24; font-family: Omnes-med; font-size: 16px;">
       Entendido
     </button>
   </div>
