@@ -21,7 +21,7 @@
   color: white
   background-color: #ED1C24
 
-.container 
+.container
   display: block
   position: relative
   padding-left: 35px
@@ -40,7 +40,7 @@
   opacity: 0
   cursor: pointer
 
-.checkmark 
+.checkmark
   position: absolute
   top: 0
   left: 0
@@ -49,18 +49,19 @@
   background-color: #eee
   border-radius: 50%
 
-.container:hover input ~ .checkmark 
+
+.container:hover input ~ .checkmark
   border: 1px solid #9a0303
 
-.container input:checked ~ .checkmark 
+.container input:checked ~ .checkmark
   border: 1px solid #9a0303
 
-.checkmark:after 
+.checkmark:after
   content: ""
   position: absolute
   display: none
 
-.container input:checked ~ .checkmark:after 
+.container input:checked ~ .checkmark:after
   display: block
 
 .container .checkmark:after
@@ -69,7 +70,7 @@
   width: 12px
   height: 12px
   border-radius: 50%
-  background: transparent linear-gradient(56deg, #ED1C24 0%, #D51A2C 31%, #3C4749 100%) 0% 0% no-repeat padding-box    
+  background: transparent linear-gradient(56deg, #ED1C24 0%, #D51A2C 31%, #3C4749 100%) 0% 0% no-repeat padding-box
 
 .fechas:focus
   border: 3px solid #6B253C
@@ -81,4 +82,4 @@
   border-radius: 4px
 
 .btn-combo:focus
-  border: 3px solid #6B253C  
+  border: 3px solid #6B253C
