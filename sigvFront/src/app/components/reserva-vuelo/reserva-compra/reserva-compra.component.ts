@@ -167,6 +167,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
   AddPassenger(template) {
     this.spinner.show();
+    var reason = this.sessionStorageService.retrieve('reason');
     let phones = [];
     let email = [];
     let amount;
@@ -204,6 +205,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "osession": this.osession,
     "Lpassenger": this.lsusuario,
     "ReasonFlightId": parseFloat(this.idmotivo),
+    "ExtraReason": reason,
     "CarrierId": this.carrierId,
     "Lpolicies": this.LPolicies,
     "Lauthorizer": this.lsapprover,
@@ -596,6 +598,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
     Emitir() {
       this.spinner.show();
+      var reason = this.sessionStorageService.retrieve('reason');
       let idinterval = this.sessionStorageService.retrieve('idinterval');
       let phones = [];
       let email = [];
@@ -631,6 +634,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "osession": this.osession,
     "Lpassenger": this.lsusuario,
     "ReasonFlightId": parseFloat(this.idmotivo),
+    "ExtraReason": reason,
     "CarrierId": this.carrierId,
     "Lpolicies": this.LPolicies,
     "OContactInfo": this.contacto,

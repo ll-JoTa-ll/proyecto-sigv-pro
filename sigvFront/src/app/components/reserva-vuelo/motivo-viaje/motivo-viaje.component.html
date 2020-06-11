@@ -11,6 +11,10 @@
                            <option value="{{item.id}}" *ngFor="let item of lsReasonflight">{{item.description}}</option>
                        </select>
                     </div>
+                    <div *ngIf="valor" class="col-12">
+                      <textarea class="input-pasajero" name="valor" placeholder="Ingrese el motivo" id="reason" ></textarea>
+                    </div>
+
                 </div>
             </div>
         </div>

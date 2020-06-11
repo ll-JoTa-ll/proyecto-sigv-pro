@@ -455,6 +455,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   Comprar(template, template2) {
+    var rason = $('#reason').val();
     let idmotivo = $('#cbomotivo option:selected').val();
     let idprofile = $('#cboprofile option:selected').val();
     let datosusuario: any[] = [];
@@ -646,6 +647,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
       this.sessionStorageService.store('politicas', this.LPolicies);
       this.sessionStorageService.store('idmotivo', idmotivo);
+      this.sessionStorageService.store('reason', rason);
       this.router.navigate(['/reserva-vuelo-compra']);
     }
   }
