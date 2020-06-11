@@ -300,6 +300,12 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         } else {
           $('#txtnombre_' + (index + 1)).removeClass('campo-invalido');
         }
+        if ($('#reason').val().length <= 0) {
+          val = false;
+          $('#reason').addClass('campo-invalido');
+        } else {
+          $('#reason').removeClass('campo-invalido');
+        }
         if ($('#txtapellidos_' + (index + 1)).val().length <= 0) {
           $('#txtapellidos_' + (index + 1)).addClass('campo-invalido');
           val = false;
