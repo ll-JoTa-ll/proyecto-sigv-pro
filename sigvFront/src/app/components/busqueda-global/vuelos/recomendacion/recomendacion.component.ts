@@ -1231,6 +1231,11 @@ TraerAutorizador() {
     });
     console.log("lstCombinacionesSection: " + JSON.stringify(lstCombinacionesSection));
 
+    const grupoActual = "idSegment_" + (Number(section_) + 1);
+    const grupoSiguiente = "idSegment_" + (Number(section_) + 2);
+    $("#" + grupoActual).hide();
+    $("#" + grupoSiguiente).show();
+
     //PASO 3: hide los cards
     console.log("PASO 3: hide los cards");
     lstFamilyResult.lsections.forEach(function(section, indexSection) {
@@ -1258,15 +1263,12 @@ TraerAutorizador() {
         if (combi.sectionId != '1') {
           const cardId = 'cardId_' + combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
           console.log("cardId show: " + cardId);
-          $("#" + cardId).show();
+          //$("#" + cardId).show();
         }
       });
     });
 
-    const grupoActual = "idSegment_" + (Number(section_) + 1);
-    const grupoSiguiente = "idSegment_" + (Number(section_) + 2);
-    $("#" + grupoActual).hide();
-    $("#" + grupoSiguiente).show();
+
 
 
     this.lstFareBasis = lstFareBasis;

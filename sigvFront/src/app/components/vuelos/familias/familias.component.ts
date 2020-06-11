@@ -170,9 +170,13 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     //PASO 5
     console.log("PASO 5");
     const combinacionInicial = lstCombinacionesSection[0];
+    console.log("combinacionInicial: " + JSON.stringify(combinacionInicial));
     const totalPrice_0 = combinacionInicial.totalPrice;
+    console.log("totalPrice_0: " + totalPrice_0);
     const currency_0 = combinacionInicial.currency;
+    console.log("currency_0: " + currency_0);
     const lbasisCombinations_0 = combinacionInicial.lbasisCombinations;
+    console.log("lbasisCombinations_0: " + JSON.stringify(lbasisCombinations_0));
     lbasisCombinations_0.forEach(function(combo, comboIndex) {
       //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
     });
@@ -182,11 +186,16 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
         segment.lfareFamilies.forEach(function(fare, fareFamilyIndex) {
           const fareBasisGG = fare.fareBasis;
           const idRadioBtn = sectionId + '_' + (segmentIndex + 1) + '_' + fareBasisGG;
+          console.log("idRadioBtn: " + idRadioBtn);
           lbasisCombinations_0.forEach(function(combi, comboIndex) {
             //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
             const combiIdRadioBtn = combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
-            if (idRadioBtn === combiIdRadioBtn) {
-              $('#idRadioFam_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
+            if (combi.sectionId == sectionId) {
+              console.log("combiIdRadioBtn: " + combiIdRadioBtn);
+              if (idRadioBtn === combiIdRadioBtn) {
+                console.log("SI: " + '#idRadioFam_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex + 1));
+                $('#idRadioFam_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex + 1)).prop("checked", true);
+              }
             }
           });
         });
