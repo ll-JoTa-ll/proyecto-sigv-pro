@@ -138,28 +138,17 @@ export class AdministradorPasajerosComponent implements OnInit {
     private resizeSvc: ResizeService
     ) {
     this.datoslogin = this.sessionStorageService.retrieve('ss_login_data');
-      this.maxDate = new Date();
-      this.maxDate.setDate(this.maxDate.getDate() - 6575);
+    this.maxDate = new Date();
+    this.maxDate.setDate(this.maxDate.getDate() - 6575);
     this.form = this.formBuilder.group({
       checkArray: this.formBuilder.array([])
     })
    }
 
-   @HostListener("window:resize", [])
-   private onResize() {
-    this.detectScreenSize();
-   }
-   
 
 
-   private detectScreenSize() {
-     const currentSize = this.sizes.find(x => {
-       const el = this.elementRef.nativeElement.querySelector(`.${this.prefix}${x.id}`);
-       const isVisible = window.getComputedStyle(el).display != 'none';
-       return isVisible;
-     });
-     this.resizeSvc.onResize(currentSize.id);
-   }
+
+
 
   ngOnInit() {
     this.cargar();
@@ -202,11 +191,11 @@ realFileBtn.addEventListener("change", function() {
   hola1(){
     $(document).ready(function() {
       var table = $('#table1').DataTable();
-  
+
       $('#table1 tbody').on('click', 'tr', function() {
           $(this).toggleClass('selected');
       });
-  
+
       $('#button').click(function() {
           alert(table.rows('.selected').data().length + ' row(s) selected');
       });
@@ -257,7 +246,7 @@ realFileBtn.addEventListener("change", function() {
     this.documento3 = false;
   }
 
-  
+
 
   addDocument(){
     if(this.tipoDoc === '1' ){
@@ -336,12 +325,12 @@ realFileBtn.addEventListener("change", function() {
         }
       )
     }
-   
+
   }
 
 
 
- 
+
 
   onCheckboxChange(e){
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
@@ -414,7 +403,7 @@ ValidarCorreoEdit() {
 
 }
 
-  
+
   hi(e){
       e.preventDefault();
       e.stopPropagation();
@@ -441,7 +430,7 @@ active() {
     var mainParent = $('.cb-value').parent('.toggle-btn');
     if($(mainParent).find('input.cb-value').is(':checked')) {
       $(mainParent).addClass('active');
-      this.activo = true; 
+      this.activo = true;
     } else {
       $(mainParent).removeClass('active');
       this.activo = false;
@@ -452,7 +441,7 @@ active1() {
   var mainParent = $('.cb-value1').parent('.toggle-btn1');
   if($(mainParent).find('input.cb-value1').is(':checked')) {
     $(mainParent).addClass('active');
-    this.activo1 = true; 
+    this.activo1 = true;
   } else {
     $(mainParent).removeClass('active');
     this.activo1 = false;
@@ -464,7 +453,7 @@ activeEditVip(){
   var mainParent = $('.cb-EditVip').parent('.toggle-EditVip');
   if($(mainParent).find('input.cb-EditVip').is(':checked')) {
     $(mainParent).addClass('active');
-    this.activoEditVip = true; 
+    this.activoEditVip = true;
   } else {
     $(mainParent).removeClass('active');
     this.activoEditVip = false;
@@ -475,7 +464,7 @@ activeEditActive(){
   var mainParent = $('.cb-EditActive').parent('.toggle-EditActive');
   if($(mainParent).find('input.cb-EditActive').is(':checked')) {
     $(mainParent).addClass('active');
-    this.activoEditActive = true; 
+    this.activoEditActive = true;
   } else {
     $(mainParent).removeClass('active');
     this.activoEditActive = false;
@@ -615,8 +604,8 @@ writeUsuarioEdit(){
         template,
         Object.assign({}, { class: 'gray.modal-lg.m-infraccion' })
       );
-    
-    
+
+
   }
 
   ngAfterViewInit() {
@@ -728,7 +717,7 @@ writeUsuarioEdit(){
       );
       this.lstPerson = this.resultInsertUpdate.lpersonByCompanies;
     }
-    
+
   }
 
   refrescar(){
@@ -740,7 +729,7 @@ writeUsuarioEdit(){
         this.lstPerson = result;
       },
       err => {
-        
+
       },
       () => {
 
@@ -918,7 +907,7 @@ writeUsuarioEdit(){
     this.lstPasajeros = lstPasajeros;
   }
 
- 
+
 
   role(){
     const data = {
@@ -931,7 +920,7 @@ writeUsuarioEdit(){
       },
       err => {
         this.spinner.hide();
-        
+
       },
       () => {
         this.spinner.hide();
@@ -1075,7 +1064,7 @@ writeUsuarioEdit(){
       },
       err => {
         this.spinner.hide();
-        
+
       },
       () => {
         this.spinner.hide();
@@ -1087,7 +1076,7 @@ writeUsuarioEdit(){
     this.FiltrarNombre();
  }
 
- 
+
 
   FiltrarNombre() {
     let nombre;
@@ -1126,7 +1115,7 @@ writeUsuarioEdit(){
       },
       err => {
         this.spinner.hide();
-        
+
       },
       () => {
         this.spinner.hide();
@@ -1174,9 +1163,9 @@ writeUsuarioEdit(){
     console.log(JSON.stringify(this.lista));
   }
 
- 
 
-  
+
+
 
 
 
