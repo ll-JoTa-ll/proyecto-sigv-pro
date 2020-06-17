@@ -968,24 +968,14 @@ TraerAutorizador() {
                   fareFamilyName = fare.fareFamilyName;
 
                   let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
-                  //console.log("idSecuencial: " + idSecuencial);
+
                   $("#idRadioFam_" + idSecuencial).prop("checked", true);
                   $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
                   $('#idNameFamilyName1_' + idSecuencial).css({'background-color': colorsFare[index_]});
 
-                  //console.log("classId: " + classId);
-                  //console.log("classId: " + classId);
-                  //console.log("classId: " + classId);
-
                   requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].ClassId = classId;
                   requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].FareBasis = fareBasis;
                   requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].fareFamilyName = fareFamilyName;
-
-                  /*
-                  group.ClassId = classId;
-                  group.FareBasis = fareBasis;
-                  group.fareFamilyName = fareFamilyName;
-                  */
 
                   seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].ClassId = classId;
                   seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].FareBasis = fareBasis;
@@ -1038,16 +1028,8 @@ TraerAutorizador() {
     });
     */
 
-    lstFamilyResult.lsections.forEach(function(section, indexSection) {
-      section.lsegments.forEach(function(segment, indexSegment) {
-        if (indexSection == section_) {
-          segment.lfareFamilies.forEach(function(fare, indexFare) {
-            //
-          });
-        }
-      });
-    });
-
+    //Pintamos y seleccionamos todos los tipos iguales
+    /*
     lstFamilyResult.lsections.forEach(function(section, indexSection) {
 
       if (indexSection == section_) {
@@ -1062,12 +1044,6 @@ TraerAutorizador() {
               const fareBasisNew = fare.fareBasis;
               if (fareBasis == fareBasisNew) {
                 flagFareComp = 1;
-                //segment.lfareFamilies[index_ - 1].fareBasis = fareBasis;
-                //segment.lfareFamilies[index_ - 1].fareBasis = classId;
-                //segment.lfareFamilies[index_ - 1].fareFamilyName = fareFamilyName;
-                //console.log("idSecuencial: " + idSecuencial);
-                //$("#idRadioFam_" + idSecuencial).prop("checked", true);
-                //$('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
               }
 
             });
@@ -1099,86 +1075,7 @@ TraerAutorizador() {
       }
 
     });
-
-    //console.log("flagFareBasisVal: " + flagFareBasisVal);
-    //$('#' + this.idRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex + '_' + this.fareFamilyIndex).prop("checked", true);
-    if (flagFareBasisVal === 1) {
-      /*
-      console.log("Todas las cabeceras del section blancas");
-      lstFamilyResult.lsections.forEach(function(section, indexSection) {
-        if (indexSection == section_) {
-          section.lsegments.forEach(function(segment, indexSegment) {
-            segment.lfareFamilies.forEach(function(fare, indexFare) {
-              let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
-              console.log("idSecuencial: " + idSecuencial);
-              $("#idRadioFam_" + idSecuencial).prop("checked", false);
-              $('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
-            });
-          });
-        }
-      });
-      */
-
-      /*
-      console.log("pintar las cabeceras correspondientes");
-      lstFamilyResult.lsections.forEach(function(section, indexSection) {
-        if (indexSection == section_) {
-          section.lsegments.forEach(function(segment, indexSegment) {
-            segment.lfareFamilies[index_ - 1].fareBasis = fareBasis;
-            segment.lfareFamilies[index_ - 1].fareBasis = classId;
-            segment.lfareFamilies[index_ - 1].fareFamilyName = fareFamilyName;
-            let idSecuencial = indexSection + "_" + indexSegment + "_" + index_;
-            console.log("idSecuencial: " + idSecuencial);
-            $("#idRadioFam_" + idSecuencial).prop("checked", true);
-            $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
-          });
-        }
-      });
-      */
-    } else {
-      //console.log("cuando son diferentes fareBasis")
-      //$("#idRadioFam_" + section_ + "_" + segment_ + "_" + index_).prop("checked", true);
-    }
-
-    /*
-    requestFamilia.Lsections.forEach(function(section, indexSection) {
-      section.Lsegments.forEach(function(segment, indexSegment) {
-        segment.LsegmentGroups.forEach(function(group, indexGroup) {
-          if (indexSection == section_) {
-            if (indexSegment == 0) {
-              if (indexGroup == segment_) {
-                group.ClassId = classId;
-                group.FareBasis = fareBasis;
-                group.fareFamilyName = fareFamilyName;
-              }
-            }
-          }
-        });
-      });
-    });
     */
-
-    /*
-    seccionvuelos.Lsections.forEach(function(section, indexSection) {
-      section.Lsegments.forEach(function(segment, indexSegment) {
-        segment.LsegmentGroups.forEach(function(group, indexGroup) {
-          if (indexSection == section_) {
-            if (indexSegment == 0) {
-              if (indexGroup == segment_) {
-                group.ClassId = classId;
-                group.FareBasis = fareBasis;
-                group.fareFamilyName = fareFamilyName;
-              }
-            }
-          }
-        });
-      });
-    });
-    */
-    //console.log("requestFamiliaRadio: " + JSON.stringify(requestFamilia));
-
- //   this.flightAvailability(requestFamilia, null, 3, null, seccionvuelos);
-    //this.FlightPrice(requestFamilia, seccionvuelos);
 
     console.log("VALIDANDO CLICK DEL RADIO BUTTON");
 
@@ -1233,8 +1130,22 @@ TraerAutorizador() {
 
     const grupoActual = "idSegment_" + (Number(section_) + 1);
     const grupoSiguiente = "idSegment_" + (Number(section_) + 2);
+    console.log("grupoActual: " + grupoActual);
+    console.log("grupoSiguiente: " + grupoSiguiente);
     $("#" + grupoActual).hide();
     $("#" + grupoSiguiente).show();
+
+    const arrowNext1 = "imgArrow1_" + (Number(section_) + 1);
+    const arrowNext2 = "imgArrow2_" + (Number(section_) + 1);
+    console.log("arrowNext1: " + arrowNext1);
+    console.log("arrowNext2: " + arrowNext2);
+    $("#" + arrowNext1).hide();
+    $("#" + arrowNext2).show();
+
+    $("#imgArrow1_" + section_).show();
+    $("#imgArrow2_" + section_).hide();
+
+    $("#divfamilia_" + (Number(section_) + 1)).hide();
 
     //PASO 3: hide los cards
     console.log("PASO 3: hide los cards");
@@ -1257,18 +1168,23 @@ TraerAutorizador() {
     //PASO 4: teniendo las combinaciones q existe para el section seleccionado
     console.log("//PASO 4: teniendo las combinaciones q existe para el section seleccionado");
     //        vamos ocultar los radio q no existan
+    var flagExisteShow = 0;
     lstCombinacionesSection.forEach(function(valor, valorIndex) {
       const lbasisCombinations = valor.lbasisCombinations;
       lbasisCombinations.forEach(function(combi, combiIndex) {
         if (combi.sectionId != '1') {
           const cardId = 'cardId_' + combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
           console.log("cardId show: " + cardId);
-          //$("#" + cardId).show();
+          $("#" + cardId).show();
+          flagExisteShow = 1;
         }
       });
     });
 
-
+    if (flagExisteShow === 0) {
+      $("#" + arrowNext1).hide();
+      $("#" + arrowNext2).hide();
+    }
 
 
     this.lstFareBasis = lstFareBasis;
@@ -1340,6 +1256,7 @@ TraerAutorizador() {
   getFareFamilyV2(dataPost, template, modalerror, templateSinFares) {
     console.log("getFareFamily");
     console.log("dataPost: " + JSON.stringify(dataPost));
+    this.flagMsgErrorSelFam = false;
     this.vuelosComponent.spinner.show();
     this.ObtenerSecciones();
     this.dataRequestFamilia = dataPost;
@@ -1477,7 +1394,7 @@ TraerAutorizador() {
         }
       });
 
-      console.log("item.fareBasis: " + JSON.stringify(item.fareBasis));
+      console.log("item.fareBasis: " + item.fareBasis);
 
       if (flagExistCount === lstFareBasis.length) {
         flagExist = 1;

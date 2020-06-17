@@ -22,6 +22,7 @@ export class VueloFamiliaSectionComponent implements OnInit, AfterViewInit {
   textoTipo;
   isCollapsed = true;
   idSectionSegment = 'idSegment_';
+  idArrow = "idArrow_";
 
   constructor() { }
 
@@ -53,8 +54,13 @@ export class VueloFamiliaSectionComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (this.sectionFamilyIndex === 0) {
       this.isCollapsed = false;
+      $("#imgArrow1_" + this.sectionFamilyIndex).hide();
+      $("#imgArrow2_" + this.sectionFamilyIndex).show();
     } else {
       $("#" + this.idSectionSegment).hide();
+      $("#imgArrow1_" + this.sectionFamilyIndex).show();
+      $("#imgArrow2_" + this.sectionFamilyIndex).hide();
+      $("#divfamilia_" + this.sectionFamilyIndex).show();
       //$('#divfamilia_' + this.sectionFamilyIndex).show();
     }
   }
@@ -64,6 +70,8 @@ export class VueloFamiliaSectionComponent implements OnInit, AfterViewInit {
     this.isCollapsed = !isCollapsed;
     $('#divfamilia_' + this.sectionFamilyIndex).hide();
     $('#' + this.idSectionSegment).show();
+    $("#imgArrow1_" + this.sectionFamilyIndex).hide();
+    $("#imgArrow2_" + this.sectionFamilyIndex).show();
   }
 
   hideSegments() {
@@ -74,6 +82,8 @@ export class VueloFamiliaSectionComponent implements OnInit, AfterViewInit {
       $('#divfamilia_' + this.sectionFamilyIndex).show();
     }
     $('#' + this.idSectionSegment).hide();
+    $("#imgArrow1_" + this.sectionFamilyIndex).show();
+    $("#imgArrow2_" + this.sectionFamilyIndex).hide();
   }
 
   hidesection($event) {

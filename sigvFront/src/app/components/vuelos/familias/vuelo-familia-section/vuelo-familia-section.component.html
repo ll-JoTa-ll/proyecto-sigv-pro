@@ -61,8 +61,8 @@
         <!--   <div class="col-4 m-0 p-0 ff-text-3">{{sectionFamily.lsegments[sectionFamilyIndex].oarrival.timeShow}}</div> -->
         <div class="col-4 m-0 p-0 ff-text-4 d-flex align-items-center">{{sectionFamily.lsegments[sectionFamily.lsegments.length - 1].otime.totalFlightTimeShow}}</div>
         <div class="col-4 m-0 p-0">
-          <img *ngIf="isCollapsed" style="width: 20px; cursor: pointer;" (click)="showSegments()" src="./assets/images/arrow-down.svg" alt="">
-          <img *ngIf="!isCollapsed" style="width: 20px; cursor: pointer;" (click)="hideSegments()" src="./assets/images/arrow-up.svg" alt="">
+          <img id="imgArrow1_{{sectionFamilyIndex}}" style="width: 20px; cursor: pointer;" (click)="showSegments()" src="./assets/images/arrow-down.svg" alt="">
+          <img id="imgArrow2_{{sectionFamilyIndex}}" style="width: 20px; cursor: pointer;" (click)="hideSegments()" src="./assets/images/arrow-up.svg" alt="">
         </div>
       </div>
     </div>
