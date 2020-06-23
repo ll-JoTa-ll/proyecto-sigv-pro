@@ -1098,10 +1098,21 @@ TraerAutorizador() {
     console.log("//PASO 1: identificar lo seleccionado en la section 0");
     let section0_fareBasis = [];
     requestFamilia.Lsections.forEach(function(sectionVal, indexSectionVal) {
-      if (indexSectionVal === 0) {
-        sectionVal.Lsegments.forEach(function(segmentVal) {
+      console.log("indexSectionVal: " + indexSectionVal);
+      console.log("parseInt(section_): " + parseInt(section_));
+      if (parseInt(section_) > indexSectionVal) {
+        sectionVal.Lsegments.forEach(function(segmentVal, indexSegmentVal) {
           segmentVal.LsegmentGroups.forEach(function(segmentGroupVal) {
             section0_fareBasis.push(segmentGroupVal.FareBasis);
+          });
+        });
+      }
+      if (indexSectionVal === parseInt(section_)) {
+        sectionVal.Lsegments.forEach(function(segmentVal, indexSegmentVal) {
+          segmentVal.LsegmentGroups.forEach(function(segmentGroupVal, indexSegmentGroupVal) {
+            if (parseInt(segment_) >= indexSegmentGroupVal) {
+              section0_fareBasis.push(segmentGroupVal.FareBasis);
+            }
           });
         });
       }
@@ -1112,11 +1123,23 @@ TraerAutorizador() {
     console.log("//PASO 2: buscar esas sections en el listado de combinaciones");
     let lstCombinacionesSection = [];
     let flagSection0 = 0;
+    const cantFareBasis = section0_fareBasis.length;
     lcombinations.forEach(function(combinacion, indexCombinacion) {
       const lbasisCombinations = combinacion.lbasisCombinations;
       flagSection0 = 0;
       lbasisCombinations.forEach(function(valor, indexValor) {
-        if (valor.sectionId == 1) {
+        if (cantFareBasis > indexValor) {
+          const combSectionId = parseInt(valor.sectionId);
+          const combSegmentId = parseInt(valor.segmentId);
+          const radioSection = parseInt(section_) + 1;
+          const radioSegment = parseInt(segment_) + 1;
+          /*
+          if (combSectionId === radioSection && combSegmentId === radioSegment) {
+            if (valor.fareBasis == section0_fareBasis[indexValor]) {
+              flagSection0++;
+            }
+          }
+          */
           if (valor.fareBasis == section0_fareBasis[indexValor]) {
             flagSection0++;
           }
@@ -1132,7 +1155,7 @@ TraerAutorizador() {
     const grupoSiguiente = "idSegment_" + (Number(section_) + 2);
     console.log("grupoActual: " + grupoActual);
     console.log("grupoSiguiente: " + grupoSiguiente);
-    $("#" + grupoActual).hide();
+    //$("#" + grupoActual).hide();
     $("#" + grupoSiguiente).show();
 
     const arrowNext1 = "imgArrow1_" + (Number(section_) + 1);
@@ -1150,6 +1173,22 @@ TraerAutorizador() {
     //PASO 3: hide los cards
     console.log("PASO 3: hide los cards");
     lstFamilyResult.lsections.forEach(function(section, indexSection) {
+      if (indexSection === 0) {
+        section.lsegments.forEach(function(segment, indexSegment) {
+          if (indexSegment > 0) {
+            //if (indexSegment > parseInt(segment_)) {
+              segment.lfareFamilies.forEach(function(fare, indexFare) {
+                const fareBasisGG = fare.fareBasis;
+                let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+                const cardId = 'cardId_' + section.sectionId + '_' + (indexSegment+1) + '_' + fareBasisGG;
+                console.log("cardId hide: " + cardId);
+                $("#" + cardId).hide();
+              });
+            //}
+          }
+
+        });
+      }
       if (indexSection > 0) {
         section.lsegments.forEach(function(segment, indexSegment) {
 
@@ -1172,12 +1211,22 @@ TraerAutorizador() {
     lstCombinacionesSection.forEach(function(valor, valorIndex) {
       const lbasisCombinations = valor.lbasisCombinations;
       lbasisCombinations.forEach(function(combi, combiIndex) {
-        if (combi.sectionId != '1') {
+        /*
+        const combSectionId = parseInt(combi.sectionId);
+        const combSegmentId = parseInt(combi.segmentId);
+        if (combSectionId == 1) {
+        }
+        if (combi.sectionId > 1) {
           const cardId = 'cardId_' + combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
           console.log("cardId show: " + cardId);
           $("#" + cardId).show();
           flagExisteShow = 1;
         }
+        */
+        const cardId = 'cardId_' + combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
+        console.log("cardId show: " + cardId);
+        $("#" + cardId).show();
+        flagExisteShow = 1;
       });
     });
 
