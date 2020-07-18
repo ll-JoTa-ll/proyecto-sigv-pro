@@ -1,15 +1,9 @@
-<div
-  class="m-2"
-  style="width: 280px; padding-bottom: 30px !important;"
-  [id]="cardId + '_' + (sectionIndex+1) + '_' + (segmentIndex+1) + '_' + fareBasisXD"
->
+<div class="m-2" style="width: 280px; padding-bottom: 30px !important;">
 
   <div class="row m-0 p-0 box-shadow" style="border-radius: 20px 0 20px 0 !important;">
-    <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center ff-text-size-1"
-         [id]="idNameFamilyName+'_'+sectionIndex+'_'+segmentIndex+'_'+fareFamilyIndex" style="height: 40px; color: white; font-family: Omnes-med; border-radius: 20px 0 0 0; background-color: #C6C6C6"
-    >
+    <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center ff-text-size-1" [id]="idNameFamilyName+'_'+sectionIndex+'_'+segmentIndex+'_'+fareFamilyIndex" style="height: 40px; color: white; font-family: Omnes-med; border-radius: 20px 0 0 0; background-color: #C6C6C6">
       {{fareFamily.fareFamilyName}}
-      - {{fareFamily.fareBasis}}
+      <!-- - {{fareFamily.fareBasis}} -->
     </div>
     <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center" [id]="idNameFamilyName1+'_'+sectionIndex+'_'+segmentIndex+'_'+fareFamilyIndex" style="border: 1px solid #ccc !important; height: 80px !important;background-color: #C6C6C6">
       <label>

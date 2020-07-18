@@ -152,6 +152,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChartModule } from 'angular-highcharts';
 import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
 import { ModalErrorServiceComponent } from './components/shared/modal-error-service/modal-error-service.component';
+import { FamiliaFareV2Component } from './components/vuelos/familias/familia-fare-v2/familia-fare-v2.component';
 
 @NgModule({
   declarations: [
@@ -276,7 +277,8 @@ import { ModalErrorServiceComponent } from './components/shared/modal-error-serv
     AdministradorGeneralComponent,
     DashboardComponent,
     AutorizacionCentroCostoComponent,
-    ModalErrorServiceComponent
+    ModalErrorServiceComponent,
+    FamiliaFareV2Component
   ],
   imports: [
     BrowserModule,
