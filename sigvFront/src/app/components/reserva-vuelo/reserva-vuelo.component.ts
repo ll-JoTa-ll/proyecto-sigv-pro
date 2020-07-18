@@ -292,6 +292,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   ValidarCampos() {
     let val = true;
     let valtelefono;
+    let motivoViaje = $('#reason').val();
     let valcorreo;
     this.datosuser.forEach(function(item, index) {
         if ($('#txtnombre_' + (index + 1)).val().length <= 0) {
@@ -300,12 +301,17 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         } else {
           $('#txtnombre_' + (index + 1)).removeClass('campo-invalido');
         }
-        if ($('#reason').val().length <= 0) {
-          val = false;
-          $('#reason').addClass('campo-invalido');
+        if(motivoViaje === undefined){
+          console.log(motivoViaje);
         } else {
-          $('#reason').removeClass('campo-invalido');
+          if (motivoViaje.length <= 0) {
+            val = false;
+            $('#reason').addClass('campo-invalido');
+          } else {
+            $('#reason').removeClass('campo-invalido');
+          }
         }
+
         if ($('#txtapellidos_' + (index + 1)).val().length <= 0) {
           $('#txtapellidos_' + (index + 1)).addClass('campo-invalido');
           val = false;
