@@ -26,6 +26,7 @@ import { AdministradorGeneralComponent } from './components/administrador-genera
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
+import { CargaMasivaComponent } from "./components/administrador/pasajeros/carga-masiva/carga-masiva.component";
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -53,7 +54,8 @@ const routes: Routes = [
   { path: 'aprobar-reserva-vuelo', component: AprobacionReservaComponent, runGuardsAndResolvers: 'always' },
   { path: 'detalle-reserva-hotel', component: DetalleReservaHotelComponent, runGuardsAndResolvers: 'always' },
   { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' },
-  
+  { path: 'pasajeros/carga-masiva', component: CargaMasivaComponent, runGuardsAndResolvers: "always" }
+
 ];
 
 @NgModule({

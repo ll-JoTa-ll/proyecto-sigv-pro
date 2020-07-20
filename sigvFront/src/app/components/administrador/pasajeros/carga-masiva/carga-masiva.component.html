@@ -1,0 +1,42 @@
+<ng-container>
+  <app-header>
+    <div class="row m-0 p-0 pl-5 pr-5">
+
+      <div class="col-1 m-0 p-0"></div>
+
+      <div class="col-10 m-0 p-0">
+        <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0 pt-3 txt-titulo">
+            Cargue el archivo de Pasajeros
+          </div>
+          <div class="col-12 m-0 p-0 pt-2">
+            <hr>
+          </div>
+          <div class="col-12 m-0 p-0 pt-3 txt-titulo">
+            Los archivos aceptados son .xlsx, .xls y .csv
+          </div>
+          <div class="col-12 m-0 p-0 pt-3">
+            <form id="formFileUpload" name="form" #f="ngForm" (ngSubmit)="onSubmit()">
+              <div class="row m-0 p-0">
+                <div class="col-10 m-0 p-0">
+                  <div class="custom-file mb-3">
+                    <input type="file" class="custom-file-input" id="customFile" name="filename" (change)="onFileChange($event)">
+                    <label class="custom-file-label" for="customFile">{{nameFile}}</label>
+                  </div>
+                </div>
+                <div class="col-2 m-0 p-0 pl-2">
+                  <button class="form-control btn-buscar" type="submit">
+                    Cargar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-1 m-0 p-0"></div>
+
+    </div>
+  </app-header>
+</ng-container>
