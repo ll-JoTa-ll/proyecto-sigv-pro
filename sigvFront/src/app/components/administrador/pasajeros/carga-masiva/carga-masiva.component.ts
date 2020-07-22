@@ -1,4 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+import { UserCompanyService } from "../../../../services/user-company.service";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 declare var jquery: any;
 declare var $: any;
@@ -13,10 +16,22 @@ export class CargaMasivaComponent implements OnInit, AfterViewInit {
   fileToUpload;
   nameFile = "Seleccionar Archivo";
   extFile = "";
+  companyId;
+  flagError = false;
+  status = "";
+  lmasives: any[];
+  p: number;
+  flagErrorExt = false;
 
-  constructor() { }
+  constructor(
+    private sessionStorageService: SessionStorageService,
+    private localStorageService: LocalStorageService,
+    private userCompanyService: UserCompanyService,
+    private spinner: NgxSpinnerService
+  ) { }
 
   ngOnInit() {
+    this.companyId = this.sessionStorageService.retrieve("ss_companyId");
   }
 
   ngAfterViewInit() {
@@ -33,6 +48,8 @@ export class CargaMasivaComponent implements OnInit, AfterViewInit {
   }
 
   onFileChange(event: any) {
+    this.status = "";
+    this.flagErrorExt = false;
     let fi = event.srcElement;
     if (fi.files && fi.files[0]) {
       let fileToUpload = fi.files[0];
@@ -46,7 +63,10 @@ export class CargaMasivaComponent implements OnInit, AfterViewInit {
         this.fileToUpload = fileToUpload;
         this.nameFile = nameFile;
       } else {
-        alert("Formato incorrecto");
+        //alert("Formato incorrecto");
+        this.flagError = true;
+        this.flagErrorExt = true;
+        this.status = "Formato incorrecto: " + this.extFile;
       }
     }
   }
@@ -54,10 +74,46 @@ export class CargaMasivaComponent implements OnInit, AfterViewInit {
   onSubmit() {
     console.log(this.fileToUpload);
     if (this.fileToUpload === undefined) {
-      alert("Seleccione un archivo!!!")
+      //alert("Seleccione un archivo!!!");
+      return false;
     }
+
+    console.log("this.companyId: " + this.companyId);
+
     const formData = new FormData();
-    formData.append(this.nameFile, this.fileToUpload);
+    formData.append("companyId", this.companyId);
+    formData.append("PersonFile", this.fileToUpload);
+
+    console.log("formData: " + JSON.stringify(formData));
+
+    this.spinner.show();
+    this.userCompanyService.postUploadExcelUser(formData).subscribe(
+      result => {
+        console.log("result: " + result);
+        if (result.lmasives == null) {
+          this.flagError = false;
+          this.status = result.status;
+        } else if (result.lmasives.length === 0) {
+          this.flagError = false;
+          this.status = result.status;
+        } else {
+          this.flagError = true;
+          this.status = result.status;
+          this.lmasives = result.lmasives;
+          //this.listExcelUserError(result.lmasives);
+        }
+      },
+      err => {
+        this.spinner.hide();
+        console.log("ERROR: " + JSON.stringify(err));
+      },
+      () => {
+        this.spinner.hide();
+        console.log("Completado");
+      }
+    );
   }
+
+  listExcelUserError(lmasives) {}
 
 }
