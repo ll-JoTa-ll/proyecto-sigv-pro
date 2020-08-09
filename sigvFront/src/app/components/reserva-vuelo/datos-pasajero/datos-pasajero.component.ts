@@ -53,15 +53,21 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   //valtelefono = false;
   //valcorreo = false;
 
-  @Input() htmlTxtP;
+  //@Input() htmlTxtP;
+  //bsValue: Date;
+
+  htmlTxtP = "";
   bsValue: Date;
+  flagHtmlP = false;
+  @Input() uidByCompanyP: any[] = [];
 
   constructor(
     private userCompanyService: UserCompanyService,
     private modalService: BsModalService,
     private sessionStorageService : SessionStorageService) {
-  /*  $("#telephone").intlTelInput({
-  });*/
+    /*  $("#telephone").intlTelInput({
+    });*/
+    console.log("DatosPasajeroComponent constructor");
     let fecha;
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.datosuser.forEach(element => {
@@ -71,6 +77,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log("DatosPasajeroComponent ngOnInit");
     this.document();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
@@ -84,10 +91,13 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     } else {
       this.centroCosto = "Sin Información"
     }
+
+    this.setInformacionPasajeros(this.uidByCompanyP);
   }
 
   ngAfterViewInit() {
-    $("#divHtmlTxtP").html(this.htmlTxtP);
+    console.log("DatosPasajeroComponent ngAfterViewInit");
+    //$("#divHtmlTxtP").html(this.htmlTxtP);
   }
 
 
@@ -123,7 +133,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     // tslint:disable-next-line: max-line-length
     if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==190  && event.keyCode !==110 && event.keyCode !==8 && event.keyCode !==9  ){
       return false;
-  }
+    }
   }
 
 
@@ -140,58 +150,58 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     $("#hdnTel_" + this.index).val(value);
     let valor = $('#cbopaises option:selected').attr('data-countryCode');
     if (valor === 'CO') {
-       $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'PA') {
-       $('#txttelefono_' + this.index).attr('maxlength', '8');
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
     }
     if (valor === 'PE') {
-       $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
     if (valor === 'AR') {
       $('#txttelefono_' + this.index).attr('maxlength', '13');
     }
     if (valor === 'EC') {
-        $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'PY') {
-        $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'UY') {
-        $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
     if (valor === 'VE') {
       $('#txttelefono_' + this.index).attr('maxlength', '11');
     }
     if (valor === 'CL') {
-    $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
     if (valor === 'BR') {
-    $('#txttelefono_' + this.index).attr('maxlength', '11');
+      $('#txttelefono_' + this.index).attr('maxlength', '11');
     }
     if (valor === 'BO') {
-    $('#txttelefono_' + this.index).attr('maxlength', '8');
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
     }
     if (valor === 'US') {
-    $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'MX') {
-    $('#txttelefono_' + this.index).attr('maxlength', '13');
+      $('#txttelefono_' + this.index).attr('maxlength', '13');
     }
     if (valor === 'CA') {
-    $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'CR') {
-    $('#txttelefono_' + this.index).attr('maxlength', '8');
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
     }
     if (valor === 'CU') {
-    $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
   }
 
 
 
-   llenarnumero() {
+  llenarnumero() {
 
   }
 
@@ -232,6 +242,76 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       } else {
         $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
       }
-  });
+    });
+  }
+
+  setInformacionPasajeros(lstUidByCompanyP) {
+    console.log("setInformacionPasajeros");
+    //console.log("lstUidByCompanyP: " + JSON.stringify(lstUidByCompanyP));
+    const indexP = this.index;
+    if (lstUidByCompanyP.length > 0) {
+      let htmlTxtC = "";
+      const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
+      const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
+      let flagC = 0;
+      lstTxtC.forEach(function(txt, index) {
+        flagC = 1;
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += txt.title;
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "<input class='form-control' type='text'>";
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "";
+      });
+
+      //this.setHijoNieto(lstCbxC);
+
+      lstCbxC.forEach(function(cbx) {
+        flagC = 1;
+
+        const llistUid = cbx.listUids;
+        if (llistUid != null) {
+          const lstPadre = llistUid.filter(x => x.parent === 0);
+          const lstHijosNietos = llistUid.filter(x => x.parent > 0);
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += cbx.title;
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+
+          htmlTxtC += "<select class='form-control'  id='combo_" + cbx.codeUid + "_" + indexP + "'>";
+          htmlTxtC += "<option value='" + cbx.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
+          lstPadre.forEach(function(padre, indexPadre) {
+            //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
+            htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id + "'>" + padre.description + "</option>";
+
+          });
+          htmlTxtC += "</select>";
+
+          htmlTxtC += "<div class='pt-2' id='divHijo1_" + cbx.codeUid + "'></div>";
+
+          htmlTxtC += "<div class='pt-2' id='divHijo2_" + cbx.codeUid + "'></div>";
+
+          htmlTxtC += "</div>";
+        }
+      });
+      console.log("htmlTxtC: " + htmlTxtC);
+      this.htmlTxtP = htmlTxtC;
+
+      $("#divHtmlTxtP").html(this.htmlTxtP);
+
+      if (flagC === 1) {
+        this.flagHtmlP = true;
+      }
+
+    }
   }
 }

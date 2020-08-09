@@ -87,6 +87,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   flagactive: boolean;
   numeropasajero;
   lstbag;
+  flagPasajeros = false;
 
   constructor(
     private modalService: BsModalService,
@@ -665,25 +666,31 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   getUidByCompany() {
+    console.log("getUidByCompany");
     const companyId = this.loginDataUser.ocompany.companyId;
-    this.flightService.getUidByCompany(companyId).subscribe(
+    this.flightService.getUidByCompany(companyId, "LIMPE28AX").subscribe(
       result => {
+        //console.log("result: " + JSON.stringify(result));
         if (result != null) {
           this.uidByCompanyC = result.filter(x => x.typeUid === 'C');
           this.uidByCompanyP = result.filter(x => x.typeUid === 'P');
+          //console.log("this.uidByCompanyC: " + JSON.stringify(this.uidByCompanyC));
+          //console.log("this.uidByCompanyP: " + JSON.stringify(this.uidByCompanyP));
         }
       },
       err => {
+        console.log("ERROR: " + JSON.stringify(err));
         this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
         if (this.uidByCompanyC.length > 0) {
-          this.setInformacionAdicional(this.uidByCompanyC);
+          //this.setInformacionAdicional(this.uidByCompanyC);
         }
 
         if (this.uidByCompanyP.length > 0) {
-          this.setInformacionPasajeros(this.uidByCompanyP);
+          //this.setInformacionPasajeros(this.uidByCompanyP);
         }
+        this.flagPasajeros = true;
       }
     );
   }
@@ -717,7 +724,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       lstCbxC.forEach(function(cbx, index) {
         flagC = 1;
 
-        const llistUid = cbx.llistUid;
+        const llistUid = cbx.listUids;
         if (llistUid != null) {
           const lstPadre = llistUid.filter(x => x.parent === 0);
           const lstHijosNietos = llistUid.filter(x => x.parent > 0);
@@ -728,7 +735,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
           htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
 
-
+          /*
           htmlTxtC += "<select class='form-control'>";
           lstPadre.forEach(function(padre, indexPadre) {
             const lstHijos = lstHijosNietos.filter(x => x.parent === padre.id);
@@ -752,13 +759,41 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
             }
           });
           htmlTxtC += "</select>";
+          */
 
+          htmlTxtC += "<select class='form-control'  id='combo_" + cbx.codeUid + "'>";
+          htmlTxtC += "<option value='" + cbx.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
+          lstPadre.forEach(function(padre, indexPadre) {
+            //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
+            htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id + "'>" + padre.description + "</option>";
+
+          });
+          htmlTxtC += "</select>";
+
+          /*
+          htmlTxtC += "<div class='btn-group' dropdown>";
+          htmlTxtC += "<button id='button-basic' dropdownToggle type='button' class='btn btn-primary dropdown-toggle' aria-controls='dropdown-basic'>";
+          htmlTxtC += "Seleccionar";
+          htmlTxtC += "<span class='caret'></span>";
+          htmlTxtC += "</button>";
+          htmlTxtC += "<ul id='dropdown-basic' *dropdownMenu class='dropdown-menu' role='menu' aria-labelledby='button-basic'>";
+          lstPadre.forEach(function(padre, indexPadre) {
+            htmlTxtC += "<li role='menuitem'><a class='dropdown-item'>Action</a></li>";
+          });
+          htmlTxtC += "</ul>";
+          htmlTxtC += "</div>";
+          */
+
+          htmlTxtC += "<div class='pt-2' id='divHijo1_" + cbx.codeUid + "'></div>";
+
+          htmlTxtC += "<div class='pt-2' id='divHijo2_" + cbx.codeUid + "'></div>";
 
           htmlTxtC += "</div>";
         }
       });
       this.htmlTxtC = htmlTxtC;
 
+      console.log(htmlTxtC)
 
       if (flagC === 1) {
         this.flagHtmlC = true;
@@ -772,27 +807,28 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   setInformacionPasajeros(lstUidByCompanyP) {
-    //this.htmlTxtP = this.htmlTxtC;
+    console.log("setInformacionPasajeros");
+    console.log("lstUidByCompanyP.length: " + lstUidByCompanyP.length);
     if (lstUidByCompanyP.length > 0) {
-      let htmlTxtP = "";
+      let htmlTxtC = "";
       const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
       const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
       let flagC = 0;
       lstTxtC.forEach(function(txt, index) {
         flagC = 1;
-        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
-        htmlTxtP += "";
-        htmlTxtP += "";
-        htmlTxtP += txt.title;
-        htmlTxtP += "";
-        htmlTxtP += "</div>";
-        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
-        htmlTxtP += "";
-        htmlTxtP += "";
-        htmlTxtP += "<input class='form-control' type='text'>";
-        htmlTxtP += "";
-        htmlTxtP += "</div>";
-        htmlTxtP += "";
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += txt.title;
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "<input class='form-control' type='text'>";
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "";
       });
 
       //this.setHijoNieto(lstCbxC);
@@ -800,47 +836,42 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       lstCbxC.forEach(function(cbx, index) {
         flagC = 1;
 
-        const llistUid = cbx.llistUid;
-        const lstPadre = llistUid.filter(x => x.parent === 0);
-        const lstHijosNietos = llistUid.filter(x => x.parent > 0);
+        const llistUid = cbx.listUids;
+        if (llistUid != null) {
+          const lstPadre = llistUid.filter(x => x.parent === 0);
+          const lstHijosNietos = llistUid.filter(x => x.parent > 0);
 
-        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
-        htmlTxtP += cbx.title;
-        htmlTxtP += "</div>";
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += cbx.title;
+          htmlTxtC += "</div>";
 
-        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
 
-        htmlTxtP += "<select class='form-control'>";
-        lstPadre.forEach(function(padre, indexPadre) {
-          const lstHijos = lstHijosNietos.filter(x => x.parent === padre.id);
-          if (lstHijos.length > 0) {
-            htmlTxtP += "<optgroup label='" + padre.description + "'>";
-            lstHijos.forEach(function(hijo, indexHijo) {
-              const lstNietos = lstHijosNietos.filter(y => y.parent === hijo.id);
-              if (lstNietos.length > 0) {
-                htmlTxtP += "<optgroup label='" + hijo.description + "'>";
-                lstNietos.forEach(function(nieto, indexnieto) {
-                  htmlTxtP += "<option>" + nieto.description + "</option>";
-                });
-                htmlTxtP += "</optgroup>";
-              } else {
-                htmlTxtP += "<option>" + hijo.description + "</option>";
-              }
-            });
-            htmlTxtP += "</optgroup>";
-          } else {
-            htmlTxtP += "<option>" + padre.description + "</option>";
-          }
-        });
-        htmlTxtP += "</select>";
+          htmlTxtC += "<select class='form-control'  id='combo_" + cbx.codeUid + "'>";
+          htmlTxtC += "<option value='" + cbx.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
+          lstPadre.forEach(function(padre, indexPadre) {
+            //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
+            htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id + "'>" + padre.description + "</option>";
 
-        htmlTxtP += "</div>";
+          });
+          htmlTxtC += "</select>";
 
+          htmlTxtC += "<div class='pt-2' id='divHijo1_" + cbx.codeUid + "'></div>";
+
+          htmlTxtC += "<div class='pt-2' id='divHijo2_" + cbx.codeUid + "'></div>";
+
+          htmlTxtC += "</div>";
+        }
       });
-      this.htmlTxtP = htmlTxtP;
-      this.flagHtmlP = true;
-    } else {
-      this.flagHtmlP = true;
+      this.htmlTxtP = htmlTxtC;
+
+      console.log("this.htmlTxtP");
+      console.log(this.htmlTxtP)
+
+      if (flagC === 1) {
+        this.flagHtmlP = true;
+      }
+
     }
   }
 }

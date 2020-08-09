@@ -1,10 +1,12 @@
 export interface IGetUidByCompanyModel {
-  uidId;
-  companyUidId;
-  code;
+  companyAccessUidId;
+  codeUid;
   title;
-  isList;
+  entryCode;
   typeUid;
+  isList;
   isEditable;
-  llistUid;
+  isDefault;
+  isMandatory;
+  listUids;
 }
