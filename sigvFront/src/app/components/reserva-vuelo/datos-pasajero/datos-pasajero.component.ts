@@ -371,13 +371,64 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
           htmlTxtC += "</div>";
 
+          htmlTxtC += "</div>";
+
+          //Hijo 1
+          htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "<label id='label_hijo_1_" + indexP + "' for=''>";
+          //htmlTxtC += "label_hijo_1";
+          htmlTxtC += "</label>";
+          htmlTxtC += "</div>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
           htmlTxtC += "<div class='pt-2' id='divHijo1_" + cbx.codeUid + "'></div>";
+          htmlTxtC += "</div>";
 
+          htmlTxtC += "</div>";
+
+          //Hijo 2
+          htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "</div>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
           htmlTxtC += "<div class='pt-2' id='divHijo2_" + cbx.codeUid + "'></div>";
+          htmlTxtC += "</div>";
 
+          htmlTxtC += "</div>";
+
+          //Hijo 3
+          htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "</div>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
           htmlTxtC += "<div class='pt-2' id='divHijo3_" + cbx.codeUid + "'></div>";
+          htmlTxtC += "</div>";
 
+          htmlTxtC += "</div>";
+
+          //Hijo 4
+          htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "</div>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
           htmlTxtC += "<div class='pt-2' id='divHijo4_" + cbx.codeUid + "'></div>";
+          htmlTxtC += "</div>";
 
           htmlTxtC += "</div>";
         }
@@ -426,11 +477,18 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
             const idComboHijo = "comboHijo_" + valor1;
             htmlHijo += "<select class='form-control'  id='comboHijo_" + valor1 + "'>";
             htmlHijo += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
+            let hijoTitle = "";
             llistUid.forEach(function(hijo) {
+              hijoTitle = hijo.title;
               htmlHijo += "<option value='" + hijo.codeUid + "_" + hijo.id + "'>" + hijo.description + "</option>";
             });
             htmlHijo += "</select>";
             $("#divHijo1_" + valor1).html(htmlHijo);
+            console.log("hijoTitle: " + hijoTitle);
+            console.log("hijoTitle: " + hijoTitle);
+            console.log("hijoTitle: " + hijoTitle);
+            console.log("hijoTitle: " + hijoTitle);
+            $("#label_hijo_1_" + indexP).html(hijoTitle);
 
             //NIETO
             $("#" + idComboHijo).change(function() {
