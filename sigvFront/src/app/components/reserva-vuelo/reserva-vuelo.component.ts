@@ -19,6 +19,9 @@ import { IGetPaisesModel } from '../../models/IGetPaises';
 import { IRegulationsModel } from '../../models/IRegulations';
 import { ModalErrorServiceComponent } from '../shared/modal-error-service/modal-error-service.component';
 import { IProfileModel } from '../../models/IProfileModel';
+import { UserCompanyService } from "../../services/user-company.service";
+import { ICostCenterCompany } from "../../models/ICostCenterCompany.model";
+
 declare var jquery: any;
 declare var $: any;
 
@@ -88,6 +91,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   numeropasajero;
   lstbag;
   flagPasajeros = false;
+  lstCostCenter: ICostCenterCompany[] = [];
 
   constructor(
     private modalService: BsModalService,
@@ -97,7 +101,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     private router: Router,
     private bnIdle: BnNgIdleService,
     private flightService: FlightService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private userCompanyService: UserCompanyService
+  ) {
     this.GetPaises();
     this.datarequest = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
     this.flightAvailability_request = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
@@ -690,7 +696,19 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         if (this.uidByCompanyP.length > 0) {
           //this.setInformacionPasajeros(this.uidByCompanyP);
         }
-        this.flagPasajeros = true;
+        //this.flagPasajeros = true;
+        this.userCompanyService.getCostCenterCompany(companyId).subscribe(
+          result2 => {
+            this.lstCostCenter = result2;
+          },
+          err2 => {
+            console.log("ERROR: " + JSON.stringify(err2));
+            this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
+          },
+          () => {
+            this.flagPasajeros = true;
+          }
+        );
       }
     );
   }

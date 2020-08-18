@@ -10,6 +10,7 @@ import { ConfigurationOptions, ContentOptionsEnum, NumberResult } from 'intl-inp
 import { IGetPaisesModel } from '../../../models/IGetPaises';
 import { UserCompanyService } from 'src/app/services/user-company.service';
 import { IDocumentType } from 'src/app/models/IDocumentType.model';
+import { ICostCenterCompany } from "../../../models/ICostCenterCompany.model";
 
 declare var jquery: any;
 declare var $: any;
@@ -60,6 +61,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   bsValue: Date;
   flagHtmlP = false;
   @Input() uidByCompanyP: any[] = [];
+  @Input() lstCostCenter: ICostCenterCompany[] = [];
 
   constructor(
     private userCompanyService: UserCompanyService,
@@ -68,6 +70,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     /*  $("#telephone").intlTelInput({
     });*/
     console.log("DatosPasajeroComponent constructor");
+    console.log("index: " + this.index);
     let fecha;
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.datosuser.forEach(element => {
@@ -78,6 +81,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     console.log("DatosPasajeroComponent ngOnInit");
+    console.log("index: " + this.index);
     this.document();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
@@ -89,15 +93,18 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     if (this.user.lcostCenter.length > 0 && this.user.lcostCenter[0].description != null){
       this.centroCosto = this.user.lcostCenter[0].description;
     } else {
-      this.centroCosto = "Sin Información"
+      //this.centroCosto = "Sin Información"
+      this.centroCosto = "U5_0"
     }
 
-    this.setInformacionPasajeros(this.uidByCompanyP);
+    //console.log("setInformacionPasajeros");
+    //this.setInformacionPasajeros(this.uidByCompanyP);
   }
 
   ngAfterViewInit() {
     console.log("DatosPasajeroComponent ngAfterViewInit");
     //$("#divHtmlTxtP").html(this.htmlTxtP);
+    this.setInformacionPasajeros(this.uidByCompanyP);
   }
 
 
@@ -246,6 +253,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   setInformacionPasajeros(lstUidByCompanyP) {
+    const lstCostCenter = this.lstCostCenter;
     console.log("setInformacionPasajeros");
     //console.log("lstUidByCompanyP: " + JSON.stringify(lstUidByCompanyP));
     const indexP = this.index;
@@ -256,6 +264,56 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       let flagC = 0;
       lstTxtC.forEach(function(txt, index) {
         flagC = 1;
+
+
+        htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+        htmlTxtC += "<div class='row m-0 p-0'>";
+        htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+        htmlTxtC += "<label for='' class='label-pasajero'>";
+        htmlTxtC += txt.title;
+        htmlTxtC += "</label>";
+        htmlTxtC += "</div>";
+        htmlTxtC += "</div>";
+        htmlTxtC += "<div class='row m-0 p-0'>";
+        htmlTxtC += "<div class='col-12 m-0 p-0'>";
+        //htmlTxtC += "<input disabled (keypress)='ValidarCampos()' (keydown)='ValidarCampos()' (keyup)='ValidarCampos()' class='input-pasajero' type='text' [(ngModel)]='this.centroCosto' id='txtCentroCosto_{{index}}' maxlength='50'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+
+        let flagU5 = 0;
+        if (txt.codeUid === 'U5') {
+          if (txt.listUids === null) {
+            flagU5 = 1;
+          } else if (txt.listUids.length === 0) {
+            flagU5 = 1;
+          }
+        }
+
+        if (flagU5 === 1) {
+          if (txt.isEditable === true) {
+
+            htmlTxtC += "<select class='form-control'  id='combo_" + txt.codeUid + "_" + indexP + "'>";
+            htmlTxtC += "<option value='" + txt.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
+            lstCostCenter.forEach(function(padre, indexPadre) {
+              //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
+              //htmlTxtC += "<option value='" + txt.codeUid + "_" + padre.code + "'>" + padre.description + "</option>";
+              htmlTxtC += "<option value='" + "" + "" + padre.code + "'>" + padre.description + "</option>";
+            });
+            htmlTxtC += "</select>";
+
+          }
+        } else {
+          htmlTxtC += "<input class='form-control' type='text'>";
+        }
+
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "</div>";
+        htmlTxtC += "</div>";
+
+
+        /*
         htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += "";
         htmlTxtC += "";
@@ -269,6 +327,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
         htmlTxtC += "";
         htmlTxtC += "</div>";
         htmlTxtC += "";
+        */
       });
 
       //this.setHijoNieto(lstCbxC);
@@ -281,11 +340,25 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
           const lstPadre = llistUid.filter(x => x.parent === 0);
           const lstHijosNietos = llistUid.filter(x => x.parent > 0);
 
+          htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "<label for=''>";
+          htmlTxtC += cbx.title + "";
+          htmlTxtC += "</label>";
+          htmlTxtC += "</div>";
+          htmlTxtC += "</div>";
+
+
+          /*
           htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
           htmlTxtC += cbx.title;
           htmlTxtC += "</div>";
+          */
 
-          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
 
           htmlTxtC += "<select class='form-control'  id='combo_" + cbx.codeUid + "_" + indexP + "'>";
           htmlTxtC += "<option value='" + cbx.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
@@ -296,17 +369,99 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
           });
           htmlTxtC += "</select>";
 
+          htmlTxtC += "</div>";
+
           htmlTxtC += "<div class='pt-2' id='divHijo1_" + cbx.codeUid + "'></div>";
 
           htmlTxtC += "<div class='pt-2' id='divHijo2_" + cbx.codeUid + "'></div>";
 
+          htmlTxtC += "<div class='pt-2' id='divHijo3_" + cbx.codeUid + "'></div>";
+
+          htmlTxtC += "<div class='pt-2' id='divHijo4_" + cbx.codeUid + "'></div>";
+
           htmlTxtC += "</div>";
         }
       });
-      console.log("htmlTxtC: " + htmlTxtC);
+      //console.log("htmlTxtC: " + htmlTxtC);
       this.htmlTxtP = htmlTxtC;
 
-      $("#divHtmlTxtP").html(this.htmlTxtP);
+      console.log("DIV: " + "#divHtmlTxtP_" + this.index);
+      $("#divHtmlTxtP_" + this.index).html(this.htmlTxtP);
+
+      //combo_U5_1
+      /*
+      $('#combo_U5_1').select2({
+        selectOnClose: true
+      });
+      */
+
+      console.log("this.centroCosto: " + this.centroCosto);
+      $('#combo_U5_' + this.index).val(this.centroCosto);
+
+      let uidByCompanyP = this.uidByCompanyP;
+      let indexPax = this.index;
+      uidByCompanyP = uidByCompanyP.filter(x => x.isList === true);
+      uidByCompanyP.forEach(function (compamy) {
+        console.log("combo_: " + "#combo_" + compamy.codeUid + "_" + indexPax);
+        $("#combo_" + compamy.codeUid + "_" + indexPax).change(function() {
+          //alert( "Handler for .change() called." );
+          //const idPadre = $("#combo_5").val();
+          const idPadre = $("#combo_" + compamy.codeUid + "_" + indexPax).val();
+          const valor1 = idPadre.split('_')[0];
+          const valor2 = idPadre.split('_')[1];
+
+          console.log("idPadre: " + idPadre);
+          console.log("valor1: " + valor1);
+          console.log("valor2: " + valor2);
+
+          //const lstUidByCompanyP = uidByCompanyP.filter(x => x.codeUid == valor1)[0];
+          //const llistUid = lstUidByCompanyP.listUids.filter(x => x.parent == valor2);
+          const oPadre = compamy.listUids.filter(x => x.codeUid == valor1 && x.id == valor2)[0];
+          const llistUid = oPadre.listUids;
+
+          if (llistUid.length > 0) {
+            $("#divHijo1_" + valor1).show();
+            //$("#divHijo2_" + valor1).show();
+            let htmlHijo = "";
+            const idComboHijo = "comboHijo_" + valor1;
+            htmlHijo += "<select class='form-control'  id='comboHijo_" + valor1 + "'>";
+            htmlHijo += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
+            llistUid.forEach(function(hijo) {
+              htmlHijo += "<option value='" + hijo.codeUid + "_" + hijo.id + "'>" + hijo.description + "</option>";
+            });
+            htmlHijo += "</select>";
+            $("#divHijo1_" + valor1).html(htmlHijo);
+
+            //NIETO
+            $("#" + idComboHijo).change(function() {
+              $("#divHijo2_" + valor1).hide();
+              const valComboHijo = $("#" + idComboHijo).val();
+              //const llistUidHijo = lstUidByCompanyP.llistUid.filter(x => x.parent == valComboHijo.split('_')[1]);
+              const valor1Hijo = valComboHijo.split('_')[0];
+              const valor2Hijo = valComboHijo.split('_')[1];
+              const oHijo = llistUid.filter(x => x.codeUid == valor1Hijo && x.id == valor2Hijo)[0];
+              const llistUidHijo = oHijo.listUids;
+              if (llistUidHijo.length > 0) {
+                $("#divHijo2_" + valor1).show();
+                let htmlNieto = "";
+                const idComboHijo = "comboHijo_" + valor1;
+                htmlNieto += "<select class='form-control'  id='comboHijo_" + valor1 + "'>";
+                htmlNieto += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
+                llistUidHijo.forEach(function(nieto) {
+                  htmlNieto += "<option value='" + nieto.codeUid + "_" + nieto.id + "'>" + nieto.description + "</option>";
+                });
+                htmlNieto += "</select>";
+                $("#divHijo2_" + valor1).html(htmlNieto);
+              } else {
+                $("#divHijo2_" + valor1).hide();
+              }
+            });
+          } else {
+            $("#divHijo1_" + valor1).hide();
+            $("#divHijo2_" + valor1).hide();
+          }
+        });
+      })
 
       if (flagC === 1) {
         this.flagHtmlP = true;
