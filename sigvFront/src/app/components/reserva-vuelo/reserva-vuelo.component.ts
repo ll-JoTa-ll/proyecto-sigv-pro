@@ -92,6 +92,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   lstbag;
   flagPasajeros = false;
   lstCostCenter: ICostCenterCompany[] = [];
+  LcompanyUIDs: any[] = [];
 
   constructor(
     private modalService: BsModalService,
@@ -488,6 +489,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     email2 = $('#contactocorreo').val();
     telefono2 = $('#contactotelefono').val();
     nombrecontacto = $('#nombrecontacto').val();
+    let LcompanyUIDs = [];
+    const lstUidByCompanyP = this.uidByCompanyP;
     this.datosuser.forEach(function(item, index) {
       let prefix;
       let nombre;
@@ -588,7 +591,85 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         "Orole": item.orole
        };
       datosusuario.push(objuser);
+
+      const indexPax = index + 1;
+      const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
+      lstTxtC.forEach(function(txt) {
+        const id = "p_" + txt.codeUid + "_" + indexPax;
+        const ocompanyUIDs = {
+          "CodeUid": txt.codeUid,
+          "TypeUid": "P",
+          "PassengerId": indexPax + "",
+          "ValueUid": $("#" + id).val()
+        };
+        LcompanyUIDs.push(ocompanyUIDs);
+      });
+
+      const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
+      lstCbxC.forEach(function(cbx) {
+        const id = "combo_" + cbx.codeUid + "_" + indexPax;
+        const selectValue = $("#" + id).val();
+        let valueUid = "";
+        if (selectValue != "0") {
+          valueUid = selectValue.split('_')[2];
+        }
+        const ocompanyUIDs = {
+          "CodeUid": cbx.codeUid,
+          "TypeUid": "P",
+          "PassengerId": indexPax + "",
+          "ValueUid": valueUid
+        };
+        LcompanyUIDs.push(ocompanyUIDs);
+
+        if (selectValue != "0") {
+          if (cbx.listUids.length > 0) {
+            const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
+            const lstHijos = oPadre.listUids;
+            if (lstHijos.length > 0) {
+              const codeUidHijo = lstHijos[0].codeUid;
+              const idHijo = "comboH_" + codeUidHijo + "_" + indexPax;
+              const selectValueHijo = $("#" + idHijo).val();
+              let valueUidHijo = "";
+              if (selectValueHijo != "0") {
+                valueUidHijo = selectValueHijo.split('_')[2];
+              }
+              const ocompanyUIDsHijo = {
+                "CodeUid": codeUidHijo,
+                "TypeUid": "P",
+                "PassengerId": indexPax + "",
+                "ValueUid": valueUidHijo
+              };
+              LcompanyUIDs.push(ocompanyUIDsHijo);
+
+              if (selectValueHijo != "0") {
+                const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
+                const lstNietos = oHijo.listUids;
+                if (lstNietos.length > 0) {
+                  const codeUidNieto = lstNietos[0].codeUid;
+                  const idNieto = "comboN_" + codeUidNieto + "_" + indexPax;
+                  const selectValueNieto = $("#" + idNieto).val();
+                  let valueUidNieto = "";
+                  if (selectValueNieto != "0") {
+                    valueUidNieto = selectValueNieto.split('_')[2];
+                  }
+                  const ocompanyUIDsNieto = {
+                    "CodeUid": codeUidNieto,
+                    "TypeUid": "P",
+                    "PassengerId": indexPax + "",
+                    "ValueUid": valueUidNieto
+                  };
+                  LcompanyUIDs.push(ocompanyUIDsNieto);
+                }
+              }
+
+            }
+          }
+        }
+      });
     });
+
+    this.LcompanyUIDs = LcompanyUIDs;
+    console.log("this.LcompanyUIDs: " + JSON.stringify(this.LcompanyUIDs));
 
     let flagValIgualEmail = 0;
     let lstEmail = [];
@@ -667,6 +748,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.sessionStorageService.store('politicas', this.LPolicies);
       this.sessionStorageService.store('idmotivo', idmotivo);
       this.sessionStorageService.store('reason', rason);
+      this.sessionStorageService.store('ss_LcompanyUIDs', this.LcompanyUIDs);
       this.router.navigate(['/reserva-vuelo-compra']);
     }
   }

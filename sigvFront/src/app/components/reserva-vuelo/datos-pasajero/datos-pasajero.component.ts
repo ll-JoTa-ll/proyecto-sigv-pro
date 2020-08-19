@@ -62,6 +62,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   flagHtmlP = false;
   @Input() uidByCompanyP: any[] = [];
   @Input() lstCostCenter: ICostCenterCompany[] = [];
+  lstValoresPax: any[] = [];
 
   constructor(
     private userCompanyService: UserCompanyService,
@@ -253,6 +254,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   setInformacionPasajeros(lstUidByCompanyP) {
+    let lstValoresPax = this.lstValoresPax;
     const lstCostCenter = this.lstCostCenter;
     console.log("setInformacionPasajeros");
     //console.log("lstUidByCompanyP: " + JSON.stringify(lstUidByCompanyP));
@@ -292,7 +294,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
         if (flagU5 === 1) {
           if (txt.isEditable === true) {
 
-            htmlTxtC += "<select class='form-control'  id='combo_" + txt.codeUid + "_" + indexP + "'>";
+            htmlTxtC += "<select class='form-control'  id='p_" + txt.codeUid + "_" + indexP + "'>";
             htmlTxtC += "<option value='" + txt.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
             lstCostCenter.forEach(function(padre, indexPadre) {
               //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
@@ -303,7 +305,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
           }
         } else {
-          htmlTxtC += "<input class='form-control' type='text'>";
+          htmlTxtC += "<input id='p_" + txt.codeUid + "_" + indexP + "' class='form-control' type='text'>";
         }
 
         htmlTxtC += "";
@@ -312,6 +314,12 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
         htmlTxtC += "</div>";
         htmlTxtC += "</div>";
 
+        const oPaxInfo = {
+          "id": "p_" + txt.codeUid + "_" + indexP,
+          "isMandatory": txt.isMandatory,
+          "status": 1
+        };
+        lstValoresPax.push(oPaxInfo);
 
         /*
         htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
@@ -361,83 +369,100 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
           htmlTxtC += "<div class='row m-0 p-0'>";
 
           htmlTxtC += "<select class='form-control'  id='combo_" + cbx.codeUid + "_" + indexP + "'>";
-          htmlTxtC += "<option value='" + cbx.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
+          //htmlTxtC += "<option value='" + cbx.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
+          htmlTxtC += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
           lstPadre.forEach(function(padre, indexPadre) {
             //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
-            htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id + "'>" + padre.description + "</option>";
+            htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id+ "_" + padre.code + "'>" + padre.description + "</option>";
 
           });
           htmlTxtC += "</select>";
 
           htmlTxtC += "</div>";
 
-          htmlTxtC += "</div>";
+          const oPaxInfo = {
+            "id": "combo_" + cbx.codeUid + "_" + indexP,
+            "isMandatory": cbx.isMandatory,
+            "status": 1
+          };
+          lstValoresPax.push(oPaxInfo);
+
+          //htmlTxtC += "</div>";
 
           //Hijo 1
-          htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+          //htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
 
-          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div id='rowHijo1_" + indexP + "' class='row m-0 p-0 pt-2'>";
           htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
           htmlTxtC += "<label id='label_hijo_1_" + indexP + "' for=''>";
-          //htmlTxtC += "label_hijo_1";
           htmlTxtC += "</label>";
           htmlTxtC += "</div>";
           htmlTxtC += "</div>";
 
           htmlTxtC += "<div class='row m-0 p-0'>";
-          htmlTxtC += "<div class='pt-2' id='divHijo1_" + cbx.codeUid + "'></div>";
+          htmlTxtC += "<div class='' id='divHijo1_" + indexP + "'></div>";
           htmlTxtC += "</div>";
 
-          htmlTxtC += "</div>";
+          //htmlTxtC += "</div>";
 
           //Hijo 2
-          htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+          //htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
 
-          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div id='rowHijo2_" + indexP + "' class='row m-0 p-0 pt-2'>";
           htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "<label id='label_hijo_2_" + indexP + "' for=''>";
+          htmlTxtC += "</label>";
           htmlTxtC += "</div>";
           htmlTxtC += "</div>";
 
           htmlTxtC += "<div class='row m-0 p-0'>";
-          htmlTxtC += "<div class='pt-2' id='divHijo2_" + cbx.codeUid + "'></div>";
+          htmlTxtC += "<div class='' id='divHijo2_" + indexP + "'></div>";
           htmlTxtC += "</div>";
 
-          htmlTxtC += "</div>";
+          //htmlTxtC += "</div>";
 
           //Hijo 3
-          htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+          //htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
 
-          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div id='rowHijo3_" + indexP + "' class='row m-0 p-0 pt-2'>";
           htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "<label id='label_hijo_3_" + indexP + "' for=''>";
+          htmlTxtC += "</label>";
           htmlTxtC += "</div>";
           htmlTxtC += "</div>";
 
           htmlTxtC += "<div class='row m-0 p-0'>";
-          htmlTxtC += "<div class='pt-2' id='divHijo3_" + cbx.codeUid + "'></div>";
+          htmlTxtC += "<div class='' id='divHijo3_" + indexP + "'></div>";
           htmlTxtC += "</div>";
 
-          htmlTxtC += "</div>";
+          //htmlTxtC += "</div>";
 
           //Hijo 4
-          htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+          //htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
 
-          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div id='rowHijo4_" + indexP + "' class='row m-0 p-0 pt-2'>";
           htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "<label id='label_hijo_4_" + indexP + "' for=''>";
+          htmlTxtC += "</label>";
           htmlTxtC += "</div>";
           htmlTxtC += "</div>";
 
           htmlTxtC += "<div class='row m-0 p-0'>";
-          htmlTxtC += "<div class='pt-2' id='divHijo4_" + cbx.codeUid + "'></div>";
+          htmlTxtC += "<div class='' id='divHijo4_" + indexP + "'></div>";
           htmlTxtC += "</div>";
 
+          //
           htmlTxtC += "</div>";
         }
       });
+
+      this.lstValoresPax = lstValoresPax;
+      console.log("this.lstValoresPax: " + JSON.stringify(this.lstValoresPax));
       //console.log("htmlTxtC: " + htmlTxtC);
       this.htmlTxtP = htmlTxtC;
 
-      console.log("DIV: " + "#divHtmlTxtP_" + this.index);
-      $("#divHtmlTxtP_" + this.index).html(this.htmlTxtP);
+      console.log("DIV: " + "#divHtmlTxtP_" + indexP);
+      $("#divHtmlTxtP_" + indexP).html(this.htmlTxtP);
 
       //combo_U5_1
       /*
@@ -447,14 +472,16 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       */
 
       console.log("this.centroCosto: " + this.centroCosto);
-      $('#combo_U5_' + this.index).val(this.centroCosto);
+      $('#combo_U5_' + indexP).val(this.centroCosto);
 
       let uidByCompanyP = this.uidByCompanyP;
-      let indexPax = this.index;
+      const indexPax = this.index;
       uidByCompanyP = uidByCompanyP.filter(x => x.isList === true);
       uidByCompanyP.forEach(function (compamy) {
         console.log("combo_: " + "#combo_" + compamy.codeUid + "_" + indexPax);
         $("#combo_" + compamy.codeUid + "_" + indexPax).change(function() {
+          console.log("indexPax: " + indexPax);
+          console.log("indexP: " + indexP);
           //alert( "Handler for .change() called." );
           //const idPadre = $("#combo_5").val();
           const idPadre = $("#combo_" + compamy.codeUid + "_" + indexPax).val();
@@ -471,28 +498,45 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
           const llistUid = oPadre.listUids;
 
           if (llistUid.length > 0) {
-            $("#divHijo1_" + valor1).show();
+            $("#rowHijo1_" + indexPax).show();
+            $("#divHijo1_" + indexPax).show();
             //$("#divHijo2_" + valor1).show();
             let htmlHijo = "";
-            const idComboHijo = "comboHijo_" + valor1;
-            htmlHijo += "<select class='form-control'  id='comboHijo_" + valor1 + "'>";
-            htmlHijo += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
+            const idComboHijo = "comboH_" + llistUid[0].codeUid + "_" + indexPax;
+
+            /*
+            let flagHijo = 0;
+            this.lstValoresPax.forEach(function (item) {
+              if (idComboHijo === item.id) {
+                flagHijo = 1;
+              }
+            });
+            if (flagHijo) {
+              const oPaxInfo = {
+                "id": idComboHijo,
+                "isMandatory": llistUid[0].isMandatory,
+                "status": 1
+              };
+              this.lstValoresPax.push(oPaxInfo);
+            }
+            console.log("this.lstValoresPax: " + JSON.stringify(this.lstValoresPax));
+            */
+
+            htmlHijo += "<select class='form-control'  id='comboH_" + llistUid[0].codeUid + "_" + indexPax + "'>";
+            //htmlHijo += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
+            htmlHijo += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
             let hijoTitle = "";
             llistUid.forEach(function(hijo) {
               hijoTitle = hijo.title;
-              htmlHijo += "<option value='" + hijo.codeUid + "_" + hijo.id + "'>" + hijo.description + "</option>";
+              htmlHijo += "<option value='" + hijo.codeUid + "_" + hijo.id + "_" + hijo.code + "'>" + hijo.description + "</option>";
             });
             htmlHijo += "</select>";
-            $("#divHijo1_" + valor1).html(htmlHijo);
-            console.log("hijoTitle: " + hijoTitle);
-            console.log("hijoTitle: " + hijoTitle);
-            console.log("hijoTitle: " + hijoTitle);
-            console.log("hijoTitle: " + hijoTitle);
-            $("#label_hijo_1_" + indexP).html(hijoTitle);
+            $("#divHijo1_" + indexPax).html(htmlHijo);
+            $("#label_hijo_1_" + indexPax).html(hijoTitle);
 
             //NIETO
             $("#" + idComboHijo).change(function() {
-              $("#divHijo2_" + valor1).hide();
+              $("#divHijo2_" + indexPax).hide();
               const valComboHijo = $("#" + idComboHijo).val();
               //const llistUidHijo = lstUidByCompanyP.llistUid.filter(x => x.parent == valComboHijo.split('_')[1]);
               const valor1Hijo = valComboHijo.split('_')[0];
@@ -500,23 +544,50 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
               const oHijo = llistUid.filter(x => x.codeUid == valor1Hijo && x.id == valor2Hijo)[0];
               const llistUidHijo = oHijo.listUids;
               if (llistUidHijo.length > 0) {
-                $("#divHijo2_" + valor1).show();
+                $("#rowHijo2_" + indexPax).show();
+                $("#divHijo2_" + indexP).show();
                 let htmlNieto = "";
-                const idComboHijo = "comboHijo_" + valor1;
-                htmlNieto += "<select class='form-control'  id='comboHijo_" + valor1 + "'>";
-                htmlNieto += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
+                const idComboHijo = "comboN_" + llistUidHijo[0].codeUid + "_" + indexPax;
+
+                /*
+                let flagNieto = 0;
+                this.lstValoresPax.forEach(function (item) {
+                  if (idComboHijo === item.id) {
+                    flagNieto = 1;
+                  }
+                });
+                if (flagNieto) {
+                  const oPaxInfo = {
+                    "id": idComboHijo,
+                    "isMandatory": llistUidHijo[0].isMandatory,
+                    "status": 1
+                  };
+                  this.lstValoresPax.push(oPaxInfo);
+                }
+                console.log("this.lstValoresPax: " + JSON.stringify(this.lstValoresPax));
+                */
+
+                htmlNieto += "<select class='form-control'  id='comboN_" + llistUidHijo[0].codeUid + "_" + indexPax + "'>";
+                //htmlNieto += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
+                htmlNieto += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
+                let nietoTitle = "";
                 llistUidHijo.forEach(function(nieto) {
-                  htmlNieto += "<option value='" + nieto.codeUid + "_" + nieto.id + "'>" + nieto.description + "</option>";
+                  nietoTitle = nieto.title;
+                  htmlNieto += "<option value='" + nieto.codeUid + "_" + nieto.id + "_" + nieto.code + "'>" + nieto.description + "</option>";
                 });
                 htmlNieto += "</select>";
-                $("#divHijo2_" + valor1).html(htmlNieto);
+                $("#divHijo2_" + indexP).html(htmlNieto);
+                $("#label_hijo_2_" + indexPax).html(nietoTitle);
               } else {
-                $("#divHijo2_" + valor1).hide();
+                $("#divHijo2_" + indexP).hide();
+                $("#rowHijo2_" + indexPax).hide();
               }
             });
           } else {
-            $("#divHijo1_" + valor1).hide();
-            $("#divHijo2_" + valor1).hide();
+            $("#divHijo1_" + indexP).hide();
+            $("#rowHijo1_" + indexPax).hide();
+            $("#divHijo2_" + indexP).hide();
+            $("#rowHijo2_" + indexPax).hide();
           }
         });
       })
