@@ -4,20 +4,19 @@
       <div class="col-12 m-0 p-0 title-form pt-3 pb-3 pl-5">
         INFORMACION ADICIONAL
       </div>
+      <!--
       <div class="col-12 m-0 p-0">
         <div class="row m-0 p-0">
           <div class="col-12 div-info">
           </div>
         </div>
-
-        <!-- <div class="row p-0 m-0 m-3" id="divHtmlTxtC" [innerHTML]="htmlTxtC_ | safe: 'html'"></div> -->
-
       </div>
+      -->
     </div>
 
-    <div class="" id="divHtmlTxtC1"></div>
+    <div *ngIf="false" class="" id="divHtmlTxtC1"></div>
 
-    <div *ngIf="htmlTxtC.length>0" class="row p-0 m-0 m-3" [innerHTML]="htmlTxtC | safe: 'html'"></div>
+    <div *ngIf="htmlTxtC.length>0" class="row p-0 m-0 p-3" [innerHTML]="htmlTxtC | safe: 'html'"></div>
 
   </div>
 </div>

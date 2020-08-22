@@ -310,7 +310,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           $('#txtnombre_' + (index + 1)).removeClass('campo-invalido');
         }
         if(motivoViaje === undefined){
-          console.log(motivoViaje);
+          //console.log(motivoViaje);
         } else {
           if (motivoViaje.length <= 0) {
             val = false;
@@ -441,7 +441,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       Code: '1',
       Lsection: lsection
     };
-    console.log(data);
+    //console.log(data);
     this.RegulacionesService(data, template);
   //  });
   }
@@ -491,6 +491,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     nombrecontacto = $('#nombrecontacto').val();
     let LcompanyUIDs = [];
     const lstUidByCompanyP = this.uidByCompanyP;
+    const lstUidByCompanyC = this.uidByCompanyC;
     this.datosuser.forEach(function(item, index) {
       let prefix;
       let nombre;
@@ -592,15 +593,40 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
        };
       datosusuario.push(objuser);
 
+      //INI INFORMACION PASAJERO
       const indexPax = index + 1;
       const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
       lstTxtC.forEach(function(txt) {
         const id = "p_" + txt.codeUid + "_" + indexPax;
+        let valueUid = "";
+        valueUid = $("#" + id).val();
+
+        /*
+        let flagU5 = 0;
+        if (txt.codeUid === 'U5') {
+          if (txt.listUids === null) {
+            flagU5 = 1;
+          } else if (txt.listUids.length === 0) {
+            flagU5 = 1;
+          }
+        }
+
+        if (flagU5 === 1) {
+          if (txt.isEditable === true) {
+            valueUid = $("#" + id).val();
+          } else {
+            valueUid = $("#" + id).val();
+          }
+        } else {
+          valueUid = $("#" + id).val();
+        }
+        */
+
         const ocompanyUIDs = {
           "CodeUid": txt.codeUid,
           "TypeUid": "P",
           "PassengerId": indexPax + "",
-          "ValueUid": $("#" + id).val()
+          "ValueUid": valueUid
         };
         LcompanyUIDs.push(ocompanyUIDs);
       });
@@ -666,7 +692,88 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           }
         }
       });
+      //FIN INFORMACION PASAJERO
     });
+
+    //INI INFORMACION EMPRESA
+    const lstTxtC = lstUidByCompanyC.filter(x => x.isList === false);
+    lstTxtC.forEach(function(txt) {
+      const id = "c_" + txt.codeUid + "_" + 1;
+      const ocompanyUIDs = {
+        "CodeUid": txt.codeUid,
+        "TypeUid": "C",
+        "PassengerId": 1 + "",
+        "ValueUid": $("#" + id).val()
+      };
+      LcompanyUIDs.push(ocompanyUIDs);
+    });
+
+    const lstCbxC = lstUidByCompanyC.filter(x => x.isList === true);
+    lstCbxC.forEach(function(cbx) {
+      const id = "c_combo_" + cbx.codeUid;
+      const selectValue = $("#" + id).val();
+      //console.log("PadreselectValue: " + selectValue);
+      //console.log("PadreselectValue: " + selectValue);
+      //console.log("PadreselectValue: " + selectValue);
+      //console.log("PadreselectValue: " + selectValue);
+      let valueUid = "";
+      if (selectValue != "0") {
+        valueUid = selectValue.split('_')[2];
+      }
+      const ocompanyUIDs = {
+        "CodeUid": cbx.codeUid,
+        "TypeUid": "C",
+        "PassengerId": 1 + "",
+        "ValueUid": valueUid
+      };
+      LcompanyUIDs.push(ocompanyUIDs);
+
+      if (selectValue != "0") {
+        if (cbx.listUids.length > 0) {
+          const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
+          const lstHijos = oPadre.listUids;
+          if (lstHijos.length > 0) {
+            const codeUidHijo = lstHijos[0].codeUid;
+            const idHijo = "c_comboH_" + codeUidHijo;
+            const selectValueHijo = $("#" + idHijo).val();
+            let valueUidHijo = "";
+            if (selectValueHijo != "0") {
+              valueUidHijo = selectValueHijo.split('_')[2];
+            }
+            const ocompanyUIDsHijo = {
+              "CodeUid": codeUidHijo,
+              "TypeUid": "C",
+              "PassengerId": 1 + "",
+              "ValueUid": valueUidHijo
+            };
+            LcompanyUIDs.push(ocompanyUIDsHijo);
+
+            if (selectValueHijo != "0") {
+              const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
+              const lstNietos = oHijo.listUids;
+              if (lstNietos.length > 0) {
+                const codeUidNieto = lstNietos[0].codeUid;
+                const idNieto = "c_comboN_" + codeUidNieto;
+                const selectValueNieto = $("#" + idNieto).val();
+                let valueUidNieto = "";
+                if (selectValueNieto != "0") {
+                  valueUidNieto = selectValueNieto.split('_')[2];
+                }
+                const ocompanyUIDsNieto = {
+                  "CodeUid": codeUidNieto,
+                  "TypeUid": "C",
+                  "PassengerId": 1 + "",
+                  "ValueUid": valueUidNieto
+                };
+                LcompanyUIDs.push(ocompanyUIDsNieto);
+              }
+            }
+
+          }
+        }
+      }
+    });
+    //FIN INFORMACION EMPRESA
 
     this.LcompanyUIDs = LcompanyUIDs;
     console.log("this.LcompanyUIDs: " + JSON.stringify(this.LcompanyUIDs));
@@ -720,7 +827,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       });
       this.numeropasajero = pasajero;
       if (correoigual == 1) {
-        console.log(this.numeropasajero);
+        //console.log(this.numeropasajero);
         this.modalRef = this.modalService.show(
           template2,
           Object.assign({}, { class: 'gray modal-lg m-infraccion' })
@@ -754,7 +861,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   getUidByCompany() {
-    console.log("getUidByCompany");
+    //console.log("getUidByCompany");
     const companyId = this.loginDataUser.ocompany.companyId;
     this.flightService.getUidByCompany(companyId, "LIMPE28AX").subscribe(
       result => {
@@ -767,12 +874,12 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         }
       },
       err => {
-        console.log("ERROR: " + JSON.stringify(err));
+        //console.log("ERROR: " + JSON.stringify(err));
         this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
         if (this.uidByCompanyC.length > 0) {
-          //this.setInformacionAdicional(this.uidByCompanyC);
+          this.setInformacionAdicional(this.uidByCompanyC);
         }
 
         if (this.uidByCompanyP.length > 0) {
@@ -784,7 +891,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
             this.lstCostCenter = result2;
           },
           err2 => {
-            console.log("ERROR: " + JSON.stringify(err2));
+            //console.log("ERROR: " + JSON.stringify(err2));
             this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
           },
           () => {
@@ -804,7 +911,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       let flagC = 0;
       lstTxtC.forEach(function(txt, index) {
         flagC = 1;
-        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "<div style='font-family: Omnes-med; color: #676767;' class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += "";
         htmlTxtC += "";
         htmlTxtC += txt.title;
@@ -813,7 +920,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += "";
         htmlTxtC += "";
-        htmlTxtC += "<input class='form-control' type='text'>";
+        htmlTxtC += "<input id='c_" + txt.codeUid + "_" + 1 + "' class='form-control' type='text'>";
         htmlTxtC += "";
         htmlTxtC += "</div>";
         htmlTxtC += "";
@@ -829,71 +936,62 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           const lstPadre = llistUid.filter(x => x.parent === 0);
           const lstHijosNietos = llistUid.filter(x => x.parent > 0);
 
-          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div style='font-family: Omnes-med; color: #676767;' class='col-6 m-0 p-0 pt-2'>";
           htmlTxtC += cbx.title;
           htmlTxtC += "</div>";
 
           htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
 
-          /*
-          htmlTxtC += "<select class='form-control'>";
+          htmlTxtC += "<select class='form-control'  id='c_combo_" + cbx.codeUid + "'>";
+          htmlTxtC += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
           lstPadre.forEach(function(padre, indexPadre) {
-            const lstHijos = lstHijosNietos.filter(x => x.parent === padre.id);
-            if (lstHijos.length > 0) {
-              htmlTxtC += "<optgroup label='  " + padre.description + "'>";
-              lstHijos.forEach(function(hijo, indexHijo) {
-                const lstNietos = lstHijosNietos.filter(y => y.parent === hijo.id);
-                if (lstNietos.length > 0) {
-                  htmlTxtC += "<optgroup label='" + hijo.description + "'>";
-                  lstNietos.forEach(function(nieto, indexnieto) {
-                    htmlTxtC += "<option>" + nieto.description + "</option>";
-                  });
-                  htmlTxtC += "</optgroup>";
-                } else {
-                  htmlTxtC += "<option>" + hijo.description + "</option>";
-                }
-              });
-              htmlTxtC += "</optgroup>";
-            } else {
-              htmlTxtC += "<option>" + padre.description + "</option>";
-            }
-          });
-          htmlTxtC += "</select>";
-          */
-
-          htmlTxtC += "<select class='form-control'  id='combo_" + cbx.codeUid + "'>";
-          htmlTxtC += "<option value='" + cbx.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
-          lstPadre.forEach(function(padre, indexPadre) {
-            //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
-            htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id + "'>" + padre.description + "</option>";
-
+            htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id+ "_" + padre.code + "'>" + padre.description + "</option>";
           });
           htmlTxtC += "</select>";
 
-          /*
-          htmlTxtC += "<div class='btn-group' dropdown>";
-          htmlTxtC += "<button id='button-basic' dropdownToggle type='button' class='btn btn-primary dropdown-toggle' aria-controls='dropdown-basic'>";
-          htmlTxtC += "Seleccionar";
-          htmlTxtC += "<span class='caret'></span>";
-          htmlTxtC += "</button>";
-          htmlTxtC += "<ul id='dropdown-basic' *dropdownMenu class='dropdown-menu' role='menu' aria-labelledby='button-basic'>";
-          lstPadre.forEach(function(padre, indexPadre) {
-            htmlTxtC += "<li role='menuitem'><a class='dropdown-item'>Action</a></li>";
-          });
-          htmlTxtC += "</ul>";
           htmlTxtC += "</div>";
-          */
 
-          htmlTxtC += "<div class='pt-2' id='divHijo1_" + cbx.codeUid + "'></div>";
+          //HIJO 1
+          htmlTxtC += "<div id='c_rowHijo1_1' class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='c_label_hijo_1' for=''>";
+          htmlTxtC += "</label>";
+          htmlTxtC += "</div>";
 
-          htmlTxtC += "<div class='pt-2' id='divHijo2_" + cbx.codeUid + "'></div>";
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='pt-2' id='c_divHijo1'></div>";
+          htmlTxtC += "</div>";
 
+          //HIJO 2
+          htmlTxtC += "<div id='c_rowHijo2_1' class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='c_label_hijo_2' for=''>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='pt-2' id='c_divHijo2'></div>";
+          htmlTxtC += "</div>";
+
+          //HIJO 3
+          htmlTxtC += "<div id='c_rowHijo3_1' class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='c_label_hijo_3' for=''>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='pt-2' id='c_divHijo3'></div>";
+          htmlTxtC += "</div>";
+
+          //HIJO 4
+          htmlTxtC += "<div id='c_rowHijo4_1' class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='c_label_hijo_4' for=''>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='pt-2' id='c_divHijo4'></div>";
           htmlTxtC += "</div>";
         }
       });
       this.htmlTxtC = htmlTxtC;
 
-      console.log(htmlTxtC)
+      //console.log(htmlTxtC)
 
       if (flagC === 1) {
         this.flagHtmlC = true;

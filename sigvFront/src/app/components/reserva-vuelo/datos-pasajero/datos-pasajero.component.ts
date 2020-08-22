@@ -70,8 +70,8 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     private sessionStorageService : SessionStorageService) {
     /*  $("#telephone").intlTelInput({
     });*/
-    console.log("DatosPasajeroComponent constructor");
-    console.log("index: " + this.index);
+    //console.log("DatosPasajeroComponent constructor");
+    //console.log("index: " + this.index);
     let fecha;
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.datosuser.forEach(element => {
@@ -81,8 +81,8 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log("DatosPasajeroComponent ngOnInit");
-    console.log("index: " + this.index);
+    //console.log("DatosPasajeroComponent ngOnInit");
+    //console.log("index: " + this.index);
     this.document();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
@@ -103,7 +103,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log("DatosPasajeroComponent ngAfterViewInit");
+    //console.log("DatosPasajeroComponent ngAfterViewInit");
     //$("#divHtmlTxtP").html(this.htmlTxtP);
     this.setInformacionPasajeros(this.uidByCompanyP);
   }
@@ -256,7 +256,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   setInformacionPasajeros(lstUidByCompanyP) {
     let lstValoresPax = this.lstValoresPax;
     const lstCostCenter = this.lstCostCenter;
-    console.log("setInformacionPasajeros");
+    //console.log("setInformacionPasajeros");
     //console.log("lstUidByCompanyP: " + JSON.stringify(lstUidByCompanyP));
     const indexP = this.index;
     if (lstUidByCompanyP.length > 0) {
@@ -271,7 +271,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
         htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
         htmlTxtC += "<div class='row m-0 p-0'>";
         htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
-        htmlTxtC += "<label for='' class='label-pasajero'>";
+        htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='p_lbl_" + txt.codeUid + "_" + indexP + "' for='' class='label-pasajero'>";
         htmlTxtC += txt.title;
         htmlTxtC += "</label>";
         htmlTxtC += "</div>";
@@ -295,14 +295,16 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
           if (txt.isEditable === true) {
 
             htmlTxtC += "<select class='form-control'  id='p_" + txt.codeUid + "_" + indexP + "'>";
-            htmlTxtC += "<option value='" + txt.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
+            htmlTxtC += "<option value='" + "0" + "'>" + "Selecciona" + "</option>";
             lstCostCenter.forEach(function(padre, indexPadre) {
               //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
               //htmlTxtC += "<option value='" + txt.codeUid + "_" + padre.code + "'>" + padre.description + "</option>";
-              htmlTxtC += "<option value='" + "" + "" + padre.code + "'>" + padre.description + "</option>";
+              htmlTxtC += "<option value='" + padre.code + "'>" + padre.description + "</option>";
             });
             htmlTxtC += "</select>";
 
+          } else {
+            htmlTxtC += "<input id='p_" + txt.codeUid + "_" + indexP + "' class='form-control' type='text'>";
           }
         } else {
           htmlTxtC += "<input id='p_" + txt.codeUid + "_" + indexP + "' class='form-control' type='text'>";
@@ -351,7 +353,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
           htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
           htmlTxtC += "<div class='row m-0 p-0'>";
           htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
-          htmlTxtC += "<label for=''>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' for=''>";
           htmlTxtC += cbx.title + "";
           htmlTxtC += "</label>";
           htmlTxtC += "</div>";
@@ -394,13 +396,13 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
           htmlTxtC += "<div id='rowHijo1_" + indexP + "' class='row m-0 p-0 pt-2'>";
           htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
-          htmlTxtC += "<label id='label_hijo_1_" + indexP + "' for=''>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' class='label-pasajero' id='label_hijo_1_" + indexP + "' for=''>";
           htmlTxtC += "</label>";
           htmlTxtC += "</div>";
           htmlTxtC += "</div>";
 
           htmlTxtC += "<div class='row m-0 p-0'>";
-          htmlTxtC += "<div class='' id='divHijo1_" + indexP + "'></div>";
+          htmlTxtC += "<div class='' style='width: 100% !important;' id='divHijo1_" + indexP + "'></div>";
           htmlTxtC += "</div>";
 
           //htmlTxtC += "</div>";
@@ -410,13 +412,13 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
           htmlTxtC += "<div id='rowHijo2_" + indexP + "' class='row m-0 p-0 pt-2'>";
           htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
-          htmlTxtC += "<label id='label_hijo_2_" + indexP + "' for=''>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='label_hijo_2_" + indexP + "' for=''>";
           htmlTxtC += "</label>";
           htmlTxtC += "</div>";
           htmlTxtC += "</div>";
 
           htmlTxtC += "<div class='row m-0 p-0'>";
-          htmlTxtC += "<div class='' id='divHijo2_" + indexP + "'></div>";
+          htmlTxtC += "<div class='' style='width: 100% !important;' id='divHijo2_" + indexP + "'></div>";
           htmlTxtC += "</div>";
 
           //htmlTxtC += "</div>";
@@ -426,7 +428,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
           htmlTxtC += "<div id='rowHijo3_" + indexP + "' class='row m-0 p-0 pt-2'>";
           htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
-          htmlTxtC += "<label id='label_hijo_3_" + indexP + "' for=''>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='label_hijo_3_" + indexP + "' for=''>";
           htmlTxtC += "</label>";
           htmlTxtC += "</div>";
           htmlTxtC += "</div>";
@@ -442,7 +444,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
           htmlTxtC += "<div id='rowHijo4_" + indexP + "' class='row m-0 p-0 pt-2'>";
           htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
-          htmlTxtC += "<label id='label_hijo_4_" + indexP + "' for=''>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='label_hijo_4_" + indexP + "' for=''>";
           htmlTxtC += "</label>";
           htmlTxtC += "</div>";
           htmlTxtC += "</div>";
@@ -457,12 +459,15 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       });
 
       this.lstValoresPax = lstValoresPax;
-      console.log("this.lstValoresPax: " + JSON.stringify(this.lstValoresPax));
+      //console.log("this.lstValoresPax: " + JSON.stringify(this.lstValoresPax));
       //console.log("htmlTxtC: " + htmlTxtC);
       this.htmlTxtP = htmlTxtC;
 
-      console.log("DIV: " + "#divHtmlTxtP_" + indexP);
+      //console.log("DIV: " + "#divHtmlTxtP_" + indexP);
       $("#divHtmlTxtP_" + indexP).html(this.htmlTxtP);
+
+
+
 
       //combo_U5_1
       /*
@@ -471,26 +476,37 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       });
       */
 
-      console.log("this.centroCosto: " + this.centroCosto);
+      //console.log("this.centroCosto: " + this.centroCosto);
+
+      lstTxtC.forEach(function (lbl) {
+        const idLbl = "p_lbl_" + lbl.codeUid + "_" + indexP;
+        //console.log("idLbl: " + idLbl);
+        //console.log("idLbl: " + idLbl);
+        //console.log("idLbl: " + idLbl);
+        //console.log("idLbl: " + idLbl);
+        $("#" + idLbl).addClass("label-pasajero");
+      });
+
+
       $('#combo_U5_' + indexP).val(this.centroCosto);
 
       let uidByCompanyP = this.uidByCompanyP;
       const indexPax = this.index;
       uidByCompanyP = uidByCompanyP.filter(x => x.isList === true);
       uidByCompanyP.forEach(function (compamy) {
-        console.log("combo_: " + "#combo_" + compamy.codeUid + "_" + indexPax);
+        //console.log("combo_: " + "#combo_" + compamy.codeUid + "_" + indexPax);
         $("#combo_" + compamy.codeUid + "_" + indexPax).change(function() {
-          console.log("indexPax: " + indexPax);
-          console.log("indexP: " + indexP);
+          //console.log("indexPax: " + indexPax);
+          //console.log("indexP: " + indexP);
           //alert( "Handler for .change() called." );
           //const idPadre = $("#combo_5").val();
           const idPadre = $("#combo_" + compamy.codeUid + "_" + indexPax).val();
           const valor1 = idPadre.split('_')[0];
           const valor2 = idPadre.split('_')[1];
 
-          console.log("idPadre: " + idPadre);
-          console.log("valor1: " + valor1);
-          console.log("valor2: " + valor2);
+          //console.log("idPadre: " + idPadre);
+          //console.log("valor1: " + valor1);
+          //console.log("valor2: " + valor2);
 
           //const lstUidByCompanyP = uidByCompanyP.filter(x => x.codeUid == valor1)[0];
           //const llistUid = lstUidByCompanyP.listUids.filter(x => x.parent == valor2);
@@ -500,6 +516,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
           if (llistUid.length > 0) {
             $("#rowHijo1_" + indexPax).show();
             $("#divHijo1_" + indexPax).show();
+            $("#divHijo1_" + indexPax).addClass("div100");
             //$("#divHijo2_" + valor1).show();
             let htmlHijo = "";
             const idComboHijo = "comboH_" + llistUid[0].codeUid + "_" + indexPax;
@@ -533,6 +550,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
             htmlHijo += "</select>";
             $("#divHijo1_" + indexPax).html(htmlHijo);
             $("#label_hijo_1_" + indexPax).html(hijoTitle);
+            $("#" + idComboHijo).addClass("form-control");
 
             //NIETO
             $("#" + idComboHijo).change(function() {
