@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IGetEnhancedHotel } from '../../../../../models/IGetEnhancedHotel';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
@@ -11,6 +11,8 @@ declare var $: any;
   styleUrls: ['./detalle-compra.component.sass']
 })
 export class DetalleCompraComponent implements OnInit {
+  @Input('hideTitle') hideTitle?: boolean;
+
   lstConfirmacion : IGetEnhancedHotel;
   lstHabi : IHabitacionResults;
   lhotel;

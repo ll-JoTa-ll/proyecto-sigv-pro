@@ -47,6 +47,7 @@ export class ResultadoHabitacionComponent implements OnInit {
   @Input() fechasalida;
   @Input() hotelcode;
   @Input() fecharetorno;
+  @Input() vuelo?;
   urlimg = './assets/images/hotel-icon.png';
   modalRefSessionExpired: BsModalRef;
   personas: any;

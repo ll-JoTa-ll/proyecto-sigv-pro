@@ -50,7 +50,7 @@
                         <div class="m-0 p-0 col-12 pt-4">
                             <div class="row m-0 p-0 box-shadow" style="border-radius: 20px 0px 20px 0px">
                                 <div class="col-12 m-0 p-0 pl-5 pt-3">
-                                    <div class="row m-0 p-0" style="width: 70%;">
+                                    <div class="row m-0 p-0" >
                                         <div class="col-10 m-0 p-0">
                                             <span class="hotelname">{{lsthabitacion.ohotel.hotelName}}</span>
                                             <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 5"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
@@ -60,7 +60,9 @@
                                             <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 1"><img src="./assets/images/star.svg"></span>
 
                                         </div>
-                                        <div *ngIf="lhotel.lpolicies != null" class="col-2 m-0 p-0">
+                                        <div *ngIf="lhotel.lpolicies != null" class="col-2 m-0 p-0" style="display: flex;
+                                        align-items: center;
+                                        ">
                                             <span (click)="openModal1(modalinfraccion, modalerror)" class="txt-infraccion pr-4" style="cursor: pointer;">Ver infracción</span>
                                             <span *ngIf="lhotel.lpolicies.length > 0" class="circulo-politica"></span>
                                             <span *ngIf="lhotel.lpolicies.length === 0" class="circulo-politica1"></span>
@@ -155,10 +157,10 @@
                                             <div class="row m-0 p-0 pt-3 pb-4">
                                                 <div class="col-12 m-0 p-0 box-shadow">
                                                     <div class="row m-0 p-0 pb-3">
-                                                        <div class="col-4 m-0 p-0 pt-4">
+                                                        <div class="col-5 m-0 p-0 pt-4">
                                                             <span class="Pricefin">Precio Final</span>
                                                         </div>
-                                                        <div class="col-8 m-0 p-0 pt-4">
+                                                        <div class="col-7 m-0 p-0 pt-4">
                                                             <span class=""><span class="Moneda">{{lhotel.oprice.currency}}</span><span class="Amount pl-2">{{lhotel.oprice.pricePerAllNights}}</span></span>
                                                         </div>
                                                     </div>
@@ -269,7 +271,7 @@
                                             <span class="textodescri">Descripción :</span>
                                         </div>
                                     </div>
-                                    <div class="row m-0 p-0 contenido" style="width: 1170px;">
+                                    <div class="row m-0 p-0 contenido" style="width:100%;">
                                         <!--     <div *ngIf="lsthabitacion.ohotel.hotelDescription.length > 300" class="col-12 m-0 p-0" style="text-align: justify">
                                                     <p>
                                                         <span class="Description">{{texto1}}</span>

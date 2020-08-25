@@ -27,6 +27,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   @Input() adultos: string;
   @Input() textoestrellas: string;
   @Input() cantidadnoches;
+  @Input() flagHabitaciones?: boolean;
   @Output() messagelistado = new EventEmitter<any[]>();
   @Output() mayorPrecio = new EventEmitter<number>();
   @Output() menorPrecio = new EventEmitter<number>();
@@ -66,6 +67,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
   dateCustomClasses: DatepickerDateCustomClasses[];
 
   @Output() flagBuscarMini = new EventEmitter<boolean>();
+  searchFilter: boolean = false;
 
   constructor(
     private localeService: BsLocaleService,
@@ -85,12 +87,34 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.calendarSalidaValue.setDate(this.calendarSalidaValue.getDate() + 1);
   }
   ngOnInit() {
+    this.init();
+  }
+
+  ngAfterViewInit() {
+    this.afterInit();
+  }
+
+  afterInit() {
+    this.fechaSalida = this.fchingreso;
+    this.fechaRetorno = this.fchsalida;
+    if(this.fchingreso, this.fchsalida)
+    this.ObtenerDias(this.fchingreso, this.fchsalida);
+    this.objSearch = {
+      destino: this.destinoText,
+      categoria: this.textoestrellas,
+      iata: this.destinoValue
+    };
+    this.sessionStorageService.store("ss_sessionmini1",this.objSearch);
+  }
+
+  init() {
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
    // this.sessionStorageService.store('ss_token', this.loginDataUser.token);
   //  this.token = this.sessionStorageService.retrieve('ss_token');
 
+    this.searchFilter = false;
     this.localeService.use(this.locale);
 
     const lstAutocomplete = this.lstAutocomplete;
@@ -123,20 +147,6 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.lstAutocomplete = lstAutocomplete;
   }
 
-  ngAfterViewInit() {
-    //cantidadnoches
-
-    //this.fechaSalida = this.fchingreso;
-    //this.fechaRetorno = this.fchsalida;
-    this.ObtenerDias(this.fchingreso, this.fchsalida);
-    this.objSearch = {
-      destino: this.destinoText,
-      categoria: this.textoestrellas,
-      iata: this.destinoValue
-    };
-    this.sessionStorageService.store("ss_sessionmini1",this.objSearch);
-  }
-
   limpiarSession(){
     if (this.estrellas === undefined) {
       this.estrellas = '';
@@ -154,7 +164,21 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
     this.messagelistado.emit(this.LResultshotel);
   }
 
-
+  desactivarFiltroPorTipoDeVuelo(tipoVuelo: any) {
+    if(tipoVuelo === 'RT'){
+      $("#fechaInicio").prop('disabled', true);
+      $("#fechaFin").prop('disabled', true);
+      $(".input-image").prop('disabled', true);
+      $(".input-image").prop('disabled', true);
+      this.searchFilter = true;
+    } else if(tipoVuelo === 'OW') {
+      $("#fechaInicio").prop('disabled', true);
+      $("#fechaFin").prop('disabled', false);
+      $(".input-image").prop('disabled', true);
+      $(".input-image").prop('disabled', false);
+      this.searchFilter = true;
+    }
+  }
 
   selectEvent(item) {
     // do something with selected item
@@ -208,6 +232,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
       this.dateCustomClasses = [
         { date: this.minDateSalida, classes: ['bg-danger','text-warning'] }
       ];
+      if(this.fechaRetorno && this.fechaSalida)
       this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
       if (value >= this.calendarSalidaValue) {
         this.cantidadnoches = 0;
@@ -241,7 +266,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
           dia = "" + value.getDate();
         }
         this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
-
+        if(this.fechaRetorno && this.fechaSalida)
         this.ObtenerDias2(this.fechaSalida, this.fechaRetorno);
       }
     }
@@ -407,6 +432,21 @@ ObtenerDias2(fecha1, fecha2) {
   const r = r2 - r1;
 
   let dias = Math.floor(r / (1000 * 60 * 60 * 24));
+  this.cantidadnoches = dias;
+  this.sessionStorageService.store("ss_noches",this.cantidadnoches);
+
+}
+ObtenerDiasDesdeVuelo(fecha1, fecha2) {
+  //const fecha1 = this.fchingreso;
+  //const fecha2 = this.fchsalida;
+  let n1 = fecha1.split('-');
+  let n2 = fecha2.split('-');
+  let nuevafecha = new Date(parseInt(n1[1]) - 1+'/'+parseInt(n1[0])+'/'+parseInt(n1[2]));
+  let nuevafecha2 = new Date(parseInt(n2[1]) - 1+'/'+parseInt(n2[0])+'/'+parseInt(n2[2]));
+  // let nuevafecha2 = new Date(parseInt(n2[0]), parseInt(n2[1]) - 1, parseInt(n2[2]));
+  //const dias = nuevafecha2.diff(nuevafecha, 'days');
+  //let dias = nuevafecha2 - nuevafecha;
+  let dias = Math.floor((nuevafecha2.getTime() - nuevafecha.getTime()) / (1000 * 60 * 60 * 24));
   this.cantidadnoches = dias;
   this.sessionStorageService.store("ss_noches",this.cantidadnoches);
 

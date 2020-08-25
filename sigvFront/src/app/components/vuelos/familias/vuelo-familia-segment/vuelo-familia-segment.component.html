@@ -1,102 +1,88 @@
 <div class="row m-0 p-0 pb-5 pt-3 pl-4" style="background: #FFFFFF 0% 0% no-repeat padding-box;">
 
-  <div class="col-10 m-0 p-0 box-shadow">
-    <div class="row m-0 p-0">
-      <div class="col-12 m-0 p-0">
+    <div class="col-10 m-0 p-0 box-shadow">
         <div class="row m-0 p-0">
-          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-            <img style="width: 110px;" class="img-fluid vertical-center pl-4" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
-          </div>
-          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center name-airlane">
-            {{segment.oairline.carrierName}}
-          </div>
-          <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center t-tipo-vuelo">
-            Vuelo {{segment.oairline.flightOrtrainNumber}} - {{segment.oairline.equipmentType}}
-          </div>
+            <div class="col-12 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+                        <img style="width: 110px;" class="img-fluid vertical-center pl-4" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
+                    </div>
+                    <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center name-airlane">
+                        {{segment.oairline.carrierName}}
+                    </div>
+                    <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center t-tipo-vuelo">
+                        Vuelo {{segment.oairline.flightOrtrainNumber}} - {{segment.oairline.equipmentType}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 ff-date-show">
+                        {{segment.odeparture.dateShow}}
+                    </div>
+                    <div class="col-12 m-0 p-0 ff-time-show">
+                        {{segment.odeparture.timeShow}}
+                    </div>
+                    <div class="col-12 m-0 p-0 ff-city">
+                        {{segment.oorigin.city}}
+                    </div>
+                    <div class="col-12 m-0 p-0 ff-airport">
+                        {{segment.oorigin.airportCity}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 ff-duracion">
+                        Duración
+                    </div>
+                    <div class="col-12 m-0 p-0 ff-time-duration">
+                        {{segment.otime.totalFlightTimeShow}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0 ff-date-show">
+                        {{segment.oarrival.dateShow}}
+                    </div>
+                    <div class="col-12 m-0 p-0 ff-time-show">
+                        {{segment.oarrival.timeShow}}
+                    </div>
+                    <div class="col-12 m-0 p-0 ff-city">
+                        {{segment.odestination.city}}
+                    </div>
+                    <div class="col-12 m-0 p-0 ff-airport">
+                        {{segment.odestination.airportCity}}
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-        <div class="row m-0 p-0">
-          <div class="col-12 m-0 p-0 ff-date-show">
-            {{segment.odeparture.dateShow}}
-          </div>
-          <div class="col-12 m-0 p-0 ff-time-show">
-            {{segment.odeparture.timeShow}}
-          </div>
-          <div class="col-12 m-0 p-0 ff-city">
-            {{segment.oorigin.city}}
-          </div>
-          <div class="col-12 m-0 p-0 ff-airport">
-            {{segment.oorigin.airportCity}}
-          </div>
-        </div>
-      </div>
-      <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-        <div class="row m-0 p-0">
-          <div class="col-12 m-0 p-0 ff-duracion">
-            Duración
-          </div>
-          <div class="col-12 m-0 p-0 ff-time-duration">
-            {{segment.otime.totalFlightTimeShow}}
-          </div>
-        </div>
-      </div>
-      <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-        <div class="row m-0 p-0">
-          <div class="col-12 m-0 p-0 ff-date-show">
-            {{segment.oarrival.dateShow}}
-          </div>
-          <div class="col-12 m-0 p-0 ff-time-show">
-            {{segment.oarrival.timeShow}}
-          </div>
-          <div class="col-12 m-0 p-0 ff-city">
-            {{segment.odestination.city}}
-          </div>
-          <div class="col-12 m-0 p-0 ff-airport">
-            {{segment.odestination.airportCity}}
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 
 </div>
 
 <div class="row m-0 p-0" style="width: 100%;">
-  <div class="col-12 m-0 p-0">
+    <div class="col-12 m-0 p-0">
 
 
-    <div class="row m-0 p-0 d-flex justify-content-center" style="background: #FFFFFF 0% 0% no-repeat padding-box;">
+        <div class="row m-0 p-0 d-flex justify-content-center" style="background: #FFFFFF 0% 0% no-repeat padding-box;">
 
-      <div class="col-12 m-0 p-0 pl-4">
+            <div class="col-12 m-0 p-0 pl-4">
 
-        <div class="row m-0 p-0" style="width: 100%; display: flex; flex-wrap: nowrap; overflow-x: auto">
+                <div class="row m-0 p-0" style="width: 100%; display: flex; flex-wrap: nowrap; overflow-x: auto">
 
-          <app-familia-fare (colorfamily)="EventColorFamilia($event)"
-                            (hidesection)="Hidesection($event)"
-                            (namefamily)="EventNameFamilia($event)"
-                            [fareFamily]="fareFamily"
-                            [currency]=""
-                            [fareFamilyIndex]="i+1"
-                            [flagCountInc]="flagCountInc"
-                            [flagCountNof]="flagCountNof"
-                            [flagCountCha]="flagCountCha"
-                            [segmentIndex]="segmentIndex"
-                            [sectionIndex]="sectionFamilyIndex"
-                            [familyLength]="segment.lfareFamilies.length"
-                            (idRadioBtnFareFam)="selectRadioBtnFam($event)"
-                            *ngFor="let fareFamily of segment.lfareFamilies; let i=index"
-                            [fareBasisXD]="fareFamily.fareBasis"
-          ></app-familia-fare>
+                    <app-familia-fare (colorfamily)="EventColorFamilia($event)" (hidesection)="Hidesection($event)" (namefamily)="EventNameFamilia($event)" [fareFamily]="fareFamily" [currency]="" [fareFamilyIndex]="i+1" [flagCountInc]="flagCountInc" [flagCountNof]="flagCountNof"
+                        [flagCountCha]="flagCountCha" [segmentIndex]="segmentIndex" [sectionIndex]="sectionFamilyIndex" [familyLength]="segment.lfareFamilies.length" (idRadioBtnFareFam)="selectRadioBtnFam($event)" *ngFor="let fareFamily of segment.lfareFamilies; let i=index"></app-familia-fare>
+
+                </div>
+
+            </div>
+
+
 
         </div>
 
-      </div>
-
-
 
     </div>
-
-
-  </div>
 </div>

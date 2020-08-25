@@ -44,12 +44,12 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
-    if(this.eRef.nativeElement.contains(event.target)) {
+    if (this.eRef.nativeElement.contains(event.target)) {
       this.text = "clicked inside";
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion");
       if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-        
+
       }
     } else {
       this.text = "clicked outside";
@@ -58,9 +58,9 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
 
-  lsthabitacion : IHabitacionResults;
+  lsthabitacion: IHabitacionResults;
   loginDataUser: ILoginDatosModel;
-  Confirmacion : IGetEnhancedHotel;
+  Confirmacion: IGetEnhancedHotel;
   divwarning: boolean;
   currency: string;
   LHoteles: IHotelResultsModel;
@@ -69,7 +69,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   idinterval: any;
   localfinish;
   sessionFinish: boolean;
-  
+
   counter: any;
   @Input() LlistaHotel: IHotelResultsModel[] = [];
   urlhotel: string;
@@ -82,7 +82,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   slides: { image: string }[] = [];
   activeSlideIndex = 0;
- 
+
   isCollapsed = false;
 
   destinoValue: string;
@@ -113,32 +113,32 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   modalRefSessionExpired: BsModalRef;
   adultos: any;
 
-  @ViewChild("modalexpired", {static: false}) modalexpired;
+  @ViewChild("modalexpired", { static: false }) modalexpired;
 
 
-  constructor(private eRef: ElementRef,private localStorageService: LocalStorageService,private router: Router,private sessionStorageService: SessionStorageService, private modalService: BsModalService,private spinner: NgxSpinnerService,private _scrollToService: ScrollToService) { 
+  constructor(private eRef: ElementRef, private localStorageService: LocalStorageService, private router: Router, private sessionStorageService: SessionStorageService, private modalService: BsModalService, private spinner: NgxSpinnerService, private _scrollToService: ScrollToService) {
     this.localfinish = this.localStorageService.retrieve("ss_countersession");
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.ocultar = this.sessionStorageService.retrieve("ss_oculta");
     this.flagDinData = false;
- 
+
     this.personas = this.LHoteles.numberPassenger;
     this.divwarning = false;
-    
+
     if (this.localfinish === false) {
       this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent, this.config);
     }
     var cerrarsesion;
-      cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
+    cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
 
     if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
     }
 
     if (this.lhotel.numberPassenger > 1) {
       this.adultos = "personas";
-    }else{
+    } else {
       this.adultos = "persona";
     }
 
@@ -163,39 +163,42 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     //  },1000);
   }
 
-    startCountDown(seconds, template) {
-      var counter = seconds;
-      var interval = setInterval(() => {
-        counter--;
-        this.counter = counter;
-        console.log(counter);
-        this.idinterval = interval;
-        this.sessionStorageService.store("ss_interval",this.idinterval);
-        if (counter === 300) {
-          this.modalRefSessionExpired = this.modalService.show(ModalAvisoSesionComponent,this.config);
-        }
-        if (counter < 0 ) {
-          clearInterval(interval);
-          counter = null;
-          this.sessionFinish = false;
-          this.localStorageService.store('ss_countersession',this.sessionFinish);
-          this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
-          //this.router.navigate(['login'])
-        }
-      }, 1000);
-    }
+  startCountDown(seconds, template) {
+    var counter = seconds;
+    var interval = setInterval(() => {
+      counter--;
+      this.counter = counter;
+      console.log(counter);
+      this.idinterval = interval;
+      this.sessionStorageService.store("ss_interval", this.idinterval);
+      if (counter === 300) {
+        this.modalRefSessionExpired = this.modalService.show(ModalAvisoSesionComponent, this.config);
+      }
+      if (counter < 0) {
+        clearInterval(interval);
+        counter = null;
+        this.sessionFinish = false;
+        this.localStorageService.store('ss_countersession', this.sessionFinish);
+        this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent, this.config);
+        //this.router.navigate(['login'])
+      }
+    }, 1000);
+  }
 
 
   VolverHome() {
-    this.router.navigate(['hoteles'])
+    if (this.router.url.indexOf('reserva-vuelo-hotel') >= 0 || this.router.url.indexOf('resumen-vuelo-hotel') >= 0 || this.router.url.indexOf('vuelo-habitacion') >= 0)
+      this.router.navigate(['vuelos']);
+    else
+      this.router.navigate(['hoteles'])
     this.modalexpired.hide();
   }
 
-  noRefresh(){
-    document.onkeydown = function(e){
+  noRefresh() {
+    document.onkeydown = function (e) {
       var tecla = (document.all) ? e.keyCode : e.which;
       if (tecla = 116) return false
-      }
+    }
   }
 
   ngAfterViewInit() {
@@ -215,7 +218,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     var cerrarsesion;
     cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
     if (cerrarsesion == false) {
-     
+
     }
   }
 
@@ -277,7 +280,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   }
 
-  getChatMessages(){
+  getChatMessages() {
     const config: ScrollToConfigOptions = {
       target: 'destination'
     };
@@ -292,26 +295,24 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     let mayorValor = 0;
 
     if (this.LlistaHotel[0].oerror != null) {
-       this.flagDinData = true;
-       this.vistalistado = false;
-       this.hideComponent = false;
-       this.showComponent = false;
+      this.flagDinData = true;
+      this.vistalistado = false;
+      this.hideComponent = false;
+      this.showComponent = false;
     } else {
       this.vistalistado = true;
       this.flagDinData = false;
-      this.LlistaHotel.forEach(function(item) {
+      this.LlistaHotel.forEach(function (item) {
         if (item.oprice.pricePerAllNights < menorValor) {
           menorValor = item.oprice.pricePerAllNights;
         }
         if (item.oprice.pricePerAllNights > mayorValor) {
           mayorValor = item.oprice.pricePerAllNights;
         }
-  
       });
-  
       this.menorPrecioHotel = menorValor;
       this.mayorPrecioHotel = mayorValor;
-      this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
+      this.sessionStorageService.store("ls_search_hotel", this.LlistaHotel);
       this.mapafiltro = true;
     }
   }
@@ -322,19 +323,19 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     });
   }
 
-  leermar(){
+  leermar() {
     var texto, padre;
-    $(".contenido").each(function(){
+    $(".contenido").each(function () {
       texto = $(this).html();
       this.setAttribute("data-texto", texto);
-      if ($(this).html().length > 75){
+      if ($(this).html().length > 75) {
         $(this)
           .html(texto.substr(0, 75) + "...")
           .append($("<label class = 'mas'>Ver más</label>"));
       }
     });
 
-    $(".mas").on("click", function(){
+    $(".mas").on("click", function () {
       padre = $(this).parent();
       texto = padre.data("texto");
       $(padre)
@@ -352,24 +353,24 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    
-    this.texto1 = this.lsthabitacion.ohotel.hotelDescription.substring(0,250);
-    this.texto2 = this.lsthabitacion.ohotel.hotelDescription.substring(250,this.lsthabitacion.ohotel.hotelDescription.length);
+    // id(this.router.url);
+    this.texto1 = this.lsthabitacion.ohotel.hotelDescription.substring(0, 250);
+    this.texto2 = this.lsthabitacion.ohotel.hotelDescription.substring(250, this.lsthabitacion.ohotel.hotelDescription.length);
     this.texto3 = this.lsthabitacion.ohotel.hotelDescription;
     this.lsthabitacion.contador = this.contador;
-    
+
 
   }
 
-  mostrarmas(){
+  mostrarmas() {
     $('#description').html(this.texto3)
-    $('#p2').css("display","block")
-    $('#p1').css("display","none")
+    $('#p2').css("display", "block")
+    $('#p1').css("display", "none")
   }
-  mostrarmenos(){
+  mostrarmenos() {
     $('#description').html(this.texto1)
-    $('#p2').css("display","none")
-    $('#p1').css("display","block")
+    $('#p2').css("display", "none")
+    $('#p1').css("display", "block")
   }
 
   ObtenerListaFiltroEstrella($event) {

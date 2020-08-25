@@ -40,7 +40,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datosuser;
   Document: IDocumentType[] = [];
   mdtelefono: string;
-  configOption3 : ConfigurationOptions;
+  configOption3: ConfigurationOptions;
   centroCosto;
   modalRef: BsModalRef;
   config = {
@@ -59,9 +59,9 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   constructor(
     private userCompanyService: UserCompanyService,
     private modalService: BsModalService,
-    private sessionStorageService : SessionStorageService) {
-  /*  $("#telephone").intlTelInput({
-  });*/
+    private sessionStorageService: SessionStorageService) {
+    /*  $("#telephone").intlTelInput({
+    });*/
     let fecha;
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.datosuser.forEach(element => {
@@ -79,7 +79,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     }
     this.fecha = this.user.birthDate;
 
-    if (this.user.lcostCenter.length > 0 && this.user.lcostCenter[0].description != null){
+    if (this.user.lcostCenter.length > 0 && this.user.lcostCenter[0].description != null) {
       this.centroCosto = this.user.lcostCenter[0].description;
     } else {
       this.centroCosto = "Sin Información"
@@ -91,7 +91,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
 
-  document(){
+  document() {
     this.userCompanyService.getDocument().subscribe(
       result => {
         this.Document = result;
@@ -119,11 +119,11 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ValidarSoloNumero(event)  {
+  ValidarSoloNumero(event) {
     // tslint:disable-next-line: max-line-length
-    if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==190  && event.keyCode !==110 && event.keyCode !==8 && event.keyCode !==9  ){
+    if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !== 190 && event.keyCode !== 110 && event.keyCode !== 8 && event.keyCode !== 9) {
       return false;
-  }
+    }
   }
 
 
@@ -140,63 +140,63 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     $("#hdnTel_" + this.index).val(value);
     let valor = $('#cbopaises option:selected').attr('data-countryCode');
     if (valor === 'CO') {
-       $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'PA') {
-       $('#txttelefono_' + this.index).attr('maxlength', '8');
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
     }
     if (valor === 'PE') {
-       $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
     if (valor === 'AR') {
       $('#txttelefono_' + this.index).attr('maxlength', '13');
     }
     if (valor === 'EC') {
-        $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'PY') {
-        $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'UY') {
-        $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
     if (valor === 'VE') {
       $('#txttelefono_' + this.index).attr('maxlength', '11');
     }
     if (valor === 'CL') {
-    $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
     if (valor === 'BR') {
-    $('#txttelefono_' + this.index).attr('maxlength', '11');
+      $('#txttelefono_' + this.index).attr('maxlength', '11');
     }
     if (valor === 'BO') {
-    $('#txttelefono_' + this.index).attr('maxlength', '8');
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
     }
     if (valor === 'US') {
-    $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'MX') {
-    $('#txttelefono_' + this.index).attr('maxlength', '13');
+      $('#txttelefono_' + this.index).attr('maxlength', '13');
     }
     if (valor === 'CA') {
-    $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'CR') {
-    $('#txttelefono_' + this.index).attr('maxlength', '8');
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
     }
     if (valor === 'CU') {
-    $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
   }
 
 
 
-   llenarnumero() {
+  llenarnumero() {
 
   }
 
   ValidarCampos() {
-    this.datosuser.forEach(function(item, index) {
+    this.datosuser.forEach(function (item, index) {
       if ($('#txtnombre_' + (index + 1)).val().length <= 0) {
         $('#txtnombre_' + (index + 1)).addClass('campo-invalido');
       } else {
@@ -232,6 +232,6 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       } else {
         $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
       }
-  });
+    });
   }
 }

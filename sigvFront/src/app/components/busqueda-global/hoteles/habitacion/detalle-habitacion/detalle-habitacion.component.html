@@ -115,12 +115,12 @@
         <div class="col-4 m-0 p-0 box-shadow" style="border-radius: 20px 0px 20px 0px">
             <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate" class="row p-0 m-0">
                 <div class="col-12 m-0 p-0 pt-3">
-                    <span class="Price">Precio final por {{lhotel.numberNights}} noche para {{lhotel.numberPassenger}} {{this.personas}}</span>
+                    <span class="Price">Precio final por {{lhotel.numberNights}} noche para {{lhotel.numberPassenger}} {{this.personas}} {{ vuelo?.totalFareAmount ? ' + Vuelo' : '' }}</span>
                 </div>
             </ng-container>
             <ng-template #elseTemplate class="row p-0 m-0">
                 <div class="col-12 m-0 p-0 pt-3">
-                    <span class="Price">Precio final por {{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} {{this.personas}}</span>
+                    <span class="Price">Precio final por {{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} {{this.personas}} {{ vuelo?.totalFareAmount ? ' + Vuelo' : '' }}</span>
                 </div>
             </ng-template>
 
@@ -128,7 +128,7 @@
             <div class="row p-0 m-0 pt-5">
                 <div class="col-10 p-0 m-0 ">
                     <span class="currency">{{lhabitaciones.oprice.currency}} </span>
-                    <span class="Amount"> {{lhabitaciones.oprice.totalPrice}}</span>
+                    <span class="Amount"> {{(lhabitaciones.oprice.totalPrice*1 + vuelo?.totalFareAmount*1).toFixed(2)}}</span>
                 </div>
                 <div *ngIf="lPolicies != null" class="col-2 m-0 p-0 text-center" style="right: 20px;">
                     <span tooltip="Habitación con infracción de políticas." (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer" *ngIf="lPolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
@@ -309,12 +309,12 @@
         <div class="col-4 m-0 p-0 box-shadow" style="border-radius: 20px 0px 20px 0px">
             <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate" class="row p-0 m-0">
                 <div class="col-12 m-0 p-0 pt-3">
-                    <span class="Price">Precio final por {{lhotel.numberNights}} noche para {{lhotel.numberPassenger}} {{this.personas}}</span>
+                    <span class="Price">Precio final por {{lhotel.numberNights}} noche para {{lhotel.numberPassenger}} {{this.personas}}{{ vuelo?.totalFareAmount ? ' + Vuelo' : '' }}</span>
                 </div>
             </ng-container>
             <ng-template #elseTemplate class="row p-0 m-0">
                 <div class="col-12 m-0 p-0 pt-3">
-                    <span class="Price">Precio final por {{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} {{this.personas}}</span>
+                    <span class="Price">Precio final por {{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} {{this.personas}}{{ vuelo?.totalFareAmount ? ' + Vuelo' : '' }}</span>
                 </div>
             </ng-template>
 
@@ -322,7 +322,8 @@
             <div class="row p-0 m-0 pt-5">
                 <div class="col-10 p-0 m-0 ">
                     <span class="currency">{{lhabitaciones.oprice.currency}} </span>
-                    <span class="Amount"> {{lhabitaciones.oprice.totalPrice}}</span>
+                    <span class="Amount"> {{(lhabitaciones.oprice.totalPrice*1 + vuelo?.totalFareAmount*1).toFixed(2)}}</span>
+                    <!-- <span class="Amount"> {{lhabitaciones.oprice.totalPrice}}</span> -->
                 </div>
                 <div *ngIf="lPolicies != null" class="col-2 m-0 p-0 text-center" style="right: 20px;">
                     <span tooltip="Habitación con infracción de políticas." (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer" *ngIf="lPolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>

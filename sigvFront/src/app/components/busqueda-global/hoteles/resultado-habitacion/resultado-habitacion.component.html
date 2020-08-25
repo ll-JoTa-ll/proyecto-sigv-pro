@@ -78,12 +78,12 @@
             </div>
             <ng-container *ngIf="cantidadnoche == '1'; else elseTemplate" class="row m-0 p-0">
                 <div class="col-12 div-price-noche text-center mt-2">
-                    <span>Precio final por {{cantidadnoche}} noche para {{cantpersonas}} {{personas}}</span>
+                    <span>Precio final por {{cantidadnoche}} noche para {{cantpersonas}} {{personas}} {{ vuelo?.totalFareAmount ? ' + Vuelo ' : '' }}</span>
                 </div>
             </ng-container>
             <ng-template #elseTemplate class="row m-0 p-0">
                 <div class="col-12 div-price-noche text-center mt-2">
-                    <span>Precio final por {{cantidadnoche}} noches para {{cantpersonas}} {{personas}}</span>
+                    <span>Precio final por {{cantidadnoche}} noches para {{cantpersonas}} {{personas}} {{ vuelo?.totalFareAmount ? ' + Vuelo ' : '' }}</span>
                 </div>
             </ng-template>
 
@@ -92,7 +92,7 @@
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0 text-center">
                     <span class="price-currency pr-2">{{currency}}</span>
-                    <span class="preciopromedio">{{precioxnoche}}</span>
+                    <span class="preciopromedio">{{(precioxnoche*1 + vuelo?.totalFareAmount*1).toFixed(2)}}</span>
                 </div>
             </div>
             <div class="row m-0 p-0">

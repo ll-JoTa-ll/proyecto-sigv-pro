@@ -8,7 +8,7 @@
                 <div class="col-4 m-0 p-0 pl-3 d-flex align-items-center">
                     <div class="row m-0 p-0" style="width: 100% !important;">
                         <div class="col-3 m-0 p-0 d-flex justify-content-center align-items-center">
-                            <input class="" type="radio" [id]="radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment" [name]="radioButtonName+recommendationId+sectionId" (click)="selectRadioButton(radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment)"
+                            <input [checked]="indexSegment===1" class="" type="radio" [id]="radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment" [name]="radioButtonName+recommendationId+sectionId" (click)="selectRadioButton(radioButtonName + '_' + recommendationId + '_' + sectionId + '_' + segment.segmentId + '_' + indexSegment)"
                                 value="male">
                         </div>
                         <div tooltip="{{carrierName}}" class="col-9 m-0 p-0">

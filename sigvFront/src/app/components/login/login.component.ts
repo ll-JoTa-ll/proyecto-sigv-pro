@@ -93,7 +93,6 @@ export class LoginComponent implements OnInit {
       User: this.model.User,
       Password: crypto.SHA256(this.model.Password).toString()
     };
-    console.log("datos: " + JSON.stringify(datos));
     this.flagLogin = 0;
 
     const lstCentralizador = environment.cod_rol_centralizador;

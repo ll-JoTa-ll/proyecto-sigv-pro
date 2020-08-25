@@ -28,7 +28,6 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   @Input() famFareAmountByPassenger;
   @Input() flagMsgErrorSelFam: boolean;
   @Input() modalRef: BsModalRef;
-  @Input() lcombinations;
 
   @Output() flagCloseModal = new EventEmitter<boolean>();
   @Output() outIdRadioBtnFareFam = new EventEmitter<string>();
@@ -58,18 +57,15 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     private spinner: NgxSpinnerService,
     private vuelosComponent: VuelosComponent
   ) {
-    console.log("FamiliasComponent constructor");
     //this.precioTotal = 0;
     //this.precioPersona = 0;
     //this.flagMsgErrorSelFam = false;
   }
 
   ngOnInit() {
-    console.log("FamiliasComponent ngOnInit");
   }
 
   ngAfterViewInit() {
-    console.log("FamiliasComponent ngAfterViewInit");
     /*
     console.log('modal familia ngAfterViewInit');
     let precioTotal = 0;
@@ -100,110 +96,6 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     this.precioTotal = precioTotal;
     this.precioPersona = this.precioTotal / this.nroPersonas;
     */
-
-    //PASO 1: identificar lo seleccionado en la section 0
-    console.log("//PASO 1: identificar lo seleccionado en la section 0");
-    let section0_fareBasis = [];
-    this.dataRequestFamilia.Lsections.forEach(function(sectionVal, indexSectionVal) {
-      if (indexSectionVal === 0) {
-        sectionVal.Lsegments.forEach(function(segmentVal) {
-          segmentVal.LsegmentGroups.forEach(function(segmentGroupVal) {
-            section0_fareBasis.push(segmentGroupVal.FareBasis);
-          });
-        });
-      }
-    });
-    console.log("section0_fareBasis: " + JSON.stringify(section0_fareBasis));
-
-    //PASO 2: buscar esas sections en el listado de combinaciones
-    const lcombinations = this.lcombinations;
-    console.log("//PASO 2: buscar esas sections en el listado de combinaciones");
-    let lstCombinacionesSection = [];
-    let flagSection0 = 0;
-    lcombinations.forEach(function(combinacion, indexCombinacion) {
-      const lbasisCombinations = combinacion.lbasisCombinations;
-      flagSection0 = 0;
-      lbasisCombinations.forEach(function(valor, indexValor) {
-        if (valor.sectionId == 1) {
-          if (valor.fareBasis == section0_fareBasis[indexValor]) {
-            flagSection0++;
-          }
-        }
-      });
-      if (flagSection0 === section0_fareBasis.length) {
-        lstCombinacionesSection.push(combinacion);
-      }
-    });
-
-    //PASO 3: hide los cards
-    console.log("PASO 3: hide los cards");
-    this.lstFamilyResult.forEach(function(section, indexSection) {
-      if (indexSection > 0) {
-        section.lsegments.forEach(function(segment, indexSegment) {
-
-          segment.lfareFamilies.forEach(function(fare, indexFare) {
-            const fareBasisGG = fare.fareBasis;
-            let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
-            const cardId = 'cardId_' + section.sectionId + '_' + (indexSegment+1) + '_' + fareBasisGG;
-            console.log("cardId hide: " + cardId);
-            $("#" + cardId).hide();
-          });
-
-        });
-      }
-    });
-
-    //PASO 4: teniendo las combinaciones q existe para el section seleccionado
-    console.log("//PASO 4: teniendo las combinaciones q existe para el section seleccionado");
-    //        vamos ocultar los radio q no existan
-    lstCombinacionesSection.forEach(function(valor, valorIndex) {
-      const lbasisCombinations = valor.lbasisCombinations;
-      lbasisCombinations.forEach(function(combi, combiIndex) {
-        if (combi.sectionId != '1') {
-          const cardId = 'cardId_' + combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
-          console.log("cardId show: " + cardId);
-          $("#" + cardId).show();
-        }
-      });
-    });
-
-    //PASO 5
-    console.log("PASO 5");
-    const combinacionInicial = lstCombinacionesSection[0];
-    console.log("combinacionInicial: " + JSON.stringify(combinacionInicial));
-    const totalPrice_0 = combinacionInicial.totalPrice;
-    console.log("totalPrice_0: " + totalPrice_0);
-    const currency_0 = combinacionInicial.currency;
-    console.log("currency_0: " + currency_0);
-    const lbasisCombinations_0 = combinacionInicial.lbasisCombinations;
-    console.log("lbasisCombinations_0: " + JSON.stringify(lbasisCombinations_0));
-    lbasisCombinations_0.forEach(function(combo, comboIndex) {
-      //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
-    });
-    this.lstFamilyResult.forEach(function(section, sectionIndex) {
-      const sectionId = section.sectionId;
-      section.lsegments.forEach(function(segment, segmentIndex) {
-        segment.lfareFamilies.forEach(function(fare, fareFamilyIndex) {
-          const fareBasisGG = fare.fareBasis;
-          const idRadioBtn = sectionId + '_' + (segmentIndex + 1) + '_' + fareBasisGG;
-          console.log("idRadioBtn: " + idRadioBtn);
-          lbasisCombinations_0.forEach(function(combi, comboIndex) {
-            //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
-            const combiIdRadioBtn = combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
-            if (combi.sectionId == sectionId) {
-              console.log("combiIdRadioBtn: " + combiIdRadioBtn);
-              if (idRadioBtn === combiIdRadioBtn) {
-                console.log("SI: " + '#idRadioFam_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex + 1));
-                $('#idRadioFam_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex + 1)).prop("checked", true);
-              }
-            }
-          });
-        });
-      });
-    });
-    this.famTotalFareAmount = totalPrice_0;
-    this.famFareAmountByPassenger = Number(totalPrice_0) / this.nroPersonas;
-
   }
 
   sumTotal($event) {
@@ -211,7 +103,6 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   selectRadioBtnFam($event) {
-    console.log("selectRadioBtnFam");
     //this.modalRef.hide();
     this.outIdRadioBtnFareFam.emit($event);
     /*
@@ -281,7 +172,6 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
 
 
   seleccionarFamilia(template) {
-    console.log("seleccionarFamilia");
     this.flagCloseModal.emit(true);
  //   this.router.navigate(['/reserva-vuelo']);
     let request = this.sessionStorageService.retrieve('ss_flightavailability_request1');

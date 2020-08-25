@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, AfterViewInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 
 declare var jquery: any;
@@ -9,7 +9,7 @@ declare var $: any;
   templateUrl: './vuelo-familia-section.component.html',
   styleUrls: ['./vuelo-familia-section.component.sass']
 })
-export class VueloFamiliaSectionComponent implements OnInit, AfterViewInit {
+export class VueloFamiliaSectionComponent implements OnInit {
 
   @Input() sectionFamily;
   @Input() sectionFamilyIndex;
@@ -22,7 +22,6 @@ export class VueloFamiliaSectionComponent implements OnInit, AfterViewInit {
   textoTipo;
   isCollapsed = true;
   idSectionSegment = 'idSegment_';
-  idArrow = "idArrow_";
 
   constructor() { }
 
@@ -49,19 +48,9 @@ export class VueloFamiliaSectionComponent implements OnInit, AfterViewInit {
     }
 
     this.idSectionSegment += this.sectionFamily.sectionId;
-  }
 
-  ngAfterViewInit() {
     if (this.sectionFamilyIndex === 0) {
       this.isCollapsed = false;
-      $("#imgArrow1_" + this.sectionFamilyIndex).hide();
-      $("#imgArrow2_" + this.sectionFamilyIndex).show();
-    } else {
-      $("#" + this.idSectionSegment).hide();
-      $("#imgArrow1_" + this.sectionFamilyIndex).show();
-      $("#imgArrow2_" + this.sectionFamilyIndex).hide();
-      $("#divfamilia_" + this.sectionFamilyIndex).show();
-      //$('#divfamilia_' + this.sectionFamilyIndex).show();
     }
   }
 
@@ -69,9 +58,6 @@ export class VueloFamiliaSectionComponent implements OnInit, AfterViewInit {
     const isCollapsed = this.isCollapsed;
     this.isCollapsed = !isCollapsed;
     $('#divfamilia_' + this.sectionFamilyIndex).hide();
-    $('#' + this.idSectionSegment).show();
-    $("#imgArrow1_" + this.sectionFamilyIndex).hide();
-    $("#imgArrow2_" + this.sectionFamilyIndex).show();
   }
 
   hideSegments() {
@@ -81,16 +67,13 @@ export class VueloFamiliaSectionComponent implements OnInit, AfterViewInit {
     if (this.familyname != null) {
       $('#divfamilia_' + this.sectionFamilyIndex).show();
     }
-    $('#' + this.idSectionSegment).hide();
-    $("#imgArrow1_" + this.sectionFamilyIndex).show();
-    $("#imgArrow2_" + this.sectionFamilyIndex).hide();
   }
 
   hidesection($event) {
-    this.isCollapsed = $event;
-    if (this.familyname != null) {
-      $('#divfamilia_' + this.sectionFamilyIndex).show();
-    }
+   this.isCollapsed = $event;
+   if (this.familyname != null) {
+    $('#divfamilia_' + this.sectionFamilyIndex).show();
+  }
   }
 
   selectRadioBtnFam($event) {

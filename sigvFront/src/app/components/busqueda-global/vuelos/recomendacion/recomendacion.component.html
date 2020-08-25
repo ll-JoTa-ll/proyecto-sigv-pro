@@ -4,206 +4,192 @@
 
 <div *ngIf="isVisible" class="m-0 p-0 box-shadow-important" style="width: 100%; border-radius:  0 0 20px 0; background-color: #FDFDFD !important;">
 
-  <div class="row m-0 p-0">
+    <div class="row m-0 p-0">
 
-    <div *ngIf="flagPseudoRepeat" class="col-12 m-0 p-0">
-      <div class="row m-0 p-0">
-        <div *ngFor="let pais of lstPseudoRepeat" style="width: 50px" class="m-0 p-0 text-center">
-          <img src="./assets/images/pseudos/{{pais}}" alt="" style="width: 40px;">
-        </div>
-      </div>
-    </div>
-
-    <div class="col-9 m-0 p-0">
-      <app-recomendacion-section [sectionLength]="lsectionLength" [posicion]="i + 1" [recommendationId]="recommendationId" [recommendationIndex]="i + 1" [tipoVuelo]="tipoVuelo" (outSegmentCheck)="setearRadioId($event)" [section]="section" *ngFor="let section of lsections; let i = index">
-      </app-recomendacion-section>
-    </div>
-    <div class="col-3 m-0 p-0 pt-4">
-      <div class="row m-0 p-0">
-
-        <div class="col-12 m-0 p-0"></div>
-
-        <div class="col-12 m-0 p-0">
-
-
-          <div class="row m-0 p-0">
-
-            <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
-              Precio Final
+        <div *ngIf="flagPseudoRepeat" class="col-12 m-0 p-0">
+            <div class="row m-0 p-0">
+                <div *ngFor="let pais of lstPseudoRepeat" style="width: 50px" class="m-0 p-0 text-center">
+                    <img src="./assets/images/pseudos/{{pais}}" alt="" style="width: 40px;">
+                </div>
             </div>
-
-            <div class="col-5 m-0 p-0 text-right">
-
-              <img (click)="openModalDsctCop(templateDsctCorp)" class="pr-2" tooltip="Vuelo con descuento corporativo." *ngIf="lsections[0].lsectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 30px; cursor:pointer;">
-
-              <span tooltip="Vuelo con infracción de políticas." style="cursor: pointer" (click)="openModalPoliticas(modalPolitica)" *ngIf="lpolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
-              <span tooltip="El vuelo cumple las políticas de viaje de la empresa." *ngIf="lpolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
-            </div>
-
-            <div class="col-1 m-0 p-0"></div>
-          </div>
-
         </div>
 
-        <div class="col-11 m-0 p-0 pt-3 text-right">
-          <span class="text-currency pr-1" style="color: #6B253C">{{currency}}</span>
-          <span class="text-currency-monto" style="color: #898989">{{totalFareAmount}}</span>
+        <div class="col-9 m-0 p-0">
+            <app-recomendacion-section [sectionLength]="lsectionLength" [posicion]="i + 1" [recommendationId]="recommendationId" [recommendationIndex]="i + 1" [tipoVuelo]="tipoVuelo" (outSegmentCheck)="setearRadioId($event)" [section]="section" *ngFor="let section of lsections; let i = index">
+            </app-recomendacion-section>
         </div>
-        <div class="col-1 m-0 p-0"></div>
+        <div class="col-3 m-0 p-0 pt-4">
+            <div class="row m-0 p-0">
 
-        <div class="col-11 m-0 p-0 text-right">
-          <span class="text-per-person pr-4">Precio por adulto</span>
-          <span class="text-currency-2 pr-1" style="color: #6B253C">{{currency}}</span>
-          <span class="text-currency-monto-2">{{fareTaxAmountByPassenger}}</span>
-        </div>
+                <div class="col-12 m-0 p-0"></div>
 
-        <div class="col-1 m-0 p-0"></div>
+                <div class="col-12 m-0 p-0">
 
-        <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 30px !important;">
-          <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId, modalerror, templateSinFares)">
+
+                    <div class="row m-0 p-0">
+
+                        <div class="col-6 m-0 p-0 text-center d-flex justify-content-center align-items-center r-div-pxa">
+                            Precio Final
+                        </div>
+
+                        <div class="col-5 m-0 p-0 text-right" style="display: flex;
+                        align-items: center;
+                        justify-content: flex-end;">
+                           
+                                <img (click)="openModalDsctCop(templateDsctCorp)" class="pr-2" tooltip="Vuelo con descuento corporativo." *ngIf="lsections[0].lsectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 30px; cursor:pointer;">
+                        
+                            <span tooltip="Vuelo con infracción de políticas." style="cursor: pointer" (click)="openModalPoliticas(modalPolitica)" *ngIf="lpolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
+                            <span tooltip="El vuelo cumple las políticas de viaje de la empresa." *ngIf="lpolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
+                        </div>
+
+                        <div class="col-1 m-0 p-0"></div>
+                    </div>
+
+                </div>
+
+                <div class="col-11 m-0 p-0 pt-3 text-right">
+                    <span class="text-currency pr-1" style="color: #6B253C">{{currency}}</span>
+                    <span class="text-currency-monto" style="color: #898989">{{totalFareAmount}}</span>
+                </div>
+                <div class="col-1 m-0 p-0"></div>
+
+                <div class="col-11 m-0 p-0 text-right">
+                    <span class="text-per-person pr-4">Precio por adulto</span>
+                    <span class="text-currency-2 pr-1" style="color: #6B253C">{{currency}}</span>
+                    <span class="text-currency-monto-2">{{fareTaxAmountByPassenger}}</span>
+                </div>
+
+                <div class="col-1 m-0 p-0"></div>
+
+                <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 30px !important;">
+                    <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId, modalerror)">
             Ver familias
           </button>
 
-          <ng-template #modalFamilias let-c="close" let-d="dismiss" id="modalfamilias">
+                    <ng-template #modalFamilias let-c="close" let-d="dismiss" id="modalfamilias">
 
-            <div class="m-0 pb-0" style="border: none; background: #EBEBEB 0% 0% no-repeat padding-box;">
-              <!--
-              <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()" style="position: absolute;left: 1709px;z-index: 1;">
+                        <div class="m-0 pb-0" style="border: none; background: #EBEBEB 0% 0% no-repeat padding-box;">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()" style="position: absolute;left: 1709px;z-index: 1;">
                 <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
               </button>
-              -->
-              <app-familias
-                *ngIf="flagResultFamilias===1"
-                [lstFamilyResult]="lstFamilyResult.lsections"
-                [nroPersonas]="numberPassengers"
-                [currency]="currency"
-                [dataRequestFamilia]="dataRequestFamilia"
-                [tipoVuelo]="tipoVuelo"
-                (flagCloseModal)="closeModalFamilia($event)"
-                [famFareAmountByPassenger]="famFareAmountByPassenger"
-                [famTotalFareAmount]="famTotalFareAmount"
-                [flagMsgErrorSelFam]="flagMsgErrorSelFam"
-                [modalRef]="modalRef"
-                (outIdRadioBtnFareFam)="famFlightAvailability($event)"
-                (flagCloseModal)="flagCloseModal($event)"
-                [lcombinations]="lstFamilyResult.lcombinations"
-              ></app-familias>
-            </div>
+                            <app-familias *ngIf="flagResultFamilias===1" [lstFamilyResult]="lstFamilyResult.lsections" [nroPersonas]="numberPassengers" [currency]="currency" [dataRequestFamilia]="dataRequestFamilia" [tipoVuelo]="tipoVuelo" (flagCloseModal)="closeModalFamilia($event)"
+                                [famFareAmountByPassenger]="famFareAmountByPassenger" [famTotalFareAmount]="famTotalFareAmount" [flagMsgErrorSelFam]="flagMsgErrorSelFam" [modalRef]="modalRef" (outIdRadioBtnFareFam)="famFlightAvailability($event)" (flagCloseModal)="flagCloseModal($event)"></app-familias>
+                        </div>
 
-            <div *ngIf="flagResultFamilias===0" class="row m-0 p-0 pt-4">
-              <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
-                ¡Lo sentimos!
-              </div>
+                        <div *ngIf="flagResultFamilias===0" class="row m-0 p-0 pt-4">
+                            <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+                                ¡Lo sentimos!
+                            </div>
 
-              <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
-                No hemos encontrado familias disponibles para este vuelo en particular. Por favor, selecciona otras de las opciones.
-              </div>
+                            <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                                No hemos encontrado familias disponibles para este vuelo en particular. Por favor, selecciona otras de las opciones.
+                            </div>
 
-              <div class="col-12 m-0 p-0 pb-4 text-center">
-                <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
-                  <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-                  Continuar con mi busqueda
-                </button>
-              </div>
-            </div>
+                            <div class="col-12 m-0 p-0 pb-4 text-center">
+                                <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+                            <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                            Continuar con mi busqueda
+                          </button>
+                            </div>
+                        </div>
 
 
-          </ng-template>
+                    </ng-template>
 
-          <ng-template #modalerror let-c="close" let-d="dismiss">
+                    <ng-template #modalerror let-c="close" let-d="dismiss">
 
-            <div class="modal-header pb-0" style="border: none;">
-              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                        <div class="modal-header pb-0" style="border: none;">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
               </button>
-            </div>
+                        </div>
 
-            <div class="modal-body m-0 p-0">
-              <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
-                  ¡Lo sentimos!
+                        <div class="modal-body m-0 p-0">
+                            <div class="row m-0 p-0">
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+                                    ¡Lo sentimos!
+                                </div>
+
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                                    No hemos encontrado disponibilidad
+                                </div>
+
+                                <div class="col-12 m-0 p-0 pb-4 text-center">
+                                    <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+                                      <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                                      Continuar con mi busqueda
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-template>
+
                 </div>
 
-                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
-                  No hemos encontrado disponibilidad
-                </div>
 
-                <div class="col-12 m-0 p-0 pb-4 text-center">
-                  <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
-                    <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-                    Continuar con mi busqueda
-                  </button>
-                </div>
-              </div>
-            </div>
+                <!--
+                <div class="col-1 m-0 p-0"></div>
 
-          </ng-template>
-
-        </div>
-
-
-        <!--
-        <div class="col-1 m-0 p-0"></div>
-
-        <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 12px !important;">
-            <button class="btn r-btn-1" (click)="GetRegulaciones(modalRegulaciones)">
+                <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 12px !important;">
+                    <button class="btn r-btn-1" (click)="GetRegulaciones(modalRegulaciones)">
 Ver Regulaciones
 </button>
 
 
-            <ng-template #modalRegulaciones let-c="close" let-d="dismiss" id="modalfamilias">
+                    <ng-template #modalRegulaciones let-c="close" let-d="dismiss" id="modalfamilias">
 
-                <div class="modal-header m-0 pb-0" style="border: none; background: #EBEBEB 0% 0% no-repeat padding-box;">
-                    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+                        <div class="modal-header m-0 pb-0" style="border: none; background: #EBEBEB 0% 0% no-repeat padding-box;">
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
 <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
 </button>
 
-                </div>
+                        </div>
 
-                <div class="modal-body m-0 p-0">
-                    <app-regulaciones-tramo *ngFor="let itemregulacion of lstrulestramo" [lstrules]="itemregulacion"></app-regulaciones-tramo>
-                </div>
-
-
-                <div *ngIf="flagResultFamilias===0" class="row m-0 p-0 pt-4">
-                    <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
-                        ¡Lo sentimos!
-                    </div>
-
-                    <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
-                        No hemos encontrado familias disponibles para este vuelo en particular. Por favor, selecciona otras de las opciones.
-                    </div>
-
-                    <div class="col-12 m-0 p-0 pb-4 text-center">
-                        <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
-    <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-    Continuar con mi busqueda
-  </button>
-                    </div>
-                </div>
+                        <div class="modal-body m-0 p-0">
+                            <app-regulaciones-tramo *ngFor="let itemregulacion of lstrulestramo" [lstrules]="itemregulacion"></app-regulaciones-tramo>
+                        </div>
 
 
-            </ng-template>
+                        <div *ngIf="flagResultFamilias===0" class="row m-0 p-0 pt-4">
+                            <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+                                ¡Lo sentimos!
+                            </div>
 
+                            <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                                No hemos encontrado familias disponibles para este vuelo en particular. Por favor, selecciona otras de las opciones.
+                            </div>
 
-        </div>
--->
-        <div class="col-1 m-0 p-0"></div>
-
-        <div class="col-11 m-0 p-0 text-right r-div-btn-2">
-          <button class="btn r-btn-2" (click)="getFlightAvailability(recommendationId, modalerror)">
-            Seleccionar
+                            <div class="col-12 m-0 p-0 pb-4 text-center">
+                                <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+            <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+            Continuar con mi busqueda
           </button>
-        </div>
-        <div class="col-1 m-0 p-0"></div>
+                            </div>
+                        </div>
 
-        <div class="col-12 m-0 p-0 pt-2"></div>
-        <div class="col-12 m-0 p-0 text-right pr-4 pt-5 pb-3">
-          <span class="num-vuelo">{{index}}</span>
+
+                    </ng-template>
+
+
+                </div>
+-->
+                <div class="col-1 m-0 p-0"></div>
+
+                <div class="col-11 m-0 p-0 text-right r-div-btn-2">
+                    <button class="btn r-btn-2" (click)="getFlightAvailability(recommendationId, modalerror)">
+                      Seleccionar
+                    </button>
+                </div>
+                <div class="col-1 m-0 p-0"></div>
+
+                <div class="col-12 m-0 p-0 pt-2"></div>
+                <div class="col-12 m-0 p-0 text-right pr-4 pt-5 pb-3">
+                    <span class="num-vuelo">{{index}}</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
 </div>
 
@@ -211,71 +197,51 @@ Ver Regulaciones
 
 <ng-template #modalPolitica let-c="close" let-d="dismiss">
 
-  <div class="modal-header pb-0" style="border: none;">
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
+    <div class="modal-header pb-0" style="border: none;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>
-
-  <div class="modal-body m-0 p-0">
-
-    <div class="row m-0 p-0 pb-3">
-      <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
-        <u>Infracción de Políticas de Viaje</u>
-      </div>
     </div>
 
-    <div class="row m-0 p-0">
+    <div class="modal-body m-0 p-0">
 
-      <app-recomendacion-politicas [politica]="politica" [politicaIndex]="i+1" [politicaslength]="lpolicies.length" *ngFor="let politica of lpolicies; let i=index"></app-recomendacion-politicas>
+        <div class="row m-0 p-0 pb-3">
+            <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+                <u>Infracción de Políticas de Viaje</u>
+            </div>
+        </div>
+
+        <div class="row m-0 p-0">
+
+            <app-recomendacion-politicas [politica]="politica" [politicaIndex]="i+1" [politicaslength]="lpolicies.length" *ngFor="let politica of lpolicies; let i=index"></app-recomendacion-politicas>
+
+        </div>
 
     </div>
-
-  </div>
 
 </ng-template>
 
 <ng-template #templateDsctCorp>
-  <div class="modal-header d-flex align-items-center">
-    <img src="./assets/images/medalla.svg" alt="" style="width: 30px; margin-right: 10px;">
-    <h4 class="modal-title pull-left" style="font-family: Omnes-med !important;">Convenio Corporativo</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefDsctCorp.hide()">
+    <div class="modal-header d-flex align-items-center">
+        <img src="./assets/images/medalla.svg" alt="" style="width: 30px; margin-right: 10px;">
+        <h4 class="modal-title pull-left" style="font-family: Omnes-med !important;">Convenio Corporativo</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefDsctCorp.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>
-  <div class="modal-body" style="font-family: Omnes-med; font-size: 16px; text-align: justify">
-    <p>
-      La medalla indica que el vuelo tiene un descuento especial para su empresa, el cual no encontrará en vuelos publicados.
-    </p>
+    </div>
+    <div class="modal-body" style="font-family: Omnes-med; font-size: 16px; text-align: justify">
+        <p>
+            La medalla indica que el vuelo tiene un descuento especial para su empresa, el cual no encontrará en vuelos publicados.
+        </p>
 
-    <p>
-      Comunmente son los acuerdos iniciales que se realizan con cada aerolínea.
-    </p>
-  </div>
+        <p>
+            Comunmente son los acuerdos iniciales que se realizan con cada aerolínea.
+        </p>
+    </div>
 
-  <div class="modal-footer text-right">
-    <button (click)="modalRefDsctCorp.hide()" class="btn" style="color: white; background-color: #ED1C24; font-family: Omnes-med; font-size: 16px;">
+    <div class="modal-footer text-right">
+        <button (click)="modalRefDsctCorp.hide()" class="btn" style="color: white; background-color: #ED1C24; font-family: Omnes-med; font-size: 16px;">
       Entendido
     </button>
-  </div>
-</ng-template>
-
-<ng-template #templateSinFares>
-  <div class="modal-header d-flex align-items-center">
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefSinFares.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-
-  <div class="modal-body" style="font-family: Omnes-med; font-size: 16px; text-align: justify">
-    <p>
-      La aerolínea no dispone de familias tarifarias.
-    </p>
-  </div>
-
-  <div class="modal-footer text-right">
-    <button (click)="modalRefSinFares.hide()" class="btn" style="color: white; background-color: #ED1C24; font-family: Omnes-med; font-size: 16px;">
-      Entendido
-    </button>
-  </div>
+    </div>
 </ng-template>

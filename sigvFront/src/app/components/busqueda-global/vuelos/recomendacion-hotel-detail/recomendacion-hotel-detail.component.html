@@ -1,0 +1,465 @@
+<div>
+    <div class="row m-0 p-0">
+        <div class="col-12">
+
+            <div *ngIf="showComponent">
+                <ng-container *ngIf="vuelo">
+                    <app-resultado-habitacion *ngFor="let lHotels of hoteles; let i = index"
+                        [businessName]="lHotels.businessName" [typeHotel]="lHotels.typeHotel" [name]="lHotels.name"
+                        [tipoPago]="lHotels.guaranteeType" [direccion]="lHotels.address"
+                        [distancia]="lHotels.oairportDistance.distance" [estrellas]="lHotels.stars"
+                        [currency]="lHotels.oprice.currency" [precioxnoche]="lHotels.oprice.pricePerAllNights"
+                        [precioprom]="lHotels.oprice.pricePerNight" [urlHotel]="lHotels.limagens | getimghotel"
+                        [index]="i + 1" [latitud]="lHotels.oposition.latitude" [longitud]="lHotels.oposition.longitude"
+                        [cantidadnoche]="lHotels.numberNights" [cantpersonas]="lHotels.numberPassenger"
+                        [lPolicies]="lHotels.lpolicies" [hotelcode]="lHotels.code" [fecharetorno]="fechaRetorno"
+                        [fechasalida]="fechaSalida" [vuelo]="lHotels.vuelo">
+                    </app-resultado-habitacion>
+                </ng-container>
+            </div>
+
+            <div *ngIf="flagDinData" class="col-12">
+
+                <div class="row m-0 p-0">
+
+                    <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+                    <div class="col-3 m-0 p-0"></div>
+
+                    <div class="col-6 m-0 p-0">
+                        <div class="col-12 m-0 p-0 text-center">
+
+                            <alert type="warning">
+                                No se encontraron hospedajes para esta búsqueda
+                            </alert>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div *ngIf="hideComponent">
+                <div class="row m-0 p-0">
+                    <div class="m-0 p-0 col-12 pt-4">
+                        <div class="row m-0 p-0 box-shadow" style="border-radius: 20px 0px 20px 0px">
+                            <div class="col-12 m-0 p-0 pl-5 pt-3">
+                                <div class="row m-0 p-0" style="width: 100%;">
+                                    <div class="col-10 m-0 p-0">
+                                        <span class="hotelname">{{lsthabitacion.ohotel.hotelName}}</span>
+                                        <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 5"><img
+                                                src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img
+                                                src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img
+                                                src="./assets/images/star.svg"></span>
+                                        <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 4"><img
+                                                src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img
+                                                src="./assets/images/star.svg"><img
+                                                src="./assets/images/star.svg"></span>
+                                        <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 3"><img
+                                                src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img
+                                                src="./assets/images/star.svg"></span>
+                                        <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 2"><img
+                                                src="./assets/images/star.svg"><img
+                                                src="./assets/images/star.svg"></span>
+                                        <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 1"><img
+                                                src="./assets/images/star.svg"></span>
+
+                                    </div>
+                                    <div *ngIf="lhotel.lpolicies != null" class="col-2 m-0 p-0" style="display: flex;
+                                    align-items: center;
+                                    ">
+                                        <span (click)="openModal1(modalinfraccion, modalerror)"
+                                            class="txt-infraccion pr-4" style="cursor: pointer;">Ver infracción</span>
+                                        <span *ngIf="lhotel.lpolicies.length > 0" class="circulo-politica"></span>
+                                        <span *ngIf="lhotel.lpolicies.length === 0" class="circulo-politica1"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 m-0 p-0 pl-5 pt-2">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0">
+                                        <span class="Info">{{lsthabitacion.ohotel.cityName}} </span>
+                                        <span class="Info"> .A {{lhotel.oairportDistance.distance}} km del
+                                            aeropuerto</span>
+                                        <span class="txt-mapa pl-3" (click)="Mostrarmapa()"><img (click)="Mostrarmapa()"
+                                                style="width:23px; cursor: pointer;" src="./assets/images/qqq.png">Ver
+                                            mapa</span>
+
+                                    </div>
+                                    <div *ngIf="lhotel.oposition != null" class="PopupContainer" id="mapa">
+                                        <div class="tooltipBagDiv box-shadow animated fadeIn fast">
+                                            <span class="title-modal">Vista de mapa</span>
+                                            <a class="btn-close" (click)="OcultarMapa()">X</a>
+                                            <agm-map [latitude]="lhotel.oposition.latitude" [zoom]="15"
+                                                [longitude]="lhotel.oposition.longitude">
+                                                <agm-marker [latitude]="lhotel.oposition.latitude"
+                                                    [longitude]="lhotel.oposition.longitude" [iconUrl]="urlimg">
+                                                </agm-marker>
+                                            </agm-map>
+                                            <span class="hotel-nombre">{{lsthabitacion.ohotel.hotelName}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 m-0 p-0 pl-5 pt-2">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0">
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 m-0 p-0 pl-4 pt-2 pb-3">
+                                <div class="row m-0 p-0">
+                                    <div *ngIf="lsthabitacion.ohotel.lamenities != null && lsthabitacion.ohotel.lamenities.length > 0"
+                                        class="col-12 m-0 p-0">
+                                        <span *ngFor="let item of lsthabitacion.ohotel.lamenities" class="pl-3"><span
+                                                class="pl-2"><img style="width: 30px;color: #898989"
+                                                    src="./assets/images/{{item.code}}.png"></span><span
+                                                class="Condition pl-3">{{item.description}}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0">
+                                <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0; else elseTemplate2 "
+                                    class="row m-0 p-0">
+                                    <div *ngIf="lsthabitacion.ohotel.limagens[0].url != null && lsthabitacion.ohotel.limagens[0].url != '' "
+                                        class="col-8 m-0 p-0">
+                                        <img class="pl-2 pt-4"
+                                            style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;cursor: pointer;"
+                                            src="{{lsthabitacion.ohotel.limagens[0].url}}"
+                                            (click)="openModal(template)">
+                                        <ng-template #template>
+
+                                            <div class="modal-content" style="width: 1000px;">
+                                                <div class="modal-body" style="width: 1000px;">
+                                                    <carousel [(activeSlide)]="activeSlideIndex">
+                                                        <slide
+                                                            *ngFor="let imga of lsthabitacion.ohotel.limagens; let index=index">
+                                                            <img style="width: 1000px; height: 600px;"
+                                                                src="{{imga.url}}">
+                                                            <div class="carousel-caption">
+                                                                <h4 *ngIf="imga.caption != null">{{imga.caption}}</h4>
+                                                            </div>
+                                                        </slide>
+                                                    </carousel>
+                                                </div>
+                                            </div>
+
+
+
+                                        </ng-template>
+
+                                        <!-- <img *ngFor="let imga of lsthabitacion.ohotel.limagens" class="imagenG" src="{{imga.url}}"> -->
+                                    </div>
+                                    <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0"
+                                        class="col-4 m-0 p-0">
+                                        <div *ngIf="lsthabitacion.ohotel.limagens[0].url != null && lsthabitacion.ohotel.limagens[0].url != '' "
+                                            class="row m-0 p-0">
+                                            <img class="pl-2 pt-4"
+                                                style="width: 400px; height: 270px; border-radius: 15px 0px 15px 0px;cursor: pointer;"
+                                                src="{{lsthabitacion.ohotel.limagens[0].url}}"
+                                                (click)="openModal(template)">
+                                            <ng-template #template>
+
+                                                <div class="modal-content" style="width: 1000px;">
+                                                    <div class="modal-body" style="width: 1000px;">
+                                                        <carousel [(activeSlide)]="activeSlideIndex">
+                                                            <slide
+                                                                *ngFor="let imga of lsthabitacion.ohotel.limagens; let index=index">
+                                                                <img style="width: 1000px; height: 600px;"
+                                                                    src="{{imga.url}}">
+                                                                <div class="carousel-caption">
+                                                                    <h4 *ngIf="imga.caption != null">{{imga.caption}}
+                                                                    </h4>
+                                                                </div>
+                                                            </slide>
+                                                        </carousel>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </ng-template>
+                                        </div>
+                                        <div class="row m-0 p-0 pt-3 pb-4">
+                                            <div class="col-12 m-0 p-0 box-shadow">
+                                                <div class="row m-0 p-0 pb-3">
+                                                    <div class="col-4 m-0 p-0 pt-4">
+                                                        <span class="Pricefin">Precio Final</span>
+                                                    </div>
+                                                    <div class="col-8 m-0 p-0 pt-4">
+                                                        <span class=""><span
+                                                                class="Moneda">{{lhotel.oprice.currency}}</span><span
+                                                                class="Amount pl-2">{{((lhotel.oprice.pricePerAllNights*1 + vuelo?.totalFareAmount*1).toFixed(2))}}</span></span>
+                                                    </div>
+                                                </div>
+
+                                                <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate"
+                                                    class="row m-0 p-0 pt-3">
+                                                    <div class="col-12 m-0 p-0">
+                                                        <span class="textopre">{{lhotel.numberNights}} noche para
+                                                            {{lhotel.numberPassenger}} {{this.adultos}}
+                                                            {{ vuelo?.totalFareAmount ? ' + Vuelo' : '' }}</span>
+                                                    </div>
+                                                </ng-container>
+                                                <ng-template #elseTemplate class="row m-0 p-0 pt-3">
+                                                    <div class="col-12 m-0 p-0">
+                                                        <span class="textopre">{{lhotel.numberNights}} noches para
+                                                            {{lhotel.numberPassenger}} {{this.adultos}}
+                                                            {{ vuelo?.totalFareAmount ? ' + Vuelo' : '' }}</span>
+                                                    </div>
+                                                </ng-template>
+
+
+
+                                                <div class="row m-0 p-0">
+                                                    <div class="col-1 m-0 p-0">
+
+                                                    </div>
+                                                    <div class="col-11 m-0 p-0 pb-3 pr-2">
+                                                        <span class="textopremin">✓
+                                                            {{lsthabitacion.lroom[0].description}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row m-0 p-0">
+                                            <div class="col-12 m-0 p-0">
+                                                <span class="pl-0">
+                                                    <button class="botonver" class="btn btn-danger col-lg-12"
+                                                        (click)="getChatMessages()">Ver habitaciones</button>
+                                                    <!--<a class="btn btn-danger col-lg-12">
+                                                                     <span class="ver">Ver habitaciones</span>
+                                                    </a>-->
+
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ng-template class="col-12 m-0 p-0" #elseTemplate2>
+                                    <div class="row m-0 p-0">
+                                        <div class="col-8 m-0 p-0">
+                                            <img class="pl-2 pt-4"
+                                                style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;"
+                                                src="./assets/images/imagenotfound.jfif">
+                                        </div>
+                                        <div class="col-4 m-0 p-0">
+                                            <div class="row m-0 p-0">
+                                                <img class="pl-2 pt-4"
+                                                    style="width: 400px; height: 270px; border-radius: 15px 0px 15px 0px;"
+                                                    src="./assets/images/imagenotfound.jfif">
+                                            </div>
+                                            <div class="row m-0 p-0 pt-3 pb-4">
+                                                <div class="col-12 m-0 p-0 box-shadow">
+                                                    <div class="row m-0 p-0 pt-3">
+                                                        <div class="col-4 m-0 p-0">
+                                                            <span class="Pricefin">Precio Final</span>
+                                                        </div>
+                                                        <div class="col-8 m-0 p-0">
+                                                            <span class="pl-4"><span
+                                                                    class="Moneda">{{lhotel.oprice.currency}}</span><span
+                                                                    class="Amount pl-2">{{((lhotel.oprice.pricePerAllNights*1 + vuelo?.totalFareAmount*1).toFixed(2))}}</span></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate"
+                                                        class="row m-0 p-0 pt-3">
+                                                        <div class="col-12 m-0 p-0">
+                                                            <span class="textopre">{{lhotel.numberNights}} noche para
+                                                                {{lhotel.numberPassenger}} persona</span>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-template #elseTemplate class="row m-0 p-0 pt-3">
+                                                        <div class="col-12 m-0 p-0">
+                                                            <span class="textopre">{{lhotel.numberNights}} noches para
+                                                                {{lhotel.numberPassenger}} persona</span>
+                                                        </div>
+                                                    </ng-template>
+
+
+
+                                                    <div class="row m-0 p-0">
+                                                        <div class="col-1 m-0 p-0">
+
+                                                        </div>
+                                                        <div class="col-11 m-0 p-0 pb-3 pr-2">
+                                                            <span class="textopremin">✓
+                                                                {{lsthabitacion.lroom[0].description}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row m-0 p-0">
+                                                <div class="col-12 m-0 p-0">
+                                                    <span class="pl-0">
+                                                        <button class="botonver" class="btn btn-danger col-lg-12"
+                                                            (click)="getChatMessages()">Ver habitaciones</button>
+                                                        <!--<a class="btn btn-danger col-lg-12">
+                                                                                     <span class="ver">Ver habitaciones</span>
+                                                        </a>-->
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+
+                            </div>
+                        </div>
+
+                        <div class="row m-0 p-0 pt-3">
+                            <div class="col-12 m-0 p-0 box-shadow pl-4 pt-3 pb-3">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0">
+                                        <span class="textodescri">Descripción :</span>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0 contenido" style="width: 100%;">
+                                    <!--     <div *ngIf="lsthabitacion.ohotel.hotelDescription.length > 300" class="col-12 m-0 p-0" style="text-align: justify">
+                                                    <p>
+                                                        <span class="Description">{{texto1}}</span>
+                                                        <span class="Description" id="collapseBasic" [collapse]="!isCollapsed" [isAnimated]="true">{{texto2}}</span>
+                                                        <span class="pl-1" style="cursor: pointer; color: blue;" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Mostrar Mas</span>
+                                                    </p>
+                                                </div>-->
+                                    <ng-container class="conten col-12 m-0 p-0"
+                                        *ngIf="lsthabitacion.ohotel.hotelDescription.length > 400; else elseTemplate">
+                                        <p id="description" class="Description">{{texto1}}</p>
+                                        <p class="p1" id="p1" (click)="mostrarmas();"
+                                            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Mostrar
+                                            Mas</p>
+                                        <p class="p2" id="p2" (click)="mostrarmenos()">Mostrar Menos</p>
+                                        <span style="display: contents !important;" [collapse]="!isCollapsed"
+                                            [isAnimated]="true">{{texto3}} </span>
+
+
+                                        <!--   <p class="pl-1" style="cursor: pointer; color: blue;" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Mostrar Mas</p>-->
+
+
+
+                                    </ng-container>
+                                    <ng-template class="col-12 m-0 p-0" #elseTemplate>
+                                        <p class="Description">{{lsthabitacion.ohotel.hotelDescription}}</p>
+                                    </ng-template>
+
+
+                                </div>
+                            </div>
+                            <!-- <div class="col-3 m-0 p-0  pl-4 pt-3 pb-3"> 
+                                <app-info-recomendacion [lstBag]="lstbag" [tipovuelo]="tipovuelo" [LSection]="LSection">
+                                </app-info-recomendacion>
+                            </div> -->
+                        </div>
+
+                        <div class="row m-0 p-0 pt-4">
+                            <div class="col-12 m-0 p-0 box-shadow pt-4 pl-4 pb-3">
+                                <div class="row m-0 p-0">
+                                    <div class="col-12 m-0 p-0 pb-3">
+                                        <span class="textodescri">Condiciones:</span>
+                                        <span class="Description pl-3"></span>
+                                    </div>
+                                </div>
+                                <div class="row m-0 p-0">
+                                    <div class="col-3 m-0 p-0 text-center">
+                                        <span class=""><span class="pl-2"><img
+                                                    src="./assets/images/horarios.svg"></span><span
+                                                class="Dates pl-3">Horarios</span></span>
+                                    </div>
+                                    <div class="col-3 m-0 p-0">
+                                        <span class=""><span class="pl-2"></span><span class="Dates">·Check-in:
+                                                {{lsthabitacion.ohotel.checkIn}}</span></span>
+                                    </div>
+                                    <div *ngIf="lsthabitacion.ohotel.checkOut != null; else elseTemplateOut"
+                                        class="col-3 m-0 p-0">
+                                        <span class=""><span class="pl-2"></span><span class="Dates">·Check-out:
+                                                {{lsthabitacion.ohotel.checkOut}}</span></span>
+                                    </div>
+                                    <ng-template class="col-3 m-0 p-0" #elseTemplateOut>
+                                        <span class=""><span class="pl-2"></span><span class="Dates">·Check-out: Sin
+                                                Información</span></span>
+                                    </ng-template>
+                                    <div class="col-3 m-0 p-0">
+                                        <!--  <span class=""><span class="pl-2"><img src="assets/images/document.svg"></span><span class="Dates pl-1">Politica de cancelación</span></span>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ancla" style="height: 1px">
+
+                        </div>
+
+                        <ng-container *ngIf="vuelo">
+                            <app-detalle-habitacion id="destination"
+                                *ngFor="let habitacion of lsthabitacion.lroom; let i = index;" [index]="i"
+                                [lhabitaciones]="habitacion" [breakFast]="habitacion.breakFast"
+                                [lPolicies]="habitacion.lpolicies" [hotel]="lsthabitacion.ohotel.lguestPerRoom"
+                                [vuelo]="vuelo">
+                            </app-detalle-habitacion>
+                        </ng-container>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <ng-template #modalinfraccion let-c="close" let-d="dismiss">
+        <div class="modal-header m-0 p-0" style="border: none;">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body m-0 p-0">
+            <app-modal-habitacion-hab [currency]="currency" [LPolicies]="lhotel.lpolicies"></app-modal-habitacion-hab>
+        </div>
+        <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 text-center pb-3">
+                <button (click)="modalRef.hide()" class="btn r-btn-sinfam-1">Ok</button>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #modalerror let-c="close" let-d="dismiss">
+
+        <div class="modal-header pb-0" style="border: none;">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body m-0 p-0">
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                    No se ha infringido ninguna politica
+                </div>
+
+                <div class="col-12 m-0 p-0 pb-4 text-center">
+                    <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+                        Ok
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+    <ng-template #template>
+        <div class="modal-body text-center">
+            <p>Do you want to confirm?</p>
+            <button type="button" class="btn btn-default">Yes</button>
+            <button type="button" class="btn btn-primary">No</button>
+        </div>
+    </ng-template>
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating"
+        style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+</div>

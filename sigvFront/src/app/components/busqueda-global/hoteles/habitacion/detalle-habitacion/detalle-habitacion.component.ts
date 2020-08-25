@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 
@@ -26,14 +26,15 @@ export class DetalleHabitacionComponent implements OnInit {
   @Input() breakFast;
   @Input() hotel;
   @Input() lPolicies: string[];
-
+  @Input() vuelo?: any;
+  @Output() responseParent = new EventEmitter<any>();
 
   modalRefPoliticas: BsModalRef;
   modalRefSessionExpired: BsModalRef;
-  lsthabitacion : IHabitacionResults;
-  Confirmacion : IGetEnhancedHotel;
+  lsthabitacion: IHabitacionResults;
+  Confirmacion: IGetEnhancedHotel;
   loginDataUser: ILoginDatosModel;
-  User : IGetUserById;
+  User: IGetUserById;
   lhotel;
   habitacion;
   userId;
@@ -47,12 +48,12 @@ export class DetalleHabitacionComponent implements OnInit {
     //private confir: ReservaHotelComponent,
     private router: Router,
     private spinner: NgxSpinnerService,
-    ) {
+  ) {
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.User = this.sessionStorageService.retrieve("ss_user");
     this.userId = this.loginDataUser.userId;
-   }
+  }
 
   ngOnInit() {
 
@@ -61,7 +62,7 @@ export class DetalleHabitacionComponent implements OnInit {
     this.getUser();
     if (this.lhotel.numberPassenger > 1) {
       this.personas = "personas"
-    }else {
+    } else {
       this.personas = "persona"
     }
   }
@@ -73,25 +74,25 @@ export class DetalleHabitacionComponent implements OnInit {
     );
   }
 
-  getReservaHabitacion(RoomType,BookingCode,PlanCode){
-    if(this.loginDataUser.ocompany.blockHotel === true && this.lPolicies.length > 0){
+  getReservaHabitacion(RoomType, BookingCode, PlanCode) {
+    if (this.loginDataUser.ocompany.blockHotel === true && this.lPolicies.length > 0) {
       this.modalRefSessionExpired = this.modalService.show(ModalInfraccionCompraComponent);
-    }else{
-        this.spinner.show();
+    } else {
+      this.spinner.show();
       let data = {
-      "Pseudo": "LIMPE2235",
-      "GDS": "Amadeus",
-      "CityCode": this.habitacion.ohotel.cityCode,
-      "ChainCode": this.habitacion.ohotel.chainCode,
-      "HotelCode": this.habitacion.ohotel.hotelCode,
-      "StartDate": this.habitacion.ohotel.startDate,
-      "EndDate": this.habitacion.ohotel.endDate,
-      "Starts": this.habitacion.ohotel.stars,
-      "RoomType": RoomType,
-      "BookingCode": BookingCode,
-      "LguestPerRoom": this.habitacion.ohotel.lguestPerRoom,
-      "PlanCode": PlanCode,
-      "Ocompany": this.loginDataUser.ocompany,
+        "Pseudo": "LIMPE2235",
+        "GDS": "Amadeus",
+        "CityCode": this.habitacion.ohotel.cityCode,
+        "ChainCode": this.habitacion.ohotel.chainCode,
+        "HotelCode": this.habitacion.ohotel.hotelCode,
+        "StartDate": this.habitacion.ohotel.startDate,
+        "EndDate": this.habitacion.ohotel.endDate,
+        "Starts": this.habitacion.ohotel.stars,
+        "RoomType": RoomType,
+        "BookingCode": BookingCode,
+        "LguestPerRoom": this.habitacion.ohotel.lguestPerRoom,
+        "PlanCode": PlanCode,
+        "Ocompany": this.loginDataUser.ocompany,
         "osession": this.habitacion.osession
       }
       this.service.GetConfirmacion(data).subscribe(
@@ -102,45 +103,50 @@ export class DetalleHabitacionComponent implements OnInit {
         err => {
           this.spinner.hide();
 
-      },
-    () => {
-      //window.open(environment.url_project + "/reserva-habitacion-hotel");
-      if (this.Confirmacion.oerror != null) {
-        this.modalRefSessionExpired = this.modalService.show(ModalHabitacionErroneaComponent)
-      }else{
-        this.router.navigate(['/reserva-habitacion-hotel']);
-      }
+        },
+        () => {
+          if (this.Confirmacion.oerror != null) {
+            this.modalRefSessionExpired = this.modalService.show(ModalHabitacionErroneaComponent)
+          } else {
+            if (this.vuelo) {
+              // this.router.navigate(['/reserva-habitacion-hotel']);
+              this.router.navigate(['/reserva-vuelo-hotel']);
+              // this.responseParent.next({ habitacion: this.Confirmacion })
+            } else {
+              this.router.navigate(['/reserva-habitacion-hotel']);
+            }
+          }
 
-      this.spinner.hide();
+          this.spinner.hide();
 
-    }
-      )
+        }
+      );
     }
 
   }
 
-  getUser(){
+  getUser() {
     let data = {
       userId: this.userId
-      }
+    }
 
-      this.service.GetUser(data.userId).subscribe(
-        result => {
+    this.service.GetUser(data.userId).subscribe(
+      result => {
 
-          this.User = result;
+        this.User = result;
 
-          this.sessionStorageService.store("ss_user", this.User);
-          //this.router.navigate(['/reserva-habitacion-hotel']);
-        },
-        err => {
-          this.spinner.hide();
+        this.sessionStorageService.store("ss_user", this.User);
+        //this.router.navigate(['/reserva-habitacion-hotel']);
+      },
+      err => {
+        this.spinner.hide();
 
       },
-     () => {
+      () => {
 
 
-     }
-      )
+      }
+    )
   }
 
 }

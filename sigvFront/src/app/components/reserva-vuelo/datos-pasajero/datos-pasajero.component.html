@@ -1,4 +1,4 @@
-<div class="m-0 p-0 pr-5">
+<div class="m-0 p-0 ">
     <div class="col-12 m-0 p-0 contenedor-form">
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0 pt-4">
@@ -9,7 +9,9 @@
                         </span>
                         <span tooltip="Es pasajero vip" *ngIf="user.isVIP === true" class="pl-3"><img style="width: 35px;" src="assets/images/vip.png"></span>
                     </div>
-                    <div class="col-6 m-0 p-0 text-right pr-4">
+                    <div class="col-6 m-0 p-0 text-right pr-4" style="display: flex;
+                    align-items: center;
+                    justify-content: flex-end;">
                         <span (click)="openModal(modalinfraccion, modalerror)" class="txt-infraccion pr-4" style="cursor: pointer">Ver infracción</span>
                         <span *ngIf="LPolicies.length > 0" class="circulo-politica"></span>
                         <span *ngIf="LPolicies.length === 0" class="circulo-politica1"></span>

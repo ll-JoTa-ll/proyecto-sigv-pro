@@ -132,7 +132,7 @@ import { ModalCerrarSesionComponent } from './components/shared/modal-cerrar-ses
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { IntlInputPhoneModule } from 'intl-input-phone';
 import { ModalSesionWarningVuelosComponent } from './components/shared/modal-sesion-warning-vuelos/modal-sesion-warning-vuelos.component';
-import { IgxInputGroupModule,IgxSliderModule } from 'igniteui-angular';
+import { IgxInputGroupModule, IgxSliderModule } from 'igniteui-angular';
 import { DetalleReservaHotelComponent } from './components/reserva-vuelo/detalle-reserva-hotel/detalle-reserva-hotel.component';
 import { ModalAvisoSesionComponent } from './components/shared/modal-aviso-sesion/modal-aviso-sesion.component';
 import { ModalFamiliasVaciasComponent } from './components/shared/modal-familias-vacias/modal-familias-vacias.component';
@@ -152,8 +152,12 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChartModule } from 'angular-highcharts';
 import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
 import { ModalErrorServiceComponent } from './components/shared/modal-error-service/modal-error-service.component';
-import { FamiliaFareV2Component } from './components/vuelos/familias/familia-fare-v2/familia-fare-v2.component';
-import { CargaMasivaComponent } from './components/administrador/pasajeros/carga-masiva/carga-masiva.component';
+import { RecomendacionHotelComponent } from './components/busqueda-global/vuelos/recomendacion-hotel/recomendacion-hotel.component';
+import { MaterialModule } from './material-module';
+import { RecomendacionHotelDetailComponent } from './components/busqueda-global/vuelos/recomendacion-hotel-detail/recomendacion-hotel-detail.component';
+import { ReservaHotelVueloComponent } from './components/busqueda-global/vuelos/reserva-hotel-vuelo/reserva-hotel-vuelo.component';
+import { ResumenVueloHotelComponent } from './components/busqueda-global/vuelos/resumen-vuelo-hotel/resumen-vuelo-hotel.component';
+import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global/vuelos/reserva-generada-vuelo-hotel/reserva-generada-vuelo-hotel.component';
 
 @NgModule({
   declarations: [
@@ -227,6 +231,7 @@ import { CargaMasivaComponent } from './components/administrador/pasajeros/carga
     ResumenEquipajeComponent,
     ResumenRegulacionesComponent,
     ReservaGeneradaComponent,
+    ReservaGeneradaVueloHotelComponent,
     AutorizadoresComponent,
     PasajerosComponent,
     MisReservasVueloComponent,
@@ -279,12 +284,15 @@ import { CargaMasivaComponent } from './components/administrador/pasajeros/carga
     DashboardComponent,
     AutorizacionCentroCostoComponent,
     ModalErrorServiceComponent,
-    FamiliaFareV2Component,
-    CargaMasivaComponent
+    RecomendacionHotelComponent,
+    RecomendacionHotelDetailComponent,
+    ReservaHotelVueloComponent,
+    ResumenVueloHotelComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MaterialModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
     AlertModule.forRoot(),
@@ -317,8 +325,8 @@ import { CargaMasivaComponent } from './components/administrador/pasajeros/carga
     IgxSliderModule,
     ChartModule
   ],
-  entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent, ModalErrorServiceComponent],
-  providers: [BnNgIdleService,ResizeService],
+  entryComponents: [ModalInfraccionCompraComponent, ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent, ModalHotelErroneoComponent, ModalCambiarPasswordComponent, ModalRecuperarPasswordComponent, ModalCerrarSesionComponent, ModalErrorServiceComponent],
+  providers: [BnNgIdleService, ResizeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

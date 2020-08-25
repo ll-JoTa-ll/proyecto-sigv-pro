@@ -26,7 +26,9 @@ import { AdministradorGeneralComponent } from './components/administrador-genera
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
-import { CargaMasivaComponent } from "./components/administrador/pasajeros/carga-masiva/carga-masiva.component";
+import { ReservaHotelVueloComponent } from './components/busqueda-global/vuelos/reserva-hotel-vuelo/reserva-hotel-vuelo.component';
+import { ResumenVueloHotelComponent } from './components/busqueda-global/vuelos/resumen-vuelo-hotel/resumen-vuelo-hotel.component';
+import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global/vuelos/reserva-generada-vuelo-hotel/reserva-generada-vuelo-hotel.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -42,20 +44,23 @@ const routes: Routes = [
   { path: 'paquetes', component: PaquetesComponent, runGuardsAndResolvers: 'always' },
   { path: 'seguros', component: SegurosComponent, runGuardsAndResolvers: 'always' },
   { path: 'habitacion', component: HabitacionComponent, runGuardsAndResolvers: 'always' },
+  { path: 'vuelo-habitacion', component: VuelosComponent, runGuardsAndResolvers: 'always' },
   { path: 'reserva-habitacion-hotel', component: ReservaHotelComponent, runGuardsAndResolvers: 'always'},
+  { path: 'resumen-vuelo-hotel', component: ReservaHotelVueloComponent, runGuardsAndResolvers: 'always'},
+  { path: 'reserva-vuelo-hotel', component: VuelosComponent, runGuardsAndResolvers: 'always'},
   { path: 'reserva-vuelo', component: ReservaVueloComponent, runGuardsAndResolvers: 'always' },
   { path: 'excepcion-vuelo', component: VuelosExcepcionPoliticaComponent, runGuardsAndResolvers: 'always' },
   { path: 'reserva-vuelo-compra', component: ReservaCompraComponent, runGuardsAndResolvers: 'always' },
   { path: 'reserva-generada-hotel', component: ReservaGeneradaHotelComponent, runGuardsAndResolvers: 'always' },
   { path: 'reserva-generada-vuelo', component: ReservaGeneradaComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reserva-generada-vuelo-hotel', component: ReservaGeneradaVueloHotelComponent, runGuardsAndResolvers: 'always' },
   { path: 'reserva-ticket-vuelo', component: ReservaTicketComponent, runGuardsAndResolvers: 'always' },
   { path: 'mis-reservas-vuelo', component: MisReservasVueloComponent, runGuardsAndResolvers: 'always' },
   { path: 'gestion-reserva-vuelo', component: GestionReservaVueloComponent, runGuardsAndResolvers: 'always' },
   { path: 'aprobar-reserva-vuelo', component: AprobacionReservaComponent, runGuardsAndResolvers: 'always' },
   { path: 'detalle-reserva-hotel', component: DetalleReservaHotelComponent, runGuardsAndResolvers: 'always' },
   { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' },
-  { path: 'pasajeros/carga-masiva', component: CargaMasivaComponent, runGuardsAndResolvers: "always" }
-
+  
 ];
 
 @NgModule({

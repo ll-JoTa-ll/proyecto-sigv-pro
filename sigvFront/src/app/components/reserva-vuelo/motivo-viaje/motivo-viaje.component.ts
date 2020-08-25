@@ -2,6 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IReasonFlight } from '../../../models/IReasonFlight';
 import { SessionStorageService } from 'ngx-webstorage';
 
+declare var jquery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-motivo-viaje',
   templateUrl: './motivo-viaje.component.html',
@@ -19,4 +22,7 @@ export class MotivoViajeComponent implements OnInit {
     this.valor = this.reason.ocompany.ocompanyConfiguration.extraReasonFlight;
   }
 
+  getValues() {
+    return { reason: $('#cbomotivo').val(), valor: $('#reason').val()}
+  }
 }

@@ -10,6 +10,7 @@ export class IHotelResultsModel {
         numberPassenger: number;
         startDate: string;
         endDate: string;
+        typeHotel:string;
         isvisible;
         oposition: {
             latitude: number;
@@ -44,4 +45,5 @@ export class IHotelResultsModel {
         lpolicies: string;
         gds: string;
         pseudo: string;
+        vuelo?: any;
 }

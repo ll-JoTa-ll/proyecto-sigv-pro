@@ -1,0 +1,169 @@
+<ng-container>
+    <div class="row m-0 p-0">
+        <div class="col-1 m-0 p-0"></div>
+        <div class="col-10 m-0 p-0">
+            <!-- <div class="row m-0 p-0">
+                <div (click)="Back()" class="back col-12 m-0 p-0 pt-4"><i class="fas fa-chevron-left"></i> Volver</div>
+            </div> -->
+            <div class="row m-0 p-0">
+                <div class="col-7 m-0 p-0">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pt-4">
+                            <span class="pregunta">¿Quiénes serán los titulares de la reserva?</span>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pt-1">
+                            <span class="info">Serán los responsables de hacer el check-in y check-out en cada habitación
+                                del alojamiento</span>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 pt-4">
+                            <span class="titular" style="padding: .5rem;">Habitación 1</span>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0 pt-5 pr-5">
+                        <div *ngIf="datosuser.length === 1" class="title-form  pb-3 ">
+                            DATOS DEL PASAJERO
+                        </div>
+                        <div *ngIf="datosuser.length > 1" class="title-form  pb-3 ">
+                            DATOS DE LOS PASAJEROS
+                        </div>
+                        <app-datos-pasajero [lstpaises]="lstpaises" [currency]="currency"
+                            *ngFor="let user of datosuser; let i = index;" [user]="user" [index]="i + 1"
+                            [LPolicies]="LPolicies"></app-datos-pasajero>
+                    </div>
+                    <!-- <app-persona-contacto [lsCostCenter]="lsCostCenter"></app-persona-contacto> -->
+                    <div class="pr-5">
+                        <app-contacto (outCorreo)="outCorreo($event)" (outTelefono)="outTelefono($event)" (outNombre)="outNombre($event)" (outArea)="outArea($event)"></app-contacto>
+                    </div>
+                    <!--   <app-info-adicional *ngIf="flagHtmlC" [htmlTxtC]="htmlTxtC"></app-info-adicional> -->
+                    <app-motivo-viaje #reason [lsReasonflight]="lsReasonFlight"></app-motivo-viaje>
+                    <div class="m-0 p-0 pt-5 pr-5" *ngIf="lstprofiles != null">
+                        <div *ngIf="lstprofiles.oerror === null" class="col-12 m-0 p-0 contenedor-form">
+                            <div class="row m-0 p-0">
+                                <div class="col-12 m-0 p-0 title-form pt-3 pb-3 pl-5">
+                                    SELECCIONAR TARJETA PRECARGADA
+                                </div>
+                                <div class="col-12 m-0 p-0">
+                                    <div class="row m-0 p-0">
+                                        <div class="col-12 div-info text-left pt-3 pb-3">
+                                            <select id="cboprofile" class="input-pasajero">
+                                                <option value="{{item.profile}}"
+                                                    *ngFor="let item of lstprofiles.lprofileGDs">
+                                                    {{item.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 m-0 p-0" *ngIf="lstprofiles.oerror != null">
+                            <alert type="info">{{lstprofiles.oerror.message}}</alert>
+                        </div>
+                    </div>
+                    <div class="row m-0 p-0 pt-4 pb-5">
+                        <div class="col-12 p-0 m-0 text-center">
+                            <button class="btn bv-texto-3" *ngIf="flagactive"
+                                (click)="Comprar(modalcorreoiguales, modalcorreoigualescent)">COMPRAR</button>
+                        </div>
+                        <!--<ng-template #modalresumen let-c="close" let-d="dismiss">
+                                    <div class="modal-header m-0 p-0" style="border: none;">
+                                        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                            <span aria-hidden="true">&times;</span>
+                                            </button>
+                                    </div>
+                                    <div class="modal-body m-0 p-0">
+                                        <app-modal-resumen [lSectionPassengers]="LSectionPassenger" [userid]="userid" [email]="email" [phone]="phone" [lsusuario]="datosusuario" [pseudo]="pseudo" [gds]="gds" [carrierId]="carrierId" [numberpasssengers]="numberpassengers" [ocompany]="ocompany"
+                                            [Flighavailabiltyresponse]="flightAvailability_result" [Lpolicies]="LPolicies" [LSection]="LSection" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount"></app-modal-resumen>
+                                    </div>
+                                </ng-template>-->
+                    </div>
+                </div>
+                <div class="col-5 m-0 p-0" *ngIf="hotelSelected">
+                    <app-precio-final [LSection]="LSection" [tipo]="1" [Lpolicies]="LPolicies"
+                        [currency]="flightAvailability_result.currency"
+                        [precioadulto]="flightAvailability_result.fareAmountByPassenger"
+                        [preciototal]="flightAvailability_result.totalFareAmount"
+                        [odiscount]="flightAvailability_result.odiscount" [hotel]="hotelSelected"></app-precio-final>
+                    <app-info-recomendacion [lstBag]="lstbag" [tipovuelo]="tipovuelo" [LSection]="LSection">
+                    </app-info-recomendacion>
+                    <app-detalle-compra></app-detalle-compra>
+                    <div class="row m-0 p-0 pt-4 pb-5">
+                        <!--   <div class="col-12 p-0 m-0 text-center">
+                                    <button class="btn bv-texto-3" (click)="GetRegulaciones(modalRegulaciones)">VER REGULACIONES</button>
+                                </div> -->
+                        <ng-template #modalRegulaciones let-c="close" let-d="dismiss" id="modalfamilias">
+
+                            <div class="modal-header m-0 pb-0" style="border: none;">
+                                <button type="button" class="close pull-right" aria-label="Close">
+                                    <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body m-0 p-0">
+                                <app-regulaciones-tramo *ngIf="flagrules" [lstrules]="lstRegulaciones">
+                                </app-regulaciones-tramo>
+                            </div>
+
+                            <div class="row m-0 p-0 pt-4" *ngIf="flagerror">
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+                                    ¡Lo sentimos!
+                                </div>
+
+                                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+                                    {{lstRegulaciones.oError.message}}
+                                </div>
+
+                                <div class="col-12 m-0 p-0 pb-4 text-center">
+                                    <button class="btn bv-texto-3" (click)="modalRef.hide()">OK</button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template #modalcorreoiguales let-c="close" let-d="dismiss">
+                            <div class="modal-header m-0 pb-0" style="border: none;">
+                                <button type="button" class="close pull-right" aria-label="Close">
+                                    <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body m-0 p-0">
+                                <div class="col-12 m-0 p-0 text-center pb-3 r-text-sinfam-1">
+                                    <span class="pr-3"><img style="width: 33px;" src="assets/images/warning.png"></span>
+                                    Correos
+                                    repetidos
+                                </div>
+                                <div class="col-12 m-0 p-0 pl-5 pb-4 r-text-sinfam-2">
+                                    Algunos correos electrónicos ingresados están repetidos. Es importante que el correo
+                                    ingresado sea el correcto. Ante cualquier notificación los pasajeros serán notificados a
+                                    los
+                                    correos ingresados.
+                                </div>
+                            </div>
+
+                        </ng-template>
+                        <ng-template #modalcorreoigualescent let-c="close" let-d="dismiss">
+                            <div class="modal-header m-0 pb-0" style="border: none;">
+                                <button type="button" class="close pull-right" aria-label="Close">
+                                    <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body m-0 p-0">
+                                <div class="col-12 m-0 p-0 pl-5 pr-5 pt-3 pb-4 r-text-sinfam-2">
+                                    El correo del pasajero {{numeropasajero}} no debe ser igual a su correo de
+                                    centralizador. Es
+                                    importante que el correo ingresado sea el correcto para cualquier comunicación
+                                    importante.
+                                </div>
+                            </div>
+
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-1 m-0 p-0"></div>
+        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating"
+            style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+    </div>
+</ng-container>

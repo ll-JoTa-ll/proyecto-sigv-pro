@@ -1,0 +1,484 @@
+<ng-container>
+    <app-header>
+        <!-- mesaje inicial compra satisfactoria -->
+        <div class="pt-5 m-0 p-0">
+            <div class="row  m-0 p-0">
+                <div class="col-3 m-0 p-0"></div>
+                <div class="col-6 m-0 p-0 center">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0">
+                            <span class="text-msj pr-4">¡Compra satisfactoria!</span>
+                            <span><img src="assets/images/check.svg"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-3 m-0 p-0"></div>
+            </div>
+
+            <div class="m-0 p-0 pt-3 row">
+                <div class="col-3"></div>
+                <div class="col-6 m-0 p-3 contenedor-form">
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0">
+                            <div class="row m-0 p-0">
+                                <span class="col-12"> Recuerda realizar tu check-in correspondiente antes de las 48
+                                    horas antes de la salida del vuelo y verificar el horario de presentación al
+                                    aeropuerto en el boarding pass</span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3"></div>
+            </div>
+        </div>
+
+        <!-- inicio resultado final -->
+        <div class="m-0 p-0 pt-3 row">
+            <div class="col-2"></div>
+            <div class="col-3 m-0 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0">
+                    </div>
+                </div>
+                <div class="rowAdulto">
+                    <div class="col-12 m-0 p-0">
+                        <div class="finalPrice"
+                            style="border-radius: 20px 20px 20px 0px;background: #FDFDFD 0% 0% no-repeat padding-box;box-shadow: -1px 2px 6px #00000029;padding: 1rem 0;">
+                            <span
+                                style="font-family: Omnes-med;background: transparent linear-gradient(101deg, #ED1C24 0%, #D51A2C 34%, #3C4749 100%) 0% 0% no-repeat padding-box;border-radius: 0px 23px 23px 0px;color: #FFFFFF;padding: 3px 30px;">Precio
+                                Final</span>
+                            <div style="display: flex;justify-content: space-evenly;color: #676767;font-family: Omnes-med;font-size: 17px;margin: 1rem 0 0 0;">
+                                <span>Vuelo + Hotel</span>
+                                <span style="color: #898989;font-family: Omnes-med;font-size: 20px;"><span style="color: #6B253C;font-family: Omnes-med;font-size: 20px;">USD</span>{{' '+(lspnrresultsVuelo?.oamountInfo?.totalAmount*1 + (lspnrresultsHotel?.oitineraryInfos?.priceTotal).replace('USD','').replace('PEN','').replace('EUR','')*1).toFixed(2)}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- fin resultado final -->
+        <div class="row pt-3 m-0 p-0">
+            <div class="col-2 m-0 p-0">
+
+            </div>
+            <div class="col-8 m-0 p-0">
+                <div class="row m-0 p-0">
+                </div>
+                <p *ngIf="LPolicies.length === 0 && lsapprover.length === 0" class="txtSolicitud m-0 p-0 pb-3 pt-5">
+                    <span style="font-size: 40px;padding-right: 10px;">¡Felicidades!</span>Tu reserva ha sido generada
+                </p>
+                <p *ngIf="LPolicies.length > 0 && lsapprover.length > 0" class="txtSolicitud m-0 p-0 pb-3 pt-5"><span
+                        style="font-size: 40px;padding-right: 10px;">¡Felicidades!</span> La solicitud ha sido enviada
+                    satisfactoriamente</p>
+                <p *ngIf="LPolicies.length > 0 && lsapprover.length === 0" class="txtSolicitud m-0 p-0 pb-3 pt-5"><span
+                        style="font-size: 40px;padding-right: 10px;">¡Felicidades!</span> La excepción de políticas ha
+                    sido enviada satisfactoriamente</p>
+                <p *ngIf="LPolicies.length === 0 && lsapprover.length > 0" class="txtSolicitud m-0 p-0 pb-3 pt-5"><span
+                        style="font-size: 40px;padding-right: 10px;">¡Felicidades!</span> La solicitud ha sido enviada
+                    satisfactoriamente</p>
+
+            </div>
+            <div class="col-2 m-0 p-0">
+
+            </div>
+        </div>
+        <div class="row m-0 p-0 pt-5">
+            <div class="col-2 m-0 p-0">
+            </div>
+            <div class="col-8 row m-0 p-0">
+                <div class="row col-9 m-0 p-0 pr-5">
+                    <div class="col-12 m-0 p-0">
+                        <img src="assets/images/hotel-icon.png"><label class="divVuelo pl-2">Mi Hotel</label>
+                        <app-detalle-compra [hideTitle]="true"></app-detalle-compra>
+                        <!-- <app-vuelo-section [tipo]="1" *ngFor="let section of Lsection" [section]="section"></app-vuelo-section> -->
+                    </div>
+
+                </div>
+                <div class="row col-3 m-0 p-0 box-shadow" style="height: 6rem;">
+                    <div class="col-12 m-0 p-0 " style="display: flex;">
+                        <div class="col-7 p-0">
+                            <span class="divColor">Codigo de Reserva</span>
+                        </div>
+                        <div class="divCodigo col-5 m-0 p-0 ">
+                            {{lspnrresultsHotel?.pnr}}
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0  " style="display: flex;">
+                        <div class="col-7 p-0">
+                            <span>Total Hotel</span>
+                        </div>
+                        <div class="divCodigo col-5 m-0 p-0 ">
+                            {{(lspnrresultsHotel?.oitineraryInfos?.priceTotal).replace('USD','').replace('PEN','').replace('EUR','')}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-2 m-0 p-0">
+            </div>
+        </div>
+        <div class="row m-0 p-0 pt-5">
+            <div class="col-2 m-0 p-0">
+            </div>
+            <div class="col-8 row m-0 p-0">
+                <div class="row col-9 m-0 p-0 pr-5">
+                    <div class="col-12 m-0 p-0">
+                        <img src="assets/images/airplane_ida.svg"><label class="divVuelo pl-2">Mi vuelo</label>
+                        <div *ngFor="let section of Lsection; let k = index">
+                            <span *ngIf="k===0">IDA</span>
+                            <span *ngIf="k===1">VUELTA</span>
+                            <div *ngFor="let segment of section.Lsegments; let j=index">
+                                <!-- <div *ngFor="let segment of vuelo.segment; let m=index"> -->
+                                <div *ngFor="let segmentGroup of segment.LsegmentGroups; let i=index">
+                                    <div class="col-12 m-0 p-0 pt-3">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-12 m-0 p-0 pl-3 pr-3">
+                                                <div class="row m-0 p-0 box-shadow-important">
+                                                    <div class="col-1 m-0 p-0 pt-3"></div>
+                                                    <div
+                                                        class="col-3 m-0 p-0 pt-3 d-flex justify-content-center align-items-center">
+                                                        <img style="width: 120px;"
+                                                            class="img-fluid vertical-center pl-4"
+                                                            src="./assets/images/airlines/{{segmentGroup.MarketingCarrier}}.png"
+                                                            alt="">
+                                                    </div>
+                                                    <div
+                                                        class="col-3 m-0 p-0 pt-3 g-text-airlane d-flex justify-content-center align-items-center">
+                                                        {{segmentGroup.CarrierName}}
+                                                    </div>
+                                                    <div
+                                                        class="col-5 m-0 p-0 pt-3 text-center g-text-2 d-flex justify-content-center align-items-center">
+                                                        <div class="row">
+                                                            <div class="col-12 m-0 p-0">
+                                                                Vuelo {{segmentGroup.FlightOrtrainNumber}}
+                                                            </div>
+                                                            <div class="col-12 m-0 p-0">
+                                                                Tipo de avión - {{segmentGroup.EquipmentType}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 m-0 p-0">
+                                                        <div class="row m-0 p-0">
+                                                            <div class="col-1 m-0 p-0"></div>
+                                                            <div class="col-10 m-0 p-0">
+                                                                <hr>
+                                                            </div>
+                                                            <div class="col-1 m-0 p-0"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 m-0 p-0 pb-3">
+                                                        <div class="row m-0 p-0">
+                                                            <div class="col-4 m-0 p-0">
+                                                                <div class="row m-0 p-0">
+                                                                    <div class="col-12 m-0 p-0 text-center g-text-date">
+                                                                        {{segmentGroup.DepartureDateShow}}
+                                                                    </div>
+                                                                    <div class="col-12 m-0 p-0 text-center g-text-3">
+                                                                        {{segmentGroup.TimeOfDepartureShow}}
+                                                                    </div>
+                                                                    <div class="col-12 m-0 p-0 text-center g-text-4">
+                                                                        {{segmentGroup.Origin}}
+                                                                    </div>
+                                                                    <div class="col-12 m-0 p-0 text-center g-text-6">
+                                                                        {{segmentGroup.CityOrigin}}
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-12 m-0 p-0 pt-2 text-center g-text-6">
+                                                                        {{segmentGroup.AirportOrigin}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 m-0 p-0">
+                                                                <div class="row m-0 p-0">
+                                                                    <div class="col-12 m-0 p-0 text-center">
+                                                                        <div class="row m-0 p-0">
+                                                                            <div class="col-3 m-0 p-0"></div>
+                                                                            <div class="col-1 m-0 p-0">
+                                                                                <hr style="height: 5px; border-radius: 10px 0 0 10px;"
+                                                                                    color="#FF0000">
+                                                                            </div>
+                                                                            <div class="col-4 m-0 p-0">
+                                                                                <div class="row m-0 p-0">
+                                                                                    <div
+                                                                                        class="col-12 m-0 p-0 g-text-6">
+                                                                                        Duración
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="col-12 m-0 p-0 g-text-7">
+                                                                                        {{segmentGroup.TotalFlightTimeShow}}
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="col-1 m-0 p-0">
+                                                                                <hr style="height: 5px; border-radius: 0 10px 10px 0;"
+                                                                                    color="#FF0000">
+                                                                            </div>
+                                                                            <div class="col-3 m-0 p-0"></div>
+                                                                        </div>
+
+                                                                        <div class="row m-0 p-0 pt-2">
+                                                                            <div class="col-12 m-0 p-0 g-text-6">
+                                                                                Cabina:
+                                                                                {{section.lsectionGroups.cabinDescription}}
+                                                                                -
+                                                                                {{section.lsectionGroups.classId}}
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row m-0 p-0 pt-2">
+                                                                            <div class="col-12 m-0 p-0 g-text-6">
+                                                                                Disponibilidad:
+                                                                                {{section.lsectionGroups.avlStatus}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 m-0 p-0">
+                                                                <div class="row m-0 p-0">
+                                                                    <div *ngIf="segmentGroup.dateVariation===0"
+                                                                        class="col-12 m-0 p-0 text-center g-text-date">
+                                                                        {{segmentGroup.ArrivalDateShow}}
+                                                                    </div>
+                                                                    <div *ngIf="segmentGroup.dateVariation>0"
+                                                                        style="color: #ED1C24 !important;"
+                                                                        class="col-12 m-0 p-0 text-center g-text-2">
+                                                                        <span
+                                                                            style="padding-right: 5px !important;">(+{{segmentGroup.DateVariation}})</span>
+                                                                        {{segmentGroup.ArrivalDateShow}}
+                                                                    </div>
+                                                                    <div class="col-12 m-0 p-0 text-center g-text-3">
+                                                                        {{segmentGroup.TimeOfArrivalShow}}
+                                                                    </div>
+                                                                    <div class="col-12 m-0 p-0 text-center g-text-4">
+                                                                        {{segmentGroup.Destination}}
+                                                                    </div>
+                                                                    <div class="col-12 m-0 p-0 text-center g-text-6">
+                                                                        {{segmentGroup.CityDestination}}
+                                                                    </div>
+                                                                    <div
+                                                                        class="col-12 m-0 p-0 pt-2 text-center g-text-6">
+                                                                        {{segmentGroup.AirportDestination}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="row m-0 p-0">
+                                                <div class="col-12 m-0 p-0 pt-3 text-center g-text-5">
+                                                    <div class="row m-0 p-0">
+                                                        <div class="col-2 m-0 p-0">
+                                                            <hr style="height: 5px; border-radius: 20px 0 0 20px;"
+                                                                color="#FF0000">
+                                                        </div>
+                                                        <div class="col-8 m-0 p-0 g-text-5 d-flex justify-content-center align-items-center"
+                                                            style="border-radius: 20px 20px 20px 20px; background-color: #ED1C24; height: 35px">
+                                                            {{segment.TotalFlightTimeShow}}
+                                                        </div>
+                                                        <div class="col-2 m-0 p-0">
+                                                            <hr style="height: 5px; border-radius: 0 20px 20px 0;"
+                                                                color="#FF0000">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                    </div>
+                                </div>
+                                <!-- </div> -->
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row col-3 m-0 p-0 box-shadow" style="height: 6rem;">
+                    <div class="col-12 m-0 p-0 " style="display: flex;">
+                        <div class="col-7 p-0">
+                            <span class="divColor">Codigo de Reserva</span>
+                        </div>
+                        <div class="divCodigo col-5 m-0 p-0 ">
+                            {{lspnrresultsVuelo?.pnr}}
+                        </div>
+                    </div>
+                    <div class="col-12 m-0 p-0 " style="display: flex;">
+                        <div class="col-7 p-0">
+                            <span>Total vuelo</span>
+                        </div>
+                        <div class="divCodigo col-5 m-0 p-0 ">
+                            {{lspnrresultsVuelo?.oamountInfo?.totalAmount}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-2 m-0 p-0">
+            </div>
+        </div>
+        <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0">
+
+            </div>
+            <div class="col-8 m-0 p-0">
+                <div class="row m-0 p-0 pt-5">
+                    <div *ngIf="lsapprover.length > 0" class="col-8 m-0 p-0">
+                        <!-- <app-autorizadores [lsapprovers]="lsapprover">
+                        //falta el subcomponente
+                        </app-autorizadores> -->
+                    </div>
+                    <div class="col-4 m-0 p-0">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 m-0 p-0">
+
+            </div>
+        </div>
+        <!-- informacion de equipaje -->
+        <div class="row m-0 p-0 pt-3">
+            <div class="col-2"></div>
+            <div class="col-8 m-0 p-0 row center-format">
+                <div class="pr-5 p-0 m-0 col-4">
+                    <div class=" box-shadow p-0">
+                        <div class="box-cabecera center"> PASAJERO </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0  " style="padding: 1rem 0 1rem 2.3rem !important;">
+                                Nombre de pasajero:
+                            </div>
+                            <ul>
+                                <li *ngFor="let item of datosuser" style="list-style:none;">
+                                    {{ (item.firstName | uppercase) + (item.lastName | uppercase) }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="pr-5 p-0 m-0 col-4">
+                    <div class="box-shadow p-0 ">
+                        <div class="box-cabecera center"> INFORMACIÓN DE EQUIPAJE </div>
+                        <div class="row m-0 p-0 pl-3">
+                            <div class="col-12 m-0 p-0 pt-3">
+                                <div class="row m-0 p-0">
+
+                                    <div class="col-10 m-0 p-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-12 m-0 p-0 s-texto-5">
+                                                Incluye equipaje de mano
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
+                                        <img style="width: 33px;" src="./assets/images/bolsodemano-1.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 m-0 p-0 pt-3">
+                                <div class="row m-0 p-0">
+
+                                    <div *ngIf="lstbag[0].bagQuantity > 0" class="col-10 m-0 p-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-12 m-0 p-0 s-texto-5">
+                                                Incluye equipaje para documentar
+                                            </div>
+                                            <div class="col-12 m-0 p-0 s-texto-6">
+                                                {{lstbag[0].bagQuantity}} maleta(s) por adulto.
+                                            </div>
+                                            <div class="col-12 m-0 p-0 s-texto-6">
+                                                Se documenta en el aeropuerto durante el Check-in.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="lstbag[0].bagQuantity == 0" class="col-10 m-0 p-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-12 m-0 p-0 s-texto-5">
+                                                No incluye maleta
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
+                                        <img style="width: 33px;" *ngIf="lstbag[0].bagAllowed === true"
+                                            src="./assets/images/maleta-si.svg" alt="">
+                                        <img style="width: 33px;" *ngIf="lstbag[0].bagAllowed === false"
+                                            src="./assets/images/maleta-no.svg" alt="">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="pr-5 p-0 m-0 col-4">
+                    <div class="m-0 p-0 box-shadow">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0 txt-title text-center box-cabecera pb-3 pt-3">
+                                REGULACIONES
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0 pt-4 pb-4">
+                            <div class="col-12 m-0 p-0 pb-2 text-center">
+                                <div class="row m-0 p-0">
+                                    <div class="col-6 m-0 p-0 txt-bag">
+                                        No permite cambio
+                                    </div>
+                                    <div class="col-6 m-0 p-0">
+                                        <img class="img-bag" src="" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 m-0 p-0 text-center">
+                                <div class="row m-0 p-0">
+                                    <div class="col-6 m-0 p-0 txt-bag">
+                                        No permite cambios
+                                    </div>
+                                    <div class="col-6 m-0 p-0">
+                                        <img class="img-bag" src="" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0">
+
+            </div>
+            <div class="col-8 m-0 p-0">
+                <div class="row m-0 p-0 pt-5">
+                    <div class="col-8 m-0 p-0">
+                        <!-- <app-pasajeros [lsusers]="lusers">
+                        //falta el subcomponente
+                        </app-pasajeros> -->
+                        <div class="row m-0 p-0 pt-5 pb-5">
+                            <div class="col-12 m-0 p-0 text-center">
+                                <button class="btn btn-cerrar" (click)="Cerrar()">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 m-0 p-0">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 m-0 p-0">
+
+            </div>
+        </div>
+
+    </app-header>
+</ng-container>
