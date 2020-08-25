@@ -600,6 +600,10 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     }
 
     Emitir() {
+      console.log("this.idmotivo: " + this.idmotivo);
+      console.log("this.idmotivo: " + this.idmotivo);
+      console.log("this.idmotivo: " + this.idmotivo);
+      console.log("this.idmotivo: " + this.idmotivo);
       this.spinner.show();
       var reason = this.sessionStorageService.retrieve('reason');
       let idinterval = this.sessionStorageService.retrieve('idinterval');
@@ -653,7 +657,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "TypeFlight": this.tipovuelo,
     "TotalDiscount": amount,
     "PercentageDiscount": porcentaje,
-    "Ltaxes": this.lsflightavailability.ltaxes
+    "Ltaxes": this.lsflightavailability.ltaxes,
+        "LcompanyUIDs": this.LcompanyUIDs
     };
       this.service.GenerateTicket(data).subscribe(
         results => {
