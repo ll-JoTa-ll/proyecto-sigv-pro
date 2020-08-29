@@ -853,14 +853,6 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.sessionStorageService.store('sectioninfo', this.LSection);
       this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
       this.sessionStorageService.store('politicas', this.LPolicies);
-      console.log("idmotivo: " + idmotivo);
-      console.log("idmotivo: " + idmotivo);
-      console.log("idmotivo: " + idmotivo);
-      console.log("idmotivo: " + idmotivo);
-      console.log("idmotivo: " + idmotivo);
-      console.log("idmotivo: " + idmotivo);
-      console.log("idmotivo: " + idmotivo);
-      console.log("idmotivo: " + idmotivo);
       this.sessionStorageService.store('idmotivo', idmotivo);
       this.sessionStorageService.store('reason', rason);
       this.sessionStorageService.store('ss_LcompanyUIDs', this.LcompanyUIDs);
