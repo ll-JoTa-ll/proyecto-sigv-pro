@@ -11,8 +11,9 @@ import { IGetPaisesModel } from '../../../models/IGetPaises';
 import { UserCompanyService } from 'src/app/services/user-company.service';
 import { IDocumentType } from 'src/app/models/IDocumentType.model';
 import { ICostCenterCompany } from "../../../models/ICostCenterCompany.model";
+import * as jquery from 'jquery';
 
-declare var jquery: any;
+//declare var jquery: any;
 declare var $: any;
 
 @Component({
@@ -467,14 +468,10 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       $("#divHtmlTxtP_" + indexP).html(this.htmlTxtP);
 
 
-
-
       //combo_U5_1
-      /*
-      $('#combo_U5_1').select2({
-        selectOnClose: true
-      });
-      */
+      //jquery('#combo_U14_1').select2();
+      //$('#combo_U14_1').select2();
+
 
       //console.log("this.centroCosto: " + this.centroCosto);
 

@@ -302,6 +302,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let valtelefono;
     let motivoViaje = $('#reason').val();
     let valcorreo;
+    const lstUidByCompanyP = this.uidByCompanyP;
+    const lstUidByCompanyC = this.uidByCompanyC;
     this.datosuser.forEach(function(item, index) {
         if ($('#txtnombre_' + (index + 1)).val().length <= 0) {
           val = false;
@@ -378,6 +380,78 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         } else {
           $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
         }
+
+      //INI VALIDACION PASAJERO
+      const indexPax = index + 1;
+      const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
+      lstTxtC.forEach(function(txt) {
+        const id = "p_" + txt.codeUid + "_" + indexPax;
+        let valueUid = "";
+        valueUid = $("#" + id).val();
+        if (txt.isMandatory === true) {
+          if (valueUid.length <= 0 || valueUid == '0') {
+            $("#" + id).addClass('campo-invalido');
+            val = false;
+          } else {
+            $("#" + id).removeClass('campo-invalido');
+          }
+        }
+      });
+
+      const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
+      lstCbxC.forEach(function(cbx) {
+        const id = "combo_" + cbx.codeUid + "_" + indexPax;
+        const selectValue = $("#" + id).val();
+        if (cbx.isMandatory === true) {
+          if (selectValue == '0') {
+            $("#" + id).addClass('campo-invalido');
+            val = false;
+          } else {
+            $("#" + id).removeClass('campo-invalido');
+          }
+        }
+
+        if (selectValue != "0") {
+          if (cbx.listUids.length > 0) {
+            const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
+            const lstHijos = oPadre.listUids;
+            if (lstHijos.length > 0) {
+              const codeUidHijo = lstHijos[0].codeUid;
+              const idHijo = "comboH_" + codeUidHijo + "_" + indexPax;
+              const selectValueHijo = $("#" + idHijo).val();
+              if (lstHijos[0].isMandatory === true) {
+                if (selectValueHijo == '0') {
+                  $("#" + idHijo).addClass('campo-invalido');
+                  val = false;
+                } else {
+                  $("#" + idHijo).removeClass('campo-invalido');
+                }
+              }
+
+
+              if (selectValueHijo != "0") {
+                const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
+                const lstNietos = oHijo.listUids;
+                if (lstNietos.length > 0) {
+                  const codeUidNieto = lstNietos[0].codeUid;
+                  const idNieto = "comboN_" + codeUidNieto + "_" + indexPax;
+                  const selectValueNieto = $("#" + idNieto).val();
+                  if (lstNietos[0].isMandatory === true) {
+                    if (selectValueNieto == '0') {
+                      $("#" + idNieto).addClass('campo-invalido');
+                      val = false;
+                    } else {
+                      $("#" + idNieto).removeClass('campo-invalido');
+                    }
+                  }
+                }
+              }
+
+            }
+          }
+        }
+      });
+      //FIN VALIDACION PASAJERO
     });
     if ($('#contactocorreo').val().length <= 0) {
       $('#contactocorreo').addClass('campo-invalido');
@@ -399,6 +473,75 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     } else {
       $('#contactotelefono').removeClass('campo-invalido');
     }
+
+    //INI VALIDACION EMPRESA
+    const lstTxtC = lstUidByCompanyC.filter(x => x.isList === false);
+    lstTxtC.forEach(function(txt) {
+      const id = "c_" + txt.codeUid + "_" + 1;
+      const valorId = $("#" + id).val();
+      if (txt.isMandatory === true) {
+        if (valorId.length <= 0) {
+          $("#" + id).addClass('campo-invalido');
+          val = false;
+        } else {
+          $("#" + id).removeClass('campo-invalido');
+        }
+      }
+    });
+
+    const lstCbxC = lstUidByCompanyC.filter(x => x.isList === true);
+    lstCbxC.forEach(function(cbx) {
+      const id = "c_combo_" + cbx.codeUid;
+      const selectValue = $("#" + id).val();
+      if (cbx.isMandatory === true) {
+        if (selectValue == '0') {
+          $("#" + id).addClass('campo-invalido');
+          val = false;
+        } else {
+          $("#" + id).removeClass('campo-invalido');
+        }
+      }
+
+      if (selectValue != "0") {
+        if (cbx.listUids.length > 0) {
+          const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
+          const lstHijos = oPadre.listUids;
+          if (lstHijos.length > 0) {
+            const codeUidHijo = lstHijos[0].codeUid;
+            const idHijo = "c_comboH_" + codeUidHijo;
+            const selectValueHijo = $("#" + idHijo).val();
+            if (lstHijos[0].isMandatory === true) {
+              if (selectValueHijo == '0') {
+                $("#" + idHijo).addClass('campo-invalido');
+                val = false;
+              } else {
+                $("#" + idHijo).removeClass('campo-invalido');
+              }
+            }
+
+            if (selectValueHijo != "0") {
+              const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
+              const lstNietos = oHijo.listUids;
+              if (lstNietos.length > 0) {
+                const codeUidNieto = lstNietos[0].codeUid;
+                const idNieto = "c_comboN_" + codeUidNieto;
+                const selectValueNieto = $("#" + idNieto).val();
+                if (lstNietos[0].isMandatory === true) {
+                  if (selectValueNieto == '0') {
+                    $("#" + idNieto).addClass('campo-invalido');
+                    val = false;
+                  } else {
+                    $("#" + idNieto).removeClass('campo-invalido');
+                  }
+                }
+              }
+            }
+
+          }
+        }
+      }
+    });
+    //INI VALIDACION EMPRESA
 
     return val;
   }
