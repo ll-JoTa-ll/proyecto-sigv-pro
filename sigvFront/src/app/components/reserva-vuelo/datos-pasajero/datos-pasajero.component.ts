@@ -295,7 +295,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
         if (flagU5 === 1) {
           if (txt.isEditable === true) {
 
-            htmlTxtC += "<select class='form-control'  id='p_" + txt.codeUid + "_" + indexP + "'>";
+            htmlTxtC += "<select placeholder='Selecciona' class='form-control'  id='p_" + txt.codeUid + "_" + indexP + "'>";
             htmlTxtC += "<option value='" + "0" + "'>" + "Selecciona" + "</option>";
             lstCostCenter.forEach(function(padre, indexPadre) {
               //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
@@ -320,7 +320,8 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
         const oPaxInfo = {
           "id": "p_" + txt.codeUid + "_" + indexP,
           "isMandatory": txt.isMandatory,
-          "status": 1
+          "status": 1,
+          "combo": flagU5
         };
         lstValoresPax.push(oPaxInfo);
 
@@ -369,9 +370,9 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
 
 
-          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='row m-0 p-0' id='row_combo_" + cbx.codeUid + "_" + indexP + "'>";
 
-          htmlTxtC += "<select class='form-control'  id='combo_" + cbx.codeUid + "_" + indexP + "'>";
+          htmlTxtC += "<select placeholder='Selecciona' class='form-control'  id='combo_" + cbx.codeUid + "_" + indexP + "'>";
           //htmlTxtC += "<option value='" + cbx.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
           htmlTxtC += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
           lstPadre.forEach(function(padre, indexPadre) {
@@ -386,7 +387,8 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
           const oPaxInfo = {
             "id": "combo_" + cbx.codeUid + "_" + indexP,
             "isMandatory": cbx.isMandatory,
-            "status": 1
+            "status": 1,
+            "combo": 1
           };
           lstValoresPax.push(oPaxInfo);
 
@@ -468,19 +470,31 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       $("#divHtmlTxtP_" + indexP).html(this.htmlTxtP);
 
 
-      //combo_U5_1
-      //jquery('#combo_U14_1').select2();
-      //$('#combo_U14_1').select2();
+      console.log("lstValoresPax: " + JSON.stringify(lstValoresPax));
+      lstValoresPax.forEach(function (item) {
+        if (item.combo === 1) {
+          $('#' + item.id).val("");
+          $('#' + item.id).selectize({
+            create: true,
+            sortField: 'value'
+          });
+        }
+      });
+      //combo_U14_1
+      /*
+      $('#combo_U14_1').val("");
+      $('#combo_U14_1').selectize({
+        create: true,
+        sortField: 'value'
+      });
+      */
+
 
 
       //console.log("this.centroCosto: " + this.centroCosto);
 
       lstTxtC.forEach(function (lbl) {
         const idLbl = "p_lbl_" + lbl.codeUid + "_" + indexP;
-        //console.log("idLbl: " + idLbl);
-        //console.log("idLbl: " + idLbl);
-        //console.log("idLbl: " + idLbl);
-        //console.log("idLbl: " + idLbl);
         $("#" + idLbl).addClass("label-pasajero");
       });
 
@@ -491,7 +505,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       const indexPax = this.index;
       uidByCompanyP = uidByCompanyP.filter(x => x.isList === true);
       uidByCompanyP.forEach(function (compamy) {
-        //console.log("combo_: " + "#combo_" + compamy.codeUid + "_" + indexPax);
+        console.log("#combo_" + compamy.codeUid + "_" + indexPax);
         $("#combo_" + compamy.codeUid + "_" + indexPax).change(function() {
           //console.log("indexPax: " + indexPax);
           //console.log("indexP: " + indexP);
@@ -501,9 +515,9 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
           const valor1 = idPadre.split('_')[0];
           const valor2 = idPadre.split('_')[1];
 
-          //console.log("idPadre: " + idPadre);
-          //console.log("valor1: " + valor1);
-          //console.log("valor2: " + valor2);
+          console.log("idPadre: " + idPadre);
+          console.log("valor1: " + valor1);
+          console.log("valor2: " + valor2);
 
           //const lstUidByCompanyP = uidByCompanyP.filter(x => x.codeUid == valor1)[0];
           //const llistUid = lstUidByCompanyP.listUids.filter(x => x.parent == valor2);
@@ -518,25 +532,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
             let htmlHijo = "";
             const idComboHijo = "comboH_" + llistUid[0].codeUid + "_" + indexPax;
 
-            /*
-            let flagHijo = 0;
-            this.lstValoresPax.forEach(function (item) {
-              if (idComboHijo === item.id) {
-                flagHijo = 1;
-              }
-            });
-            if (flagHijo) {
-              const oPaxInfo = {
-                "id": idComboHijo,
-                "isMandatory": llistUid[0].isMandatory,
-                "status": 1
-              };
-              this.lstValoresPax.push(oPaxInfo);
-            }
-            console.log("this.lstValoresPax: " + JSON.stringify(this.lstValoresPax));
-            */
-
-            htmlHijo += "<select class='form-control'  id='comboH_" + llistUid[0].codeUid + "_" + indexPax + "'>";
+            htmlHijo += "<select class='form-control' placeholder='Selecciona'  id='comboH_" + llistUid[0].codeUid + "_" + indexPax + "'>";
             //htmlHijo += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
             htmlHijo += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
             let hijoTitle = "";
@@ -548,6 +544,11 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
             $("#divHijo1_" + indexPax).html(htmlHijo);
             $("#label_hijo_1_" + indexPax).html(hijoTitle);
             $("#" + idComboHijo).addClass("form-control");
+            $('#' + idComboHijo).val("");
+            $('#' + idComboHijo).selectize({
+              create: true,
+              sortField: 'value'
+            });
 
             //NIETO
             $("#" + idComboHijo).change(function() {
@@ -564,25 +565,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
                 let htmlNieto = "";
                 const idComboHijo = "comboN_" + llistUidHijo[0].codeUid + "_" + indexPax;
 
-                /*
-                let flagNieto = 0;
-                this.lstValoresPax.forEach(function (item) {
-                  if (idComboHijo === item.id) {
-                    flagNieto = 1;
-                  }
-                });
-                if (flagNieto) {
-                  const oPaxInfo = {
-                    "id": idComboHijo,
-                    "isMandatory": llistUidHijo[0].isMandatory,
-                    "status": 1
-                  };
-                  this.lstValoresPax.push(oPaxInfo);
-                }
-                console.log("this.lstValoresPax: " + JSON.stringify(this.lstValoresPax));
-                */
-
-                htmlNieto += "<select class='form-control'  id='comboN_" + llistUidHijo[0].codeUid + "_" + indexPax + "'>";
+                htmlNieto += "<select class='form-control' placeholder='Selecciona'  id='comboN_" + llistUidHijo[0].codeUid + "_" + indexPax + "'>";
                 //htmlNieto += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
                 htmlNieto += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
                 let nietoTitle = "";
@@ -593,6 +576,11 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
                 htmlNieto += "</select>";
                 $("#divHijo2_" + indexP).html(htmlNieto);
                 $("#label_hijo_2_" + indexPax).html(nietoTitle);
+                $('#' + idComboHijo).val("");
+                $('#' + idComboHijo).selectize({
+                  create: true,
+                  sortField: 'value'
+                });
               } else {
                 $("#divHijo2_" + indexP).hide();
                 $("#rowHijo2_" + indexPax).hide();

@@ -298,6 +298,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   ValidarCampos() {
+    console.log("ValidarCampos");
     let val = true;
     let valtelefono;
     let motivoViaje = $('#reason').val();
@@ -399,19 +400,22 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       });
 
       const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
+      //console.log("lstCbxC: " + JSON.stringify(lstCbxC));
       lstCbxC.forEach(function(cbx) {
         const id = "combo_" + cbx.codeUid + "_" + indexPax;
         const selectValue = $("#" + id).val();
         if (cbx.isMandatory === true) {
-          if (selectValue == '0') {
-            $("#" + id).addClass('campo-invalido');
+          if (selectValue == '0' || selectValue == '') {
+            $("#row_" + id).addClass('campo-invalido');
             val = false;
           } else {
-            $("#" + id).removeClass('campo-invalido');
+            $("#row_" + id).removeClass('campo-invalido');
           }
         }
 
-        if (selectValue != "0") {
+        //console.log("selectValue: " + selectValue);
+        if (selectValue != "0" && selectValue != "") {
+          //console.log("XDXD");
           if (cbx.listUids.length > 0) {
             const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
             const lstHijos = oPadre.listUids;
@@ -420,16 +424,18 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
               const idHijo = "comboH_" + codeUidHijo + "_" + indexPax;
               const selectValueHijo = $("#" + idHijo).val();
               if (lstHijos[0].isMandatory === true) {
-                if (selectValueHijo == '0') {
-                  $("#" + idHijo).addClass('campo-invalido');
+                if (selectValueHijo == '0' || selectValueHijo == '') {
+                  //$("#" + idHijo).addClass('campo-invalido');
+                  $("#divHijo1_" + indexPax).addClass('campo-invalido');
                   val = false;
                 } else {
-                  $("#" + idHijo).removeClass('campo-invalido');
+                  //$("#" + idHijo).removeClass('campo-invalido');
+                  $("#divHijo1_" + indexPax).removeClass('campo-invalido');
                 }
               }
 
 
-              if (selectValueHijo != "0") {
+              if (selectValueHijo != "0" && selectValueHijo != "") {
                 const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
                 const lstNietos = oHijo.listUids;
                 if (lstNietos.length > 0) {
@@ -437,11 +443,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
                   const idNieto = "comboN_" + codeUidNieto + "_" + indexPax;
                   const selectValueNieto = $("#" + idNieto).val();
                   if (lstNietos[0].isMandatory === true) {
-                    if (selectValueNieto == '0') {
-                      $("#" + idNieto).addClass('campo-invalido');
+                    if (selectValueNieto == '0' || selectValueNieto == '') {
+                      //$("#" + idNieto).addClass('campo-invalido');
+                      $("#divHijo2_" + indexPax).addClass('campo-invalido');
                       val = false;
                     } else {
-                      $("#" + idNieto).removeClass('campo-invalido');
+                      //$("#" + idNieto).removeClass('campo-invalido');
+                      $("#divHijo2_" + indexPax).removeClass('campo-invalido');
                     }
                   }
                 }
@@ -494,7 +502,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       const id = "c_combo_" + cbx.codeUid;
       const selectValue = $("#" + id).val();
       if (cbx.isMandatory === true) {
-        if (selectValue == '0') {
+        if (selectValue == '0' || selectValue == '') {
           $("#" + id).addClass('campo-invalido');
           val = false;
         } else {
@@ -502,7 +510,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         }
       }
 
-      if (selectValue != "0") {
+      if (selectValue != "0" && selectValue != "") {
         if (cbx.listUids.length > 0) {
           const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
           const lstHijos = oPadre.listUids;
@@ -511,7 +519,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
             const idHijo = "c_comboH_" + codeUidHijo;
             const selectValueHijo = $("#" + idHijo).val();
             if (lstHijos[0].isMandatory === true) {
-              if (selectValueHijo == '0') {
+              if (selectValueHijo == '0' || selectValueHijo == '') {
                 $("#" + idHijo).addClass('campo-invalido');
                 val = false;
               } else {
@@ -519,7 +527,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
               }
             }
 
-            if (selectValueHijo != "0") {
+            if (selectValueHijo != "0" && selectValueHijo != "") {
               const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
               const lstNietos = oHijo.listUids;
               if (lstNietos.length > 0) {
@@ -527,7 +535,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
                 const idNieto = "c_comboN_" + codeUidNieto;
                 const selectValueNieto = $("#" + idNieto).val();
                 if (lstNietos[0].isMandatory === true) {
-                  if (selectValueNieto == '0') {
+                  if (selectValueNieto == '0' || selectValueNieto == '') {
                     $("#" + idNieto).addClass('campo-invalido');
                     val = false;
                   } else {
@@ -618,6 +626,11 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   Comprar(template, template2) {
+    console.log("Comprar");
+    const valIni = this.ValidarCampos();
+    if (!valIni) {
+      return valIni
+    }
     var rason = $('#reason').val();
     let idmotivo = $('#cbomotivo option:selected').val();
     let idprofile = $('#cboprofile option:selected').val();
@@ -737,6 +750,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       datosusuario.push(objuser);
 
       //INI INFORMACION PASAJERO
+      console.log("INI INFORMACION PASAJERO");
       const indexPax = index + 1;
       const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
       lstTxtC.forEach(function(txt) {
@@ -779,7 +793,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         const id = "combo_" + cbx.codeUid + "_" + indexPax;
         const selectValue = $("#" + id).val();
         let valueUid = "";
-        if (selectValue != "0") {
+        if (selectValue != "0" || selectValue != "") {
           valueUid = selectValue.split('_')[2];
         }
         const ocompanyUIDs = {
@@ -790,7 +804,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         };
         LcompanyUIDs.push(ocompanyUIDs);
 
-        if (selectValue != "0") {
+        if (selectValue != "0" || selectValue != "") {
           if (cbx.listUids.length > 0) {
             const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
             const lstHijos = oPadre.listUids;
@@ -799,7 +813,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
               const idHijo = "comboH_" + codeUidHijo + "_" + indexPax;
               const selectValueHijo = $("#" + idHijo).val();
               let valueUidHijo = "";
-              if (selectValueHijo != "0") {
+              if (selectValueHijo != "0" || selectValueHijo != "") {
                 valueUidHijo = selectValueHijo.split('_')[2];
               }
               const ocompanyUIDsHijo = {
@@ -810,7 +824,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
               };
               LcompanyUIDs.push(ocompanyUIDsHijo);
 
-              if (selectValueHijo != "0") {
+              if (selectValueHijo != "0" || selectValueHijo != "") {
                 const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
                 const lstNietos = oHijo.listUids;
                 if (lstNietos.length > 0) {
@@ -818,7 +832,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
                   const idNieto = "comboN_" + codeUidNieto + "_" + indexPax;
                   const selectValueNieto = $("#" + idNieto).val();
                   let valueUidNieto = "";
-                  if (selectValueNieto != "0") {
+                  if (selectValueNieto != "0" || selectValueNieto != "") {
                     valueUidNieto = selectValueNieto.split('_')[2];
                   }
                   const ocompanyUIDsNieto = {
@@ -860,7 +874,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       //console.log("PadreselectValue: " + selectValue);
       //console.log("PadreselectValue: " + selectValue);
       let valueUid = "";
-      if (selectValue != "0") {
+      if (selectValue != "0" || selectValue != "") {
         valueUid = selectValue.split('_')[2];
       }
       const ocompanyUIDs = {
@@ -871,7 +885,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       };
       LcompanyUIDs.push(ocompanyUIDs);
 
-      if (selectValue != "0") {
+      if (selectValue != "0" || selectValue != "") {
         if (cbx.listUids.length > 0) {
           const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
           const lstHijos = oPadre.listUids;
@@ -880,7 +894,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
             const idHijo = "c_comboH_" + codeUidHijo;
             const selectValueHijo = $("#" + idHijo).val();
             let valueUidHijo = "";
-            if (selectValueHijo != "0") {
+            if (selectValueHijo != "0" || selectValueHijo != "") {
               valueUidHijo = selectValueHijo.split('_')[2];
             }
             const ocompanyUIDsHijo = {
@@ -891,7 +905,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
             };
             LcompanyUIDs.push(ocompanyUIDsHijo);
 
-            if (selectValueHijo != "0") {
+            if (selectValueHijo != "0" || selectValueHijo != "") {
               const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
               const lstNietos = oHijo.listUids;
               if (lstNietos.length > 0) {
@@ -899,7 +913,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
                 const idNieto = "c_comboN_" + codeUidNieto;
                 const selectValueNieto = $("#" + idNieto).val();
                 let valueUidNieto = "";
-                if (selectValueNieto != "0") {
+                if (selectValueNieto != "0" || selectValueNieto != "") {
                   valueUidNieto = selectValueNieto.split('_')[2];
                 }
                 const ocompanyUIDsNieto = {
@@ -1085,7 +1099,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
           htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
 
-          htmlTxtC += "<select class='form-control'  id='c_combo_" + cbx.codeUid + "'>";
+          htmlTxtC += "<select class='form-control' placeholder='Selecciona'  id='c_combo_" + cbx.codeUid + "'>";
           htmlTxtC += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
           lstPadre.forEach(function(padre, indexPadre) {
             htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id+ "_" + padre.code + "'>" + padre.description + "</option>";
