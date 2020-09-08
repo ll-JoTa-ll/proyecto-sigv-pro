@@ -27,7 +27,7 @@
                             ></app-datos-pasajero>
                         </div>
                         <app-persona-contacto [lsCostCenter]="lsCostCenter"></app-persona-contacto>
-                        <app-info-adicional *ngIf="flagHtmlC" [htmlTxtC]="htmlTxtC" [uidByCompanyC]="uidByCompanyC"></app-info-adicional>
+                        <app-info-adicional *ngIf="flagHtmlC" [htmlTxtC]="htmlTxtC" [uidByCompanyC]="uidByCompanyC" [lstValoresEmpresa]="lstValoresEmpresa"></app-info-adicional>
                         <app-motivo-viaje [lsReasonflight]="lsReasonFlight"></app-motivo-viaje>
                         <div class="m-0 p-0 pt-5 pr-5" *ngIf="lstprofiles != null">
                             <div *ngIf="lstprofiles.oerror === null" class="col-12 m-0 p-0 contenedor-form">

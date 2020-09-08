@@ -93,6 +93,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   flagPasajeros = false;
   lstCostCenter: ICostCenterCompany[] = [];
   LcompanyUIDs: any[] = [];
+  lstValoresEmpresa: any[] = [];
 
   constructor(
     private modalService: BsModalService,
@@ -298,7 +299,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   ValidarCampos() {
-    console.log("ValidarCampos");
+    //console.log("ValidarCampos");
     let val = true;
     let valtelefono;
     let motivoViaje = $('#reason').val();
@@ -1020,7 +1021,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   getUidByCompany() {
     //console.log("getUidByCompany");
     const companyId = this.loginDataUser.ocompany.companyId;
-    this.flightService.getUidByCompany(companyId, "LIMPE28AX").subscribe(
+    const pseudo = this.pseudo;//LIMPE28AX
+    this.flightService.getUidByCompany(companyId, pseudo).subscribe(
       result => {
         //console.log("result: " + JSON.stringify(result));
         if (result != null) {
@@ -1061,6 +1063,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
 
   setInformacionAdicional(lstUidByCompanyC) {
+    let lstValoresEmpresa = this.lstValoresEmpresa;
     if (lstUidByCompanyC.length > 0) {
       let htmlTxtC = "";
       const lstTxtC = lstUidByCompanyC.filter(x => x.isList === false);
@@ -1106,6 +1109,14 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           });
           htmlTxtC += "</select>";
 
+          const oPaxInfo = {
+            "id": "c_combo_" + cbx.codeUid,
+            "isMandatory": cbx.isMandatory,
+            "status": 1,
+            "combo": 1
+          };
+          lstValoresEmpresa.push(oPaxInfo);
+
           htmlTxtC += "</div>";
 
           //HIJO 1
@@ -1150,7 +1161,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
       //console.log(htmlTxtC)
 
+
+
       if (flagC === 1) {
+        this.lstValoresEmpresa = lstValoresEmpresa;
         this.flagHtmlC = true;
       }
 

@@ -15,6 +15,7 @@ export class InfoAdicionalComponent implements OnInit, AfterViewInit {
   @Input() uidByCompanyC;
   flagPrueba = false;
   ulPrincipal = false;
+  @Input() lstValoresEmpresa: any[] = [];
 
   constructor(
     private _sanitizer: DomSanitizer
@@ -35,6 +36,17 @@ export class InfoAdicionalComponent implements OnInit, AfterViewInit {
     $("#c_divHijo3").hide();
     $("#c_rowHijo1_1").hide();
     $("#c_divHijo4").hide();
+
+    this.lstValoresEmpresa.forEach(function (item) {
+      if (item.combo === 1) {
+        $('#' + item.id).val("");
+        $('#' + item.id).selectize({
+          create: true,
+          sortField: 'value'
+        });
+      }
+    });
+
     let uidByCompanyC = this.uidByCompanyC;
     const indexPax = 1;
     //console.log("uidByCompanyC: " + JSON.stringify(uidByCompanyC));
@@ -70,6 +82,12 @@ export class InfoAdicionalComponent implements OnInit, AfterViewInit {
           htmlHijo += "</select>";
           $("#c_divHijo1").html(htmlHijo);
           $("#c_label_hijo_1").html(hijoTitle);
+          $("#" + idComboHijo).addClass("form-control");
+          $('#' + idComboHijo).val("");
+          $('#' + idComboHijo).selectize({
+            create: true,
+            sortField: 'value'
+          });
 
           //NIETO
           $("#" + idComboHijo).change(function() {
@@ -94,6 +112,11 @@ export class InfoAdicionalComponent implements OnInit, AfterViewInit {
               htmlNieto += "</select>";
               $("#c_divHijo2").html(htmlNieto);
               $("#c_label_hijo_2").html(nietoTitle);
+              $('#' + idComboHijo).val("");
+              $('#' + idComboHijo).selectize({
+                create: true,
+                sortField: 'value'
+              });
             } else {
               $("#c_divHijo2").hide();
               $("#c_rowHijo2_" + indexPax).hide();

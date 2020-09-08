@@ -505,7 +505,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       const indexPax = this.index;
       uidByCompanyP = uidByCompanyP.filter(x => x.isList === true);
       uidByCompanyP.forEach(function (compamy) {
-        console.log("#combo_" + compamy.codeUid + "_" + indexPax);
+        //console.log("#combo_" + compamy.codeUid + "_" + indexPax);
         $("#combo_" + compamy.codeUid + "_" + indexPax).change(function() {
           //console.log("indexPax: " + indexPax);
           //console.log("indexP: " + indexP);
@@ -515,9 +515,9 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
           const valor1 = idPadre.split('_')[0];
           const valor2 = idPadre.split('_')[1];
 
-          console.log("idPadre: " + idPadre);
-          console.log("valor1: " + valor1);
-          console.log("valor2: " + valor2);
+          //console.log("idPadre: " + idPadre);
+          //console.log("valor1: " + valor1);
+          //console.log("valor2: " + valor2);
 
           //const lstUidByCompanyP = uidByCompanyP.filter(x => x.codeUid == valor1)[0];
           //const llistUid = lstUidByCompanyP.listUids.filter(x => x.parent == valor2);
