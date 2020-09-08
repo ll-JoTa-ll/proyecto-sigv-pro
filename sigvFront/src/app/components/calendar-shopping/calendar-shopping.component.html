@@ -1,0 +1,265 @@
+<ng-container>
+
+    <div class="row m-0 p-0">
+
+
+
+      <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+          <div id="dia" class="col-4 m-0 p-0" (click)="validarCalendar()" style="cursor: pointer;border: 1px solid #9A9A9A;width: 35%;text-align: center;border-radius: 13px 0px 0px 0px;">
+            <span style="font-family: 'Omnes-med';"><strong>Precio</strong> <a style="color: red;"> +/- </a> <strong>3 Dias</strong></span>
+          </div>
+          <div id="aerolinea" class="col-4 m-0 p-0" (click)="validarDia()" style="cursor: pointer;border-left: 1px solid #9A9A9A;border-right: 1px solid #9A9A9A;width: 35%;text-align: center;">
+            <span style="font-family: 'Omnes-med';"><strong>Precio</strong> <strong> por aerolíneas</strong></span>
+          </div>
+        </div>
+        <div class="row m-0 p-0">
+          <div class="col-4 m-0 p-0"  style="background: transparent linear-gradient(91deg, #ED1C24 0%, #D51A2C 31%, #3C4749 100%) 0% 0% no-repeat padding-box;width: 35%;height: 5px;">
+
+          </div>
+          <div class="col-4 m-0 p-0"  style="background: transparent linear-gradient(91deg, #ED1C24 0%, #D51A2C 31%, #3C4749 100%) 0% 0% no-repeat padding-box;width: 35%;height: 5px;">
+
+          </div>
+        </div>
+        <div *ngIf="calendarShow" class="row m-0 p-0">
+          <div class="col-12 m-0 p-0">
+            <div class="rTable">
+              <div class="rTableRow">
+                <div class="rTableHead">
+                  <div class="yellow"><span style="color: #6A243B;padding-left: 30px;font-weight: 700;">Vuelta</span></div>
+                <div class="black"><span style="color: white;padding-left: 91px;"></span></div>
+                </div>
+              <div class="rTableHead" style="background: #6A243B;color: white;"><span style="margin: 0px 8px;">{{hShow[0]}}<br><span class="separate">{{hShow[2]}} {{hShow[4]}}</span></span></div>
+              <div class="rTableHead" style="background: #6A243B;color: white;"><span style="margin: 0px 8px;">{{iShow[0]}}<br><span class="separate">{{iShow[2]}} {{iShow[4]}}</span></span></div>
+              <div class="rTableHead" style="background: #6A243B;color: white;"><span style="margin: 0px 8px;">{{nShow[0]}}<br><span class="separate">{{nShow[2]}} {{nShow[4]}}</span></span></div>
+              <div class="rTableHead" style="background: #6A243B;color: white;"><span style="margin: 0px 8px;">{{jShow[0]}}<br><span class="separate">{{jShow[2]}} {{jShow[4]}}</span></span></div>
+              <div class="rTableHead" style="background: #6A243B;color: white;"><span style="margin: 0px 8px;">{{kShow[0]}}<br><span class="separate">{{kShow[2]}} {{kShow[4]}}</span></span></div>
+              <div class="rTableHead" style="background: #6A243B;color: white;"><span style="margin: 0px 8px;">{{lShow[0]}}<br><span class="separate">{{lShow[2]}} {{lShow[4]}}</span></span></div>
+              <div class="rTableHead" style="background: #6A243B;color: white;"><span style="margin: 0px 8px;">{{mShow[0]}}<br><span class="separate">{{mShow[2]}} {{mShow[4]}}</span></span></div>
+              </div>
+              <div  class="rTableRow">
+                  <div class="rTableCell" style="background: #6A243B;color: white;">{{aShow[0]}}<br><span class="separate">{{aShow[2]}} {{aShow[4]}}</span></div>
+                    <div class="rTableCell" *ngIf="list.price1 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier.carrier1}}.png"><img *ngIf="listCheap.cheap1 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida.salida1,listLlegada.llegada1)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list.price1}}</a><img *ngIf="listFare.fare1 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                    <div class="rTableCell" *ngIf="list2.price1 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier2.carrier1}}.png"><img *ngIf="listCheap2.cheap1 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida2.salida1,listLlegada2.llegada1)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list2.price1}}</a><img *ngIf="listFare2.fare1 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                    <div class="rTableCell" *ngIf="list3.price1 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier3.carrier1}}.png"><img *ngIf="listCheap3.cheap1 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida3.salida1,listLlegada3.llegada1)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list3.price1}}</a><img *ngIf="listFare3.fare1 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                    <div class="rTableCell" *ngIf="list4.price1 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier4.carrier1}}.png"><img *ngIf="listCheap4.cheap1 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida4.salida1,listLlegada4.llegada1)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list4.price1}}</a><img *ngIf="listFare4.fare1 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                    <div class="rTableCell" *ngIf="list5.price1 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier5.carrier1}}.png"><img *ngIf="listCheap5.cheap1 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida5.salida1,listLlegada5.llegada1)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list5.price1}}</a><img *ngIf="listFare5.fare1 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                    <div class="rTableCell" *ngIf="list6.price1 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier6.carrier1}}.png"><img *ngIf="listCheap6.cheap1 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida6.salida1,listLlegada6.llegada1)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list6.price1}}</a><img *ngIf="listFare6.fare1 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                    <div class="rTableCell" *ngIf="list7.price1 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier7.carrier1}}.png"><img *ngIf="listCheap7.cheap1 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida7.salida1,listLlegada7.llegada1)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list7.price1}}</a><img *ngIf="listFare7.fare1 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+              </div>
+              <div class="rTableRow">
+                <div class="rTableCell" style="background: #6A243B;color: white;">{{bShow[0]}}<br><span class="separate">{{bShow[2]}} {{bShow[4]}}</span></div>
+                <div class="rTableCell" *ngIf="list.price2 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier.carrier2}}.png"><img *ngIf="listCheap.cheap2 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida.salida2,listLlegada.llegada2)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list.price2}}</a><img *ngIf="listFare.fare2 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list2.price2 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier2.carrier2}}.png"><img *ngIf="listCheap2.cheap2 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida2.salida2,listLlegada2.llegada2)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list2.price2}}</a><img *ngIf="listFare2.fare2 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list3.price2 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier3.carrier2}}.png"><img *ngIf="listCheap3.cheap2 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida3.salida2,listLlegada3.llegada2)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list3.price2}}</a><img *ngIf="listFare3.fare2 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list4.price2 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier4.carrier2}}.png"><img *ngIf="listCheap4.cheap2 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida4.salida2,listLlegada4.llegada2)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list4.price2}}</a><img *ngIf="listFare4.fare2 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list5.price2 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier5.carrier2}}.png"><img *ngIf="listCheap5.cheap2 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida5.salida2,listLlegada5.llegada2)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list5.price2}}</a><img *ngIf="listFare5.fare2 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list6.price2 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier6.carrier2}}.png"><img *ngIf="listCheap6.cheap2 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida6.salida2,listLlegada6.llegada2)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list6.price2}}</a><img *ngIf="listFare6.fare2 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list7.price2 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier7.carrier2}}.png"><img *ngIf="listCheap7.cheap2 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida7.salida2,listLlegada7.llegada2)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list7.price2}}</a><img *ngIf="listFare7.fare2 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+              </div>
+              <div class="rTableRow">
+                <div class="rTableCell" style="background: #6A243B;color: white;">{{gShow[0]}}<br><span class="separate">{{gShow[2]}} {{gShow[4]}}</span></div>
+                <div class="rTableCell" *ngIf="list.price3 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier.carrier3}}.png"><img *ngIf="listCheap.cheap3 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida.salida3,listLlegada.llegada3)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list.price3}}</a><img *ngIf="listFare.fare3 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list2.price3 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier2.carrier3}}.png"><img *ngIf="listCheap2.cheap3 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida2.salida3,listLlegada2.llegada3)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list2.price3}}</a><img *ngIf="listFare2.fare3 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list3.price3 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier3.carrier3}}.png"><img *ngIf="listCheap3.cheap3 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida3.salida3,listLlegada3.llegada3)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list3.price3}}</a><img *ngIf="listFare3.fare3 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list4.price3 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier4.carrier3}}.png"><img *ngIf="listCheap4.cheap3 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida4.salida3,listLlegada4.llegada3)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list4.price3}}</a><img *ngIf="listFare4.fare3 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list5.price3 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier5.carrier3}}.png"><img *ngIf="listCheap5.cheap3 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida5.salida3,listLlegada5.llegada3)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list5.price3}}</a><img *ngIf="listFare5.fare3 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list6.price3 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier6.carrier3}}.png"><img *ngIf="listCheap6.cheap3 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida6.salida3,listLlegada6.llegada3)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list6.price3}}</a><img *ngIf="listFare6.fare3 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list7.price3 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier7.carrier3}}.png"><img *ngIf="listCheap7.cheap3 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida7.salida3,listLlegada7.llegada3)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list7.price3}}</a><img *ngIf="listFare7.fare3 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+              </div>
+              <div class="rTableRow">
+                <div class="rTableCell" style="background: #6A243B;color: white;">{{cShow[0]}}<br><span class="separate">{{cShow[2]}} {{cShow[4]}}</span></div>
+                <div class="rTableCell" *ngIf="list.price4 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier.carrier4}}.png"><img *ngIf="listCheap.cheap4 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida.salida4,listLlegada.llegada4)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list.price4}}</a><img *ngIf="listFare.fare4 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list2.price4 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier2.carrier4}}.png"><img *ngIf="listCheap2.cheap4 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida2.salida4,listLlegada2.llegada4)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list2.price4}}</a><img *ngIf="listFare2.fare4 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list3.price4 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier3.carrier4}}.png"><img *ngIf="listCheap3.cheap4 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida3.salida4,listLlegada3.llegada4)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list3.price4}}</a><img *ngIf="listFare3.fare4 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell"  *ngIf="list4.price4 != 0;else elseTemplate">
+                  <img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier4.carrier4}}.png">
+                  <img *ngIf="listCheap4.cheap4 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br>
+                  <a (click)="searchFlight(listSalida4.salida4,listLlegada4.llegada4)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list4.price4}}</a>
+                  <img *ngIf="listFare4.fare4 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg">
+                  <div class="row m-0 p-0" style="background: transparent linear-gradient(91deg, #ED1C24 0%, #D51A2C 31%, #3C4749 100%) 0% 0% no-repeat padding-box;width: 100%;height: 6px;">
+
+                  </div>
+                </div>
+                <div class="rTableCell" *ngIf="list5.price4 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier5.carrier4}}.png"><img *ngIf="listCheap5.cheap4 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida5.salida4,listLlegada5.llegada4)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list5.price4}}</a><img *ngIf="listFare5.fare4 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list6.price4 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier6.carrier4}}.png"><img *ngIf="listCheap6.cheap4 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida6.salida4,listLlegada6.llegada4)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list6.price4}}</a><img *ngIf="listFare6.fare4 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list7.price4 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier7.carrier4}}.png"><img *ngIf="listCheap7.cheap4 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida7.salida4,listLlegada7.llegada4)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list7.price4}}</a><img *ngIf="listFare7.fare4 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+              </div>
+              <div class="rTableRow">
+                <div class="rTableCell" style="background: #6A243B;color: white;">{{dShow[0]}}<br><span class="separate">{{dShow[2]}} {{dShow[4]}}</span></div>
+                <div class="rTableCell" *ngIf="list.price5 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier.carrier5}}.png"><img *ngIf="listCheap.cheap5 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida.salida5,listLlegada.llegada5)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list.price5}}</a><img *ngIf="listFare.fare5 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list2.price5 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier2.carrier5}}.png"><img *ngIf="listCheap2.cheap5 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida2.salida5,listLlegada2.llegada5)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list2.price5}}</a><img *ngIf="listFare2.fare5 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list3.price5 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier3.carrier5}}.png"><img *ngIf="listCheap3.cheap5 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida3.salida5,listLlegada3.llegada5)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list3.price5}}</a><img *ngIf="listFare3.fare5 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list4.price5 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier4.carrier5}}.png"><img *ngIf="listCheap4.cheap5 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida4.salida5,listLlegada4.llegada5)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list4.price5}}</a><img *ngIf="listFare4.fare5 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list5.price5 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier5.carrier5}}.png"><img *ngIf="listCheap5.cheap5 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida5.salida5,listLlegada5.llegada5)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list5.price5}}</a><img *ngIf="listFare5.fare5 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list6.price5 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier6.carrier5}}.png"><img *ngIf="listCheap6.cheap5 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida6.salida5,listLlegada6.llegada5)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list6.price5}}</a><img *ngIf="listFare6.fare5 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list7.price5 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier7.carrier5}}.png"><img *ngIf="listCheap7.cheap5 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida7.salida5,listLlegada7.llegada5)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list7.price5}}</a><img *ngIf="listFare7.fare5 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+              </div>
+              <div class="rTableRow">
+                <div class="rTableCell" style="background: #6A243B;color: white;">{{eShow[0]}}<br><span class="separate">{{eShow[2]}} {{eShow[4]}}</span></div>
+                <div class="rTableCell" *ngIf="list.price6 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier.carrier6}}.png"><img *ngIf="listCheap.cheap6 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida.salida6,listLlegada.llegada6)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list.price6}}</a><img *ngIf="listFare.fare6 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list2.price6 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier2.carrier6}}.png"><img *ngIf="listCheap2.cheap6 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida2.salida6,listLlegada2.llegada6)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list2.price6}}</a><img *ngIf="listFare2.fare6 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list3.price6 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier3.carrier6}}.png"><img *ngIf="listCheap3.cheap6 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida3.salida6,listLlegada3.llegada6)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list3.price6}}</a><img *ngIf="listFare3.fare6 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list4.price6 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier4.carrier6}}.png"><img *ngIf="listCheap4.cheap6 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida4.salida6,listLlegada4.llegada6)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list4.price6}}</a><img *ngIf="listFare4.fare6 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list5.price6 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier5.carrier6}}.png"><img *ngIf="listCheap5.cheap6 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida5.salida6,listLlegada5.llegada6)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list5.price6}}</a><img *ngIf="listFare5.fare6 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list6.price6 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier6.carrier6}}.png"><img *ngIf="listCheap6.cheap6 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida6.salida6,listLlegada6.llegada6)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list6.price6}}</a><img *ngIf="listFare6.fare6 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list7.price6 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier7.carrier6}}.png"><img *ngIf="listCheap7.cheap6 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida7.salida6,listLlegada7.llegada6)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list7.price6}}</a><img *ngIf="listFare7.fare6 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+              </div>
+              <div class="rTableRow">
+                <div class="rTableCell" style="background: #6A243B;color: white;">{{fShow[0]}}<br><span class="separate">{{fShow[2]}} {{fShow[4]}}</span></div>
+                <div class="rTableCell" *ngIf="list.price7 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier.carrier7}}.png"><img *ngIf="listCheap.cheap7 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida.salida7,listLlegada.llegada7)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list.price7}}</a><img *ngIf="listFare.fare7 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list2.price7 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier2.carrier7}}.png"><img *ngIf="listCheap2.cheap7 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida2.salida7,listLlegada2.llegada7)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list2.price7}}</a><img *ngIf="listFare2.fare7 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list3.price7 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier3.carrier7}}.png"><img *ngIf="listCheap3.cheap7 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida3.salida7,listLlegada3.llegada7)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list3.price7}}</a><img *ngIf="listFare3.fare7 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list4.price7 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier4.carrier7}}.png"><img *ngIf="listCheap4.cheap7 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida4.salida7,listLlegada4.llegada7)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list4.price7}}</a><img *ngIf="listFare4.fare7 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list5.price7 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier5.carrier7}}.png"><img *ngIf="listCheap5.cheap7 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida5.salida7,listLlegada5.llegada7)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list5.price7}}</a><img *ngIf="listFare5.fare7 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list6.price7 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier6.carrier7}}.png"><img *ngIf="listCheap6.cheap7 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida6.salida7,listLlegada6.llegada7)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list6.price7}}</a><img *ngIf="listFare6.fare7 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+                <div class="rTableCell" *ngIf="list7.price7 != 0;else elseTemplate"><img style="width: 50px;height: auto;object-fit: contain" src="./assets/images/airlines/{{listCarrier7.carrier7}}.png"><img *ngIf="listCheap7.cheap7 === true" style="width: 21px;margin: 5px 12px;" src="./assets/images/stared.svg"><br><a (click)="searchFlight(listSalida7.salida7,listLlegada7.llegada7)" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{space}}{{list7.price7}}</a><img *ngIf="listFare7.fare7 === 'RB' " style="width: 21px;" src="./assets/images/medalred.svg"></div>
+              </div>
+              </div>
+          </div>
+        </div>
+        <div *ngIf="calendarShow" class="row m-0 p-0">
+          <div class="m-0 p-0" style="border: 1px solid #9A9A9A;width: 100%;text-align: center;height: 52px;">
+            <div class="row m-0 p-0">
+              <div style="width: 50%;text-align: end;font-family: 'Omnes-med';margin: 8px -8px;">
+                <img style="width: 18px; margin: 3px 9px;" src="./assets/images/stared.svg">Vuelo más económico
+              </div>
+              <div style="width: 50%;text-align: start;padding-left: 59px;font-family: 'Omnes-med';margin: 9px 0px;">
+                <img style="width: 18px; margin: 3px 9px;" src="./assets/images/medalred.svg">Convenio Corporativo
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="aerolineaShow" class="row m-0 p-0">
+          <div class="col-12 m-0 p-0">
+            <div class="rTable">
+              <div class="rTableRow">
+                <div class="rTableHead1">
+                  <span style="color: #6A243B;font-weight: 700;">Aerolinea</span>
+                </div>
+                  <div *ngIf="lowCostAll[0].llowCostAirlines[0] != null;else elseTemplate2" class="rTableHead" style="background: #6A243B;color: white;"><span><img style="width: 50px;height: auto;object-fit: contain;margin:0px 7px;" src="./assets/images/airlines/{{lowCostAll[0].llowCostAirlines[0].carrierId}}.png">{{lowCostAll[0].llowCostAirlines[0].carrierName}}</span></div>
+                  <div *ngIf="lowCostAll[0].llowCostAirlines[1] != null;else elseTemplate2" class="rTableHead" style="background: #6A243B;color: white;"><span><img style="width: 50px;height: auto;object-fit: contain;margin:0px 7px;" src="./assets/images/airlines/{{lowCostAll[0].llowCostAirlines[1].carrierId}}.png">{{lowCostAll[0].llowCostAirlines[1].carrierName}}</span></div>
+                  <div *ngIf="lowCostAll[0].llowCostAirlines[2] != null;else elseTemplate2" class="rTableHead" style="background: #6A243B;color: white;"><span><img style="width: 50px;height: auto;object-fit: contain;margin:0px 7px;" src="./assets/images/airlines/{{lowCostAll[0].llowCostAirlines[2].carrierId}}.png">{{lowCostAll[0].llowCostAirlines[2].carrierName}}</span></div>
+              </div>
+              <div  class="rTableRow">
+                  <div class="rTableCell" style="background: #6A243B;color: white;">
+                    Vuelo con escalas</div>
+                    <div *ngIf="lowCostAll[0].llowCostAirlines[0] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[0].scales === true" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[0].amount}}</a></div>
+                    <div *ngIf="lowCostAll[0].llowCostAirlines[1] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[1].scales === true" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[1].amount}}</a></div>
+                    <div *ngIf="lowCostAll[0].llowCostAirlines[2] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[2].scales === true" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[2].amount}}</a></div>
+              </div>
+              <div class="rTableRow">
+                <div class="rTableCell1" style="background: #6A243B;color: white;">Vuelo Directo</div>
+                <div *ngIf="lowCostAll[0].llowCostAirlines[0] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[0].scales === false" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[0].amount}}</a></div>
+                <div *ngIf="lowCostAll[0].llowCostAirlines[1] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[1].scales === false" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[1].amount}}</a></div>
+                <div *ngIf="lowCostAll[0].llowCostAirlines[2] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[2].scales === false" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[2].amount}}</a></div>
+              </div>
+              </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+
+    </div>
+
+    <div *ngIf="calendarShow" style="color: white;font-weight: 700;top: 115px;position: absolute;left: 17px;">
+      Ida
+    </div>
+
+    <!-- <div *ngIf="calendarShow" style="color: white;font-weight: 700;top: 115px;position: absolute;left: 17px;">
+      Escalas
+    </div>-->
+
+    <ng-template #elseTemplate1>
+      <div class="rTableCell1"><a class="showPlus" style="color: black;padding: 0px 12px;"></a></div>
+    </ng-template>
+
+    <ng-template #elseTemplate2>
+      <div class="rTableHead" style="background: #6A243B;color: white;"><span></span></div>
+    </ng-template>
+
+
+
+    <ng-template #elseTemplate>
+      <div class="rTableCell">
+        <a style="color: black;padding: 0px 12px;"></a>
+      </div>
+    </ng-template>
+    <style>
+      .yellow {
+    width: 100%;
+    height: 93px;
+    background: white;
+    -webkit-clip-path: polygon(100% 0, 0 0, 0 100%);
+    clip-path: polygon(100% -1%, 2% 0%, 101% 66%);
+    margin: -2px 0px 2px 1px;
+}
+.black {
+    width: 108%;
+    height: 74px;
+    background: #6A243B;
+    -webkit-clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    clip-path: polygon(-23% 0, 0 100%, 100% 103%);
+    margin: -109px 0px -1px 0px;
+}
+
+.yellow1 {
+    width: 100%;
+    height: 93px;
+    background: white;
+    -webkit-clip-path: polygon(100% 0, 0 0, 0 100%);
+    clip-path: polygon(100% -1%, 2% 0%, 101% 66%);
+    margin: -2px 0px 2px -2px;
+}
+.black1 {
+    width: 105%;
+    height: 74px;
+    background: #6A243B;
+    -webkit-clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    clip-path: polygon(-20% 0, 0 100%, 99% 101%);
+    margin: -108px 0px -1px 0px;
+}
+
+.raya {
+  background: transparent linear-gradient(91deg, #ED1C24 0%, #D51A2C 31%, #3C4749 100%) 0% 0% no-repeat padding-box;
+  width: 35%;
+}
+
+.content{
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#fff;
+}
+
+.spinner{
+  width:100px;
+  height:100px;
+  border-radius:50%;
+  border:5px solid black;
+  background:transparent;
+  border-top-color:#efef;
+  border-bottom-color: #efef;
+  border-left-color: black;
+ animation:spin 1.5s linear infinite;
+  position:relative;
+}
+
+@keyframes spin{
+  0%{
+    background:transparent;
+    transform: rotate(720deg);
+  }
+
+}
+
+    </style>
+
+
+</ng-container>

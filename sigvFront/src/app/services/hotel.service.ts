@@ -33,11 +33,12 @@ export class HotelService {
   private url_getreservation: string = environment.url_hotel + 'Booking/';
   private url_gerUserByPassword: string = environment.url_5 + 'User/GetUserByPassword';
   private url_updatePassword: string = environment.url_5 + 'User/UpdatePassword';
-  private url_displayLogin: string = environment.url_5 + 'PasswordRecovery/DisplayLoginByEmail';
-  private url_validateToken: string = environment.url_5 + 'PasswordRecovery/ValidateTokenByUser';
-  private url_passwordRecovery: string = environment.url_5 + 'PasswordRecovery/ConfirmPasswordRecovery';
+  private url_displayLogin: string = environment.url_5 + 'PasswordRecovery/GenerateRecoveryToken';
+  private url_validateToken: string = environment.url_5 + 'PasswordRecovery/ValidateRecoveryToken';
+  private url_passwordRecovery: string = environment.url_5 + 'PasswordRecovery/UpdateRecoveryPassword';
   private url_changePassword: string = environment.url_5 + 'User/ChangePassword';
   private url_insertUpdate: string = environment.url_5 + 'User/InsertUpdateUser';
+  private url_companys: string = environment.url_customer + 'Company/GetCompany';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService) {
     this.key = environment.key;
@@ -52,6 +53,14 @@ export class HotelService {
     });
     return this.http.post<IHotelResultsModel[]>(`${this.url_search}`, data, httpOptions);
 }
+
+  ListCompany(): Observable<any[]> {
+    httpOptions.headers = new HttpHeaders({
+        'Ocp-Apim-Subscription-Key': environment.key,
+        'Content-Type': 'application/json'
+    });
+    return this.http.get<any[]>(`${this.url_companys}`, httpOptions);
+  }
 
 GetHabitacion(data): Observable<IHabitacionResults> {
   this.token = this.sessionSt.retrieve('ss_token');

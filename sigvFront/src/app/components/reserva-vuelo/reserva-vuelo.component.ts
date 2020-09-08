@@ -223,7 +223,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       err => {
       },
       () => {
-        this.getUidByCompany();
+        // this.getUidByCompany();
       }
     );
   }

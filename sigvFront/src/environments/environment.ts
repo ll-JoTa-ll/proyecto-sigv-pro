@@ -12,8 +12,11 @@ export const environment = {
    url_project :"http://sigvplus.azurewebsites.net",
    cod_rol_autogestion: [1],
    cod_rol_autorizador: [2],
+   url_reports : "http://reports-api.domiruth.com/api/",
    cod_rol_centralizador: [3],
    max_pax: 8,
    url_bnus: 'https://ws-bnu.domiruth.com/api/',
-   key: "eb85131bc9d94c02840aa6961e7f77e9"
+   key: "eb85131bc9d94c02840aa6961e7f77e9",
+   url_reportGeneral: 'https://domiruth-uat.azure-api.net/report/',
+   url_customer: 'https://domiruth-uat.azure-api.net/customer/'
 };

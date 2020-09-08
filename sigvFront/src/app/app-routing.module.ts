@@ -26,6 +26,10 @@ import { AdministradorGeneralComponent } from './components/administrador-genera
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { AutorizacionCentroCostoComponent } from './components/administrador-general/autorizacion-centro-costo/autorizacion-centro-costo.component';
+import { CalendarShoppingComponent } from './components/calendar-shopping/calendar-shopping.component';
+import { ReportsListComponent } from './components/reports/reports-list/reports-list.component';
+import { PartnerComponent } from './components/partner/partner.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -52,8 +56,13 @@ const routes: Routes = [
   { path: 'gestion-reserva-vuelo', component: GestionReservaVueloComponent, runGuardsAndResolvers: 'always' },
   { path: 'aprobar-reserva-vuelo', component: AprobacionReservaComponent, runGuardsAndResolvers: 'always' },
   { path: 'detalle-reserva-hotel', component: DetalleReservaHotelComponent, runGuardsAndResolvers: 'always' },
+  { path: 'calendar-shopping', component: CalendarShoppingComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reports-list', component: ReportsListComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reports', component: ReportsComponent, runGuardsAndResolvers: 'always' },
+  { path: 'partner', component: PartnerComponent, runGuardsAndResolvers: 'always' },
   { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' },
-  
+
+
 ];
 
 @NgModule({

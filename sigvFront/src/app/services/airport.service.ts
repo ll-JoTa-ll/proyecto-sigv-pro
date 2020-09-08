@@ -111,6 +111,17 @@ export class AirportService {
     return this.http.post<ISearchFlightModel[]>(this._url3 + "SearchFlight", data, httpOptions2);
   }
 
+  CalendarShopping(data): Observable<any[]> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+       'Authorization': "Bearer " + this.token,
+       'Content-Type': "application/json",
+       'Ocp-Apim-Subscription-Key': this.key
+     });
+     console.log(httpOptions2);
+     return this.http.post<any[]>(this._url3 + "GetCalendarShopping", data, httpOptions2);
+   }
+
   fligthAvailibility(data): Observable<IFlightAvailability> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({

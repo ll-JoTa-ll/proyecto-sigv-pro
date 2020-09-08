@@ -1,0 +1,190 @@
+
+
+  <!--   <div class="row m-0 p-0" style="background: #F5F5F5;">
+      <div class="col-2 m-0 p-0">
+        <div style="width: 35%;background: linear-gradient(240.91deg, #ED1C24 19.85%, #D51A2C 42.53%, #3C4749 97.6%);height: 657px;border-radius: 0px 40px 40px 0px;">
+          <div  style="width: 100%;text-align: center;" (click)="home()">
+            <img src="./assets/images/reports/logo.svg" style="width: 30%;margin: 14px 0px;cursor: pointer;"><br>
+          </div>
+          <div id="report" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionar()">
+            <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 0px;"><br>
+            <span class="textVertical">Reporte General</span>
+          </div>
+          <div style="width: 100%;text-align: center;">
+            <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+          </div>
+          <div style="width: 100%;text-align: center;">
+            <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+          </div>
+          <div style="width: 100%;text-align: center;">
+            <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+          </div>
+        </div>
+      </div>
+      <div class="col-8 m-0 p-0" style="border-radius: 18px 18px 18px 18px;background: #FFFFFF;">
+          <div class="row m-0 p-0">
+            <div class="col-12" style="margin: 20px 0px;">
+              <span class="textVuelo">Reportes Generales</span>
+              <div style="background-image:linear-gradient(to right, #E2231A  31%, #C4C4C4  24%);width: 90%;height: 4px;">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row m-0 p-0">
+            <div class="col-12" style="margin: 0px 17px;">
+              <div class="row m-0 p-0">
+                <div class="col-1 m-0 p-0">
+                  <span class="textFecha">| Fecha</span>
+                </div>
+                <div class="col-5 m-0 p-0">
+                    <label class="d-inline-flex" style="border:1px solid #C2C2C2">
+                                <input type="image"
+                                       src="./assets/images/home/calendario.svg"
+                                       (click)="datepickerIngreso.toggle()"
+                                       class="input-img">
+                                       <input type="text"
+                                       placeholder="Rango de Fechas"
+                                       class="input-date"
+                                       #datepickerIngreso="bsDaterangepicker"
+                                       bsDaterangepicker
+                                       (bsValueChange)="onChangeIntervaloDatas($event)"
+                                       [(ngModel)]="intervaloDatas"
+                                       [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY' }"
+                                       [bsConfig]="{ isAnimated: true }">
+                              </label>
+                </div>
+              </div>
+
+              <div class="row m-0 p-0">
+
+                <div class="col-12 m-0 p-0">
+                    <div *ngIf="ver" class="row m-0 p-0 box-shadow" style="display: flex; flex-wrap: nowrap; overflow-x: auto">
+                      <div *ngFor="let head of listReports[0] | key" class="m-0 p-0 text-center apc-text-2">{{head}}</div>
+                    </div>
+                </div>
+              </div>
+              <div class="row m-0 p-0" *ngFor="let item of listReports">
+
+                <div class="col-12 m-0 p-0">
+                    <div class="row m-0 p-0 box-shadow" style="display: flex; flex-wrap: nowrap;">
+                        <div *ngFor="let list of item | key" class="m-0 p-0 text-center apc-text-2" style="width: 40% !important;">{{item[list]}}</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+          </div>
+      </div>
+
+      </div>
+      <div class="col-2 m-0 p-0">
+
+      </div> -->
+
+
+
+      <ng-container>
+        <div class="containerFlex" style="background: #F5F5F5;">
+          <div class="two">
+            <div style="width: 35%;background: linear-gradient(240.91deg, #ED1C24 19.85%, #D51A2C 42.53%, #3C4749 97.6%);height: 657px;border-radius: 0px 40px 40px 0px;">
+              <div  style="width: 100%;text-align: center;" (click)="home()">
+                <img src="./assets/images/reports/logo.svg" style="width: 30%;margin: 14px 0px;cursor: pointer;"><br>
+              </div>
+              <div id="report" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionar()">
+                <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 0px;"><br>
+                <span class="textVertical">Reporte General</span>
+              </div>
+              <div style="width: 100%;text-align: center;">
+                <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+              </div>
+              <div style="width: 100%;text-align: center;">
+                <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+              </div>
+              <div style="width: 100%;text-align: center;">
+                <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+              </div>
+            </div>
+          </div>
+          <div class="eigth" style="border: 1px solid #DEDEDE;background: #FFFFFF;box-sizing: border-box;">
+            <div class="container">
+
+            </div>
+
+            <div class="container" >
+              <div class="container">
+                <span class="textVuelo">Reportes Generales</span>
+                <div style="background-image:linear-gradient(to right, #E2231A  31%, #C4C4C4  24%);width: 90%;height: 4px;">
+
+                </div>
+              </div>
+            </div>
+
+            <div class="containerFlex">
+              <div style="width: 15%;">
+                <span class="textFecha">| Fecha</span>
+              </div>
+              <div style="width: 40%;">
+                <label class="d-inline-flex" style="border:1px solid #C2C2C2">
+                  <input type="image"
+                         src="./assets/images/home/calendario.svg"
+                         (click)="datepickerIngreso.toggle()"
+                         class="input-img">
+                         <input type="text"
+                         placeholder="Rango de Fechas"
+                         class="input-date"
+                         #datepickerIngreso="bsDaterangepicker"
+                         bsDaterangepicker
+                         (bsValueChange)="onChangeIntervaloDatas($event)"
+                         [(ngModel)]="intervaloDatas"
+                         [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY' }"
+                         [bsConfig]="{ isAnimated: true }">
+                </label>
+              </div>
+            </div>
+            <div class="container">
+              <div class="containerFlex">
+                <div style="width: 5%;">
+
+                </div>
+                <div style="width: 90%;border: 1px solid #C2C2C2;box-sizing: border-box;height: 490px;border-radius: 20px 0px;overflow: auto;">
+                  <div *ngIf="ver" style="background: #FAFAFA;width: auto;display: flex;">
+                    <div *ngFor="let head of listReports[0] | key" style="width: auto;border-right: 1px solid #C2C2C2;color: #EE1D25;font-size: 18px;font-family: Omnes-med">{{head}}</div>
+                  </div>
+                  <div *ngFor="let item of listReports" class="box-shadow" style="width: auto;display: flex">
+                    <div *ngFor="let list of item | key" style="width: auto;">{{item[list]}}</div>
+                  </div>
+                </div>
+                <div style="width: 5%;">
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="two">
+
+          </div>
+        </div>
+      </ng-container>
+
+
+
+
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+
+<!--   <table>
+    <thead>
+      <tr>
+        <th *ngFor="let head of listReports[0] | key">{{head}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listReports">
+        <td *ngFor="let list of item | key">{{item[list]}}</td>
+      </tr>
+    </tbody>
+  </table> -->
+
+
+
+

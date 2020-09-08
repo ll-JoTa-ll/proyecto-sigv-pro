@@ -439,7 +439,7 @@
             <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
                 <div class="row m-0 p-0">
                     <div class="col-3 m-0 p-0 pr-3 pl-5">
-                        <app-buscador [maleta]="maleta" [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto"
+                        <app-buscador *ngIf="miniBuscador" [maleta]="maleta" [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto"
                             [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida" [fechaRetorno]="fechaRetorno"
                             [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2" [fechaSalida3]="fechaSalida3"
                             [fechaSalida4]="fechaSalida4" [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3" [fechaSalidaShow4]="fechaSalidaShow4"
@@ -460,6 +460,17 @@
                             <div *ngIf="searchData[0].pseudoRepeat !== null && flagPseudoRepeat" class="col-12 m-0 p-0">
                                 <app-multipaises-price [currency]="searchData[0].currency" [priceByPseudo]="searchData[0].priceByPseudo"></app-multipaises-price>
                             </div>
+                        </div>
+
+                        <div *ngIf="!spin" class="content">
+
+                          <div class="spinner">
+
+                          </div>
+                        </div>
+
+                        <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini"  class="row m-0 p-0 pt-5">
+                          <app-calendar-shopping (fechas)="onSelectDate($event)" [salida]="salida"></app-calendar-shopping>
                         </div>
 
                         <div *ngIf="searchData.length > 0" class="row m-0 p-0 pt-5">
@@ -501,6 +512,40 @@
 
             </div>
         </div>
+
+        <style>
+
+    .content{
+      width:100%;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#fff;
+    }
+
+    .spinner{
+      width:100px;
+      height:100px;
+      border-radius:50%;
+      border:5px solid black;
+      background:transparent;
+      border-top-color:#efef;
+      border-bottom-color: #efef;
+      border-left-color: black;
+     animation:spin 1.5s linear infinite;
+      position:relative;
+    }
+
+    @keyframes spin{
+      0%{
+        background:transparent;
+        transform: rotate(720deg);
+      }
+
+    }
+
+        </style>
 
 
         <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>

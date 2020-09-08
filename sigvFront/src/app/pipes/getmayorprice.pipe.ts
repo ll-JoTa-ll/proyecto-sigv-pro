@@ -7,6 +7,7 @@ import { element } from 'protractor';
 export class GetmayorpricePipe implements PipeTransform {
 
   transform(value: any[]): any {
+    const keys = [];
     return 0;
   }
 

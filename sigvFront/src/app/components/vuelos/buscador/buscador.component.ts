@@ -143,6 +143,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    console.log("sadsadsadsadasd" + this.fechaSalidaShow);
+    console.log("sadsadsadsadasd" + this.fechaRetornoShow);
     this.indexTramo = this.inIndexTramo;
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
@@ -518,12 +520,14 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       }
 
       if (this.tipoVuelo === "OW") {
+        this.sessionStorageService.store('ss_calendarmini',null);
         origen.push(this.origenAuto);
         destino.push(this.destinoAuto);
         fechas.push(this.fechaSalida);
       }
 
       if (this.tipoVuelo === "MC") {
+        this.sessionStorageService.store('ss_calendarmini',null);
         const indexTramo = this.indexTramo;
         switch (indexTramo) {
           case 2:
@@ -650,10 +654,22 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       let objcampos;
 
       if (this.tipoVuelo === 'RT' || this.tipoVuelo === 'OW') {
+          let origenT;
+          let destinoT;
+          if(this.origenText.name === undefined){
+            origenT = this.origenText
+          } else {
+            origenT = this.origenText.name
+          }
+          if(this.destinoText.name === undefined){
+            destinoT = this.destinoText
+          } else {
+            destinoT = this.destinoText.name
+          }
           objcampos = {
-          origen: this.origenText.name,
+          origen: origenT,
           origencode: this.origenAuto,
-          destino: this.destinoText.name,
+          destino: destinoT,
           destinocode: this.destinoAuto,
           fechasalida: this.fechaSalida,
           fechadestino: this.fechaRetorno,
@@ -668,6 +684,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         };
       }
       if (this.tipoVuelo === 'MC') {
+          this.sessionStorageService.store('ss_calendarmini',null);
           objcampos = {
           origen1: this.origentTexto1,
           origen2: this.origentTexto2,
@@ -723,8 +740,11 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       };
 
       this.sessionStorageService.store('objbuscador', objcampos);
-
       this.sessionStorageService.store('ss_dataRequestFlight', data);
+      this.sessionStorageService.store('ss_databuscador', data);
+      if(this.tipoVuelo === 'RT'){
+        this.sessionStorageService.store('ss_dataRequestMini', data);
+      }
       this.sessionStorageService.store('ss_horasFrom', horasFrom);
       this.sessionStorageService.store('ss_horasTo', horasTo);
       this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
@@ -740,19 +760,40 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
               result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
             }
             this.sessionStorageService.store('ss_searchFlight', result);
+            if(this.tipoVuelo === 'RT'){
+              this.airportService.CalendarShopping(data).subscribe(
+                x => {
+                  x.forEach(element => {
+                    element.arrivalDate = element.arrivalDate.substring(0,10);
+                    element.departureDate = element.departureDate.substring(0,10);
+                  });
+                  this.sessionStorageService.store('ss_calendarmini',true);
+                  this.sessionStorageService.store('ss_calendarshopping',x);
+                  this.lRecomendaciones.emit(result);
+                  this.outTipoVuelo.emit(this.tipoVuelo);
+                  this.outIndexTramo.emit(this.indexTramo);
+                  this.spinner.hide();
+                }
+              )
+            }
           } else {
             this.spinner.hide();
           }
-          this.lRecomendaciones.emit(result);
-          this.outTipoVuelo.emit(this.tipoVuelo);
-          this.outIndexTramo.emit(this.indexTramo);
+          if(this.tipoVuelo !== 'RT'){
+            this.lRecomendaciones.emit(result);
+            this.outTipoVuelo.emit(this.tipoVuelo);
+            this.outIndexTramo.emit(this.indexTramo);
+          }
+
         },
         err => {
           this.spinner.hide();
           this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
         },
         () => {
-          this.spinner.hide();
+          if(this.tipoVuelo != 'RT'){
+            this.spinner.hide();
+          }
         }
       );
     }
