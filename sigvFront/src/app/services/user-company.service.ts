@@ -12,6 +12,7 @@ import { ICostCenter } from '../models/ICostCenter';
 import { ICostCenterCompany } from '../models/ICostCenterCompany.model';
 import { ICostCenterApproval } from '../models/ICostCenterApproval.model';
 import { IUserApproval } from '../models/IUserApproval.model';
+import { IUploadExcelUser } from "../models/IUploadExcelUser";
 
 let httpOptions2 = {
   headers: new HttpHeaders()
@@ -134,6 +135,15 @@ export class UserCompanyService {
       'Ocp-Apim-Subscription-Key': this.key
     });
     return this.http.post<ICostCenterApproval[]>(this.url_costCenterApproval + "InsertUpdateApprovers", data, httpOptions2);
+  }
+
+  postUploadExcelUser(data): Observable<IUploadExcelUser> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Ocp-Apim-Subscription-Key': this.key
+    });
+    return this.http.post<IUploadExcelUser>(this._url5 + "UploadExcelUser", data, httpOptions2);
   }
 
 }

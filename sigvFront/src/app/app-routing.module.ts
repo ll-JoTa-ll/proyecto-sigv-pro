@@ -62,7 +62,6 @@ const routes: Routes = [
   { path: 'partner', component: PartnerComponent, runGuardsAndResolvers: 'always' },
   { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' },
 
-
 ];
 
 @NgModule({

@@ -1,0 +1,74 @@
+<ng-container>
+  <app-header>
+    <div class="row m-0 p-0 pl-5 pr-5">
+
+      <div class="col-1 m-0 p-0"></div>
+
+      <div class="col-10 m-0 p-0">
+        <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0 pt-3">
+            <a style="color: #ED1C24; font-family: Omnes-med;" routerLink="/administrador-pasajeros">Volver</a>
+          </div>
+          <div class="col-12 m-0 p-0 pt-3 txt-titulo">
+            Cargue el archivo de Pasajeros
+          </div>
+          <div class="col-12 m-0 p-0 pt-2">
+            <hr>
+          </div>
+          <div class="col-12 m-0 p-0 pt-3 txt-titulo">
+            Los archivos aceptados son .xlsx, .xls y .csv
+          </div>
+          <div class="col-12 m-0 p-0 pt-3">
+            <form id="formFileUpload" name="form" #f="ngForm" (ngSubmit)="onSubmit()">
+              <div class="row m-0 p-0">
+                <div class="col-10 m-0 p-0">
+                  <div class="custom-file mb-3">
+                    <input type="file" class="custom-file-input" id="customFile" name="filename" (change)="onFileChange($event)">
+                    <label class="custom-file-label" for="customFile">{{nameFile}}</label>
+                  </div>
+                </div>
+                <div class="col-2 m-0 p-0 pl-2">
+                  <button class="form-control btn-buscar" type="submit">
+                    Cargar
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-12 m-0 p-0 pt-3">
+            <alert *ngIf="flagError===true && status.length>0" type="warning">
+              <strong>{{status}}</strong>
+            </alert>
+            <alert *ngIf="flagError===false && status.length>0" type="success">
+              <strong>{{status}}</strong>
+            </alert>
+          </div>
+          <div *ngIf="flagError===true && status.length>0 && flagErrorExt===false" class="col-12 m-0 p-0 pt-3">
+            <div class="row m-0 p-0 box-shadow">
+              <div class="col-2 m-0 p-0"></div>
+              <div class="col-1 m-0 p-0 text-center apc-text-2">Fila</div>
+              <div class="col-7 m-0 p-0 text-center apc-text-2">Mensaje</div>
+              <div class="col-2 m-0 p-0"></div>
+            </div>
+            <div *ngFor="let item of lmasives | paginate: { itemsPerPage: 10, currentPage: p};let i=index;" id="fila_{{i}}" class="row m-0 p-0 box-shadow">
+              <div class="col-2 m-0 p-0"></div>
+              <div class="col-1 m-0 p-0 text-center apc-text-2">{{item.row}}</div>
+              <div class="col-7 m-0 p-0 text-center apc-text-2">{{item.message}}</div>
+              <div class="col-2 m-0 p-0"></div>
+            </div>
+            <div class="row m-0 p-0">
+              <div class="col-12 m-0 p-0 text-center pt-5">
+                <pagination-controls autoHide="true" responsive="true" (pageChange)="p = $event"></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-1 m-0 p-0"></div>
+
+    </div>
+
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+  </app-header>
+</ng-container>
