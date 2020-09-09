@@ -110,7 +110,7 @@
 
             </div>
 
-            <div class="container" >
+            <div class="container" style="margin: 0px 30px;">
               <div class="container">
                 <span class="textVuelo">Reportes Generales</span>
                 <div style="background-image:linear-gradient(to right, #E2231A  31%, #C4C4C4  24%);width: 90%;height: 4px;">
@@ -119,7 +119,7 @@
               </div>
             </div>
 
-            <div class="containerFlex">
+            <div class="containerFlex" style="margin: 22px 61px;">
               <div style="width: 15%;">
                 <span class="textFecha">| Fecha</span>
               </div>
@@ -140,6 +140,24 @@
                          [bsConfig]="{ isAnimated: true }">
                 </label>
               </div>
+              <div style="width: 30%;">
+                <div class="btn-group" dropdown>
+                  <button id="button-basic" dropdownToggle type="button" class="dm-button-back dropdown-toggle"
+                          aria-controls="dropdown-basic">
+                          <img src="./assets/images/reports/tipovista.svg" style="width: 75%;"> <span class="caret"></span>
+                  </button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                      role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li class="divider dropdown-divider"></li>
+                    <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
             </div>
             <div class="container">
               <div class="containerFlex">
@@ -147,11 +165,11 @@
 
                 </div>
                 <div style="width: 90%;border: 1px solid #C2C2C2;box-sizing: border-box;height: 490px;border-radius: 20px 0px;overflow: auto;">
-                  <div *ngIf="ver" style="background: #FAFAFA;width: auto;display: flex;">
-                    <div *ngFor="let head of listReports[0] | key" style="width: auto;border-right: 1px solid #C2C2C2;color: #EE1D25;font-size: 18px;font-family: Omnes-med">{{head}}</div>
+                  <div *ngIf="ver" style="background: #FAFAFA;width: fit-content;;display: flex;">
+                    <div *ngFor="let head of listReports[0] | key" style="border-right: 1px solid #C2C2C2;color: #EE1D25;font-size: 18px;font-family: Omnes-med">{{head}}</div>
                   </div>
-                  <div *ngFor="let item of listReports" class="box-shadow" style="width: auto;display: flex">
-                    <div *ngFor="let list of item | key" style="width: auto;">{{item[list]}}</div>
+                  <div *ngFor="let item of listReports" class="box-shadow" style="width: fit-content;display: flex">
+                    <div *ngFor="let list of item | key" >{{item[list]}}</div>
                   </div>
                 </div>
                 <div style="width: 5%;">
@@ -159,7 +177,20 @@
                 </div>
               </div>
             </div>
+            <div class="container">
+              <div class="containerFlex">
+                <div style="width: 30%;">
 
+                </div>
+                <div style="width: 40%;text-align: center;">
+                  <img (click)="exportAsXLSX()" src="./assets/images/reports/export.svg" style="width: 55%;margin: 14px 0px;cursor: pointer;">
+                </div>
+                <div style="width: 30%;">
+
+                </div>
+
+              </div>
+            </div>
           </div>
           <div class="two">
 

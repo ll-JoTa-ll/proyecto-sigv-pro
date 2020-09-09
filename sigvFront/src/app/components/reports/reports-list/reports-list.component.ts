@@ -18,11 +18,16 @@ export class ReportsListComponent implements OnInit {
   inicioShow;
   finalShow;
   ver = false;
+  title = '';
 
   constructor(private reportService : ReportsService,public spinner: NgxSpinnerService) { }
 
   ngOnInit() {
   }
+
+  exportAsXLSX(): void {
+    this.reportService.exportAsExcelFile(this.listReports, this.title);
+ }
 
   listarReportes(){
     const data = {
@@ -44,6 +49,7 @@ export class ReportsListComponent implements OnInit {
       this.finDate = this.intervaloDatas[1];
       this.inicioShow = this.inicioDate.getDate() + '/' + this.inicioDate.getMonth() + '/' + this.inicioDate.getFullYear();
       this.finalShow = this.finDate.getDate() + '/' + this.finDate.getMonth() + '/' + this.finDate.getFullYear();
+      this.title = 'REPORTES DEL' + this.inicioShow.toString() + this.finalShow.toString();
       this.getReportGeneral(this.inicioShow,this.finalShow);
     }
 }
