@@ -158,6 +158,8 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { ReportsListComponent } from './components/reports/reports-list/reports-list.component';
 import { KeyPipe } from './pipes/key.pipe';
 import { PartnerComponent } from './components/partner/partner.component';
+import { CargaMasivaComponent } from './components/administrador/pasajeros/carga-masiva/carga-masiva.component';
+import { KeysPipe } from "./pipes/keys.pipe";
 
 @NgModule({
   declarations: [
@@ -289,6 +291,8 @@ import { PartnerComponent } from './components/partner/partner.component';
     ReportsListComponent,
     KeyPipe,
     PartnerComponent,
+    CargaMasivaComponent,
+    KeysPipe,
   ],
   imports: [
     BrowserModule,
