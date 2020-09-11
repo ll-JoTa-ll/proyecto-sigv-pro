@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit,Input, AfterViewInit, HostListener } from '@angular/core';
 import { AirportService } from '../../../services/airport.service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { listLocales } from 'ngx-bootstrap/chronos';
@@ -30,10 +30,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   locale = 'es';
   locales = listLocales();
-
+  spin;
   flagBuscar: boolean;
   fechahoy = new Date();
-
+  calendarmini;
+  @Input() salida: boolean;
   airportlist: any[] = [];
   citylist: any[] = [];
   airportlistFilter: any[] = [];
@@ -61,11 +62,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   pasajeros: number;
 
   token;
-
+  calendar = false;
   flagDinData;
 
   indexTramo: number;
-
+  miniBuscador = true;
   origenAuto1: string;
   origenAuto2: string;
   origenAuto3: string;
@@ -120,6 +121,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   flagPaxMasMenos: boolean;
 
   vuelosManiana: boolean;
+  salCalendar;
+  llegCalendar;
   vuelosNoche: boolean;
   vueloTurnoFiltro: boolean;
   flagBuscadorLateral: boolean;
@@ -385,6 +388,24 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   handlerRetorno() {
     this.isOpendate = true;
+  }
+
+  salidaCalendar(input) {
+    const datePart = input.match(/\d+/g);
+    const year = datePart[0].substring(2); // get only two digits
+    const month = datePart[1];
+    const day = datePart[2];
+
+    this.salCalendar =  day +'/'+month+'/'+year;
+  }
+
+  llegadaCalendar(input) {
+    const datePart = input.match(/\d+/g);
+    const year = datePart[0].substring(2); // get only two digits
+    const month = datePart[1];
+    const day = datePart[2];
+
+    this.llegCalendar =  day +'/'+month+'/'+year;
   }
 
   onValueChangeSalida(value: Date, dateretorno: any): void {
@@ -1188,6 +1209,324 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
  }
 
+ onSelectDate(fechas){
+  const regex = /-/gi;
+  fechas.Salida = fechas.Salida.replace(regex, '/');
+  fechas.Salida = fechas.Salida.replace(regex, '/');
+  fechas.Llegada = fechas.Llegada.replace(regex, '/');
+  fechas.Llegada = fechas.Llegada.replace(regex, '/');
+  this.searchFlightCalendar(fechas.Salida,fechas.Llegada);
+ }
+
+
+
+ searchFlightCalendar(salida,llegada) {
+  //codigo comentado de bnus
+/*  if (this.lstBnus != null) {
+    if (this.lstBnus.length > 0) {
+      this.UserBnus2();
+      this.modalRef.hide();
+    }
+  }
+  */
+ const flagVal = this.validarDataBusqueda();
+ if (!flagVal) {
+    return;
+  } else {
+    this.spinner.show();
+    this.inicioBuscador = false;
+    this.miniBuscador = false;
+    this.spin = false;
+    this.calendarmini = false;
+    this.flagDinData = false;
+    let databuscador = this.sessionStorageService.retrieve('objbuscador');
+    this.origenAuto = databuscador.origencode;
+    this.origentTexto = databuscador.origen;
+    this.destinoAuto = databuscador.destinocode;
+    this.destinoTexto = databuscador.destino;
+    let origen: any[] = [];
+    let destino: any[] = [];
+    let fechas: any[] = [];
+    let horasFrom: any[] = [];
+    let horasTo: any[] = [];
+    if (this.tipoVuelo === "RT") {
+      this.sessionStorageService.store('ss_calendarshopping',null);
+      origen.push(this.origenAuto);
+      origen.push(this.destinoAuto);
+
+      destino.push(this.destinoAuto);
+      destino.push(this.origenAuto);
+
+      fechas.push(salida);
+      fechas.push(llegada);
+    }
+
+    if (this.tipoVuelo === "OW") {
+      origen.push(this.origenAuto);
+      destino.push(this.destinoAuto);
+      fechas.push(this.fechaSalida);
+    }
+
+    if (this.tipoVuelo === "MC") {
+      const indexTramo = this.indexTramo;
+      switch (indexTramo) {
+        case 2:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          break;
+        case 3:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          break;
+        case 4:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          break;
+        case 5:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          fechas.push(this.fechaSalida5);
+          break;
+        case 6:
+          origen.push(this.origenAuto1);
+          origen.push(this.origenAuto2);
+          origen.push(this.origenAuto3);
+          origen.push(this.origenAuto4);
+          origen.push(this.origenAuto5);
+          origen.push(this.origenAuto6);
+
+          destino.push(this.destinoAuto1);
+          destino.push(this.destinoAuto2);
+          destino.push(this.destinoAuto3);
+          destino.push(this.destinoAuto4);
+          destino.push(this.destinoAuto5);
+          destino.push(this.destinoAuto6);
+
+          fechas.push(this.fechaSalida1);
+          fechas.push(this.fechaSalida2);
+          fechas.push(this.fechaSalida3);
+          fechas.push(this.fechaSalida4);
+          fechas.push(this.fechaSalida5);
+          fechas.push(this.fechaSalida6);
+          break;
+      }
+    }
+    fechas.forEach(function(fe) {
+      horasFrom.push("");
+      horasTo.push("");
+    });
+
+    let lUsers_: any[] = [];
+
+    const lstPasajeros = this.sessionStorageService.retrieve('ss_lstPasajeros');
+    if (lstPasajeros != null) {
+      if (lstPasajeros.length > 0) {
+        lstPasajeros.forEach(function(item, index) {
+          const pax = {
+            "RoleId": item.orole.id,
+            "CostCenterId": null,
+            "UserId": item.userId
+          };
+          lUsers_.push(pax);
+        });
+      }
+    } else {
+      lUsers_.push(
+        {
+          "RoleId": this.loginDataUser.orole.roleId,
+          "CostCenterId": null,
+          "UserId": this.loginDataUser.userId
+        }
+      );
+    }
+
+
+    let data = {
+      "Lusers": lUsers_,
+      "NumberPassengers": this.pasajeros,
+      "NumberRecommendations": "50",
+      "CabinType": this.cabina,
+      "Scales": this.escala,
+      "Origin": origen,
+      "Destination": destino,
+      "DepartureArrivalDate": fechas,
+      "DepartureArrivalTimeFrom": horasFrom,
+      "DepartureArrivalTimeTo": horasTo,
+      "Ocompany": this.loginDataUser.ocompany,
+      "IncludesBaggage": this.maleta
+    };
+
+    this.sessionStorageService.store('ss_dataRequestFlight', data);
+    this.sessionStorageService.store('ss_databuscador', data);
+    this.sessionStorageService.store('ss_horasFrom', horasFrom);
+    this.sessionStorageService.store('ss_horasTo', horasTo);
+    this.sessionStorageService.store('ss_filterPrecio', 'mas');
+
+
+    let aerolineas = this.aerolineas;
+    let objcampos;
+
+    if (this.tipoVuelo === 'OW' || this.tipoVuelo === 'RT') {
+        this.salidaCalendar(salida);
+        this.llegadaCalendar(llegada);
+        objcampos = {
+        origen: this.origentTexto,
+        origencode: this.origenAuto,
+        destino: this.destinoTexto,
+        destinocode: this.destinoAuto,
+        fechasalidashow: $('#fechasalida').val(),
+        fecharetornoshow: $('#fechadestino').val(),
+        fechasalida: this.salCalendar,
+        fechadestino: this.llegCalendar,
+        cabina: this.textoCabina,
+        escala: this.textoEscala,
+        pasajeros: this.pasajeros,
+        tipovuelo: this.tipoVuelo,
+        mindatesalida: this.minDateSalida,
+        mindateretorno: this.minDateRetorno
+      };
+    }
+
+    if (this.tipoVuelo === 'MC') {
+      objcampos = {
+        origen1: this.origentTexto1,
+        origen2: this.origentTexto2,
+        origen3: this.origentTexto3,
+        origen4: this.origentTexto4,
+        origen5: this.origentTexto5,
+        origen6: this.origentTexto6,
+        origencode1: this.origenAuto1,
+        origencode2: this.origenAuto2,
+        origencode3: this.origenAuto3,
+        origencode4: this.origenAuto4,
+        origencode5: this.origenAuto5,
+        origencode6: this.origenAuto6,
+        destino1: this.destinoTexto1,
+        destino2: this.destinoTexto2,
+        destino3: this.destinoTexto3,
+        destino4: this.destinoTexto4,
+        destino5: this.destinoTexto5,
+        destino6: this.destinoTexto6,
+        destinocode1: this.destinoAuto1,
+        destinocode2: this.destinoAuto2,
+        destinocode3: this.destinoAuto3,
+        destinocode4: this.destinoAuto4,
+        destinocode5: this.destinoAuto5,
+        destinocode6: this.destinoAuto6,
+        fechasalida1: this.fechaSalidaShow1,
+        fechasalida2: this.fechaSalidaShow2,
+        fechasalida3: this.fechaSalidaShow3,
+        fechasalida4: this.fechaSalidaShow4,
+        fechasalida5: this.fechaSalidaShow5,
+        fechasalida6: this.fechaSalidaShow6,
+        tipovuelo: this.tipoVuelo,
+        cabina: this.textoCabina,
+        escala: this.textoEscala,
+        pasajeros: this.pasajeros,
+        indextramo: this.indexTramo
+      }
+    }
+
+    this.sessionStorageService.store('objbuscador', objcampos);
+
+    this.airportService.searchFlight(data).subscribe(
+      result => {
+        this.flagPseudoRepeat = true;
+        if ( result !== null && result.length > 0) {
+          this.fechaSalidaShow = this.salCalendar;
+          this.fechaRetornoShow = this.llegCalendar;
+          this.calendar = false;
+          this.miniBuscador = true;
+          this.sessionStorageService.store('ss_calendarshopping',null);
+          this.sessionStorageService.store('ss_dataRequestMini', null);
+          //aerolineas
+          this.inicioBuscador = true;
+          this.searchData = result;
+          this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
+          this.sessionStorageService.store('ss_searchFlight', result);
+          this.flagBuscar = true;
+          this.flagBuscadorLateral = true;
+          this.setLstAerolineas(result);
+          this.airportService.CalendarShopping(data).subscribe(
+            x => {
+              x.forEach(element => {
+                element.arrivalDate = element.arrivalDate.substring(0,10);
+                element.departureDate = element.departureDate.substring(0,10);
+              });
+              this.sessionStorageService.store('ss_calendarshopping',x);
+              this.spin = true;
+              this.calendar = true;
+            },
+          )
+        } else {
+          this.sessionStorageService.store('ss_searchFlight', null);
+          this.flagDinData = true;
+        }
+      },
+      err => {
+        this.spinner.hide();
+        this.flagBuscadorLateral = false;
+        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
+      },
+      () => {
+        this.spinner.hide();
+        this.flagBuscadorLateral = false;
+        if (this.searchData.length > 0) {
+          if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
+            this.GetUsers();
+           // this.sessionStorageService.store('objusuarios', this.datosuser);
+          }
+          if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
+            this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+            this.sessionStorageService.store('objusuarios', this.datosuser);
+           }
+        }
+      }
+    );
+  }
+}
+
   searchFlight() {
     //codigo comentado de bnus
   /*  if (this.lstBnus != null) {
@@ -1202,6 +1541,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       return;
     } else {
       this.spinner.show();
+      this.sessionStorageService.store('ss_spinner', true);
+      this.spin = true;
       this.flagDinData = false;
       let origen: any[] = [];
       let destino: any[] = [];
@@ -1209,6 +1550,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       let horasFrom: any[] = [];
       let horasTo: any[] = [];
       if (this.tipoVuelo === "RT") {
+        this.sessionStorageService.store('ss_dataRequestMini', null);
         origen.push(this.origenAuto);
         origen.push(this.destinoAuto);
 
@@ -1426,6 +1768,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
       this.sessionStorageService.store('objbuscador', objcampos);
 
+
+
       this.airportService.searchFlight(data).subscribe(
         result => {
           this.flagPseudoRepeat = true;
@@ -1435,6 +1779,22 @@ export class VuelosComponent implements OnInit, AfterViewInit {
             this.sessionStorageService.store('ss_searchFlight', result);
             this.flagBuscar = true;
             this.flagBuscadorLateral = true;
+            this.spinner.hide();
+            if(this.tipoVuelo === 'RT'){
+              this.spin = false;
+              this.airportService.CalendarShopping(data).subscribe(
+                x => {
+                  this.calendar = true;
+                  this.spin = true;
+                  x.forEach(element => {
+                    element.arrivalDate = element.arrivalDate.substring(0,10);
+                    element.departureDate = element.departureDate.substring(0,10);
+                  });
+                  this.sessionStorageService.store('ss_calendarshopping',x);
+                  this.salida = false;
+                },
+              )
+            }
             //aerolineas
             this.setLstAerolineas(result);
           } else {
@@ -1922,6 +2282,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     } else {
       this.searchData = $event;
     }
+    this.calendar = true;
+    this.calendarmini = this.sessionStorageService.retrieve('ss_calendarmini')
     this.flagPseudoRepeat = false;
     this.flagPseudoRepeat = true;
     this.sessionStorageService.store('ss_searchFlight', this.searchData);

@@ -32,6 +32,8 @@ document.onclick = function(e) {
 
 
 
+
+
 function RequestServer(url, method, success, text) {
     var xhr = new XMLHttpRequest();
     xhr.open(method, url, true);

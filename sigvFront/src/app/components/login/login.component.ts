@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
   idinterval;
   idinterval1;
   logout;
+  mensajeError;
   modalRef: BsModalRef;
   config = {
     backdrop: true,
@@ -88,63 +89,70 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.spinner.show();
-    const datos = {
-      User: this.model.User,
-      Password: crypto.SHA256(this.model.Password).toString()
-    };
-    console.log("datos: " + JSON.stringify(datos));
-    this.flagLogin = 0;
+    let user = $('#txtemail').val();
+    let pass = $('#txtpass').val();
+    if (user === '' || pass === '' ) {
+      this.msjerrorr = true;
+      this.mensajeError = 'Por favor rellene los campos faltantes.'
+    } else {
+      this.spinner.show();
+      const datos = {
+        User: this.model.User,
+        Password: crypto.SHA256(this.model.Password).toString()
+      };
+      console.log("datos: " + JSON.stringify(datos));
+      this.flagLogin = 0;
 
-    const lstCentralizador = environment.cod_rol_centralizador;
+      const lstCentralizador = environment.cod_rol_centralizador;
 
 
-    this.loginService.login(datos).subscribe(
-      (result) => {
-        this.datoslogin = result;
-        if (result != null) {
-          if (this.datoslogin.oerror === null) {
-            this.flagLogin = 1;
-            let flagCentralizador = false;
-            const roleId = result.orole.roleId;
-            lstCentralizador.forEach(function(cent) {
-              if (cent === roleId) {
-                flagCentralizador = true;
-              }
-            });
-            this.sessionStorageService.store('ss_login_data', result);
-            this.token = result.token;
-            this.localStorageService.store('ss_token', result.token);
-            this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
-            this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
-            this.closedSesion = true;
-            this.localStorageService.store("ss_closedSesion",null);
-            this.localStorageService.store("ss_closedSesion",this.closedSesion);
-          //console.log(result);
-        } else {
-          return;
+      this.loginService.login(datos).subscribe(
+        (result) => {
+          this.datoslogin = result;
+          if (result != null) {
+            if (this.datoslogin.oerror === null) {
+              this.flagLogin = 1;
+              let flagCentralizador = false;
+              const roleId = result.orole.roleId;
+              lstCentralizador.forEach(function(cent) {
+                if (cent === roleId) {
+                  flagCentralizador = true;
+                }
+              });
+              this.sessionStorageService.store('ss_login_data', result);
+              this.token = result.token;
+              this.localStorageService.store('ss_token', result.token);
+              this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
+              this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
+              this.closedSesion = true;
+              this.localStorageService.store("ss_closedSesion",null);
+              this.localStorageService.store("ss_closedSesion",this.closedSesion);
+            //console.log(result);
+          } else {
+            return;
+          }
         }
-      }
-      },
-      (error) => {
-        this.spinner.hide();
-        //console.log('ERROR' + JSON.stringify(error));
-      },
-
-      () => {
-        if (this.datoslogin.oerror != null) {
-          this.msjerrorr = true;
-
+        },
+        (error) => {
           this.spinner.hide();
-        } else {
-        var password = $('#txtpass').val();
-        var email = $('#txtemail').val();
-        this.localStorageService.store('ss_credenciales', email);
-          this.userid = this.datoslogin.userId;
-          this.airportListPriority();
+          //console.log('ERROR' + JSON.stringify(error));
+        },
+
+        () => {
+          if (this.datoslogin.oerror != null) {
+            this.msjerrorr = true;
+            this.mensajeError = this.datoslogin.oerror.message;
+            this.spinner.hide();
+          } else {
+          var password = $('#txtpass').val();
+          var email = $('#txtemail').val();
+          this.localStorageService.store('ss_credenciales', email);
+            this.userid = this.datoslogin.userId;
+            this.airportListPriority();
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   onKeydown(event) {
