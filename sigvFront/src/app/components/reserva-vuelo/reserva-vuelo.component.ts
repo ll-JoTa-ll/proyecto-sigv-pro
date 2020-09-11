@@ -392,10 +392,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         valueUid = $("#" + id).val();
         if (txt.isMandatory === true) {
           if (valueUid.length <= 0 || valueUid == '0') {
-            $("#" + id).addClass('campo-invalido');
+            $("#div_" + id).addClass('campo-invalido');
             val = false;
           } else {
-            $("#" + id).removeClass('campo-invalido');
+            $("#div_" + id).removeClass('campo-invalido');
           }
         }
       });
@@ -501,13 +501,15 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     const lstCbxC = lstUidByCompanyC.filter(x => x.isList === true);
     lstCbxC.forEach(function(cbx) {
       const id = "c_combo_" + cbx.codeUid;
+      console.log("id: " + id);
       const selectValue = $("#" + id).val();
+      console.log("selectValue: " + selectValue);
       if (cbx.isMandatory === true) {
         if (selectValue == '0' || selectValue == '') {
-          $("#" + id).addClass('campo-invalido');
+          $("#div_" + id).addClass('campo-invalido');
           val = false;
         } else {
-          $("#" + id).removeClass('campo-invalido');
+          $("#div_" + id).removeClass('campo-invalido');
         }
       }
 
@@ -1022,6 +1024,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     //console.log("getUidByCompany");
     const companyId = this.loginDataUser.ocompany.companyId;
     const pseudo = this.pseudo;//LIMPE28AX
+    console.log("companyId: " + companyId);
+    console.log("pseudo: " + pseudo);
     this.flightService.getUidByCompany(companyId, pseudo).subscribe(
       result => {
         //console.log("result: " + JSON.stringify(result));
@@ -1100,7 +1104,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           htmlTxtC += cbx.title;
           htmlTxtC += "</div>";
 
-          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div id='div_c_combo_" + cbx.codeUid + "' class='col-6 m-0 p-0 mt-2'>";
 
           htmlTxtC += "<select class='form-control' placeholder='Selecciona'  id='c_combo_" + cbx.codeUid + "'>";
           htmlTxtC += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";

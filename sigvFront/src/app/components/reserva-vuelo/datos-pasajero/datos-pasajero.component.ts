@@ -278,7 +278,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
         htmlTxtC += "</div>";
         htmlTxtC += "</div>";
         htmlTxtC += "<div class='row m-0 p-0'>";
-        htmlTxtC += "<div class='col-12 m-0 p-0'>";
+        htmlTxtC += "<div id='div_p_" + txt.codeUid + "_" + indexP + "' class='col-12 m-0 p-0'>";
         //htmlTxtC += "<input disabled (keypress)='ValidarCampos()' (keydown)='ValidarCampos()' (keyup)='ValidarCampos()' class='input-pasajero' type='text' [(ngModel)]='this.centroCosto' id='txtCentroCosto_{{index}}' maxlength='50'>";
         htmlTxtC += "";
         htmlTxtC += "";
