@@ -2,7 +2,7 @@
     <div *ngIf="flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
         <app-add-pax-centralizador (flagCentralizado)="updateCentralizador($event)"></app-add-pax-centralizador>
     </div>
-    <div *ngIf="!flagBuscar; then buscarFull"></div>
+    <div *ngIf="!flagBuscar; else buscarFull"></div>
 
     <mat-horizontal-stepper *ngIf="!flagCentralizador && flagAutoCroselling && flagBuscar"
         (selectionChange)="onStepChange($event)" linear labelPosition="bottom" #stepper
