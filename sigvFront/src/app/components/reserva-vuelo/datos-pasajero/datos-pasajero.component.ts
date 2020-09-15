@@ -10,8 +10,10 @@ import { ConfigurationOptions, ContentOptionsEnum, NumberResult } from 'intl-inp
 import { IGetPaisesModel } from '../../../models/IGetPaises';
 import { UserCompanyService } from 'src/app/services/user-company.service';
 import { IDocumentType } from 'src/app/models/IDocumentType.model';
+import { ICostCenterCompany } from "../../../models/ICostCenterCompany.model";
+import * as jquery from 'jquery';
 
-declare var jquery: any;
+//declare var jquery: any;
 declare var $: any;
 
 @Component({
@@ -53,15 +55,24 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   //valtelefono = false;
   //valcorreo = false;
 
-  @Input() htmlTxtP;
+  //@Input() htmlTxtP;
+  //bsValue: Date;
+
+  htmlTxtP = "";
   bsValue: Date;
+  flagHtmlP = false;
+  @Input() uidByCompanyP: any[] = [];
+  @Input() lstCostCenter: ICostCenterCompany[] = [];
+  lstValoresPax: any[] = [];
 
   constructor(
     private userCompanyService: UserCompanyService,
     private modalService: BsModalService,
     private sessionStorageService : SessionStorageService) {
-  /*  $("#telephone").intlTelInput({
-  });*/
+    /*  $("#telephone").intlTelInput({
+    });*/
+    //console.log("DatosPasajeroComponent constructor");
+    //console.log("index: " + this.index);
     let fecha;
     this.datosuser = sessionStorageService.retrieve('objusuarios');
     this.datosuser.forEach(element => {
@@ -71,6 +82,8 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    //console.log("DatosPasajeroComponent ngOnInit");
+    //console.log("index: " + this.index);
     this.document();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
@@ -82,12 +95,18 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     if (this.user.lcostCenter.length > 0 && this.user.lcostCenter[0].description != null){
       this.centroCosto = this.user.lcostCenter[0].description;
     } else {
-      this.centroCosto = "Sin Información"
+      //this.centroCosto = "Sin Información"
+      this.centroCosto = "U5_0"
     }
+
+    //console.log("setInformacionPasajeros");
+    //this.setInformacionPasajeros(this.uidByCompanyP);
   }
 
   ngAfterViewInit() {
-    $("#divHtmlTxtP").html(this.htmlTxtP);
+    //console.log("DatosPasajeroComponent ngAfterViewInit");
+    //$("#divHtmlTxtP").html(this.htmlTxtP);
+    this.setInformacionPasajeros(this.uidByCompanyP);
   }
 
 
@@ -123,7 +142,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     // tslint:disable-next-line: max-line-length
     if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==190  && event.keyCode !==110 && event.keyCode !==8 && event.keyCode !==9  ){
       return false;
-  }
+    }
   }
 
 
@@ -140,58 +159,58 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     $("#hdnTel_" + this.index).val(value);
     let valor = $('#cbopaises option:selected').attr('data-countryCode');
     if (valor === 'CO') {
-       $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'PA') {
-       $('#txttelefono_' + this.index).attr('maxlength', '8');
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
     }
     if (valor === 'PE') {
-       $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
     if (valor === 'AR') {
       $('#txttelefono_' + this.index).attr('maxlength', '13');
     }
     if (valor === 'EC') {
-        $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'PY') {
-        $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'UY') {
-        $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
     if (valor === 'VE') {
       $('#txttelefono_' + this.index).attr('maxlength', '11');
     }
     if (valor === 'CL') {
-    $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
     if (valor === 'BR') {
-    $('#txttelefono_' + this.index).attr('maxlength', '11');
+      $('#txttelefono_' + this.index).attr('maxlength', '11');
     }
     if (valor === 'BO') {
-    $('#txttelefono_' + this.index).attr('maxlength', '8');
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
     }
     if (valor === 'US') {
-    $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'MX') {
-    $('#txttelefono_' + this.index).attr('maxlength', '13');
+      $('#txttelefono_' + this.index).attr('maxlength', '13');
     }
     if (valor === 'CA') {
-    $('#txttelefono_' + this.index).attr('maxlength', '10');
+      $('#txttelefono_' + this.index).attr('maxlength', '10');
     }
     if (valor === 'CR') {
-    $('#txttelefono_' + this.index).attr('maxlength', '8');
+      $('#txttelefono_' + this.index).attr('maxlength', '8');
     }
     if (valor === 'CU') {
-    $('#txttelefono_' + this.index).attr('maxlength', '9');
+      $('#txttelefono_' + this.index).attr('maxlength', '9');
     }
   }
 
 
 
-   llenarnumero() {
+  llenarnumero() {
 
   }
 
@@ -232,6 +251,354 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       } else {
         $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
       }
-  });
+    });
+  }
+
+  setInformacionPasajeros(lstUidByCompanyP) {
+    let lstValoresPax = this.lstValoresPax;
+    const lstCostCenter = this.lstCostCenter;
+    //console.log("setInformacionPasajeros");
+    //console.log("lstUidByCompanyP: " + JSON.stringify(lstUidByCompanyP));
+    const indexP = this.index;
+    if (lstUidByCompanyP.length > 0) {
+      let htmlTxtC = "";
+      const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
+      const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
+      let flagC = 0;
+      lstTxtC.forEach(function(txt, index) {
+        flagC = 1;
+
+
+        htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+        htmlTxtC += "<div class='row m-0 p-0'>";
+        htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+        htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='p_lbl_" + txt.codeUid + "_" + indexP + "' for='' class='label-pasajero'>";
+        htmlTxtC += txt.title;
+        htmlTxtC += "</label>";
+        htmlTxtC += "</div>";
+        htmlTxtC += "</div>";
+        htmlTxtC += "<div class='row m-0 p-0'>";
+        htmlTxtC += "<div id='div_p_" + txt.codeUid + "_" + indexP + "' class='col-12 m-0 p-0'>";
+        //htmlTxtC += "<input disabled (keypress)='ValidarCampos()' (keydown)='ValidarCampos()' (keyup)='ValidarCampos()' class='input-pasajero' type='text' [(ngModel)]='this.centroCosto' id='txtCentroCosto_{{index}}' maxlength='50'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+
+        let flagU5 = 0;
+        if (txt.codeUid === 'U5') {
+          if (txt.listUids === null) {
+            flagU5 = 1;
+          } else if (txt.listUids.length === 0) {
+            flagU5 = 1;
+          }
+        }
+
+        if (flagU5 === 1) {
+          if (txt.isEditable === true) {
+
+            htmlTxtC += "<select placeholder='Selecciona' class='form-control'  id='p_" + txt.codeUid + "_" + indexP + "'>";
+            htmlTxtC += "<option value='" + "0" + "'>" + "Selecciona" + "</option>";
+            lstCostCenter.forEach(function(padre, indexPadre) {
+              //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
+              //htmlTxtC += "<option value='" + txt.codeUid + "_" + padre.code + "'>" + padre.description + "</option>";
+              htmlTxtC += "<option value='" + padre.code + "'>" + padre.description + "</option>";
+            });
+            htmlTxtC += "</select>";
+
+          } else {
+            htmlTxtC += "<input id='p_" + txt.codeUid + "_" + indexP + "' class='form-control' type='text'>";
+          }
+        } else {
+          htmlTxtC += "<input id='p_" + txt.codeUid + "_" + indexP + "' class='form-control' type='text'>";
+        }
+
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "</div>";
+        htmlTxtC += "</div>";
+
+        const oPaxInfo = {
+          "id": "p_" + txt.codeUid + "_" + indexP,
+          "isMandatory": txt.isMandatory,
+          "status": 1,
+          "combo": flagU5
+        };
+        lstValoresPax.push(oPaxInfo);
+
+        /*
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += txt.title;
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "<input class='form-control' type='text'>";
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "";
+        */
+      });
+
+      //this.setHijoNieto(lstCbxC);
+
+      lstCbxC.forEach(function(cbx) {
+        flagC = 1;
+
+        const llistUid = cbx.listUids;
+        if (llistUid != null) {
+          const lstPadre = llistUid.filter(x => x.parent === 0);
+          const lstHijosNietos = llistUid.filter(x => x.parent > 0);
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' for=''>";
+          htmlTxtC += cbx.title + "";
+          htmlTxtC += "</label>";
+          htmlTxtC += "</div>";
+          htmlTxtC += "</div>";
+
+
+          /*
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += cbx.title;
+          htmlTxtC += "</div>";
+          */
+
+
+
+          htmlTxtC += "<div class='row m-0 p-0' id='row_combo_" + cbx.codeUid + "_" + indexP + "'>";
+
+          htmlTxtC += "<select placeholder='Selecciona' class='form-control'  id='combo_" + cbx.codeUid + "_" + indexP + "'>";
+          //htmlTxtC += "<option value='" + cbx.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
+          htmlTxtC += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
+          lstPadre.forEach(function(padre, indexPadre) {
+            //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
+            htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id+ "_" + padre.code + "'>" + padre.description + "</option>";
+
+          });
+          htmlTxtC += "</select>";
+
+          htmlTxtC += "</div>";
+
+          const oPaxInfo = {
+            "id": "combo_" + cbx.codeUid + "_" + indexP,
+            "isMandatory": cbx.isMandatory,
+            "status": 1,
+            "combo": 1
+          };
+          lstValoresPax.push(oPaxInfo);
+
+          //htmlTxtC += "</div>";
+
+          //Hijo 1
+          //htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+
+          htmlTxtC += "<div id='rowHijo1_" + indexP + "' class='row m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' class='label-pasajero' id='label_hijo_1_" + indexP + "' for=''>";
+          htmlTxtC += "</label>";
+          htmlTxtC += "</div>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='' style='width: 100% !important;' id='divHijo1_" + indexP + "'></div>";
+          htmlTxtC += "</div>";
+
+          //htmlTxtC += "</div>";
+
+          //Hijo 2
+          //htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+
+          htmlTxtC += "<div id='rowHijo2_" + indexP + "' class='row m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='label_hijo_2_" + indexP + "' for=''>";
+          htmlTxtC += "</label>";
+          htmlTxtC += "</div>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='' style='width: 100% !important;' id='divHijo2_" + indexP + "'></div>";
+          htmlTxtC += "</div>";
+
+          //htmlTxtC += "</div>";
+
+          //Hijo 3
+          //htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+
+          htmlTxtC += "<div id='rowHijo3_" + indexP + "' class='row m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='label_hijo_3_" + indexP + "' for=''>";
+          htmlTxtC += "</label>";
+          htmlTxtC += "</div>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='' id='divHijo3_" + indexP + "'></div>";
+          htmlTxtC += "</div>";
+
+          //htmlTxtC += "</div>";
+
+          //Hijo 4
+          //htmlTxtC += "<div class='col-6 m-0 p-0 pl-4 pr-4 pl-4 pr-4'>";
+
+          htmlTxtC += "<div id='rowHijo4_" + indexP + "' class='row m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='col-12 m-0 p-0 label-pasajero'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='label_hijo_4_" + indexP + "' for=''>";
+          htmlTxtC += "</label>";
+          htmlTxtC += "</div>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='row m-0 p-0'>";
+          htmlTxtC += "<div class='' id='divHijo4_" + indexP + "'></div>";
+          htmlTxtC += "</div>";
+
+          //
+          htmlTxtC += "</div>";
+        }
+      });
+
+      this.lstValoresPax = lstValoresPax;
+      //console.log("this.lstValoresPax: " + JSON.stringify(this.lstValoresPax));
+      //console.log("htmlTxtC: " + htmlTxtC);
+      this.htmlTxtP = htmlTxtC;
+
+      //console.log("DIV: " + "#divHtmlTxtP_" + indexP);
+      $("#divHtmlTxtP_" + indexP).html(this.htmlTxtP);
+
+
+      console.log("lstValoresPax: " + JSON.stringify(lstValoresPax));
+      lstValoresPax.forEach(function (item) {
+        if (item.combo === 1) {
+          $('#' + item.id).val("");
+          $('#' + item.id).selectize({
+            create: true,
+            sortField: 'value'
+          });
+        }
+      });
+      //combo_U14_1
+      /*
+      $('#combo_U14_1').val("");
+      $('#combo_U14_1').selectize({
+        create: true,
+        sortField: 'value'
+      });
+      */
+
+
+
+      //console.log("this.centroCosto: " + this.centroCosto);
+
+      lstTxtC.forEach(function (lbl) {
+        const idLbl = "p_lbl_" + lbl.codeUid + "_" + indexP;
+        $("#" + idLbl).addClass("label-pasajero");
+      });
+
+
+      $('#combo_U5_' + indexP).val(this.centroCosto);
+
+      let uidByCompanyP = this.uidByCompanyP;
+      const indexPax = this.index;
+      uidByCompanyP = uidByCompanyP.filter(x => x.isList === true);
+      uidByCompanyP.forEach(function (compamy) {
+        //console.log("#combo_" + compamy.codeUid + "_" + indexPax);
+        $("#combo_" + compamy.codeUid + "_" + indexPax).change(function() {
+          //console.log("indexPax: " + indexPax);
+          //console.log("indexP: " + indexP);
+          //alert( "Handler for .change() called." );
+          //const idPadre = $("#combo_5").val();
+          const idPadre = $("#combo_" + compamy.codeUid + "_" + indexPax).val();
+          const valor1 = idPadre.split('_')[0];
+          const valor2 = idPadre.split('_')[1];
+
+          //console.log("idPadre: " + idPadre);
+          //console.log("valor1: " + valor1);
+          //console.log("valor2: " + valor2);
+
+          //const lstUidByCompanyP = uidByCompanyP.filter(x => x.codeUid == valor1)[0];
+          //const llistUid = lstUidByCompanyP.listUids.filter(x => x.parent == valor2);
+          const oPadre = compamy.listUids.filter(x => x.codeUid == valor1 && x.id == valor2)[0];
+          const llistUid = oPadre.listUids;
+
+          if (llistUid.length > 0) {
+            $("#rowHijo1_" + indexPax).show();
+            $("#divHijo1_" + indexPax).show();
+            $("#divHijo1_" + indexPax).addClass("div100");
+            //$("#divHijo2_" + valor1).show();
+            let htmlHijo = "";
+            const idComboHijo = "comboH_" + llistUid[0].codeUid + "_" + indexPax;
+
+            htmlHijo += "<select class='form-control' placeholder='Selecciona'  id='comboH_" + llistUid[0].codeUid + "_" + indexPax + "'>";
+            //htmlHijo += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
+            htmlHijo += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
+            let hijoTitle = "";
+            llistUid.forEach(function(hijo) {
+              hijoTitle = hijo.title;
+              htmlHijo += "<option value='" + hijo.codeUid + "_" + hijo.id + "_" + hijo.code + "'>" + hijo.description + "</option>";
+            });
+            htmlHijo += "</select>";
+            $("#divHijo1_" + indexPax).html(htmlHijo);
+            $("#label_hijo_1_" + indexPax).html(hijoTitle);
+            $("#" + idComboHijo).addClass("form-control");
+            $('#' + idComboHijo).val("");
+            $('#' + idComboHijo).selectize({
+              create: true,
+              sortField: 'value'
+            });
+
+            //NIETO
+            $("#" + idComboHijo).change(function() {
+              $("#divHijo2_" + indexPax).hide();
+              const valComboHijo = $("#" + idComboHijo).val();
+              //const llistUidHijo = lstUidByCompanyP.llistUid.filter(x => x.parent == valComboHijo.split('_')[1]);
+              const valor1Hijo = valComboHijo.split('_')[0];
+              const valor2Hijo = valComboHijo.split('_')[1];
+              const oHijo = llistUid.filter(x => x.codeUid == valor1Hijo && x.id == valor2Hijo)[0];
+              const llistUidHijo = oHijo.listUids;
+              if (llistUidHijo.length > 0) {
+                $("#rowHijo2_" + indexPax).show();
+                $("#divHijo2_" + indexP).show();
+                let htmlNieto = "";
+                const idComboHijo = "comboN_" + llistUidHijo[0].codeUid + "_" + indexPax;
+
+                htmlNieto += "<select class='form-control' placeholder='Selecciona'  id='comboN_" + llistUidHijo[0].codeUid + "_" + indexPax + "'>";
+                //htmlNieto += "<option value='" + valor1 + "_0" + "" + "'>" + "Selecciona" + "</option>";
+                htmlNieto += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
+                let nietoTitle = "";
+                llistUidHijo.forEach(function(nieto) {
+                  nietoTitle = nieto.title;
+                  htmlNieto += "<option value='" + nieto.codeUid + "_" + nieto.id + "_" + nieto.code + "'>" + nieto.description + "</option>";
+                });
+                htmlNieto += "</select>";
+                $("#divHijo2_" + indexP).html(htmlNieto);
+                $("#label_hijo_2_" + indexPax).html(nietoTitle);
+                $('#' + idComboHijo).val("");
+                $('#' + idComboHijo).selectize({
+                  create: true,
+                  sortField: 'value'
+                });
+              } else {
+                $("#divHijo2_" + indexP).hide();
+                $("#rowHijo2_" + indexPax).hide();
+              }
+            });
+          } else {
+            $("#divHijo1_" + indexP).hide();
+            $("#rowHijo1_" + indexPax).hide();
+            $("#divHijo2_" + indexP).hide();
+            $("#rowHijo2_" + indexPax).hide();
+          }
+        });
+      })
+
+      if (flagC === 1) {
+        this.flagHtmlP = true;
+      }
+
+    }
   }
 }

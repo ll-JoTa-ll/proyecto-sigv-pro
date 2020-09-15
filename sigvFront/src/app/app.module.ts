@@ -160,6 +160,8 @@ import { KeyPipe } from './pipes/key.pipe';
 import { PartnerComponent } from './components/partner/partner.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ModalPartnerComponent } from './components/shared/modal-partner/modal-partner.component';
+import { CargaMasivaComponent } from './components/administrador/pasajeros/carga-masiva/carga-masiva.component';
+import { KeysPipe } from "./pipes/keys.pipe";
 
 @NgModule({
   declarations: [
@@ -292,6 +294,8 @@ import { ModalPartnerComponent } from './components/shared/modal-partner/modal-p
     KeyPipe,
     PartnerComponent,
     ModalPartnerComponent,
+    CargaMasivaComponent,
+    KeysPipe,
   ],
   imports: [
     BrowserModule,

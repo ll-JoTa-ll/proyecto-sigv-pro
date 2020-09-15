@@ -74,6 +74,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   blockflight;
   modalerror: BsModalRef;
   idprofile;
+  LcompanyUIDs;
 
   constructor(private sessionStorageService: SessionStorageService,
               private service: AirportService, private router: Router, private http: HttpClient, public spinner: NgxSpinnerService,
@@ -103,6 +104,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
     this.blockflight = this.loginDataUser.ocompany.ocompanyConfiguration.blockFlight;
     this.idprofile = this.sessionStorageService.retrieve('idprofile');
+    this.LcompanyUIDs = this.sessionStorageService.retrieve('ss_LcompanyUIDs');
    }
 
    /*
@@ -221,7 +223,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "TypeFlight": this.tipovuelo,
     "TotalDiscount": amount,
     "PercentageDiscount": porcentaje,
-    "Ltaxes": this.lsflightavailability.ltaxes
+    "Ltaxes": this.lsflightavailability.ltaxes,
+      "LcompanyUIDs": this.LcompanyUIDs
     };
     this.service.AddPassenger(data).subscribe(
         results => {
@@ -597,6 +600,10 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     }
 
     Emitir() {
+      console.log("this.idmotivo: " + this.idmotivo);
+      console.log("this.idmotivo: " + this.idmotivo);
+      console.log("this.idmotivo: " + this.idmotivo);
+      console.log("this.idmotivo: " + this.idmotivo);
       this.spinner.show();
       var reason = this.sessionStorageService.retrieve('reason');
       let idinterval = this.sessionStorageService.retrieve('idinterval');
@@ -650,7 +657,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     "TypeFlight": this.tipovuelo,
     "TotalDiscount": amount,
     "PercentageDiscount": porcentaje,
-    "Ltaxes": this.lsflightavailability.ltaxes
+    "Ltaxes": this.lsflightavailability.ltaxes,
+        "LcompanyUIDs": this.LcompanyUIDs
     };
       this.service.GenerateTicket(data).subscribe(
         results => {

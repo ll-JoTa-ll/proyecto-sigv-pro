@@ -19,6 +19,9 @@ import { IGetPaisesModel } from '../../models/IGetPaises';
 import { IRegulationsModel } from '../../models/IRegulations';
 import { ModalErrorServiceComponent } from '../shared/modal-error-service/modal-error-service.component';
 import { IProfileModel } from '../../models/IProfileModel';
+import { UserCompanyService } from "../../services/user-company.service";
+import { ICostCenterCompany } from "../../models/ICostCenterCompany.model";
+
 declare var jquery: any;
 declare var $: any;
 
@@ -87,6 +90,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   flagactive: boolean;
   numeropasajero;
   lstbag;
+  flagPasajeros = false;
+  lstCostCenter: ICostCenterCompany[] = [];
+  LcompanyUIDs: any[] = [];
+  lstValoresEmpresa: any[] = [];
 
   constructor(
     private modalService: BsModalService,
@@ -96,7 +103,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     private router: Router,
     private bnIdle: BnNgIdleService,
     private flightService: FlightService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private userCompanyService: UserCompanyService
+  ) {
     this.GetPaises();
     this.datarequest = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
     this.flightAvailability_request = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
@@ -223,7 +232,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       err => {
       },
       () => {
-        // this.getUidByCompany();
+        this.getUidByCompany();
       }
     );
   }
@@ -290,10 +299,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   ValidarCampos() {
+    //console.log("ValidarCampos");
     let val = true;
     let valtelefono;
     let motivoViaje = $('#reason').val();
     let valcorreo;
+    const lstUidByCompanyP = this.uidByCompanyP;
+    const lstUidByCompanyC = this.uidByCompanyC;
     this.datosuser.forEach(function(item, index) {
         if ($('#txtnombre_' + (index + 1)).val().length <= 0) {
           val = false;
@@ -302,7 +314,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           $('#txtnombre_' + (index + 1)).removeClass('campo-invalido');
         }
         if(motivoViaje === undefined){
-          console.log(motivoViaje);
+          //console.log(motivoViaje);
         } else {
           if (motivoViaje.length <= 0) {
             val = false;
@@ -370,6 +382,85 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         } else {
           $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
         }
+
+      //INI VALIDACION PASAJERO
+      const indexPax = index + 1;
+      const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
+      lstTxtC.forEach(function(txt) {
+        const id = "p_" + txt.codeUid + "_" + indexPax;
+        let valueUid = "";
+        valueUid = $("#" + id).val();
+        if (txt.isMandatory === true) {
+          if (valueUid.length <= 0 || valueUid == '0') {
+            $("#div_" + id).addClass('campo-invalido');
+            val = false;
+          } else {
+            $("#div_" + id).removeClass('campo-invalido');
+          }
+        }
+      });
+
+      const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
+      //console.log("lstCbxC: " + JSON.stringify(lstCbxC));
+      lstCbxC.forEach(function(cbx) {
+        const id = "combo_" + cbx.codeUid + "_" + indexPax;
+        const selectValue = $("#" + id).val();
+        if (cbx.isMandatory === true) {
+          if (selectValue == '0' || selectValue == '') {
+            $("#row_" + id).addClass('campo-invalido');
+            val = false;
+          } else {
+            $("#row_" + id).removeClass('campo-invalido');
+          }
+        }
+
+        //console.log("selectValue: " + selectValue);
+        if (selectValue != "0" && selectValue != "") {
+          //console.log("XDXD");
+          if (cbx.listUids.length > 0) {
+            const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
+            const lstHijos = oPadre.listUids;
+            if (lstHijos.length > 0) {
+              const codeUidHijo = lstHijos[0].codeUid;
+              const idHijo = "comboH_" + codeUidHijo + "_" + indexPax;
+              const selectValueHijo = $("#" + idHijo).val();
+              if (lstHijos[0].isMandatory === true) {
+                if (selectValueHijo == '0' || selectValueHijo == '') {
+                  //$("#" + idHijo).addClass('campo-invalido');
+                  $("#divHijo1_" + indexPax).addClass('campo-invalido');
+                  val = false;
+                } else {
+                  //$("#" + idHijo).removeClass('campo-invalido');
+                  $("#divHijo1_" + indexPax).removeClass('campo-invalido');
+                }
+              }
+
+
+              if (selectValueHijo != "0" && selectValueHijo != "") {
+                const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
+                const lstNietos = oHijo.listUids;
+                if (lstNietos.length > 0) {
+                  const codeUidNieto = lstNietos[0].codeUid;
+                  const idNieto = "comboN_" + codeUidNieto + "_" + indexPax;
+                  const selectValueNieto = $("#" + idNieto).val();
+                  if (lstNietos[0].isMandatory === true) {
+                    if (selectValueNieto == '0' || selectValueNieto == '') {
+                      //$("#" + idNieto).addClass('campo-invalido');
+                      $("#divHijo2_" + indexPax).addClass('campo-invalido');
+                      val = false;
+                    } else {
+                      //$("#" + idNieto).removeClass('campo-invalido');
+                      $("#divHijo2_" + indexPax).removeClass('campo-invalido');
+                    }
+                  }
+                }
+              }
+
+            }
+          }
+        }
+      });
+      //FIN VALIDACION PASAJERO
     });
     if ($('#contactocorreo').val().length <= 0) {
       $('#contactocorreo').addClass('campo-invalido');
@@ -391,6 +482,77 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     } else {
       $('#contactotelefono').removeClass('campo-invalido');
     }
+
+    //INI VALIDACION EMPRESA
+    const lstTxtC = lstUidByCompanyC.filter(x => x.isList === false);
+    lstTxtC.forEach(function(txt) {
+      const id = "c_" + txt.codeUid + "_" + 1;
+      const valorId = $("#" + id).val();
+      if (txt.isMandatory === true) {
+        if (valorId.length <= 0) {
+          $("#" + id).addClass('campo-invalido');
+          val = false;
+        } else {
+          $("#" + id).removeClass('campo-invalido');
+        }
+      }
+    });
+
+    const lstCbxC = lstUidByCompanyC.filter(x => x.isList === true);
+    lstCbxC.forEach(function(cbx) {
+      const id = "c_combo_" + cbx.codeUid;
+      console.log("id: " + id);
+      const selectValue = $("#" + id).val();
+      console.log("selectValue: " + selectValue);
+      if (cbx.isMandatory === true) {
+        if (selectValue == '0' || selectValue == '') {
+          $("#div_" + id).addClass('campo-invalido');
+          val = false;
+        } else {
+          $("#div_" + id).removeClass('campo-invalido');
+        }
+      }
+
+      if (selectValue != "0" && selectValue != "") {
+        if (cbx.listUids.length > 0) {
+          const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
+          const lstHijos = oPadre.listUids;
+          if (lstHijos.length > 0) {
+            const codeUidHijo = lstHijos[0].codeUid;
+            const idHijo = "c_comboH_" + codeUidHijo;
+            const selectValueHijo = $("#" + idHijo).val();
+            if (lstHijos[0].isMandatory === true) {
+              if (selectValueHijo == '0' || selectValueHijo == '') {
+                $("#" + idHijo).addClass('campo-invalido');
+                val = false;
+              } else {
+                $("#" + idHijo).removeClass('campo-invalido');
+              }
+            }
+
+            if (selectValueHijo != "0" && selectValueHijo != "") {
+              const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
+              const lstNietos = oHijo.listUids;
+              if (lstNietos.length > 0) {
+                const codeUidNieto = lstNietos[0].codeUid;
+                const idNieto = "c_comboN_" + codeUidNieto;
+                const selectValueNieto = $("#" + idNieto).val();
+                if (lstNietos[0].isMandatory === true) {
+                  if (selectValueNieto == '0' || selectValueNieto == '') {
+                    $("#" + idNieto).addClass('campo-invalido');
+                    val = false;
+                  } else {
+                    $("#" + idNieto).removeClass('campo-invalido');
+                  }
+                }
+              }
+            }
+
+          }
+        }
+      }
+    });
+    //INI VALIDACION EMPRESA
 
     return val;
   }
@@ -433,7 +595,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       Code: '1',
       Lsection: lsection
     };
-    console.log(data);
+    //console.log(data);
     this.RegulacionesService(data, template);
   //  });
   }
@@ -467,6 +629,11 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   Comprar(template, template2) {
+    console.log("Comprar");
+    const valIni = this.ValidarCampos();
+    if (!valIni) {
+      return valIni
+    }
     var rason = $('#reason').val();
     let idmotivo = $('#cbomotivo option:selected').val();
     let idprofile = $('#cboprofile option:selected').val();
@@ -481,6 +648,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     email2 = $('#contactocorreo').val();
     telefono2 = $('#contactotelefono').val();
     nombrecontacto = $('#nombrecontacto').val();
+    let LcompanyUIDs = [];
+    const lstUidByCompanyP = this.uidByCompanyP;
+    const lstUidByCompanyC = this.uidByCompanyC;
     this.datosuser.forEach(function(item, index) {
       let prefix;
       let nombre;
@@ -581,7 +751,192 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         "Orole": item.orole
        };
       datosusuario.push(objuser);
+
+      //INI INFORMACION PASAJERO
+      console.log("INI INFORMACION PASAJERO");
+      const indexPax = index + 1;
+      const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
+      lstTxtC.forEach(function(txt) {
+        const id = "p_" + txt.codeUid + "_" + indexPax;
+        let valueUid = "";
+        valueUid = $("#" + id).val();
+
+        /*
+        let flagU5 = 0;
+        if (txt.codeUid === 'U5') {
+          if (txt.listUids === null) {
+            flagU5 = 1;
+          } else if (txt.listUids.length === 0) {
+            flagU5 = 1;
+          }
+        }
+
+        if (flagU5 === 1) {
+          if (txt.isEditable === true) {
+            valueUid = $("#" + id).val();
+          } else {
+            valueUid = $("#" + id).val();
+          }
+        } else {
+          valueUid = $("#" + id).val();
+        }
+        */
+
+        const ocompanyUIDs = {
+          "CodeUid": txt.codeUid,
+          "TypeUid": "P",
+          "PassengerId": indexPax + "",
+          "ValueUid": valueUid
+        };
+        LcompanyUIDs.push(ocompanyUIDs);
+      });
+
+      const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
+      lstCbxC.forEach(function(cbx) {
+        const id = "combo_" + cbx.codeUid + "_" + indexPax;
+        const selectValue = $("#" + id).val();
+        let valueUid = "";
+        if (selectValue != "0" || selectValue != "") {
+          valueUid = selectValue.split('_')[2];
+        }
+        const ocompanyUIDs = {
+          "CodeUid": cbx.codeUid,
+          "TypeUid": "P",
+          "PassengerId": indexPax + "",
+          "ValueUid": valueUid
+        };
+        LcompanyUIDs.push(ocompanyUIDs);
+
+        if (selectValue != "0" || selectValue != "") {
+          if (cbx.listUids.length > 0) {
+            const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
+            const lstHijos = oPadre.listUids;
+            if (lstHijos.length > 0) {
+              const codeUidHijo = lstHijos[0].codeUid;
+              const idHijo = "comboH_" + codeUidHijo + "_" + indexPax;
+              const selectValueHijo = $("#" + idHijo).val();
+              let valueUidHijo = "";
+              if (selectValueHijo != "0" || selectValueHijo != "") {
+                valueUidHijo = selectValueHijo.split('_')[2];
+              }
+              const ocompanyUIDsHijo = {
+                "CodeUid": codeUidHijo,
+                "TypeUid": "P",
+                "PassengerId": indexPax + "",
+                "ValueUid": valueUidHijo
+              };
+              LcompanyUIDs.push(ocompanyUIDsHijo);
+
+              if (selectValueHijo != "0" || selectValueHijo != "") {
+                const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
+                const lstNietos = oHijo.listUids;
+                if (lstNietos.length > 0) {
+                  const codeUidNieto = lstNietos[0].codeUid;
+                  const idNieto = "comboN_" + codeUidNieto + "_" + indexPax;
+                  const selectValueNieto = $("#" + idNieto).val();
+                  let valueUidNieto = "";
+                  if (selectValueNieto != "0" || selectValueNieto != "") {
+                    valueUidNieto = selectValueNieto.split('_')[2];
+                  }
+                  const ocompanyUIDsNieto = {
+                    "CodeUid": codeUidNieto,
+                    "TypeUid": "P",
+                    "PassengerId": indexPax + "",
+                    "ValueUid": valueUidNieto
+                  };
+                  LcompanyUIDs.push(ocompanyUIDsNieto);
+                }
+              }
+
+            }
+          }
+        }
+      });
+      //FIN INFORMACION PASAJERO
     });
+
+    //INI INFORMACION EMPRESA
+    const lstTxtC = lstUidByCompanyC.filter(x => x.isList === false);
+    lstTxtC.forEach(function(txt) {
+      const id = "c_" + txt.codeUid + "_" + 1;
+      const ocompanyUIDs = {
+        "CodeUid": txt.codeUid,
+        "TypeUid": "C",
+        "PassengerId": 1 + "",
+        "ValueUid": $("#" + id).val()
+      };
+      LcompanyUIDs.push(ocompanyUIDs);
+    });
+
+    const lstCbxC = lstUidByCompanyC.filter(x => x.isList === true);
+    lstCbxC.forEach(function(cbx) {
+      const id = "c_combo_" + cbx.codeUid;
+      const selectValue = $("#" + id).val();
+      //console.log("PadreselectValue: " + selectValue);
+      //console.log("PadreselectValue: " + selectValue);
+      //console.log("PadreselectValue: " + selectValue);
+      //console.log("PadreselectValue: " + selectValue);
+      let valueUid = "";
+      if (selectValue != "0" || selectValue != "") {
+        valueUid = selectValue.split('_')[2];
+      }
+      const ocompanyUIDs = {
+        "CodeUid": cbx.codeUid,
+        "TypeUid": "C",
+        "PassengerId": 1 + "",
+        "ValueUid": valueUid
+      };
+      LcompanyUIDs.push(ocompanyUIDs);
+
+      if (selectValue != "0" || selectValue != "") {
+        if (cbx.listUids.length > 0) {
+          const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
+          const lstHijos = oPadre.listUids;
+          if (lstHijos.length > 0) {
+            const codeUidHijo = lstHijos[0].codeUid;
+            const idHijo = "c_comboH_" + codeUidHijo;
+            const selectValueHijo = $("#" + idHijo).val();
+            let valueUidHijo = "";
+            if (selectValueHijo != "0" || selectValueHijo != "") {
+              valueUidHijo = selectValueHijo.split('_')[2];
+            }
+            const ocompanyUIDsHijo = {
+              "CodeUid": codeUidHijo,
+              "TypeUid": "C",
+              "PassengerId": 1 + "",
+              "ValueUid": valueUidHijo
+            };
+            LcompanyUIDs.push(ocompanyUIDsHijo);
+
+            if (selectValueHijo != "0" || selectValueHijo != "") {
+              const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
+              const lstNietos = oHijo.listUids;
+              if (lstNietos.length > 0) {
+                const codeUidNieto = lstNietos[0].codeUid;
+                const idNieto = "c_comboN_" + codeUidNieto;
+                const selectValueNieto = $("#" + idNieto).val();
+                let valueUidNieto = "";
+                if (selectValueNieto != "0" || selectValueNieto != "") {
+                  valueUidNieto = selectValueNieto.split('_')[2];
+                }
+                const ocompanyUIDsNieto = {
+                  "CodeUid": codeUidNieto,
+                  "TypeUid": "C",
+                  "PassengerId": 1 + "",
+                  "ValueUid": valueUidNieto
+                };
+                LcompanyUIDs.push(ocompanyUIDsNieto);
+              }
+            }
+
+          }
+        }
+      }
+    });
+    //FIN INFORMACION EMPRESA
+
+    this.LcompanyUIDs = LcompanyUIDs;
+    console.log("this.LcompanyUIDs: " + JSON.stringify(this.LcompanyUIDs));
 
     let flagValIgualEmail = 0;
     let lstEmail = [];
@@ -632,7 +987,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       });
       this.numeropasajero = pasajero;
       if (correoigual == 1) {
-        console.log(this.numeropasajero);
+        //console.log(this.numeropasajero);
         this.modalRef = this.modalService.show(
           template2,
           Object.assign({}, { class: 'gray modal-lg m-infraccion' })
@@ -660,20 +1015,29 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       this.sessionStorageService.store('politicas', this.LPolicies);
       this.sessionStorageService.store('idmotivo', idmotivo);
       this.sessionStorageService.store('reason', rason);
+      this.sessionStorageService.store('ss_LcompanyUIDs', this.LcompanyUIDs);
       this.router.navigate(['/reserva-vuelo-compra']);
     }
   }
 
   getUidByCompany() {
+    //console.log("getUidByCompany");
     const companyId = this.loginDataUser.ocompany.companyId;
-    this.flightService.getUidByCompany(companyId).subscribe(
+    const pseudo = this.pseudo;//LIMPE28AX
+    console.log("companyId: " + companyId);
+    console.log("pseudo: " + pseudo);
+    this.flightService.getUidByCompany(companyId, pseudo).subscribe(
       result => {
+        //console.log("result: " + JSON.stringify(result));
         if (result != null) {
           this.uidByCompanyC = result.filter(x => x.typeUid === 'C');
           this.uidByCompanyP = result.filter(x => x.typeUid === 'P');
+          //console.log("this.uidByCompanyC: " + JSON.stringify(this.uidByCompanyC));
+          //console.log("this.uidByCompanyP: " + JSON.stringify(this.uidByCompanyP));
         }
       },
       err => {
+        //console.log("ERROR: " + JSON.stringify(err));
         this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       },
       () => {
@@ -682,18 +1046,146 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         }
 
         if (this.uidByCompanyP.length > 0) {
-          this.setInformacionPasajeros(this.uidByCompanyP);
+          //this.setInformacionPasajeros(this.uidByCompanyP);
         }
+        //this.flagPasajeros = true;
+        this.userCompanyService.getCostCenterCompany(companyId).subscribe(
+          result2 => {
+            this.lstCostCenter = result2;
+          },
+          err2 => {
+            //console.log("ERROR: " + JSON.stringify(err2));
+            this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
+          },
+          () => {
+            this.flagPasajeros = true;
+          }
+        );
       }
     );
   }
 
 
   setInformacionAdicional(lstUidByCompanyC) {
+    let lstValoresEmpresa = this.lstValoresEmpresa;
     if (lstUidByCompanyC.length > 0) {
       let htmlTxtC = "";
       const lstTxtC = lstUidByCompanyC.filter(x => x.isList === false);
       const lstCbxC = lstUidByCompanyC.filter(x => x.isList === true);
+      let flagC = 0;
+      lstTxtC.forEach(function(txt, index) {
+        flagC = 1;
+        htmlTxtC += "<div style='font-family: Omnes-med; color: #676767;' class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += txt.title;
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+        htmlTxtC += "";
+        htmlTxtC += "";
+        htmlTxtC += "<input id='c_" + txt.codeUid + "_" + 1 + "' class='form-control' type='text'>";
+        htmlTxtC += "";
+        htmlTxtC += "</div>";
+        htmlTxtC += "";
+      });
+
+      //this.setHijoNieto(lstCbxC);
+
+      lstCbxC.forEach(function(cbx, index) {
+        flagC = 1;
+
+        const llistUid = cbx.listUids;
+        if (llistUid != null) {
+          const lstPadre = llistUid.filter(x => x.parent === 0);
+          const lstHijosNietos = llistUid.filter(x => x.parent > 0);
+
+          htmlTxtC += "<div style='font-family: Omnes-med; color: #676767;' class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += cbx.title;
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div id='div_c_combo_" + cbx.codeUid + "' class='col-6 m-0 p-0 mt-2'>";
+
+          htmlTxtC += "<select class='form-control' placeholder='Selecciona'  id='c_combo_" + cbx.codeUid + "'>";
+          htmlTxtC += "<option value='" + "" + "0" + "" + "'>" + "Selecciona" + "</option>";
+          lstPadre.forEach(function(padre, indexPadre) {
+            htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id+ "_" + padre.code + "'>" + padre.description + "</option>";
+          });
+          htmlTxtC += "</select>";
+
+          const oPaxInfo = {
+            "id": "c_combo_" + cbx.codeUid,
+            "isMandatory": cbx.isMandatory,
+            "status": 1,
+            "combo": 1
+          };
+          lstValoresEmpresa.push(oPaxInfo);
+
+          htmlTxtC += "</div>";
+
+          //HIJO 1
+          htmlTxtC += "<div id='c_rowHijo1_1' class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='c_label_hijo_1' for=''>";
+          htmlTxtC += "</label>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='pt-2' id='c_divHijo1'></div>";
+          htmlTxtC += "</div>";
+
+          //HIJO 2
+          htmlTxtC += "<div id='c_rowHijo2_1' class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='c_label_hijo_2' for=''>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='pt-2' id='c_divHijo2'></div>";
+          htmlTxtC += "</div>";
+
+          //HIJO 3
+          htmlTxtC += "<div id='c_rowHijo3_1' class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='c_label_hijo_3' for=''>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='pt-2' id='c_divHijo3'></div>";
+          htmlTxtC += "</div>";
+
+          //HIJO 4
+          htmlTxtC += "<div id='c_rowHijo4_1' class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<label style='font-family: Omnes-med; color: #676767;' id='c_label_hijo_4' for=''>";
+          htmlTxtC += "</div>";
+
+          htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
+          htmlTxtC += "<div class='pt-2' id='c_divHijo4'></div>";
+          htmlTxtC += "</div>";
+        }
+      });
+      this.htmlTxtC = htmlTxtC;
+
+      //console.log(htmlTxtC)
+
+
+
+      if (flagC === 1) {
+        this.lstValoresEmpresa = lstValoresEmpresa;
+        this.flagHtmlC = true;
+      }
+
+    }
+  }
+
+  setHijoNieto(lstCbxC) {
+
+  }
+
+  setInformacionPasajeros(lstUidByCompanyP) {
+    console.log("setInformacionPasajeros");
+    console.log("lstUidByCompanyP.length: " + lstUidByCompanyP.length);
+    if (lstUidByCompanyP.length > 0) {
+      let htmlTxtC = "";
+      const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
+      const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
       let flagC = 0;
       lstTxtC.forEach(function(txt, index) {
         flagC = 1;
@@ -717,7 +1209,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       lstCbxC.forEach(function(cbx, index) {
         flagC = 1;
 
-        const llistUid = cbx.llistUid;
+        const llistUid = cbx.listUids;
         if (llistUid != null) {
           const lstPadre = llistUid.filter(x => x.parent === 0);
           const lstHijosNietos = llistUid.filter(x => x.parent > 0);
@@ -728,119 +1220,31 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
           htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
 
-
-          htmlTxtC += "<select class='form-control'>";
+          htmlTxtC += "<select class='form-control'  id='combo_" + cbx.codeUid + "'>";
+          htmlTxtC += "<option value='" + cbx.codeUid + "_0" + "" + "'>" + "Selecciona" + "</option>";
           lstPadre.forEach(function(padre, indexPadre) {
-            const lstHijos = lstHijosNietos.filter(x => x.parent === padre.id);
-            if (lstHijos.length > 0) {
-              htmlTxtC += "<optgroup label='  " + padre.description + "'>";
-              lstHijos.forEach(function(hijo, indexHijo) {
-                const lstNietos = lstHijosNietos.filter(y => y.parent === hijo.id);
-                if (lstNietos.length > 0) {
-                  htmlTxtC += "<optgroup label='" + hijo.description + "'>";
-                  lstNietos.forEach(function(nieto, indexnieto) {
-                    htmlTxtC += "<option>" + nieto.description + "</option>";
-                  });
-                  htmlTxtC += "</optgroup>";
-                } else {
-                  htmlTxtC += "<option>" + hijo.description + "</option>";
-                }
-              });
-              htmlTxtC += "</optgroup>";
-            } else {
-              htmlTxtC += "<option>" + padre.description + "</option>";
-            }
+            //(change)='listarHijo(" + cbx.codeUid + "_" + padre.id + ")'
+            htmlTxtC += "<option value='" + cbx.codeUid + "_" + padre.id + "'>" + padre.description + "</option>";
+
           });
           htmlTxtC += "</select>";
 
+          htmlTxtC += "<div class='pt-2' id='divHijo1_" + cbx.codeUid + "'></div>";
+
+          htmlTxtC += "<div class='pt-2' id='divHijo2_" + cbx.codeUid + "'></div>";
 
           htmlTxtC += "</div>";
         }
       });
-      this.htmlTxtC = htmlTxtC;
+      this.htmlTxtP = htmlTxtC;
 
+      console.log("this.htmlTxtP");
+      console.log(this.htmlTxtP)
 
       if (flagC === 1) {
-        this.flagHtmlC = true;
+        this.flagHtmlP = true;
       }
 
-    }
-  }
-
-  setHijoNieto(lstCbxC) {
-
-  }
-
-  setInformacionPasajeros(lstUidByCompanyP) {
-    //this.htmlTxtP = this.htmlTxtC;
-    if (lstUidByCompanyP.length > 0) {
-      let htmlTxtP = "";
-      const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
-      const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
-      let flagC = 0;
-      lstTxtC.forEach(function(txt, index) {
-        flagC = 1;
-        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
-        htmlTxtP += "";
-        htmlTxtP += "";
-        htmlTxtP += txt.title;
-        htmlTxtP += "";
-        htmlTxtP += "</div>";
-        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
-        htmlTxtP += "";
-        htmlTxtP += "";
-        htmlTxtP += "<input class='form-control' type='text'>";
-        htmlTxtP += "";
-        htmlTxtP += "</div>";
-        htmlTxtP += "";
-      });
-
-      //this.setHijoNieto(lstCbxC);
-
-      lstCbxC.forEach(function(cbx, index) {
-        flagC = 1;
-
-        const llistUid = cbx.llistUid;
-        const lstPadre = llistUid.filter(x => x.parent === 0);
-        const lstHijosNietos = llistUid.filter(x => x.parent > 0);
-
-        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
-        htmlTxtP += cbx.title;
-        htmlTxtP += "</div>";
-
-        htmlTxtP += "<div class='col-6 m-0 p-0 pt-2'>";
-
-        htmlTxtP += "<select class='form-control'>";
-        lstPadre.forEach(function(padre, indexPadre) {
-          const lstHijos = lstHijosNietos.filter(x => x.parent === padre.id);
-          if (lstHijos.length > 0) {
-            htmlTxtP += "<optgroup label='" + padre.description + "'>";
-            lstHijos.forEach(function(hijo, indexHijo) {
-              const lstNietos = lstHijosNietos.filter(y => y.parent === hijo.id);
-              if (lstNietos.length > 0) {
-                htmlTxtP += "<optgroup label='" + hijo.description + "'>";
-                lstNietos.forEach(function(nieto, indexnieto) {
-                  htmlTxtP += "<option>" + nieto.description + "</option>";
-                });
-                htmlTxtP += "</optgroup>";
-              } else {
-                htmlTxtP += "<option>" + hijo.description + "</option>";
-              }
-            });
-            htmlTxtP += "</optgroup>";
-          } else {
-            htmlTxtP += "<option>" + padre.description + "</option>";
-          }
-        });
-        htmlTxtP += "</select>";
-
-        htmlTxtP += "</div>";
-
-      });
-      this.htmlTxtP = htmlTxtP;
-      this.flagHtmlP = true;
-    } else {
-      this.flagHtmlP = true;
     }
   }
 }

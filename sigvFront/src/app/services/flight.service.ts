@@ -21,7 +21,7 @@ export class FlightService {
   token;
   key;
 
-  private _url2: string = environment.url_2 + "CompanyUid/";
+  private _url_5: string = environment.url_5 + "CompanyAccessUid/";
 
   constructor(
     private http: HttpClient,
@@ -36,7 +36,9 @@ export class FlightService {
     });
   }
 
-  getUidByCompany(companyId): Observable<IGetUidByCompanyModel[]> {
-    return this.http.get<IGetUidByCompanyModel[]>(this._url2 + "GetUidByCompany?companyId=" + companyId, httpOptions);
+  getUidByCompany(companyId, pseudo): Observable<IGetUidByCompanyModel[]> {
+    console.log(companyId);
+    console.log(pseudo);
+    return this.http.get<IGetUidByCompanyModel[]>(this._url_5 + "GetEditableCompanyUid?companyId=" + companyId + "&pseudo=" + pseudo, httpOptions);
   }
 }
