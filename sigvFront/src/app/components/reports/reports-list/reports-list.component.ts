@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportsService } from 'src/app/services/reports.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ModalPartnerComponent } from '../../shared/modal-partner/modal-partner.component';
+import { SessionStorageService } from 'ngx-webstorage';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+
 declare var jquery: any;
 declare var $: any;
 
@@ -18,16 +23,38 @@ export class ReportsListComponent implements OnInit {
   inicioShow;
   finalShow;
   ver = false;
+  showPartner = true;
   title = '';
+  todo = [];
 
-  constructor(private reportService : ReportsService,public spinner: NgxSpinnerService) { }
+  done = [];
+  modalRef: BsModalRef;
+
+  constructor(private modalService: BsModalService,private reportService : ReportsService,
+              public spinner: NgxSpinnerService,private sessionStorageService: SessionStorageService) { }
 
   ngOnInit() {
+  }
+
+  hola(){
+    this.todo = this.sessionStorageService.retrieve('ss_keys');
+    this.showPartner = false;
   }
 
   exportAsXLSX(): void {
     this.reportService.exportAsExcelFile(this.listReports, this.title);
  }
+
+ drop(event: CdkDragDrop<string[]>) {
+  if (event.previousContainer === event.container) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  } else {
+    transferArrayItem(event.previousContainer.data,
+                      event.container.data,
+                      event.previousIndex,
+                      event.currentIndex);
+  }
+}
 
   listarReportes(){
     const data = {
@@ -68,6 +95,7 @@ export class ReportsListComponent implements OnInit {
           this.spinner.hide();
         } else {
           this.listReports = result;
+          this.sessionStorageService.store('ss_partner', result);
           this.ver = true;
           this.spinner.hide();
         }

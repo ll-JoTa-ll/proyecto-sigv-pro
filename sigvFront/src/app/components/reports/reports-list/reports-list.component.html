@@ -148,11 +148,11 @@
                   </button>
                   <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
                       role="menu" aria-labelledby="button-basic">
-                    <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-                    <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-                    <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li role="menuitem"><a class="dropdown-item" style="cursor: pointer;">Nueva vista</a></li>
+                    <li role="menuitem"><a class="dropdown-item" (click)="hola()" style="cursor: pointer;">Seleccionar campos para mostrar</a></li>
+                    <li role="menuitem"><a class="dropdown-item" style="cursor: pointer;">Clonar</a></li>
                     <li class="divider dropdown-divider"></li>
-                    <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a>
+                    <li role="menuitem"><a class="dropdown-item" style="cursor: pointer;">Borrar</a>
                     </li>
                   </ul>
                 </div>
@@ -164,12 +164,41 @@
                 <div style="width: 5%;">
 
                 </div>
-                <div style="width: 90%;border: 1px solid #C2C2C2;box-sizing: border-box;height: 490px;border-radius: 20px 0px;overflow: auto;">
+                <div *ngIf="showPartner" style="width: 90%;border: 1px solid #C2C2C2;box-sizing: border-box;height: 490px;border-radius: 20px 0px;overflow: auto;">
                   <div *ngIf="ver" style="background: #FAFAFA;width: fit-content;;display: flex;">
                     <div *ngFor="let head of listReports[0] | key" style="border-right: 1px solid #C2C2C2;color: #EE1D25;font-size: 18px;font-family: Omnes-med">{{head}}</div>
                   </div>
                   <div *ngFor="let item of listReports" class="box-shadow" style="width: fit-content;display: flex">
                     <div *ngFor="let list of item | key" >{{item[list]}}</div>
+                  </div>
+                </div>
+                <div *ngIf="!showPartner" style="width: 100%;display: inline-flex;height: 490px;border-radius: 20px 0px;overflow: auto;">
+                  <div class="example-container">
+                    <span class="subti">Selección de campos:</span>
+
+                    <div
+                      cdkDropList
+                      #todoList="cdkDropList"
+                      [cdkDropListData]="todo"
+                      [cdkDropListConnectedTo]="[doneList]"
+                      class="example-list"
+                      (cdkDropListDropped)="drop($event)">
+                      <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+                    </div>
+                  </div>
+
+                  <div class="example-container">
+                    <span class="subti">A mostrar en reporte:</span>
+
+                    <div
+                      cdkDropList
+                      #doneList="cdkDropList"
+                      [cdkDropListData]="done"
+                      [cdkDropListConnectedTo]="[todoList]"
+                      class="example-list"
+                      (cdkDropListDropped)="drop($event)">
+                      <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+                    </div>
                   </div>
                 </div>
                 <div style="width: 5%;">
@@ -202,7 +231,66 @@
 
 
     <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+    <style>
 
+      .example-container {
+        width: 50%;
+        max-width: 100%;
+        margin: 0 25px 25px 0;
+        display: inline-block;
+        vertical-align: top;
+        height: 436px;
+        overflow: auto;
+      }
+
+      .example-list {
+        border: solid 1px #ccc;
+        min-height: 60px;
+        background: white;
+        border-radius: 4px;
+        overflow: hidden;
+        display: block;
+      }
+
+      .example-box {
+        padding: 20px 10px;
+        border-bottom: solid 1px #ccc;
+        color: rgba(0, 0, 0, 0.87);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        cursor: move;
+        background: white;
+        font-size: 14px;
+      }
+
+      .cdk-drag-preview {
+        box-sizing: border-box;
+        border-radius: 4px;
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+      }
+
+      .cdk-drag-placeholder {
+        opacity: 0;
+      }
+
+      .cdk-drag-animating {
+        transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+      }
+
+      .example-box:last-child {
+        border: none;
+      }
+
+      .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+        transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+      }
+
+      </style>
 <!--   <table>
     <thead>
       <tr>

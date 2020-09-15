@@ -158,6 +158,8 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { ReportsListComponent } from './components/reports/reports-list/reports-list.component';
 import { KeyPipe } from './pipes/key.pipe';
 import { PartnerComponent } from './components/partner/partner.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ModalPartnerComponent } from './components/shared/modal-partner/modal-partner.component';
 
 @NgModule({
   declarations: [
@@ -289,10 +291,12 @@ import { PartnerComponent } from './components/partner/partner.component';
     ReportsListComponent,
     KeyPipe,
     PartnerComponent,
+    ModalPartnerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    DragDropModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
     AlertModule.forRoot(),
@@ -325,8 +329,12 @@ import { PartnerComponent } from './components/partner/partner.component';
     IgxSliderModule,
     ChartModule
   ],
-  entryComponents: [ ModalInfraccionCompraComponent,ModalSesionExpiradaComponent, ModalHotelesVaciosComponent, ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent, ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,ModalHotelErroneoComponent,ModalCambiarPasswordComponent,ModalRecuperarPasswordComponent,ModalCerrarSesionComponent, ModalErrorServiceComponent],
-  providers: [BnNgIdleService,ResizeService],
+  entryComponents: [ ModalInfraccionCompraComponent, ModalSesionExpiradaComponent, ModalHotelesVaciosComponent,
+                     ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent,
+                     ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,
+                     ModalHotelErroneoComponent, ModalCambiarPasswordComponent, ModalRecuperarPasswordComponent,
+                     ModalCerrarSesionComponent, ModalErrorServiceComponent, ModalPartnerComponent],
+  providers: [BnNgIdleService, ResizeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
