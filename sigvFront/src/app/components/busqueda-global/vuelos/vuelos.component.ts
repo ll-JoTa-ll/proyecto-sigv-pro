@@ -338,7 +338,15 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       }
      }
     }
+    if(tipovuelo != 'RT'){
+      this.spin = true;
+    } else {
+      this.calendar = true;
+      this.spin = true;
+    }
   }
+
+
 
   ngAfterViewInit() {
     this.startCountDown(28800, null);
@@ -1229,7 +1237,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
   */
- const flagVal = this.validarDataBusqueda();
+ const flagVal = true;
  if (!flagVal) {
     return;
   } else {

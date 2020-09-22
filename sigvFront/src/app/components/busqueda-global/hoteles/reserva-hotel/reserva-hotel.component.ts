@@ -82,6 +82,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   opentarjeta = true;
   police: any;
   amenities: any;
+  blockflight;
 
 
 
@@ -104,6 +105,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.bloquearBotonAtras();
+    this.blockflight = this.loginDataUser.ocompany.ocompanyConfiguration.blockHotel;
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     //let ss_timer_hoteles = this.sessionStorageService.retrieve("ss_timer_hoteles_v1");
     //console.log("ss_timer_hoteles: " + ss_timer_hoteles);
