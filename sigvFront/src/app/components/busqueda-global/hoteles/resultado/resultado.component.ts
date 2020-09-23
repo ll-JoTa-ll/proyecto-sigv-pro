@@ -27,7 +27,7 @@ declare var $: any;
   styleUrls: ['./resultado.component.sass']
 })
 export class ResultadoComponent implements OnInit {
-  @ViewChild(ModalDirective,{static:false}) modal: ModalDirective;
+  @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   loginDataUser: ILoginDatosModel;
   modalRefPoliticas: BsModalRef;
   @Input() LHoteles: IHotelResultsModel[];
@@ -53,47 +53,51 @@ export class ResultadoComponent implements OnInit {
   @Input() fechasalida: string;
   @Input() cantidadhabitaciones: string;
   @Input() fecharetorno: string;
+  @Input() vuelo: any | null;
+
+  flagAutoCroselling: boolean;
   localfinish;
   urlimg = './assets/images/hotel-icon.png';
   lstHabication: IHabitacionResults;
-  lstHotel : IHotelResultsModel[];
+  lstHotel: IHotelResultsModel[];
   objSearch: any;
   personas: any;
   modalRefSessionExpired: BsModalRef;
   ocultar: any;
   t: number;
 
-  constructor(private modalService: BsModalService,private localStorageService: LocalStorageService,public spinner: NgxSpinnerService,private bnIdle: BnNgIdleService,private service: HotelService,private sessionStorageService: SessionStorageService,private router : Router) {
-
+  constructor(private modalService: BsModalService, private localStorageService: LocalStorageService, public spinner: NgxSpinnerService, private bnIdle: BnNgIdleService, private service: HotelService, private sessionStorageService: SessionStorageService, private router: Router) {
 
   }
 
   ngOnInit() {
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.lstHotel = this.sessionStorageService.retrieve('ls_search_hotel');
-
-
+    console.log(this.lstHotel)
+    this.flagAutoCroselling = this.sessionStorageService.retrieve('ss_login_data').ocompany.ocompanyConfiguration.crossSellingHotel;
+    console.log(this.flagAutoCroselling)
     console.log("cantpersonas" + this.cantpersonas)
     if (this.cantpersonas === '1') {
       this.personas = "adulto"
-    }else{
+    } else {
       this.personas = "adultos"
     }
   }
 
 
 
-  getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas){
-      if(this.loginDataUser.ocompany.blockHotel === true && this.lPolicies.length > 0){
+  getHotel(hotelcode, fechasalida, fecharetorno, cantpersonas) {
+    console.log(hotelcode, fechasalida, fecharetorno, cantpersonas);
+    if (this.loginDataUser.ocompany.blockHotel === true && this.lPolicies.length > 0) {
       this.modalRefSessionExpired = this.modalService.show(ModalInfraccionCompraComponent);
     }
-    else{
-        this.localfinish = true;
-      this.localStorageService.store("ss_countersession",null);
-      this.localStorageService.store("ss_countersession",this.localfinish);
+    else {
+      this.localfinish = true;
+      this.localStorageService.store("ss_countersession", null);
+      this.localStorageService.store("ss_countersession", this.localfinish);
       this.spinner.show();
       let data = {
-        "Lusers":[{
+        "Lusers": [{
           "RoleId": this.loginDataUser.orole.roleId,
           "LcostCenter": this.loginDataUser.lcostCenter,
           "UserId": this.loginDataUser.userId
@@ -121,11 +125,11 @@ export class ResultadoComponent implements OnInit {
         destino: $('#destinos').val(),
         fechaentrada: $('#fechaInicio').val(),
         fechasalida: $('#fechaFin').val(),
-        categoria : this.estrellas,
+        categoria: this.estrellas,
         habi: $('#txthabitacion').val(),
         personas: $('#txtpersonas').val()
       };
-      this.sessionStorageService.store("ss_sessionmini",this.objSearch);
+      this.sessionStorageService.store("ss_sessionmini", this.objSearch);
 
       let hotel;
       for (let i = 0; i < this.lstHotel.length; i++) {
@@ -141,15 +145,19 @@ export class ResultadoComponent implements OnInit {
       this.service.GetHabitacion(data).subscribe(
         data => {
           this.lstHabication = data;
-
           this.sessionStorageService.store("lstHabication", this.lstHabication);
           if (this.lstHabication.oerror != null) {
             this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
-          }else{
-            //this.router.navigate(['/habitacion']);
-            window.open(window.location.origin + "/habitacion");
+          } else {
+            if (this.vuelo) {
+              /* window.open(window.location.origin + "/vuelo-habitacion"); */
+              window.location.replace(window.location.origin + "/vuelo-habitacion");
+            } else {
+              /* window.open(window.location.origin + "/habitacion"); */
+              window.location.replace(window.location.origin + "/habitacion");
+            }
             this.ocultar = true;
-            this.ocultar = this.sessionStorageService.store("ss_oculta",this.ocultar);
+            this.ocultar = this.sessionStorageService.store("ss_oculta", this.ocultar);
           }
 
           //window.open(window.location.origin + "/habitacion");
@@ -170,11 +178,11 @@ export class ResultadoComponent implements OnInit {
   Mostrarmapa(position) {
     $('#mapa_' + position).show();
     var z = document.getElementById("filtro");
-    if(z != null){
-    z.style.position = "absolute";
-    z.style.display = "none";
+    if (z != null) {
+      z.style.position = "absolute";
+      z.style.display = "none";
     }
-    $('body').css('overflow','hidden');
+    $('body').css('overflow', 'hidden');
   }
 
   openModalPoliticas(template) {
@@ -185,18 +193,18 @@ export class ResultadoComponent implements OnInit {
   }
 
 
-  VolverHome(){
+  VolverHome() {
     this.router.navigate[('')]
   }
 
   OcultarMapa(position) {
     $('#mapa_' + position).hide();
     var z = document.getElementById("filtro");
-    if(z != null){
-    z.style.position = "fixed";
-    z.style.display = "block"
+    if (z != null) {
+      z.style.position = "fixed";
+      z.style.display = "block"
     }
-    $('body').css('overflow','visible');
+    $('body').css('overflow', 'visible');
   }
 
 }

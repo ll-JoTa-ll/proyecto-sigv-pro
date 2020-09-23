@@ -11,16 +11,8 @@
 <div id="txtOrigen1" class="col-12 m-0 p-0">
 
     <div class="ng-autocomplete" style="width: 100%;">
-        <ng-autocomplete
-          [(ngModel)]="origentTexto1"
-          style="color: #898989 !important;"
-          [data]="data"
-          [searchKeyword]="keyword"
-          (selected)='selectEvent(1, $event)'
-          (inputChanged)='onChangeSearch(1, $event)'
-          (inputFocused)='onFocused(1, $event)'
-          [itemTemplate]="itemTemplate1"
-          [notFoundTemplate]="notFoundTemplate">
+        <ng-autocomplete [(ngModel)]="origentTexto1" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent(1, $event)' (inputChanged)='onChangeSearch(1, $event)' (inputFocused)='onFocused(1, $event)' [itemTemplate]="itemTemplate1"
+            [notFoundTemplate]="notFoundTemplate">
         </ng-autocomplete>
 
         <ng-template #itemTemplate1 let-item>

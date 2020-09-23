@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { IGetEnhancedHotel } from 'src/app/models/IGetEnhancedHotel';
 
 @Component({
   selector: 'app-precio-final',
@@ -18,6 +19,7 @@ export class PrecioFinalComponent implements OnInit {
   @Input() montodesc;
   @Input() porcentajedesc;
   @Input() odiscount;
+  @Input() hotel?: IGetEnhancedHotel;
   porcentaje;
 
   modalRef: BsModalRef;

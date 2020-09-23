@@ -1,0 +1,209 @@
+<app-header>
+    <div class="row m-0 p-0">
+        <div class="col-2 m-0 p-0">
+
+            <ng-template #modalexpired>
+                <app-modal-sesion-expirada>
+
+                </app-modal-sesion-expirada>
+            </ng-template>
+
+        </div>
+        <div class="col-8 m-0 p-0 pt-5">
+            <!-- <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0">
+                        <span class="atras"> < Volver atras</span>
+                    </div>
+                </div>-->
+            <div class="row m-0 p-0 pb-3">
+                <div class="col-12 m-0 p-0">
+                    <h4 class="solo" style="width: 64%;text-align: center; padding-bottom: 2rem;">Confirme su viaje</h4>
+                    <span class="solo">Se requiere una tarjeta de crédito como garantia para el hotel</span>
+                </div>
+            </div>
+            <div class="row m-0 p-0">
+                <div class="col-8 m-0 p-0 pr-4">
+                    <app-pago  *ngIf="lhotel.typeHotel !== 'Value Hotel' " [policyroom]="this.police"
+                        (outNumTarjeta)="setNumTarjeta($event)" (outVencimiento)="setFechVencimiento($event)"
+                        (outTitular)="setTitular($event)" (outCodSeguridad)="setCodSeguridad($event)"
+                        (outNomTarjeta)="setNombreTarjeta($event)"></app-pago><span *ngIf="showError" style="color: red;font-size: 20px;">Por favor escriba correctamente los campos solicitados.</span>
+                    <app-info-recomendacion id="destination"  [lstBag]="lstbag" [tipovuelo]="tipovuelo" [LSection]="LSection">
+                    </app-info-recomendacion>
+                    <app-detalle-compra></app-detalle-compra>
+                    <div class="row m-0 p-0">
+                        <div class="col-12 m-0 p-0 text-center" style="padding: 2rem 0 !important;">
+                            <button class="btn btn-danger" [disabled]="isOpen" (click)="buyPackage();"
+                                style="width: 200px;">
+                                <span class="lblSelecciona ">
+                                    Comprar
+                                </span>
+                            </button>
+                            <ng-template #template>
+                                <div class="modal-header">
+                                    <h4 class="modal-title pull-left">Modal</h4>
+                                    <button type="button" class="close pull-right" aria-label="Close"
+                                        (click)="modalref.hide()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <span>{{Reserva.oerror.message}}</span>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-4 m-0 p-0 ">
+                    <app-precio-final [LSection]="LSection" [tipo]="1" [Lpolicies]="LPolicies"
+                        [currency]="flightAvailability_result.currency"
+                        [precioadulto]="flightAvailability_result.fareAmountByPassenger"
+                        [preciototal]="flightAvailability_result.totalFareAmount"
+                        [odiscount]="flightAvailability_result.odiscount" [hotel]="hotelSelected"></app-precio-final>
+                    <div class=" box-shadow" style="margin: 1em 0.5rem;padding: 0 0 1em 0 !important;">
+                       <div class="box-cabecera"> PASAJERO </div>
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0  " style="padding: 1rem 0 1rem 2.3rem !important;">
+                                Nombre de pasajero:
+                            </div>
+                            <ul>
+                                <li *ngFor="let item of datosuser" style="list-style:none;">
+                                    {{ (item.firstName | uppercase) + (item.lastName | uppercase) }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="box-shadow" *ngIf="lstbag" style="margin: 1em 0.5rem;padding: 0 0 1em 0 !important;">
+                        <div class="box-cabecera"> INFORMACIÓN DE EQUIPAJE </div>
+                        <div class="row m-0 p-0 pl-3">
+                            <div class="col-12 m-0 p-0 pt-3">
+                                <div class="row m-0 p-0">
+
+                                    <div class="col-10 m-0 p-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-12 m-0 p-0 s-texto-5">
+                                                Incluye equipaje de mano
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
+                                        <img style="width: 33px;" src="./assets/images/bolsodemano-1.svg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 m-0 p-0 pt-3">
+                                <div class="row m-0 p-0">
+
+                                    <div *ngIf="lstbag[0].bagQuantity > 0" class="col-10 m-0 p-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-12 m-0 p-0 s-texto-5">
+                                                Incluye equipaje para documentar
+                                            </div>
+                                            <div class="col-12 m-0 p-0 s-texto-6">
+                                                {{lstbag[0].bagQuantity}} maleta(s) por adulto.
+                                            </div>
+                                            <div class="col-12 m-0 p-0 s-texto-6">
+                                                Se documenta en el aeropuerto durante el Check-in.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="lstbag[0].bagQuantity == 0" class="col-10 m-0 p-0">
+                                        <div class="row m-0 p-0">
+                                            <div class="col-12 m-0 p-0 s-texto-5">
+                                                No incluye maleta
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
+                                        <img style="width: 33px;" *ngIf="lstbag[0].bagAllowed === true"
+                                            src="./assets/images/maleta-si.svg" alt="">
+                                        <img style="width: 33px;" *ngIf="lstbag[0].bagAllowed === false"
+                                            src="./assets/images/maleta-no.svg" alt="">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- <div  style="margin: 1em 0.5rem;">
+                        <div class="row m-0 p-0">
+                            <div class="col-12 m-0 p-0 txt-title text-center pb-3 pt-3">
+                                INFORMACIÓN DE EQUIPAJE
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0 pt-4 pb-4">
+                            <div class="col-12 m-0 p-0 pb-2">
+                                <div class="row m-0 p-0">
+                                    <div
+                                        class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
+                                        1 Maleta de mano
+                                    </div>
+                                    <div class="col-6 m-0 p-0 text-center">
+                                        <img style="width: 33px;" class="img-bag" src="assets/images/bolsodemano-1.svg"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 m-0 p-0 pb-2">
+                                <div class="row m-0 p-0">
+                                    <div
+                                        class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
+                                        No permite maleta
+                                    </div>
+                                    <div class="col-6 m-0 p-0 text-center">
+                                        <img style="width: 33px;" class="img-bag" src="assets/images/maleta-no.svg"
+                                            alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="row m-0 p-0">
+                        <div class="tituPoli col-12 m-0 p-0 pt-4" style="text-align: center;">
+                            <span style="border-bottom: 1px solid #ED1C24">Políticas y Condiciones</span>
+                        </div>
+                    </div>
+                    <div *ngIf="lstConfirmacion.oroom.lcancelPenalties.length > 0 && lstConfirmacion.oroom.lcancelPenalties != null; else elseTemplate1"
+                        class="row m-0 p-0 pt-3">
+                        <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].deadline != null && lstConfirmacion.oroom.lcancelPenalties[0].deadline != '' "
+                            class="col-12 m-0 p-0">
+                            <span class="info">✓ Se puede cancelar hasta el
+                                {{lstConfirmacion.oroom.lcancelPenalties[0].deadline}}</span>
+                        </div>
+                    </div>
+                    <ng-template #elseTemplate1 class="row m-0 p-0 pt-3">
+                        <div class="col-12 m-0 p-0 pt-4">
+                            <span class="info">✓ Políticas y Condiciones sin información</span>
+                        </div>
+                    </ng-template>
+                    <div *ngIf="lstConfirmacion.oroom.lcancelPenalties.length > 0 && lstConfirmacion.oroom.lcancelPenalties != null "
+                        class="row m-0 p-0">
+                        <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].nonRefundable === false"
+                            class="col-12 m-0 p-0">
+                            <span class="info">✓ No Reembolsable <img style="width: 50px;"
+                                    src="./assets/images/no-money.png"></span>
+                        </div>
+                        <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].nonRefundable === true"
+                            class="col-12 m-0 p-0">
+                            <span class="info">✓ Reembolsable <img src="./assets/images/money.png"></span>
+                        </div>
+                        <div *ngIf="lstConfirmacion.oroom.lcancelPenalties[0].description != null && lstConfirmacion.oroom.lcancelPenalties[0].description != '' "
+                            class="col-12 m-0 p-0">
+                            <span class="info">✓ {{lstConfirmacion.oroom.lcancelPenalties[0].description}}</span>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating"
+        style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+        <div class="col-2 m-0 p-0">
+
+        </div>
+
+    </div>
+</app-header>

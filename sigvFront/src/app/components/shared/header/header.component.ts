@@ -63,7 +63,6 @@ export class HeaderComponent implements OnInit {
   }
 
   cambiarTipo(valor) {
-    console.log(valor);
     this.flagTipo = valor;
 
     switch (valor) {

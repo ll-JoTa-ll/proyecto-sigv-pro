@@ -7,11 +7,13 @@
             <div class="col-12 m-0 p-0 box-shadow pt-2 pb-2 pl-3">
                 <div class="row m-0 p-0">
                     <div class="col-7 m-0 p-0">
-                        <span class="lblpagoAlojamiento">PAGO EN ALOJAMIENTO</span>
+                        <span class="lblpagoAlojamiento">PAGO EN ALOJAMIENTO
+                            {{ vuelo?.totalFareAmount ? ' + VUELO' : '' }}</span>
                     </div>
                     <div class="col-5 m-0 p-0">
                         <span class="lblmoneda">{{lstConfirmacion.oroom.oprice.currency}}</span>
-                        <span class="PagoAlojamiento pl-2">{{lstConfirmacion.oroom.oprice.totalPrice}}</span>
+                        <span class="PagoAlojamiento pl-2"
+                            *ngIf="vuelo?.totalFareAmount">{{(lstConfirmacion.oroom.oprice.totalPrice*1 + vuelo?.totalFareAmount*1).toFixed(2)}}</span>
                     </div>
                 </div>
             </div>

@@ -42,7 +42,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datosuser;
   Document: IDocumentType[] = [];
   mdtelefono: string;
-  configOption3 : ConfigurationOptions;
+  configOption3: ConfigurationOptions;
   centroCosto;
   modalRef: BsModalRef;
   config = {
@@ -92,7 +92,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     }
     this.fecha = this.user.birthDate;
 
-    if (this.user.lcostCenter.length > 0 && this.user.lcostCenter[0].description != null){
+    if (this.user.lcostCenter.length > 0 && this.user.lcostCenter[0].description != null) {
       this.centroCosto = this.user.lcostCenter[0].description;
     } else {
       //this.centroCosto = "Sin Información"
@@ -110,7 +110,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
 
-  document(){
+  document() {
     this.userCompanyService.getDocument().subscribe(
       result => {
         this.Document = result;
@@ -138,9 +138,9 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ValidarSoloNumero(event)  {
+  ValidarSoloNumero(event) {
     // tslint:disable-next-line: max-line-length
-    if((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !==190  && event.keyCode !==110 && event.keyCode !==8 && event.keyCode !==9  ){
+    if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !== 190 && event.keyCode !== 110 && event.keyCode !== 8 && event.keyCode !== 9) {
       return false;
     }
   }
@@ -215,7 +215,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   }
 
   ValidarCampos() {
-    this.datosuser.forEach(function(item, index) {
+    this.datosuser.forEach(function (item, index) {
       if ($('#txtnombre_' + (index + 1)).val().length <= 0) {
         $('#txtnombre_' + (index + 1)).addClass('campo-invalido');
       } else {

@@ -10,27 +10,34 @@
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0">
                 <div class="row m-0 p-0">
-                    <div class="col-6 m-0 p-0 pt-3">
-                        <span class="div-price pl-4 pr-4 pt-1 pb-1">Precio Final</span>
+                    <div class="col-8 m-0 p-0 pt-3">
+                        <span class="div-price pl-4 pr-3 pt-1 pb-1">Precio Final {{ hotel? ' Vuelo + Hotel':'' }}</span>
                     </div>
-                    <div *ngIf="tipo === 1 || tipo === 2 || tipo === 3" class="col-6 m-0 p-0 text-right pt-3 pr-5 pb-3">
-                        <span tooltip="Vuelo con descuento corporativo." *ngIf="LSection[0].Lsegments[0].FareType==='RB'" class="pr-4"><img src="./assets/images/medalla.svg"></span>
-                        <span tooltip="Vuelo con infracción de políticas." *ngIf="Lpolicies.length > 0" class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
+                    <div *ngIf="tipo === 1 || tipo === 2 || tipo === 3" class="col-4 m-0 p-0 text-right pt-3 pr-3 pb-3 right-precio-final">
+                        <span tooltip="Vuelo con descuento corporativo."
+                            *ngIf="LSection[0].Lsegments[0].FareType==='RB'" class="pr-4"><img
+                                src="./assets/images/medalla.svg"></span>
+                        <span tooltip="Vuelo con infracción de políticas." *ngIf="Lpolicies.length > 0"
+                            class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
                         <span *ngIf="Lpolicies.length === 0" class="circulo-politica1"></span>
                     </div>
-                    <div *ngIf="tipo === 4" class="col-6 m-0 p-0 text-right pt-3 pr-5 pb-3">
-                        <span tooltip="Vuelo con descuento corporativo." *ngIf="Litineraries[0].fareType ==='RB' && tipo === 4" class="pr-4"><img src="./assets/images/medalla.svg"></span>
-                        <span tooltip="Vuelo con infracción de políticas." *ngIf="Lpolicies.length > 0" class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
+                    <div *ngIf="tipo === 4" class="col-6 m-0 p-0 text-right pt-3 pr-3 pb-3">
+                        <span tooltip="Vuelo con descuento corporativo."
+                            *ngIf="Litineraries[0].fareType ==='RB' && tipo === 4" class="pr-4"><img
+                                src="./assets/images/medalla.svg"></span>
+                        <span tooltip="Vuelo con infracción de políticas." *ngIf="Lpolicies.length > 0"
+                            class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
                         <span *ngIf="Lpolicies.length === 0" class="circulo-politica1"></span>
                     </div>
                     <ng-template #modalinfraccion let-c="close" let-d="dismiss">
                         <div class="modal-header m-0 p-0" style="border: none;">
                             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                         <div class="modal-body m-0 p-0">
-                            <app-modal-infraccion-pax [currency]="currency" [LPolicies]="Lpolicies"></app-modal-infraccion-pax>
+                            <app-modal-infraccion-pax [currency]="currency" [LPolicies]="Lpolicies">
+                            </app-modal-infraccion-pax>
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0 text-center pb-3">
@@ -44,7 +51,7 @@
                 <div class="row m-0 p-0">
                     <div class="col-12 text-right m-0 p-0 pr-5">
                         <span class="currency">{{currency}}</span>
-                        <span class="price pl-2">{{preciototal}}</span>
+                        <span class="Amount"> {{(preciototal*1 + hotel?.oroom?.oprice?.totalPrice*1).toFixed(2)}}</span>
                     </div>
                 </div>
             </div>
@@ -53,7 +60,7 @@
                     <div class="col-12 text-right m-0 p-0 pr-5">
                         <span class="text-precio pr-5">Precio por adulto</span>
                         <span class="currency1">{{currency}}</span>
-                        <span class="price1 pl-1">{{precioadulto}}</span>
+                        <span class="price1 pl-1"> {{(precioadulto*1 + hotel?.oroom?.oprice?.totalPrice*1).toFixed(2)}}</span>
                     </div>
                     <div *ngIf="odiscount != null && odiscount.amount != 0" class="col-12 text-right m-0 p-0 pr-5">
                         <span class="text-precio pr-4" style="margin-right: 10px;">Monto de descuento</span>

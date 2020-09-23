@@ -132,7 +132,7 @@ import { ModalCerrarSesionComponent } from './components/shared/modal-cerrar-ses
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { IntlInputPhoneModule } from 'intl-input-phone';
 import { ModalSesionWarningVuelosComponent } from './components/shared/modal-sesion-warning-vuelos/modal-sesion-warning-vuelos.component';
-import { IgxInputGroupModule,IgxSliderModule } from 'igniteui-angular';
+import { IgxInputGroupModule, IgxSliderModule } from 'igniteui-angular';
 import { DetalleReservaHotelComponent } from './components/reserva-vuelo/detalle-reserva-hotel/detalle-reserva-hotel.component';
 import { ModalAvisoSesionComponent } from './components/shared/modal-aviso-sesion/modal-aviso-sesion.component';
 import { ModalFamiliasVaciasComponent } from './components/shared/modal-familias-vacias/modal-familias-vacias.component';
@@ -162,6 +162,12 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ModalPartnerComponent } from './components/shared/modal-partner/modal-partner.component';
 import { CargaMasivaComponent } from './components/administrador/pasajeros/carga-masiva/carga-masiva.component';
 import { KeysPipe } from "./pipes/keys.pipe";
+import { RecomendacionHotelComponent } from './components/busqueda-global/vuelos/recomendacion-hotel/recomendacion-hotel.component';
+import { MaterialModule } from './material-module';
+import { RecomendacionHotelDetailComponent } from './components/busqueda-global/vuelos/recomendacion-hotel-detail/recomendacion-hotel-detail.component';
+import { ReservaHotelVueloComponent } from './components/busqueda-global/vuelos/reserva-hotel-vuelo/reserva-hotel-vuelo.component';
+import { ResumenVueloHotelComponent } from './components/busqueda-global/vuelos/resumen-vuelo-hotel/resumen-vuelo-hotel.component';
+import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global/vuelos/reserva-generada-vuelo-hotel/reserva-generada-vuelo-hotel.component';
 
 @NgModule({
   declarations: [
@@ -235,6 +241,7 @@ import { KeysPipe } from "./pipes/keys.pipe";
     ResumenEquipajeComponent,
     ResumenRegulacionesComponent,
     ReservaGeneradaComponent,
+    ReservaGeneradaVueloHotelComponent,
     AutorizadoresComponent,
     PasajerosComponent,
     MisReservasVueloComponent,
@@ -296,11 +303,16 @@ import { KeysPipe } from "./pipes/keys.pipe";
     ModalPartnerComponent,
     CargaMasivaComponent,
     KeysPipe,
+    RecomendacionHotelComponent,
+    RecomendacionHotelDetailComponent,
+    ReservaHotelVueloComponent,
+    ResumenVueloHotelComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     DragDropModule,
+    MaterialModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
     AlertModule.forRoot(),
@@ -337,7 +349,12 @@ import { KeysPipe } from "./pipes/keys.pipe";
                      ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent,
                      ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,
                      ModalHotelErroneoComponent, ModalCambiarPasswordComponent, ModalRecuperarPasswordComponent,
-                     ModalCerrarSesionComponent, ModalErrorServiceComponent, ModalPartnerComponent],
+                     ModalCerrarSesionComponent, ModalErrorServiceComponent, ModalPartnerComponent,
+                     ModalInfraccionCompraComponent, ModalSesionExpiradaComponent, ModalHotelesVaciosComponent,
+                     ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent,
+                     ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,
+                     ModalHotelErroneoComponent, ModalCambiarPasswordComponent, ModalRecuperarPasswordComponent,
+                     ModalCerrarSesionComponent, ModalErrorServiceComponent],
   providers: [BnNgIdleService, ResizeService],
   bootstrap: [AppComponent]
 })

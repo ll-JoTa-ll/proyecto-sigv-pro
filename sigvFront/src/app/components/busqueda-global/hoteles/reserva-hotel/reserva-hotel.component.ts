@@ -38,7 +38,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
-    if(this.eRef.nativeElement.contains(event.target)) {
+    if (this.eRef.nativeElement.contains(event.target)) {
       this.text = "clicked inside";
       var cerrarsesion;
       cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
@@ -54,9 +54,9 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
   genero: any;
 
   loginDataUser: ILoginDatosModel;
-  habitacion : IHabitacionResults;
-  lstConfirmacion : any;
-  Reserva : IGetPnrHotel;
+  habitacion: IHabitacionResults;
+  lstConfirmacion: any;
+  Reserva: IGetPnrHotel;
   user;
   modalRefSessionExpired: BsModalRef;
 
@@ -86,7 +86,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
 
 
-  constructor(private eRef: ElementRef,private localStorageService: LocalStorageService,private bnIdle: BnNgIdleService,private toastr: ToastrService,private http: HttpClient,private router: Router,private sessionStorageService: SessionStorageService,public spinner: NgxSpinnerService,private service: HotelService,private modalService: BsModalService,private services: AirportService) {
+  constructor(private eRef: ElementRef, private localStorageService: LocalStorageService, private bnIdle: BnNgIdleService, private toastr: ToastrService, private http: HttpClient, private router: Router, private sessionStorageService: SessionStorageService, public spinner: NgxSpinnerService, private service: HotelService, private modalService: BsModalService, private services: AirportService) {
     this.lstConfirmacion = this.sessionStorageService.retrieve("confirmacion");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -98,7 +98,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
         const element = this.lsthabitacion.lroom[index];
         //this.amenities = element.lamenities;
         this.police = element.lpolicies;
-        this.sessionStorageService.store("ss_roompolicy",this.police)
+        this.sessionStorageService.store("ss_roompolicy", this.police)
       }
     }
   }
@@ -125,8 +125,11 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
 
 
-  VolverHome(){
-    this.router.navigate(['hoteles'])
+  VolverHome() {
+    if (this.router.url.indexOf('reserva-vuelo-hotel') >= 0 || this.router.url.indexOf('resumen-vuelo-hotel') >= 0 || this.router.url.indexOf('vuelo-habitacion') >= 0)
+      this.router.navigate(['vuelos']);
+    else
+      this.router.navigate(['hoteles'])
   }
 
 
@@ -143,32 +146,32 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
     if (this.counter === false) {
-      this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent,this.config);
+      this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaComponent, this.config);
     }
   }
 
   bloquearBotonAtras() {
     history.pushState(null, null, location.href);
-    window.onpopstate = function() {
+    window.onpopstate = function () {
       history.go(1);
-  };
+    };
   }
 
-  getPnrHotel(){
+  getPnrHotel() {
     let message;
     let cumple;
     let listaAme;
     this.telefono = $('#numero').val();
     let correo = $("#correoTitu").val();
     cumple = this.user.birthDate;
-    cumple = cumple.substring(0,10);
-    cumple = cumple.replace(/-/gi,"/");
-    const val= this.ValidarCampos();
+    cumple = cumple.substring(0, 10);
+    cumple = cumple.replace(/-/gi, "/");
+    const val = this.ValidarCampos();
     const valcorreo = this.ValidarCorreo();
     if (!val || !valcorreo) {
       return val;
     }
-    else{
+    else {
       let tipoPago;
       let amenities = [];
       //let fechVencimiento = this.fechVencimiento;
@@ -193,11 +196,11 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       this.spinner.show();
       if (this.user.gender === 'F') {
         this.genero = "MRS";
-      }else{
+      } else {
         this.genero = "MR";
       }
       let data = {
-        "UserId" : this.loginDataUser.userId,
+        "UserId": this.loginDataUser.userId,
         "Pseudo": "LIMPE2235",
         "GDS": "Amadeus",
         "Ocompany": this.loginDataUser.ocompany,
@@ -213,21 +216,21 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
               "Prefix": this.genero,
               "Type": "ADT",
               "Name": this.loginDataUser.userName,
-              "LastName":this.loginDataUser.userLastName,
+              "LastName": this.loginDataUser.userLastName,
               "Gender": this.user.gender,
               "BirthDate": cumple,
               "IsVIP": this.user.isVIP,
               "Odocument":
-                {
-                  "Type": 'NI',
-                  "Number": this.user.lpersonDocuments[0].docNumber
-                }
+              {
+                "Type": 'NI',
+                "Number": this.user.lpersonDocuments[0].docNumber
+              }
             }
           ],
         "StartDate": this.lsthabitacion.ohotel.startDate,
         "EndDate": this.lsthabitacion.ohotel.endDate,
         "NumberPassengers": this.lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers,
-        "OHotel":{
+        "OHotel": {
           "CityCode": this.lstConfirmacion.ohotel.cityCode,
           "Hotelcode": this.lstConfirmacion.ohotel.code,
           "HotelName": this.lstConfirmacion.ohotel.name,
@@ -240,7 +243,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           "Address": this.lsthabitacion.ohotel.address,
           "Limagens": this.lsthabitacion.ohotel.limagens,
         },
-        "ORoom":{
+        "ORoom": {
           "Name": this.lstConfirmacion.oroom.name,
           "Description": this.lstConfirmacion.oroom.description,
           "GuaranteeText": this.lstConfirmacion.oroom.guarantee,
@@ -249,23 +252,23 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
           "CheckOut": this.lsthabitacion.ohotel.checkOut,
           "BookingCode": this.lstConfirmacion.oroom.bookingCode,
           "CorporateCode": this.lstConfirmacion.ohotel.chainCode,
-          "Lamenities" :  this.amenities,
+          "Lamenities": this.amenities,
         },
         "LcancelPenalties": this.lstConfirmacion.oroom.lcancelPenalties,
         "OcreditCard":
-          {
-            "CardType": this.nombreTarjeta,
-            "CardNumber": this.numeroTarjeta,
-            "SecurityId": this.codSeguridad,
-            "ExpiryDate": this.fechVencimiento,
-            "HolderName": this.titular
-          },
+        {
+          "CardType": this.nombreTarjeta,
+          "CardNumber": this.numeroTarjeta,
+          "SecurityId": this.codSeguridad,
+          "ExpiryDate": this.fechVencimiento,
+          "HolderName": this.titular
+        },
         "OInformationContact":
-          {
-            "Name": this.nombreContacto,
-            "EmailAddress" : this.correoContacto,
-            "Numberphone": this.telefonoContacto
-          }
+        {
+          "Name": this.nombreContacto,
+          "EmailAddress": this.correoContacto,
+          "Numberphone": this.telefonoContacto
+        }
       }
 
 
@@ -273,7 +276,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
       this.service.GetReserva(data).subscribe(
         data => {
-          let template : TemplateRef<any>;
+          let template: TemplateRef<any>;
           this.Reserva = data;
 
           this.sessionStorageService.store("reserva", this.Reserva);
@@ -294,7 +297,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
             this.spinner.hide();
             return;
           }
-          else{
+          else {
             this.SendMailHotelAprobado();
           }
 
@@ -306,13 +309,13 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     }
 
   }
-  openModal(template: TemplateRef<any>){
+  openModal(template: TemplateRef<any>) {
     this.modalref = this.modalService.show(this.Reserva.oerror.message);
 
   }
 
   Obtenerstring() {
-    this.http.get(this.plantilla, {responseType: 'text'}).subscribe(
+    this.http.get(this.plantilla, { responseType: 'text' }).subscribe(
       data => {
         this.emailsolicitud = data;
       },
@@ -328,7 +331,7 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
 
     let mails = [];
 
-    this.Reserva.email.forEach(function(item){
+    this.Reserva.email.forEach(function (item) {
       mails.push(item);
     });
 
@@ -364,9 +367,9 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     );
   }
 
-  getAmenities(){
+  getAmenities() {
     let imgNotFound = './assets/images/imagenotfound.jfif'
-    let html ='';
+    let html = '';
     let SinInfo = '';
     let amenities: any;
     let htmlGlobal = '';
@@ -375,10 +378,10 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
       for (let i = 0; i < amenities.length; i++) {
         const element = amenities[i];
         html += "<div style='width: 20%;'>";
-        html +=   "<img style='width: 30px;' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/";
+        html += "<img style='width: 30px;' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/";
         html += element.code
         html += ".png'>";
-        html +=  "<label style='color: #676767; font-family: Arial, Helvetica, sans-serif; font-size: 14px; opacity: 1; letter-spacing: 0;'>";
+        html += "<label style='color: #676767; font-family: Arial, Helvetica, sans-serif; font-size: 14px; opacity: 1; letter-spacing: 0;'>";
         html += element.description
         html += "</label>";
         html += "</div>";
@@ -415,12 +418,12 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     }
     if (this.lsthabitacion.ohotel.checkIn != null && this.lsthabitacion.ohotel.checkIn != '') {
       this.emailsolicitud = this.emailsolicitud.replace('@checkin', this.lsthabitacion.ohotel.checkIn);
-    }else{
+    } else {
       this.emailsolicitud = this.emailsolicitud.replace('@checkin', SinInfo);
     }
     if (this.lsthabitacion.ohotel.checkOut != null && this.lsthabitacion.ohotel.checkOut != '') {
       this.emailsolicitud = this.emailsolicitud.replace('@checkout', this.lsthabitacion.ohotel.checkOut);
-    }else{
+    } else {
       this.emailsolicitud = this.emailsolicitud.replace('@checkout', SinInfo);
     }
     if (this.Reserva.oitineraryInfos.penality != null) {
@@ -432,80 +435,80 @@ export class ReservaHotelComponent implements OnInit, AfterViewInit {
     if (this.Reserva.numberPhone != null) {
       this.emailsolicitud = this.emailsolicitud.replace('@telefono', this.Reserva.numberPhone);
     }
-    if(this.lsthabitacion.ohotel.limagens != null && this.lsthabitacion.ohotel.limagens.length > 0){
-      this.emailsolicitud = this.emailsolicitud.replace('@imagen',this.lsthabitacion.ohotel.limagens[0].url)
+    if (this.lsthabitacion.ohotel.limagens != null && this.lsthabitacion.ohotel.limagens.length > 0) {
+      this.emailsolicitud = this.emailsolicitud.replace('@imagen', this.lsthabitacion.ohotel.limagens[0].url)
     }
     else {
-      this.emailsolicitud = this.emailsolicitud.replace('@imagen',imgNotFound);
+      this.emailsolicitud = this.emailsolicitud.replace('@imagen', imgNotFound);
     }
- }
+  }
 
 
 
 
 
-  setNumTarjeta($event){
+  setNumTarjeta($event) {
     this.numeroTarjeta = $event;
   }
 
-  setNombreTarjeta($event){
+  setNombreTarjeta($event) {
     this.nombreTarjeta = $event;
   }
 
-  setFechVencimiento($event){
+  setFechVencimiento($event) {
     this.fechVencimiento = $event;
   }
 
-  setCodSeguridad($event){
+  setCodSeguridad($event) {
     this.codSeguridad = $event;
   }
 
-  setTitular($event){
+  setTitular($event) {
     this.titular = $event;
   }
 
-  setTelefono($event){
+  setTelefono($event) {
     this.telefono = $event;
   }
 
-  setCorreo($event){
+  setCorreo($event) {
     this.correo = $event;
   }
 
 
-  setCorreoContacto($event){
+  setCorreoContacto($event) {
     this.correoContacto = $event;
   }
 
-  setTelefonoContacto($event){
+  setTelefonoContacto($event) {
     this.telefonoContacto = $event;
   }
 
-  setNombreContacto($event){
+  setNombreContacto($event) {
     this.nombreContacto = $event;
   }
 
-  setAreaContacto($event){
+  setAreaContacto($event) {
     this.areaContacto = $event;
   }
 
-ValidarCorreo() {
-  let val;
-  let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if (regex.test($('#correo').val().trim())) {
-   val = true;
-  } else {
-   val = false;
+  ValidarCorreo() {
+    let val;
+    let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (regex.test($('#correo').val().trim())) {
+      val = true;
+    } else {
+      val = false;
+    }
+    return val;
   }
-  return val;
-}
 
   ValidarCampos() {
     let val = true;
     let correo;
     correo = $("#correoTitu").val();
 
-    if(this.lstConfirmacion.ohotel.typeHotel === 'Value Hotel'){
+    if (this.lstConfirmacion.ohotel.typeHotel === 'Value Hotel') {
       if ($('#correo').val().length <= 0) {
         $('#correo').addClass('campo-invalido');
       } else {
@@ -588,11 +591,11 @@ ValidarCorreo() {
 
       if ($('#numeroTarjeta').val().length <= 0) {
         $('#numeroTarjeta').addClass('campo-invalido');
-        this.sessionStorageService.store("ss_tarjeta",this.opentarjeta);
+        this.sessionStorageService.store("ss_tarjeta", this.opentarjeta);
         val = false;
       } else {
         $('#numeroTarjeta').removeClass('campo-invalido');
-        this.sessionStorageService.store("ss_tarjeta",false);
+        this.sessionStorageService.store("ss_tarjeta", false);
       }
 
       if ($('#fechaVencimiento').val().length <= 0) {

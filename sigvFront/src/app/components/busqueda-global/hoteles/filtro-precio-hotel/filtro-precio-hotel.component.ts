@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterContentInit, Input, Output, EventEmitter } from '@angular/core';
 import { IHotelResultsModel } from '../../../../models/IHotelResults.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { SliderType } from "igniteui-angular";
@@ -11,7 +11,7 @@ declare var $: any;
   templateUrl: './filtro-precio-hotel.component.html',
   styleUrls: ['./filtro-precio-hotel.component.sass']
 })
-export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
+export class FiltroPrecioHotelComponent implements OnInit, AfterContentInit  {
 
   
   step = 0.01;
@@ -42,7 +42,7 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterViewInit {
 
   
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     this.menorprice = parseFloat($('#menorprice').html());
     this.mayorprice = parseFloat($('#mayorprice').html());
     this.num1 = this.menorprice.toFixed(4);

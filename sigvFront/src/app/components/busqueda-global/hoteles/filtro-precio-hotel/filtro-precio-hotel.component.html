@@ -23,7 +23,6 @@
 
             <div class="container">
                 <igx-slider id="slider" (onValueChange)="change($event)" [continuous]=true [step]="step" [type]="sliderType.RANGE" [minValue]="menorprice" [maxValue]="mayorprice" [lowerBound]="menorprice" [upperBound]="mayorprice" [(ngModel)]="priceRange"></igx-slider>
-
                 <div class="wrapper">
                     <igx-input-group>
                         <input readonly igxInput id="lowerInput" type="text" [ngModel]="priceRange.lower | currency" (blur)="updatePriceRange($event.target)" />

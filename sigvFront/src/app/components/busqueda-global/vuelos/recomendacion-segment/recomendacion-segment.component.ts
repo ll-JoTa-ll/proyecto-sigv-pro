@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Output, EventEmitter } from '@angular/core';
 
 declare var jquery: any;
 declare var $: any;
@@ -35,6 +35,7 @@ export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
   radioButtonName: string;
   segmentRadioSel;
   stringscalas: string;
+  onlyOnce: boolean = true;
 
   constructor() {
     this.radioButtonName = 'radioSection';

@@ -367,7 +367,23 @@ $my-color-palette: igx-palette($primary: $company-color,$secondary: $secondary-c
     .grid-chart-contextmenu-wrapper
         @include igx-fluent-dark-theme($fluent-excel-palette)
 
+.mat-horizontal-stepper-header-container 
+    width: 60%
+    margin: 0 auto
+
+.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after
+    width: 0
+.mat-stepper-label-position-bottom .mat-stepper-horizontal-line
+    border-radius: 5px
+    background: #871E08
+    border: 2px solid #871E08
+
+.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before, [dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before 
+  width: 0px !important
+  border-top-color: #fff
 
 
-
+.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after, [dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after
+  width: 0px !important
+  border-top-color: #fff
 

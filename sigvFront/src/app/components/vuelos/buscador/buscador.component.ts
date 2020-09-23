@@ -87,6 +87,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   @Output() inicioBuscar = new EventEmitter<boolean>();
   @Output() outTipoVuelo = new EventEmitter<string>();
   @Output() outIndexTramo = new EventEmitter<number>();
+  @Output() refreshFilters = new EventEmitter<any>();
+  @Output() calendarShoping = new EventEmitter<any>();
 
   fecha1show;
   fecha2show;
@@ -193,6 +195,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     });
     lstAutocomplete.sort((a, b) => b.priority - a.priority );
     this.lstAutocomplete = lstAutocomplete;
+    this.minDateSalida = new Date();
   }
 
   ngAfterViewInit() {
@@ -501,6 +504,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.spinner.show();
       this.ValidarDestinos();
       this.inicioBuscar.emit(false);
+      this.sessionStorageService.store('ss_calendarshopping',null);
 
       let origen: any[] = [];
       let destino: any[] = [];
@@ -772,6 +776,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
                   this.lRecomendaciones.emit(result);
                   this.outTipoVuelo.emit(this.tipoVuelo);
                   this.outIndexTramo.emit(this.indexTramo);
+                  this.calendarShoping.emit(true);
                   this.spinner.hide();
                 }
               )
@@ -785,6 +790,14 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             this.outIndexTramo.emit(this.indexTramo);
           }
 
+          this.refreshFilters.emit({
+            destinoAuto: this.destinoAuto,
+            destinoTexto: this.destinoTexto,
+            pasajeros: this.pasajeros
+          })
+          this.lRecomendaciones.emit(result);
+          this.outTipoVuelo.emit(this.tipoVuelo);
+          this.outIndexTramo.emit(this.indexTramo);
         },
         err => {
           this.spinner.hide();

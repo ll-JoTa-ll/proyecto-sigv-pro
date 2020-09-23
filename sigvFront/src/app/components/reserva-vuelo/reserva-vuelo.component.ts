@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,ViewChild, Output, EventEmitter, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, TemplateRef, AfterViewInit } from '@angular/core';
 import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { environment } from '../../../environments/environment';
@@ -42,7 +42,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   };
 
   modalerror: BsModalRef;
-  @ViewChild("modalexpired", {static: false}) modalexpired;
+  @ViewChild("modalexpired", { static: false }) modalexpired;
   flightAvailability_request;
   datarequest;
   flightAvailability_result;
@@ -111,8 +111,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.flightAvailability_request = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
     this.flightAvailability_result = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-    this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
     this.datosuser = sessionStorageService.retrieve('objusuarios');
+    this.tipovuelo = this.sessionStorageService.retrieve('tipovuelo');
     this.htmlTxtC = "";
     this.flagrules = false;
     this.flagerror = false;
@@ -165,24 +165,24 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       userId: this.loginDataUser.userId
     };
     this.service.GetExtraProfile(data.userId).subscribe(
-       result => {
-          this.lstprofiles = result;
-          if (this.lstprofiles != null) {
-            if (this.lstprofiles.oerror === null) {
-              this.flagactive = true;
-            } else {
-              this.flagactive = false;
-            }
-          } else {
+      result => {
+        this.lstprofiles = result;
+        if (this.lstprofiles != null) {
+          if (this.lstprofiles.oerror === null) {
             this.flagactive = true;
+          } else {
+            this.flagactive = false;
           }
-       },
-       err => {
+        } else {
+          this.flagactive = true;
+        }
+      },
+      err => {
 
-       },
-       () => {
-       }
-     )
+      },
+      () => {
+      }
+    )
   }
 
   CostCenter() {
@@ -191,7 +191,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     };
     this.service.getCostCenter(data).subscribe(
       results => {
-         this.lsCostCenter = results;
+        this.lsCostCenter = results;
       },
       err => {
       }
@@ -227,7 +227,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
     this.service.getReasonFlight(data.CompanyId).subscribe(
       results => {
-         this.lsReasonFlight = results;
+        this.lsReasonFlight = results;
       },
       err => {
       },
@@ -243,13 +243,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   ValidarCorreo() {
     let val;
     let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    this.datosuser.forEach(function(item, index) {
+    this.datosuser.forEach(function (item, index) {
       if (regex.test($('#txtcorreo_' + (index + 1)).val().trim())) {
-           val = true;
+        val = true;
       } else {
-          $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
-          val = false;
-          return;
+        $('#txtcorreo_' + (index + 1)).addClass('campo-invalido');
+        val = false;
+        return;
       }
     });
     return val;
@@ -261,7 +261,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     if (regex.test($('#contactocorreo').val().trim())) {
       val = true;
     } else {
-     val = false;
+      val = false;
     }
     return val;
   }
@@ -273,7 +273,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       if (counter === 300) {
         this.modalRefSessionWarning = this.modalService.show(ModalSesionWarningVuelosComponent, this.config);
       }
-      if (counter < 0 ) {
+      if (counter < 0) {
         clearInterval(interval);
         //alert("SI FUCIONA")
         this.modalRefSessionExpired = this.modalService.show(ModalSesionExpiradaVuelosComponent, this.config);
@@ -288,7 +288,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   GetPaises() {
     this.service.GetPaises().subscribe(
       result => {
-          this.lstpaises = result;
+        this.lstpaises = result;
       },
       err => {
 
@@ -342,12 +342,12 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         } else {
           $('#txtnacionalidad_' + (index + 1)).removeClass('campo-invalido');
         }*/
-        if ($('#cbo_nacionalidad_' + (index + 1)).val().trim() === '') {
-          $('#cbo_nacionalidad_' + (index + 1)).addClass('campo-invalido');
-          val = false;
-        } else {
-          $('#cbo_nacionalidad_' + (index + 1)).removeClass('campo-invalido');
-        }
+      if ($('#cbo_nacionalidad_' + (index + 1)).val().trim() === '') {
+        $('#cbo_nacionalidad_' + (index + 1)).addClass('campo-invalido');
+        val = false;
+      } else {
+        $('#cbo_nacionalidad_' + (index + 1)).removeClass('campo-invalido');
+      }
 
         if ($('#cbo_tipodocumento_' + (index + 1)).val().trim() === '') {
           $('#cbo_tipodocumento_' + (index + 1)).addClass('campo-invalido');
@@ -571,9 +571,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     }
     this.service.SendEmail(data).subscribe(
       results => {
-           if (results === true) {
-             alert('se envio');
-           }
+        if (results === true) {
+          alert('se envio');
+        }
       },
       err => {
       },
@@ -587,7 +587,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     this.lstrulestramo = [];
     let lsection: any[] = [];
     lsection = this.LSectionPassenger;
-  //  lstradiocheck.forEach(function(item) {
+    //  lstradiocheck.forEach(function(item) {
 
     let data = {
       CompanyId: this.loginDataUser.ocompany.companyId,
@@ -597,13 +597,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     };
     //console.log(data);
     this.RegulacionesService(data, template);
-  //  });
+    //  });
   }
 
   RegulacionesService(data, template) {
     this.service.GetRegulations(data).subscribe(
       result => {
-          this.lstRegulaciones = result;
+        this.lstRegulaciones = result;
       },
       err => {
         this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
@@ -614,14 +614,14 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           this.spinner.hide();
           this.modalRef = this.modalService.show(
             template,
-            Object.assign({}, { class: 'gray modal-lg m-regulaciones'})
+            Object.assign({}, { class: 'gray modal-lg m-regulaciones' })
           );
         } else {
           this.spinner.hide();
           this.flagerror = true;
           this.modalRef = this.modalService.show(
             template,
-            Object.assign({}, { class: 'gray modal-lg m-regulaciones'})
+            Object.assign({}, { class: 'gray modal-lg m-regulaciones' })
           );
         }
       }
@@ -639,7 +639,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let idprofile = $('#cboprofile option:selected').val();
     let datosusuario: any[] = [];
     let contacto: any;
-    let mail : any = [];
+    let mail: any = [];
     let phone: any = [];
     let email2;
     let telefono2;
@@ -673,46 +673,46 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       nombre = $.trim(nombrepasaj);
       apellido = $.trim(apellidopasaj);
       fechanacimiento = fechatotal,
-      typedoc = $('#cbo_tipodocumento_' + (index + 1) + ' '  + 'option:selected').val();
+        typedoc = $('#cbo_tipodocumento_' + (index + 1) + ' ' + 'option:selected').val();
       nrodoc = $('#txtnrodocumento_' + (index + 1)).val();
-      prefix = $('#cbotratamiento_' + (index + 1) + ' '  + 'option:selected').val();
+      prefix = $('#cbotratamiento_' + (index + 1) + ' ' + 'option:selected').val();
       email1 = $('#txtcorreo_' + (index + 1)).val();
       telefono1 = $('#txttelefono_' + (index + 1)).val();
       const lcodes =
-      [
-        {
-          Code: 'PP',
-          Gds: 'Amadeus'
-        },
-        {
-          Code: 'CE',
-          Gds: 'Sabre'
-        }
-      ]
+        [
+          {
+            Code: 'PP',
+            Gds: 'Amadeus'
+          },
+          {
+            Code: 'CE',
+            Gds: 'Sabre'
+          }
+        ]
 
       const lcodesOne =
-      [
-        {
-          Code: 'PP',
-          Gds: 'Amadeus'
-        },
-        {
-          Code: 'PP',
-          Gds: 'Sabre'
-        }
-      ]
+        [
+          {
+            Code: 'PP',
+            Gds: 'Amadeus'
+          },
+          {
+            Code: 'PP',
+            Gds: 'Sabre'
+          }
+        ]
 
       const lcodesTwo =
-      [
-        {
-          Code: 'NI',
-          Gds: 'Amadeus'
-        },
-        {
-          Code: 'D',
-          Gds: 'Sabre'
-        }
-      ]
+        [
+          {
+            Code: 'NI',
+            Gds: 'Amadeus'
+          },
+          {
+            Code: 'D',
+            Gds: 'Sabre'
+          }
+        ]
 
 
       let odocument = {
@@ -749,7 +749,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         "IsVIP": item.isVIP,
         "LcostCenter": item.lcostCenter,
         "Orole": item.orole
-       };
+      };
       datosusuario.push(objuser);
 
       //INI INFORMACION PASAJERO
@@ -941,13 +941,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     let flagValIgualEmail = 0;
     let lstEmail = [];
 
-    datosusuario.forEach(function(item, index) {
+    datosusuario.forEach(function (item, index) {
       lstEmail.push(item.Email);
     });
 
-    lstEmail.forEach(function(correo1) {
+    lstEmail.forEach(function (correo1) {
       let flagCountEmail = 0;
-      lstEmail.forEach(function(correo2) {
+      lstEmail.forEach(function (correo2) {
         if (correo1 == correo2) {
           flagCountEmail++;
         }
@@ -970,19 +970,19 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       let correoigual = 0;
       let pasajeros = [];
       correocentralizador = email2;
-      lstEmail.forEach(function(correo, index) {
+      lstEmail.forEach(function (correo, index) {
         let flagcountemail;
         flagcountemail = 0;
         if (correo === correocentralizador) {
-            flagcountemail++;
-            pasajeros.push(index + 1);
-          }
+          flagcountemail++;
+          pasajeros.push(index + 1);
+        }
         if (flagcountemail === 1 || flagcountemail > 1) {
-            correoigual = 1;
-          }
+          correoigual = 1;
+        }
       });
       let pasajero;
-      pasajeros.forEach(function(item) {
+      pasajeros.forEach(function (item) {
         pasajero = item;
       });
       this.numeropasajero = pasajero;
@@ -993,7 +993,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           Object.assign({}, { class: 'gray modal-lg m-infraccion' })
         );
         return false;
-       }
+      }
     }
 
     contacto = {
@@ -1073,7 +1073,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       const lstTxtC = lstUidByCompanyC.filter(x => x.isList === false);
       const lstCbxC = lstUidByCompanyC.filter(x => x.isList === true);
       let flagC = 0;
-      lstTxtC.forEach(function(txt, index) {
+      lstTxtC.forEach(function (txt, index) {
         flagC = 1;
         htmlTxtC += "<div style='font-family: Omnes-med; color: #676767;' class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += "";
@@ -1092,7 +1092,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
       //this.setHijoNieto(lstCbxC);
 
-      lstCbxC.forEach(function(cbx, index) {
+      lstCbxC.forEach(function (cbx, index) {
         flagC = 1;
 
         const llistUid = cbx.listUids;
@@ -1187,7 +1187,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
       const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
       let flagC = 0;
-      lstTxtC.forEach(function(txt, index) {
+      lstTxtC.forEach(function (txt, index) {
         flagC = 1;
         htmlTxtC += "<div class='col-6 m-0 p-0 pt-2'>";
         htmlTxtC += "";
@@ -1206,7 +1206,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
       //this.setHijoNieto(lstCbxC);
 
-      lstCbxC.forEach(function(cbx, index) {
+      lstCbxC.forEach(function (cbx, index) {
         flagC = 1;
 
         const llistUid = cbx.listUids;

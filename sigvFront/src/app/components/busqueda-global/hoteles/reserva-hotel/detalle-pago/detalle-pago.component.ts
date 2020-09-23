@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { IHabitacionResults } from 'src/app/models/IHabitacionResults';
 import { SessionStorageService } from 'ngx-webstorage';
 import { IGetEnhancedHotel } from 'src/app/models/IGetEnhancedHotel';
@@ -9,6 +9,8 @@ import { IGetEnhancedHotel } from 'src/app/models/IGetEnhancedHotel';
   styleUrls: ['./detalle-pago.component.sass']
 })
 export class DetallePagoComponent implements OnInit {
+  @Input('vuelo') vuelo?: any
+
   lstConfirmacion : IGetEnhancedHotel;
 
   hotel: IHabitacionResults;

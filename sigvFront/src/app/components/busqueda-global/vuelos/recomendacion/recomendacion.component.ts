@@ -54,7 +54,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   @Input() flightNational;
   @Input() isVisible;
 
-  modalerror : BsModalRef;
+  @Output() addHotel = new EventEmitter<any>();
+
+  modalerror: BsModalRef;
   segmentRadioCheckId;
   lstRadioCheck: any[] = [];
   loginDataUser;
@@ -71,8 +73,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   dataRequestFamilia;
   dataseccionesvuelos;
-  famTotalFareAmount = 0;
-  famFareAmountByPassenger = 0;
+  famTotalFareAmount;
+  famFareAmountByPassenger;
   requestFamilia;
   flagMsgErrorSelFam: boolean;
   lst_rol_autogestion;
@@ -104,10 +106,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     "#4C2C69",
     "#C33C54"
   ];
-
-  lstFareBasis: any[] = [];
-  lstConCombinacion: any[] = [];
-  modalRefSinFares: BsModalRef;
+  flagCentralizador: any;
+  flagAutoCroselling: any;
 
   constructor(
     private modalService: BsModalService,
@@ -127,15 +127,17 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-  /*  window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY;
-      console.log('scrolled ===>' + scrolled);
-      if (scrolled >= 1630) {
-        $('#precio').css({'position': 'fixed', 'right': '208px', 'width': '372px'});
-      } else {
-        return;
-      }
-    });*/
+    /*  window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        console.log('scrolled ===>' + scrolled);
+        if (scrolled >= 1630) {
+          $('#precio').css({'position': 'fixed', 'right': '208px', 'width': '372px'});
+        } else {
+          return;
+        }
+      });*/
+    this.flagCentralizador = this.sessionStorageService.retrieve('ss_flagCentralizador');
+    this.flagAutoCroselling = this.sessionStorageService.retrieve('ss_login_data').ocompany.ocompanyConfiguration.crossSellingHotel;
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     const pseudoRepeat = this.pseudoRepeat;
     //console.log('pseudoRepeat: ' + pseudoRepeat);
@@ -165,13 +167,12 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
-  openModal(template: TemplateRef<any>, recommendationId, modalerror, templateSinFares) {
+  openModal(template: TemplateRef<any>, recommendationId, modalerror) {
     this.datosuser = this.sessionStorageService.retrieve('objusuarios');
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
     let idVal = 1;
-    let lstFareBasis = this.lstFareBasis;
-    lstRadioCheck.forEach(function(item) {
+    lstRadioCheck.forEach(function (item) {
       const sectionId = item.sectionId_;
       const segmentId = item.segmentId_;
       const segmentIndex = item.segmentIndex_;
@@ -181,7 +182,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lsegmentGroups.forEach(function(group, i) {
+      segment.lsegmentGroups.forEach(function (group, i) {
         const dataGroup = {
           Id: idVal,
           ClassId: section.lsectionGroups[i].classId,
@@ -202,7 +203,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         };
         LsegmentGroups_.push(dataGroup);
         idVal++;
-        lstFareBasis.push(section.lsectionGroups[i].fareBasis);
       });
 
       //Lsegments
@@ -225,8 +225,6 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Lsections_.push(lsection);
     });
 
-    this.lstFareBasis = lstFareBasis;
-
     Lsections_ = Lsections_.sort((a, b) => a.sectionId - b.sectionId);
 
     let dataFamilias = {
@@ -239,7 +237,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       PSeudo: this.pseudo
     };
     this.requestFamilia = dataFamilias;
-    this.getFareFamilyV2(dataFamilias, template, modalerror, templateSinFares);
+    this.getFareFamily(dataFamilias, template, modalerror);
   }
 
   setearRadioId($event) {
@@ -264,7 +262,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     if (this.lstRadioCheck.length === 0) {
       this.lstRadioCheck.push(dataRadioSel);
     } else {
-      this.lstRadioCheck.forEach(function(item) {
+      this.lstRadioCheck.forEach(function (item) {
         if (item.recommendationId_ === recommendationId && item.sectionId_ === section.sectionId) {
           item.flag = 0;
         }
@@ -281,7 +279,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     const lstRadioCheck = this.lstRadioCheck;
     lstRadioCheck.sort((a, b) => a.sectionId_ - b.sectionId_);
     this.lstRadioCheck = lstRadioCheck;
-    lstRadioCheck.forEach(function(item) {
+    lstRadioCheck.forEach(function (item) {
       const sectionId = item.sectionId_;
       const segmentId = item.segmentId_;
       const segmentIndex = item.segmentIndex_;
@@ -291,7 +289,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lsegmentGroups.forEach(function(group, i) {
+      segment.lsegmentGroups.forEach(function (group, i) {
         const dataGroup = {
           Id: i + 1,
           ClassId: section.lsectionGroups[i].classId,
@@ -337,7 +335,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
 
     console.log(this.datosuser);
-    this.datosuser.forEach(function(item, index) {
+    this.datosuser.forEach(function (item, index) {
       let recorte;
       let fecha;
       let hora;
@@ -349,30 +347,30 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       let fechatotal;
       recorte = item.birthDate.split("T");
       fecha = recorte[0];
-      hora =  recorte[1];
+      hora = recorte[1];
       fechaformat = fecha.split("-");
       dia = fechaformat[2];
       mes = fechaformat[1];
       año = fechaformat[0];
       fechatotal = año + '/' + mes + '/' + dia;
-    //let fecha = this.Formatearfecha(item.birthDate);
+      //let fecha = this.Formatearfecha(item.birthDate);
       const obj = {
-          "UserId": item.userId,
-          "PassengerId": index + 1,
-          "PersonId": item.personId,
-          "Name": item.firstName,
-          "LastName": item.lastName,
-          "Gender": item.gender,
-          "PhoneNumber": item.phone,
-          "Email": item.email,
-          "BirthDate": fechatotal,
-          "Odocument": item.odocument,
-          "FrequentFlyer": item.frequentFlyer,
-          "IsVIP": item.isVIP,
-          "LcostCenter": item.lcostCenter,
-          "Type": "ADT",
-          "Orole": item.orole
-         };
+        "UserId": item.userId,
+        "PassengerId": index + 1,
+        "PersonId": item.personId,
+        "Name": item.firstName,
+        "LastName": item.lastName,
+        "Gender": item.gender,
+        "PhoneNumber": item.phone,
+        "Email": item.email,
+        "BirthDate": fechatotal,
+        "Odocument": item.odocument,
+        "FrequentFlyer": item.frequentFlyer,
+        "IsVIP": item.isVIP,
+        "LcostCenter": item.lcostCenter,
+        "Type": "ADT",
+        "Orole": item.orole
+      };
       datosusuario.push(obj);
     });
     console.log(datosusuario);
@@ -425,9 +423,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
             flagResultFamilias = 0;
           } else {
             flagResultFamilias = 1;
-            this.lstFamilyResult.lsections.forEach(function(section, indexSection) {
-              section.lsegments.forEach(function(segment, indexSegment) {
-                segment.lfareFamilies.forEach(function(fare, indexFare) {
+            this.lstFamilyResult.lsections.forEach(function (section, indexSection) {
+              section.lsegments.forEach(function (segment, indexSegment) {
+                segment.lfareFamilies.forEach(function (fare, indexFare) {
                   if (indexFare === 0) {
                     const fareFamilyName = fare.fareFamilyName;
                     dataflighavailability.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
@@ -500,13 +498,13 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     let fechatotal;
     recorte = value.split("T");
     fecha = recorte[0];
-    hora =  recorte[1];
+    hora = recorte[1];
     fechaformat = fecha.split("-");
     dia = fechaformat[2];
     mes = fechaformat[1];
     año = fechaformat[0];
     fechatotal = año + '/' + mes + '/' + dia;
-    hora = hora.substr(0,5);
+    hora = hora.substr(0, 5);
     fechafinal = fechatotal;
     return fechafinal;
   }
@@ -520,7 +518,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     console.log(lstRadioCheck);
     lstRadioCheck.sort((a, b) => a.sectionId_ - b.sectionId_);
     this.lstRadioCheck = lstRadioCheck;
-    lstRadioCheck.forEach(function(item) {
+    lstRadioCheck.forEach(function (item) {
       const sectionId = item.sectionId_;
       const segmentId = item.segmentId_;
       const segmentIndex = item.segmentIndex_;
@@ -530,7 +528,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lsegmentGroups.forEach(function(group, i) {
+      segment.lsegmentGroups.forEach(function (group, i) {
         const dataGroup = {
           Id: i + 1,
           ClassId: section.lsectionGroups[i].classId,
@@ -576,7 +574,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
 
     console.log(this.datosuser);
-    this.datosuser.forEach(function(item, index) {
+    this.datosuser.forEach(function (item, index) {
       let recorte;
       let fecha;
       let hora;
@@ -588,31 +586,31 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       let fechatotal;
       recorte = item.birthDate.split("T");
       fecha = recorte[0];
-      hora =  recorte[1];
+      hora = recorte[1];
       fechaformat = fecha.split("-");
       dia = fechaformat[2];
       mes = fechaformat[1];
       año = fechaformat[0];
       fechatotal = año + '/' + mes + '/' + dia;
-     // let fecha = this.Formatearfecha(item.birthDate);
+      // let fecha = this.Formatearfecha(item.birthDate);
       const obj = {
-          "UserId": item.userId,
-          "PassengerId": index + 1,
-          "PersonId": item.personId,
-          "Name": item.firstName,
-          "LastName": item.lastName,
-          "Gender": item.gender,
-          "PhoneNumber": item.phone,
-          "Email": item.email,
-          "BirthDate": fechatotal,
-          "Odocument": item.odocument,
-          "FrequentFlyer": item.frequentFlyer,
-          "IsVIP": item.isVIP,
-          "LcostCenter": item.lcostCenter,
-          "Type": "ADT",
-          "Orole": item.orole
-         };
-         datosusuario.push(obj);
+        "UserId": item.userId,
+        "PassengerId": index + 1,
+        "PersonId": item.personId,
+        "Name": item.firstName,
+        "LastName": item.lastName,
+        "Gender": item.gender,
+        "PhoneNumber": item.phone,
+        "Email": item.email,
+        "BirthDate": fechatotal,
+        "Odocument": item.odocument,
+        "FrequentFlyer": item.frequentFlyer,
+        "IsVIP": item.isVIP,
+        "LcostCenter": item.lcostCenter,
+        "Type": "ADT",
+        "Orole": item.orole
+      };
+      datosusuario.push(obj);
     });
     console.log(datosusuario);
     let infraction;
@@ -646,7 +644,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   ObtenerSecciones() {
     let Lsections_: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
-    lstRadioCheck.forEach(function(item) {
+    lstRadioCheck.forEach(function (item) {
       const sectionId = item.sectionId_;
       const segmentId = item.segmentId_;
       const segmentIndex = item.segmentIndex_;
@@ -656,7 +654,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lsegmentGroups.forEach(function(group, i) {
+      segment.lsegmentGroups.forEach(function (group, i) {
         const dataGroup = {
           ClassId: section.lsectionGroups[i].classId,
           DepartureDate: group.departureDate,
@@ -750,35 +748,35 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       },
       () => {
-       // this.TraerAutorizador();
+        // this.TraerAutorizador();
       }
     );
-}
-
-TraerAutorizador() {
-  let infraction;
-  if (this.lpolicies.length > 0) {
-    infraction = true;
-  } else {
-    infraction = false;
   }
 
-  let datosusuario: any[] = [];
-  this.datosuser.forEach(function(item) {
-    let prefix;
-    if (item.gender === 'M') {
-      prefix = 'MR';
+  TraerAutorizador() {
+    let infraction;
+    if (this.lpolicies.length > 0) {
+      infraction = true;
     } else {
-      prefix = 'MRS';
+      infraction = false;
     }
-    let fechatotal;
-    let fecha = item.birthDate.substr(0, 10);
-    let fechaformat = fecha.split('-');
-    let año = fechaformat[0];
-    let mes = fechaformat[1];
-    let dia = fechaformat[2];
-    fechatotal = año + '/' + mes + '/' + dia;
-    const objuser = {
+
+    let datosusuario: any[] = [];
+    this.datosuser.forEach(function (item) {
+      let prefix;
+      if (item.gender === 'M') {
+        prefix = 'MR';
+      } else {
+        prefix = 'MRS';
+      }
+      let fechatotal;
+      let fecha = item.birthDate.substr(0, 10);
+      let fechaformat = fecha.split('-');
+      let año = fechaformat[0];
+      let mes = fechaformat[1];
+      let dia = fechaformat[2];
+      fechatotal = año + '/' + mes + '/' + dia;
+      const objuser = {
         "UserId": item.userId,
         "PassengerId": 1,
         "PersonId": item.personId,
@@ -792,33 +790,32 @@ TraerAutorizador() {
         "FrequentFlyer": item.frequentFlyer,
         "IsVIP": item.isVIP,
         "lcostCenter": item.lcostCenter
-       };
-    datosusuario.push(objuser);
-  });
+      };
+      datosusuario.push(objuser);
+    });
 
-  let data = {
-    "Ocompany": this.loginDataUser.ocompany,
-    "FlightNational": this.flightNational,
-    'Infraction': infraction,
-    "Lpassenger": datosusuario,
-    "FareTaxAmountByPassenger": this.fareTaxAmountByPassenger,
-    "Lpolicies" : this.lpolicies
-  };
+    let data = {
+      "Ocompany": this.loginDataUser.ocompany,
+      "FlightNational": this.flightNational,
+      'Infraction': infraction,
+      "Lpassenger": datosusuario,
+      "FareTaxAmountByPassenger": this.fareTaxAmountByPassenger,
+      "Lpolicies": this.lpolicies
+    };
 
-  this.airportService.GetApprovers(data).subscribe(
-    results => {
-      this.lsapprovers = results;
-      this.sessionStorageService.store('lsapprover', null);
-      this.sessionStorageService.store('lsapprover', this.lsapprovers);
-    },
-    err => {
-    //  this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
-    }
-  );
-}
+    this.airportService.GetApprovers(data).subscribe(
+      results => {
+        this.lsapprovers = results;
+        this.sessionStorageService.store('lsapprover', null);
+        this.sessionStorageService.store('lsapprover', this.lsapprovers);
+      },
+      err => {
+        //  this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
+      }
+    );
+  }
 
   flightAvailability(data, template, tipo, modalFam, dataseccion) {
-    console.log("flightAvailability");
     this.vuelosComponent.spinner.show();
     if (tipo === 1) {
       // tslint:disable-next-line: max-line-length
@@ -826,7 +823,6 @@ TraerAutorizador() {
     }
     // tslint:disable-next-line: max-line-length
     let flagResult = 0;
-    console.log("data: " + JSON.stringify(data));
     this.airportService.fligthAvailibility(data).subscribe(
       results => {
         if (results.oerror === null) {
@@ -854,22 +850,27 @@ TraerAutorizador() {
         this.vuelosComponent.spinner.hide();
         if (flagResult === 1) {
           if (tipo === 1) {
+            console.log(this.flagAutoCroselling);
             // tslint:disable-next-line: max-line-length
             // tslint:disable-next-line: max-line-length
-            this.router.navigate(['/reserva-vuelo']);
+            if (!this.flagAutoCroselling) {
+              this.router.navigate(['/reserva-vuelo']);
+            } else {
+              this.validateHotel();
+            }
           }
           if (tipo === 2) {
             this.TraerAutorizador();
             // tslint:disable-next-line: max-line-length
-          /*  if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
-              this.GetUsers();
-              this.sessionStorageService.store('objusuarios', this.datosuser);
-            }
-            if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
-              this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-              this.sessionStorageService.store('objusuarios', this.datosuser);
-              this.TraerAutorizador();
-             }*/
+            /*  if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
+                this.GetUsers();
+                this.sessionStorageService.store('objusuarios', this.datosuser);
+              }
+              if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
+                this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+                this.sessionStorageService.store('objusuarios', this.datosuser);
+                this.TraerAutorizador();
+               }*/
             this.sessionStorageService.store('ss_FlightAvailability_request1', data);
             this.sessionStorageService.store('ss_FlightAvailability_request2', dataseccion);
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
@@ -882,7 +883,6 @@ TraerAutorizador() {
           }
 
           if (tipo === 3) {
-            console.log("click en radio button OK");
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
             this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
             this.flagMsgErrorSelFam = false;
@@ -898,6 +898,11 @@ TraerAutorizador() {
         }
       }
     );
+  }
+
+  validateHotel() {
+    this.addHotel.next({ index: this.index, totalFareAmount: this.totalFareAmount, currency: this.currency, totalTaxAmount: this.totalTaxAmount, fareAmountByPassenger: this.fareAmountByPassenger, taxAmountByPassenger: this.taxAmountByPassenger, fareTaxAmountByPassenger: this.fareTaxAmountByPassenger, carrierId: this.carrierId, numberPassengers: this.numberPassengers, pseudo: this.pseudo, gds: this.gds, lsections: this.lsections, lsectionLength: this.lsectionLength, lpolicies: this.lpolicies, recommendationId: this.recommendationId, tipoVuelo: this.tipoVuelo, pseudoRepeat: this.pseudoRepeat, flightNational: this.flightNational, isVisible: this.isVisible });
+    // this.router.navigate(['/reserva-vuelo']);
   }
 
   openModalPoliticas(template) {
@@ -937,16 +942,16 @@ TraerAutorizador() {
 
     //Toda la fila segment blanquear y radio false
     //console.log("Todas las cabeceras del segment blancas");
-    lstFamilyResult.lsections.forEach(function(section, indexSection) {
+    lstFamilyResult.lsections.forEach(function (section, indexSection) {
       if (indexSection == section_) {
-        section.lsegments.forEach(function(segment, indexSegment) {
+        section.lsegments.forEach(function (segment, indexSegment) {
           if (indexSegment == segment_) {
-            segment.lfareFamilies.forEach(function(fare, indexFare) {
+            segment.lfareFamilies.forEach(function (fare, indexFare) {
               let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
               //console.log("idSecuencial: " + idSecuencial);
               $("#idRadioFam_" + idSecuencial).prop("checked", false);
-              $('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
-              $('#idNameFamilyName1_' + idSecuencial).css({'background-color': '#C6C6C6'});
+              $('#idNameFamilyName_' + idSecuencial).css({ 'background-color': '#C6C6C6' });
+              $('#idNameFamilyName1_' + idSecuencial).css({ 'background-color': '#C6C6C6' });
             });
           }
         });
@@ -956,10 +961,10 @@ TraerAutorizador() {
 
     //segment seleccionado guardamos valores y pintamos cabezera y seleccionamos radio
     //console.log("segment seleccionado guardamos valores y pintamos cabezera y seleccionamos radio");
-    lstFamilyResult.lsections.forEach(function(section, indexSection) {
-      section.lsegments.forEach(function(segment, indexSegment) {
+    lstFamilyResult.lsections.forEach(function (section, indexSection) {
+      section.lsegments.forEach(function (segment, indexSegment) {
         if (indexSection == section_) {
-          segment.lfareFamilies.forEach(function(fare, indexFare) {
+          segment.lfareFamilies.forEach(function (fare, indexFare) {
             if (indexSection == section_) {
               if (indexSegment == segment_) {
                 if (indexFare == index_ - 1) {
@@ -968,14 +973,24 @@ TraerAutorizador() {
                   fareFamilyName = fare.fareFamilyName;
 
                   let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
-
+                  //console.log("idSecuencial: " + idSecuencial);
                   $("#idRadioFam_" + idSecuencial).prop("checked", true);
-                  $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
-                  $('#idNameFamilyName1_' + idSecuencial).css({'background-color': colorsFare[index_]});
+                  $('#idNameFamilyName_' + idSecuencial).css({ 'background-color': colorsFare[index_] });
+                  $('#idNameFamilyName1_' + idSecuencial).css({ 'background-color': colorsFare[index_] });
+
+                  //console.log("classId: " + classId);
+                  //console.log("classId: " + classId);
+                  //console.log("classId: " + classId);
 
                   requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].ClassId = classId;
                   requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].FareBasis = fareBasis;
                   requestFamilia.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].fareFamilyName = fareFamilyName;
+
+                  /*
+                  group.ClassId = classId;
+                  group.FareBasis = fareBasis;
+                  group.fareFamilyName = fareFamilyName;
+                  */
 
                   seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].ClassId = classId;
                   seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[segment_].FareBasis = fareBasis;
@@ -985,8 +1000,6 @@ TraerAutorizador() {
               }
             }
           });
-        } else {
-          //
         }
       });
     });
@@ -1028,37 +1041,51 @@ TraerAutorizador() {
     });
     */
 
-    //Pintamos y seleccionamos todos los tipos iguales
-    /*
-    lstFamilyResult.lsections.forEach(function(section, indexSection) {
+    lstFamilyResult.lsections.forEach(function (section, indexSection) {
+      section.lsegments.forEach(function (segment, indexSegment) {
+        if (indexSection == section_) {
+          segment.lfareFamilies.forEach(function (fare, indexFare) {
+            //
+          });
+        }
+      });
+    });
+
+    lstFamilyResult.lsections.forEach(function (section, indexSection) {
 
       if (indexSection == section_) {
-        section.lsegments.forEach(function(segment, indexSegment) {
+        section.lsegments.forEach(function (segment, indexSegment) {
 
           if (indexSegment != segment_) {
             let flagFareComp = 0;
-            segment.lfareFamilies.forEach(function(fare, indexFare) {
+            segment.lfareFamilies.forEach(function (fare, indexFare) {
               let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
               //$("#idRadioFam_" + idSecuencial).prop("checked", false);
               //$('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
               const fareBasisNew = fare.fareBasis;
               if (fareBasis == fareBasisNew) {
                 flagFareComp = 1;
+                //segment.lfareFamilies[index_ - 1].fareBasis = fareBasis;
+                //segment.lfareFamilies[index_ - 1].fareBasis = classId;
+                //segment.lfareFamilies[index_ - 1].fareFamilyName = fareFamilyName;
+                //console.log("idSecuencial: " + idSecuencial);
+                //$("#idRadioFam_" + idSecuencial).prop("checked", true);
+                //$('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
               }
 
             });
             if (flagFareComp === 1) {
-              segment.lfareFamilies.forEach(function(fare, indexFare) {
+              segment.lfareFamilies.forEach(function (fare, indexFare) {
                 let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
                 $("#idRadioFam_" + idSecuencial).prop("checked", false);
-                $('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
-                $('#idNameFamilyName1_' + idSecuencial).css({'background-color': '#C6C6C6'});
+                $('#idNameFamilyName_' + idSecuencial).css({ 'background-color': '#C6C6C6' });
+                $('#idNameFamilyName1_' + idSecuencial).css({ 'background-color': '#C6C6C6' });
                 const fareBasisNew = fare.fareBasis;
                 if (fareBasis == fareBasisNew) {
                   flagFareComp = 1;
                   $("#idRadioFam_" + idSecuencial).prop("checked", true);
-                  $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
-                  $('#idNameFamilyName1_' + idSecuencial).css({'background-color': colorsFare[index_]});
+                  $('#idNameFamilyName_' + idSecuencial).css({ 'background-color': colorsFare[index_] });
+                  $('#idNameFamilyName1_' + idSecuencial).css({ 'background-color': colorsFare[index_] });
                   requestFamilia.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].ClassId = classId;
                   requestFamilia.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].FareBasis = fareBasis;
                   requestFamilia.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
@@ -1075,188 +1102,92 @@ TraerAutorizador() {
       }
 
     });
+
+    //console.log("flagFareBasisVal: " + flagFareBasisVal);
+    //$('#' + this.idRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex + '_' + this.fareFamilyIndex).prop("checked", true);
+    if (flagFareBasisVal === 1) {
+      /*
+      console.log("Todas las cabeceras del section blancas");
+      lstFamilyResult.lsections.forEach(function(section, indexSection) {
+        if (indexSection == section_) {
+          section.lsegments.forEach(function(segment, indexSegment) {
+            segment.lfareFamilies.forEach(function(fare, indexFare) {
+              let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+              console.log("idSecuencial: " + idSecuencial);
+              $("#idRadioFam_" + idSecuencial).prop("checked", false);
+              $('#idNameFamilyName_' + idSecuencial).css({'background-color': '#C6C6C6'});
+            });
+          });
+        }
+      });
+      */
+
+      /*
+      console.log("pintar las cabeceras correspondientes");
+      lstFamilyResult.lsections.forEach(function(section, indexSection) {
+        if (indexSection == section_) {
+          section.lsegments.forEach(function(segment, indexSegment) {
+            segment.lfareFamilies[index_ - 1].fareBasis = fareBasis;
+            segment.lfareFamilies[index_ - 1].fareBasis = classId;
+            segment.lfareFamilies[index_ - 1].fareFamilyName = fareFamilyName;
+            let idSecuencial = indexSection + "_" + indexSegment + "_" + index_;
+            console.log("idSecuencial: " + idSecuencial);
+            $("#idRadioFam_" + idSecuencial).prop("checked", true);
+            $('#idNameFamilyName_' + idSecuencial).css({'background-color': colorsFare[index_]});
+          });
+        }
+      });
+      */
+    } else {
+      //console.log("cuando son diferentes fareBasis")
+      //$("#idRadioFam_" + section_ + "_" + segment_ + "_" + index_).prop("checked", true);
+    }
+
+    /*
+    requestFamilia.Lsections.forEach(function(section, indexSection) {
+      section.Lsegments.forEach(function(segment, indexSegment) {
+        segment.LsegmentGroups.forEach(function(group, indexGroup) {
+          if (indexSection == section_) {
+            if (indexSegment == 0) {
+              if (indexGroup == segment_) {
+                group.ClassId = classId;
+                group.FareBasis = fareBasis;
+                group.fareFamilyName = fareFamilyName;
+              }
+            }
+          }
+        });
+      });
+    });
     */
 
-    console.log("VALIDANDO CLICK DEL RADIO BUTTON");
-
-    console.log("requestFamilia: " + JSON.stringify(requestFamilia));
-
-    let lstFareBasis = this.lstFareBasis;
-    lstFareBasis = [];
-
-    const lcombinations = this.lstFamilyResult.lcombinations;
-
-    requestFamilia.Lsections.forEach(function(sectionVal) {
-      sectionVal.Lsegments.forEach(function(segmentVal) {
-        segmentVal.LsegmentGroups.forEach(function(segmentGroupVal) {
-          lstFareBasis.push(segmentGroupVal.FareBasis);
-        });
-      });
-    });
-
-    //PASO 1: identificar lo seleccionado en la section 0
-    console.log("//PASO 1: identificar lo seleccionado en la section 0");
-    let section0_fareBasis = [];
-    requestFamilia.Lsections.forEach(function(sectionVal, indexSectionVal) {
-      console.log("indexSectionVal: " + indexSectionVal);
-      console.log("parseInt(section_): " + parseInt(section_));
-      if (parseInt(section_) > indexSectionVal) {
-        sectionVal.Lsegments.forEach(function(segmentVal, indexSegmentVal) {
-          segmentVal.LsegmentGroups.forEach(function(segmentGroupVal) {
-            section0_fareBasis.push(segmentGroupVal.FareBasis);
-          });
-        });
-      }
-      if (indexSectionVal === parseInt(section_)) {
-        sectionVal.Lsegments.forEach(function(segmentVal, indexSegmentVal) {
-          segmentVal.LsegmentGroups.forEach(function(segmentGroupVal, indexSegmentGroupVal) {
-            if (parseInt(segment_) >= indexSegmentGroupVal) {
-              section0_fareBasis.push(segmentGroupVal.FareBasis);
-            }
-          });
-        });
-      }
-    });
-    console.log("section0_fareBasis: " + JSON.stringify(section0_fareBasis));
-
-    //PASO 2: buscar esas sections en el listado de combinaciones
-    console.log("//PASO 2: buscar esas sections en el listado de combinaciones");
-    let lstCombinacionesSection = [];
-    let flagSection0 = 0;
-    const cantFareBasis = section0_fareBasis.length;
-    lcombinations.forEach(function(combinacion, indexCombinacion) {
-      const lbasisCombinations = combinacion.lbasisCombinations;
-      flagSection0 = 0;
-      lbasisCombinations.forEach(function(valor, indexValor) {
-        if (cantFareBasis > indexValor) {
-          const combSectionId = parseInt(valor.sectionId);
-          const combSegmentId = parseInt(valor.segmentId);
-          const radioSection = parseInt(section_) + 1;
-          const radioSegment = parseInt(segment_) + 1;
-          /*
-          if (combSectionId === radioSection && combSegmentId === radioSegment) {
-            if (valor.fareBasis == section0_fareBasis[indexValor]) {
-              flagSection0++;
+    /*
+    seccionvuelos.Lsections.forEach(function(section, indexSection) {
+      section.Lsegments.forEach(function(segment, indexSegment) {
+        segment.LsegmentGroups.forEach(function(group, indexGroup) {
+          if (indexSection == section_) {
+            if (indexSegment == 0) {
+              if (indexGroup == segment_) {
+                group.ClassId = classId;
+                group.FareBasis = fareBasis;
+                group.fareFamilyName = fareFamilyName;
+              }
             }
           }
-          */
-          if (valor.fareBasis == section0_fareBasis[indexValor]) {
-            flagSection0++;
-          }
-        }
-      });
-      if (flagSection0 === section0_fareBasis.length) {
-        lstCombinacionesSection.push(combinacion);
-      }
-    });
-    console.log("lstCombinacionesSection: " + JSON.stringify(lstCombinacionesSection));
-
-    const grupoActual = "idSegment_" + (Number(section_) + 1);
-    const grupoSiguiente = "idSegment_" + (Number(section_) + 2);
-    console.log("grupoActual: " + grupoActual);
-    console.log("grupoSiguiente: " + grupoSiguiente);
-    //$("#" + grupoActual).hide();
-    $("#" + grupoSiguiente).show();
-
-    const arrowNext1 = "imgArrow1_" + (Number(section_) + 1);
-    const arrowNext2 = "imgArrow2_" + (Number(section_) + 1);
-    console.log("arrowNext1: " + arrowNext1);
-    console.log("arrowNext2: " + arrowNext2);
-    $("#" + arrowNext1).hide();
-    $("#" + arrowNext2).show();
-
-    $("#imgArrow1_" + section_).show();
-    $("#imgArrow2_" + section_).hide();
-
-    $("#divfamilia_" + (Number(section_) + 1)).hide();
-
-    //PASO 3: hide los cards
-    console.log("PASO 3: hide los cards");
-    lstFamilyResult.lsections.forEach(function(section, indexSection) {
-      if (indexSection === 0) {
-        section.lsegments.forEach(function(segment, indexSegment) {
-          if (indexSegment > 0) {
-            //if (indexSegment > parseInt(segment_)) {
-              segment.lfareFamilies.forEach(function(fare, indexFare) {
-                const fareBasisGG = fare.fareBasis;
-                let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
-                const cardId = 'cardId_' + section.sectionId + '_' + (indexSegment+1) + '_' + fareBasisGG;
-                console.log("cardId hide: " + cardId);
-                $("#" + cardId).hide();
-              });
-            //}
-          }
-
         });
-      }
-      if (indexSection > 0) {
-        section.lsegments.forEach(function(segment, indexSegment) {
-
-          segment.lfareFamilies.forEach(function(fare, indexFare) {
-            const fareBasisGG = fare.fareBasis;
-            let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
-            const cardId = 'cardId_' + section.sectionId + '_' + (indexSegment+1) + '_' + fareBasisGG;
-            console.log("cardId hide: " + cardId);
-            $("#" + cardId).hide();
-          });
-
-        });
-      }
-    });
-
-    //PASO 4: teniendo las combinaciones q existe para el section seleccionado
-    console.log("//PASO 4: teniendo las combinaciones q existe para el section seleccionado");
-    //        vamos ocultar los radio q no existan
-    var flagExisteShow = 0;
-    lstCombinacionesSection.forEach(function(valor, valorIndex) {
-      const lbasisCombinations = valor.lbasisCombinations;
-      lbasisCombinations.forEach(function(combi, combiIndex) {
-        /*
-        const combSectionId = parseInt(combi.sectionId);
-        const combSegmentId = parseInt(combi.segmentId);
-        if (combSectionId == 1) {
-        }
-        if (combi.sectionId > 1) {
-          const cardId = 'cardId_' + combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
-          console.log("cardId show: " + cardId);
-          $("#" + cardId).show();
-          flagExisteShow = 1;
-        }
-        */
-        const cardId = 'cardId_' + combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
-        console.log("cardId show: " + cardId);
-        $("#" + cardId).show();
-        flagExisteShow = 1;
       });
     });
+    */
+    //console.log("requestFamiliaRadio: " + JSON.stringify(requestFamilia));
 
-    if (flagExisteShow === 0) {
-      $("#" + arrowNext1).hide();
-      $("#" + arrowNext2).hide();
-    }
-
-
-    this.lstFareBasis = lstFareBasis;
-
-    if (this.resultGetFareFamily()) {
-      this.flagMsgErrorSelFam = false;
-      this.sessionStorageService.store('ss_FlightAvailability_request1', requestFamilia);
-      this.sessionStorageService.store('ss_FlightAvailability_request2', seccionvuelos);
-      //this.flightAvailability(requestFamilia, null, 3, null, seccionvuelos);
-    } else {
-      this.vuelosComponent.spinner.hide();
-      this.flagMsgErrorSelFam = true;
-      this.famTotalFareAmount = 0;
-      this.famFareAmountByPassenger = 0;
-      this.flagMsgErrorSelFam = true;
-    }
+    //   this.flightAvailability(requestFamilia, null, 3, null, seccionvuelos);
+    this.FlightPrice(requestFamilia, seccionvuelos);
   }
 
   FlightPrice(request, seccionvuelos) {
-    console.log("FlightPrice");
-     this.vuelosComponent.spinner.show();
-     console.log(request);
-     let data = {
+    this.vuelosComponent.spinner.show();
+    console.log(request);
+    let data = {
       "NumberPassengers": request.NumberPassengers,
       "CarrierId": request.CarrierId,
       "Lsections": request.Lsections,
@@ -1264,34 +1195,33 @@ TraerAutorizador() {
       "osession": this.osessionflightaval,
       "Gds": request.GDS,
       "PSeudo": request.Pseudo
-     };
-    console.log("data: " + JSON.stringify(data));
-     this.airportService.FlightPrice(data).subscribe(
-       result => {
+    }
+    this.airportService.FlightPrice(data).subscribe(
+      result => {
         this.lsFlightAvailabilty = result;
         if (this.lsFlightAvailabilty.oerror !== null) {
           this.flagMsgErrorSelFam = true;
           this.famTotalFareAmount = 0;
           this.famFareAmountByPassenger = 0;
         }
-       // this.sessionStorageService.store('ss_FlightAvailability_result', results);
-      //  this.ObtenerSecciones();
-       // this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
-       },
-       error => {
+        // this.sessionStorageService.store('ss_FlightAvailability_result', results);
+        //  this.ObtenerSecciones();
+        // this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
+      },
+      error => {
 
-       },
-       () => {
-         this.vuelosComponent.spinner.hide();
-         if (this.lsFlightAvailabilty.oerror === null) {
+      },
+      () => {
+        this.vuelosComponent.spinner.hide();
+        if (this.lsFlightAvailabilty.oerror === null) {
           this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
           this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
           this.flagMsgErrorSelFam = false;
           this.sessionStorageService.store('ss_FlightAvailability_request1', request);
           this.sessionStorageService.store('ss_FlightAvailability_request2', seccionvuelos);
-         }
-       }
-     )
+        }
+      }
+    )
   }
 
   flagCloseModal($event) {
@@ -1300,169 +1230,5 @@ TraerAutorizador() {
 
   openModalDsctCop(template: TemplateRef<any>) {
     this.modalRefDsctCorp = this.modalService.show(template);
-  }
-
-  getFareFamilyV2(dataPost, template, modalerror, templateSinFares) {
-    console.log("getFareFamily");
-    console.log("dataPost: " + JSON.stringify(dataPost));
-    this.flagMsgErrorSelFam = false;
-    this.vuelosComponent.spinner.show();
-    this.ObtenerSecciones();
-    this.dataRequestFamilia = dataPost;
-    let dataflighavailability = this.ArmarSeccionesFlightAvailability();
-    let datasecciones = this.ObtenerSecciones();
-    //console.log('mis secciones completas:  ' + JSON.stringify(datasecciones));
-    let flagResultFamilias = 0;
-    //console.log("dataPost Family INI: " + JSON.stringify(dataPost));
-    this.familyService.getFareFamily(dataPost).subscribe(
-      result => {
-        //console.log("result getFareFamily: " + JSON.stringify(result));
-        if (result === null) {
-          flagResultFamilias = 0;
-        } else {
-          this.lstFamilyResult = result;
-          this.sessionStorageService.store('ss_lstFamilyResult', this.lstFamilyResult);
-          if (this.lstFamilyResult.lsections.length === 0) {
-            flagResultFamilias = 0;
-          } else {
-            //this.resultGetFareFamily(this.lstFamilyResult);
-            flagResultFamilias = 1;
-            this.lstFamilyResult.lsections.forEach(function(section, indexSection) {
-              section.lsegments.forEach(function(segment, indexSegment) {
-                segment.lfareFamilies.forEach(function(fare, indexFare) {
-                  if (indexFare === 0) {
-                    const fareFamilyName = fare.fareFamilyName;
-                    dataflighavailability.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
-                    datasecciones.Lsections[indexSection].Lsegments[0].LsegmentGroups[indexSegment].fareFamilyName = fareFamilyName;
-                  }
-                });
-              });
-            });
-            //console.log("dataPost Family FIN: " + JSON.stringify(dataPost));
-            this.requestFamilia = dataflighavailability;
-            this.dataseccionesvuelos = datasecciones;
-          }
-        }
-        this.flagResultFamilias = flagResultFamilias;
-      },
-      err => {
-        console.log('ERROR: ' + JSON.stringify(err));
-        this.vuelosComponent.spinner.hide();
-        this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
-      },
-      () => {
-        //this.vuelosComponent.spinner.hide();
-
-        const requestFamilia = this.requestFamilia;
-        const lstFamilyResult = this.lstFamilyResult;
-
-
-        if (lstFamilyResult === undefined) {
-          //this.modalRefSessionExpired = this.modalService.show(ModalFamiliasVaciasComponent,this.config);
-        } else {
-
-          requestFamilia.Lsections.forEach(function (section, indexSection) {
-            lstFamilyResult.lsections.forEach(function (section2, indexSection2) {
-              if (indexSection === indexSection2) {
-                //const fff = section.Lsegments[0]
-              }
-            });
-          });
-        }
-
-
-        console.log("flagResultFamilias: " +  flagResultFamilias);
-        console.log("flagResultFamilias: " +  flagResultFamilias);
-        console.log("flagResultFamilias: " +  flagResultFamilias);
-        console.log("flagResultFamilias: " +  flagResultFamilias);
-        console.log("flagResultFamilias: " +  flagResultFamilias);
-        console.log("flagResultFamilias: " +  flagResultFamilias);
-        console.log("flagResultFamilias: " +  flagResultFamilias);
-        if (flagResultFamilias === 1) {
-          //vaidando
-          let flagValFareFamilies = 1;
-          const lsections = this.lstFamilyResult.lsections;
-          lsections.forEach(function(section, indexSEction) {
-            section.lsegments.forEach(function(segment, indexSegment) {
-              if (segment.lfareFamilies.length === 0) {
-                flagValFareFamilies = 0;
-              }
-            });
-          });
-
-          if (flagValFareFamilies === 1) {
-            this.famTotalFareAmount = this.totalFareAmount;
-            this.famFareAmountByPassenger = this.fareTaxAmountByPassenger;
-            this.sessionStorageService.store('ss_FlightAvailability_request1', dataflighavailability);
-            this.vuelosComponent.spinner.hide();
-            this.modalRef = this.modalService.show(
-              template,
-              Object.assign({}, { class: 'gray modal-lg' })
-            );
-          } else {
-            this.vuelosComponent.spinner.hide();
-            this.modalRefSinFares = this.modalService.show(
-              templateSinFares,
-              Object.assign({}, { class: 'gray modal-sm' })
-            );
-          }
-
-          //this.flightAvailability(dataflighavailability, modalerror, 2, template, datasecciones);
-        } else {
-          this.vuelosComponent.spinner.hide();
-          this.modalRef = this.modalService.show(
-            template,
-            Object.assign({}, { class: 'gray modal-lg sin-familias' })
-          );
-        }
-      }
-    );
-  }
-
-  resultGetFareFamily() {
-    console.log("resultGetFareFamily");
-    const lcombinations = this.lstFamilyResult.lcombinations;
-    const lstFareBasis = this.lstFareBasis;
-    console.log("lstFareBasis: " + JSON.stringify(lstFareBasis));
-    let flagExistCount = 0;
-    let flagExist = 0;
-    let totalPrice = "";
-    let currency = "";
-    lcombinations.forEach(function(item, indexItem) {
-      flagExistCount = 0;
-
-      console.log("item.fareBasis: " + JSON.stringify(item.fareBasis));
-      lstFareBasis.forEach(function(fareBasis, indexFareBasis) {
-        /*
-        if (fareBasis === item.fareBasis[indexFareBasis]) {
-          flagExistCount++;
-        }
-        */
-        if (fareBasis === item.lbasisCombinations[indexFareBasis].fareBasis) {
-          flagExistCount++;
-        }
-      });
-
-      console.log("item.fareBasis: " + item.fareBasis);
-
-      if (flagExistCount === lstFareBasis.length) {
-        flagExist = 1;
-        totalPrice = item.totalPrice;
-        currency = item.currency;
-      }
-
-    });
-
-
-    console.log("flagExist: " + flagExist);
-
-    if (flagExist === 1) {
-      this.famTotalFareAmount = Number(totalPrice);
-      this.currency = currency;
-      this.famFareAmountByPassenger = this.famTotalFareAmount / this.numberPassengers;
-      return true;
-    } else {
-      return false;
-    }
   }
 }

@@ -8,7 +8,7 @@
         <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3">
             <div id="destinos" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
                 <ng-autocomplete [(ngModel)]="destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                    [notFoundTemplate]="notFoundTemplate">
+                    [notFoundTemplate]="notFoundTemplate" [disabled]="searchFilter">
                 </ng-autocomplete>
 
                 <ng-template #itemTemplate let-item>
@@ -37,9 +37,9 @@
             Fechas
         </div>
 
-        <div class="col-12 mt-3 p-0 pl-4 pr-4">
+        <div class="col-12 m-0 p-0 pt-2">
             <div class="row m-0 p-0">
-                <div class="col-6 m-0 p-0">
+                <div class="col-6 m-0 p-0 pr-1">
                     <label id="ingreso" for="" class="d-inline-flex box-shadow label-fechas">
                                 <input type="image"
                                        src="./assets/images/home/calendario.svg"
@@ -230,7 +230,7 @@
                 </div>
             </div>
             <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0 pb-3">
+                <div class="col-12 m-0 p-0 pb-3" *ngIf="!flagHabitaciones">
                     <button class="btn v-btn-buscar" (click)="SeachHotel()">
                                 <img src="./assets/images/home/buscador-musical.svg" alt="">
                                 Buscar

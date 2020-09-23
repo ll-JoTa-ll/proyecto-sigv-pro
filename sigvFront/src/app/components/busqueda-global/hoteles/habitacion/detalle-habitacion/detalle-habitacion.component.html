@@ -152,25 +152,18 @@
             <div class="row m-0 p-0 box-shadow" style="border-radius: 10px 0px 10px 0px">
                 <div class="col-6 m-0 p-0" style="background-color: #FBF6F6">
                     <div class="row m-0 p-0 pb-3">
-
                         <div class="col-12 m-0 p-0 text-center" style="background-color: #FFFFFF">
                             <span class="tituhabi">Habitación</span>
                         </div>
                         <div class="col-12 m-0 p-0 text-center pt-4 pb-4">
                             <span class="habidesc">{{lhabitaciones.name}}</span>
                         </div>
-
-
-
-
                         <div *ngIf="lhabitaciones.lamenities != null && lhabitaciones.lamenities.length > 0" class="col-12 m-0 p-0" style="
                                 display: inline-grid;height: 343px;overflow: auto;">
                             <span *ngFor="let item of lhabitaciones.lamenities" style="padding-bottom: 20px;"><span class="imgben"><img *ngIf="item.code != null && item.code != '' " style="width: 20px;" src="./assets/images/habitacion/{{item.code}}.png" alt="Cargando Imagen"></span>
                             <span *ngIf="item.description != null && item.description != '' " class="Condition">{{item.description}}</span>
                             </span>
                         </div>
-
-
                     </div>
                 </div>
                 <div class="col-6 m-0 p-0" style="border-left: 1px solid #707070;">
@@ -179,7 +172,6 @@
                             <span class="tituhabi">Precio por noche sin impuestos</span>
                         </div>
                     </div>
-
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 pl-2 pr-2" style="background-color: #FBF6F6">
                             <div class="row m-0 p-0 pt-3 pb-3" style="width: 100%; display: flex; flex-wrap: nowrap; overflow-x: auto">
@@ -188,10 +180,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
                     <div class="row m-0 p-0 ">
                         <div class="col-12 m-0 p-0 text-center pt-3">
                             <span class="Capacidad">Capacidad</span>
@@ -199,12 +187,10 @@
                     </div>
                     <div class="row m-0 p-0 pt-3 pb-3" style="background-color: #FBF6F6">
                         <div class="col-12 m-0 p-0 text-center">
-
                             <span class="pl-1"><img src="./assets/images/pasajero.svg "></span>
                             <span class="pl-3">{{lsthabitacion.ohotel.lguestPerRoom[0].numberPassengers}} x habitacion</span>
                         </div>
                     </div>
-
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 text-center pt-3">
                             <span class="Capacidad">Condiciones</span>
@@ -213,45 +199,34 @@
                     <div class="row m-0 p-0 pb-4" style="background-color: #FBF6F6">
                         <div class="col-12 m-0 p-0 text-center pt-3 pb-5">
                             <div *ngIf="breakFast != null" class="row m-0 p-0">
-
                                 <div *ngIf="breakFast" class="col-12 m-0 p-0 pb-3">
-
                                     <span class="Description pl-2">✓ Incluye desayuno<img style="width: 30px;" class="pl-1" src="./assets/images/breakfast.png"></span>
                                 </div>
                                 <div *ngIf="!breakFast" class="col-12 m-0 p-0 pb-3">
-
                                     <span class="Description pl-2">✓ No incluye desayuno<img style="width: 30px;" class="pl-1" src="./assets/images/bread.png"></span>
                                 </div>
                             </div>
                             <div *ngIf="lhabitaciones.lcancelPenalties.length > 0 && lhabitaciones.lcancelPenalties != '' " class="row m-0 p-0">
-
                                 <div *ngIf="lhabitaciones.lcancelPenalties[0].nonRefundable" class="col-12 m-0 p-0 pb-3">
-
                                     <span class="Description pl-2">✓ Reembolsable<img style="width: 30px;" class="pl-1" src="./assets/images/money.png"></span>
                                 </div>
                                 <div *ngIf="!lhabitaciones.lcancelPenalties[0].nonRefundable" class="col-12 m-0 p-0 pb-3">
-
                                     <span class="Description pl-2">✓ No Reembolsable<img style="width: 30px;" class="pl-1" src="./assets/images/no-money.png"></span>
                                 </div>
                             </div>
                             <div *ngIf="lhabitaciones.guaranteeType != '' && lhabitaciones.guaranteeType.length > 0" class="row m-0 p-0">
-
                                 <div *ngIf="lhabitaciones.guaranteeType === 'GuaranteeRequired' " class="col-12 m-0 p-0 pb-3">
-
                                     <span class="Description pl-2">✓ Pago con garantía<img style="width: 30px;" class="pl-1" src="./assets/images/payment.png"></span>
                                 </div>
                                 <div *ngIf="lhabitaciones.guaranteeType === 'Deposit' " class="col-12 m-0 p-0 pb-3">
-
                                     <span class="Description pl-2">✓ Pago con depósito<img style="width: 30px;" class="pl-1" src="./assets/images/no-money.png"></span>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="col-4 m-0 p-0 box-shadow" style="border-radius: 20px 0px 20px 0px">
             <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate" class="row p-0 m-0">
                 <div class="col-12 m-0 p-0 pt-3">
@@ -263,8 +238,6 @@
                     <span class="Price">Precio final por {{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} {{this.personas}}</span>
                 </div>
             </ng-template>
-
-
             <div class="row p-0 m-0 pt-5">
                 <div class="col-10 p-0 m-0 ">
                     <span class="currency">{{lhabitaciones.oprice.currency}} </span>
@@ -297,7 +270,6 @@
             </div>
             <div class="row p-0 m-0 ">
                 <div class="col-12 p-0 m-0 text-center">
-
                 </div>
             </div>
         </div>

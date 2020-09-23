@@ -146,6 +146,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
     console.log("this.calendarSalidaValue ====>" + this.calendarSalidaValue);
 
+    this.validateIfExistFligth();
   }
 
   ngOnInit() {
@@ -219,7 +220,10 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.lstAutocomplete = lstAutocomplete;
   }
 
-
+  validateIfExistFligth(){
+    const databuscador = this.sessionStorageService.retrieve('objbuscador');
+    console.log(databuscador);
+  }
 
   ngAfterViewInit() {
     $('#menu-vuelo-1').show();
@@ -476,7 +480,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       this.habitaciones = $('#txthabitacion').val();
       this.personas = $('#txtpersonas').val();
 
-
+      console.log(data);
 
       this.service.SearchHotel(data).subscribe(
 

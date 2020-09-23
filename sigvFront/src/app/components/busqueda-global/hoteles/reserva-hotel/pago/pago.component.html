@@ -3,25 +3,28 @@
         <div class="row m-0 p-0">
             <div class="pago col-12 m-0 p-0 pt-4 pb-2 pl-4">
                 DEPÓSITO EN GARANTIA
-
-                <span (click)="openModal1(modalinfraccion, modalerror)" class="txt-infraccion pr-4" style="cursor: pointer;padding-left: 300px;">Ver Infracción</span>
-                <span style="cursor: pointer;" (click)="openModal1(modalinfraccion, modalerror)" *ngIf="this.police.length > 0" class="circulo-politica"></span>
-                <span *ngIf="this.police.length === 0" class="circulo-politica1"></span>
-
+                <div style="display: flex;
+                align-items: center;">
+                    <span (click)="openModal1(modalinfraccion, modalerror)" class="txt-infraccion " style="cursor: pointer;padding-right: .5rem;">Ver Infracción</span>
+                    <span style="cursor: pointer;" (click)="openModal1(modalinfraccion, modalerror)" *ngIf="this.police.length > 0" class="circulo-politica"></span>
+                    <span *ngIf="this.police.length === 0" class="circulo-politica1"></span>
+                </div>
 
             </div>
-            <div class="nombreHotel col-12 m-0 p-0 pb-3 pl-4">
+            <div class="nombreHotel col-12 m-0 p-0 pb-3 pl-3" style="margin-top: 1.5rem !important;display: flex;
+            align-items: center;
+            ">
                 <span></span>{{reserva.ohotel.name}} - <span>{{habitacion.ohotel.cityName}} .</span> <span>A {{lhotel.oairportDistance.distance}} km  del  aeropuerto</span>
             </div>
 
             <div  class="col-12 m-0 p-0 pb-5">
                 <div class="row m-0 p-0 pt-3">
-                    <div class="col-8 m-0 p-0 pl-4">
+                    <div class="col-8 m-0 p-0 pl-3">
                         <div class="row m-0 p-0">
-                            <div class="col-1 m-0 p-0">
+                            <div class="col-2 m-0 p-0">
                                 <img src="./assets/images/surface1.svg" class="pt-2">
                             </div>
-                            <div class="col-11 m-0 p-0">
+                            <div class="col-10 m-0 p-0">
                                 <div class="tarjetaG col-12 m-0 p-0">
                                     Tarjeta de garantía
                                 </div>
@@ -31,7 +34,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class=" col-4 m-0 p-0 pt-2 pl-5">
+                    <div class=" col-4 m-0 p-0 pt-2 pl-3">
                         <button class="btn btn-danger" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">
                     <span class="lblSelecciona"> Agrega tu tarjeta <img src="./assets/images/tarjeta-de-credito.svg" class="pl-2">
                     </span>

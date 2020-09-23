@@ -28,16 +28,17 @@ export class ModalSesionExpiradaComponent implements OnInit {
     var modal = this.modalRef;
   }
 
-
-  VolverHome(){
-    this.router.navigate(['hoteles']);
+  VolverHome() {
+    if (this.router.url.indexOf('reserva-vuelo-hotel') >= 0 || this.router.url.indexOf('resumen-vuelo-hotel') >= 0 || this.router.url.indexOf('vuelo-habitacion') >= 0)
+      this.router.navigate(['vuelos']);
+    else
+      this.router.navigate(['hoteles']);
     this.localfinish = true;
-    this.localStorageService.store("ss_countersession",null);
-    this.localStorageService.store("ss_countersession",this.localfinish);
+    this.localStorageService.store("ss_countersession", null);
+    this.localStorageService.store("ss_countersession", this.localfinish);
     clearInterval(this.idinterval);
     this.modalRef.hide();
   }
-
 
 
 }
