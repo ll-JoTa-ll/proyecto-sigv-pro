@@ -198,13 +198,13 @@ const routes: Routes = [
     runGuardsAndResolvers: "always",
   },
   {
-    path: ":id",
-    component: LoginComponent,
+    path: "alquiler-auto",
+    component: AlqAutosComponent,
     runGuardsAndResolvers: "always",
   },
   {
-    path: "alquiler-auto",
-    component: AlqAutosComponent,
+    path: ":id",
+    component: LoginComponent,
     runGuardsAndResolvers: "always",
   },
 ];
