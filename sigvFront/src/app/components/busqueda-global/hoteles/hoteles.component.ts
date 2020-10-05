@@ -1,42 +1,57 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild, HostListener, ElementRef } from '@angular/core';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { listLocales, getDay } from 'ngx-bootstrap/chronos';
-import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
-import { IHotelResultsModel } from 'src/app/models/IHotelResults.model';
-import { HotelService } from '../../../services/hotel.service';
-import { typeWithParameters } from '@angular/compiler/src/render3/util';
-import { IGetUserById } from 'src/app/models/IGetUserById.model';
-import { BnNgIdleService } from 'bn-ng-idle';
-import * as crypto from 'crypto-js';
-import { Router } from '@angular/router';
-import { ModalDirective, BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { ModalSesionExpiradaComponent } from '../../shared/modal-sesion-expirada/modal-sesion-expirada.component';
-import { ModalCerrarSesionComponent } from '../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component';
-import { DatepickerDateCustomClasses } from 'ngx-bootstrap/datepicker/models';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+  ViewChild,
+  HostListener,
+  ElementRef,
+} from "@angular/core";
+import { BsLocaleService } from "ngx-bootstrap/datepicker";
+import { listLocales, getDay } from "ngx-bootstrap/chronos";
+import { SessionStorageService, LocalStorageService } from "ngx-webstorage";
+import { NgxSpinnerService } from "ngx-spinner";
+import { ILoginDatosModel } from "../../../models/ILoginDatos.model";
+import { IHotelResultsModel } from "src/app/models/IHotelResults.model";
+import { HotelService } from "../../../services/hotel.service";
+import { typeWithParameters } from "@angular/compiler/src/render3/util";
+import { IGetUserById } from "src/app/models/IGetUserById.model";
+import { BnNgIdleService } from "bn-ng-idle";
+import * as crypto from "crypto-js";
+import { Router } from "@angular/router";
+import {
+  ModalDirective,
+  BsModalRef,
+  BsModalService,
+} from "ngx-bootstrap/modal";
+import { ModalSesionExpiradaComponent } from "../../shared/modal-sesion-expirada/modal-sesion-expirada.component";
+import { ModalCerrarSesionComponent } from "../../shared/modal-cerrar-sesion/modal-cerrar-sesion.component";
+import { DatepickerDateCustomClasses } from "ngx-bootstrap/datepicker/models";
 declare var jquery: any;
 declare var $: any;
 
 @Component({
-  selector: 'app-hoteles',
-  templateUrl: './hoteles.component.html',
-  styleUrls: ['./hoteles.component.sass']
+  selector: "app-hoteles",
+  templateUrl: "./hoteles.component.html",
+  styleUrls: ["./hoteles.component.sass"],
 })
 export class HotelesComponent implements OnInit, AfterViewInit {
-
   public text: String;
   bsValue = new Date();
   dateCustomClasses: DatepickerDateCustomClasses[];
 
-  @HostListener('document:click', ['$event'])
+  @HostListener("document:click", ["$event"])
   clickout(event) {
-    if(this.eRef.nativeElement.contains(event.target)) {
+    if (this.eRef.nativeElement.contains(event.target)) {
       this.text = "clicked inside";
       var cerrarsesion;
-      cerrarsesion = this.localStorageService.retrieve("ss_closedSesion")
-      if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
-
+      cerrarsesion = this.localStorageService.retrieve("ss_closedSesion");
+      if (
+        cerrarsesion == false ||
+        cerrarsesion == "" ||
+        cerrarsesion === null
+      ) {
       }
     } else {
       this.text = "clicked outside";
@@ -46,19 +61,19 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   config = {
     backdrop: true,
     ignoreBackdropClick: true,
-    keyboard: false
+    keyboard: false,
   };
-  @ViewChild("modalexpired", {static: false}) modalexpired;
+  @ViewChild("modalexpired", { static: false }) modalexpired;
 
-  locale = 'es';
+  locale = "es";
   locales = listLocales();
-  user : IGetUserById;
+  user: IGetUserById;
   flagBuscar: boolean;
   flagDinData: boolean;
   flagDinDataMini: boolean;
   loginDataUser: ILoginDatosModel;
   token;
-  keyword = 'name';
+  keyword = "name";
   data: any[] = [];
   destinoValue: string;
   destinoText: string;
@@ -72,7 +87,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   fechaRetorno: string;
   LlistaHotel: IHotelResultsModel[] = [];
   estrellas: string;
-  textoestrellas: string = 'Todas';
+  textoestrellas: string = "Todas";
   habitaciones: string;
   personas: string;
   vistamapa: boolean = false;
@@ -103,7 +118,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   calendarSalidaValue: Date;
   divScroll: any;
 
-
   constructor(
     private router: Router,
     private localeService: BsLocaleService,
@@ -115,21 +129,23 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     private modalService: BsModalService,
     private eRef: ElementRef
   ) {
-    $('.menu-vuelo-1').show();
-    $('.menu-vuelo-2').hide();
-    $('.menu-hotel-1').hide();
-    $('.menu-hotel-2').show();
-    $('.menu-bus-1').show();
-    $('.menu-bus-2').hide();
-    $('.menu-paquete-1').show();
-    $('.menu-paquete-2').hide();
-    $('.menu-seguro-1').show();
-    $('.menu-seguro-2').hide();
+    $(".menu-vuelo-1").show();
+    $(".menu-vuelo-2").hide();
+    $("#menu-autos-1").show();
+    $("#menu-autos-2").hide();
+    $(".menu-hotel-1").hide();
+    $(".menu-hotel-2").show();
+    $(".menu-bus-1").show();
+    $(".menu-bus-2").hide();
+    $(".menu-paquete-1").show();
+    $(".menu-paquete-2").hide();
+    $(".menu-seguro-1").show();
+    $(".menu-seguro-2").hide();
     this.minDateIngreso = new Date();
     this.minDateIngreso.setDate(this.minDateIngreso.getDate());
     this.flagBuscar = false;
     this.flagDinData = false;
-    this.divwarning = false
+    this.divwarning = false;
     this.divScroll = false;
     this.minDateSalida = new Date();
     this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
@@ -150,27 +166,29 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.airportlist = this.localStorageService.retrieve('ls_airportlist');
-    this.citylist = this.localStorageService.retrieve('ls_citylist');
-    this.user = this.sessionStorageService.retrieve('ss_user');
-    $('#menu-vuelo-1').show();
-    $('#menu-vuelo-2').hide();
-    $('#menu-hotel-1').hide();
-    $('#menu-hotel-2').show();
-    $('#menu-bus-1').show();
-    $('#menu-bus-2').hide();
-    $('#menu-paquete-1').show();
-    $('#menu-paquete-2').hide();
-    $('#menu-seguro-1').show();
-    $('#menu-seguro-2').hide();
-    this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-    this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
-    window.addEventListener('scroll',() => {
+    this.airportlist = this.localStorageService.retrieve("ls_airportlist");
+    this.citylist = this.localStorageService.retrieve("ls_citylist");
+    this.user = this.sessionStorageService.retrieve("ss_user");
+    $("#menu-vuelo-1").show();
+    $("#menu-vuelo-2").hide();
+    $("#menu-autos-1").show();
+    $("#menu-autos-2").hide();
+    $("#menu-hotel-1").hide();
+    $("#menu-hotel-2").show();
+    $("#menu-bus-1").show();
+    $("#menu-bus-2").hide();
+    $("#menu-paquete-1").show();
+    $("#menu-paquete-2").hide();
+    $("#menu-seguro-1").show();
+    $("#menu-seguro-2").hide();
+    this.loginDataUser = this.sessionStorageService.retrieve("ss_login_data");
+    this.minibuscador = this.sessionStorageService.retrieve("ss_minibuscador");
+    window.addEventListener("scroll", () => {
       const scrolled = window.scrollY;
-      console.log('scrolled ===>' + scrolled);
-      if(scrolled >= 1630){
+      console.log("scrolled ===>" + scrolled);
+      if (scrolled >= 1630) {
         this.divScroll = true;
-      }else{
+      } else {
         this.divScroll = false;
       }
     });
@@ -180,11 +198,11 @@ export class HotelesComponent implements OnInit, AfterViewInit {
 
     this.localeService.use(this.locale);
 
-    window.addEventListener('storage',(event) => {
+    window.addEventListener("storage", (event) => {
       if (event.storageArea == localStorage) {
-        let token = this.localStorageService.retrieve('ss_token');
-        if(token == undefined) {
-          this.router.navigate(['']);
+        let token = this.localStorageService.retrieve("ss_token");
+        if (token == undefined) {
+          this.router.navigate([""]);
         }
       }
     });
@@ -199,7 +217,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
         latitude: ciudad.latitude,
         longitude: ciudad.longitude,
         categoryId: 2,
-        categoryName: 'Ciudad'
+        categoryName: "Ciudad",
       };
       lstAutocomplete.push(obj1);
     });
@@ -211,34 +229,33 @@ export class HotelesComponent implements OnInit, AfterViewInit {
         latitude: aeropuerto.latitude,
         longitude: aeropuerto.longitude,
         categoryId: 1,
-        categoryName: 'Aeropuerto'
+        categoryName: "Aeropuerto",
       };
       lstAutocomplete.push(obj1);
     });
 
-    lstAutocomplete.sort((a, b) => a.name - b.name );
+    lstAutocomplete.sort((a, b) => a.name - b.name);
     this.lstAutocomplete = lstAutocomplete;
   }
 
-  validateIfExistFligth(){
-    const databuscador = this.sessionStorageService.retrieve('objbuscador');
+  validateIfExistFligth() {
+    const databuscador = this.sessionStorageService.retrieve("objbuscador");
     console.log(databuscador);
   }
 
   ngAfterViewInit() {
-    $('#menu-vuelo-1').show();
-    $('#menu-vuelo-2').hide();
-    $('#menu-hotel-1').hide();
-    $('#menu-hotel-2').show();
-    $('#menu-bus-1').show();
-    $('#menu-bus-2').hide();
-    $('#menu-paquete-1').show();
-    $('#menu-paquete-2').hide();
-    $('#menu-seguro-1').show();
-    $('#menu-seguro-2').hide();
-
-
-
+    $("#menu-vuelo-1").show();
+    $("#menu-vuelo-2").hide();
+    $("#menu-autos-1").show();
+    $("#menu-autos-2").hide();
+    $("#menu-hotel-1").hide();
+    $("#menu-hotel-2").show();
+    $("#menu-bus-1").show();
+    $("#menu-bus-2").hide();
+    $("#menu-paquete-1").show();
+    $("#menu-paquete-2").hide();
+    $("#menu-seguro-1").show();
+    $("#menu-seguro-2").hide();
   }
 
   selectEvent(item) {
@@ -248,66 +265,62 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.destinoValue = item.iataCode;
     this.destinoText = item.name;
     $("#txtOrigen").removeClass("campo-invalido");
-    setTimeout(function() {
+    setTimeout(function () {
       $(".x").hide();
     }, 1000);
   }
-
-
 
   onChangeSearch(val: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+      const resultFilter = this.lstAutocomplete.filter(
+        (word) => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0
+      );
       this.data = resultFilter;
 
       $(".x").hide();
     }
   }
 
-
-
   onFocused(e) {
     // do something when input is focused
     this.flagDinData = false;
   }
 
-  handlerIngreso(datepickerSalida) {
-
-  }
+  handlerIngreso(datepickerSalida) {}
 
   onValueChangeIngreso(value: Date): void {
     if (value != null) {
       this.valfechasalida = false;
-    let mes = "";
-    if ((value.getMonth() + 1) < 10) {
-      mes = "0" + (value.getMonth() + 1);
-    } else {
-      mes = "" + (value.getMonth() + 1);
-    }
+      let mes = "";
+      if (value.getMonth() + 1 < 10) {
+        mes = "0" + (value.getMonth() + 1);
+      } else {
+        mes = "" + (value.getMonth() + 1);
+      }
 
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
 
-    $("#ingreso").removeClass("campo-invalido");
-    this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
+      $("#ingreso").removeClass("campo-invalido");
+      this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
 
-    this.minDateSalida = value;
-    this.dateCustomClasses = [
-      { date: this.minDateSalida, classes: ['bg-danger','text-warning'] }
-    ];
+      this.minDateSalida = value;
+      this.dateCustomClasses = [
+        { date: this.minDateSalida, classes: ["bg-danger", "text-warning"] },
+      ];
 
-    if (value >= this.calendarSalidaValue) {
-      $("#datesalida").val("");
-    }
-    //this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
-    /*
+      if (value >= this.calendarSalidaValue) {
+        $("#datesalida").val("");
+      }
+      //this.minDateSalida.setDate(this.minDateSalida.getDate() + 1);
+      /*
     let value2 = value;
     this.minDateSalida = value;
     console.log('value: ' + value);
@@ -323,30 +336,29 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   onValueChangeSalida(value: Date): void {
     if (value != null) {
       this.calendarSalidaValue = value;
-      this.maxDateIngreso  = value;
+      this.maxDateIngreso = value;
       this.dateCustomClasses = [
-        { date: null, classes: ['bg-danger','text-warning'] }
+        { date: null, classes: ["bg-danger", "text-warning"] },
       ];
-    this.valfechadestino = false;
-    let mes = "";
-    if ((value.getMonth() + 1) < 10) {
-      mes = "0" + (value.getMonth() + 1);
-    } else {
-      mes = "" + (value.getMonth() + 1);
-    }
+      this.valfechadestino = false;
+      let mes = "";
+      if (value.getMonth() + 1 < 10) {
+        mes = "0" + (value.getMonth() + 1);
+      } else {
+        mes = "" + (value.getMonth() + 1);
+      }
 
-    let dia = "";
-    if (value.getDate() < 10) {
-      dia = "0" + value.getDate();
-    } else {
-      dia = "" + value.getDate();
-    }
-    $("#salida").removeClass("campo-invalido");
+      let dia = "";
+      if (value.getDate() < 10) {
+        dia = "0" + value.getDate();
+      } else {
+        dia = "" + value.getDate();
+      }
+      $("#salida").removeClass("campo-invalido");
 
-    this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
+      this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
     }
   }
-
 
   Obtenerlistado($event) {
     this.LlistaHotel = [];
@@ -361,19 +373,18 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       this.vistalistado = false;
     } else {
       this.vistalistado = true;
-      this.LlistaHotel.forEach(function(item) {
+      this.LlistaHotel.forEach(function (item) {
         if (item.oprice.pricePerAllNights < menorValor) {
           menorValor = item.oprice.pricePerAllNights;
         }
         if (item.oprice.pricePerAllNights > mayorValor) {
           mayorValor = item.oprice.pricePerAllNights;
         }
-
       });
 
       this.menorPrecioHotel = menorValor;
       this.mayorPrecioHotel = mayorValor;
-      this.sessionStorageService.store("ls_search_hotel",this.LlistaHotel);
+      this.sessionStorageService.store("ls_search_hotel", this.LlistaHotel);
       this.mapafiltro = true;
     }
   }
@@ -438,65 +449,63 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       this.divwarning = true;
       this.flagDinDataMini = true;
     }
-
   }
 
   SeachHotel() {
-    const val= this.ValidarCampos();
+    const val = this.ValidarCampos();
     if (!val) {
       return val;
-    }
-    else{
+    } else {
       this.spinner.show();
       this.flagDinData = false;
-      this.dateingreso = $('#dateingreso').val();
-      this.datesalida = $('#datesalida').val();
-      this.cantidadhabitaciones = $('#txthabitacion').val();
+      this.dateingreso = $("#dateingreso").val();
+      this.datesalida = $("#datesalida").val();
+      this.cantidadhabitaciones = $("#txthabitacion").val();
       let data = {
-        "Lusers":[{
-          "RoleId": this.loginDataUser.orole.roleId,
-          "LcostCenter": this.loginDataUser.lcostCenter,
-          "UserId": this.loginDataUser.userId
-        }],
-        "Lhotel":
-          [
-            {
-              "HotelCityCode": this.destinoValue,
-              "Stars": this.estrellas,
-              "StartDate": this.fechaSalida,
-              "EndDate": this.fechaRetorno,
-              "LguestPerRoom":
-                [
-                  {
-                    "RoomQuantity": $('#txthabitacion').val(),
-                    "NumberPassengers": $('#txtpersonas').val(),
-                    "TypePassenger": "ADT"
-                  }
-                ]
-            }
-          ],
-        "Ocompany": this.loginDataUser.ocompany
-      }
-      this.habitaciones = $('#txthabitacion').val();
-      this.personas = $('#txtpersonas').val();
+        Lusers: [
+          {
+            RoleId: this.loginDataUser.orole.roleId,
+            LcostCenter: this.loginDataUser.lcostCenter,
+            UserId: this.loginDataUser.userId,
+          },
+        ],
+        Lhotel: [
+          {
+            HotelCityCode: this.destinoValue,
+            Stars: this.estrellas,
+            StartDate: this.fechaSalida,
+            EndDate: this.fechaRetorno,
+            LguestPerRoom: [
+              {
+                RoomQuantity: $("#txthabitacion").val(),
+                NumberPassengers: $("#txtpersonas").val(),
+                TypePassenger: "ADT",
+              },
+            ],
+          },
+        ],
+        Ocompany: this.loginDataUser.ocompany,
+      };
+      this.habitaciones = $("#txthabitacion").val();
+      this.personas = $("#txtpersonas").val();
 
       console.log(data);
 
       this.service.SearchHotel(data).subscribe(
-
-        result => {
-          if (result == null || result.length == 0 || result[0].oerror != null) {
+        (result) => {
+          if (
+            result == null ||
+            result.length == 0 ||
+            result[0].oerror != null
+          ) {
             //alert("asdasd")
             this.flagDinData = true;
-          }
-          else{
-
+          } else {
             if (result !== null && result.length > 0) {
-
-              this.sessionStorageService.store('ls_search_hotel', result);
-              this.sessionStorageService.store('ss_minibuscador',null);
+              this.sessionStorageService.store("ls_search_hotel", result);
+              this.sessionStorageService.store("ss_minibuscador", null);
               this.LlistaHotel = result;
-              this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
+              this.sessionStorageService.store("hotel", this.LlistaHotel[0]);
               this.flagBuscar = true;
 
               let menorValor = 1000000;
@@ -504,8 +513,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
               let currency;
               let cantnoche;
 
-              result.forEach(function(item, index1) {
-
+              result.forEach(function (item, index1) {
                 let mmm = 1000000;
 
                 if (item.oprice.pricePerAllNights < menorValor) {
@@ -514,7 +522,6 @@ export class HotelesComponent implements OnInit, AfterViewInit {
                 if (item.oprice.pricePerAllNights > mayorValor) {
                   mayorValor = item.oprice.pricePerAllNights;
                 }
-
               });
 
               this.cantidadnoche = cantnoche;
@@ -525,11 +532,9 @@ export class HotelesComponent implements OnInit, AfterViewInit {
               this.flagDinData = true;
             }
           }
-
         },
-        err => {
+        (err) => {
           this.spinner.hide();
-
         },
         () => {
           this.spinner.hide();
@@ -537,11 +542,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
         }
       );
     }
-
   }
-
-
-
 
   searchFlightBuscador($event) {
     this.LlistaHotel = [];
@@ -550,7 +551,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     } else {
       this.LlistaHotel = $event;
     }
-    this.sessionStorageService.store('ls_search_hotel', this.LlistaHotel);
+    this.sessionStorageService.store("ls_search_hotel", this.LlistaHotel);
 
     if (this.LlistaHotel[0].oerror != null) {
       //this.flagDinData = true;
@@ -560,15 +561,16 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       //this.flagDinData = false;
       this.flagDinDataMini = false;
       this.spinner.hide();
-
     }
   }
-
 
   ValidarCampos() {
     let val = true;
 
-    if ($.trim(this.model.origentTexto) === '' || $.trim(this.model.origentTexto) === undefined) {
+    if (
+      $.trim(this.model.origentTexto) === "" ||
+      $.trim(this.model.origentTexto) === undefined
+    ) {
       $("#txtOrigen").addClass("campo-invalido");
       this.isOpen = true;
       val = false;
@@ -576,7 +578,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       this.isOpen = false;
       $("#txtOrigen").removeClass("campo-invalido");
     }
-    if ($('#dateingreso').val().length === 0) {
+    if ($("#dateingreso").val().length === 0) {
       $("#ingreso").addClass("campo-invalido");
       this.valfechasalida = true;
       val = false;
@@ -584,7 +586,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
       this.valfechasalida = false;
       $("#ingreso").removeClass("campo-invalido");
     }
-    if ($('#datesalida').val().length === 0) {
+    if ($("#datesalida").val().length === 0) {
       $("#salida").addClass("campo-invalido");
       this.valfechadestino = true;
       val = false;
@@ -600,42 +602,38 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     this.textoestrellas = texto;
   }
 
-  validarNumeros(e){
-    var tecla = (document.all) ? e.keyCode : e.which;
+  validarNumeros(e) {
+    var tecla = document.all ? e.keyCode : e.which;
     if (tecla == 8) return true;
     var patron = /^([0-9])*$/;
     var teclaFinal = String.fromCharCode(tecla);
     return patron.test(teclaFinal);
-  };
+  }
 
-  validarNumerosN(e){
-    var tecla = (document.all) ? e.keyCode : e.which;
+  validarNumerosN(e) {
+    var tecla = document.all ? e.keyCode : e.which;
     if (tecla == 8) return true;
     var patron = /^([])*$/;
     var teclaFinal = String.fromCharCode(tecla);
-    if(tecla == 505) return false;
+    if (tecla == 505) return false;
     return patron.test(teclaFinal);
-  };
+  }
 
-
-  validarTodo(e){
-    var tecla = (document.all) ? e.keyCode : e.which;
+  validarTodo(e) {
+    var tecla = document.all ? e.keyCode : e.which;
     if (tecla == 8) return true;
     var patron = /^([])*$/;
     var teclaFinal = String.fromCharCode(tecla);
     return patron.test(teclaFinal);
-  };
+  }
 
-  validarLetras(e){
-    var tecla = (document.all) ? e.keyCode : e.which;
+  validarLetras(e) {
+    var tecla = document.all ? e.keyCode : e.which;
     if (tecla == 8) return true;
     var patron = /^([a-zA-Z ])*$/;
     var teclaFinal = String.fromCharCode(tecla);
     return patron.test(teclaFinal);
-  };
-
-
-
+  }
 
   showHideMap($event) {
     this.mapafiltro = $event;
@@ -644,7 +642,4 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   updateMiniBusqueda($event) {
     this.flagPriceHotel = $event;
   }
-
-
-
 }

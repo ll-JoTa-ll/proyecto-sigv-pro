@@ -168,6 +168,8 @@ import { RecomendacionHotelDetailComponent } from './components/busqueda-global/
 import { ReservaHotelVueloComponent } from './components/busqueda-global/vuelos/reserva-hotel-vuelo/reserva-hotel-vuelo.component';
 import { ResumenVueloHotelComponent } from './components/busqueda-global/vuelos/resumen-vuelo-hotel/resumen-vuelo-hotel.component';
 import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global/vuelos/reserva-generada-vuelo-hotel/reserva-generada-vuelo-hotel.component';
+import { AutosComponent } from './components/autos/autos.component';
+import { AlqAutosComponent } from './components/busqueda-global/alq-autos/alq-autos.component';
 
 @NgModule({
   declarations: [
@@ -306,7 +308,9 @@ import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global
     RecomendacionHotelComponent,
     RecomendacionHotelDetailComponent,
     ReservaHotelVueloComponent,
-    ResumenVueloHotelComponent
+    ResumenVueloHotelComponent,
+    AutosComponent,
+    AlqAutosComponent
   ],
   imports: [
     BrowserModule,

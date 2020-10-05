@@ -1,81 +1,136 @@
-<div class="" style="background-color: white !important; height: 100% !important;">
+<div
+  class=""
+  style="background-color: white !important; height: 100% !important"
+>
+  <div
+    class="col-12 m-0 p-0 barra-1"
+    style="border-radius: 0 0 40px 40px; width: 100% !important"
+  >
+    <div class="barra-2 m-0 p-0">
+      <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0"></div>
 
-    <div class="col-12 m-0 p-0 barra-1" style="border-radius:  0 0 40px 40px; width: 100% !important;">
-
-
-        <div class="barra-2 m-0 p-0">
-
-            <div class="row m-0 p-0">
-
-                <div class="col-12 m-0 p-0"></div>
-
-                <div class="col-12 m-0 p-0">
-                    <div class="row m-0 p-0">
-                        <div class="col-3 m-0 p-0">
-                            <img style="cursor: pointer;" (click)="home()" class="img-fluid" alt="" src="./assets/images/logoblanco_search.png">
-                        </div>
-                        <div class="col-3 m-0 p-0"></div>
-                        <div class="col-3 m-0 p-0"></div>
-                        <div class="col-3 m-0 p-0">
-                            <div class="row m-0 p-0" style="height: 100% !important;">
-                                <div class="col-6 m-0 p-0">
-                                </div>
-                                <div id="hola" class="col-6 m-0 p-0 d-flex align-items-center" style="font-family: Omnes-sem; font-size: 15px; color: white;">
-                                    <!--
+        <div class="col-12 m-0 p-0">
+          <div class="row m-0 p-0">
+            <div class="col-3 m-0 p-0">
+              <img
+                style="cursor: pointer"
+                (click)="home()"
+                class="img-fluid"
+                alt=""
+                src="./assets/images/logoblanco_search.png"
+              />
+            </div>
+            <div class="col-3 m-0 p-0"></div>
+            <div class="col-3 m-0 p-0"></div>
+            <div class="col-3 m-0 p-0">
+              <div class="row m-0 p-0" style="height: 100% !important">
+                <div class="col-6 m-0 p-0"></div>
+                <div
+                  id="hola"
+                  class="col-6 m-0 p-0 d-flex align-items-center"
+                  style="font-family: Omnes-sem; font-size: 15px; color: white"
+                >
+                  <!--
                   {{nombreUsuario}}
                   <img style="width: 30px; padding-left: 5px; cursor: pointer;" src="./assets/images/logo-familia.png" alt="">
                   -->
-                                    <div class="col-6 m-0 p-0" style="text-align: center;left: 50px;top: 20px;">
-                                        <img *ngIf="gender==='M'" style="width: 60px; cursor: pointer;" (click)="changeProfile()" src="./assets/images/user_boy.png" alt="">
-                                        <img *ngIf="gender==='F'" style="width: 60px; cursor: pointer;" (click)="changeProfile()" src="./assets/images/user_girl.png" alt="">
-                                       <!--  <div class="name">
+                  <div
+                    class="col-6 m-0 p-0"
+                    style="text-align: center; left: 50px; top: 20px"
+                  >
+                    <img
+                      *ngIf="gender === 'M'"
+                      style="width: 60px; cursor: pointer"
+                      (click)="changeProfile()"
+                      src="./assets/images/user_boy.png"
+                      alt=""
+                    />
+                    <img
+                      *ngIf="gender === 'F'"
+                      style="width: 60px; cursor: pointer"
+                      (click)="changeProfile()"
+                      src="./assets/images/user_girl.png"
+                      alt=""
+                    />
+                    <!--  <div class="name">
                                             <span>{{nombreUsuario}}</span>
                                         </div> -->
-                                        <div *ngIf="isvip === true" class="name" style="position: absolute; left: 18px;">
-                                            <span>Pasajero Vip</span>
-                                        </div>
-                                    </div>
-
-                                    <div id="profile" style="width: 200px;height: 250px;top: 120px;background: #fff;position: absolute;border-radius: 10px;z-index: 999;clear: both;border: 2px solid #ED1C24">
-                                        <div style="color: black;width: 200px;text-align: center;padding-bottom: 30px;padding-top: 20px;">
-                                            <div class="name">{{nombreUsuario}}</div>
-                                            <div class="job">{{role}}</div>
-                                            <div *ngIf="isvip === true" class="job">Pasajero Vip</div>
-                                            <div class="name">{{empresa}}</div>
-                                        </div>
-                                        <div style="width: 200px !important;padding-top: 10px;">
-                                            <span class="btn" style="cursor: pointer;" [routerLink]="['/perfil-usuario']">Mi perfil</span>
-                                            <span class="btn" style="cursor: pointer;" (click)="cerrarSesion()">Cerrar Sesión</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div
+                      *ngIf="isvip === true"
+                      class="name"
+                      style="position: absolute; left: 18px"
+                    >
+                      <span>Pasajero Vip</span>
                     </div>
+                  </div>
+
+                  <div
+                    id="profile"
+                    style="
+                      width: 200px;
+                      height: 250px;
+                      top: 120px;
+                      background: #fff;
+                      position: absolute;
+                      border-radius: 10px;
+                      z-index: 999;
+                      clear: both;
+                      border: 2px solid #ed1c24;
+                    "
+                  >
+                    <div
+                      style="
+                        color: black;
+                        width: 200px;
+                        text-align: center;
+                        padding-bottom: 30px;
+                        padding-top: 20px;
+                      "
+                    >
+                      <div class="name">{{ nombreUsuario }}</div>
+                      <div class="job">{{ role }}</div>
+                      <div *ngIf="isvip === true" class="job">Pasajero Vip</div>
+                      <div class="name">{{ empresa }}</div>
+                    </div>
+                    <div style="width: 200px !important; padding-top: 10px">
+                      <span
+                        class="btn"
+                        style="cursor: pointer"
+                        [routerLink]="['/perfil-usuario']"
+                        >Mi perfil</span
+                      >
+                      <span
+                        class="btn"
+                        style="cursor: pointer"
+                        (click)="cerrarSesion()"
+                        >Cerrar Sesión</span
+                      >
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <div class="col-12 m-0 p-0">
-                    <div class="row m-0 p-0">
-                        <div class="col-2 m-0 p-0">
+        <div class="col-12 m-0 p-0">
+          <div class="row m-0 p-0">
+            <div class="col-2 m-0 p-0">
+              <div class="row m-0 p-0">
+                <div class="col-3 m-0 p-0"></div>
 
-                            <div class="row m-0 p-0">
-                                <div class="col-3 m-0 p-0"></div>
-
-                                <div class="col-6 m-0 p-0">
-
-                                    <div class="row m-0 p-0">
-                                        <div class="col-12 m-0 p-0" style="height: 15px"></div>
-                                        <div class="col-12 m-0 p-0">
-                                            <!--
+                <div class="col-6 m-0 p-0">
+                  <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0" style="height: 15px"></div>
+                    <div class="col-12 m-0 p-0">
+                      <!--
                       <button class="btn btn-menu-search">
                         <input type="image" src="./assets/images/menu.svg">
                       </button>
                       -->
 
-
-
-                                            <!--
+                      <!--
                       <div class="btn-group" dropdown>
                         <button id="button-basic_2" dropdownToggle type="button" class="btn btn-menu-search"
                                 style="font-family: Omnes-sem; font-size: 15px; color: white;"
@@ -94,147 +149,291 @@
                       </div>
                       -->
 
-                                            <app-nav-header></app-nav-header>
-
-
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-3 m-0 p-0"></div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-8 m-0 p-0" s>
-
-                            <div class="row m-0 p-0 pt-3 pb-3 box-shadow" style="border-bottom: 1px solid #9b9b9b; border-radius:  20px 0 0 0;">
-
-                                <div class="col-1 m-0 p-0"></div>
-
-                                <div class="col-2 m-0 p-0 pt-2 pb-2 text-center" style="cursor: pointer" (click)="cambiarTipo(1)">
-                                    <div id="menu-vuelo-1" class="row m-0 p-0" style="height: 42px">
-                                        <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-vuelo-1">
-                                            <img src="./assets/images/home/airplane.svg" alt="">
-                                        </div>
-                                        <div class="col-6 m-0 p-0 texto-tipos menu-vuelo-1">
-                                            Vuelos
-                                        </div>
-                                    </div>
-                                    <div id="menu-vuelo-2" class="row m-0 p-0" style="height: 42px" (click)="vuelos()">
-                                        <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-vuelo-2">
-                                            <img src="./assets/images/home/airplane_rojo.svg" alt="">
-                                        </div>
-                                        <div class="col-6 m-0 p-0 texto-tipos-rojo menu-vuelo-2">
-                                            Vuelos
-                                        </div>
-                                        <div class="col-12 m-0 p-0">
-                                            <img style="width: 80%" src="./assets/images/home/directo.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-2 m-0 p-0 pt-2 pb-2 text-center" style="cursor: pointer" (click)="cambiarTipo(2)">
-                                    <div id="menu-hotel-1" class="row m-0 p-0" style="height: 42px">
-                                        <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-hotel-1">
-                                            <img src="./assets/images/home/hotel.svg" alt="">
-                                        </div>
-                                        <div class="col-6 m-0 p-0 texto-tipos menu-hotel-1">
-                                            Hoteles
-                                        </div>
-                                    </div>
-                                    <div id="menu-hotel-2" class="row m-0 p-0" style="height: 42px" (click)="hoteles()">
-                                        <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-hotel-2">
-                                            <img src="./assets/images/home/hotel_rojo.svg" alt="">
-                                        </div>
-                                        <div class="col-6 m-0 p-0 texto-tipos-rojo menu-hotel-2">
-                                            Hoteles
-                                        </div>
-                                        <div class="col-12 m-0 p-0">
-                                            <img style="width: 80%" src="./assets/images/home/directo.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-2 m-0 p-0 pt-2 pb-2 text-center" style="cursor: pointer" (click)="cambiarTipo(3)">
-                                    <div id="menu-bus-1" class="row m-0 p-0" style="height: 42px">
-                                        <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-bus-1">
-                                            <img src="./assets/images/home/tourist-bus.svg" alt="">
-                                        </div>
-                                        <div class="col-6 m-0 p-0 texto-tipos menu-bus-1">
-                                            Buses
-                                        </div>
-                                    </div>
-                                    <div id="menu-bus-2" class="row m-0 p-0" style="height: 42px">
-                                        <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-bus-2">
-                                            <img src="./assets/images/home/tourist-bus.svg" alt="">
-                                        </div>
-                                        <div class="col-6 m-0 p-0 texto-tipos-rojo menu-bus-2">
-                                            Buses
-                                        </div>
-                                        <div class="col-12 m-0 p-0">
-                                            <img style="width: 80%" src="./assets/images/home/directo.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-2 m-0 p-0 pt-2 pb-2 text-center" style="cursor: pointer" (click)="cambiarTipo(4)">
-                                    <div id="menu-paquete-1" class="row m-0 p-0" style="height: 42px">
-                                        <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-paquete-1">
-                                            <img src="./assets/images/home/island.svg" alt="">
-                                        </div>
-                                        <div class="col-6 m-0 p-0 texto-tipos menu-paquete-1">
-                                            Paquetes
-                                        </div>
-                                    </div>
-                                    <div id="menu-paquete-2" class="row m-0 p-0" style="height: 42px">
-                                        <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-paquete-2">
-                                            <img src="./assets/images/home/island.svg" alt="">
-                                        </div>
-                                        <div class="col-6 m-0 p-0 texto-tipos-rojo menu-paquete-2">
-                                            Paquetes
-                                        </div>
-                                        <div class="col-12 m-0 p-0">
-                                            <img style="width: 80%" src="./assets/images/home/directo.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-2 m-0 p-0 pt-2 pb-2 text-center" style="cursor: pointer" (click)="cambiarTipo(5)">
-                                    <div id="menu-seguro-1" class="row m-0 p-0" style="height: 42px">
-                                        <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-seguro-1">
-                                            <img src="./assets/images/home/linea-de-vida-en-un-esquema-del-corazon.svg" alt="">
-                                        </div>
-                                        <div class="col-6 m-0 p-0 texto-tipos menu-seguro-1">
-                                            Seguros
-                                        </div>
-                                    </div>
-                                    <div id="menu-seguro-2" class="row m-0 p-0" style="height: 42px">
-                                        <div class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-seguro-2">
-                                            <img src="./assets/images/home/linea-de-vida-en-un-esquema-del-corazon.svg" alt="">
-                                        </div>
-                                        <div class="col-6 m-0 p-0 texto-tipos-rojo menu-seguro-2">
-                                            Seguros
-                                        </div>
-                                        <div class="col-12 m-0 p-0">
-                                            <img style="width: 80%" src="./assets/images/home/directo.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-1 m-0 p-0"></div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-2 m-0 p-0"></div>
+                      <app-nav-header></app-nav-header>
                     </div>
+                  </div>
                 </div>
 
-                <!--
+                <div class="col-3 m-0 p-0"></div>
+              </div>
+            </div>
+
+            <div class="col-8 m-0 p-0">
+              <div
+                class="row m-0 p-0 pt-3 pb-3 box-shadow"
+                style="
+                  border-bottom: 1px solid #9b9b9b;
+                  border-radius: 20px 0 0 0;
+                "
+              >
+                <div
+                  class="col-2 m-0 p-0 pt-2 pb-2 text-center"
+                  style="cursor: pointer"
+                  (click)="cambiarTipo(1)"
+                >
+                  <div
+                    id="menu-vuelo-1"
+                    class="row m-0 p-0"
+                    style="height: 42px"
+                  >
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-vuelo-1"
+                    >
+                      <img src="./assets/images/home/airplane.svg" alt="" />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos menu-vuelo-1">
+                      Vuelos
+                    </div>
+                  </div>
+                  <div
+                    id="menu-vuelo-2"
+                    class="row m-0 p-0"
+                    style="height: 42px"
+                    (click)="vuelos()"
+                  >
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-vuelo-2"
+                    >
+                      <img
+                        src="./assets/images/home/airplane_rojo.svg"
+                        alt=""
+                      />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos-rojo menu-vuelo-2">
+                      Vuelos
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                      <img
+                        style="width: 80%"
+                        src="./assets/images/home/directo.png"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="col-2 m-0 p-0 pt-2 pb-2 text-center"
+                  style="cursor: pointer"
+                  (click)="cambiarTipo(6)"
+                >
+                  <div
+                    id="menu-autos-1"
+                    class="row m-0 p-0"
+                    style="height: 42px"
+                  >
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-autos-1"
+                    >
+                      <img
+                        src="./assets/images/home/linea-de-vida-en-un-esquema-del-corazon.svg"
+                        alt=""
+                      />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos menu-autos-1">
+                      Autos
+                    </div>
+                  </div>
+                  <div
+                    id="menu-autos-2"
+                    class="row m-0 p-0"
+                    style="height: 42px"
+                  >
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-autos-2"
+                    >
+                      <img
+                        src="./assets/images/home/linea-de-vida-en-un-esquema-del-corazon.svg"
+                        alt=""
+                      />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos-rojo menu-autos-2">
+                      Autos
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                      <img
+                        style="width: 80%"
+                        src="./assets/images/home/directo.png"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="col-2 m-0 p-0 pt-2 pb-2 text-center"
+                  style="cursor: pointer"
+                  (click)="cambiarTipo(2)"
+                >
+                  <div
+                    id="menu-hotel-1"
+                    class="row m-0 p-0"
+                    style="height: 42px"
+                  >
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-hotel-1"
+                    >
+                      <img src="./assets/images/home/hotel.svg" alt="" />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos menu-hotel-1">
+                      Hoteles
+                    </div>
+                  </div>
+                  <div
+                    id="menu-hotel-2"
+                    class="row m-0 p-0"
+                    style="height: 42px"
+                    (click)="hoteles()"
+                  >
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-hotel-2"
+                    >
+                      <img src="./assets/images/home/hotel_rojo.svg" alt="" />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos-rojo menu-hotel-2">
+                      Hoteles
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                      <img
+                        style="width: 80%"
+                        src="./assets/images/home/directo.png"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="col-2 m-0 p-0 pt-2 pb-2 text-center"
+                  style="cursor: pointer"
+                  (click)="cambiarTipo(3)"
+                >
+                  <div id="menu-bus-1" class="row m-0 p-0" style="height: 42px">
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-bus-1"
+                    >
+                      <img src="./assets/images/home/tourist-bus.svg" alt="" />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos menu-bus-1">
+                      Buses
+                    </div>
+                  </div>
+                  <div id="menu-bus-2" class="row m-0 p-0" style="height: 42px">
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-bus-2"
+                    >
+                      <img src="./assets/images/home/tourist-bus.svg" alt="" />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos-rojo menu-bus-2">
+                      Buses
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                      <img
+                        style="width: 80%"
+                        src="./assets/images/home/directo.png"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="col-2 m-0 p-0 pt-2 pb-2 text-center"
+                  style="cursor: pointer"
+                  (click)="cambiarTipo(4)"
+                >
+                  <div
+                    id="menu-paquete-1"
+                    class="row m-0 p-0"
+                    style="height: 42px"
+                  >
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-paquete-1"
+                    >
+                      <img src="./assets/images/home/island.svg" alt="" />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos menu-paquete-1">
+                      Paquetes
+                    </div>
+                  </div>
+                  <div
+                    id="menu-paquete-2"
+                    class="row m-0 p-0"
+                    style="height: 42px"
+                  >
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-paquete-2"
+                    >
+                      <img src="./assets/images/home/island.svg" alt="" />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos-rojo menu-paquete-2">
+                      Paquetes
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                      <img
+                        style="width: 80%"
+                        src="./assets/images/home/directo.png"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="col-2 m-0 p-0 pt-2 pb-2 text-center"
+                  style="cursor: pointer"
+                  (click)="cambiarTipo(5)"
+                >
+                  <div
+                    id="menu-seguro-1"
+                    class="row m-0 p-0"
+                    style="height: 42px"
+                  >
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-seguro-1"
+                    >
+                      <img
+                        src="./assets/images/home/linea-de-vida-en-un-esquema-del-corazon.svg"
+                        alt=""
+                      />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos menu-seguro-1">
+                      Seguros
+                    </div>
+                  </div>
+                  <div
+                    id="menu-seguro-2"
+                    class="row m-0 p-0"
+                    style="height: 42px"
+                  >
+                    <div
+                      class="col-6 m-0 p-0 d-flex align-items-center justify-content-center menu-seguro-2"
+                    >
+                      <img
+                        src="./assets/images/home/linea-de-vida-en-un-esquema-del-corazon.svg"
+                        alt=""
+                      />
+                    </div>
+                    <div class="col-6 m-0 p-0 texto-tipos-rojo menu-seguro-2">
+                      Seguros
+                    </div>
+                    <div class="col-12 m-0 p-0">
+                      <img
+                        style="width: 80%"
+                        src="./assets/images/home/directo.png"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-2 m-0 p-0"></div>
+          </div>
+        </div>
+
+        <!--
 
         <div class="col-2 m-0 p-0">
           <div class="row m-0 p-0">
@@ -263,20 +462,14 @@
         </div>
 
         -->
-
-            </div>
-
-        </div>
-
+      </div>
     </div>
+  </div>
 
-    <div class="col-12 m-0 p-0" style="width: 100% !important; background-color: white !important;">
-
-        <ng-content style="width: 100% !important;"></ng-content>
-
-    </div>
-
-
-
-
+  <div
+    class="col-12 m-0 p-0"
+    style="width: 100% !important; background-color: white !important"
+  >
+    <ng-content style="width: 100% !important"></ng-content>
+  </div>
 </div>
