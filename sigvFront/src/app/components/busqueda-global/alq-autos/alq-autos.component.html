@@ -1,5 +1,142 @@
 <ng-container>
   <app-header>
-    <div class="row">GG</div>
+    <div style="width: 100% !important" class="row pt-4">
+      <div class="col-2 m-0 p-0" style="width: 100% !important"></div>
+      <div class="col-8 m-0 p-0" style="width: 100% !important">
+        <div class="row">
+          <div class="col-2 m-0 p-0" style="width: 100% !important"></div>
+          <div class="col-12">Alquiler de autos paa tu viaje</div>
+          <div class="col-12">
+            Compara ofertas de diferentes proveedores de autos
+          </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-12">Lugar de Recojo</div>
+                      <div class="col-12">
+                        <ng-autocomplete
+                          [(ngModel)]="model.origentTexto"
+                          triggers=""
+                          style="color: #898989 !important"
+                          [data]="data"
+                          [searchKeyword]="keyword"
+                          (selected)="selectEvent($event)"
+                          (inputChanged)="onChangeSearch($event)"
+                          (inputFocused)="onFocused($event)"
+                          [itemTemplate]="itemTemplate"
+                          [notFoundTemplate]="notFoundTemplate"
+                        >
+                        </ng-autocomplete>
+                        <ng-template #itemTemplate let-item>
+                          <div class="" style="width: 100%">
+                            <div class="row">
+                              <div class="col-1">
+                                <img
+                                  *ngIf="item.categoryId === 2"
+                                  style="width: 25px; padding-right: 5px"
+                                  src="./assets/images/ciudad1.png"
+                                  alt=""
+                                />
+                                <img
+                                  *ngIf="item.categoryId === 1"
+                                  style="width: 25px; padding-right: 5px"
+                                  src="./assets/images/aeropuerto2.jpeg"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="col-11">
+                                <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                          <!--<div [innerHTML]="notFound"></div>-->
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-12">Lugar de Devolucion</div>
+                      <div class="col-12">
+                        <ng-autocomplete
+                          [(ngModel)]="model.destinoTexto"
+                          style="color: #898989 !important"
+                          [data]="data2"
+                          [searchKeyword]="keyword"
+                          (selected)="selectEvent2($event)"
+                          (inputChanged)="onChangeSearch2($event)"
+                          (inputFocused)="onFocused2($event)"
+                          [itemTemplate]="itemTemplate2"
+                          [notFoundTemplate]="notFoundTemplate2"
+                        >
+                        </ng-autocomplete>
+
+                        <ng-template #itemTemplate2 let-item>
+                          <div class="" style="width: 100%">
+                            <div class="row">
+                              <div class="col-1">
+                                <img
+                                  *ngIf="item.categoryId === 2"
+                                  style="width: 25px; padding-right: 5px"
+                                  src="./assets/images/ciudad1.png"
+                                  alt=""
+                                />
+                                <img
+                                  *ngIf="item.categoryId === 1"
+                                  style="width: 25px; padding-right: 5px"
+                                  src="./assets/images/aeropuerto2.jpeg"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="col-11">
+                                <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate let-notFound>
+                          <!--<div [innerHTML]="notFound"></div>-->
+                        </ng-template>
+
+                        <ng-template #notFoundTemplate2 let-notFound>
+                          <!--<div [innerHTML]="notFound"></div>-->
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="row">
+                      <div class="col-12">Fecha de Recojo</div>
+                      <div class="col-12"></div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="row">
+                      <div class="col-12">Lugar de Devolucion</div>
+                      <div class="col-12"></div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <button class="form-control">Buscar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12"></div>
+        </div>
+      </div>
+    </div>
   </app-header>
 </ng-container>

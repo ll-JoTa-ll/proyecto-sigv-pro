@@ -9,6 +9,11 @@ declare var $: any;
   styleUrls: ["./alq-autos.component.sass"],
 })
 export class AlqAutosComponent implements OnInit, AfterViewInit {
+  model: any = {};
+  data: any[] = [];
+  data2: any[] = [];
+  keyword = "name";
+
   constructor() {
     console.log("constructor autos");
     $("#menu-vuelo-1").show();
@@ -56,4 +61,16 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
     $("#menu-autos-1").hide();
     $("#menu-autos-2").show();
   }
+
+  selectEvent(item) {}
+
+  onChangeSearch(val: string) {}
+
+  onFocused(e) {}
+
+  selectEvent2(item) {}
+
+  onChangeSearch2(val: string) {}
+
+  onFocused2(e) {}
 }
