@@ -5,17 +5,17 @@
       <div class="col-8 m-0 p-0" style="width: 100% !important">
         <div class="row">
           <div class="col-2 m-0 p-0" style="width: 100% !important"></div>
-          <div class="col-12">Alquiler de autos paa tu viaje</div>
-          <div class="col-12">
+          <div class="col-12 alq-text-1">Alquiler de autos para tu viaje</div>
+          <div class="col-12 alq-text-2 pt-2">
             Compara ofertas de diferentes proveedores de autos
           </div>
-          <div class="col-12">
+          <div class="col-12 pt-4">
             <div class="row">
-              <div class="col-6">
+              <div class="col-6 pr-0">
                 <div class="row">
                   <div class="col-6">
                     <div class="row">
-                      <div class="col-12">Lugar de Recojo</div>
+                      <div class="col-12 alq-text-3">Lugar de Recojo</div>
                       <div class="col-12">
                         <ng-autocomplete
                           [(ngModel)]="model.origentTexto"
@@ -62,7 +62,7 @@
                   </div>
                   <div class="col-6">
                     <div class="row">
-                      <div class="col-12">Lugar de Devolucion</div>
+                      <div class="col-12 alq-text-3">Lugar de Devolucion</div>
                       <div class="col-12">
                         <ng-autocomplete
                           [(ngModel)]="model.destinoTexto"
@@ -117,26 +117,164 @@
                 <div class="row">
                   <div class="col-4">
                     <div class="row">
-                      <div class="col-12">Fecha de Recojo</div>
-                      <div class="col-12"></div>
+                      <div class="col-12 alq-text-3">Fecha de Recojo</div>
+                      <div class="col-12 pr-0">
+                        <div class="row">
+                          <div class="col-8 pr-0">
+                            <label
+                              id="txtFechaSalida"
+                              for=""
+                              class="d-inline-flex box-shadow fechas"
+                              style="
+                                width: 100% !important;
+                                padding: 0px;
+                                padding: 9px;
+                                border: 2px solid #dfd9d8;
+                                border-radius: 4px;
+                                height: 40px !important;
+                              "
+                            >
+                              <input
+                                type="image"
+                                src="./assets/images/home/calendario.svg"
+                                (click)="datepickerSalida.toggle()"
+                                style="
+                                  outline: none;
+                                  border: 0;
+                                  width: 25px !important;
+                                "
+                              />
+                              <input
+                                type="text"
+                                readonly
+                                placeholder=""
+                                class="p-0 pl-0"
+                                style="outline: none; border: 0; width: 80%"
+                                #datepickerSalida="bsDatepicker"
+                                (onHidden)="handlerSalida()"
+                                (bsValueChange)="onValueChangeSalida($event)"
+                                [minDate]="minDateSalida"
+                                bsDatepicker
+                                id="fechasalida"
+                                [bsValue]="bsValue"
+                                value=""
+                                [bsConfig]="{
+                                  dateInputFormat: 'DD/MM/YYYY',
+                                  containerClass: 'theme-red',
+                                  selectFromOtherMonth: true
+                                }"
+                              />
+                            </label>
+                          </div>
+                          <div class="col-4 pl-0">
+                            <select
+                              class="form-control pl-0 pr-0 alq-sel-text-1"
+                            >
+                              <option value="1230">12:30</option>
+                              <option value="0100">01:00</option>
+                              <option value="0130">01:30</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="row">
-                      <div class="col-12">Lugar de Devolucion</div>
-                      <div class="col-12"></div>
+                      <div class="col-12 alq-text-3">Fecha de Devolucion</div>
+                      <div class="col-12 pr-0">
+                        <div class="row">
+                          <div class="col-8 pr-0">
+                            <label
+                              id="txtFechaDestino"
+                              for=""
+                              class="d-inline-flex box-shadow"
+                              style="
+                                width: 100% !important;
+                                padding: 0px;
+                                padding: 9px;
+                                border: 2px solid #dfd9d8;
+                                border-radius: 4px;
+                                height: 40px !important;
+                              "
+                            >
+                              <input
+                                type="image"
+                                src="./assets/images/home/calendario.svg"
+                                (click)="datepickerRetorno.toggle()"
+                                style="
+                                  outline: none;
+                                  border: 0;
+                                  width: 25px !important;
+                                "
+                              />
+                              <input
+                                type="text"
+                                readonly
+                                placeholder=""
+                                class="p-0 pl-0 v-texto-3"
+                                style="outline: none; border: 0; width: 80%"
+                                #datepickerRetorno="bsDatepicker"
+                                (bsValueChange)="onValueChangeRetorno($event)"
+                                [minDate]="minDateRetorno"
+                                [dateCustomClasses]="dateCustomClasses"
+                                bsDatepicker
+                                [bsConfig]="{
+                                  dateInputFormat: 'DD/MM/YYYY',
+                                  containerClass: 'theme-red',
+                                  selectFromOtherMonth: true
+                                }"
+                                id="fechadestino"
+                              />
+                              <!--[isOpen]="isOpendate"-->
+                            </label>
+                          </div>
+                          <div class="col-4 pl-0">
+                            <select
+                              class="form-control pl-0 pr-0 alq-sel-text-1"
+                            >
+                              <option value="1230">12:30</option>
+                              <option value="0100">01:00</option>
+                              <option value="0130">01:30</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-4">
-                    <button class="form-control">Buscar</button>
+                  <div class="col-4 pt-4">
+                    <button (click)="searchAutos()" class="btn alq-btn-buscar">
+                      <img
+                        src="./assets/images/home/buscador-musical.svg"
+                        alt=""
+                        style="width: 15px"
+                      />
+                      Buscar
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-12"></div>
+          <div class="col-12">
+            <mat-checkbox
+              class="alq-text-3"
+              color="warn"
+              class="example-margin"
+            >
+              Devolver en otro destino
+            </mat-checkbox>
+          </div>
         </div>
       </div>
     </div>
   </app-header>
 </ng-container>
+
+<ngx-spinner
+  bdColor="rgba(51, 51, 51, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-spin-fade-rotating"
+  style="width: 100% !important; height: 100% !important"
+></ngx-spinner>

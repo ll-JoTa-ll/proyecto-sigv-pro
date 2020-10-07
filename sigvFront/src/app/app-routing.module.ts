@@ -35,6 +35,7 @@ import { ResumenVueloHotelComponent } from "./components/busqueda-global/vuelos/
 import { ReservaGeneradaVueloHotelComponent } from "./components/busqueda-global/vuelos/reserva-generada-vuelo-hotel/reserva-generada-vuelo-hotel.component";
 import { AutosComponent } from "./components/autos/autos.component";
 import { AlqAutosComponent } from "./components/busqueda-global/alq-autos/alq-autos.component";
+import { AlqSearchComponent } from "./components/busqueda-global/alq-autos/alq-search/alq-search.component";
 
 const routes: Routes = [
   {
@@ -200,6 +201,11 @@ const routes: Routes = [
   {
     path: "alquiler-auto",
     component: AlqAutosComponent,
+    runGuardsAndResolvers: "always",
+  },
+  {
+    path: "auto-search",
+    component: AlqSearchComponent,
     runGuardsAndResolvers: "always",
   },
   {

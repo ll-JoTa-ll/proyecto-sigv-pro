@@ -170,6 +170,7 @@ import { ResumenVueloHotelComponent } from './components/busqueda-global/vuelos/
 import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global/vuelos/reserva-generada-vuelo-hotel/reserva-generada-vuelo-hotel.component';
 import { AutosComponent } from './components/autos/autos.component';
 import { AlqAutosComponent } from './components/busqueda-global/alq-autos/alq-autos.component';
+import { AlqSearchComponent } from './components/busqueda-global/alq-autos/alq-search/alq-search.component';
 
 @NgModule({
   declarations: [
@@ -310,7 +311,8 @@ import { AlqAutosComponent } from './components/busqueda-global/alq-autos/alq-au
     ReservaHotelVueloComponent,
     ResumenVueloHotelComponent,
     AutosComponent,
-    AlqAutosComponent
+    AlqAutosComponent,
+    AlqSearchComponent
   ],
   imports: [
     BrowserModule,
