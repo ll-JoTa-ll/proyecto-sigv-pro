@@ -4,6 +4,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { SessionStorageService, LocalStorageService } from "ngx-webstorage";
 import { DatepickerDateCustomClasses } from "ngx-bootstrap/datepicker/models";
 import { CarsService } from "src/app/services/cars.service";
+import { getLocaleWeekEndRange } from "@angular/common";
 
 declare var jquery: any;
 declare var $: any;
@@ -41,6 +42,8 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
   maxDateIngreso: Date;
   bsValue: Date;
   carsSearch;
+  origenCountryCode;
+  destinoCountryCode;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -67,6 +70,8 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
     this.minDateSalida.setDate(this.minDateSalida.getDate());
     this.minDateRetorno = new Date();
     this.minDateRetorno.setDate(this.minDateRetorno.getDate() + 1);
+    this.model.timeIni = "12:00";
+    this.model.timeFin = "12:00";
   }
 
   ngOnInit() {
@@ -105,8 +110,12 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
   }
 
   selectEvent(item) {
+    console.log("selectEvent");
+    console.log("item: " + JSON.stringify(item));
+
     this.origenAuto = item.iataCode;
     this.origentTexto = item.name;
+    this.origenCountryCode = item.countryCode;
     this.isOpen = false;
     $("#txtOrigen").removeClass("campo-invalido");
     $(".x").hide();
@@ -126,6 +135,7 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
         priority: aeropuerto.priority,
         categoryId: 1,
         categoryName: "Aeropuerto",
+        countryCode: aeropuerto.countryCode,
       };
       lstAutocomplete.push(obj1);
     });
@@ -137,6 +147,7 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
         priority: ciudad.priority,
         categoryId: 2,
         categoryName: "Ciudad",
+        countryCode: ciudad.countryCode,
       };
       lstAutocomplete.push(obj1);
     });
@@ -160,6 +171,7 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
   selectEvent2(item) {
     this.destinoAuto = item.iataCode;
     this.destinoTexto = item.name;
+    this.destinoCountryCode = item.countryCode;
     this.valdestino = false;
     $("#txtDestino").removeClass("campo-invalido");
     $(".x").hide();
@@ -182,6 +194,7 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
         priority: aeropuerto.priority,
         categoryId: 1,
         categoryName: "Aeropuerto",
+        countryCode: aeropuerto.countryCode,
       };
       lstAutocomplete.push(obj1);
     });
@@ -193,6 +206,7 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
         priority: ciudad.priority,
         categoryId: 2,
         categoryName: "Ciudad",
+        countryCode: ciudad.countryCode,
       };
       lstAutocomplete.push(obj1);
     });
@@ -246,7 +260,7 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
         $("#fechadestino").val("");
         this.fechaRetorno = "";
       }
-      this.fechaSalida = value.getFullYear() + "/" + mes + "/" + dia;
+      this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
       this.fechaSalidaShow = dia + "/" + mes + "/" + value.getFullYear();
     }
   }
@@ -275,23 +289,44 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
         dia = "" + value.getDate();
       }
 
-      this.fechaRetorno = value.getFullYear() + "/" + mes + "/" + dia;
+      this.fechaRetorno = value.getFullYear() + "-" + mes + "-" + dia;
       this.fechaRetornoShow = dia + "/" + mes + "/" + value.getFullYear();
     }
   }
 
   searchAutos() {
     this.spinner.show();
+    //"2020-11-02T12:00:00.000"
+    //"2020-11-07T12:00:00.000"
+    const fechaIni = this.fechaSalida + "T" + this.model.timeIni + ":00.000";
+    const fechaFin = this.fechaRetorno + "T" + this.model.timeFin + ":00.000";
     let data = {
-      PickUpIataCode: "LIM",
-      CountryIataCode: "PE",
+      PickUpIataCode: this.origenAuto,
+      CountryIataCode: this.origenCountryCode,
       DropOffIataCode: "",
-      PickUpDate: "2020-11-02T12:00:00.000",
-      DropOffDate: "2020-11-07T12:00:00.000",
+      PickUpDate: fechaIni,
+      DropOffDate: fechaFin,
       PromotionalCode: "",
       PaymentType: "",
       Language: "es",
     };
+    console.log("data: " + JSON.stringify(data));
+
+    let requestCars = {
+      origenAuto: this.origenAuto,
+      origenCountryCode: this.origenCountryCode,
+      origentTexto: this.origentTexto,
+      destinoAuto: this.destinoAuto,
+      destinoCountryCode: this.destinoCountryCode,
+      destinoTexto: this.destinoTexto,
+      fechaSalida: this.fechaSalida,
+      fechaSalidaShow: this.fechaSalidaShow,
+      fechaRetorno: this.fechaRetorno,
+      fechaRetornoShow: this.fechaRetornoShow,
+      timeIni: this.model.timeIni,
+      timeFin: this.model.timeFin,
+    };
+
     this.carsService.getCars(data).subscribe(
       (result) => {
         console.log(JSON.stringify(result));
@@ -304,6 +339,7 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
         this.spinner.hide();
         if (this.carsSearch.lcategories.length > 0) {
           this.sessionStorageService.store("ss_carsSearch", this.carsSearch);
+          this.sessionStorageService.store("ss_requestCars", requestCars);
           this.router.navigate(["/auto-search"]);
         }
       }
