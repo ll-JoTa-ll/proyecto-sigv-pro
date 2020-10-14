@@ -13,7 +13,7 @@
             <div class="row">
               <div class="col-6 pr-0">
                 <div class="row">
-                  <div class="col-6">
+                  <div id="div-recojo" class="col-6">
                     <div class="row">
                       <div class="col-12 alq-text-3">Lugar de Recojo</div>
                       <div class="col-12">
@@ -60,7 +60,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-6">
+                  <div id="div-devolucion" class="col-6">
                     <div class="row">
                       <div class="col-12 alq-text-3">Lugar de Devolucion</div>
                       <div class="col-12">
@@ -305,6 +305,8 @@
               class="alq-text-3"
               color="warn"
               class="example-margin"
+              [checked]="flagOtroDestino"
+              (click)="seleccionarOtroDestino()"
             >
               Devolver en otro destino
             </mat-checkbox>

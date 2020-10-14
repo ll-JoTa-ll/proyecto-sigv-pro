@@ -44,6 +44,7 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
   carsSearch;
   origenCountryCode;
   destinoCountryCode;
+  flagOtroDestino: boolean = false;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -107,6 +108,8 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
     $("#menu-seguro-2").hide();
     $("#menu-autos-1").hide();
     $("#menu-autos-2").show();
+
+    $("#div-recojo").addClass("div-ancho-total");
   }
 
   selectEvent(item) {
@@ -294,6 +297,11 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
     }
   }
 
+  seleccionarOtroDestino() {
+    console.log("seleccionarOtroDestino");
+    console.log(this.flagOtroDestino);
+  }
+
   searchAutos() {
     this.spinner.show();
     //"2020-11-02T12:00:00.000"
@@ -303,7 +311,7 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
     let data = {
       PickUpIataCode: this.origenAuto,
       CountryIataCode: this.origenCountryCode,
-      DropOffIataCode: "",
+      DropOffIataCode: this.destinoAuto,
       PickUpDate: fechaIni,
       DropOffDate: fechaFin,
       PromotionalCode: "",

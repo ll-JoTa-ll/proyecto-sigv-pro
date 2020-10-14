@@ -1,7 +1,289 @@
 <ng-container>
   <app-header>
     <div *ngIf="flagCars" class="row pt-4">
-      <div class="col-3"></div>
+      <div class="col-3 pt-2">
+        <div class="row box-shadow ml-4 mr-4">
+          <div class="col-12 alq-text-13">Alquiler de autos</div>
+
+          <div class="col-12 alq-text-14 pt-3">Lugar de retiro</div>
+
+          <div class="col-12">
+            <ng-autocomplete
+              [(ngModel)]="model.origentTexto"
+              triggers=""
+              style="color: #898989 !important"
+              [data]="data"
+              [searchKeyword]="keyword"
+              (selected)="selectEvent($event)"
+              (inputChanged)="onChangeSearch($event)"
+              (inputFocused)="onFocused($event)"
+              [itemTemplate]="itemTemplate"
+              [notFoundTemplate]="notFoundTemplate"
+            >
+            </ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <div class="" style="width: 100%">
+                <div class="row">
+                  <div class="col-1">
+                    <img
+                      *ngIf="item.categoryId === 2"
+                      style="width: 25px; padding-right: 5px"
+                      src="./assets/images/ciudad1.png"
+                      alt=""
+                    />
+                    <img
+                      *ngIf="item.categoryId === 1"
+                      style="width: 25px; padding-right: 5px"
+                      src="./assets/images/aeropuerto2.jpeg"
+                      alt=""
+                    />
+                  </div>
+                  <div class="col-11">
+                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+              <!--<div [innerHTML]="notFound"></div>-->
+            </ng-template>
+          </div>
+
+          <div class="col-12 pt-3">
+            <mat-checkbox
+              class="alq-text-15"
+              color="warn"
+              class="example-margin"
+            >
+              Devolver en otro destino
+            </mat-checkbox>
+          </div>
+
+          <div class="col-12 alq-text-14">Lugar de Devolucion</div>
+
+          <div class="col-12">
+            <ng-autocomplete
+              [(ngModel)]="model.destinoTexto"
+              style="color: #898989 !important"
+              [data]="data2"
+              [searchKeyword]="keyword"
+              (selected)="selectEvent2($event)"
+              (inputChanged)="onChangeSearch2($event)"
+              (inputFocused)="onFocused2($event)"
+              [itemTemplate]="itemTemplate2"
+              [notFoundTemplate]="notFoundTemplate2"
+            >
+            </ng-autocomplete>
+
+            <ng-template #itemTemplate2 let-item>
+              <div class="" style="width: 100%">
+                <div class="row">
+                  <div class="col-1">
+                    <img
+                      *ngIf="item.categoryId === 2"
+                      style="width: 25px; padding-right: 5px"
+                      src="./assets/images/ciudad1.png"
+                      alt=""
+                    />
+                    <img
+                      *ngIf="item.categoryId === 1"
+                      style="width: 25px; padding-right: 5px"
+                      src="./assets/images/aeropuerto2.jpeg"
+                      alt=""
+                    />
+                  </div>
+                  <div class="col-11">
+                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+              <!--<div [innerHTML]="notFound"></div>-->
+            </ng-template>
+
+            <ng-template #notFoundTemplate2 let-notFound>
+              <!--<div [innerHTML]="notFound"></div>-->
+            </ng-template>
+          </div>
+
+          <div class="col-12 alq-text-14 pt-3">Fecha de Recojo</div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-8 pr-0">
+                <label
+                  id="txtFechaSalida"
+                  for=""
+                  class="d-inline-flex box-shadow fechas"
+                  style="
+                    width: 100% !important;
+                    padding: 0px;
+                    padding: 9px;
+                    border: 2px solid #dfd9d8;
+                    border-radius: 4px;
+                    height: 40px !important;
+                  "
+                >
+                  <input
+                    type="image"
+                    src="./assets/images/home/calendario.svg"
+                    (click)="datepickerSalida.toggle()"
+                    style="outline: none; border: 0; width: 25px !important"
+                  />
+                  <input
+                    type="text"
+                    readonly
+                    placeholder=""
+                    class="p-0 pl-0 alq-text-1"
+                    style="outline: none; border: 0; width: 80%"
+                    #datepickerSalida="bsDatepicker"
+                    (onHidden)="handlerSalida()"
+                    (bsValueChange)="onValueChangeSalida($event)"
+                    [minDate]="minDateSalida"
+                    bsDatepicker
+                    id="fechasalida"
+                    [bsValue]="bsValue"
+                    value=""
+                    [bsConfig]="{
+                      dateInputFormat: 'DD/MM/YYYY',
+                      containerClass: 'theme-red',
+                      selectFromOtherMonth: true
+                    }"
+                    [(ngModel)]="model.fechasalida"
+                  />
+                </label>
+              </div>
+              <div class="col-4 pl-0">
+                <select
+                  [(ngModel)]="model.timeIni"
+                  class="form-control pl-0 pr-0 alq-text-1"
+                >
+                  <option value="00:00">00:00</option>
+                  <option value="01:00">01:00</option>
+                  <option value="02:00">02:00</option>
+                  <option value="03:00">03:00</option>
+                  <option value="04:00">04:00</option>
+                  <option value="05:00">05:00</option>
+                  <option value="06:00">06:00</option>
+                  <option value="07:00">07:00</option>
+                  <option value="08:00">08:00</option>
+                  <option value="09:00">09:00</option>
+                  <option value="10:00">10:00</option>
+                  <option value="11:00">11:00</option>
+                  <option value="12:00">12:00</option>
+                  <option value="13:00">13:00</option>
+                  <option value="14:00">14:00</option>
+                  <option value="15:00">15:00</option>
+                  <option value="16:00">16:00</option>
+                  <option value="17:00">17:00</option>
+                  <option value="18:00">18:00</option>
+                  <option value="19:00">19:00</option>
+                  <option value="20:00">20:00</option>
+                  <option value="21:00">21:00</option>
+                  <option value="22:00">22:00</option>
+                  <option value="23:00">23:00</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 alq-text-14 pt-3">Fecha de Devolucion</div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-8 pr-0">
+                <label
+                  id="txtFechaDestino"
+                  for=""
+                  class="d-inline-flex box-shadow"
+                  style="
+                    width: 100% !important;
+                    padding: 0px;
+                    padding: 9px;
+                    border: 2px solid #dfd9d8;
+                    border-radius: 4px;
+                    height: 40px !important;
+                  "
+                >
+                  <input
+                    type="image"
+                    src="./assets/images/home/calendario.svg"
+                    (click)="datepickerRetorno.toggle()"
+                    style="outline: none; border: 0; width: 25px !important"
+                  />
+                  <input
+                    type="text"
+                    readonly
+                    placeholder=""
+                    class="p-0 pl-0 alq-text-1"
+                    style="outline: none; border: 0; width: 80%"
+                    #datepickerRetorno="bsDatepicker"
+                    (bsValueChange)="onValueChangeRetorno($event)"
+                    [minDate]="minDateRetorno"
+                    [dateCustomClasses]="dateCustomClasses"
+                    bsDatepicker
+                    [bsConfig]="{
+                      dateInputFormat: 'DD/MM/YYYY',
+                      containerClass: 'theme-red',
+                      selectFromOtherMonth: true
+                    }"
+                    id="fechadestino"
+                    [(ngModel)]="model.fechadestino"
+                  />
+                  <!--[isOpen]="isOpendate"-->
+                </label>
+              </div>
+              <div class="col-4 pl-0">
+                <select
+                  [(ngModel)]="model.timeFin"
+                  class="form-control pl-0 pr-0 alq-text-1"
+                >
+                  <option value="00:00">00:00</option>
+                  <option value="01:00">01:00</option>
+                  <option value="02:00">02:00</option>
+                  <option value="03:00">03:00</option>
+                  <option value="04:00">04:00</option>
+                  <option value="05:00">05:00</option>
+                  <option value="06:00">06:00</option>
+                  <option value="07:00">07:00</option>
+                  <option value="08:00">08:00</option>
+                  <option value="09:00">09:00</option>
+                  <option value="10:00">10:00</option>
+                  <option value="11:00">11:00</option>
+                  <option value="12:00">12:00</option>
+                  <option value="13:00">13:00</option>
+                  <option value="14:00">14:00</option>
+                  <option value="15:00">15:00</option>
+                  <option value="16:00">16:00</option>
+                  <option value="17:00">17:00</option>
+                  <option value="18:00">18:00</option>
+                  <option value="19:00">19:00</option>
+                  <option value="20:00">20:00</option>
+                  <option value="21:00">21:00</option>
+                  <option value="22:00">22:00</option>
+                  <option value="23:00">23:00</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 pt-3">
+            <button (click)="searchAutos()" class="btn alq-btn-buscar">
+              <img
+                src="./assets/images/home/buscador-musical.svg"
+                alt=""
+                style="width: 15px"
+              />
+              Buscar
+            </button>
+          </div>
+
+          <div class="col-12"></div>
+        </div>
+      </div>
       <div class="col-9">
         <div class="row">
           <div class="col-12"></div>
@@ -16,8 +298,25 @@
                   margin: 10px !important;
                 "
               >
-                <div class="row">
-                  <div class="col-12"></div>
+                <div class="row m-0 p-0 div-row-caja" style="cursor: pointer">
+                  <div class="col-12 m-0 p-0">
+                    <div class="row m-0 p-0" style="width: 100%">
+                      <div class="col-3 m-0 p-0"></div>
+                      <div class="col-3 m-0 p-0"></div>
+                      <div class="col-3 m-0 p-0"></div>
+                      <div class="col-3 m-0 p-0">
+                        <input
+                          class="form-control radioCat"
+                          style="width: 25px"
+                          type="radio"
+                          id="male"
+                          name="gender"
+                          value="male"
+                          (click)="seleccionarCategoria(item.description)"
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <div
                     class="col-12 p-0 m-0 text-center alq-text-1"
                     style="
@@ -43,15 +342,55 @@
                       {{ item.lrecommendations[0].oprice.base }}
                     </span>
                   </div>
+                  <div class="col-12 m-0 p-0 div-base"></div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-12 alq-text-6 pt-5">Filtros aplicados</div>
+
+          <div class="col-12 alq-text-6 pt-5">
+            <div class="row">
+              <div class="col-2">Filtros aplicados</div>
+
+              <div *ngIf="selCategoriaDescription.length > 0" class="col-3">
+                <button style="cursor: default" class="btn alq-btn-buscar">
+                  {{ selCategoriaDescription }}
+                  <span
+                    class="pl-3"
+                    (click)="mostrarTodasCategorias()"
+                    style="cursor: pointer"
+                    >X</span
+                  >
+                </button>
+              </div>
+
+              <div class="col-3">
+                Tipo de Caja
+                <mat-slide-toggle
+                  (click)="seleccionarTipoCaja(checkedAutomatico)"
+                  color="warn"
+                  [checked]="checkedAutomatico"
+                >
+                  Automatico</mat-slide-toggle
+                >
+              </div>
+
+              <div class="col-3">
+                Nro de pasajeros
+                <mat-slide-toggle
+                  (click)="seleccionarMasPasajeros(checkedPasajeros4)"
+                  color="warn"
+                  [checked]="checkedPasajeros4"
+                  >+4</mat-slide-toggle
+                >
+              </div>
+            </div>
+          </div>
+
           <div class="col-10">
             <div class="row">
               <div *ngFor="let item of carsSearch.lcategories" class="col-12">
-                <div class="row pt-5">
+                <div *ngIf="item.visible" class="row pt-5">
                   <div class="col-12 alq-text-4">
                     {{ item.description }}
                   </div>
@@ -64,7 +403,7 @@
                         *ngFor="let recomendacion of item.lrecommendations"
                         class="col-4 box-shadow mt-3"
                       >
-                        <div class="row">
+                        <div *ngIf="recomendacion.visible" class="row">
                           <div class="col-12 pb-2 text-center alq-text-5">
                             {{ recomendacion.model }}
                           </div>
