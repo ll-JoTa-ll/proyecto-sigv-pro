@@ -338,9 +338,13 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
     this.carsService.getCars(data).subscribe(
       (result) => {
         console.log(JSON.stringify(result));
+        console.log("result");
+        console.log(JSON.stringify(result));
         this.carsSearch = result;
       },
       (err) => {
+        console.log("err");
+        console.log(JSON.stringify(err));
         this.spinner.hide();
       },
       () => {
