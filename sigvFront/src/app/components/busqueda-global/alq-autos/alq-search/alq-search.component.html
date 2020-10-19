@@ -55,14 +55,17 @@
               class="alq-text-15"
               color="warn"
               class="example-margin"
+              [(ngModel)]="flagOtroDestino"
             >
               Devolver en otro destino
             </mat-checkbox>
           </div>
 
-          <div class="col-12 alq-text-14">Lugar de Devolucion</div>
+          <div *ngIf="flagOtroDestino" class="col-12 alq-text-14">
+            Lugar de Devolucion
+          </div>
 
-          <div class="col-12">
+          <div *ngIf="flagOtroDestino" class="col-12">
             <ng-autocomplete
               [(ngModel)]="model.destinoTexto"
               style="color: #898989 !important"
@@ -109,7 +112,7 @@
             </ng-template>
           </div>
 
-          <div class="col-12 alq-text-14 pt-3">Fecha de Recojo</div>
+          <div class="col-12 alq-text-14 pt-2">Fecha de Recojo</div>
 
           <div class="col-12">
             <div class="row">
@@ -190,7 +193,7 @@
             </div>
           </div>
 
-          <div class="col-12 alq-text-14 pt-3">Fecha de Devolucion</div>
+          <div class="col-12 alq-text-14 pt-2">Fecha de Devolucion</div>
 
           <div class="col-12">
             <div class="row">
@@ -284,10 +287,82 @@
           <div class="col-12"></div>
         </div>
       </div>
-      <div class="col-9">
+      <div class="col-9 pt-2 pb-3">
         <div class="row">
-          <div class="col-12"></div>
-          <div class="col-10">
+          <div class="col-12 pr-5">
+            <div class="row m-0 p-0">
+              <div
+                class="col-12 box-shadow"
+                style="border-radius: 20px 0 20px 0"
+              >
+                <div class="row m-0 p-0">
+                  <div class="m-0 p-0" style="width: 45% !important">
+                    <div class="row m-0 p-0">
+                      <div class="col-9 m-0 p-0">
+                        <div class="row">
+                          <div class="col-12 alq-text-6">Punto de recojo</div>
+
+                          <div class="col-12 alq-text-6">
+                            {{ cabeceraOrigen }}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-3 m-0 p-0">
+                        <div class="row">
+                          <div class="col-12 alq-text-6">
+                            {{ cabeceraOrigenMes }}
+                          </div>
+
+                          <div
+                            class="col-12 alq-text-6"
+                            style="color: #ff0000 !important"
+                          >
+                            {{ cabeceraOrigenFecha }}
+                            <span>{{ cabeceraOrigenHora }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="m-0 p-0" style="width: 10% !important"></div>
+
+                  <div class="m-0 p-0" style="width: 45% !important">
+                    <div class="row m-0 p-0">
+                      <div class="col-9 m-0 p-0">
+                        <div class="row">
+                          <div class="col-12 alq-text-6">Punto de recojo</div>
+
+                          <div class="col-12 alq-text-6">
+                            {{ cabeceraDestino }}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-3 m-0 p-0">
+                        <div class="row">
+                          <div class="col-12 alq-text-6">
+                            {{ cabeceraDestinoMes }}
+                          </div>
+
+                          <div
+                            class="col-12 alq-text-6"
+                            style="color: #ff0000 !important"
+                          >
+                            {{ cabeceraDestinoFecha }}
+                            <span>{{ cabeceraDestinoHora }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 pr-5">
             <div class="scrollmenu">
               <div
                 *ngFor="let item of carsSearch.lcategories"
@@ -333,7 +408,11 @@
                       justify-content: center;
                     "
                   >
-                    <img class="img-fluid" [src]="item.lrecommendations[0].image" alt="" />
+                    <img
+                      class="img-fluid"
+                      [src]="item.lrecommendations[0].image"
+                      alt=""
+                    />
                   </div>
                   <div class="col-12">
                     <span class="alq-text-2 pr-3">Desde: </span>
@@ -493,7 +572,11 @@
                           </div>
 
                           <div class="col-12 pt-3 text-center">
-                            <img class="img-fluid" [src]="recomendacion.image" alt="" />
+                            <img
+                              class="img-fluid"
+                              [src]="recomendacion.image"
+                              alt=""
+                            />
                           </div>
 
                           <div class="col-12 pt-3">

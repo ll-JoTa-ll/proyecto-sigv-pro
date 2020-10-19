@@ -300,24 +300,39 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
   seleccionarOtroDestino() {
     console.log("seleccionarOtroDestino");
     console.log(this.flagOtroDestino);
+    if (this.flagOtroDestino === false) {
+      $("#div-recojo").removeClass("div-w-100");
+      $("#div-recojo").addClass("div-w-50");
+    } else {
+      $("#div-recojo").removeClass("div-w-50");
+      $("#div-recojo").addClass("div-w-100");
+    }
   }
 
   searchAutos() {
     this.spinner.show();
     //"2020-11-02T12:00:00.000"
     //"2020-11-07T12:00:00.000"
+    let dropOffIataCode = this.destinoAuto;
+    if (this.flagOtroDestino === false) {
+      dropOffIataCode = "";
+      this.destinoAuto = "";
+      this.destinoCountryCode = "";
+      this.destinoTexto = "";
+    }
     const fechaIni = this.fechaSalida + "T" + this.model.timeIni + ":00.000";
     const fechaFin = this.fechaRetorno + "T" + this.model.timeFin + ":00.000";
     let data = {
       PickUpIataCode: this.origenAuto,
       CountryIataCode: this.origenCountryCode,
-      DropOffIataCode: this.destinoAuto,
+      DropOffIataCode: dropOffIataCode,
       PickUpDate: fechaIni,
       DropOffDate: fechaFin,
       PromotionalCode: "",
       PaymentType: "",
       Language: "es",
     };
+
     console.log("data: " + JSON.stringify(data));
 
     let requestCars = {
@@ -333,6 +348,7 @@ export class AlqAutosComponent implements OnInit, AfterViewInit {
       fechaRetornoShow: this.fechaRetornoShow,
       timeIni: this.model.timeIni,
       timeFin: this.model.timeFin,
+      flagOtroDestino: this.flagOtroDestino,
     };
 
     this.carsService.getCars(data).subscribe(

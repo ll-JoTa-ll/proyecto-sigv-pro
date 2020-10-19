@@ -44,7 +44,16 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
   bsValue: Date;
   origenCountryCode;
   destinoCountryCode;
+  flagOtroDestino: boolean;
   carsSearchRequest;
+  cabeceraOrigen;
+  cabeceraOrigenMes;
+  cabeceraOrigenFecha;
+  cabeceraOrigenHora;
+  cabeceraDestino;
+  cabeceraDestinoMes;
+  cabeceraDestinoFecha;
+  cabeceraDestinoHora;
 
   selCategoriaDescription: string;
   checkedAutomatico: boolean = false;
@@ -142,6 +151,89 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
 
     this.model.timeIni = this.carsSearchRequest.timeIni;
     this.model.timeFin = this.carsSearchRequest.timeFin;
+
+    this.flagOtroDestino = this.carsSearchRequest.flagOtroDestino;
+
+    this.cabeceraOrigen = this.origentTexto;
+    this.cabeceraOrigenMes = this.obtenerMesTexto(this.fechaSalidaShow);
+    this.cabeceraOrigenFecha =
+      this.obtenerdiaTexto(this.fechaSalida) +
+      " " +
+      this.fechaRetornoShow.split("/")[0];
+    this.cabeceraOrigenHora = "/ " + this.model.timeIni;
+
+    if (this.flagOtroDestino === true) {
+      this.cabeceraDestino = this.destinoTexto;
+    } else {
+      this.cabeceraDestino = this.origentTexto;
+    }
+    this.cabeceraDestinoMes = this.obtenerMesTexto(this.fechaRetornoShow);
+    this.cabeceraDestinoFecha =
+      this.obtenerdiaTexto(this.fechaRetorno) +
+      " " +
+      this.fechaRetornoShow.split("/")[0];
+    this.cabeceraDestinoHora = "/ " + this.model.timeFin;
+  }
+
+  obtenerMesTexto(fecha) {
+    const intMes = fecha.split("/")[1];
+    let strMes = "";
+    switch (intMes) {
+      case "01":
+        strMes = "Enero";
+        break;
+      case "02":
+        strMes = "Febrero";
+        break;
+      case "03":
+        strMes = "Marzo";
+        break;
+      case "04":
+        strMes = "Abril";
+        break;
+      case "05":
+        strMes = "Mayo";
+        break;
+      case "06":
+        strMes = "Junio";
+        break;
+      case "07":
+        strMes = "Julio";
+        break;
+      case "08":
+        strMes = "Agosto";
+        break;
+      case "09":
+        strMes = "Septiembre";
+        break;
+      case "10":
+        strMes = "Octubre";
+        break;
+      case "11":
+        strMes = "Noviembre";
+        break;
+      case "12":
+        strMes = "Diciembre";
+        break;
+    }
+    return strMes;
+  }
+
+  obtenerdiaTexto(fechaComoCadena) {
+    //const fechaComoCadena = "2020-03-09 23:37:22";
+    const dias = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+      "Domingo",
+    ];
+    const numeroDia = new Date(fechaComoCadena).getDay();
+    const nombreDia = dias[numeroDia];
+    return nombreDia;
   }
 
   selectEvent(item) {
