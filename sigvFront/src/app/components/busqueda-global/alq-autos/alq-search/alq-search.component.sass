@@ -79,7 +79,8 @@
   color: #898989
 
 div.scrollmenu
-  overflow: auto
+  overflow-x: hidden
+  overflow-y: hidden
   white-space: nowrap
 
 div.scrollmenu div
@@ -113,5 +114,14 @@ div.scrollmenu div
 .div-base:hover
   background-color: #ED1C24
 
-.div-row-caja .div-base:hover
+.div-row-caja:hover > div:last-child
   background-color: #ED1C24
+
+div.scrollmenu2
+  overflow-x: hidden
+  overflow-y: hidden
+  white-space: nowrap
+  display: block ruby !important
+
+div.scrollmenu2 div
+  text-decoration: none

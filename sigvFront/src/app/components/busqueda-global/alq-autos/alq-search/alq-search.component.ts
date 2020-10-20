@@ -4,6 +4,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { SessionStorageService, LocalStorageService } from "ngx-webstorage";
 import { DatepickerDateCustomClasses } from "ngx-bootstrap/datepicker/models";
 import { CarsService } from "src/app/services/cars.service";
+import * as moment from "moment";
 
 declare var jquery: any;
 declare var $: any;
@@ -54,6 +55,7 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
   cabeceraDestinoMes;
   cabeceraDestinoFecha;
   cabeceraDestinoHora;
+  cantDiasAlquiler: number = 0;
 
   selCategoriaDescription: string;
   checkedAutomatico: boolean = false;
@@ -173,6 +175,16 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
       " " +
       this.fechaRetornoShow.split("/")[0];
     this.cabeceraDestinoHora = "/ " + this.model.timeFin;
+
+    const fecha1_split = this.fechaSalidaShow.split("/");
+    const fecha1 = moment(
+      fecha1_split[2] + "-" + fecha1_split[1] + "-" + fecha1_split[0]
+    );
+    const fecha2_split = this.fechaRetornoShow.split("/");
+    const fecha2 = moment(
+      fecha2_split[2] + "-" + fecha2_split[1] + "-" + fecha2_split[0]
+    );
+    this.cantDiasAlquiler = fecha2.diff(fecha1, "days");
   }
 
   obtenerMesTexto(fecha) {
@@ -425,12 +437,19 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     this.spinner.show();
     //"2020-11-02T12:00:00.000"
     //"2020-11-07T12:00:00.000"
+    let dropOffIataCode = this.destinoAuto;
+    if (this.flagOtroDestino === false) {
+      dropOffIataCode = "";
+      this.destinoAuto = "";
+      this.destinoCountryCode = "";
+      this.destinoTexto = "";
+    }
     const fechaIni = this.fechaSalida + "T" + this.model.timeIni + ":00.000";
     const fechaFin = this.fechaRetorno + "T" + this.model.timeFin + ":00.000";
     let data = {
       PickUpIataCode: this.origenAuto,
       CountryIataCode: this.origenCountryCode,
-      DropOffIataCode: "",
+      DropOffIataCode: dropOffIataCode,
       PickUpDate: fechaIni,
       DropOffDate: fechaFin,
       PromotionalCode: "",
@@ -452,6 +471,7 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
       fechaRetornoShow: this.fechaRetornoShow,
       timeIni: this.model.timeIni,
       timeFin: this.model.timeFin,
+      flagOtroDestino: this.flagOtroDestino,
     };
 
     this.carsService.getCars(data).subscribe(
@@ -468,7 +488,7 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
         if (this.carsSearch.lcategories.length > 0) {
           this.sessionStorageService.store("ss_carsSearch", this.carsSearch);
           this.sessionStorageService.store("ss_requestCars", requestCars);
-          this.router.navigate(["/auto-search"]);
+          //this.router.navigate(["/auto-search"]);
         }
       }
     );
@@ -504,19 +524,154 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
   seleccionarTipoCaja(valor) {
     console.log("seleccionarTipoCaja");
     console.log("this.checkedAutomatico: " + this.checkedAutomatico);
-    console.log("valor: " + valor);
-    /*
-    if (valor === false) {
-      this.checkedAutomatico = true;
-    } else {
-      this.checkedAutomatico = false;
-    }
-    console.log(this.checkedAutomatico);
-    */
+    const checkedAutomatico = this.checkedAutomatico;
+    const checkedPasajeros4 = this.checkedPasajeros4;
+    const selCategoriaDescription = this.selCategoriaDescription;
+    let carsSearch = this.carsSearch;
+
+    carsSearch.lcategories.forEach(function (item) {
+      item.lrecommendations.forEach(function (recomendacion) {
+        recomendacion.visible = false;
+      });
+      item.visible = false;
+    });
+
+    //Busqueda de categorias
+    carsSearch.lcategories.forEach(function (item) {
+      if (selCategoriaDescription === "") {
+        item.visible = true;
+      } else {
+        if (item.description === selCategoriaDescription) {
+          item.visible = true;
+        }
+      }
+    });
+    //this.carsSearch = carsSearch;
+
+    //Busqueda de automaticos y >4 pasajeros
+    carsSearch.lcategories.forEach(function (item) {
+      item.lrecommendations.forEach(function (recomendacion) {
+        //checkedAutomatico es como si fuera TRUE
+        if (checkedAutomatico === false && checkedPasajeros4 == false) {
+          if (recomendacion.type === "Automático") {
+            recomendacion.visible = true;
+          }
+        }
+
+        //checkedAutomatico es como si fuera TRUE
+        if (checkedAutomatico === false && checkedPasajeros4 == true) {
+          if (
+            recomendacion.type === "Automático" &&
+            recomendacion.numberPassengers > 4
+          ) {
+            recomendacion.visible = true;
+          }
+        }
+
+        //checkedAutomatico es como si fuera FALSE, se muestra todo
+        if (checkedAutomatico === true && checkedPasajeros4 == false) {
+          recomendacion.visible = true;
+        }
+
+        //checkedAutomatico es como si fuera FALSE
+        if (checkedAutomatico === true && checkedPasajeros4 == true) {
+          if (recomendacion.numberPassengers > 4) {
+            recomendacion.visible = true;
+          }
+        }
+      });
+      //item.visible = true;
+    });
+
+    this.carsSearch = carsSearch;
   }
 
   seleccionarMasPasajeros(valor) {
-    console.log("seleccionarTipoCaja");
-    console.log(valor);
+    console.log("seleccionarMasPasajeros");
+    console.log("this.checkedPasajeros4: " + this.checkedPasajeros4);
+    const checkedAutomatico = this.checkedAutomatico;
+    const checkedPasajeros4 = this.checkedPasajeros4;
+    const selCategoriaDescription = this.selCategoriaDescription;
+    let carsSearch = this.carsSearch;
+
+    carsSearch.lcategories.forEach(function (item) {
+      item.lrecommendations.forEach(function (recomendacion) {
+        recomendacion.visible = false;
+      });
+      item.visible = false;
+    });
+
+    //Busqueda de categorias
+    carsSearch.lcategories.forEach(function (item) {
+      if (selCategoriaDescription === "") {
+        item.visible = true;
+      } else {
+        if (item.description === selCategoriaDescription) {
+          item.visible = true;
+        }
+      }
+    });
+
+    //Busqueda de automaticos y >4 pasajeros
+    carsSearch.lcategories.forEach(function (item) {
+      item.lrecommendations.forEach(function (recomendacion) {
+        //checkedPasajeros4 es como si fuera TRUE
+        if (checkedAutomatico === false && checkedPasajeros4 == false) {
+          if (recomendacion.numberPassengers > 4) {
+            recomendacion.visible = true;
+          }
+        }
+
+        //checkedPasajeros4 es como si fuera FALSE, se muestra todo
+        if (checkedAutomatico === false && checkedPasajeros4 == true) {
+          recomendacion.visible = true;
+        }
+
+        //checkedPasajeros4 es como si fuera TRUE
+        if (checkedAutomatico === true && checkedPasajeros4 == false) {
+          if (
+            recomendacion.type === "Automático" &&
+            recomendacion.numberPassengers > 4
+          ) {
+            recomendacion.visible = true;
+          }
+        }
+
+        //checkedPasajeros4 es como si fuera FALSE
+        if (checkedAutomatico === true && checkedPasajeros4 == true) {
+          if (recomendacion.type === "Automático") {
+            recomendacion.visible = true;
+          }
+        }
+      });
+      //item.visible = true;
+    });
+
+    this.carsSearch = carsSearch;
+  }
+
+  sideScroll(element, direction, speed, distance, step) {
+    var scrollAmount = 0;
+    var slideTimer = setInterval(function () {
+      if (direction == "left") {
+        element.scrollLeft -= step;
+      } else {
+        element.scrollLeft += step;
+      }
+      scrollAmount += step;
+      if (scrollAmount >= distance) {
+        window.clearInterval(slideTimer);
+      }
+    }, speed);
+  }
+
+  moverIzq(id_container) {
+    const container = document.getElementById(id_container);
+    this.sideScroll(container, "left", 5, 200, 10);
+  }
+
+  moverDer(id_container) {
+    const container = document.getElementById(id_container);
+    this.sideScroll(container, "right", 5, 200, 10);
   }
 }
