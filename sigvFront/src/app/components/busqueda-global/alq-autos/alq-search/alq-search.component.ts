@@ -61,6 +61,8 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
   checkedAutomatico: boolean = false;
   checkedPasajeros4: boolean = false;
 
+  flagResult: boolean;
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
@@ -83,6 +85,7 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     $("#menu-autos-2").show();
 
     this.carsSearch = this.sessionStorageService.retrieve("ss_carsSearch");
+    this.flagResult = true;
     this.carsSearchRequest = this.sessionStorageService.retrieve(
       "ss_requestCars"
     );
@@ -128,6 +131,10 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
 
     this.flagCars = true;
 
+    this.setValores();
+  }
+
+  setValores() {
     this.origenAuto = this.carsSearchRequest.origenAuto;
     this.origenCountryCode = this.carsSearchRequest.origenCountryCode;
     this.origentTexto = this.carsSearchRequest.origentTexto;
@@ -161,7 +168,7 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     this.cabeceraOrigenFecha =
       this.obtenerdiaTexto(this.fechaSalida) +
       " " +
-      this.fechaRetornoShow.split("/")[0];
+      this.fechaSalidaShow.split("/")[0];
     this.cabeceraOrigenHora = "/ " + this.model.timeIni;
 
     if (this.flagOtroDestino === true) {
@@ -474,6 +481,8 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
       flagOtroDestino: this.flagOtroDestino,
     };
 
+    this.carsSearch = [];
+
     this.carsService.getCars(data).subscribe(
       (result) => {
         console.log(JSON.stringify(result));
@@ -481,14 +490,39 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
       },
       (err) => {
         this.spinner.hide();
+        this.flagResult = false;
       },
       () => {
         this.selCategoriaDescription = "";
         this.spinner.hide();
+        console.log(
+          "this.carsSearch.lcategories.length: " +
+            this.carsSearch.lcategories.length
+        );
+        console.log(
+          "this.carsSearch.lcategories.length: " +
+            this.carsSearch.lcategories.length
+        );
+        console.log(
+          "this.carsSearch.lcategories.length: " +
+            this.carsSearch.lcategories.length
+        );
+        console.log(
+          "this.carsSearch.lcategories.length: " +
+            this.carsSearch.lcategories.length
+        );
+
         if (this.carsSearch.lcategories.length > 0) {
+          this.flagResult = true;
           this.sessionStorageService.store("ss_carsSearch", this.carsSearch);
           this.sessionStorageService.store("ss_requestCars", requestCars);
+          this.carsSearchRequest = this.sessionStorageService.retrieve(
+            "ss_requestCars"
+          );
           //this.router.navigate(["/auto-search"]);
+          this.setValores();
+        } else {
+          this.flagResult = false;
         }
       }
     );
@@ -652,7 +686,7 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
 
   sideScroll(element, direction, speed, distance, step) {
     var scrollAmount = 0;
-    var slideTimer = setInterval(function () {
+    var slideTimer = window.setInterval(function () {
       if (direction == "left") {
         element.scrollLeft -= step;
       } else {
@@ -666,11 +700,15 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
   }
 
   moverIzq(id_container) {
+    console.log("id_container: " + id_container);
+
     const container = document.getElementById(id_container);
     this.sideScroll(container, "left", 5, 200, 10);
   }
 
   moverDer(id_container) {
+    console.log("id_container: " + id_container);
+
     const container = document.getElementById(id_container);
     this.sideScroll(container, "right", 5, 200, 10);
   }

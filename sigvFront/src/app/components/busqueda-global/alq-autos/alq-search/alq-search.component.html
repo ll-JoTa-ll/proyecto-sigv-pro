@@ -62,7 +62,7 @@
           </div>
 
           <div *ngIf="flagOtroDestino" class="col-12 alq-text-14">
-            Lugar de Devolucion
+            Lugar de Devolución
           </div>
 
           <div *ngIf="flagOtroDestino" class="col-12">
@@ -287,7 +287,7 @@
           <div class="col-12"></div>
         </div>
       </div>
-      <div class="col-9 pt-2 pb-3">
+      <div *ngIf="flagResult" class="col-9 pt-2 pb-3">
         <div class="row">
           <div class="col-12 pr-5 pb-5">
             <div class="row m-0 p-0">
@@ -365,7 +365,9 @@
                     <div class="row m-0 p-0">
                       <div class="col-8 m-0 p-0">
                         <div class="row">
-                          <div class="col-12 alq-text-6">Punto de recojo</div>
+                          <div class="col-12 alq-text-6">
+                            Punto de devolución
+                          </div>
 
                           <div class="col-12 alq-text-6">
                             {{ cabeceraDestino }}
@@ -474,7 +476,7 @@
                       {{ item.description }}
                     </div>
                     <div
-                      class="col-12 text-center"
+                      class="col-12 m-0 p-0 text-center"
                       style="
                         text-align: center !important;
                         justify-content: center;
@@ -486,12 +488,53 @@
                         alt=""
                       />
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 m-0 p-0 pl-4 pb-1">
                       <span class="alq-text-2 pr-3">Desde: </span>
                       <span class="alq-text-3">
                         {{ item.lrecommendations[0].oprice.currency }}
                         {{ item.lrecommendations[0].oprice.base }}
                       </span>
+                    </div>
+                    <div class="col-12 m-0 p-0 pb-2">
+                      <div class="row m-0 p-0" style="width: 100%">
+                        <div
+                          class="col-4 p-0 m-0 text-center"
+                          style="display: flex; justify-content: center"
+                        >
+                          <img
+                            src="./assets/images/autos/pasajero.svg"
+                            alt=""
+                            tooltip="pasajeros"
+                          />
+                          <span class="pl-3 alq-text-10">
+                            {{ item.lrecommendations[0].numberPassengers }}
+                          </span>
+                        </div>
+                        <div
+                          class="col-4 p-0 m-0 text-center"
+                          style="display: flex; justify-content: center"
+                        >
+                          <img
+                            src="./assets/images/autos/accessory.svg"
+                            alt=""
+                            tooltip="mochila o carrión"
+                          />
+                          <span class="pl-3 alq-text-10"></span>
+                        </div>
+                        <div
+                          class="col-4 p-0 m-0 text-center"
+                          style="display: flex; justify-content: center"
+                        >
+                          <img
+                            src="./assets/images/autos/suitcase.svg"
+                            alt=""
+                            tooltip="maleta de 23kg"
+                          />
+                          <span class="pl-3 alq-text-10">
+                            {{ item.lrecommendations[0].baggage }}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                     <div class="col-12 m-0 p-0 div-base"></div>
                   </div>
@@ -590,7 +633,7 @@
 
                       <div
                         id="div_container_{{ i }}"
-                        class="row scrollmenu2"
+                        class="scrollmenu2"
                         style="width: 90% !important"
                       >
                         <div
@@ -623,6 +666,7 @@
                                     <img
                                       src="./assets/images/autos/pasajero.svg"
                                       alt=""
+                                      tooltip="pasajeros"
                                     />
                                     <span class="pl-3 alq-text-10">
                                       {{ recomendacion.numberPassengers }}
@@ -632,6 +676,7 @@
                                     <img
                                       src="./assets/images/autos/accessory.svg"
                                       alt=""
+                                      tooltip="mochila o carrión"
                                     />
                                     <span class="pl-3 alq-text-10"></span>
                                   </div>
@@ -639,6 +684,7 @@
                                     <img
                                       src="./assets/images/autos/suitcase.svg"
                                       alt=""
+                                      tooltip="maleta de 23kg"
                                     />
                                     <span class="pl-3 alq-text-10">
                                       {{ recomendacion.baggage }}
@@ -809,6 +855,11 @@
             </div>
           </div>
         </div>
+      </div>
+      <div *ngIf="!flagResult" class="col-7 pt-2 pb-3">
+        <alert type="warning" class="text-center">
+          No se encontraron autos para esta búsqueda
+        </alert>
       </div>
     </div>
   </app-header>
