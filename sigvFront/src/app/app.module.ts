@@ -175,6 +175,9 @@ import { AutosComponent } from "./components/autos/autos.component";
 import { AlqAutosComponent } from "./components/busqueda-global/alq-autos/alq-autos.component";
 import { AlqSearchComponent } from "./components/busqueda-global/alq-autos/alq-search/alq-search.component";
 import { MomentModule } from "ngx-moment";
+import { SoloEnteroPipe } from './pipes/solo-entero.pipe';
+import { ValidarEnteroPipe } from './pipes/validar-entero.pipe';
+import { AlqDetalleComponent } from './components/busqueda-global/alq-autos/alq-detalle/alq-detalle.component';
 
 @NgModule({
   declarations: [
@@ -317,6 +320,9 @@ import { MomentModule } from "ngx-moment";
     AutosComponent,
     AlqAutosComponent,
     AlqSearchComponent,
+    SoloEnteroPipe,
+    ValidarEnteroPipe,
+    AlqDetalleComponent,
   ],
   imports: [
     BrowserModule,

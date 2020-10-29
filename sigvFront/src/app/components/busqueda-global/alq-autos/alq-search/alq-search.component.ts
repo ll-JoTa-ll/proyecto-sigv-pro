@@ -712,4 +712,8 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     const container = document.getElementById(id_container);
     this.sideScroll(container, "right", 5, 200, 10);
   }
+
+  verDetalle() {
+    this.router.navigate(["/auto-detalle"]);
+  }
 }

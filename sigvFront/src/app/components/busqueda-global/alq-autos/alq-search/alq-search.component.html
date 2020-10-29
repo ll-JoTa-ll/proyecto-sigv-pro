@@ -442,7 +442,7 @@
                   *ngFor="let item of carsSearch.lcategories"
                   class="box-shadow"
                   style="
-                    width: 300px !important;
+                    width: 230px !important;
                     padding: 10px !important;
                     margin: 10px !important;
                   "
@@ -502,11 +502,14 @@
                           style="display: flex; justify-content: center"
                         >
                           <img
-                            src="./assets/images/autos/pasajero.svg"
+                            src="./assets/images/autos/pasajero_gris.svg"
                             alt=""
                             tooltip="pasajeros"
                           />
-                          <span class="pl-3 alq-text-10">
+                          <span
+                            class="pl-3 alq-text-10"
+                            style="color: #3d3d3d !important"
+                          >
                             {{ item.lrecommendations[0].numberPassengers }}
                           </span>
                         </div>
@@ -515,23 +518,33 @@
                           style="display: flex; justify-content: center"
                         >
                           <img
-                            src="./assets/images/autos/accessory.svg"
+                            src="./assets/images/autos/accessory_gris.svg"
                             alt=""
                             tooltip="mochila o carrión"
                           />
-                          <span class="pl-3 alq-text-10"></span>
+                          <span
+                            class="pl-3 alq-text-10"
+                            style="color: #3d3d3d !important"
+                          >
+                            {{
+                              item.lrecommendations[0].baggage | validarEntero
+                            }}
+                          </span>
                         </div>
                         <div
                           class="col-4 p-0 m-0 text-center"
                           style="display: flex; justify-content: center"
                         >
                           <img
-                            src="./assets/images/autos/suitcase.svg"
+                            src="./assets/images/autos/suitcase_gris.svg"
                             alt=""
                             tooltip="maleta de 23kg"
                           />
-                          <span class="pl-3 alq-text-10">
-                            {{ item.lrecommendations[0].baggage }}
+                          <span
+                            class="pl-3 alq-text-10"
+                            style="color: #3d3d3d !important"
+                          >
+                            {{ item.lrecommendations[0].baggage | slice: 0:1 }}
                           </span>
                         </div>
                       </div>
@@ -668,7 +681,7 @@
                                       alt=""
                                       tooltip="pasajeros"
                                     />
-                                    <span class="pl-3 alq-text-10">
+                                    <span class="pl-2 alq-text-10">
                                       {{ recomendacion.numberPassengers }}
                                     </span>
                                   </div>
@@ -678,7 +691,12 @@
                                       alt=""
                                       tooltip="mochila o carrión"
                                     />
-                                    <span class="pl-3 alq-text-10"></span>
+                                    <span class="pl-2 alq-text-10">
+                                      {{
+                                        item.lrecommendations[0].baggage
+                                          | validarEntero
+                                      }}
+                                    </span>
                                   </div>
                                   <div class="col-2 p-0 m-0">
                                     <img
@@ -686,8 +704,8 @@
                                       alt=""
                                       tooltip="maleta de 23kg"
                                     />
-                                    <span class="pl-3 alq-text-10">
-                                      {{ recomendacion.baggage }}
+                                    <span class="pl-2 alq-text-10">
+                                      {{ recomendacion.baggage | slice: 0:1 }}
                                     </span>
                                   </div>
                                   <div class="col-3"></div>
@@ -802,7 +820,10 @@
                                       align-items: center;
                                     "
                                   >
-                                    <button class="btn alq-btn-det">
+                                    <button
+                                      (click)="verDetalle()"
+                                      class="btn alq-btn-det"
+                                    >
                                       Ver Detalle
                                     </button>
                                   </div>
