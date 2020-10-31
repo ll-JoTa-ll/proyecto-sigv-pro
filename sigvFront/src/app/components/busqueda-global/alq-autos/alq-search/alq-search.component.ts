@@ -85,11 +85,17 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     $("#menu-autos-2").show();
 
     this.carsSearch = this.sessionStorageService.retrieve("ss_carsSearch");
-    this.flagResult = true;
     this.carsSearchRequest = this.sessionStorageService.retrieve(
       "ss_requestCars"
     );
     this.selCategoriaDescription = "";
+    console.log("carsSearch: " + this.carsSearch);
+    console.log("carsSearch: " + this.carsSearch);
+    console.log("carsSearch: " + this.carsSearch);
+    console.log("carsSearch: " + this.carsSearch);
+
+    this.airportlist = this.localStorageService.retrieve("ls_airportlist");
+    this.citylist = this.localStorageService.retrieve("ls_citylist");
   }
 
   ngOnInit() {
@@ -106,9 +112,6 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     $("#menu-seguro-2").hide();
     $("#menu-autos-1").hide();
     $("#menu-autos-2").show();
-
-    this.airportlist = this.localStorageService.retrieve("ls_airportlist");
-    this.citylist = this.localStorageService.retrieve("ls_citylist");
   }
 
   ngAfterViewInit() {
@@ -126,10 +129,15 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     $("#menu-autos-1").hide();
     $("#menu-autos-2").show();
 
-    console.log("this.carsSearchRequest");
-    console.log(JSON.stringify(this.carsSearchRequest));
+    //console.log("this.carsSearchRequest");
+    //console.log(JSON.stringify(this.carsSearchRequest));
 
-    this.flagCars = true;
+    this.flagResult = true;
+
+    //this.flagCars = true;
+    if (this.carsSearch.lcategories.length > 0) {
+      this.flagCars = true;
+    }
 
     this.setValores();
   }
@@ -152,8 +160,8 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
 
     this.fechaRetorno = this.carsSearchRequest.fechaRetorno;
     this.fechaRetornoShow = this.carsSearchRequest.fechaRetornoShow;
-    console.log("this.carsSearchRequest.fechaRetornoShow");
-    console.log(this.carsSearchRequest.fechaRetornoShow);
+    //console.log("this.carsSearchRequest.fechaRetornoShow");
+    //console.log(this.carsSearchRequest.fechaRetornoShow);
 
     $("#fechadestino").val(this.carsSearchRequest.fechaRetornoShow);
     this.model.fechadestino = this.carsSearchRequest.fechaRetornoShow;
@@ -256,8 +264,8 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
   }
 
   selectEvent(item) {
-    console.log("selectEvent");
-    console.log("item: " + JSON.stringify(item));
+    //console.log("selectEvent");
+    //console.log("item: " + JSON.stringify(item));
 
     this.origenAuto = item.iataCode;
     this.origentTexto = item.name;
@@ -481,7 +489,7 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
       flagOtroDestino: this.flagOtroDestino,
     };
 
-    this.carsSearch = [];
+    //this.carsSearch = [];
 
     this.carsService.getCars(data).subscribe(
       (result) => {
@@ -713,7 +721,8 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     this.sideScroll(container, "right", 5, 200, 10);
   }
 
-  verDetalle() {
+  verDetalle(recomendacion) {
+    this.sessionStorageService.store("ss_recomendacion_alq", recomendacion);
     this.router.navigate(["/auto-detalle"]);
   }
 }

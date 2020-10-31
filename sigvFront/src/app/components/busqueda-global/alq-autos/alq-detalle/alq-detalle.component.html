@@ -1,8 +1,230 @@
 <ng-container>
-  <ng-container>
+  <app-header>
     <div *ngIf="true" class="row pt-4">
-      <div class="col-3 pt-2"></div>
-      <div class="col-9 pt-2"></div>
+      <div class="col-3 m-0 p-0 pt-2 pl-5 pr-5">
+        <div class="row box-shadow">
+          <div class="col-12 det-test1">Datos de tu reserva</div>
+
+          <div class="col-12">
+            <div class="row m-0 p-0">
+              <div
+                class="col-12 m-0 p-0 fondo-rojo-tri"
+                style="height: 2px"
+              ></div>
+            </div>
+          </div>
+
+          <div class="col-12 pt-3 det-test2">Recogida</div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-1">
+                <img src="" alt="" />
+              </div>
+              <div class="col-11 det-test3">
+                {{ origenLugar }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-11 det-test4">Oficinas alquiler de autos</div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-1">
+                <img
+                  class="img-fluid"
+                  src="./assets/images/autos/calendario.svg"
+                  alt=""
+                />
+              </div>
+              <div class="col-11 det-test3">
+                {{ origenFecha }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-11 det-test3">
+                {{ origenHora }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 det-test2">Devolución</div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-1">
+                <img src="" alt="" />
+              </div>
+              <div class="col-11 det-test3">
+                {{ destinoLugar }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-11 det-test4">Oficinas alquiler de autos</div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-1">
+                <img
+                  class="img-fluid"
+                  src="./assets/images/autos/calendario.svg"
+                  alt=""
+                />
+              </div>
+              <div class="col-11 det-test3">
+                {{ destinoFecha }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-1"></div>
+              <div class="col-11 det-test3">
+                {{ destinoHora }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 text-center pt-4 pb-3">
+            <button
+              style="width: 80% !important; background-color: #ed1c24"
+              class="btn det-test6"
+            >
+              Cambiar los datos
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-9 pt-2">
+        <div class="row">
+          <div
+            class="col-9 det-test5"
+            style="
+              color: #40b23d !important;
+              border-radius: 20px 0 20px 0;
+              border-color: #40b23d !important;
+              border: solid 1px;
+              height: 50px;
+              display: flex;
+              align-items: center;
+            "
+          >
+            ¡Cancelación GRATUITA hasta 48 horas antes de la hora de recogida!
+          </div>
+
+          <div
+            class="col-9 mt-4"
+            style="
+              border-radius: 20px 0 20px 0;
+              border-color: #e2e2e2 !important;
+              border: solid 1px;
+            "
+          >
+            <div class="row">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-3">Datos</div>
+                  <div class="col-3">Información importante</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-3"></div>
+                  <div class="col-3"></div>
+                </div>
+              </div>
+              <div class="col-12"></div>
+              <div class="col-12"></div>
+            </div>
+          </div>
+
+          <div class="col-3 mt-4 pl-3">
+            <div
+              class="row m-o p-0 ml-3 mr-5"
+              style="
+                border-radius: 20px 0 20px 0;
+                border-color: #e2e2e2 !important;
+                border: solid 1px;
+              "
+            >
+              <div class="col-12" style="height: 30px !important"></div>
+              <div
+                class="col-4 pl-3 fondo-rojo-tri det-test7"
+                style="
+                  background-color: red;
+                  color: white;
+                  border-radius: 0 20px 20px 0;
+                "
+              >
+                Total
+              </div>
+              <div class="col-12">
+                <div
+                  class="row m-3 pt-3 pb-3"
+                  style="
+                    background-color: #f9f2f2;
+                    border-radius: 20px 0 20px 0;
+                  "
+                >
+                  <div class="col-12 det-test8">
+                    Precio por {{ cantDiasAlquiler }} dias:
+                  </div>
+
+                  <div class="col-12 pt-2" style="text-align: right">
+                    <span class="det-test9 pr-1">{{ currency }}</span>
+                    <span class="det-test10">{{ amount }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="row m-0 p-0">
+                  <div class="col-1"></div>
+                  <div class="col-11 det-test8">Pago en Origen</div>
+                </div>
+              </div>
+              <div class="col-12 pt-3">
+                <div class="row m-0 p-0">
+                  <div class="col-1"></div>
+                  <div class="col-11 det-test8">Sólo auto</div>
+                </div>
+              </div>
+              <div class="col-12 pt-3">
+                <div class="row m-0 p-0">
+                  <div
+                    class="col-12 det-test11 text-center"
+                    style="
+                      border-radius: 20px;
+                      color: white;
+                      background-color: #40b23d;
+                    "
+                  >
+                    Cancelación gratiuta
+                  </div>
+                </div>
+              </div>
+              <div class="col-12" style="height: 30px !important"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </ng-container>
+  </app-header>
 </ng-container>

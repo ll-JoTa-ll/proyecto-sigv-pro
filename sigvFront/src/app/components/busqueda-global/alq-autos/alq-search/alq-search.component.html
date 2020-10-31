@@ -1,6 +1,9 @@
 <ng-container>
   <app-header>
-    <div *ngIf="flagCars" class="row pt-4">
+    <div
+      *ngIf="carsSearch.lcategories.length > 0 && flagCars == true"
+      class="row pt-4"
+    >
       <div class="col-3 pt-2">
         <div class="row box-shadow ml-4 mr-4">
           <div class="col-12 alq-text-13">Alquiler de autos</div>
@@ -821,7 +824,7 @@
                                     "
                                   >
                                     <button
-                                      (click)="verDetalle()"
+                                      (click)="verDetalle(recomendacion)"
                                       class="btn alq-btn-det"
                                     >
                                       Ver Detalle
