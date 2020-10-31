@@ -721,8 +721,12 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     this.sideScroll(container, "right", 5, 200, 10);
   }
 
-  verDetalle(recomendacion) {
+  verDetalle(recomendacion, categoriaDescription) {
     this.sessionStorageService.store("ss_recomendacion_alq", recomendacion);
+    this.sessionStorageService.store(
+      "ss_categoriaDescription_alq",
+      categoriaDescription
+    );
     this.router.navigate(["/auto-detalle"]);
   }
 }

@@ -138,20 +138,109 @@
               border: solid 1px;
             "
           >
-            <div class="row">
+            <div class="row p-3">
               <div class="col-12">
                 <div class="row">
-                  <div class="col-3">Datos</div>
-                  <div class="col-3">Información importante</div>
+                  <div class="col-3 det-test12">
+                    <img
+                      class="img-fluid pr-2"
+                      src="./assets/images/autos/vehiculo.svg"
+                      alt=""
+                    />
+                    Datos
+                  </div>
+                  <div class="col-4 det-test12">
+                    <img
+                      class="img-fluid pr-2"
+                      src="./assets/images/autos/informacion.svg"
+                      alt=""
+                    />
+                    Información importante
+                  </div>
                 </div>
               </div>
-              <div class="col-12">
+              <div class="col-12 pt-2">
                 <div class="row">
+                  <div class="col-3 fondo-rojo-tri" style="height: 2px"></div>
                   <div class="col-3"></div>
-                  <div class="col-3"></div>
+                  <div class="col-6"></div>
                 </div>
               </div>
-              <div class="col-12"></div>
+              <div class="col-12 pt-5">
+                <div class="row">
+                  <div class="col-3">
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        <img
+                          class="img-fluid"
+                          [src]="carRecomendacion.ocompany.image"
+                          alt=""
+                        />
+                      </div>
+
+                      <div class="col-12 text-center">
+                        <img
+                          class="img-fluid"
+                          [src]="carRecomendacion.image"
+                          alt=""
+                        />
+                      </div>
+
+                      <div class="col-12">
+                        <span class="det-test13 pr-2">
+                          {{ carRecomendacion.ocompany.name }}:
+                        </span>
+
+                        <span class="det-test14" style="cursor: pointer">
+                          <u>Términos y condiciones</u>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-9">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row">
+                          <div class="det-test15" style="width: 49% !important">
+                            {{ carRecomendacion.model }}
+                          </div>
+                          <div
+                            class=""
+                            style="
+                              width: 1px !important;
+                              background-color: #707070;
+                            "
+                          ></div>
+                          <div class="pl-3" style="width: 49% !important">
+                            <div class="row">
+                              <div class="col-12 det-test16">
+                                <img
+                                  class="img-fluid"
+                                  src="./assets/images/autos/airplane.svg"
+                                  alt=""
+                                />
+                                {{ carRecomendacion.olocation.pickUpAddress }}
+                              </div>
+                              <div
+                                class="col-12 det-test8"
+                                style="padding-left: 55px"
+                              >
+                                Oficina alquiler d autos
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12">
+                        <span>
+                          {{ categoriaDescription }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="col-12"></div>
             </div>
           </div>

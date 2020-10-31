@@ -17,6 +17,7 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
   carsSearch;
   carsSearchRequest;
   carRecomendacion;
+  categoriaDescription;
   model: any = {};
   origenLugar: string;
   origenFecha: string;
@@ -27,6 +28,8 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
   cantDiasAlquiler: number;
   currency: string;
   amount: number;
+  flagTabDatos: boolean = false;
+  flagTabInfo: boolean = false;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -52,6 +55,9 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
     );
     this.carRecomendacion = this.sessionStorageService.retrieve(
       "ss_recomendacion_alq"
+    );
+    this.categoriaDescription = this.sessionStorageService.retrieve(
+      "ss_categoriaDescription_alq"
     );
 
     moment.locale("es");
