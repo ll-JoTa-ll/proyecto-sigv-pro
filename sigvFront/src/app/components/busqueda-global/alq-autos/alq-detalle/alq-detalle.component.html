@@ -197,7 +197,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-9">
+                  <div class="col-9 pl-3">
                     <div class="row">
                       <div class="col-12">
                         <div class="row">
@@ -232,11 +232,146 @@
                         </div>
                       </div>
 
-                      <div class="col-12">
-                        <span>
-                          {{ categoriaDescription }}
-                        </span>
+                      <div class="col-12 pt-4 pb-4">
+                        <div class="row">
+                          <div
+                            class="text-center det-test17"
+                            style="
+                              border-radius: 20px 0 20px 0;
+                              border: solid 1px;
+                              border-color: #ed1c24;
+                              min-width: 200px;
+                            "
+                          >
+                            {{ categoriaDescription }}
+                          </div>
+
+                          <div class="pl-3">
+                            <img
+                              src="./assets/images/autos/pasajero.svg"
+                              alt=""
+                              tooltip="pasajeros"
+                            />
+                            <span class="pl-2 det-test3">
+                              {{ carRecomendacion.numberPassengers }}
+                            </span>
+                          </div>
+
+                          <div class="pl-3">
+                            <img
+                              src="./assets/images/autos/accessory.svg"
+                              alt=""
+                              tooltip="pasajeros"
+                            />
+                            <span class="pl-2 det-test3">
+                              {{ carRecomendacion.baggage | validarEntero }}
+                            </span>
+                          </div>
+
+                          <div class="pl-3">
+                            <img
+                              src="./assets/images/autos/suitcase.svg"
+                              alt=""
+                              tooltip="pasajeros"
+                            />
+                            <span class="pl-2 det-test3">
+                              {{ carRecomendacion.baggage | slice: 0:1 }}
+                            </span>
+                          </div>
+
+                          <div
+                            *ngIf="carRecomendacion.airConditioner"
+                            class="pl-3"
+                          >
+                            <img
+                              src="./assets/images/autos/suitcase.svg"
+                              alt=""
+                              tooltip="pasajeros"
+                            />
+                            <span class="pl-2 det-test3">
+                              Aire acondicionado
+                            </span>
+                          </div>
+
+                          <div
+                            *ngIf="carRecomendacion.type === 'Automático'"
+                            class="pl-3"
+                          >
+                            <span
+                              style="
+                                background-color: #ed1c24;
+                                justify-content: center !important;
+                                align-items: center !important;
+                                padding-left: 8px;
+                                padding-right: 8px;
+                                padding-top: 5px;
+                                padding-bottom: 5px;
+                                color: #ffffff;
+                                font-family: Omnes-med;
+                                font-size: 11px;
+                                border-radius: 4px;
+                              "
+                              >A</span
+                            >
+                            <span class="pl-2 det-test3"> Automático </span>
+                          </div>
+                        </div>
                       </div>
+
+                      <div
+                        class="col-12"
+                        style="height: 1px; background-color: #707070"
+                      ></div>
+
+                      <div class="col-12 pt-4">
+                        <div class="row">
+                          <div
+                            *ngIf="carRecomendacion.type === 'Automático'"
+                            class=""
+                          >
+                            <span
+                              style="
+                                background-color: #ed1c24;
+                                justify-content: center !important;
+                                align-items: center !important;
+                                padding-left: 8px;
+                                padding-right: 8px;
+                                padding-top: 5px;
+                                padding-bottom: 5px;
+                                color: #ffffff;
+                                font-family: Omnes-med;
+                                font-size: 11px;
+                                border-radius: 4px;
+                              "
+                              >Km</span
+                            >
+                            <span class="pl-2 det-test13">
+                              {{ carRecomendacion.kmIncluded }}
+                            </span>
+                          </div>
+
+                          <div class="pl-3">
+                            <div class="row">
+                              <div class="col-12 det-test13">
+                                <img
+                                  class="img-fluid"
+                                  src="./assets/images/autos/combustible.svg"
+                                  alt=""
+                                />
+                                Politica de combustible
+                              </div>
+                              <div
+                                class="col-12 det-test8"
+                                style="padding-left: 45px"
+                              >
+                                Lleno/Lleno
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12"></div>
                     </div>
                   </div>
                 </div>
@@ -310,6 +445,15 @@
                 </div>
               </div>
               <div class="col-12" style="height: 30px !important"></div>
+            </div>
+          </div>
+
+          <div class="col-12 pt-4">
+            <div class="row">
+              <div class="col-12 det-test18">
+                Selecciona la tarifa de tu preferencia
+              </div>
+              <div class="col-12 fondo-rojo-tri" style="height: 2px"></div>
             </div>
           </div>
         </div>
