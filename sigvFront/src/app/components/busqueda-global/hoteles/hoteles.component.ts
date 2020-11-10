@@ -102,6 +102,12 @@ export class HotelesComponent implements OnInit, AfterViewInit {
   calendarIngresoValue;
   calendarSalidaValue: Date;
   divScroll: any;
+  imagesHotel: any[] = [
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_1.png'},
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_2.png'},
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_3.png'},
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_4.png'},
+  ];
 
 
   constructor(
@@ -430,6 +436,28 @@ export class HotelesComponent implements OnInit, AfterViewInit {
     }
   }
 
+  changeImage(lstHotel){
+    lstHotel.forEach(element => {
+        if (element.gds === 'Amadeus' && element.limagens.length > 0) {
+          /* this.imagesHotel.forEach(element1 => {
+            element.limagens[0].url = element1.value;
+          }); */
+          const newImg = this.imagesHotel[Math.floor(Math.random() * this.imagesHotel.length)];
+          element.limagens[0].url = newImg.value;
+        }
+    });
+
+    /* this.imagesHotel.forEach(element => {
+      lstHotel.forEach(hotel => {
+        if (hotel.gds === 'Amadeus' && hotel.limagens.length > 0) {
+          hotel.limagens[0].url = element.value;
+        }
+      });
+    }); */
+
+    return lstHotel;
+  }
+
   ObtenerListaFiltroNombre($event) {
     this.LlistaHotel = [];
     this.LlistaHotel = $event;
@@ -492,7 +520,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
           else{
 
             if (result !== null && result.length > 0) {
-
+              result = this.changeImage(result);
               this.sessionStorageService.store('ls_search_hotel', result);
               this.sessionStorageService.store('ss_minibuscador',null);
               this.LlistaHotel = result;

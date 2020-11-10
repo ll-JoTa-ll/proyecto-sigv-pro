@@ -13,7 +13,7 @@ declare var $: any;
 })
 export class FiltroPrecioHotelComponent implements OnInit, AfterContentInit  {
 
-  
+
   step = 0.01;
   @Input() listado: IHotelResultsModel[];
   @Input() menorprecio: number;
@@ -21,7 +21,7 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterContentInit  {
   @Input() currency: string;
   @Output() filtroprecio = new EventEmitter<any[]>();
   @Input() cantnoche: string;
-  
+
   mostrardiv: boolean = true;
   menorprice: number;
   minibuscador;
@@ -37,18 +37,18 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterContentInit  {
    }
 
   ngOnInit() {
-    this.ls_search_hotel = this.sessionStorageService.retrieve('ls_search_hotel'); 
+    this.ls_search_hotel = this.sessionStorageService.retrieve('ls_search_hotel');
   }
 
-  
+
 
   ngAfterContentInit() {
-    this.menorprice = parseFloat($('#menorprice').html());
-    this.mayorprice = parseFloat($('#mayorprice').html());
+    this.menorprice = this.menorprecio;
+    this.mayorprice = this.mayorprecio;
     this.num1 = this.menorprice.toFixed(4);
     this.num2 = this.mayorprice.toFixed(4);
   }
-  
+
   public sliderType = SliderType;
   public priceRange: PriceRange = new PriceRange(this.num1, this.num2);
 
@@ -79,7 +79,7 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterContentInit  {
     this.FiltrarPrecio();
  }
 
-  
+
 
  FiltrarPrecio() {
   this.minibuscador = this.sessionStorageService.retrieve('ss_minibuscador');
@@ -121,7 +121,7 @@ export class FiltroPrecioHotelComponent implements OnInit, AfterContentInit  {
     }
   }
 
- 
+
 }
 
 class PriceRange {

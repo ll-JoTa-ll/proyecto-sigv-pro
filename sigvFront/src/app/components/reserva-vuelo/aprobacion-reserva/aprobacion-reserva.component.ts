@@ -259,7 +259,7 @@ SendMailVueloAprobado() {
   let data = {
     "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
     "Recipients": mails,
-    "RecipientsCopy": ['analista8@domiruth.com'],
+    "RecipientsCopy": '',
     "RecipientsHiddenCopy": [],
     "Subject": "VUELO APROBADO",
     "Message": this.emailvueloaprobado
@@ -300,7 +300,7 @@ SendMail() {
   let data = {
     "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
     "Recipients": mails,
-    "RecipientsCopy": ['analista8@domiruth.com'],
+    "RecipientsCopy": [''],
     "RecipientsHiddenCopy": [],
     "Subject": "SOLICITUD APROBACION DE EXCEPCION",
     "Message": this.emailsolicitud
@@ -347,7 +347,7 @@ SendMailVueloRechazado() {
   let data = {
     "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
     "Recipients": mails,
-    "RecipientsCopy": ['analista8@domiruth.com'],
+    "RecipientsCopy": [''],
     "RecipientsHiddenCopy": [],
     "Subject": "VUELO RECHAZADO",
     "Message": this.emailvuelorechazado
@@ -393,7 +393,7 @@ SendMailVueloCancelado() {
   let data = {
     "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
     "Recipients": mails,
-    "RecipientsCopy": ['analista8@domiruth.com'],
+    "RecipientsCopy": [''],
     "RecipientsHiddenCopy": [],
     "Subject": "VUELO CANCELADO",
     "Message": this.emailvuelocancelado

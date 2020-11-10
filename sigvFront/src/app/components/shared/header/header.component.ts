@@ -14,7 +14,7 @@ declare var $: any;
   styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent implements OnInit {
- 
+
   flagTipo: number;
   nombreUsuario: string;
   gender: string;
@@ -46,8 +46,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    var z = document.getElementById("profile");
-    z.style.display = "none";
+    /* var z = document.getElementById("profile");
+    z.style.display = "none"; */
   }
 
 
@@ -163,6 +163,6 @@ export class HeaderComponent implements OnInit {
     location.href = "/";
   }
 
- 
+
 
 }

@@ -382,6 +382,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         } else {
           $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
         }
+        /* if ($('#txtCentroCosto_' + (index + 1)).val().length <= 0) {
+          $('#txtCentroCosto_' + (index + 1)).addClass('campo-invalido');
+          valtelefono = true;
+          val = false;
+        } else {
+          $('#txtCentroCosto_' + (index + 1)).removeClass('campo-invalido');
+        } */
 
       //INI VALIDACION PASAJERO
       const indexPax = index + 1;

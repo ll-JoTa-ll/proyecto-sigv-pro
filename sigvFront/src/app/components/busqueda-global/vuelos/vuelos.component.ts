@@ -56,6 +56,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   tipoVuelo: string;
   cont = 0;
+  salShowCalendar;
+  retShowCalendar;
 
   keyword = 'name';
   data: any[] = [];
@@ -167,7 +169,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   datosuser: any[] = [];
   p: number[] = [];
   lstAsesors: iGetAsesors[];
-  maleta: boolean = false;
+  maleta: boolean = true;
   flagDinData2: boolean = false;
   dateCustomClasses: DatepickerDateCustomClasses[];
   showHotel = false;
@@ -251,6 +253,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     $('.menu-paquete-2').hide();
     $('.menu-seguro-1').show();
     $('.menu-seguro-2').hide();
+
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -364,6 +367,12 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           this.fechaSalidaShow6 = databuscador.fechasalida6;
         }
       }
+    }
+    if(tipovuelo != 'RT'){
+      this.spin = true;
+    } else {
+      this.calendar = true;
+      this.spin = true;
     }
   }
 
@@ -526,20 +535,24 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   salidaCalendar(input) {
     const datePart = input.match(/\d+/g);
+    const yearCalendar = datePart[0];
     const year = datePart[0].substring(2); // get only two digits
     const month = datePart[1];
     const day = datePart[2];
 
     this.salCalendar =  day +'/'+month+'/'+year;
+    this.salShowCalendar = day + '/' + month + '/' +  yearCalendar;
   }
 
   llegadaCalendar(input) {
     const datePart = input.match(/\d+/g);
+    const yearCalendar = datePart[0];
     const year = datePart[0].substring(2); // get only two digits
     const month = datePart[1];
     const day = datePart[2];
 
     this.llegCalendar =  day +'/'+month+'/'+year;
+    this.retShowCalendar = day + '/' + month + '/' +  yearCalendar;
   }
 
   onValueChangeSalida(value: Date, dateretorno: any): void {
@@ -1352,6 +1365,11 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   this.searchFlightCalendar(fechas.Salida,fechas.Llegada);
  }
 
+ changeFormat(date1,date2){
+  const salida = date1.toString().split('/').reverse().join('/');
+  const retorno = date2.toString().split('/').reverse().join('/');
+ }
+
 
 
  searchFlightCalendar(salida,llegada) {
@@ -1363,11 +1381,12 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     }
   }
   */
- const flagVal = this.validarDataBusqueda();
+ const flagVal = true;
  if (!flagVal) {
     return;
   } else {
     this.spinner.show();
+    const hola = $('#fechasalida').val();
     this.inicioBuscador = false;
     this.miniBuscador = false;
     this.spin = false;
@@ -1549,8 +1568,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         origencode: this.origenAuto,
         destino: this.destinoTexto,
         destinocode: this.destinoAuto,
-        fechasalidashow: $('#fechasalida').val(),
-        fecharetornoshow: $('#fechadestino').val(),
+        fechasalidashow: this.salShowCalendar,
+        fecharetornoshow: this.retShowCalendar,
         fechasalida: this.salCalendar,
         fechadestino: this.llegCalendar,
         cabina: this.textoCabina,
@@ -1634,6 +1653,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
             },
           )
         } else {
+          this.spin = true;
           this.sessionStorageService.store('ss_searchFlight', null);
           this.flagDinData = true;
         }
@@ -1935,6 +1955,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
             // this.sendDataToHotelFilters();
           } else {
             this.sessionStorageService.store('ss_searchFlight', null);
+            this.spin = true;
             this.flagDinData = true;
           }
         },
@@ -2426,6 +2447,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.inicioBuscador = true;
     if (this.searchData.length === 0) {
       this.flagDinData = true;
+      this.spin = true;
       this.spinner.hide();
     } else {
       this.flagDinData = false;
@@ -2642,6 +2664,17 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   setOutputTipoVuelo($event) {
     this.tipoVuelo = $event;
+    if(this.tipoVuelo != 'RT'){
+      this.spin = true;
+      this.calendarmini = false;
+    } else {
+      this.spin = false
+      this.calendar = false;
+      this.calendarmini = false;
+    }
+    if (this.searchData.length === 0) {
+      this.spin = true;
+    }
   }
 
   setOutIndexTramo($event) {

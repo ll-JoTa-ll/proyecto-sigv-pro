@@ -1,256 +1,133 @@
-<div class="row m-0 p-0">
-    <div class="col-12 m-0 p-0" style="width: 100%; height: 30px !important;"></div>
-</div>
+<div class="container">
+  <div class="containerFlex">
+    <div class="centroTop">
 
+    </div>
+    <div class="centro">
+      <span class="apc-text-1">Agregue los pasajeros del vuelo</span>
+    </div>
 
-<div class="row m-0 p-0">
-
-    <div class="col-2 m-0 p-0"></div>
-
-
-
-
-    <div class="col-8 m-0 p-0">
-
-        <div class="row m-0 p-0">
-
-            <div class="col-12 m-0 p-0 pb-3 apc-text-1">
-                Agregue los pasajeros del vuelo
-            </div>
-
-            <div class="col-12 m-0 p-0 pb-3">
-
-                <div class="row m-0 p-0">
-
-                    <div class="col-11 m-0 p-0">
-                        <div class="row m-0 p-0">
-                            <div class="col-6 m-0 p-0">
-
-                                <div class="row m-0 p-0">
-
-                                    <div class="col-5 m-0 p-0 d-flex justify-content-center align-items-center">
-                                        <label class="m-0 p-0">
-                      <input (click)="seleccionarTipoBusqueda('N')" type="radio" name="name_pax" checked>
-                      <span class="pl-1">Nombre/Apellido</span>
-                    </label>
-                                    </div>
-
-                                    <div class="col-7 m-0 p-0">
-                                        <input [(ngModel)]="nombreText" class="form-control box-shadow" type="text">
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-6 m-0 p-0">
-                                <div class="row m-0 p-0">
-
-                                    <div class="col-5 m-0 p-0 d-flex justify-content-center align-items-center">
-                                        <label class="m-0 p-0">
-                      <input (click)="seleccionarTipoBusqueda('D')" type="radio" name="name_pax">
-                      <span class="pl-1">DNI/Matrícula</span>
-                    </label>
-                                    </div>
-
-                                    <div class="col-7 m-0 p-0 pr-2">
-                                        <input [(ngModel)]="documentoText" class="form-control box-shadow" type="text">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-1 m-0 p-0 d-flex justify-content-center align-items-center">
-
-                        <button class="p-0 form-control btn apc-btn-buscar" (click)="search()">
-              <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 12px">
-              Buscar
-            </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
+    <div class="centroFlex">
+      <div class="mitad">
+        <label>
+          <input (click)="seleccionarTipoBusqueda('N')" type="radio" name="name_pax" checked>
+          <span class="pl-1">Nombre/Apellido</span>
+        </label>
+      </div>
+      <div class="field">
+        <input [(ngModel)]="nombreText" class="form-control box-shadow" type="text">
+      </div>
+      <div class="mitad">
+        <label>
+          <input (click)="seleccionarTipoBusqueda('D')" type="radio" name="name_pax">
+          <span class="pl-1">DNI/Matrícula</span>
+        </label>
+      </div>
+      <div class="field">
+        <input [(ngModel)]="documentoText" class="form-control box-shadow" type="text">
+      </div>
+      <div class="buttonBuscar">
+        <button class="p-0 form-control btn apc-btn-buscar" (click)="search()">
+          <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 12px">
+          Buscar
+        </button>
+      </div>
 
     </div>
 
-
-
-
-
-    <div class="col-2 m-0 p-0"></div>
-
-</div>
-
-<div class="row m-0 p-0 pt-4">
-
-    <div class="col-2 m-0 p-0"></div>
-
-    <div class="col-8 m-0 p-0">
-
-        <div class="row m-0 p-0">
-
-            <div class="col-1 m-0 p-0">
-
-            </div>
-            <div class="col-9 m-0 p-0">
-                <div class="row m-0 p-0 box-shadow">
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;">Nombre</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">Apellidos</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">Tipo Doc</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">Documento</div>
-                </div>
-            </div>
-            <div class="col-2 m-0 p-0 text-center">
-                <div class="row m-0 p-0">
-                    <div class="m-0 p-0" style="width: 10%"></div>
-                    <div class="m-0 p-0 box-shadow apc-text-2" style="width: 75%">
-                        Perfil
-                    </div>
-                    <div class="m-0 p-0" style="width: 15%"></div>
-                </div>
-            </div>
-
+    <div class="centroTop">
+      <div class="row m-0 p-0 box-shadow">
+        <div class="apc-text-header">Nombre</div>
+        <div class="apc-text-21" style="width: 20% !important;">Apellidos</div>
+        <div class="apc-text-21" style="width: 15% !important;">Tipo Doc</div>
+        <div class="apc-text-header">Documento</div>
+        <div class="apc-text-header1">Perfil</div>
+      </div>
+    </div>
+    <div class="centro" *ngFor="let person of lstPerson | paginate: { itemsPerPage: 10, currentPage: p}">
+      <div class="tableFlex box-shadow">
+        <div class="m-0 p-0 text-center apc-text-2" style="width: 2% !important;"><img *ngIf="person.isVIP === true"
+            style="width: 30px;" src="assets/images/vip.png"></div>
+        <div class="m-0 p-0 text-center apc-text-content">{{person.firstName}}</div>
+        <div class="m-0 p-0 text-center apc-text-21" style="width: 18% !important;">{{person.lastName}}</div>
+        <div class="m-0 p-0 text-center apc-text-21" style="width: 18% !important;">
+          {{person.lpersonDocuments[0].docName}}
         </div>
-
-        <div class="row m-0 p-0" *ngFor="let person of lstPerson | paginate: { itemsPerPage: 10, currentPage: p}">
-
-            <div class="col-1 m-0 p-0">
-                <div class="row m-0 p-0">
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 100% !important;"><img *ngIf="person.isVIP === true" style="width: 30px;" src="assets/images/vip.png"></div>
-                </div>
-            </div>
-            <div class="col-9 m-0 p-0">
-                <div class="row m-0 p-0 box-shadow">
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;">{{person.firstName}}</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">{{person.lastName}}</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">{{person.lpersonDocuments[0].docName}}</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">{{person.lpersonDocuments[0].docNumber}}</div>
-                </div>
-            </div>
-            <div class="col-2 m-0 p-0 text-center">
-                <div class="row m-0 p-0">
-                    <div class="m-0 p-0" style="width: 10%"></div>
-                    <div class="m-0 p-0 box-shadow apc-text-2" style="width: 75%">
-                        {{person.orole.name}}
-                    </div>
-                    <div class="m-0 p-0 d-flex pl-1 justify-content-center align-items-center" style="width: 15%">
-                        <!--<button (click)="agregarPasajero(person)" class="" style="background-color: #6B253C; color: white; border-radius: 25px 25px 25px 25px">+</button>-->
-                        <a style="cursor: pointer" (click)="agregarPasajero(person)"><img style="width: 30px;" src="./assets/images/mas.png"></a>
-                    </div>
-                </div>
-            </div>
-
+        <div class="m-0 p-0 text-center apc-text-content">
+          {{person.lpersonDocuments[0].docNumber}}</div>
+        <div class="m-0 p-0  apc-text-content">
+          {{person.orole.name}}
         </div>
-        <div class="col-12 m-0 p-0 text-center pt-5">
-            <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
-        </div>
+        <a style="cursor: pointer" (click)="agregarPasajero(person)"><img style="width: 30px;"
+            src="./assets/images/mas.png"></a>
+      </div>
 
     </div>
 
-    <div class="col-2 m-0 p-0"></div>
-
-</div>
-
-<div class="row m-0 p-0 pt-4">
-
-    <div class="col-2 m-0 p-0"></div>
-
-    <div class="col-8 m-0 p-0">
-
-        <div class="row m-0 p-0">
-
-            <div class="col-12 m-0 p-0 pb-3 apc-text-1">
-                Pasajeros agregados
-            </div>
-        </div>
+    <div class="centroTop" style="text-align: center;">
+      <pagination-controls class="my-pagination" (pageChange)="p = $event"></pagination-controls>
     </div>
-    <div class="col-2 m-0 p-0"></div>
-</div>
-<div class="row m-0 p-0 pt-2 pb-5">
-    <div class="col-2 m-0 p-0"></div>
-    <div class="col-8 m-0 p-0">
-        <div class="row m-0 p-0">
-            <div class="col-1 m-0 p-0"></div>
-            <div class="col-9 m-0 p-0">
-                <div class="row m-0 p-0 box-shadow">
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;">Nombre</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">Apellidos</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">Tipo Doc</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">Documento</div>
-                </div>
-            </div>
-            <div class="col-2 m-0 p-0 text-center">
-                <div class="row m-0 p-0">
-                    <div class="m-0 p-0" style="width: 10%"></div>
-                    <div class="m-0 p-0 box-shadow apc-text-2" style="width: 75%">
-                        Perfil
-                    </div>
-                    <div class="m-0 p-0" style="width: 15%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row m-0 p-0" *ngFor="let pasajero of lstPasajeros">
-            <div class="col-1 m-0 p-0">
-                <div class="row m-0 p-0">
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 100% !important;"><img *ngIf="pasajero.isVIP === true" style="width: 30px;" src="assets/images/vip.png"></div>
-                </div>
-            </div>
-            <div class="col-9 m-0 p-0">
-                <div class="row m-0 p-0 box-shadow">
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;">{{pasajero.firstName}}</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">{{pasajero.lastName}}</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 30% !important;">{{pasajero.lpersonDocuments[0].docName}}</div>
-                    <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">{{pasajero.lpersonDocuments[0].docNumber}}</div>
-                </div>
-            </div>
-            <div class="col-2 m-0 p-0 text-center">
-                <div class="row m-0 p-0">
-                    <div class="m-0 p-0" style="width: 10%"></div>
-                    <div class="m-0 p-0 box-shadow apc-text-2" style="width: 75%">
-                        {{pasajero.orole.name}}
-                    </div>
-                    <div class="m-0 p-0 d-flex pl-1 justify-content-center align-items-center" style="width: 15%">
-                        <img (click)="eliminarPasajero(pasajero)" style="width: 15px; cursor: pointer" src="./assets/images/papelera_reciclaje.svg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
+
+    <div class="centroTop">
+      <span class="apc-text-1">Pasajeros agregados</span>
     </div>
-    <div class="col-2 m-0 p-0"></div>
+
+    <div class="centroTop">
+      <div class="row m-0 p-0 box-shadow">
+        <div class="apc-text-header">Nombre</div>
+        <div class="apc-text-21" style="width: 20% !important;">Apellidos</div>
+        <div class="apc-text-21" style="width: 15% !important;">Tipo Doc</div>
+        <div class="apc-text-header">Documento</div>
+        <div class="apc-text-header1">Perfil</div>
+      </div>
+    </div>
+
+    <div class="centro" *ngFor="let pasajero of lstPasajeros">
+      <div class="tableFlex box-shadow">
+        <div class="m-0 p-0 text-center apc-text-2" style="width: 2% !important;"><img *ngIf="pasajero.isVIP === true"
+            style="width: 30px;" src="assets/images/vip.png"></div>
+        <div class="m-0 p-0 text-center apc-text-content">{{pasajero.firstName}}</div>
+        <div class="m-0 p-0 text-center apc-text-21" style="width: 18% !important;">{{pasajero.lastName}}</div>
+        <div class="m-0 p-0 text-center apc-text-21" style="width: 18% !important;">
+          {{pasajero.lpersonDocuments[0].docName}}
+        </div>
+        <div class="m-0 p-0 text-center apc-text-content">
+          {{pasajero.lpersonDocuments[0].docNumber}}</div>
+        <div class="m-0 p-0  apc-text-content">
+          {{pasajero.orole.name}}
+        </div>
+        <a style="cursor: pointer" (click)="eliminarPasajero(pasajero)" ><img style="width: 15px; cursor: pointer" src="./assets/images/papelera_reciclaje.svg" alt=""></a>
+      </div>
+
+    </div>
+
+    <div class="centroTop" style="text-align: center;">
+      <button class="btn apc-btn-continuar" (click)="continuar(modalvalidacion)">
+        Continuar
+      </button>
+    </div>
+
+  </div>
 </div>
+
 <ng-template #modalvalidacion let-c="close" let-d="dismiss">
-    <div class="modal-header m-0 p-0" style="border: none;">
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-    </div>
-    <div class="modal-body m-0 p-0">
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0 p-0 text-1 text-center pt-2 pb-2">
-                Debe elegir al menos un pasajero
-            </div>
-        </div>
-    </div>
-    <div class="row m-0 p-0">
-        <div class="col-12 m-0 p-0 text-center pb-3">
-            <button (click)="modalRef.hide()" class="btn btn-ok">Ok</button>
-        </div>
-    </div>
+  <div class="modal-header m-0 p-0" style="border: none;">
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+  </div>
+  <div class="modal-body m-0 p-0">
+      <div class="row m-0 p-0">
+          <div class="col-12 m-0 p-0 text-1 text-center pt-2 pb-2">
+              Debe elegir al menos un pasajero
+          </div>
+      </div>
+  </div>
+  <div class="row m-0 p-0">
+      <div class="col-12 m-0 p-0 text-center pb-3">
+          <button (click)="modalRef.hide()" class="btn btn-ok">Ok</button>
+      </div>
+  </div>
 </ng-template>
 
-<div class="row m-0 p-0 pb-5">
-    <div class="col-2 m-0 p-0"></div>
-    <div class="col-8 m-0 p-0 text-center">
-        <button class="btn apc-btn-continuar" (click)="continuar(modalvalidacion)">
-      Continuar
-    </button>
-    </div>
-    <div class="col-2 m-0 p-0"></div>
-</div>
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>

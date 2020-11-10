@@ -20,7 +20,9 @@ let httpOptions = {
 export class ReportsService {
 
   private urlReports: string = environment.url_reports + 'Report/MasterData';
-
+  private urlField: string = environment.url_customer + 'ReportField/GetReportFields';
+  private urlCompanyReport: string = environment.url_customer + 'CompanyReport/GetListCompanyReport';
+  private urlInsertUpdate: string = environment.url_customer + 'CompanyReport/InsertUpdateCompanyReport';
   private urlGeneralReport: string = environment.url_reportGeneral + 'Report/GetGeneralReport';
 
   constructor(private http: HttpClient) {
@@ -51,5 +53,31 @@ export class ReportsService {
         'Ocp-Apim-Subscription-Key': environment.key
       });
       return this.http.post<any[]>(`${this.urlGeneralReport}`, objData, httpOptions);
+    }
+
+    getReportField(data): Observable<any> {
+      httpOptions.headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': environment.key
+      });
+      const url = `${this.urlField}?${'companyReportId=' + data}`;
+      return this.http.get<any>(url, httpOptions);
+    }
+
+    getCompanyReport(data): Observable<any> {
+      httpOptions.headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': environment.key
+      });
+      const url = `${this.urlCompanyReport}?${'companyId=' + data}`;
+      return this.http.get<any>(url, httpOptions);
+    }
+
+    insertUpdateCompany(objData): Observable<any>{
+      httpOptions.headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': environment.key
+      });
+      return this.http.post<any>(`${this.urlInsertUpdate}`, objData, httpOptions);
     }
 }

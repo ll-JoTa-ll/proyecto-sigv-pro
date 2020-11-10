@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import { IFareFamilyServiceModel } from '../../../../models/IFareFamilyService.model';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
+import { IFamilyResultModel } from '../../../../models/IFamilyResult.model';
 
 declare var jquery: any;
 declare var $: any;
@@ -21,6 +22,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   @Input() segmentIndex;
   @Input() familyLength;
   @Input() sectionIndex;
+  @Input() fareBasisXD;
 
   @Output() idRadioBtnFareFam = new EventEmitter<string>();
   @Output() namefamily = new EventEmitter<string>();
@@ -63,6 +65,10 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     "#C33C54"
   ];
 
+  lstFamilyResult: IFamilyResultModel;
+
+  cardId: string;
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService
@@ -81,6 +87,10 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     this.idNameFamilyName = 'idNameFamilyName';
     this.idNameFamilyName1 = 'idNameFamilyName1';
     this.classNameFamilyName = 'classNameFamilyName';
+
+    this.lstFamilyResult = this.sessionStorageService.retrieve('ss_lstFamilyResult');
+
+    this.cardId = 'cardId';
   }
 
   ngOnInit() {
@@ -159,6 +169,13 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
       this.colorfamily.emit(colorfamilia);
       console.log(colorfamilia);
       $('#' + idNameFamilyName1 + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
+    } else {
+      console.log("sectionIndex 666");
+      console.log(sectionIndex);
+      if (sectionIndex > 0) {
+        //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).hide();
+        //const lcombinations = ss_lstFamilyResult.lcombinations;
+      }
     }
   /*  let name =  this.nameRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex;
     if ($('input[name="' + name + '"]').is(':checked')) {
@@ -168,6 +185,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
   }
 
   selectRadioBtnFam(id) {
+    console.log("selectRadioBtnFam");
     //console.log('id: ' + id);
     const familyLength = this.familyLength;
     //console.log('familyLength: ' + familyLength);
@@ -186,6 +204,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     console.log(id);
     let namefamilia = $('#' + this.idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).html();
     let colorfamilia = this.colorsFare[fareFamilyIndex];
+
     this.colorfamily.emit(colorfamilia);
     this.namefamily.emit(namefamilia);
     console.log(colorfamilia);

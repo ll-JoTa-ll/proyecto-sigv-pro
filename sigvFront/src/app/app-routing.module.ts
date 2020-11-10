@@ -37,7 +37,7 @@ import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
   { path: 'home', component: BusquedaGlobalComponent, runGuardsAndResolvers: 'always' },
-  { path: 'reportes', component: DashboardComponent, runGuardsAndResolvers: 'always' },
+  /* { path: 'reportes', component: DashboardComponent, runGuardsAndResolvers: 'always' }, */
   { path: 'vuelos', component: VuelosComponent, runGuardsAndResolvers: 'always' },
   { path: 'perfil-usuario', component: PerfilUsuarioComponent, runGuardsAndResolvers: 'always' },
   { path: 'administrador-pasajeros', component: AdministradorPasajerosComponent, runGuardsAndResolvers: 'always' },
@@ -64,7 +64,7 @@ const routes: Routes = [
   { path: 'aprobar-reserva-vuelo', component: AprobacionReservaComponent, runGuardsAndResolvers: 'always' },
   { path: 'detalle-reserva-hotel', component: DetalleReservaHotelComponent, runGuardsAndResolvers: 'always' },
   { path: 'calendar-shopping', component: CalendarShoppingComponent, runGuardsAndResolvers: 'always' },
-  { path: 'reports-list', component: ReportsListComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reportes', component: ReportsListComponent, runGuardsAndResolvers: 'always' },
   { path: 'reports', component: ReportsComponent, runGuardsAndResolvers: 'always' },
   { path: 'partner', component: PartnerComponent, runGuardsAndResolvers: 'always' },
   { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' }

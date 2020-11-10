@@ -82,151 +82,207 @@
       </div> -->
 
 
+<app-header>
+  <ng-container>
 
-      <ng-container>
-        <div class="containerFlex" style="background: #F5F5F5;">
-          <div class="two">
-            <div style="width: 35%;background: linear-gradient(240.91deg, #ED1C24 19.85%, #D51A2C 42.53%, #3C4749 97.6%);height: 657px;border-radius: 0px 40px 40px 0px;">
-              <div  style="width: 100%;text-align: center;" (click)="home()">
-                <img src="./assets/images/reports/logo.svg" style="width: 30%;margin: 14px 0px;cursor: pointer;"><br>
-              </div>
-              <div id="report" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionar()">
-                <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 0px;"><br>
-                <span class="textVertical">Reporte General</span>
-              </div>
-              <div style="width: 100%;text-align: center;">
-                <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
-              </div>
-              <div style="width: 100%;text-align: center;">
-                <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
-              </div>
-              <div style="width: 100%;text-align: center;">
-                <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
-              </div>
+    <div class="containerFlex" style="background: #F5F5F5;">
+      <div class="two">
+        <div style="width: 6%;float: left;margin-top: 40px;position: absolute;overflow: hidden;background: linear-gradient(240.91deg, #ED1C24 19.85%, #D51A2C 42.53%, #3C4749 97.6%);height: -webkit-fill-available;border-radius: 0px 40px 40px 0px;">
+          <!-- <div  style="width: 100%;text-align: center;margin-top: 40px;margin-bottom: 20px;" (click)="home()">
+            <img src="./assets/images/reports/logo.svg" style="width: 30%;margin: 14px 0px;cursor: pointer;"><br>
+          </div> -->
+          <div id="report" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionar()">
+            <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 0px;"><br>
+            <span class="textVertical">Reporte General</span>
+          </div>
+         <!--  <div style="width: 100%;text-align: center;">
+            <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+          </div>
+          <div style="width: 100%;text-align: center;">
+            <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+          </div>
+          <div style="width: 100%;text-align: center;">
+            <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+          </div> -->
+        </div>
+      </div>
+      <div class="eigth" style="border: 1px solid #DEDEDE;margin-top: 40px;border-radius: 20px 20px;background: #FFFFFF;box-sizing: border-box;">
+        <div class="container">
+
+        </div>
+
+        <div class="container" style="margin: 30px 30px;">
+          <div class="container">
+            <span class="textVuelo">Reportes Generales</span>
+            <div style="background-image:linear-gradient(to right, #E2231A  31%, #C4C4C4  24%);width: 90%;height: 4px;">
+
             </div>
           </div>
-          <div class="eigth" style="border: 1px solid #DEDEDE;background: #FFFFFF;box-sizing: border-box;">
-            <div class="container">
+        </div>
 
-            </div>
+        <div class="containerFlex" style="margin: 22px 8px;padding: 0px 57px;">
+          <div style="width: 15%;">
+            <span class="textFecha">| Fecha</span>
+          </div>
+          <div style="width: 35%;">
+            <label class="d-inline-flex" style="border:1px solid #C2C2C2">
+              <input type="image"
+                     src="./assets/images/home/calendario.svg"
+                     (click)="datepickerIngreso.toggle()"
+                     class="input-img">
+                     <input type="text"
+                     placeholder="Rango de Fechas"
+                     [isDisabled]="validDisabled"
+                     class="input-date"
+                     #datepickerIngreso="bsDaterangepicker"
+                     bsDaterangepicker
+                     (bsValueChange)="onChangeIntervaloDatas($event)"
+                     [(ngModel)]="intervaloDatas"
+                     [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY',containerClass: 'theme-red',isAnimated: true }">
+            </label>
+          </div>
+          <div style="width: 20%">
+            <div *ngIf="listViews != null && listViews.length > 0" class="btn-group" dropdown [isDisabled]="validDisabled">
+              <button id="button-animated" dropdownToggle type="button" class="btn btn-danger dropdown-toggle"
+                      aria-controls="dropdown-animated">
+                {{textButton}} <span class="caret"></span>
+              </button>
+              <ul id="dropdown-animated" *dropdownMenu class="dropdown-menu"
+                  role="menu" aria-labelledby="button-animated">
+                  <li *ngIf="listViews != null && listViews.length > 0"  role="menuitem"><a (click)="getReportGeneralAll()" class="dropdown-item" >Mostrar todos</a></li>
 
-            <div class="container" style="margin: 0px 30px;">
-              <div class="container">
-                <span class="textVuelo">Reportes Generales</span>
-                <div style="background-image:linear-gradient(to right, #E2231A  31%, #C4C4C4  24%);width: 90%;height: 4px;">
-
-                </div>
-              </div>
-            </div>
-
-            <div class="containerFlex" style="margin: 22px 61px;">
-              <div style="width: 15%;">
-                <span class="textFecha">| Fecha</span>
-              </div>
-              <div style="width: 40%;">
-                <label class="d-inline-flex" style="border:1px solid #C2C2C2">
-                  <input type="image"
-                         src="./assets/images/home/calendario.svg"
-                         (click)="datepickerIngreso.toggle()"
-                         class="input-img">
-                         <input type="text"
-                         placeholder="Rango de Fechas"
-                         class="input-date"
-                         #datepickerIngreso="bsDaterangepicker"
-                         bsDaterangepicker
-                         (bsValueChange)="onChangeIntervaloDatas($event)"
-                         [(ngModel)]="intervaloDatas"
-                         [bsConfig]="{ rangeInputFormat: 'DD/MM/YYYY' }"
-                         [bsConfig]="{ isAnimated: true }">
-                </label>
-              </div>
-              <div style="width: 30%;">
-                <div class="btn-group" dropdown>
-                  <button id="button-basic" dropdownToggle type="button" class="dm-button-back dropdown-toggle"
-                          aria-controls="dropdown-basic">
-                          <img src="./assets/images/reports/tipovista.svg" style="width: 75%;"> <span class="caret"></span>
-                  </button>
-                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
-                      role="menu" aria-labelledby="button-basic">
-                    <li role="menuitem"><a class="dropdown-item" style="cursor: pointer;">Nueva vista</a></li>
-                    <li role="menuitem"><a class="dropdown-item" (click)="hola()" style="cursor: pointer;">Seleccionar campos para mostrar</a></li>
-                    <li role="menuitem"><a class="dropdown-item" style="cursor: pointer;">Clonar</a></li>
-                    <li class="divider dropdown-divider"></li>
-                    <li role="menuitem"><a class="dropdown-item" style="cursor: pointer;">Borrar</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-            </div>
-            <div class="container">
-              <div class="containerFlex">
-                <div style="width: 5%;">
-
-                </div>
-                <div *ngIf="showPartner" style="width: 90%;border: 1px solid #C2C2C2;box-sizing: border-box;height: 490px;border-radius: 20px 0px;overflow: auto;">
-                  <div *ngIf="ver" style="background: #FAFAFA;width: fit-content;;display: flex;">
-                    <div *ngFor="let head of listReports[0] | key" style="border-right: 1px solid #C2C2C2;color: #EE1D25;font-size: 18px;font-family: Omnes-med">{{head}}</div>
-                  </div>
-                  <div *ngFor="let item of listReports" class="box-shadow" style="width: fit-content;display: flex">
-                    <div *ngFor="let list of item | key" >{{item[list]}}</div>
-                  </div>
-                </div>
-                <div *ngIf="!showPartner" style="width: 100%;display: inline-flex;height: 490px;border-radius: 20px 0px;overflow: auto;">
-                  <div class="example-container">
-                    <span class="subti">Selección de campos:</span>
-
-                    <div
-                      cdkDropList
-                      #todoList="cdkDropList"
-                      [cdkDropListData]="todo"
-                      [cdkDropListConnectedTo]="[doneList]"
-                      class="example-list"
-                      (cdkDropListDropped)="drop($event)">
-                      <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
-                    </div>
-                  </div>
-
-                  <div class="example-container">
-                    <span class="subti">A mostrar en reporte:</span>
-
-                    <div
-                      cdkDropList
-                      #doneList="cdkDropList"
-                      [cdkDropListData]="done"
-                      [cdkDropListConnectedTo]="[todoList]"
-                      class="example-list"
-                      (cdkDropListDropped)="drop($event)">
-                      <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-                    </div>
-                  </div>
-                </div>
-                <div style="width: 5%;">
-
-                </div>
-              </div>
-            </div>
-            <div class="container">
-              <div class="containerFlex">
-                <div style="width: 30%;">
-
-                </div>
-                <div style="width: 40%;text-align: center;">
-                  <img (click)="exportAsXLSX()" src="./assets/images/reports/export.svg" style="width: 55%;margin: 14px 0px;cursor: pointer;">
-                </div>
-                <div style="width: 30%;">
-
-                </div>
-
-              </div>
+                <li *ngFor="let item of listViews" role="menuitem"><a class="dropdown-item" (click)="getReportGeneralTwo(item)">{{item.nameView}}</a></li>
+              </ul>
             </div>
           </div>
-          <div class="two">
+          <div style="width: 25%;text-align: end;">
+            <div class="btn-group" dropdown [isDisabled]="validDisabled">
+              <button id="button-basic" dropdownToggle type="button" class="dm-button-back dropdown-toggle"
+                      aria-controls="dropdown-basic">
+                      <img src="./assets/images/reports/tipovista.svg" style="width: 75%;"> <span class="caret"></span>
+              </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                  role="menu" aria-labelledby="button-basic">
+                <li role="menuitem"><a class="dropdown-item" (click)="confirm()"  style="cursor: pointer;">Nueva vista</a></li>
+                <li role="menuitem"><a class="{{disabled}}" (click)="getField()" style="cursor: pointer;">Modificar vista</a></li>
+                <li role="menuitem"><a class="dropdown-item disabled" style="cursor: pointer;">Clonar</a></li>
+                <li class="divider dropdown-divider"></li>
+                <li role="menuitem"><a class="dropdown-item disabled" style="cursor: pointer;">Borrar</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div *ngIf="!showPartner" class="container" style="margin: 0px 18px;">
+          <h4 style="margin-left: 22px;">Nueva Vista</h4>
+          <div style="width: 100%;margin: 20px;">
+            <form [formGroup]="bookingForm">
+              <mat-form-field appearance="outline" class="dm-form-field">
+                <mat-label>Nombre de la vista</mat-label>
+                <input formControlName="vista"  matInput autocomplete="off" >
+                <mat-error *ngIf="bookingForm.get('vista').hasError('maxlength')">
+                  El nombre de la vista debe contener 12 caracteres como maximo.
+                </mat-error>
+            </mat-form-field>
+          </form>
+          </div>
+        </div>
+        <div class="container">
+          <div *ngIf="validColumn" class="containerFlex">
+            <div style="width: 5%;">
+
+            </div>
+            <div *ngIf="showPartner" style="width: 90%;border: 1px solid #C2C2C2;box-sizing: border-box;height: 490px;border-radius: 20px 0px;overflow: auto;">
+              <!-- <div *ngIf="ver" style="background: #FAFAFA;width: fit-content;;display: flex;">
+                <div *ngFor="let head of listReports[0] | key" style="border-right: 1px solid #C2C2C2;color: #EE1D25;font-size: 18px;font-family: Omnes-med">{{head}}</div>
+              </div>
+              <div *ngFor="let item of listReports" class="box-shadow" style="width: fit-content;display: flex">
+                <div *ngFor="let list of item | key" >{{item[list]}}</div>
+              </div> -->
+              <table mat-table [dataSource]="listReports" class="mat-elevation-z8">
+
+                <!-- Checkbox Column -->
+
+                <!-- corporateEmail Column -->
+                <ng-container *ngFor="let col of listHeads" [matColumnDef]="col">
+                  <th mat-header-cell  class="custom-mat-header-styling tableHeaderCellDiv" *matHeaderCellDef> {{ col }}  </th>
+                  <td mat-cell *matCellDef="let element"> {{element[col]}} </td>
+                </ng-container>
+
+
+                <tr mat-header-row class="tableHeaderCellDiv" *matHeaderRowDef="listHeads"></tr>
+                <tr mat-row *matRowDef="let row; columns: listHeads;"></tr>
+              </table>
+            </div>
+
+            <div cdkDropListGroup *ngIf="!showPartner" style="width: 100%;display: inline-flex;height: 490px;margin: 18px 3px;overflow: auto;">
+
+
+              <div class="example-container">
+                <span class="subti">Selección de campos:</span>
+
+                <div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event,2)">
+                  <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item.description}}</div>
+                </div>
+              </div>
+
+              <div class="example-container">
+                <span class="subti">A mostrar en reporte:</span>
+
+                <div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event,1)">
+                  <div class="example-box" *ngFor="let item of done" cdkDrag>{{item.description}}</div>
+                </div>
+              </div>
+            </div>
+            <div style="width: 5%;">
+
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="containerFlex">
+            <div style="width: 30%;">
+
+            </div>
+            <div style="width: 40%;text-align: center;">
+              <img *ngIf="showButton" (click)="exportAsXLSX()" src="./assets/images/reports/export.svg" style="width: 55%;margin: 14px 0px;cursor: pointer;">
+              <section *ngIf="!showButton">
+                <button mat-raised-button (click)="cancel()">Cancelar</button>
+                <button mat-raised-button color="warn" (click)="grabarCampos()">Grabar Campos</button>
+              </section>
+
+            </div>
+            <div style="width: 30%;">
+
+            </div>
 
           </div>
         </div>
-      </ng-container>
+      </div>
+      <div class="two">
 
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <!-- <form [formGroup]="bookingForm">
+      <mat-form-field appearance="outline" class="dm-form-field">
+        <mat-label>Nombre de la vista</mat-label>
+        <input formControlName="vista"  matInput autocomplete="off" >
+        <mat-error *ngIf="bookingForm.get('vista').hasError('maxlength')">
+          El nombre de la vista debe contener 12 caracteres como maximo.
+        </mat-error>
+    </mat-form-field>
+  </form> -->
+    <br>
+      <button type="button" class="btn btn-default" (click)="confirm()" >Confirmar</button>
+      <button type="button" class="btn btn-primary" (click)="decline()" >Cancelar</button>
+    </div>
+  </ng-template>
+</app-header>
 
 
 

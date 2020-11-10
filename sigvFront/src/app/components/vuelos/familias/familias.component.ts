@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter, HostListener} from '@angular/core';
+import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter, HostListener, ViewChild} from '@angular/core';
 import { AirportService } from '../../../services/airport.service';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
@@ -8,6 +8,9 @@ import { VuelosComponent } from '../../busqueda-global/vuelos/vuelos.component';
 import { IFlightAvailability } from '../../../models/IFlightAvailability';
 import { fromEvent } from 'rxjs';
 import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
+import { RecomendacionHotelComponent } from '../../busqueda-global/vuelos/recomendacion-hotel/recomendacion-hotel.component';
+import { MatStepper } from '@angular/material/stepper';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 declare var jquery: any;
 declare var $: any;
@@ -15,7 +18,10 @@ declare var $: any;
 @Component({
   selector: 'app-familias',
   templateUrl: './familias.component.html',
-  styleUrls: ['./familias.component.sass']
+  styleUrls: ['./familias.component.sass'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: { displayDefaultIndicatorType: false }
+  }]
 })
 export class FamiliasComponent implements OnInit, AfterViewInit {
 
@@ -28,9 +34,11 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   @Input() famFareAmountByPassenger;
   @Input() flagMsgErrorSelFam: boolean;
   @Input() modalRef: BsModalRef;
+  @Input() lcombinations;
 
   @Output() flagCloseModal = new EventEmitter<boolean>();
   @Output() outIdRadioBtnFareFam = new EventEmitter<string>();
+  @Output() addHotel = new EventEmitter<any>();
 
   //precioTotal = 0;
   //precioPersona = 0;
@@ -40,13 +48,21 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   lsFlightAvailabilty: IFlightAvailability;
   //modalRef: BsModalRef;
   flagChangeFare = 0;
+  flagAutoCroselling;
+  loginDataUser;
+  flightHotel;
   lstFareFamily: any[] = [];
+  vueloSeleccionado: any;
   ss_FlightAvailability_request2;
   config = {
     backdrop: true,
     ignoreBackdropClick: true,
     keyboard: false
   };
+
+  @ViewChild('stepper', { static: false }) stepper: MatStepper;
+
+  @ViewChild('recomendacionHotel', { read: RecomendacionHotelComponent, static: false }) recomendacionHotel: RecomendacionHotelComponent;
 
   constructor(
     private airportService: AirportService,
@@ -57,15 +73,25 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     private spinner: NgxSpinnerService,
     private vuelosComponent: VuelosComponent
   ) {
+    console.log("FamiliasComponent constructor");
     //this.precioTotal = 0;
     //this.precioPersona = 0;
     //this.flagMsgErrorSelFam = false;
   }
 
   ngOnInit() {
+    console.log("FamiliasComponent ngOnInit");
+    this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.flagAutoCroselling = this.sessionStorageService.retrieve('ss_login_data').ocompany.ocompanyConfiguration.crossSellingHotel;
+    if(this.flagAutoCroselling){
+      if(this.loginDataUser.orole.roleId === 3){
+        this.flagAutoCroselling = false;
+      }
+    }
   }
 
   ngAfterViewInit() {
+    console.log("FamiliasComponent ngAfterViewInit");
     /*
     console.log('modal familia ngAfterViewInit');
     let precioTotal = 0;
@@ -96,6 +122,110 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     this.precioTotal = precioTotal;
     this.precioPersona = this.precioTotal / this.nroPersonas;
     */
+
+    //PASO 1: identificar lo seleccionado en la section 0
+    console.log("//PASO 1: identificar lo seleccionado en la section 0");
+    let section0_fareBasis = [];
+    this.dataRequestFamilia.Lsections.forEach(function(sectionVal, indexSectionVal) {
+      if (indexSectionVal === 0) {
+        sectionVal.Lsegments.forEach(function(segmentVal) {
+          segmentVal.LsegmentGroups.forEach(function(segmentGroupVal) {
+            section0_fareBasis.push(segmentGroupVal.FareBasis);
+          });
+        });
+      }
+    });
+    console.log("section0_fareBasis: " + JSON.stringify(section0_fareBasis));
+
+    //PASO 2: buscar esas sections en el listado de combinaciones
+    const lcombinations = this.lcombinations;
+    console.log("//PASO 2: buscar esas sections en el listado de combinaciones");
+    let lstCombinacionesSection = [];
+    let flagSection0 = 0;
+    lcombinations.forEach(function(combinacion, indexCombinacion) {
+      const lbasisCombinations = combinacion.lbasisCombinations;
+      flagSection0 = 0;
+      lbasisCombinations.forEach(function(valor, indexValor) {
+        if (valor.sectionId == 1) {
+          if (valor.fareBasis == section0_fareBasis[indexValor]) {
+            flagSection0++;
+          }
+        }
+      });
+      if (flagSection0 === section0_fareBasis.length) {
+        lstCombinacionesSection.push(combinacion);
+      }
+    });
+
+    //PASO 3: hide los cards
+    console.log("PASO 3: hide los cards");
+    this.lstFamilyResult.forEach(function(section, indexSection) {
+      if (indexSection > 0) {
+        section.lsegments.forEach(function(segment, indexSegment) {
+
+          segment.lfareFamilies.forEach(function(fare, indexFare) {
+            const fareBasisGG = fare.fareBasis;
+            let idSecuencial = indexSection + "_" + indexSegment + "_" + (indexFare + 1);
+            const cardId = 'cardId_' + section.sectionId + '_' + (indexSegment+1) + '_' + fareBasisGG;
+            console.log("cardId hide: " + cardId);
+            $("#" + cardId).hide();
+          });
+
+        });
+      }
+    });
+
+    //PASO 4: teniendo las combinaciones q existe para el section seleccionado
+    console.log("//PASO 4: teniendo las combinaciones q existe para el section seleccionado");
+    //        vamos ocultar los radio q no existan
+    lstCombinacionesSection.forEach(function(valor, valorIndex) {
+      const lbasisCombinations = valor.lbasisCombinations;
+      lbasisCombinations.forEach(function(combi, combiIndex) {
+        if (combi.sectionId != '1') {
+          const cardId = 'cardId_' + combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
+          console.log("cardId show: " + cardId);
+          $("#" + cardId).show();
+        }
+      });
+    });
+
+    //PASO 5
+    console.log("PASO 5");
+    const combinacionInicial = lstCombinacionesSection[0];
+    console.log("combinacionInicial: " + JSON.stringify(combinacionInicial));
+    const totalPrice_0 = combinacionInicial.totalPrice;
+    console.log("totalPrice_0: " + totalPrice_0);
+    const currency_0 = combinacionInicial.currency;
+    console.log("currency_0: " + currency_0);
+    const lbasisCombinations_0 = combinacionInicial.lbasisCombinations;
+    console.log("lbasisCombinations_0: " + JSON.stringify(lbasisCombinations_0));
+    lbasisCombinations_0.forEach(function(combo, comboIndex) {
+      //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
+    });
+    this.lstFamilyResult.forEach(function(section, sectionIndex) {
+      const sectionId = section.sectionId;
+      section.lsegments.forEach(function(segment, segmentIndex) {
+        segment.lfareFamilies.forEach(function(fare, fareFamilyIndex) {
+          const fareBasisGG = fare.fareBasis;
+          const idRadioBtn = sectionId + '_' + (segmentIndex + 1) + '_' + fareBasisGG;
+          console.log("idRadioBtn: " + idRadioBtn);
+          lbasisCombinations_0.forEach(function(combi, comboIndex) {
+            //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
+            const combiIdRadioBtn = combi.sectionId + '_' + combi.segmentId + '_' + combi.fareBasis;
+            if (combi.sectionId == sectionId) {
+              console.log("combiIdRadioBtn: " + combiIdRadioBtn);
+              if (idRadioBtn === combiIdRadioBtn) {
+                console.log("SI: " + '#idRadioFam_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex + 1));
+                $('#idRadioFam_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex + 1)).prop("checked", true);
+              }
+            }
+          });
+        });
+      });
+    });
+    this.famTotalFareAmount = totalPrice_0;
+    this.famFareAmountByPassenger = Number(totalPrice_0) / this.nroPersonas;
+
   }
 
   sumTotal($event) {
@@ -103,6 +233,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   selectRadioBtnFam($event) {
+    console.log("selectRadioBtnFam");
     //this.modalRef.hide();
     this.outIdRadioBtnFareFam.emit($event);
     /*
@@ -170,8 +301,64 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     this.lstFareFamily = lstFareFamily;
   }
 
+  gotoStep(step: number) {
+    this.stepper.steps.map((matSteap, index) => {
+      if (index < step) {
+        matSteap.completed = true;
+      }
+    });
+    this.stepper.selectedIndex = step;
+  }
+
+  adicionarHotel(recomendacion) {
+    var getVar = this.sessionStorageService.retrieve('objbuscador');
+    console.log(this.flagAutoCroselling);
+    if (this.flagAutoCroselling) {
+      this.sessionStorageService.store('ss_flightavailability_request1_recomendacion', recomendacion);
+      this.vueloSeleccionado = this.sessionStorageService.retrieve('ss_flightavailability_request1');
+      // tslint:disable-next-line: max-line-length
+      let fechallegada = this.vueloSeleccionado.Lsections[0].Lsegments[0].LsegmentGroups[this.vueloSeleccionado.Lsections[0].Lsegments[0].LsegmentGroups.length - 1].ArrivalDate;
+
+      if (this.tipoVuelo === 'RT') {
+        let fechaSalida = this.vueloSeleccionado.Lsections[1].DepartureDate;
+        console.log(fechallegada);
+        console.log(fechaSalida);
+        this.recomendacionHotel.triggerSearch(
+          fechallegada.substring(0, 2) + '-' + fechallegada.substring(2, 4) + '-' + '20' + fechallegada.substring(4, 6),
+          fechaSalida.substring(0, 2) + '-' + fechaSalida.substring(2, 4) + '-' + '20' + fechaSalida.substring(4, 6),
+          getVar.pasajeros,
+          getVar.destinocode,
+          getVar.destino,
+          'Todas',
+          recomendacion,
+          this.tipoVuelo,
+        );
+        this.gotoStep(1);
+        console.log(fechallegada);
+        console.log(fechaSalida);
+      } else if (this.tipoVuelo === 'OW') {
+        let salidaTemp = new Date('20' + fechallegada.substring(4, 6) + '-' + fechallegada.substring(2, 4) + '-' + (fechallegada.substring(0, 2) * 1 + 1));
+        this.recomendacionHotel.triggerSearch(
+          fechallegada.substring(0, 2) + '-' + fechallegada.substring(2, 4) + '-' + '20' + fechallegada.substring(4, 6),
+          (salidaTemp.getDate() < 10 ? '0' + salidaTemp.getDate() : salidaTemp.getDate()) + '-' +
+          ((((salidaTemp.getMonth() * 1) + 1) < 10) ? '0' + ((salidaTemp.getMonth() * 1) + 1) : ((salidaTemp.getMonth() * 1) + 1)) + '-' + salidaTemp.getFullYear(),
+          getVar.pasajeros,
+          getVar.destinocode,
+          getVar.destino,
+          'Todas',
+          recomendacion,
+          this.tipoVuelo,
+        );
+        this.gotoStep(1);
+      } else {
+        alert('No se encontró una fecha de llegada para el vuelo seleccionada');
+      }
+    }
+  }
+
 
   seleccionarFamilia(template) {
+    console.log("seleccionarFamilia");
     this.flagCloseModal.emit(true);
  //   this.router.navigate(['/reserva-vuelo']);
     let request = this.sessionStorageService.retrieve('ss_flightavailability_request1');
@@ -227,6 +414,13 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
         //this.spinner.hide();
         if (flagResult === 1) {
           this.router.navigate(['/reserva-vuelo']);
+         /*  if (!this.flagAutoCroselling) {
+            this.router.navigate(['/reserva-vuelo']);
+          } else {
+            this.validateHotel();
+            this.flightHotel = this.sessionStorageService.retrieve('ss_objvuelohotel');
+            this.adicionarHotel(this.flightHotel);
+          } */
         }
         if (flagResult === 2) {
           this.flagMsgErrorSelFam = true;

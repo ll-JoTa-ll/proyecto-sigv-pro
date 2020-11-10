@@ -1,1 +1,166 @@
-<p>reports works!</p>
+
+<app-header>
+  <ng-container>
+    <div class="containerFlex" style="background: #F5F5F5;">
+      <div class="two">
+        <div style="width: 6%;float: left;margin-top: 40px;position: absolute;overflow: hidden;background: linear-gradient(240.91deg, #ED1C24 19.85%, #D51A2C 42.53%, #3C4749 97.6%);height: -webkit-fill-available;border-radius: 0px 40px 40px 0px;">
+          <!-- <div  style="width: 100%;text-align: center;margin-top: 40px;margin-bottom: 20px;" (click)="home()">
+            <img src="./assets/images/reports/logo.svg" style="width: 30%;margin: 14px 0px;cursor: pointer;"><br>
+          </div> -->
+          <div id="report" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionar()">
+            <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 0px;"><br>
+            <span class="textVertical">Reporte General</span>
+          </div>
+         <!--  <div style="width: 100%;text-align: center;">
+            <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+          </div>
+          <div style="width: 100%;text-align: center;">
+            <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+          </div>
+          <div style="width: 100%;text-align: center;">
+            <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+          </div> -->
+        </div>
+      </div>
+      <div class="eigth" style="border: 1px solid #DEDEDE;background: #FFFFFF;box-sizing: border-box;">
+        <div class="container">
+
+        </div>
+
+        <div class="container" style="margin: 30px 30px;">
+          <div class="container">
+            <span class="textVuelo">Reportes</span>
+            <div style="background-image:linear-gradient(to right, #E2231A  31%, #C4C4C4  24%);width: 90%;height: 4px;" (click)="seleccionar()">
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="container">
+          <div  class="containerFlex">
+            <div style="width: 5%;">
+
+            </div>
+            <div  style="width: 90%;border: 1px solid #C2C2C2;box-sizing: border-box;height: 490px;border-radius: 20px 0px;">
+              <!-- <div *ngIf="ver" style="background: #FAFAFA;width: fit-content;;display: flex;">
+                <div *ngFor="let head of listReports[0] | key" style="border-right: 1px solid #C2C2C2;color: #EE1D25;font-size: 18px;font-family: Omnes-med">{{head}}</div>
+              </div>
+              <div *ngFor="let item of listReports" class="box-shadow" style="width: fit-content;display: flex">
+                <div *ngFor="let list of item | key" >{{item[list]}}</div>
+              </div> -->
+              <img src="./assets/images/reports/reportGeneral.jpg" style="width: 780px;height: 500px;border-radius: 20px 0px;">
+            </div>
+
+
+            <div style="width: 5%;">
+
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <div class="containerFlex">
+            <div style="width: 30%;">
+
+            </div>
+            <div style="width: 40%;text-align: center;">
+
+
+            </div>
+            <div style="width: 30%;">
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="two">
+
+      </div>
+    </div>
+  </ng-container>
+</app-header>
+
+
+
+
+
+
+
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+    <style>
+
+      .example-container {
+        width: 50%;
+        max-width: 100%;
+        margin: 0 25px 25px 0;
+        display: inline-block;
+        vertical-align: top;
+        height: 436px;
+        overflow: auto;
+      }
+
+      .example-list {
+        border: solid 1px #ccc;
+        min-height: 60px;
+        background: white;
+        border-radius: 4px;
+        overflow: hidden;
+        display: block;
+      }
+
+      .example-box {
+        padding: 20px 10px;
+        border-bottom: solid 1px #ccc;
+        color: rgba(0, 0, 0, 0.87);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        cursor: move;
+        background: white;
+        font-size: 14px;
+      }
+
+      .cdk-drag-preview {
+        box-sizing: border-box;
+        border-radius: 4px;
+        box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+      }
+
+      .cdk-drag-placeholder {
+        opacity: 0;
+      }
+
+      .cdk-drag-animating {
+        transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+      }
+
+      .example-box:last-child {
+        border: none;
+      }
+
+      .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+        transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+      }
+
+      </style>
+<!--   <table>
+    <thead>
+      <tr>
+        <th *ngFor="let head of listReports[0] | key">{{head}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listReports">
+        <td *ngFor="let list of item | key">{{item[list]}}</td>
+      </tr>
+    </tbody>
+  </table> -->
+
+
+
+

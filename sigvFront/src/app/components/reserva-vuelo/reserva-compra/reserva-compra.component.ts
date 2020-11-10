@@ -533,7 +533,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       let data = {
         "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
         "Recipients": mails,
-        "RecipientsCopy": [mailcontacto, 'analista8@gmail.com'],
+        "RecipientsCopy": [mailcontacto, ''],
         "RecipientsHiddenCopy": [],
         "Subject": "SOLICITUD APROBACION DE EXCEPCION",
         "Message": email
@@ -572,7 +572,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       let data = {
         "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
         "Recipients": mails,
-        "RecipientsCopy": ['analista8@domiruth.com', mailcontacto],
+        "RecipientsCopy": ['', mailcontacto],
         "RecipientsHiddenCopy": [],
         "Subject": "RESERVA GENERADA",
         "Message": this.emailreserva

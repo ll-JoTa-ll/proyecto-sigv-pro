@@ -93,20 +93,26 @@
 
             <div class="row m-0 p-0">
 
+              <div class="col-3 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
+                <img  style="width: 33px" src="assets/images/mochila.svg" tooltip="Permite mochila">
+            </div>
 
-                <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
-                    <img style="width: 33px;" tooltip="Permite equipaje de mano." src="./assets/images/bolsodemano-1.svg" alt="">
+                <div class="col-3 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
+                    <img *ngIf="bagAllowed" style="width: 33px;" tooltip="Incluye maleta en cabina." src="./assets/images/bolsodemano-1.svg" alt="">
+                    <img *ngIf="!bagAllowed" src="../../assets/images/accessory.svg" tooltip="No incluye maleta en cabina"  style="width: 33px;filter: grayscale(1);">
                     <!--
             <img *ngIf="!bagAllowed" src="./assets/images/accesorio_gris.svg" alt="">
             -->
                 </div>
 
-                <div class="col-4 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
+
+
+                <div class="col-3 m-0 p-0 pt-2 pb-2 text-center d-flex justify-content-center align-items-center">
                     <img style="width: 33px;" tooltip="Incluye equipaje para documentar. {{bagQuantity}} maleta(s) por adulto." *ngIf="bagAllowed" src="./assets/images/maleta-si.svg" alt="">
                     <img style="width: 33px;" tooltip="No incluye maleta." *ngIf="!bagAllowed" src="./assets/images/maleta-no.svg" alt="">
                 </div>
 
-                <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
+                <div class="col-3 m-0 p-0 text-center d-flex justify-content-center align-items-center">
                     <img *ngIf="lSegmentGroups.length === 0" style="width: 40px; cursor: pointer;" (click)="listSegmentGroups(flagSegmentId, segment.lsegmentGroups)" src="./assets/images/arrow-down.svg" alt="">
                     <img *ngIf="lSegmentGroups.length > 0" style="width: 40px; cursor: pointer;" (click)="hideSegmentGroups(flagSegmentId)" src="./assets/images/arrow-up.svg" alt="">
                 </div>
@@ -130,19 +136,37 @@
                 </div>
                 <div class="col-10 m-0 p-0">
                     <div class="row m-0 p-0">
+                      <div class="col-12 m-0 p-0 pt-3">
+                        <div class="row m-0 p-0">
+                            <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
+                              <img  style="width: 33px" src="assets/images/mochila.svg" >
+                            </div>
+                            <div class="col-10 m-0 p-0">
+                                <div class="row m-0 p-0">
+                                    <div  class="col-12 m-0 p-0 s-texto-5">
+                                        Incluye mochila
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                         <div class="col-12 m-0 p-0 pt-3">
                             <div class="row m-0 p-0">
                                 <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
-                                    <img style="width: 33px;" src="./assets/images/bolsodemano-1.svg" alt="">
+                                    <img *ngIf="bagAllowed" style="width: 33px;" src="./assets/images/bolsodemano-1.svg" alt="">
+                                    <img *ngIf="!bagAllowed" src="../../assets/images/accessory.svg"  style="width: 33px;filter: grayscale(1);">
                                 </div>
                                 <div class="col-10 m-0 p-0">
                                     <div class="row m-0 p-0">
-                                        <div class="col-12 m-0 p-0 s-texto-5">
-                                            Incluye equipaje de mano
+                                        <div *ngIf="bagAllowed" class="col-12 m-0 p-0 s-texto-5">
+                                            Incluye maleta en cabina
                                         </div>
-                                        <div class="col-12 m-0 p-0 s-texto-6">
+                                        <div *ngIf="bagAllowed" class="col-12 m-0 p-0 s-texto-6">
                                             Debe caber en el compartimiento superior del avión.
                                         </div>
+                                        <div *ngIf="!bagAllowed" class="col-12 m-0 p-0 s-texto-5">
+                                          No incluye maleta en cabina
+                                      </div>
                                     </div>
                                 </div>
                             </div>

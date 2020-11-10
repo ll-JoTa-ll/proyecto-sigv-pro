@@ -64,6 +64,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   @Input() uidByCompanyP: any[] = [];
   @Input() lstCostCenter: ICostCenterCompany[] = [];
   lstValoresPax: any[] = [];
+  loginData;
 
   constructor(
     private userCompanyService: UserCompanyService,
@@ -75,6 +76,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     //console.log("index: " + this.index);
     let fecha;
     this.datosuser = sessionStorageService.retrieve('objusuarios');
+
     this.datosuser.forEach(element => {
       fecha = new Date(element.birthDate);
       this.bsValue = fecha;
@@ -84,6 +86,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     //console.log("DatosPasajeroComponent ngOnInit");
     //console.log("index: " + this.index);
+    this.loginData = this.sessionStorageService.retrieve('ss_login_data');
     this.document();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
@@ -251,6 +254,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       } else {
         $('#txttelefono_' + (index + 1)).removeClass('campo-invalido');
       }
+
     });
   }
 
