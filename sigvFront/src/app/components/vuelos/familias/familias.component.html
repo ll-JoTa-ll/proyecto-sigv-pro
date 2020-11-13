@@ -1,122 +1,159 @@
-<div class="row m-0 p-0" style="width: 100%;">
-    <div class="col-9 m-0 p-0 fondo">
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0 p-0 txt-titulo text-center pt-4 pb-4">
-                <span class="pr-3"><img src="assets/images/travel.svg" alt=""></span> <span>FAMILIAS TARIFARIAS</span>
-            </div>
-        </div>
-        <div class="pb-2 pr-2 pl-2">
-            <app-vuelo-familia-section style="width: 100%; padding-top: 35px;" *ngFor="let sectionFamily of lstFamilyResult; let i=index" [sectionFamily]="sectionFamily" [sectionFamilyIndex]="i" [lstFamilyResultLength]="lstFamilyResult.length" (idRadioBtnFareFam)="selectRadioBtnFam($event)">
-            </app-vuelo-familia-section>
-        </div>
+<div class="row m-0 p-0" style="width: 100%">
+  <div class="col-9 m-0 p-0 fondo">
+    <div class="row m-0 p-0">
+      <div class="col-12 m-0 p-0 txt-titulo text-center pt-4 pb-4">
+        <span class="pr-3"><img src="assets/images/travel.svg" alt="" /></span>
+        <span>FAMILIAS TARIFARIAS</span>
+      </div>
     </div>
-    <div class="col-3 m-0 p-0 pl-3 pr-2" style="background: #FFFFFF 0% 0% no-repeat padding-box;">
-        <div class="col-12 m-0 p-0" style="position: sticky; top: 0;">
-            <div class="row m-0 p-0">
+    <div class="pb-2 pr-2 pl-2">
+      <app-vuelo-familia-section
+        style="width: 100%; padding-top: 35px"
+        *ngFor="let sectionFamily of lstFamilyResult; let i = index"
+        [sectionFamily]="sectionFamily"
+        [sectionFamilyIndex]="i"
+        [lstFamilyResultLength]="lstFamilyResult.length"
+        (idRadioBtnFareFam)="selectRadioBtnFam($event)"
+      >
+      </app-vuelo-familia-section>
+    </div>
+  </div>
+  <div
+    class="col-3 m-0 p-0 pl-3 pr-2"
+    style="background: #ffffff 0% 0% no-repeat padding-box"
+  >
+    <div class="col-12 m-0 p-0" style="position: sticky; top: 0">
+      <div class="row m-0 p-0">
+        <div class="col-2 m-0 p-0"></div>
 
-                <div class="col-2 m-0 p-0"></div>
-
-                <div class="col-8 m-0 p-0">
-
-                    <div class="row m-0 p-0">
-
-                        <div class="col-12 m-0 p-0 text-center pb-2">
-                            <img src="./assets/images/logo-familia.png" alt="" style="width: 85px;">
-                        </div>
-
-                        <div class="col-12 m-0 p-0">
-
-                            <div class="row m-0 p-0">
-
-                                <div class="col-12 m-0 p-0 f-text-1" style="text-align: center">
-                                    Las tarifas que te mostraremos en las familias corresponden a 1 pasajero y no incluye tasas de embargue. Estas están incluídas dentro al momento de seleccionar la combinación requerida en el Precio Base.
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="col-2 m-0 p-0"></div>
-
+        <div class="col-8 m-0 p-0">
+          <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 text-center pb-2">
+              <img
+                src="./assets/images/logo-familia.png"
+                alt=""
+                style="width: 85px"
+              />
             </div>
-            <div class="row m-0 p-0 box-shadow pb-5">
-                <div class="col-12 m-0 p-0" style="height: 20px;"></div>
 
-                <div class="col-12 m-0 p-0" style="height: 20px;">
-
-                    <div class="row m-0 p-0">
-                        <div class="col-4 m-0 p-0 d-flex justify-content-center align-items-center f-div-pxa">
-                            Precio Final
-                        </div>
-                        <div class="col-4 m-0 p-0"></div>
-                        <div class="col-4 m-0 p-0"></div>
-                    </div>
-
+            <div class="col-12 m-0 p-0">
+              <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0 f-text-1" style="text-align: center">
+                  Las tarifas que te mostraremos en las familias corresponden a
+                  1 pasajero y no incluye tasas de embargue. Estas están
+                  incluídas dentro al momento de seleccionar la combinación
+                  requerida en el Precio Base.
                 </div>
-
-                <div class="col-12 m-0 p-0 d-flex align-items-center" style="height: 110px;">
-
-                    <div class="row m-0 p-0" style="width: 100%;">
-
-                        <div class="col-12 m-0 p-0 d-flex justify-content-center align-items-center pt-5">
-                            <span class="precioxadt">Precio por adulto</span> <span class="f-text-3 pl-1">{{currency}}</span> <span class="f-text-4 pl-1">{{famFareAmountByPassenger | number}}</span>
-                        </div>
-
-                        <div class="col-12 m-0 p-0 text-center pt-4">
-                            <span class="f-text-5">{{currency}}</span> <span class="f-text-6 pl-1">{{famTotalFareAmount | number}}</span>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-            <div class="row m-0 p-0 pt-5">
-                <div class="col-12 m-0 p-0 text-center pb-3">
-                    <button [disabled]="flagMsgErrorSelFam" (click)="seleccionarFamilia(modalerror)" [ngClass]="{'btn-seleccionar': flagMsgErrorSelFam === false, 'btn btn-seleccionar-disabled': flagMsgErrorSelFam === true}">Seleccionar</button>
-                </div>
-                <div class="col-12 m-0 p-0 text-center pb-5">
-                    <button (click)="modalRef.hide()" class="btn btn-cerrar">Cerrar</button>
-                </div>
-            </div>
+          </div>
         </div>
+
+        <div class="col-2 m-0 p-0"></div>
+      </div>
+      <div class="row m-0 p-0 box-shadow pb-5">
+        <div class="col-12 m-0 p-0" style="height: 20px"></div>
+
+        <div class="col-12 m-0 p-0" style="height: 20px">
+          <div class="row m-0 p-0">
+            <div
+              class="col-4 m-0 p-0 d-flex justify-content-center align-items-center f-div-pxa"
+            >
+              Precio Final
+            </div>
+            <div class="col-4 m-0 p-0"></div>
+            <div class="col-4 m-0 p-0"></div>
+          </div>
+        </div>
+
+        <div
+          class="col-12 m-0 p-0 d-flex align-items-center"
+          style="height: 110px"
+        >
+          <div class="row m-0 p-0" style="width: 100%">
+            <div
+              class="col-12 m-0 p-0 d-flex justify-content-center align-items-center pt-5"
+            >
+              <span class="precioxadt">Precio por adulto</span>
+              <span class="f-text-3 pl-1">{{ currency }}</span>
+              <span class="f-text-4 pl-1">{{
+                famFareAmountByPassenger | number
+              }}</span>
+            </div>
+
+            <div class="col-12 m-0 p-0 text-center pt-4">
+              <span class="f-text-5">{{ currency }}</span>
+              <span class="f-text-6 pl-1">{{
+                famTotalFareAmount | number
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row m-0 p-0 pt-5">
+        <div class="col-12 m-0 p-0 text-center pb-3">
+          <button
+            [disabled]="flagMsgErrorSelFam"
+            (click)="seleccionarFamilia(modalerror)"
+            [ngClass]="{
+              'btn-seleccionar': flagMsgErrorSelFam === false,
+              'btn btn-seleccionar-disabled': flagMsgErrorSelFam === true
+            }"
+          >
+            Seleccionar
+          </button>
+        </div>
+        <div class="col-12 m-0 p-0 text-center pb-5">
+          <button (click)="modalRef.hide()" class="btn btn-cerrar">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 m-0 p-0 pb-4" *ngIf="flagMsgErrorSelFam">
+    <div class="col-12 m-0 p-0 text-center">
+      <alert type="danger ">
+        <strong>¡Lo sentimos!</strong> La combinación realizada no está
+        disponible por la línea aérea
+      </alert>
+    </div>
+  </div>
+
+  <ng-template #modalerror let-c="close " let-d="dismiss ">
+    <div class="modal-header pb-0" style="border: none">
+      <button
+        type="button "
+        class="close pull-right"
+        aria-label="Close "
+        (click)="modalRef.hide()"
+      >
+        <span aria-hidden="true ">&times;</span>
+      </button>
     </div>
 
-    <div class="col-12 m-0 p-0 pb-4 " *ngIf="flagMsgErrorSelFam">
-        <div class="col-12 m-0 p-0 text-center ">
-            <alert type="danger ">
-                <strong>¡Lo sentimos!</strong> La combinación realizada no está disponible por la línea aérea
-            </alert>
+    <div class="modal-body m-0 p-0">
+      <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1">
+          ¡Lo sentimos!
         </div>
+
+        <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2">
+          No hemos encontrado disponibilidad
+        </div>
+
+        <div class="col-12 m-0 p-0 pb-4 text-center">
+          <button class="btn r-btn-sinfam-1" (click)="modalRef.hide()">
+            <img
+              src="./assets/images/home/buscador-musical.svg "
+              alt=" "
+              style="width: 15px"
+            />
+            Continuar con mi busqueda
+          </button>
+        </div>
+      </div>
     </div>
-
-
-    <ng-template #modalerror let-c="close " let-d="dismiss ">
-
-        <div class="modal-header pb-0 " style="border: none; ">
-            <button type="button " class="close pull-right " aria-label="Close " (click)="modalRef.hide() ">
-      <span aria-hidden="true ">&times;</span>
-    </button>
-        </div>
-
-        <div class="modal-body m-0 p-0 ">
-            <div class="row m-0 p-0 ">
-                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-1 ">
-                    ¡Lo sentimos!
-                </div>
-
-                <div class="col-12 m-0 p-0 pb-4 text-center r-text-sinfam-2 ">
-                    No hemos encontrado disponibilidad
-                </div>
-
-                <div class="col-12 m-0 p-0 pb-4 text-center ">
-                    <button class="btn r-btn-sinfam-1 " (click)="modalRef.hide() ">
-          <img src="./assets/images/home/buscador-musical.svg " alt=" " style="width: 15px ">
-          Continuar con mi busqueda
-        </button>
-                </div>
-            </div>
-        </div>
-
-    </ng-template>
+  </ng-template>
+</div>
