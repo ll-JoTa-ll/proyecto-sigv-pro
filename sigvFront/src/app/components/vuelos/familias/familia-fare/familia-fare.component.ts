@@ -1,18 +1,24 @@
-import {Component, OnInit, Input, AfterViewInit, Output, EventEmitter} from '@angular/core';
-import { IFareFamilyServiceModel } from '../../../../models/IFareFamilyService.model';
-import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
-import { IFamilyResultModel } from '../../../../models/IFamilyResult.model';
+import {
+  Component,
+  OnInit,
+  Input,
+  AfterViewInit,
+  Output,
+  EventEmitter,
+} from "@angular/core";
+import { IFareFamilyServiceModel } from "../../../../models/IFareFamilyService.model";
+import { SessionStorageService, LocalStorageService } from "ngx-webstorage";
+import { IFamilyResultModel } from "../../../../models/IFamilyResult.model";
 
 declare var jquery: any;
 declare var $: any;
 
 @Component({
-  selector: 'app-familia-fare',
-  templateUrl: './familia-fare.component.html',
-  styleUrls: ['./familia-fare.component.sass']
+  selector: "app-familia-fare",
+  templateUrl: "./familia-fare.component.html",
+  styleUrls: ["./familia-fare.component.sass"],
 })
 export class FamiliaFareComponent implements OnInit, AfterViewInit {
-
   @Input() fareFamily: IFareFamilyServiceModel;
   @Input() currency;
   @Input() fareFamilyIndex;
@@ -62,7 +68,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     "#D90368",
     "#00CC66",
     "#4C2C69",
-    "#C33C54"
+    "#C33C54",
   ];
 
   lstFamilyResult: IFamilyResultModel;
@@ -73,32 +79,40 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService
   ) {
-    this.idDivInc = 'idDivInc';
-    this.idDivNof = 'idDivNof';
-    this.idDivCha = 'idDivCha';
+    this.idDivInc = "idDivInc";
+    this.idDivNof = "idDivNof";
+    this.idDivCha = "idDivCha";
 
-    this.classDivInc = 'classDivInc';
-    this.classDivNof = 'classDivNof';
-    this.classDivCha = 'classDivCha';
+    this.classDivInc = "classDivInc";
+    this.classDivNof = "classDivNof";
+    this.classDivCha = "classDivCha";
 
-    this.nameRadioBtn = 'nameRadioFam';
-    this.idRadioBtn = 'idRadioFam';
+    this.nameRadioBtn = "nameRadioFam";
+    this.idRadioBtn = "idRadioFam";
 
-    this.idNameFamilyName = 'idNameFamilyName';
-    this.idNameFamilyName1 = 'idNameFamilyName1';
-    this.classNameFamilyName = 'classNameFamilyName';
+    this.idNameFamilyName = "idNameFamilyName";
+    this.idNameFamilyName1 = "idNameFamilyName1";
+    this.classNameFamilyName = "classNameFamilyName";
 
-    this.lstFamilyResult = this.sessionStorageService.retrieve('ss_lstFamilyResult');
+    this.lstFamilyResult = this.sessionStorageService.retrieve(
+      "ss_lstFamilyResult"
+    );
 
-    this.cardId = 'cardId';
+    this.cardId = "cardId";
   }
 
   ngOnInit() {
     const fareFamily = this.fareFamily;
     //console.log('fareFamily: ' + JSON.stringify(fareFamily));
-    this.lstInc = fareFamily.lfamilyServices.filter(x => x.serviceStatus === 'INC');
-    this.lstNof = fareFamily.lfamilyServices.filter(x => x.serviceStatus === 'NOF');
-    this.lstCha = fareFamily.lfamilyServices.filter(x => x.serviceStatus === 'CHA');
+    this.lstInc = fareFamily.lfamilyServices.filter(
+      (x) => x.serviceStatus === "INC"
+    );
+    this.lstNof = fareFamily.lfamilyServices.filter(
+      (x) => x.serviceStatus === "NOF"
+    );
+    this.lstCha = fareFamily.lfamilyServices.filter(
+      (x) => x.serviceStatus === "CHA"
+    );
   }
 
   ngAfterViewInit() {
@@ -115,7 +129,6 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
       heightDivCha = 160;
     }
 
-
     $("." + this.classDivInc + this.segmentIndex).height(heightDivInc);
     $("." + this.classDivNof + this.segmentIndex).height(heightDivNof);
     $("." + this.classDivCha + this.segmentIndex).height(heightDivCha);
@@ -127,8 +140,12 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     }
     */
     //this.sessionStorageService.store('ss_FlightAvailability_request1', dataFamilias);
-    const ss_FlightAvailability_request1 = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
-    const ss_lstFamilyResult = this.sessionStorageService.retrieve('ss_lstFamilyResult');
+    const ss_FlightAvailability_request1 = this.sessionStorageService.retrieve(
+      "ss_FlightAvailability_request1"
+    );
+    const ss_lstFamilyResult = this.sessionStorageService.retrieve(
+      "ss_lstFamilyResult"
+    );
     //console.log("ss_FlightAvailability_request1: " + JSON.stringify(ss_FlightAvailability_request1));
     //console.log("ss_lstFamilyResult: " + JSON.stringify(ss_lstFamilyResult));
     const sectionIndex = this.sectionIndex;
@@ -158,17 +175,40 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
       });
     });
     */
-    const fareBasisVal = ss_lstFamilyResult.lsections[this.sectionIndex].lsegments[this.segmentIndex].lfareFamilies[(this.fareFamilyIndex - 1)].fareBasis;
-    const fareBasisServ = ss_FlightAvailability_request1.Lsections[sectionIndex].Lsegments[0].LsegmentGroups[this.segmentIndex].FareBasis;
+    const fareBasisVal =
+      ss_lstFamilyResult.lsections[this.sectionIndex].lsegments[
+        this.segmentIndex
+      ].lfareFamilies[this.fareFamilyIndex - 1].fareBasis;
+    const fareBasisServ =
+      ss_FlightAvailability_request1.Lsections[sectionIndex].Lsegments[0]
+        .LsegmentGroups[this.segmentIndex].FareBasis;
     if (fareBasisVal == fareBasisServ) {
-      $('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
-      $('#' + idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
-      let nombrefamilia = $('#' + idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).html();
+      $(
+        "#" +
+          idRadioBtn +
+          "_" +
+          sectionIndex +
+          "_" +
+          segmentIndex +
+          "_" +
+          fareFamilyIndex
+      ).prop("checked", true);
+      //$('#' + idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
+      let nombrefamilia = $(
+        "#" +
+          idNameFamilyName +
+          "_" +
+          sectionIndex +
+          "_" +
+          segmentIndex +
+          "_" +
+          fareFamilyIndex
+      ).html();
       let colorfamilia = colorsFare[fareFamilyIndex];
       this.namefamily.emit(nombrefamilia);
       this.colorfamily.emit(colorfamilia);
       console.log(colorfamilia);
-      $('#' + idNameFamilyName1 + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
+      //$('#' + idNameFamilyName1 + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).css({'background-color': colorsFare[fareFamilyIndex]});
     } else {
       console.log("sectionIndex 666");
       console.log(sectionIndex);
@@ -177,7 +217,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
         //const lcombinations = ss_lstFamilyResult.lcombinations;
       }
     }
-  /*  let name =  this.nameRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex;
+    /*  let name =  this.nameRadioBtn + '_' + this.sectionIndex + '_' + this.segmentIndex;
     if ($('input[name="' + name + '"]').is(':checked')) {
      let nombrefamilia = $('#' + idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex  + '_' + (fareFamilyIndex)).html();
      console.log('seleccionado', nombrefamilia);
@@ -190,19 +230,62 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
     const familyLength = this.familyLength;
     //console.log('familyLength: ' + familyLength);
     for (let i = 1; i <= familyLength; i++) {
-      const idCab = '#' + this.idNameFamilyName + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + i;
-      const idcab2 = '#' + this.idNameFamilyName1 + '_' + this.sectionIndex + '_' + this.segmentIndex  + '_' + i;
-      $(idCab).css({'background-color': '#C6C6C6'});
-      $(idcab2).css({'background-color': '#C6C6C6'});
+      const idCab =
+        "#" +
+        this.idNameFamilyName +
+        "_" +
+        this.sectionIndex +
+        "_" +
+        this.segmentIndex +
+        "_" +
+        i;
+      const idcab2 =
+        "#" +
+        this.idNameFamilyName1 +
+        "_" +
+        this.sectionIndex +
+        "_" +
+        this.segmentIndex +
+        "_" +
+        i;
+      $(idCab).css({ "background-color": "#C6C6C6" });
+      $(idcab2).css({ "background-color": "#C6C6C6" });
     }
-    const selRadio = id.split('_');
+    const selRadio = id.split("_");
     const sectionIndex = selRadio[1];
     const segmentIndex = selRadio[2];
     const fareFamilyIndex = selRadio[3];
-    $('#' + this.idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).css({'background-color': this.colorsFare[fareFamilyIndex]});
-    $('#' + this.idNameFamilyName1 + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).css({'background-color': this.colorsFare[fareFamilyIndex]});
+    $(
+      "#" +
+        this.idNameFamilyName +
+        "_" +
+        sectionIndex +
+        "_" +
+        segmentIndex +
+        "_" +
+        fareFamilyIndex
+    ).css({ "background-color": this.colorsFare[fareFamilyIndex] });
+    $(
+      "#" +
+        this.idNameFamilyName1 +
+        "_" +
+        sectionIndex +
+        "_" +
+        segmentIndex +
+        "_" +
+        fareFamilyIndex
+    ).css({ "background-color": this.colorsFare[fareFamilyIndex] });
     console.log(id);
-    let namefamilia = $('#' + this.idNameFamilyName + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex).html();
+    let namefamilia = $(
+      "#" +
+        this.idNameFamilyName +
+        "_" +
+        sectionIndex +
+        "_" +
+        segmentIndex +
+        "_" +
+        fareFamilyIndex
+    ).html();
     let colorfamilia = this.colorsFare[fareFamilyIndex];
 
     this.colorfamily.emit(colorfamilia);

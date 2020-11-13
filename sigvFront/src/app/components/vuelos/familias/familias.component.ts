@@ -76,6 +76,26 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   datosuser: any[] = [];
   lsapprovers: IGetApprovers[] = [];
   flightNational;
+  colorsFare = [
+    "white",
+    "#3D5DBB",
+    "#FF560D",
+    "#E8A40C",
+    "#FFCD0D",
+    "#65E29C",
+    "#71FC86",
+    "#71D7FC",
+    "#9BC53D",
+    "#5F1A37",
+    "#274C77",
+    "#BE95C4",
+    "#8EA604",
+    "#3C1518",
+    "#D90368",
+    "#00CC66",
+    "#4C2C69",
+    "#C33C54",
+  ];
 
   @ViewChild("stepper", { static: false }) stepper: MatStepper;
 
@@ -236,6 +256,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     });
 
     //PASO 5
+    const colorsFare = this.colorsFare;
     console.log("PASO 5");
     const combinacionInicial = lstCombinacionesSection[0];
     console.log("combinacionInicial: " + JSON.stringify(combinacionInicial));
@@ -282,6 +303,25 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
                     "_" +
                     (fareFamilyIndex + 1)
                 ).prop("checked", true);
+
+                $(
+                  "#idNameFamilyName" +
+                    "_" +
+                    sectionIndex +
+                    "_" +
+                    segmentIndex +
+                    "_" +
+                    (fareFamilyIndex + 1)
+                ).css({ "background-color": colorsFare[fareFamilyIndex + 1] });
+                $(
+                  "#idNameFamilyName1" +
+                    "_" +
+                    sectionIndex +
+                    "_" +
+                    segmentIndex +
+                    "_" +
+                    (fareFamilyIndex + 1)
+                ).css({ "background-color": colorsFare[fareFamilyIndex + 1] });
               }
             }
           });

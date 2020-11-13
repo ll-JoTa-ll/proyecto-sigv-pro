@@ -1315,8 +1315,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     $("#" + arrowNext1).hide();
     $("#" + arrowNext2).show();
 
-    $("#imgArrow1_" + section_).show();
-    $("#imgArrow2_" + section_).hide();
+    //$("#imgArrow1_" + section_).show();
+    //$("#imgArrow2_" + section_).hide();
 
     $("#divfamilia_" + (Number(section_) + 1)).hide();
 
