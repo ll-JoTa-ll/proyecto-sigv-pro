@@ -33,6 +33,7 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { ReservaHotelVueloComponent } from './components/busqueda-global/vuelos/reserva-hotel-vuelo/reserva-hotel-vuelo.component';
 import { ResumenVueloHotelComponent } from './components/busqueda-global/vuelos/resumen-vuelo-hotel/resumen-vuelo-hotel.component';
 import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global/vuelos/reserva-generada-vuelo-hotel/reserva-generada-vuelo-hotel.component';
+import { CargaMasivaComponent } from './components/administrador/pasajeros/carga-masiva/carga-masiva.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -67,7 +68,8 @@ const routes: Routes = [
   { path: 'reportes', component: ReportsListComponent, runGuardsAndResolvers: 'always' },
   { path: 'reports', component: ReportsComponent, runGuardsAndResolvers: 'always' },
   { path: 'partner', component: PartnerComponent, runGuardsAndResolvers: 'always' },
-  { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' }
+  { path: ':id', component: LoginComponent, runGuardsAndResolvers: 'always' },
+  { path: 'pasajeros/carga-masiva', component: CargaMasivaComponent, runGuardsAndResolvers: "always" }
 ];
 
 @NgModule({

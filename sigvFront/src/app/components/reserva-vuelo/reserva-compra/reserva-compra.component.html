@@ -64,12 +64,25 @@
                                 </div>
                             </div>
                         </ng-template>
+                        <ng-template #modalDuplicate let-c="close" let-d="dismiss">
+                          <div class="modal-header m-0 pb-0" style="border: none;">
+                              <button type="button" class="close pull-right" aria-label="Close">
+  <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+  </button>
+                          </div>
+                          <div class="modal-body m-0 p-0">
+                              <div *ngFor="let item of mensajeDuplicate" class="col-12 m-0 p-0 pl-5 pr-5 pt-3 pb-4 r-text-sinfam-2">
+                                {{item}}
+                              </div>
+                          </div>
+
+                      </ng-template>
                         <div class="col-12 m-0 p-0 pt-4 pb-4" *ngIf="blockflight === false">
                             <div class="row m-0 p-0" *ngIf="lsapprover.length > 0">
                                 <div class="col-12 m-0 p-0">
                                     <div class="row m-0 p-0">
                                         <div class="col-12 m-0 p-0 pr-5 text-center">
-                                            <button class="btn btnEnviar" (click)="AddPassenger(modalconfirmacion)">Enviar Solicitud</button>
+                                            <button class="btn btnEnviar" (click)="AddPassenger(modalconfirmacion,modalDuplicate)">Enviar Solicitud</button>
                                         </div>
                                     </div>
                                 </div>
@@ -78,14 +91,14 @@
                                 <div class="col-6 m-0 p-0">
                                     <div class="row m-0 p-0">
                                         <div class="col-12 m-0 p-0 pr-5 text-right">
-                                            <button class="btn btnEnviar" (click)="AddPassenger(modalconfirmacion)">Reservar</button>
+                                            <button class="btn btnEnviar" (click)="AddPassenger(modalconfirmacion,modalDuplicate)">Reservar</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 m-0 p-0">
                                     <div class="row m-0 p-0">
                                         <div class="col-12 m-0 p-0 pl-5">
-                                            <button class="btn btnEmitir" (click)="Emitir()">Emitir</button>
+                                            <button class="btn btnEmitir" (click)="Emitir(modalDuplicate)">Emitir</button>
                                         </div>
                                     </div>
                                 </div>

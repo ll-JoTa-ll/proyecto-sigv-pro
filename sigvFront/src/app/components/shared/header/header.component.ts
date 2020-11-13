@@ -46,8 +46,8 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    /* var z = document.getElementById("profile");
-    z.style.display = "none"; */
+    var z = document.getElementById("profile");
+    z.style.display = "none";
   }
 
 

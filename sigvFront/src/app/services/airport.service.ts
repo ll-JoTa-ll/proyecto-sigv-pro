@@ -285,6 +285,16 @@ export class AirportService {
     return this.http.post<IQueuePnr>(this._url4  + "QueuePnr", data, httpOptions2);
   }
 
+  DuplicatePnr(data): Observable<any>  {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': this.key
+    });
+    return this.http.post<any>(this._url4  + "ValidatePnrDuplicate", data, httpOptions2);
+  }
+
   GetPaises(): Observable<IGetPaisesModel[]> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({

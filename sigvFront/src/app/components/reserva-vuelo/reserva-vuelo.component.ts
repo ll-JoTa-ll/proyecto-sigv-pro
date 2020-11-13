@@ -51,6 +51,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   lst_rol_autogestion;
   lst_rol_autorizador;
   LSection;
+  mensajeDuplicate;
   LPolicies;
   datosuser: any[] = [];
   listadocument: any[] = [];
@@ -94,6 +95,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   lstCostCenter: ICostCenterCompany[] = [];
   LcompanyUIDs: any[] = [];
   lstValoresEmpresa: any[] = [];
+  lsusuario;
 
   constructor(
     private modalService: BsModalService,
@@ -108,6 +110,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   ) {
     this.GetPaises();
     this.datarequest = this.sessionStorageService.retrieve('ss_FlightAvailability_request1');
+    this.lsusuario = this.sessionStorageService.retrieve('datosusuario');
     this.flightAvailability_request = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
     this.flightAvailability_result = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -138,12 +141,12 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     let count = this.sessionStorageService.retrieve('count');
-    if (count === undefined || count === null || count === '') {
+    /* if (count === undefined || count === null || count === '') {
       count = true;
     }
     if (count === true) {
       this.startCountDown(600, this.modalexpired);
-    }
+    } */
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
     $('#menu-hotel-1').show();
@@ -635,7 +638,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     );
   }
 
-  Comprar(template, template2) {
+  Comprar(template, template2,template3) {
+    this.spinner.show();
     console.log("Comprar");
     const valIni = this.ValidarCampos();
     if (!valIni) {
@@ -1011,20 +1015,44 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     const valcorreo = this.ValidarCorreo();
     const val = this.ValidarCampos();
     const valmail = this.ValidarCorreoContacto();
-    if (!val || !valcorreo || !valmail) {
-      return val;
-    } else {
-      this.sessionStorageService.store('idprofile', idprofile);
-      this.sessionStorageService.store('contacto', contacto);
-      this.sessionStorageService.store('datosusuario', datosusuario);
-      this.sessionStorageService.store('sectioninfo', this.LSection);
-      this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
-      this.sessionStorageService.store('politicas', this.LPolicies);
-      this.sessionStorageService.store('idmotivo', idmotivo);
-      this.sessionStorageService.store('reason', rason);
-      this.sessionStorageService.store('ss_LcompanyUIDs', this.LcompanyUIDs);
-      this.router.navigate(['/reserva-vuelo-compra']);
-    }
+    let data = {
+      "UserId": this.loginDataUser.userId,
+      "GDS": this.gds,
+      "Pseudo": this.pseudo,
+      "Lsections": this.LSectionPassenger,
+      "Ocompany": this.ocompany,
+      "Lpassenger": datosusuario
+      };
+    this.service.DuplicatePnr(data).subscribe (
+      result => {
+        this.spinner.hide();
+        this.mensajeDuplicate = result;
+        if (result.length === 0 || result.length === []) {
+          if (!val || !valcorreo || !valmail) {
+            return val;
+          } else {
+            this.sessionStorageService.store('idprofile', idprofile);
+            this.sessionStorageService.store('contacto', contacto);
+            this.sessionStorageService.store('datosusuario', datosusuario);
+            this.sessionStorageService.store('sectioninfo', this.LSection);
+            this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
+            this.sessionStorageService.store('politicas', this.LPolicies);
+            this.sessionStorageService.store('idmotivo', idmotivo);
+            this.sessionStorageService.store('reason', rason);
+            this.sessionStorageService.store('ss_LcompanyUIDs', this.LcompanyUIDs);
+            this.router.navigate(['/reserva-vuelo-compra']);
+          }
+
+        } else {
+          this.modalRef = this.modalService.show(
+            template3,
+            Object.assign({}, { class: 'gray modal-lg m-infraccion' })
+          );
+
+        }
+      }
+    )
+
   }
 
   getUidByCompany() {

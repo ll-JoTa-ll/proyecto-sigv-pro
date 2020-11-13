@@ -1,128 +1,127 @@
-<app-header  *ngIf="loginDataUser.orole.roleId === 1 && loginDataUser.ocompany.ocompanyConfiguration.crossSellingHotel === true;else notCentralizador">
+<app-header
+  *ngIf="loginDataUser.orole.roleId === 1 && loginDataUser.ocompany.ocompanyConfiguration.crossSellingHotel === true;else notCentralizador">
 
-    <div *ngIf="flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
-      <app-add-pax-centralizador (flagCentralizado)="updateCentralizador($event)"></app-add-pax-centralizador>
+  <div *ngIf="flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
+    <app-add-pax-centralizador (flagCentralizado)="updateCentralizador($event)"></app-add-pax-centralizador>
   </div>
   <div *ngIf="!flagBuscar; then buscarFull"></div>
 
   <mat-horizontal-stepper *ngIf="!flagCentralizador && flagAutoCroselling && flagBuscar"
-      (selectionChange)="onStepChange($event)" linear labelPosition="bottom" #stepper
-      style="padding:1rem; margin-top: 1rem;">
-      <!-- change default 'edit' icon -->
-      <ng-template matStepperIcon="edit" let-index="index">
-          {{ index + 1}}
-      </ng-template>
-      <mat-step completed="false" label="VUELO">
-          <div *ngIf="!flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
-              <div *ngIf="flagBuscar; then resultadoBusqueda"></div>
-          </div>
-      </mat-step>
-      <mat-step completed="false" label="HOTEL">
-          <app-recomendacion-hotel (skipeHotel)="skipStep()" (hiddeShowSpiner)="hiddeShowSpiner($event)"
-              #recomendacionHotel></app-recomendacion-hotel>
-      </mat-step>
-      <mat-step completed="false" label="RESUMEN">
-          <ng-container *ngIf="showResume">
-              <app-resumen-vuelo-hotel></app-resumen-vuelo-hotel>
-          </ng-container>
-      </mat-step>
+    (selectionChange)="onStepChange($event)" linear labelPosition="bottom" #stepper
+    style="padding:1rem; margin-top: 1rem;">
+    <!-- change default 'edit' icon -->
+    <ng-template matStepperIcon="edit" let-index="index">
+      {{ index + 1}}
+    </ng-template>
+    <mat-step completed="false" label="VUELO">
+      <div *ngIf="!flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
+        <div *ngIf="flagBuscar; then resultadoBusqueda"></div>
+      </div>
+    </mat-step>
+    <mat-step completed="false" label="HOTEL">
+      <app-recomendacion-hotel (skipeHotel)="skipStep()" (hiddeShowSpiner)="hiddeShowSpiner($event)"
+        #recomendacionHotel></app-recomendacion-hotel>
+    </mat-step>
+    <mat-step completed="false" label="RESUMEN">
+      <ng-container *ngIf="showResume">
+        <app-resumen-vuelo-hotel></app-resumen-vuelo-hotel>
+      </ng-container>
+    </mat-step>
   </mat-horizontal-stepper>
 
   <div *ngIf="!flagCentralizador && !flagAutoCroselling" class="m-0 p-0" style="width: 100% !important;">
-      <div *ngIf="flagBuscar; then resultadoBusqueda"></div>
+    <div *ngIf="flagBuscar; then resultadoBusqueda"></div>
   </div>
   <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating"
-      style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+    style="width: 100% !important; height: 100% !important;"></ngx-spinner>
 
   <div *ngIf="flagDinData; then dinData"></div>
   <ng-template #resultadoBusqueda>
     <div class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
-        <div class="row m-0 p-0">
-            <div class="col-3 m-0 p-0 pr-3 pl-5">
-              <div *ngIf="miniBuscador">
-                <app-buscador *ngIf="fechaSalidaShow" [maleta]="maleta" [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana"
-                [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo"
-                [origenAuto]="origenAuto" [origentTexto]="origentTexto" [destinoAuto]="destinoAuto"
-                [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala"
-                [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida"
-                [fechaRetorno]="fechaRetorno" [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno"
-                [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow"
-                [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2" [fechaSalida3]="fechaSalida3"
-                [fechaSalida4]="fechaSalida4" [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6"
-                [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2"
-                [fechaSalidaShow3]="fechaSalidaShow3" [fechaSalidaShow4]="fechaSalidaShow4"
-                [fechaSalidaShow5]="fechaSalidaShow5" [fechaSalidaShow6]="fechaSalidaShow6"
-                [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3"
-                [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5" [origenAuto6]="origenAuto6"
-                [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2" [origentTexto3]="origentTexto3"
-                [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6"
-                [destinoAuto1]="destinoAuto1" [destinoAuto2]="destinoAuto2" [destinoAuto3]="destinoAuto3"
-                [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6"
-                [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3"
-                [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5" [destinoTexto6]="destinoTexto6"
-                [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)"
-                (inicioBuscar)="inicioBuscadorLateral($event)" (calendarShoping)="setCalendar($event)" (outTipoVuelo)="setOutputTipoVuelo($event)"
-                (refreshFilters)="refreshFilters($event)" (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
-              </div>
+      <div class="row m-0 p-0">
+        <div class="col-3 m-0 p-0 pr-3 pl-5">
+          <div *ngIf="miniBuscador">
+            <app-buscador *ngIf="fechaSalidaShow" [maleta]="maleta" [flagFilterVuelo]="vueloTurnoFiltro"
+              [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos"
+              [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto"
+              [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina"
+              [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida"
+              [fechaRetorno]="fechaRetorno" [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno"
+              [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1"
+              [fechaSalida2]="fechaSalida2" [fechaSalida3]="fechaSalida3" [fechaSalida4]="fechaSalida4"
+              [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1"
+              [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3"
+              [fechaSalidaShow4]="fechaSalidaShow4" [fechaSalidaShow5]="fechaSalidaShow5"
+              [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2"
+              [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5"
+              [origenAuto6]="origenAuto6" [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2"
+              [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5"
+              [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1" [destinoAuto2]="destinoAuto2"
+              [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5"
+              [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2"
+              [destinoTexto3]="destinoTexto3" [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5"
+              [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo"
+              (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)"
+              (calendarShoping)="setCalendar($event)" (outTipoVuelo)="setOutputTipoVuelo($event)"
+              (refreshFilters)="refreshFilters($event)" (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
+          </div>
 
-                <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
-                <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)"
-                    [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
+          <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
+          <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)"
+            [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
 
-                <app-filtro-aerolineas [lstAerolineas]="aerolineas" (searchFlightFilter)="busquedaFiltros($event)">
-                </app-filtro-aerolineas>
+          <app-filtro-aerolineas [lstAerolineas]="aerolineas" (searchFlightFilter)="busquedaFiltros($event)">
+          </app-filtro-aerolineas>
+        </div>
+
+        <div class="col-9 m-0 p-0 pr-5" *ngIf="inicioBuscador">
+
+          <div class="row m-0 p-0" *ngIf="searchData.length > 0">
+            <div *ngIf="searchData[0].pseudoRepeat !== null && flagPseudoRepeat" class="col-12 m-0 p-0">
+              <app-multipaises-price [currency]="searchData[0].currency" [priceByPseudo]="searchData[0].priceByPseudo">
+              </app-multipaises-price>
             </div>
+          </div>
 
-            <div class="col-9 m-0 p-0 pr-5" *ngIf="inicioBuscador">
+          <div *ngIf="!spin" class="content">
 
-                <div class="row m-0 p-0" *ngIf="searchData.length > 0">
-                    <div *ngIf="searchData[0].pseudoRepeat !== null && flagPseudoRepeat" class="col-12 m-0 p-0">
-                        <app-multipaises-price [currency]="searchData[0].currency"
-                            [priceByPseudo]="searchData[0].priceByPseudo"></app-multipaises-price>
-                    </div>
-                </div>
-
-                <div *ngIf="!spin" class="content">
-
-                  <div class="spinner">
-
-                  </div>
-                </div>
-
-                <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini"  class="row m-0 p-0 pt-5">
-                  <app-calendar-shopping (fechas)="onSelectDate($event)" [salida]="salida"></app-calendar-shopping>
-                </div>
-
-                <div *ngIf="searchData.length > 0" class="row m-0 p-0 pt-5">
-                    <div class="col-12 m-0 p-0">
-                        <app-filtro-superior [tipoEscala]="escala" (refreshdata)="Datafiltrosuperior($event)"
-                            (searchFilter)="busquedaFiltros($event)"></app-filtro-superior>
-                    </div>
-                </div>
-
-                <div *ngIf="flagDinData || flagDinData2; then dinData"></div>
-
-                <div class="row m-0 p-0" *ngIf="searchData.length > 0">
-                    <app-recomendacion *ngFor="let recomendacion of searchData; let i = index"
-                        [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency"
-                        [totalFareAmount]="recomendacion.totalFareAmount"
-                        [totalTaxAmount]="recomendacion.totalTaxAmount"
-                        [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
-                        [taxAmountByPassenger]="recomendacion.taxAmountByPassenger"
-                        [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger"
-                        [carrierId]="recomendacion.carrierId" [numberPassengers]="recomendacion.numberPassengers"
-                        [pseudo]="recomendacion.pseudo" [gds]="recomendacion.gds"
-                        [flightNational]="recomendacion.flightNational" [lsections]="recomendacion.lsections"
-                        [lsectionLength]="recomendacion.lsections.length" [lpolicies]="recomendacion.lpolicies"
-                        [recommendationId]="recomendacion.recommendationId" [tipoVuelo]="tipoVuelo"
-                        [pseudoRepeat]="recomendacion.pseudoRepeat" [index]='i + 1' [lstBnus]="lstBnus"
-                        (addHotel)="adicionarHotel($event)">
-                    </app-recomendacion>
-                </div>
+            <div class="spinner">
 
             </div>
+          </div>
+
+          <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini" class="row m-0 p-0 pt-5">
+            <app-calendar-shopping (fechas)="onSelectDate($event)" [salida]="salida"></app-calendar-shopping>
+          </div>
+
+          <div *ngIf="searchData.length > 0" class="row m-0 p-0 pt-5">
+            <div class="col-12 m-0 p-0">
+              <app-filtro-superior [tipoEscala]="escala" (refreshdata)="Datafiltrosuperior($event)"
+                (searchFilter)="busquedaFiltros($event)"></app-filtro-superior>
+            </div>
+          </div>
+
+          <div *ngIf="flagDinData || flagDinData2; then dinData"></div>
+
+          <div class="row m-0 p-0" *ngIf="searchData.length > 0">
+            <app-recomendacion *ngFor="let recomendacion of searchData; let i = index"
+              [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency"
+              [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount"
+              [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
+              [taxAmountByPassenger]="recomendacion.taxAmountByPassenger"
+              [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger" [carrierId]="recomendacion.carrierId"
+              [numberPassengers]="recomendacion.numberPassengers" [pseudo]="recomendacion.pseudo"
+              [gds]="recomendacion.gds" [flightNational]="recomendacion.flightNational"
+              [lsections]="recomendacion.lsections" [lsectionLength]="recomendacion.lsections.length"
+              [lpolicies]="recomendacion.lpolicies" [recommendationId]="recomendacion.recommendationId"
+              [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.pseudoRepeat" [index]='i + 1' [lstBnus]="lstBnus"
+              (addHotel)="adicionarHotel($event)">
+            </app-recomendacion>
+          </div>
 
         </div>
+
+      </div>
 
 
     </div>
@@ -130,467 +129,441 @@
 
   <ng-template #buscarFull>
     <div class="row m-0 p-0 animated fadeIn fast"
-        style="width: 100% !important; position: relative !important; z-index: 1">
+      style="width: 100% !important; position: relative !important; z-index: 1">
 
-        <div class="col-2 m-0 p-0"></div>
+      <div class="col-2 m-0 p-0"></div>
 
-        <div class="col-8 m-0 p-0 box-shadow animated fadeIn fast"
-            style="background-color: white; border-radius:  0 0 20px 0;">
+      <div class="col-8 m-0 p-0 box-shadow animated fadeIn fast"
+        style="background-color: white; border-radius:  0 0 20px 0;">
 
-            <div class="row m-0 p-0 pt-4 pl-2">
+        <div class="row m-0 p-0 pt-4 pl-2">
 
-                <div class="col-2 m-0 p-0 v-texto-1">
-                    Vuelos
-                </div>
+          <div class="col-2 m-0 p-0 v-texto-1">
+            Vuelos
+          </div>
 
-                <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                    <!--   <label class="container" (click)="seleccionarTipoVuelo('RT')">
+          <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+            <!--   <label class="container" (click)="seleccionarTipoVuelo('RT')">
                                 <input type="radio" name="radio" checked value="RT"> Ida & Vuelta
                                 <span class="checkmark"></span>
                         </label> -->
-                    <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT"
-                        class="mr-1"> Ida & Vuelta
+            <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT" class="mr-1"> Ida
+            & Vuelta
 
-                </div>
+          </div>
 
-                <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                    <!--   <label class="container" (click)="seleccionarTipoVuelo('OW')">
+          <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+            <!--   <label class="container" (click)="seleccionarTipoVuelo('OW')">
                                 <input type="radio" name="radio" value="OW"> Sólo ida
                                 <span class="checkmark"></span>
                         </label> -->
-                    <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1">
-                    Sólo ida
+            <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1">
+            Sólo ida
 
-                </div>
+          </div>
 
-                <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                    <!--  <label class="container" (click)="seleccionarTipoVuelo('MC')">
+          <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
+            <!--  <label class="container" (click)="seleccionarTipoVuelo('MC')">
                                 <input type="radio" name="radio" value="MC"> Multidestinos
                                 <span class="checkmark"></span>
                         </label> -->
-                    <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1">
-                    Multidestinos
+            <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1">
+            Multidestinos
 
-                </div>
+          </div>
 
-                <div class="col-2 m-0 p-0"></div>
+          <div class="col-2 m-0 p-0"></div>
 
-                <div class="col-2 m-0 p-0"></div>
+          <div class="col-2 m-0 p-0"></div>
 
-            </div>
-
-            <div *ngIf="tipoVuelo!='MC'" class="row m-0 p-0 pt-4 pl-2">
-
-                <div style="width: 30%" class=" m-0 p-0 v-texto-2">
-
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-
-                        <div class="m-0 p-0 d-flex align-items-center"
-                            style="width: 25%; font-size: 17px; color:#626262;">
-                            Orígen
-                        </div>
-
-                        <div class="m-0 p-0 txtOrigen" style="width: 75%">
-
-                            <div id="txtOrigen" class="ng-autocomplete" style="width: 100%;">
-                                <ng-autocomplete [(ngModel)]="model.origentTexto" triggers=""
-                                    style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword"
-                                    (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
-                                    (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                    [notFoundTemplate]="notFoundTemplate">
-                                </ng-autocomplete>
-
-                                <ng-template #itemTemplate let-item>
-
-                                    <div class="" style="width: 100%">
-                                        <div class="row">
-                                            <div class="col-1">
-                                                <img *ngIf="item.categoryId===2;"
-                                                    style="width: 25px; padding-right: 5px;"
-                                                    src="./assets/images/ciudad1.png" alt="">
-                                                <img *ngIf="item.categoryId===1"
-                                                    style="width: 25px; padding-right: 5px;"
-                                                    src="./assets/images/aeropuerto2.jpeg" alt="">
-                                            </div>
-                                            <div class="col-11">
-                                                <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-template>
-
-                                <ng-template #notFoundTemplate let-notFound>
-                                    <!--<div [innerHTML]="notFound"></div>-->
-                                </ng-template>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="width: 30%" class=" m-0 p-0 v-texto-2">
-
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-
-                        <div class=" m-0 p-0 text-center d-flex justify-content-center align-items-center"
-                            style="width: 25%;font-size: 17px; color:#626262;">
-                            Destino
-                        </div>
-
-                        <div class=" m-0 p-0 txtDestino" style="width: 75%;">
-
-                            <div id="txtDestino" class="ng-autocomplete" style="width: 100%;">
-                                <ng-autocomplete [(ngModel)]="model.destinoTexto" style="color: #898989 !important;"
-                                    [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent2($event)'
-                                    (inputChanged)='onChangeSearch2($event)' (inputFocused)='onFocused2($event)'
-                                    [itemTemplate]="itemTemplate2" [notFoundTemplate]="notFoundTemplate2">
-                                </ng-autocomplete>
-
-                                <ng-template #itemTemplate2 let-item>
-                                    <div class="" style="width: 100%">
-                                        <div class="row">
-                                            <div class="col-1">
-                                                <img *ngIf="item.categoryId===2"
-                                                    style="width: 25px; padding-right: 5px;"
-                                                    src="./assets/images/ciudad1.png" alt="">
-                                                <img *ngIf="item.categoryId===1"
-                                                    style="width: 25px; padding-right: 5px;"
-                                                    src="./assets/images/aeropuerto2.jpeg" alt="">
-                                            </div>
-                                            <div class="col-11">
-                                                <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-template>
-
-                                <ng-template #notFoundTemplate let-notFound>
-                                    <!--<div [innerHTML]="notFound"></div>-->
-                                </ng-template>
-
-                                <ng-template #notFoundTemplate2 let-notFound>
-                                    <!--<div [innerHTML]="notFound"></div>-->
-                                </ng-template>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div style="width: 40%" class=" m-0 p-0 v-texto-2">
-
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-
-                        <div class="m-0 p-0 text-center d-flex justify-content-center align-items-center"
-                            style="width: 16%; height: 40px !important;font-size: 17px; color:#626262;">
-                            Fechas
-                        </div>
-
-                        <div class="m-0 p-0 pr-2" style="width: 42%">
-                            <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow fechas"
-                                style="width: 100% !important; padding: 0px; padding: 9px;border: 2px solid #DFD9D8;border-radius: 4px">
-                                <input type="image" src="./assets/images/home/calendario.svg"
-                                    (click)="datepickerSalida.toggle()"
-                                    style="outline: none; border: 0; width: 25px !important;">
-                                <input type="text" readonly placeholder="Salida" class="p-0 pl-2 v-texto-3"
-                                    style="outline: none; border: 0; width: 80%" #datepickerSalida="bsDatepicker"
-                                    (onHidden)="handlerSalida()" (bsValueChange)="onValueChangeSalida($event)"
-                                    [minDate]="minDateSalida" bsDatepicker id="fechasalida" [bsValue]="bsValue" value=""
-                                    (onHidden)="ValidarCiudad()"
-                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }">
-                            </label>
-                        </div>
-                        <div *ngIf="tipoVuelo!=='OW'" class=" m-0 p-0" style="width: 40%">
-                            <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow"
-                                style="width: 100% !important; padding: 0px; padding: 9px;border: 2px solid #DFD9D8;border-radius: 4px">
-                                <input type="image" src="./assets/images/home/calendario.svg"
-                                    (click)="datepickerRetorno.toggle()"
-                                    style="outline: none; border: 0; width: 25px !important;">
-                                <input type="text" readonly placeholder="Retorno" class="p-0 pl-2 v-texto-3"
-                                    style="outline: none; border: 0; width: 80%" #datepickerRetorno="bsDatepicker"
-                                    (bsValueChange)="onValueChangeRetorno($event)" [minDate]="minDateRetorno"
-                                    [dateCustomClasses]="dateCustomClasses" bsDatepicker
-                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-                                    id="fechadestino" (onHidden)="ValidarCiudad()">
-                                <!--[isOpen]="isOpendate"-->
-                            </label>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div *ngIf="tipoVuelo==='MC'" class="row m-0 p-0">
-
-                <app-multidestinos-lg [inOrigenValue]="origenAuto" [inOrigenText]="origentTexto"
-                    [inDestinoValue]="destinoAuto" [inDestinoText]="destinoTexto" [inFechaSalidaValue]="fechaSalida"
-                    [inFechaSalidaText]="fechaSalidaShow" (outIndexTramo)="updateIndexTramo($event)"
-                    (outOrigenValue1)="updateOrigenTramoValue1($event)"
-                    (outOrigenValue2)="updateOrigenTramoValue2($event)"
-                    (outOrigenValue3)="updateOrigenTramoValue3($event)"
-                    (outOrigenValue4)="updateOrigenTramoValue4($event)"
-                    (outOrigenValue5)="updateOrigenTramoValue5($event)"
-                    (outOrigenValue6)="updateOrigenTramoValue6($event)"
-                    (outOrigenText1)="updateOrigenTramoText1($event)" (outOrigenText2)="updateOrigenTramoText2($event)"
-                    (outOrigenText3)="updateOrigenTramoText3($event)" (outOrigenText4)="updateOrigenTramoText4($event)"
-                    (outOrigenText5)="updateOrigenTramoText5($event)" (outOrigenText6)="updateOrigenTramoText6($event)"
-                    (outDestinoValue1)="updateDestinoTramoValue1($event)"
-                    (outDestinoValue2)="updateDestinoTramoValue2($event)"
-                    (outDestinoValue3)="updateDestinoTramoValue3($event)"
-                    (outDestinoValue4)="updateDestinoTramoValue4($event)"
-                    (outDestinoValue5)="updateDestinoTramoValue5($event)"
-                    (outDestinoValue6)="updateDestinoTramoValue6($event)"
-                    (outDestinoText1)="updateDestinoTramoText1($event)"
-                    (outDestinoText2)="updateDestinoTramoText2($event)"
-                    (outDestinoText3)="updateDestinoTramoText3($event)"
-                    (outDestinoText4)="updateDestinoTramoText4($event)"
-                    (outDestinoText5)="updateDestinoTramoText5($event)"
-                    (outDestinoText6)="updateDestinoTramoText6($event)" (outFechaSalida1)="updateFechaSalida1($event)"
-                    (outFechaSalida2)="updateFechaSalida2($event)" (outFechaSalida3)="updateFechaSalida3($event)"
-                    (outFechaSalida4)="updateFechaSalida4($event)" (outFechaSalida5)="updateFechaSalida5($event)"
-                    (outFechaSalida6)="updateFechaSalida6($event)"
-                    (outFechaSalidaShow1)="updateFechaSalidaShow1($event)"
-                    (outFechaSalidaShow2)="updateFechaSalidaShow2($event)"
-                    (outFechaSalidaShow3)="updateFechaSalidaShow3($event)"
-                    (outFechaSalidaShow4)="updateFechaSalidaShow4($event)"
-                    (outFechaSalidaShow5)="updateFechaSalidaShow5($event)"
-                    (outFechaSalidaShow6)="updateFechaSalidaShow6($event)" style="width: 100% !important;">
-                </app-multidestinos-lg>
-
-            </div>
-
-            <div class="row m-0 p-0 pt-4 pl-2">
-                <div class="col-3 m-0 p-0 v-texto-2">
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-                        <div class="m-0 p-0 d-flex align-items-center"
-                            style="width: 27%;font-size: 17px; color:#626262;">
-                            Cabina
-                        </div>
-                        <div class="m-0 p-0 d-flex justify-content-center align-items-center" style="width: 63%">
-                            <div class="btn-group" style="width: 90% !important;" dropdown>
-                                <button id="button-basic" dropdownToggle type="button"
-                                    class="btn v-texto-3 dropdown-toggle box-shadow btn-combo"
-                                    style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                                    {{textoCabina}}
-                                </button>
-                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3"
-                                    style="cursor: pointer" role="menu" aria-labelledby="button-basic">
-                                    <li role="menuitem"><a class="dropdown-item"
-                                            (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
-                                    <li role="menuitem"><a class="dropdown-item"
-                                            (click)="seleccionarCabina('E', 'Económica')">Económica</a>
-                                    </li>
-                                    <li role="menuitem"><a class="dropdown-item"
-                                            (click)="seleccionarCabina('B', 'Business')">Business</a>
-                                    </li>
-                                    <li role="menuitem"><a class="dropdown-item"
-                                            (click)="seleccionarCabina('F', 'First')">First</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 m-0 p-0 v-texto-2">
-                    <div class="row m-0 p-0 pl-3" style="height: 40px !important;">
-                        <div class="m-0 p-0 d-flex align-items-center"
-                            style="width: 25%;font-size: 17px; color:#626262;">
-                            Escala
-                        </div>
-                        <div class="m-0 p-0" style="width: 63%">
-                            <div class="btn-group" style="width: 90% !important;" dropdown>
-                                <button id="button-basic-2" dropdownToggle type="button"
-                                    class="btn v-texto-3 dropdown-toggle box-shadow btn-combo"
-                                    style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                                    {{textoEscala}}
-                                </button>
-                                <ul id="dropdown-basic-2" *dropdownMenu class="dropdown-menu v-texto-3"
-                                    style="cursor: pointer" role="menu" aria-labelledby="button-basic-2">
-                                    <li role="menuitem"><a class="dropdown-item"
-                                            (click)="seleccionarEscala('', 'Todas')">Todas</a></li>
-                                    <li role="menuitem"><a class="dropdown-item"
-                                            (click)="seleccionarEscala('D', 'Directo')">Directo</a>
-                                    </li>
-                                    <li role="menuitem"><a class="dropdown-item"
-                                            (click)="seleccionarEscala('E', 'Con escalas')">Con
-                                            escalas</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 m-0 p-0 v-texto-2">
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-                        <div class="m-0 p-0 d-flex align-items-center"
-                            style="width: 52%; font-size: 17px; color:#626262;">
-                            Pasajeros
-                        </div>
-                        <div class="m-0 p-0 d-flex align-items-center justify-content-center"
-                            style="width: 13%; padding: 6px !important;">
-                            <label for="" style="padding: 0px; margin: 0px;"
-                                class=" d-inline-flex justify-content-center align-items-center box-shadow">
-                                <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
-                                <input readonly type="text" class="text-center v-texto-3"
-                                    style="width: 60px; outline: none; border: 0" [value]="pasajeros">
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 m-0 p-0  v-texto-2">
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-                        <div class="m-0 p-0 d-flex align-items-center"
-                            style="width: 52%; font-size: 17px; color:#626262;">
-                            Incluye maleta
-                        </div>
-                        <div class="m-0 p-0 d-flex align-items-center justify-content-center"
-                            style="width: 36%; padding: 6px !important;">
-                            <input id="chkmaleta" type="checkbox" [(ngModel)]="maleta">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 m-0 p-0 text-center v-texto-2">
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-                        <div class="col-12 text-center">
-                            <button (click)="searchFlight()" class="btn v-btn-buscar">
-                                <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-                                Buscar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row pb-5">
-            </div>
         </div>
+
+        <div *ngIf="tipoVuelo!='MC'" class="row m-0 p-0 pt-4 pl-2">
+
+          <div style="width: 30%" class=" m-0 p-0 v-texto-2">
+
+            <div class="row m-0 p-0" style="height: 40px !important;">
+
+              <div class="m-0 p-0 d-flex align-items-center" style="width: 25%; font-size: 17px; color:#626262;">
+                Orígen
+              </div>
+
+              <div class="m-0 p-0 txtOrigen" style="width: 75%">
+
+                <div id="txtOrigen" class="ng-autocomplete" style="width: 100%;">
+                  <ng-autocomplete [(ngModel)]="model.origentTexto" triggers="" style="color: #898989 !important;"
+                    [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)'
+                    (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                  </ng-autocomplete>
+
+                  <ng-template #itemTemplate let-item>
+
+                    <div class="" style="width: 100%">
+                      <div class="row">
+                        <div class="col-1">
+                          <img *ngIf="item.categoryId===2;" style="width: 25px; padding-right: 5px;"
+                            src="./assets/images/ciudad1.png" alt="">
+                          <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;"
+                            src="./assets/images/aeropuerto2.jpeg" alt="">
+                        </div>
+                        <div class="col-11">
+                          <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #notFoundTemplate let-notFound>
+                    <!--<div [innerHTML]="notFound"></div>-->
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="width: 30%" class=" m-0 p-0 v-texto-2">
+
+            <div class="row m-0 p-0" style="height: 40px !important;">
+
+              <div class=" m-0 p-0 text-center d-flex justify-content-center align-items-center"
+                style="width: 25%;font-size: 17px; color:#626262;">
+                Destino
+              </div>
+
+              <div class=" m-0 p-0 txtDestino" style="width: 75%;">
+
+                <div id="txtDestino" class="ng-autocomplete" style="width: 100%;">
+                  <ng-autocomplete [(ngModel)]="model.destinoTexto" style="color: #898989 !important;" [data]="data2"
+                    [searchKeyword]="keyword" (selected)='selectEvent2($event)' (inputChanged)='onChangeSearch2($event)'
+                    (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2"
+                    [notFoundTemplate]="notFoundTemplate2">
+                  </ng-autocomplete>
+
+                  <ng-template #itemTemplate2 let-item>
+                    <div class="" style="width: 100%">
+                      <div class="row">
+                        <div class="col-1">
+                          <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;"
+                            src="./assets/images/ciudad1.png" alt="">
+                          <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;"
+                            src="./assets/images/aeropuerto2.jpeg" alt="">
+                        </div>
+                        <div class="col-11">
+                          <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #notFoundTemplate let-notFound>
+                    <!--<div [innerHTML]="notFound"></div>-->
+                  </ng-template>
+
+                  <ng-template #notFoundTemplate2 let-notFound>
+                    <!--<div [innerHTML]="notFound"></div>-->
+                  </ng-template>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div style="width: 40%" class=" m-0 p-0 v-texto-2">
+
+            <div class="row m-0 p-0" style="height: 40px !important;">
+
+              <div class="m-0 p-0 text-center d-flex justify-content-center align-items-center"
+                style="width: 16%; height: 40px !important;font-size: 17px; color:#626262;">
+                Fechas
+              </div>
+
+              <div class="m-0 p-0 pr-2" style="width: 42%">
+                <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow fechas"
+                  style="width: 100% !important; padding: 0px; padding: 9px;border: 2px solid #DFD9D8;border-radius: 4px">
+                  <input type="image" src="./assets/images/home/calendario.svg" (click)="datepickerSalida.toggle()"
+                    style="outline: none; border: 0; width: 25px !important;">
+                  <input type="text" readonly placeholder="Salida" class="p-0 pl-2 v-texto-3"
+                    style="outline: none; border: 0; width: 80%" #datepickerSalida="bsDatepicker"
+                    (onHidden)="handlerSalida()" (bsValueChange)="onValueChangeSalida($event)" [minDate]="minDateSalida"
+                    bsDatepicker id="fechasalida" [bsValue]="bsValue" value="" (onHidden)="ValidarCiudad()"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }">
+                </label>
+              </div>
+              <div *ngIf="tipoVuelo!=='OW'" class=" m-0 p-0" style="width: 40%">
+                <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow"
+                  style="width: 100% !important; padding: 0px; padding: 9px;border: 2px solid #DFD9D8;border-radius: 4px">
+                  <input type="image" src="./assets/images/home/calendario.svg" (click)="datepickerRetorno.toggle()"
+                    style="outline: none; border: 0; width: 25px !important;">
+                  <input type="text" readonly placeholder="Retorno" class="p-0 pl-2 v-texto-3"
+                    style="outline: none; border: 0; width: 80%" #datepickerRetorno="bsDatepicker"
+                    (bsValueChange)="onValueChangeRetorno($event)" [minDate]="minDateRetorno"
+                    [dateCustomClasses]="dateCustomClasses" bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                    id="fechadestino" (onHidden)="ValidarCiudad()">
+                  <!--[isOpen]="isOpendate"-->
+                </label>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div *ngIf="tipoVuelo==='MC'" class="row m-0 p-0">
+
+          <app-multidestinos-lg [inOrigenValue]="origenAuto" [inOrigenText]="origentTexto"
+            [inDestinoValue]="destinoAuto" [inDestinoText]="destinoTexto" [inFechaSalidaValue]="fechaSalida"
+            [inFechaSalidaText]="fechaSalidaShow" (outIndexTramo)="updateIndexTramo($event)"
+            (outOrigenValue1)="updateOrigenTramoValue1($event)" (outOrigenValue2)="updateOrigenTramoValue2($event)"
+            (outOrigenValue3)="updateOrigenTramoValue3($event)" (outOrigenValue4)="updateOrigenTramoValue4($event)"
+            (outOrigenValue5)="updateOrigenTramoValue5($event)" (outOrigenValue6)="updateOrigenTramoValue6($event)"
+            (outOrigenText1)="updateOrigenTramoText1($event)" (outOrigenText2)="updateOrigenTramoText2($event)"
+            (outOrigenText3)="updateOrigenTramoText3($event)" (outOrigenText4)="updateOrigenTramoText4($event)"
+            (outOrigenText5)="updateOrigenTramoText5($event)" (outOrigenText6)="updateOrigenTramoText6($event)"
+            (outDestinoValue1)="updateDestinoTramoValue1($event)" (outDestinoValue2)="updateDestinoTramoValue2($event)"
+            (outDestinoValue3)="updateDestinoTramoValue3($event)" (outDestinoValue4)="updateDestinoTramoValue4($event)"
+            (outDestinoValue5)="updateDestinoTramoValue5($event)" (outDestinoValue6)="updateDestinoTramoValue6($event)"
+            (outDestinoText1)="updateDestinoTramoText1($event)" (outDestinoText2)="updateDestinoTramoText2($event)"
+            (outDestinoText3)="updateDestinoTramoText3($event)" (outDestinoText4)="updateDestinoTramoText4($event)"
+            (outDestinoText5)="updateDestinoTramoText5($event)" (outDestinoText6)="updateDestinoTramoText6($event)"
+            (outFechaSalida1)="updateFechaSalida1($event)" (outFechaSalida2)="updateFechaSalida2($event)"
+            (outFechaSalida3)="updateFechaSalida3($event)" (outFechaSalida4)="updateFechaSalida4($event)"
+            (outFechaSalida5)="updateFechaSalida5($event)" (outFechaSalida6)="updateFechaSalida6($event)"
+            (outFechaSalidaShow1)="updateFechaSalidaShow1($event)"
+            (outFechaSalidaShow2)="updateFechaSalidaShow2($event)"
+            (outFechaSalidaShow3)="updateFechaSalidaShow3($event)"
+            (outFechaSalidaShow4)="updateFechaSalidaShow4($event)"
+            (outFechaSalidaShow5)="updateFechaSalidaShow5($event)"
+            (outFechaSalidaShow6)="updateFechaSalidaShow6($event)" style="width: 100% !important;">
+          </app-multidestinos-lg>
+
+        </div>
+
+        <div class="row m-0 p-0 pt-4 pl-2">
+          <div class="col-3 m-0 p-0 v-texto-2">
+            <div class="row m-0 p-0" style="height: 40px !important;">
+              <div class="m-0 p-0 d-flex align-items-center" style="width: 27%;font-size: 17px; color:#626262;">
+                Cabina
+              </div>
+              <div class="m-0 p-0 d-flex justify-content-center align-items-center" style="width: 63%">
+                <div class="btn-group" style="width: 90% !important;" dropdown>
+                  <button id="button-basic" dropdownToggle type="button"
+                    class="btn v-texto-3 dropdown-toggle box-shadow btn-combo"
+                    style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                    {{textoCabina}}
+                  </button>
+                  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer"
+                    role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
+                    <li role="menuitem"><a class="dropdown-item"
+                        (click)="seleccionarCabina('E', 'Económica')">Económica</a>
+                    </li>
+                    <li role="menuitem"><a class="dropdown-item"
+                        (click)="seleccionarCabina('B', 'Business')">Business</a>
+                    </li>
+                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('F', 'First')">First</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 m-0 p-0 v-texto-2">
+            <div class="row m-0 p-0 pl-3" style="height: 40px !important;">
+              <div class="m-0 p-0 d-flex align-items-center" style="width: 25%;font-size: 17px; color:#626262;">
+                Escala
+              </div>
+              <div class="m-0 p-0" style="width: 63%">
+                <div class="btn-group" style="width: 90% !important;" dropdown>
+                  <button id="button-basic-2" dropdownToggle type="button"
+                    class="btn v-texto-3 dropdown-toggle box-shadow btn-combo"
+                    style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                    {{textoEscala}}
+                  </button>
+                  <ul id="dropdown-basic-2" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer"
+                    role="menu" aria-labelledby="button-basic-2">
+                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('', 'Todas')">Todas</a></li>
+                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('D', 'Directo')">Directo</a>
+                    </li>
+                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('E', 'Con escalas')">Con
+                        escalas</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-2 m-0 p-0 v-texto-2">
+            <div class="row m-0 p-0" style="height: 40px !important;">
+              <div class="m-0 p-0 d-flex align-items-center" style="width: 52%; font-size: 17px; color:#626262;">
+                Pasajeros
+              </div>
+              <div class="m-0 p-0 d-flex align-items-center justify-content-center"
+                style="width: 13%; padding: 6px !important;">
+                <label for="" style="padding: 0px; margin: 0px;"
+                  class=" d-inline-flex justify-content-center align-items-center box-shadow">
+                  <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
+                  <input readonly type="text" class="text-center v-texto-3"
+                    style="width: 60px; outline: none; border: 0" [value]="pasajeros">
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-2 m-0 p-0  v-texto-2">
+            <div class="row m-0 p-0" style="height: 40px !important;">
+              <div class="m-0 p-0 d-flex align-items-center" style="width: 52%; font-size: 17px; color:#626262;">
+                Incluye maleta
+              </div>
+              <div class="m-0 p-0 d-flex align-items-center justify-content-center"
+                style="width: 36%; padding: 6px !important;">
+                <input id="chkmaleta" type="checkbox" [(ngModel)]="maleta">
+              </div>
+            </div>
+          </div>
+          <div class="col-2 m-0 p-0 text-center v-texto-2">
+            <div class="row m-0 p-0" style="height: 40px !important;">
+              <div class="col-12 text-center">
+                <button (click)="searchFlight()" class="btn v-btn-buscar">
+                  <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                  Buscar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row pb-5">
+        </div>
+      </div>
     </div>
   </ng-template>
 
   <ng-template #dinData>
     <div class="col-12">
-        <div class="row m-0 p-0">
+      <div class="row m-0 p-0">
 
-            <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+        <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
 
-            <div class="col-3 m-0 p-0"></div>
+        <div class="col-3 m-0 p-0"></div>
 
-            <div class="col-6 m-0 p-0 text-center">
-                <alert type="warning" class="text-center">
-                    No se encontraron itinerarios para esta búsqueda
-                </alert>
-            </div>
-
+        <div class="col-6 m-0 p-0 text-center">
+          <alert type="warning" class="text-center">
+            No se encontraron itinerarios para esta búsqueda
+          </alert>
         </div>
+
+      </div>
     </div>
   </ng-template>
 
   <ng-template #modalbnus let-c="close" let-d="dismiss">
     <div class="modal-header pb-0" style="border: none;">
-        <!-- (click)="closeModalFamilia($event)" -->
-        <button type="button" class="close pull-right" aria-label="Close">
-            <span (click)="modalRef.hide();" aria-hidden="true">&times;</span>
-        </button>
+      <!-- (click)="closeModalFamilia($event)" -->
+      <button type="button" class="close pull-right" aria-label="Close">
+        <span (click)="modalRef.hide();" aria-hidden="true">&times;</span>
+      </button>
     </div>
     <div class="modal-body">
-        <div class="col-12 m-0 p-0 text-center text-informacion1 pb-3">
-            Usted tiene boletos no usados
+      <div class="col-12 m-0 p-0 text-center text-informacion1 pb-3">
+        Usted tiene boletos no usados
+      </div>
+      <div class="col-12 m-0 p-0 text-center text-informacion">
+        <alert type="info" class="text-center">
+          Algunos pasajeros en su empresa no usaron los boletos que compraron, en algunos
+          casos pueden
+          ser reutilizados y así evitar sobrecostos
+        </alert>
+      </div>
+      <div class="col-12 m-0 p-0 text-center text-informacion">
+        <p>Es posible que usted pueda canjear cualquiera de estos boletos para la compra que
+          esta
+          intentando realizar</p>
+        <p>Seleccione llamar si desea que un asesor gestione esta compra</p>
+      </div>
+      <div class="col-12 m-0 p-0 pt-3 text-center pl-5 pr-5">
+        <table class="table table-bordered" style="margin: 0 auto;">
+          <thead class="cabecera-tabla">
+            <tr>
+              <th>Tipo de vuelo</th>
+              <th>Fecha Emisión</th>
+              <th>Ruta</th>
+              <th>Pasajero</th>
+              <th>Ticket</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of lstBnus | paginate: { itemsPerPage: 5, currentPage: p}">
+              <td>{{item.vuelo}}</td>
+              <td>{{item.fecEmision | formatfechareservacreacion}}</td>
+              <td>{{item.ruta}}</td>
+              <td>{{item.pasajero}}</td>
+              <td>{{item.ticket}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="col-12 m-0 p-0 text-center pt-3">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
-        <div class="col-12 m-0 p-0 text-center text-informacion">
-            <alert type="info" class="text-center">
-                Algunos pasajeros en su empresa no usaron los boletos que compraron, en algunos
-                casos pueden
-                ser reutilizados y así evitar sobrecostos
-            </alert>
-        </div>
-        <div class="col-12 m-0 p-0 text-center text-informacion">
-            <p>Es posible que usted pueda canjear cualquiera de estos boletos para la compra que
-                esta
-                intentando realizar</p>
-            <p>Seleccione llamar si desea que un asesor gestione esta compra</p>
-        </div>
-        <div class="col-12 m-0 p-0 pt-3 text-center pl-5 pr-5">
-            <table class="table table-bordered" style="margin: 0 auto;">
-                <thead class="cabecera-tabla">
-                    <tr>
-                        <th>Tipo de vuelo</th>
-                        <th>Fecha Emisión</th>
-                        <th>Ruta</th>
-                        <th>Pasajero</th>
-                        <th>Ticket</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of lstBnus | paginate: { itemsPerPage: 5, currentPage: p}">
-                        <td>{{item.vuelo}}</td>
-                        <td>{{item.fecEmision | formatfechareservacreacion}}</td>
-                        <td>{{item.ruta}}</td>
-                        <td>{{item.pasajero}}</td>
-                        <td>{{item.ticket}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="col-12 m-0 p-0 text-center pt-3">
-                <pagination-controls (pageChange)="p = $event"></pagination-controls>
-            </div>
-        </div>
-        <div class="col-12 m-0 p-0 text-center pt-2 pb-3 pl-5 pr-5">
-            <span class="text-informacion">Asesor asignado:</span>
+      </div>
+      <div class="col-12 m-0 p-0 text-center pt-2 pb-3 pl-5 pr-5">
+        <span class="text-informacion">Asesor asignado:</span>
 
-            <table class="table table-bordered pt-2" style="margin: 0 auto;">
-                <thead>
-                    <tr>
-                        <th>Asesor</th>
-                        <th>Email</th>
-                        <th>Teléfono</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of lstAsesors">
-                        <td>{{item.name}}</td>
-                        <td>{{item.email}}</td>
-                        <td>{{item.phone}}</td>
-                    </tr>
-                </tbody>
-            </table>
+        <table class="table table-bordered pt-2" style="margin: 0 auto;">
+          <thead>
+            <tr>
+              <th>Asesor</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of lstAsesors">
+              <td>{{item.name}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.phone}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0 text-center">
+          <div class="col-6 m-0 p-0">
+            <button class="btn btn-1" (click)="UserBnus1(modalconfirmacion)">Llamaré a mi
+              asesor</button>
+          </div>
+          <div class="col-6 m-0 p-0">
+            <button class="btn btn-1" (click)="searchFlight()">Continuar</button>
+          </div>
         </div>
-        <div class="col-12 m-0 p-0">
-            <div class="row m-0 p-0 text-center">
-                <div class="col-6 m-0 p-0">
-                    <button class="btn btn-1" (click)="UserBnus1(modalconfirmacion)">Llamaré a mi
-                        asesor</button>
-                </div>
-                <div class="col-6 m-0 p-0">
-                    <button class="btn btn-1" (click)="searchFlight()">Continuar</button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
   </ng-template>
 
   <ng-template #modalconfirmacion let-c="close" let-d="dismiss">
     <div class="modal-header pb-0" style="border: none;">
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     <div class="modal-body m-0 p-0">
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
-                Ud. esta contribuyendo al ahorro de su empresa
-            </div>
-            <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
-                Su asesor ha sido notificado, comuníquese directamente con él para gestionar la
-                compra del
-                pasaje.
-            </div>
-
-            <div class="col-12 m-0 p-0 pb-4 text-center">
-                <button class="btn btn-1" (click)="modalRef.hide()">
-                    Ok
-                </button>
-            </div>
+      <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
+          Ud. esta contribuyendo al ahorro de su empresa
         </div>
+        <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
+          Su asesor ha sido notificado, comuníquese directamente con él para gestionar la
+          compra del
+          pasaje.
+        </div>
+
+        <div class="col-12 m-0 p-0 pb-4 text-center">
+          <button class="btn btn-1" (click)="modalRef.hide()">
+            Ok
+          </button>
+        </div>
+      </div>
     </div>
   </ng-template>
 
@@ -603,223 +576,202 @@
 
 <ng-template #notCentralizador>
   <app-header>
-  <div *ngIf="flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
-    <app-add-pax-centralizador (flagCentralizado)="updateCentralizador($event)"></app-add-pax-centralizador>
-</div>
+    <div *ngIf="flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
+      <app-add-pax-centralizador (flagCentralizado)="updateCentralizador($event)"></app-add-pax-centralizador>
+    </div>
 
-<div *ngIf="!flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
-    <div *ngIf="!flagBuscar" class="row m-0 p-0 animated fadeIn fast" style="width: 100% !important; position: relative !important; z-index: 1">
+    <div *ngIf="!flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
+      <div *ngIf="!flagBuscar" class="row m-0 p-0 animated fadeIn fast"
+        style="width: 100% !important; position: relative !important; z-index: 1">
 
         <div class="col-2 m-0 p-0"></div>
 
-        <div class="col-8 m-0 p-0 box-shadow animated fadeIn fast" style="background-color: white; border-radius:  0 0 20px 0;">
+        <div class="col-8 m-0 p-0 box-shadow animated fadeIn fast"
+          style="background-color: white; border-radius:  0 0 20px 0;">
 
-            <div class="row m-0 p-0 pt-4 pl-2">
+          <div class="containerFlex">
+            <div class="tercio">
+              <span class="v-texto-1">Vuelos</span>
+            </div>
+            <div class="tercioCheck">
+              <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT" class="mr-1">
+               Ida & Vuelta
+            </div>
+            <div class="tercioCheck">
+              <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1"> Sólo ida
+            </div>
+            <div class="tercioCheck">
+              <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1"> Multidestinos
+            </div>
+          </div>
 
-                <div class="col-2 m-0 p-0 v-texto-1">
-                    Vuelos
+          <div *ngIf="tipoVuelo!='MC'" class="row m-0 p-0 pt-4 pl-2">
+
+            <div style="width: 30%" class=" m-0 p-0 v-texto-2">
+
+              <div class="row m-0 p-0" style="height: 40px !important;">
+
+                <div class="m-0 p-0 d-flex align-items-center" style="width: 25%; font-size: 17px; color:#626262;">
+                  Orígen
                 </div>
 
-                <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                    <!--   <label class="container" (click)="seleccionarTipoVuelo('RT')">
-                        <input type="radio" name="radio" checked value="RT"> Ida & Vuelta
-                        <span class="checkmark"></span>
-                </label> -->
-                    <input (click)="seleccionarTipoVuelo('RT')" type="radio" checked name="gender" value="RT" class="mr-1"> Ida & Vuelta
+                <div class="m-0 p-0 txtOrigen" style="width: 75%">
+
+                  <div id="txtOrigen" class="ng-autocomplete" style="width: 100%;">
+                    <ng-autocomplete [(ngModel)]="model.origentTexto" style="color: #898989 !important;" [data]="data"
+                      [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                      (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                      [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate let-item>
+
+                      <div class="" style="width: 100%">
+                        <div class="row">
+                          <div class="col-1">
+                            <img *ngIf="item.categoryId===2;" style="width: 25px; padding-right: 5px;"
+                              src="./assets/images/ciudad1.png" alt="">
+                            <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;"
+                              src="./assets/images/aeropuerto2.jpeg" alt="">
+                          </div>
+                          <div class="col-11">
+                            <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                      <!--<div [innerHTML]="notFound"></div>-->
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="width: 30%" class=" m-0 p-0 v-texto-2">
+
+              <div class="row m-0 p-0" style="height: 40px !important;">
+
+                <div class=" m-0 p-0 text-center d-flex justify-content-center align-items-center"
+                  style="width: 25%;font-size: 17px; color:#626262;">
+                  Destino
+                </div>
+
+                <div class=" m-0 p-0 txtDestino" style="width: 75%;">
+
+                  <div id="txtDestino" class="ng-autocomplete" style="width: 100%;">
+                    <ng-autocomplete [(ngModel)]="model.destinoTexto" style="color: #898989 !important;" [data]="data2"
+                      [searchKeyword]="keyword" (selected)='selectEvent2($event)'
+                      (inputChanged)='onChangeSearch2($event)' (inputFocused)='onFocused2($event)'
+                      [itemTemplate]="itemTemplate2" [notFoundTemplate]="notFoundTemplate2">
+                    </ng-autocomplete>
+
+                    <ng-template #itemTemplate2 let-item>
+                      <div class="" style="width: 100%">
+                        <div class="row">
+                          <div class="col-1">
+                            <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;"
+                              src="./assets/images/ciudad1.png" alt="">
+                            <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;"
+                              src="./assets/images/aeropuerto2.jpeg" alt="">
+                          </div>
+                          <div class="col-11">
+                            <a class="m-0 p-0" [innerHTML]="item.name"></a>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate let-notFound>
+                      <!--<div [innerHTML]="notFound"></div>-->
+                    </ng-template>
+
+                    <ng-template #notFoundTemplate2 let-notFound>
+                      <!--<div [innerHTML]="notFound"></div>-->
+                    </ng-template>
+                  </div>
 
                 </div>
 
-                <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                    <!--   <label class="container" (click)="seleccionarTipoVuelo('OW')">
-                        <input type="radio" name="radio" value="OW"> Sólo ida
-                        <span class="checkmark"></span>
-                </label> -->
-                    <input (click)="seleccionarTipoVuelo('OW')" type="radio" name="gender" value="OW" class="mr-1"> Sólo ida
-
-                </div>
-
-                <div class="col-2 m-0 p-0 d-flex align-items-center v-texto-2">
-                    <!--  <label class="container" (click)="seleccionarTipoVuelo('MC')">
-                        <input type="radio" name="radio" value="MC"> Multidestinos
-                        <span class="checkmark"></span>
-                </label> -->
-                    <input (click)="seleccionarTipoVuelo('MC')" type="radio" name="gender" value="MC" class="mr-1"> Multidestinos
-
-                </div>
-
-                <div class="col-2 m-0 p-0"></div>
-
-                <div class="col-2 m-0 p-0"></div>
+              </div>
 
             </div>
 
-            <div *ngIf="tipoVuelo!='MC'" class="row m-0 p-0 pt-4 pl-2">
+            <div style="width: 40%" class=" m-0 p-0 v-texto-2">
 
-                <div style="width: 30%" class=" m-0 p-0 v-texto-2">
+              <div class="row m-0 p-0" style="height: 40px !important;">
 
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-
-                        <div class="m-0 p-0 d-flex align-items-center" style="width: 25%; font-size: 17px; color:#626262;">
-                            Orígen
-                        </div>
-
-                        <div class="m-0 p-0 txtOrigen" style="width: 75%">
-
-                            <div id="txtOrigen" class="ng-autocomplete" style="width: 100%;">
-                                <ng-autocomplete
-                                  [(ngModel)]="model.origentTexto"
-                                  style="color: #898989 !important;"
-                                  [data]="data"
-                                  [searchKeyword]="keyword"
-                                  (selected)='selectEvent($event)'
-                                  (inputChanged)='onChangeSearch($event)'
-                                  (inputFocused)='onFocused($event)'
-                                  [itemTemplate]="itemTemplate"
-                                  [notFoundTemplate]="notFoundTemplate">
-                                </ng-autocomplete>
-
-                                <ng-template #itemTemplate let-item>
-
-                                    <div class="" style="width: 100%">
-                                        <div class="row">
-                                            <div class="col-1">
-                                                <img *ngIf="item.categoryId===2;" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                                                <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                                            </div>
-                                            <div class="col-11">
-                                                <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-template>
-
-                                <ng-template #notFoundTemplate let-notFound>
-                                    <!--<div [innerHTML]="notFound"></div>-->
-                                </ng-template>
-                            </div>
-                        </div>
-                    </div>
+                <div class="m-0 p-0 text-center d-flex justify-content-center align-items-center"
+                  style="width: 16%; height: 40px !important;font-size: 17px; color:#626262;">
+                  Fechas
                 </div>
 
-                <div style="width: 30%" class=" m-0 p-0 v-texto-2">
-
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-
-                        <div class=" m-0 p-0 text-center d-flex justify-content-center align-items-center" style="width: 25%;font-size: 17px; color:#626262;">
-                            Destino
-                        </div>
-
-                        <div class=" m-0 p-0 txtDestino" style="width: 75%;">
-
-                            <div id="txtDestino" class="ng-autocomplete" style="width: 100%;">
-                                <ng-autocomplete [(ngModel)]="model.destinoTexto" style="color: #898989 !important;" [data]="data2" [searchKeyword]="keyword" (selected)='selectEvent2($event)' (inputChanged)='onChangeSearch2($event)' (inputFocused)='onFocused2($event)' [itemTemplate]="itemTemplate2"
-                                    [notFoundTemplate]="notFoundTemplate2">
-                                </ng-autocomplete>
-
-                                <ng-template #itemTemplate2 let-item>
-                                    <div class="" style="width: 100%">
-                                        <div class="row">
-                                            <div class="col-1">
-                                                <img *ngIf="item.categoryId===2" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                                                <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                                            </div>
-                                            <div class="col-11">
-                                                <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ng-template>
-
-                                <ng-template #notFoundTemplate let-notFound>
-                                    <!--<div [innerHTML]="notFound"></div>-->
-                                </ng-template>
-
-                                <ng-template #notFoundTemplate2 let-notFound>
-                                    <!--<div [innerHTML]="notFound"></div>-->
-                                </ng-template>
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                <div class="m-0 p-0 pr-2" style="width: 42%">
+                  <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow fechas"
+                    style="width: 100% !important; padding: 0px; padding: 9px;border: 2px solid #DFD9D8;border-radius: 4px">
+                    <input type="image" src="./assets/images/home/calendario.svg" (click)="datepickerSalida.toggle()"
+                      style="outline: none; border: 0; width: 25px !important;">
+                    <input type="text" readonly placeholder="Salida" class="p-0 pl-2 v-texto-3"
+                      style="outline: none; border: 0; width: 80%" #datepickerSalida="bsDatepicker"
+                      (onHidden)="handlerSalida()" (bsValueChange)="onValueChangeSalida($event)"
+                      [minDate]="minDateSalida" bsDatepicker id="fechasalida" [bsValue]="bsValue" value=""
+                      (onHidden)="ValidarCiudad()"
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }">
+                  </label>
+                </div>
+                <div *ngIf="tipoVuelo!=='OW'" class=" m-0 p-0" style="width: 40%">
+                  <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow"
+                    style="width: 100% !important; padding: 0px; padding: 9px;border: 2px solid #DFD9D8;border-radius: 4px">
+                    <input type="image" src="./assets/images/home/calendario.svg" (click)="datepickerRetorno.toggle()"
+                      style="outline: none; border: 0; width: 25px !important;">
+                    <input type="text" readonly placeholder="Retorno" class="p-0 pl-2 v-texto-3"
+                      style="outline: none; border: 0; width: 80%" #datepickerRetorno="bsDatepicker"
+                      (bsValueChange)="onValueChangeRetorno($event)" [minDate]="minDateRetorno"
+                      [dateCustomClasses]="dateCustomClasses" bsDatepicker
+                      [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                      id="fechadestino" (onHidden)="ValidarCiudad()">
+                    <!--[isOpen]="isOpendate"-->
+                  </label>
                 </div>
 
-                <div style="width: 40%" class=" m-0 p-0 v-texto-2">
-
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-
-                        <div class="m-0 p-0 text-center d-flex justify-content-center align-items-center" style="width: 16%; height: 40px !important;font-size: 17px; color:#626262;">
-                            Fechas
-                        </div>
-
-                        <div class="m-0 p-0 pr-2" style="width: 42%">
-                            <label id="txtFechaSalida" for="" class="d-inline-flex box-shadow fechas" style="width: 100% !important; padding: 0px; padding: 9px;border: 2px solid #DFD9D8;border-radius: 4px">
-<input type="image"
-       src="./assets/images/home/calendario.svg"
-       (click)="datepickerSalida.toggle()"
-       style="outline: none; border: 0; width: 25px !important;">
-<input type="text"
-       readonly
-       placeholder="Salida"
-       class="p-0 pl-2 v-texto-3"
-       style="outline: none; border: 0; width: 80%"
-       #datepickerSalida="bsDatepicker"
-       (onHidden)="handlerSalida()"
-       (bsValueChange)="onValueChangeSalida($event)"
-       [minDate]="minDateSalida"
-       bsDatepicker
-       id="fechasalida"
-       [bsValue]="bsValue"
-       value=""
-       (onHidden)="ValidarCiudad()"
-       [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
->
-</label>
-                        </div>
-                        <div *ngIf="tipoVuelo!=='OW'" class=" m-0 p-0" style="width: 40%">
-                            <label id="txtFechaDestino" for="" class="d-inline-flex box-shadow" style="width: 100% !important; padding: 0px; padding: 9px;border: 2px solid #DFD9D8;border-radius: 4px">
-<input type="image"
-     src="./assets/images/home/calendario.svg"
-     (click)="datepickerRetorno.toggle()"
-     style="outline: none; border: 0; width: 25px !important;">
-<input type="text"
-     readonly
-     placeholder="Retorno"
-     class="p-0 pl-2 v-texto-3"
-     style="outline: none; border: 0; width: 80%"
-     #datepickerRetorno="bsDatepicker"
-     (bsValueChange)="onValueChangeRetorno($event)"
-     [minDate]="minDateRetorno"
-     [dateCustomClasses]="dateCustomClasses"
-     bsDatepicker
-     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-     id="fechadestino"
-     (onHidden)="ValidarCiudad()"
->
-<!--[isOpen]="isOpendate"-->
-</label>
-                        </div>
-
-                    </div>
-
-                </div>
+              </div>
 
             </div>
 
-            <div *ngIf="tipoVuelo==='MC'" class="row m-0 p-0">
+          </div>
 
-                <app-multidestinos-lg [inOrigenValue]="origenAuto" [inOrigenText]="origentTexto" [inDestinoValue]="destinoAuto" [inDestinoText]="destinoTexto" [inFechaSalidaValue]="fechaSalida" [inFechaSalidaText]="fechaSalidaShow" (outIndexTramo)="updateIndexTramo($event)"
-                    (outOrigenValue1)="updateOrigenTramoValue1($event)" (outOrigenValue2)="updateOrigenTramoValue2($event)" (outOrigenValue3)="updateOrigenTramoValue3($event)" (outOrigenValue4)="updateOrigenTramoValue4($event)" (outOrigenValue5)="updateOrigenTramoValue5($event)"
-                    (outOrigenValue6)="updateOrigenTramoValue6($event)" (outOrigenText1)="updateOrigenTramoText1($event)" (outOrigenText2)="updateOrigenTramoText2($event)" (outOrigenText3)="updateOrigenTramoText3($event)" (outOrigenText4)="updateOrigenTramoText4($event)"
-                    (outOrigenText5)="updateOrigenTramoText5($event)" (outOrigenText6)="updateOrigenTramoText6($event)" (outDestinoValue1)="updateDestinoTramoValue1($event)" (outDestinoValue2)="updateDestinoTramoValue2($event)" (outDestinoValue3)="updateDestinoTramoValue3($event)"
-                    (outDestinoValue4)="updateDestinoTramoValue4($event)" (outDestinoValue5)="updateDestinoTramoValue5($event)" (outDestinoValue6)="updateDestinoTramoValue6($event)" (outDestinoText1)="updateDestinoTramoText1($event)" (outDestinoText2)="updateDestinoTramoText2($event)"
-                    (outDestinoText3)="updateDestinoTramoText3($event)" (outDestinoText4)="updateDestinoTramoText4($event)" (outDestinoText5)="updateDestinoTramoText5($event)" (outDestinoText6)="updateDestinoTramoText6($event)" (outFechaSalida1)="updateFechaSalida1($event)"
-                    (outFechaSalida2)="updateFechaSalida2($event)" (outFechaSalida3)="updateFechaSalida3($event)" (outFechaSalida4)="updateFechaSalida4($event)" (outFechaSalida5)="updateFechaSalida5($event)" (outFechaSalida6)="updateFechaSalida6($event)"
-                    (outFechaSalidaShow1)="updateFechaSalidaShow1($event)" (outFechaSalidaShow2)="updateFechaSalidaShow2($event)" (outFechaSalidaShow3)="updateFechaSalidaShow3($event)" (outFechaSalidaShow4)="updateFechaSalidaShow4($event)" (outFechaSalidaShow5)="updateFechaSalidaShow5($event)"
-                    (outFechaSalidaShow6)="updateFechaSalidaShow6($event)" style="width: 100% !important;"></app-multidestinos-lg>
+          <div *ngIf="tipoVuelo==='MC'" class="row m-0 p-0">
 
-                <!--    <app-multidestinos-lg [inOrigenValue]="origenAuto" [inOrigenText]="origentTexto" [inDestinoValue]="destinoAuto" [inDestinoText]="destinoTexto" (outIndexTramo)="updateIndexTramo($event)" (outOrigenValue1)="updateOrigenTramoValue1($event)" (outOrigenValue2)="updateOrigenTramoValue2($event)"
+            <app-multidestinos-lg [inOrigenValue]="origenAuto" [inOrigenText]="origentTexto"
+              [inDestinoValue]="destinoAuto" [inDestinoText]="destinoTexto" [inFechaSalidaValue]="fechaSalida"
+              [inFechaSalidaText]="fechaSalidaShow" (outIndexTramo)="updateIndexTramo($event)"
+              (outOrigenValue1)="updateOrigenTramoValue1($event)" (outOrigenValue2)="updateOrigenTramoValue2($event)"
+              (outOrigenValue3)="updateOrigenTramoValue3($event)" (outOrigenValue4)="updateOrigenTramoValue4($event)"
+              (outOrigenValue5)="updateOrigenTramoValue5($event)" (outOrigenValue6)="updateOrigenTramoValue6($event)"
+              (outOrigenText1)="updateOrigenTramoText1($event)" (outOrigenText2)="updateOrigenTramoText2($event)"
+              (outOrigenText3)="updateOrigenTramoText3($event)" (outOrigenText4)="updateOrigenTramoText4($event)"
+              (outOrigenText5)="updateOrigenTramoText5($event)" (outOrigenText6)="updateOrigenTramoText6($event)"
+              (outDestinoValue1)="updateDestinoTramoValue1($event)"
+              (outDestinoValue2)="updateDestinoTramoValue2($event)"
+              (outDestinoValue3)="updateDestinoTramoValue3($event)"
+              (outDestinoValue4)="updateDestinoTramoValue4($event)"
+              (outDestinoValue5)="updateDestinoTramoValue5($event)"
+              (outDestinoValue6)="updateDestinoTramoValue6($event)" (outDestinoText1)="updateDestinoTramoText1($event)"
+              (outDestinoText2)="updateDestinoTramoText2($event)" (outDestinoText3)="updateDestinoTramoText3($event)"
+              (outDestinoText4)="updateDestinoTramoText4($event)" (outDestinoText5)="updateDestinoTramoText5($event)"
+              (outDestinoText6)="updateDestinoTramoText6($event)" (outFechaSalida1)="updateFechaSalida1($event)"
+              (outFechaSalida2)="updateFechaSalida2($event)" (outFechaSalida3)="updateFechaSalida3($event)"
+              (outFechaSalida4)="updateFechaSalida4($event)" (outFechaSalida5)="updateFechaSalida5($event)"
+              (outFechaSalida6)="updateFechaSalida6($event)" (outFechaSalidaShow1)="updateFechaSalidaShow1($event)"
+              (outFechaSalidaShow2)="updateFechaSalidaShow2($event)"
+              (outFechaSalidaShow3)="updateFechaSalidaShow3($event)"
+              (outFechaSalidaShow4)="updateFechaSalidaShow4($event)"
+              (outFechaSalidaShow5)="updateFechaSalidaShow5($event)"
+              (outFechaSalidaShow6)="updateFechaSalidaShow6($event)" style="width: 100% !important;">
+            </app-multidestinos-lg>
+
+            <!--    <app-multidestinos-lg [inOrigenValue]="origenAuto" [inOrigenText]="origentTexto" [inDestinoValue]="destinoAuto" [inDestinoText]="destinoTexto" (outIndexTramo)="updateIndexTramo($event)" (outOrigenValue1)="updateOrigenTramoValue1($event)" (outOrigenValue2)="updateOrigenTramoValue2($event)"
           (outOrigenValue3)="updateOrigenTramoValue3($event)" (outOrigenValue4)="updateOrigenTramoValue4($event)" (outOrigenValue5)="updateOrigenTramoValue5($event)" (outOrigenValue6)="updateOrigenTramoValue6($event)" (outOrigenText1)="updateOrigenTramoText1($event)"
           (outOrigenText2)="updateOrigenTramoText2($event)" (outOrigenText3)="updateOrigenTramoText3($event)" (outOrigenText4)="updateOrigenTramoText4($event)" (outOrigenText5)="updateOrigenTramoText5($event)" (outOrigenText6)="updateOrigenTramoText6($event)"
           (outDestinoValue1)="updateDestinoTramoValue1($event)" (outDestinoValue2)="updateDestinoTramoValue2($event)" (outDestinoValue3)="updateDestinoTramoValue3($event)" (outDestinoValue4)="updateDestinoTramoValue4($event)" (outDestinoValue5)="updateDestinoTramoValue5($event)"
@@ -828,322 +780,364 @@
           (outFechaSalida4)="updateFechaSalida4($event)" (outFechaSalida5)="updateFechaSalida5($event)" (outFechaSalida6)="updateFechaSalida6($event)" (outFechaSalidaShow1)="updateFechaSalidaShow1($event)" (outFechaSalidaShow2)="updateFechaSalidaShow2($event)"
           (outFechaSalidaShow3)="updateFechaSalidaShow3($event)" (outFechaSalidaShow4)="updateFechaSalidaShow4($event)" (outFechaSalidaShow5)="updateFechaSalidaShow5($event)" (outFechaSalidaShow6)="updateFechaSalidaShow6($event)" style="width: 100% !important;"></app-multidestinos-lg> -->
 
-            </div>
+          </div>
 
-            <div class="row m-0 p-0 pt-4 pl-2">
-                <div class="col-3 m-0 p-0 v-texto-2">
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-                        <div class="m-0 p-0 d-flex align-items-center" style="width: 27%;font-size: 17px; color:#626262;">
-                            Cabina
-                        </div>
-                        <div class="m-0 p-0 d-flex justify-content-center align-items-center" style="width: 63%">
-                            <div class="btn-group" style="width: 90% !important;" dropdown>
-                                <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow btn-combo" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                {{textoCabina}}
-              </button>
-                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
-                                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a></li>
-                                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('E', 'Económica')">Económica</a></li>
-                                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('B', 'Business')">Business</a></li>
-                                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('F', 'First')">First</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+          <div class="row m-0 p-0 pt-4 pl-2">
+            <div class="col-3 m-0 p-0 v-texto-2">
+              <div class="row m-0 p-0" style="height: 40px !important;">
+                <div class="m-0 p-0 d-flex align-items-center" style="width: 27%;font-size: 17px; color:#626262;">
+                  Cabina
                 </div>
-                <div class="col-3 m-0 p-0 v-texto-2">
-                    <div class="row m-0 p-0 pl-3" style="height: 40px !important;">
-                        <div class="m-0 p-0 d-flex align-items-center" style="width: 25%;font-size: 17px; color:#626262;">
-                            Escala
-                        </div>
-                        <div class="m-0 p-0" style="width: 63%">
-                            <div class="btn-group" style="width: 90% !important;" dropdown>
-                                <button id="button-basic-2" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow btn-combo" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                {{textoEscala}}
-              </button>
-                                <ul id="dropdown-basic-2" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic-2">
-                                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('', 'Todas')">Todas</a></li>
-                                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('D', 'Directo')">Directo</a></li>
-                                    <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('E', 'Con escalas')">Con escalas</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 m-0 p-0 v-texto-2">
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-                        <div class="m-0 p-0 d-flex align-items-center" style="width: 52%; font-size: 17px; color:#626262;">
-                            Pasajeros
-                        </div>
-                        <div class="m-0 p-0 d-flex align-items-center justify-content-center" style="width: 13%; padding: 6px !important;">
-                            <label for="" style="padding: 0px; margin: 0px;" class=" d-inline-flex justify-content-center align-items-center box-shadow">
-              <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
-              <input readonly type="text" class="text-center v-texto-3" style="width: 60px; outline: none; border: 0" [value]="pasajeros">
-            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 m-0 p-0  v-texto-2">
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-                        <div class="m-0 p-0 d-flex align-items-center" style="width: 52%; font-size: 17px; color:#626262;">
-                            Incluye maleta
-                        </div>
-                        <div class="m-0 p-0 d-flex align-items-center justify-content-center" style="width: 36%; padding: 6px !important;">
-                            <input id="chkmaleta" type="checkbox" [(ngModel)]="maleta">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2 m-0 p-0 text-center v-texto-2">
-                    <div class="row m-0 p-0" style="height: 40px !important;">
-                        <div class="col-12 text-center">
-                            <button (click)="searchFlight()" class="btn v-btn-buscar">
-              <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-              Buscar
-            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row pb-5">
-            </div>
-        </div>
-    </div>
-    <div *ngIf="flagDinData" class="col-12">
-
-        <div class="row m-0 p-0">
-
-            <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
-
-            <div class="col-3 m-0 p-0"></div>
-
-            <div class="col-6 m-0 p-0 text-center">
-                <alert type="warning" class="text-center">
-                    No se encontraron itinerarios para esta búsqueda
-                </alert>
-            </div>
-
-        </div>
-
-    </div>
-
-    <ng-template #modalbnus let-c="close" let-d="dismiss">
-        <div class="modal-header pb-0" style="border: none;">
-            <!-- (click)="closeModalFamilia($event)" -->
-            <button type="button" class="close pull-right" aria-label="Close">
-        <span (click)="modalRef.hide();" aria-hidden="true">&times;</span>
-        </button>
-        </div>
-        <div class="modal-body">
-            <div class="col-12 m-0 p-0 text-center text-informacion1 pb-3">
-                Usted tiene boletos no usados
-            </div>
-            <div class="col-12 m-0 p-0 text-center text-informacion">
-                <alert type="info" class="text-center">
-                    Algunos pasajeros en su empresa no usaron los boletos que compraron, en algunos casos pueden ser reutilizados y así evitar sobrecostos
-                </alert>
-            </div>
-            <div class="col-12 m-0 p-0 text-center text-informacion">
-                <p>Es posible que usted pueda canjear cualquiera de estos boletos para la compra que esta intentando realizar</p>
-                <p>Seleccione llamar si desea que un asesor gestione esta compra</p>
-            </div>
-            <div class="col-12 m-0 p-0 pt-3 text-center pl-5 pr-5">
-                <table class="table table-bordered" style="margin: 0 auto;">
-                    <thead class="cabecera-tabla">
-                        <tr>
-                            <th>Tipo de vuelo</th>
-                            <th>Fecha Emisión</th>
-                            <th>Ruta</th>
-                            <th>Pasajero</th>
-                            <th>Ticket</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of lstBnus | paginate: { itemsPerPage: 5, currentPage: p}">
-                            <td>{{item.vuelo}}</td>
-                            <td>{{item.fecEmision | formatfechareservacreacion}}</td>
-                            <td>{{item.ruta}}</td>
-                            <td>{{item.pasajero}}</td>
-                            <td>{{item.ticket}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="col-12 m-0 p-0 text-center pt-3">
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                </div>
-            </div>
-            <div class="col-12 m-0 p-0 text-center pt-2 pb-3 pl-5 pr-5">
-                <span class="text-informacion">Asesor asignado:</span>
-
-                <table class="table table-bordered pt-2" style="margin: 0 auto;">
-                    <thead>
-                        <tr>
-                            <th>Asesor</th>
-                            <th>Email</th>
-                            <th>Teléfono</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of lstAsesors">
-                            <td>{{item.name}}</td>
-                            <td>{{item.email}}</td>
-                            <td>{{item.phone}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-12 m-0 p-0">
-                <div class="row m-0 p-0 text-center">
-                    <div class="col-6 m-0 p-0">
-                        <button class="btn btn-1" (click)="UserBnus1(modalconfirmacion)">Llamaré a mi asesor</button>
-                    </div>
-                    <div class="col-6 m-0 p-0">
-                        <button class="btn btn-1" (click)="searchFlight()">Continuar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-
-    <ng-template #modalconfirmacion let-c="close" let-d="dismiss">
-        <div class="modal-header pb-0" style="border: none;">
-            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-<span aria-hidden="true">&times;</span>
-</button>
-        </div>
-        <div class="modal-body m-0 p-0">
-            <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
-                    Ud. esta contribuyendo al ahorro de su empresa
-                </div>
-                <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
-                    Su asesor ha sido notificado, comuníquese directamente con él para gestionar la compra del pasaje.
-                </div>
-
-                <div class="col-12 m-0 p-0 pb-4 text-center">
-                    <button class="btn btn-1" (click)="modalRef.hide()">
-                      Ok
+                <div class="m-0 p-0 d-flex justify-content-center align-items-center" style="width: 63%">
+                  <div class="btn-group" style="width: 90% !important;" dropdown>
+                    <button id="button-basic" dropdownToggle type="button"
+                      class="btn v-texto-3 dropdown-toggle box-shadow btn-combo"
+                      style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                      {{textoCabina}}
                     </button>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-    <!-- flagBuscar -->
-    <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
-        <div class="row m-0 p-0">
-            <div class="col-3 m-0 p-0 pr-3 pl-5">
-                <app-buscador *ngIf="miniBuscador" [maleta]="maleta" [flagFilterVuelo]="vueloTurnoFiltro" [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos" [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto"
-                    [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina" [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida" [fechaRetorno]="fechaRetorno"
-                    [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno" [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1" [fechaSalida2]="fechaSalida2" [fechaSalida3]="fechaSalida3"
-                    [fechaSalida4]="fechaSalida4" [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1" [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3" [fechaSalidaShow4]="fechaSalidaShow4"
-                    [fechaSalidaShow5]="fechaSalidaShow5" [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2" [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5" [origenAuto6]="origenAuto6"
-                    [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2" [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5" [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1" [destinoAuto2]="destinoAuto2"
-                    [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5" [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2" [destinoTexto3]="destinoTexto3" [destinoTexto4]="destinoTexto4"
-                    [destinoTexto5]="destinoTexto5" (calendarShoping)="setCalendar($event)" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo" (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)" (outTipoVuelo)="setOutputTipoVuelo($event)"
-                    (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
-                <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
-                <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)" [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
-
-                <app-filtro-aerolineas [lstAerolineas]="aerolineas" (searchFlightFilter)="busquedaFiltros($event)"></app-filtro-aerolineas>
-            </div>
-
-            <div class="col-9 m-0 p-0 pr-5" *ngIf="inicioBuscador">
-
-                <div class="row m-0 p-0" *ngIf="searchData.length > 0">
-                    <div *ngIf="searchData[0].pseudoRepeat !== null && flagPseudoRepeat" class="col-12 m-0 p-0">
-                        <app-multipaises-price [currency]="searchData[0].currency" [priceByPseudo]="searchData[0].priceByPseudo"></app-multipaises-price>
-                    </div>
-                </div>
-
-                <div *ngIf="!spin" class="content">
-
-                  <div class="spinner">
-
+                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer"
+                      role="menu" aria-labelledby="button-basic">
+                      <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('', 'Todas')">Todas</a>
+                      </li>
+                      <li role="menuitem"><a class="dropdown-item"
+                          (click)="seleccionarCabina('E', 'Económica')">Económica</a></li>
+                      <li role="menuitem"><a class="dropdown-item"
+                          (click)="seleccionarCabina('B', 'Business')">Business</a></li>
+                      <li role="menuitem"><a class="dropdown-item" (click)="seleccionarCabina('F', 'First')">First</a>
+                      </li>
+                    </ul>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="col-3 m-0 p-0 v-texto-2">
+              <div class="row m-0 p-0 pl-3" style="height: 40px !important;">
+                <div class="m-0 p-0 d-flex align-items-center" style="width: 25%;font-size: 17px; color:#626262;">
+                  Escala
+                </div>
+                <div class="m-0 p-0" style="width: 63%">
+                  <div class="btn-group" style="width: 90% !important;" dropdown>
+                    <button id="button-basic-2" dropdownToggle type="button"
+                      class="btn v-texto-3 dropdown-toggle box-shadow btn-combo"
+                      style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                      {{textoEscala}}
+                    </button>
+                    <ul id="dropdown-basic-2" *dropdownMenu class="dropdown-menu v-texto-3" style="cursor: pointer"
+                      role="menu" aria-labelledby="button-basic-2">
+                      <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('', 'Todas')">Todas</a>
+                      </li>
+                      <li role="menuitem"><a class="dropdown-item"
+                          (click)="seleccionarEscala('D', 'Directo')">Directo</a></li>
+                      <li role="menuitem"><a class="dropdown-item" (click)="seleccionarEscala('E', 'Con escalas')">Con
+                          escalas</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-2 m-0 p-0 v-texto-2">
+              <div class="row m-0 p-0" style="height: 40px !important;">
+                <div class="m-0 p-0 d-flex align-items-center" style="width: 52%; font-size: 17px; color:#626262;">
+                  Pasajeros
+                </div>
+                <div class="m-0 p-0 d-flex align-items-center justify-content-center"
+                  style="width: 13%; padding: 6px !important;">
+                  <label for="" style="padding: 0px; margin: 0px;"
+                    class=" d-inline-flex justify-content-center align-items-center box-shadow">
+                    <img src="./assets/images/home/pasajero.svg" alt="" style="height: 20px;" class="pl-2">
+                    <input readonly type="text" class="text-center v-texto-3"
+                      style="width: 60px; outline: none; border: 0" [value]="pasajeros">
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-2 m-0 p-0  v-texto-2">
+              <div class="row m-0 p-0" style="height: 40px !important;">
+                <div class="m-0 p-0 d-flex align-items-center" style="width: 52%; font-size: 17px; color:#626262;">
+                  Incluye maleta
+                </div>
+                <div class="m-0 p-0 d-flex align-items-center justify-content-center"
+                  style="width: 36%; padding: 6px !important;">
+                  <input id="chkmaleta" type="checkbox" [(ngModel)]="maleta">
+                </div>
+              </div>
+            </div>
+            <div class="col-2 m-0 p-0 text-center v-texto-2">
+              <div class="row m-0 p-0" style="height: 40px !important;">
+                <div class="col-12 text-center">
+                  <button (click)="searchFlight()" class="btn v-btn-buscar">
+                    <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+                    Buscar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row pb-5">
+          </div>
+        </div>
+      </div>
+      <div *ngIf="flagDinData" class="col-12">
 
-                <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini"  class="row m-0 p-0 pt-5">
-                  <app-calendar-shopping (fechas)="onSelectDate($event)" [salida]="salida"></app-calendar-shopping>
+        <div class="row m-0 p-0">
+
+          <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+          <div class="col-3 m-0 p-0"></div>
+
+          <div class="col-6 m-0 p-0 text-center">
+            <alert type="warning" class="text-center">
+              No se encontraron itinerarios para esta búsqueda
+            </alert>
+          </div>
+
+        </div>
+
+      </div>
+
+      <ng-template #modalbnus let-c="close" let-d="dismiss">
+        <div class="modal-header pb-0" style="border: none;">
+          <!-- (click)="closeModalFamilia($event)" -->
+          <button type="button" class="close pull-right" aria-label="Close">
+            <span (click)="modalRef.hide();" aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-12 m-0 p-0 text-center text-informacion1 pb-3">
+            Usted tiene boletos no usados
+          </div>
+          <div class="col-12 m-0 p-0 text-center text-informacion">
+            <alert type="info" class="text-center">
+              Algunos pasajeros en su empresa no usaron los boletos que compraron, en algunos casos pueden ser
+              reutilizados y así evitar sobrecostos
+            </alert>
+          </div>
+          <div class="col-12 m-0 p-0 text-center text-informacion">
+            <p>Es posible que usted pueda canjear cualquiera de estos boletos para la compra que esta intentando
+              realizar</p>
+            <p>Seleccione llamar si desea que un asesor gestione esta compra</p>
+          </div>
+          <div class="col-12 m-0 p-0 pt-3 text-center pl-5 pr-5">
+            <table class="table table-bordered" style="margin: 0 auto;">
+              <thead class="cabecera-tabla">
+                <tr>
+                  <th>Tipo de vuelo</th>
+                  <th>Fecha Emisión</th>
+                  <th>Ruta</th>
+                  <th>Pasajero</th>
+                  <th>Ticket</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of lstBnus | paginate: { itemsPerPage: 5, currentPage: p}">
+                  <td>{{item.vuelo}}</td>
+                  <td>{{item.fecEmision | formatfechareservacreacion}}</td>
+                  <td>{{item.ruta}}</td>
+                  <td>{{item.pasajero}}</td>
+                  <td>{{item.ticket}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="col-12 m-0 p-0 text-center pt-3">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+          </div>
+          <div class="col-12 m-0 p-0 text-center pt-2 pb-3 pl-5 pr-5">
+            <span class="text-informacion">Asesor asignado:</span>
+
+            <table class="table table-bordered pt-2" style="margin: 0 auto;">
+              <thead>
+                <tr>
+                  <th>Asesor</th>
+                  <th>Email</th>
+                  <th>Teléfono</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of lstAsesors">
+                  <td>{{item.name}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.phone}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-12 m-0 p-0">
+            <div class="row m-0 p-0 text-center">
+              <div class="col-6 m-0 p-0">
+                <button class="btn btn-1" (click)="UserBnus1(modalconfirmacion)">Llamaré a mi asesor</button>
+              </div>
+              <div class="col-6 m-0 p-0">
+                <button class="btn btn-1" (click)="searchFlight()">Continuar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #modalconfirmacion let-c="close" let-d="dismiss">
+        <div class="modal-header pb-0" style="border: none;">
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body m-0 p-0">
+          <div class="row m-0 p-0">
+            <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
+              Ud. esta contribuyendo al ahorro de su empresa
+            </div>
+            <div class="col-12 m-0 p-0 pb-4 text-center text-informacion">
+              Su asesor ha sido notificado, comuníquese directamente con él para gestionar la compra del pasaje.
+            </div>
+
+            <div class="col-12 m-0 p-0 pb-4 text-center">
+              <button class="btn btn-1" (click)="modalRef.hide()">
+                Ok
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <!-- flagBuscar -->
+      <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
+        <div class="row m-0 p-0">
+          <div class="col-3 m-0 p-0 pr-3 pl-5">
+            <app-buscador *ngIf="miniBuscador" [maleta]="maleta" [flagFilterVuelo]="vueloTurnoFiltro"
+              [flagVuelosManiana]="vuelosManiana" [flagVuelosNoche]="vuelosNoche" [flagPaxMasMenos]="flagPaxMasMenos"
+              [tipoVuelo]="tipoVuelo" [origenAuto]="origenAuto" [origentTexto]="origentTexto"
+              [destinoAuto]="destinoAuto" [destinoTexto]="destinoTexto" [cabina]="cabina" [textoCabina]="textoCabina"
+              [escala]="escala" [textoEscala]="textoEscala" [pasajeros]="pasajeros" [fechaSalida]="fechaSalida"
+              [fechaRetorno]="fechaRetorno" [minDateSalida]="minDateSalida" [minDateRetorno]="minDateRetorno"
+              [fechaSalidaShow]="fechaSalidaShow" [fechaRetornoShow]="fechaRetornoShow" [fechaSalida1]="fechaSalida1"
+              [fechaSalida2]="fechaSalida2" [fechaSalida3]="fechaSalida3" [fechaSalida4]="fechaSalida4"
+              [fechaSalida5]="fechaSalida5" [fechaSalida6]="fechaSalida6" [fechaSalidaShow1]="fechaSalidaShow1"
+              [fechaSalidaShow2]="fechaSalidaShow2" [fechaSalidaShow3]="fechaSalidaShow3"
+              [fechaSalidaShow4]="fechaSalidaShow4" [fechaSalidaShow5]="fechaSalidaShow5"
+              [fechaSalidaShow6]="fechaSalidaShow6" [origenAuto1]="origenAuto1" [origenAuto2]="origenAuto2"
+              [origenAuto3]="origenAuto3" [origenAuto4]="origenAuto4" [origenAuto5]="origenAuto5"
+              [origenAuto6]="origenAuto6" [origentTexto1]="origentTexto1" [origentTexto2]="origentTexto2"
+              [origentTexto3]="origentTexto3" [origentTexto4]="origentTexto4" [origentTexto5]="origentTexto5"
+              [origentTexto6]="origentTexto6" [destinoAuto1]="destinoAuto1" [destinoAuto2]="destinoAuto2"
+              [destinoAuto3]="destinoAuto3" [destinoAuto4]="destinoAuto4" [destinoAuto5]="destinoAuto5"
+              [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2"
+              [destinoTexto3]="destinoTexto3" [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5"
+              (calendarShoping)="setCalendar($event)" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo"
+              (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)"
+              (outTipoVuelo)="setOutputTipoVuelo($event)" (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
+            <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
+            <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)"
+              [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
+
+            <app-filtro-aerolineas [lstAerolineas]="aerolineas" (searchFlightFilter)="busquedaFiltros($event)">
+            </app-filtro-aerolineas>
+          </div>
+
+          <div class="col-9 m-0 p-0 pr-5" *ngIf="inicioBuscador">
+
+            <div class="row m-0 p-0" *ngIf="searchData.length > 0">
+              <div *ngIf="searchData[0].pseudoRepeat !== null && flagPseudoRepeat" class="col-12 m-0 p-0">
+                <app-multipaises-price [currency]="searchData[0].currency"
+                  [priceByPseudo]="searchData[0].priceByPseudo"></app-multipaises-price>
+              </div>
+            </div>
+
+            <div *ngIf="!spin" class="content">
+
+              <div class="spinner">
+
+              </div>
+            </div>
+
+            <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini" class="row m-0 p-0 pt-5">
+              <app-calendar-shopping (fechas)="onSelectDate($event)" [salida]="salida"></app-calendar-shopping>
+            </div>
+
+            <div *ngIf="searchData.length > 0" class="row m-0 p-0 pt-5">
+              <div class="col-12 m-0 p-0">
+                <app-filtro-superior [tipoEscala]="escala" (refreshdata)="Datafiltrosuperior($event)"
+                  (searchFilter)="busquedaFiltros($event)"></app-filtro-superior>
+              </div>
+            </div>
+
+            <div *ngIf="flagDinData2" class="col-12">
+
+              <div class="row m-0 p-0">
+
+                <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+                <div class="col-3 m-0 p-0"></div>
+
+                <div class="col-6 m-0 p-0 text-center">
+                  <alert type="warning" class="text-center">
+                    No se encontraron itinerarios para esta búsqueda
+                  </alert>
                 </div>
 
-                <div *ngIf="searchData.length > 0" class="row m-0 p-0 pt-5">
-                    <div class="col-12 m-0 p-0">
-                        <app-filtro-superior [tipoEscala]="escala" (refreshdata)="Datafiltrosuperior($event)" (searchFilter)="busquedaFiltros($event)"></app-filtro-superior>
-                    </div>
-                </div>
-
-                <div *ngIf="flagDinData2" class="col-12">
-
-                    <div class="row m-0 p-0">
-
-                        <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
-
-                        <div class="col-3 m-0 p-0"></div>
-
-                        <div class="col-6 m-0 p-0 text-center">
-                            <alert type="warning" class="text-center">
-                                No se encontraron itinerarios para esta búsqueda
-                            </alert>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="row m-0 p-0" *ngIf="searchData.length > 0">
-                    <app-recomendacion  *ngFor="let recomendacion of searchData; let i = index" [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency" [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount" [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
-                        [taxAmountByPassenger]="recomendacion.taxAmountByPassenger" [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger" [carrierId]="recomendacion.carrierId" [numberPassengers]="recomendacion.numberPassengers" [pseudo]="recomendacion.pseudo"
-                        [gds]="recomendacion.gds" [flightNational]="recomendacion.flightNational" [lsections]="recomendacion.lsections" [lsectionLength]="recomendacion.lsections.length" [lpolicies]="recomendacion.lpolicies" [recommendationId]="recomendacion.recommendationId"
-                        [tipoVuelo]="tipoVuelo" [recomen]="recomendacionHotel" [pseudoRepeat]="recomendacion.pseudoRepeat" [index]='i + 1' [lstBnus]="lstBnus">
-                    </app-recomendacion>
-                </div>
+              </div>
 
             </div>
+
+            <div class="row m-0 p-0" *ngIf="searchData.length > 0">
+              <app-recomendacion *ngFor="let recomendacion of searchData; let i = index"
+                [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency"
+                [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount"
+                [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
+                [taxAmountByPassenger]="recomendacion.taxAmountByPassenger"
+                [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger"
+                [carrierId]="recomendacion.carrierId" [numberPassengers]="recomendacion.numberPassengers"
+                [pseudo]="recomendacion.pseudo" [gds]="recomendacion.gds"
+                [flightNational]="recomendacion.flightNational" [lsections]="recomendacion.lsections"
+                [lsectionLength]="recomendacion.lsections.length" [lpolicies]="recomendacion.lpolicies"
+                [recommendationId]="recomendacion.recommendationId" [tipoVuelo]="tipoVuelo"
+                [recomen]="recomendacionHotel" [pseudoRepeat]="recomendacion.pseudoRepeat" [index]='i + 1'
+                [lstBnus]="lstBnus">
+              </app-recomendacion>
+            </div>
+
+          </div>
 
         </div>
 
 
+      </div>
     </div>
-</div>
 
-</app-header>
+  </app-header>
 
-<style>
+  <style>
+    .content {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+    }
 
-.content{
-width:100%;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#fff;
-}
+    .spinner {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 5px solid black;
+      background: transparent;
+      border-top-color: #efef;
+      border-bottom-color: #efef;
+      border-left-color: black;
+      animation: spin 1.5s linear infinite;
+      position: relative;
+    }
 
-.spinner{
-width:100px;
-height:100px;
-border-radius:50%;
-border:5px solid black;
-background:transparent;
-border-top-color:#efef;
-border-bottom-color: #efef;
-border-left-color: black;
-animation:spin 1.5s linear infinite;
-position:relative;
-}
+    @keyframes spin {
+      0% {
+        background: transparent;
+        transform: rotate(720deg);
+      }
 
-@keyframes spin{
-0%{
-background:transparent;
-transform: rotate(720deg);
-}
-
-}
-
-</style>
+    }
+  </style>
 
 
-<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+  <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating"
+    style="width: 100% !important; height: 100% !important;"></ngx-spinner>
 
 </ng-template>
-
-

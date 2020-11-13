@@ -52,7 +52,7 @@
                       </div>
                       <div class="row m-0 p-0 pt-4 pb-5">
                           <div class="col-12 p-0 m-0 text-center">
-                              <button class="btn bv-texto-3" *ngIf="flagactive" (click)="Comprar(modalcorreoiguales, modalcorreoigualescent)">CONTINUAR</button>
+                              <button class="btn bv-texto-3" *ngIf="flagactive" (click)="Comprar(modalcorreoiguales, modalcorreoigualescent,modalDuplicate)">CONTINUAR</button>
                           </div>
                           <!--<ng-template #modalresumen let-c="close" let-d="dismiss">
                               <div class="modal-header m-0 p-0" style="border: none;">
@@ -128,6 +128,20 @@
                               </div>
 
                           </ng-template>
+
+                          <ng-template #modalDuplicate let-c="close" let-d="dismiss">
+                            <div class="modal-header m-0 pb-0" style="border: none;">
+                                <button type="button" class="close pull-right" aria-label="Close">
+    <span (click)="modalRef.hide()" aria-hidden="true">&times;</span>
+    </button>
+                            </div>
+                            <div class="modal-body m-0 p-0">
+                                <div *ngFor="let item of mensajeDuplicate" class="col-12 m-0 p-0 pl-5 pr-5 pt-3 pb-4 r-text-sinfam-2">
+                                  {{item}}
+                                </div>
+                            </div>
+
+                        </ng-template>
                       </div>
                   </div>
               </div>
