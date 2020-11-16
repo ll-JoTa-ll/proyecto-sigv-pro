@@ -722,11 +722,40 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
   }
 
   verDetalle(recomendacion, categoriaDescription) {
-    this.sessionStorageService.store("ss_recomendacion_alq", recomendacion);
-    this.sessionStorageService.store(
-      "ss_categoriaDescription_alq",
-      categoriaDescription
+    this.spinner.show();
+    const fechaIni = this.fechaSalida + "T" + this.model.timeIni + ":00.000";
+    const fechaFin = this.fechaRetorno + "T" + this.model.timeFin + ":00.000";
+    const data = {
+      CompanyCode: recomendacion.ocompany.code,
+      SippCode: recomendacion.sippCode,
+      CountryIataCode: this.origenCountryCode,
+      PickUpIataCode: recomendacion.olocation.pickUpLocation,
+      DropOffIataCode: recomendacion.olocation.dropOffLocation,
+      PickUpDate: fechaIni,
+      DropOffDate: fechaFin,
+      Ccrc: recomendacion.ccrc,
+      RateId: recomendacion.orate.rateId,
+      PromotionalCode: "",
+      PaymentType: "",
+      Language: "es",
+    };
+
+    this.carsService.selectCar(data).subscribe(
+      (result) => {
+        this.sessionStorageService.store("ss_sel_car_result", result);
+      },
+      (error) => {
+        this.spinner.hide();
+      },
+      () => {
+        this.spinner.hide();
+        this.sessionStorageService.store("ss_recomendacion_alq", recomendacion);
+        this.sessionStorageService.store(
+          "ss_categoriaDescription_alq",
+          categoriaDescription
+        );
+        this.router.navigate(["/auto-detalle"]);
+      }
     );
-    this.router.navigate(["/auto-detalle"]);
   }
 }

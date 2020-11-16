@@ -30,6 +30,7 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
   amount: number;
   flagTabDatos: boolean = false;
   flagTabInfo: boolean = false;
+  carSelect;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -49,6 +50,7 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
     $("#menu-autos-1").hide();
     $("#menu-autos-2").show();
 
+    this.carSelect = this.sessionStorageService.retrieve("ss_sel_car_result");
     this.carsSearch = this.sessionStorageService.retrieve("ss_carsSearch");
     this.carsSearchRequest = this.sessionStorageService.retrieve(
       "ss_requestCars"
@@ -92,27 +94,33 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
     $("#menu-autos-1").hide();
     $("#menu-autos-2").show();
 
+    ///////////////////////////////////////////////////////////////////////////ORIGEN
     this.origenLugar =
-      this.carRecomendacion.olocation.pickUpAddress +
+      this.carSelect.oinformation.oitineraryInfo.pickUpAddress +
       " (" +
-      this.carRecomendacion.olocation.pickUpLocation +
+      this.carSelect.oinformation.oitineraryInfo.pickUpLocation +
       ")";
 
     const fecha1 = moment(this.carsSearchRequest.fechaSalida);
-    this.origenFecha = fecha1.format("dddd, DD MMM YYYY");
+    //this.origenFecha = fecha1.format("dddd, DD MMM YYYY");
+    this.origenFecha = this.carSelect.oinformation.oitineraryInfo.pickUpDateShow;
 
-    this.origenHora = this.carsSearchRequest.timeIni;
+    //this.origenHora = this.carsSearchRequest.timeIni;
+    this.origenHora = this.carSelect.oinformation.oitineraryInfo.pickUpHourShow;
 
+    ///////////////////////////////////////////////////////////////////////////DESTINO
     this.destinoLugar =
-      this.carRecomendacion.olocation.dropOffAddress +
+      this.carSelect.oinformation.oitineraryInfo.dropOffAddress +
       " (" +
-      this.carRecomendacion.olocation.dropOffLocation +
+      this.carSelect.oinformation.oitineraryInfo.dropOffLocation +
       ")";
 
     const fecha2 = moment(this.carsSearchRequest.fechaRetorno);
-    this.destinoFecha = fecha2.format("dddd, DD MMM YYYY");
+    //this.destinoFecha = fecha2.format("dddd, DD MMM YYYY");
+    this.destinoFecha = this.carSelect.oinformation.oitineraryInfo.dropOffDateShow;
 
-    this.destinoHora = this.carsSearchRequest.timeFin;
+    //this.destinoHora = this.carsSearchRequest.timeFin;
+    this.destinoHora = this.carSelect.oinformation.oitineraryInfo.dropOffHourShow;
 
     this.cantDiasAlquiler = fecha2.diff(fecha1, "days");
 

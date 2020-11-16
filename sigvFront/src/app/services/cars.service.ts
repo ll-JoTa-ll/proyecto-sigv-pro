@@ -4,6 +4,7 @@ import { SessionStorageService } from "ngx-webstorage";
 import { environment } from "../../environments/environment";
 import { Observable } from "rxjs";
 import { ICarsSearchResultModel } from "../models/ICarsSearchResult.model";
+import { ICarSelectResultModel } from "../models/ICarSelectResult.model";
 
 let httpOptions = {
   headers: new HttpHeaders(),
@@ -17,6 +18,7 @@ export class CarsService {
   key;
 
   private _url_cars: string = environment.url_cars + "Search/";
+  private _url_cars2: string = environment.url_cars + "Booking/";
 
   constructor(
     private http: HttpClient,
@@ -33,6 +35,14 @@ export class CarsService {
   getCars(dataPost): Observable<ICarsSearchResultModel> {
     return this.http.post<ICarsSearchResultModel>(
       this._url_cars + "SearchCars",
+      dataPost,
+      httpOptions
+    );
+  }
+
+  selectCar(dataPost): Observable<ICarSelectResultModel> {
+    return this.http.post<ICarSelectResultModel>(
+      this._url_cars2 + "SelectCar",
       dataPost,
       httpOptions
     );

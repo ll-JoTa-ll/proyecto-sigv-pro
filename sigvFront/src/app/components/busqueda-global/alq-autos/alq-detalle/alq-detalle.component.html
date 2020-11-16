@@ -181,14 +181,14 @@
                       <div class="col-12 text-center">
                         <img
                           class="img-fluid"
-                          [src]="carRecomendacion.image"
+                          [src]="carSelect.oinformation.ocarInfo.image"
                           alt=""
                         />
                       </div>
 
                       <div class="col-12">
                         <span class="det-test13 pr-2">
-                          {{ carRecomendacion.ocompany.name }}:
+                          {{ carSelect.oinformation.ocarInfo.companyName }}:
                         </span>
 
                         <span class="det-test14" style="cursor: pointer">
@@ -202,7 +202,7 @@
                       <div class="col-12">
                         <div class="row">
                           <div class="det-test15" style="width: 49% !important">
-                            {{ carRecomendacion.model }}
+                            {{ carSelect.oinformation.ocarInfo.model }}
                           </div>
                           <div
                             class=""
@@ -219,7 +219,10 @@
                                   src="./assets/images/autos/airplane.svg"
                                   alt=""
                                 />
-                                {{ carRecomendacion.olocation.pickUpAddress }}
+                                {{
+                                  carSelect.oinformation.oitineraryInfo
+                                    .pickUpAddress
+                                }}
                               </div>
                               <div
                                 class="col-12 det-test8"
@@ -253,7 +256,9 @@
                               tooltip="pasajeros"
                             />
                             <span class="pl-2 det-test3">
-                              {{ carRecomendacion.numberPassengers }}
+                              {{
+                                carSelect.oinformation.ocarInfo.numberPassengers
+                              }}
                             </span>
                           </div>
 
@@ -264,7 +269,10 @@
                               tooltip="pasajeros"
                             />
                             <span class="pl-2 det-test3">
-                              {{ carRecomendacion.baggage | validarEntero }}
+                              {{
+                                carSelect.oinformation.ocarInfo.baggage
+                                  | validarEntero
+                              }}
                             </span>
                           </div>
 
@@ -275,12 +283,17 @@
                               tooltip="pasajeros"
                             />
                             <span class="pl-2 det-test3">
-                              {{ carRecomendacion.baggage | slice: 0:1 }}
+                              {{
+                                carSelect.oinformation.ocarInfo.baggage
+                                  | slice: 0:1
+                              }}
                             </span>
                           </div>
 
                           <div
-                            *ngIf="carRecomendacion.airConditioner"
+                            *ngIf="
+                              carSelect.oinformation.ocarInfo.airConditioner
+                            "
                             class="pl-3"
                           >
                             <img
@@ -326,7 +339,10 @@
                       <div class="col-12 pt-4">
                         <div class="row">
                           <div
-                            *ngIf="carRecomendacion.type === 'Automático'"
+                            *ngIf="
+                              carSelect.oinformation.ocarInfo.type ===
+                              'Automático'
+                            "
                             class=""
                           >
                             <span
