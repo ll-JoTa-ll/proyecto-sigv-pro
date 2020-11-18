@@ -472,6 +472,133 @@
               <div class="col-12 fondo-rojo-tri" style="height: 2px"></div>
             </div>
           </div>
+
+          <div class="col-12 m-p p-0 pt-5">
+            <div class="row m-p p-0">
+              <div class="col-2 m-p p-0">
+                <div class="row m-0 p-0">
+                  <div class="col-12" style="height: 50px !important"></div>
+                  <div
+                    *ngFor="let inclusion of lstInclusions"
+                    class="col-12 det-test19"
+                    style="
+                      height: 50px;
+                      display: flex;
+                      align-items: center !important;
+                    "
+                  >
+                    {{ inclusion.alias }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-10 m-p p-0">
+                <div class="row m-0 p-0">
+                  <div
+                    *ngFor="let extraRates of lstExtraRates"
+                    class=""
+                    style="
+                      width: 228px !important;
+                      margin-right: 20px;
+                      border-radius: 20px 0 20px 0;
+                      border: solid 1px #aaaaaa;
+                      padding-bottom: 10px;
+                    "
+                  >
+                    <div class="row m-0 p-0">
+                      <div
+                        class="col-12 m-0 p-0 det-test20"
+                        style="
+                          height: 50px !important;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          background-color: #aaaaaa;
+                          border-radius: 20px 0 0 0;
+                        "
+                      >
+                        {{ extraRates.name }}
+                      </div>
+
+                      <div
+                        *ngFor="
+                          let inclusion of extraRates.linclusions;
+                          let i = index
+                        "
+                        class="col-12"
+                        style="
+                          height: 50px !important;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          border-bottom: solid 1px #aaaaaa;
+                        "
+                      >
+                        <span *ngIf="inclusion.alias === lstInclusions[i].alias"
+                          >X</span
+                        >
+                      </div>
+
+                      <div
+                        *ngFor="
+                          let item of lstDivParaCompletar
+                            | createDivVacio
+                              : lstInclusions.length -
+                                  extraRates.linclusions.length
+                        "
+                        class="col-12"
+                        style="
+                          height: 50px !important;
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                          border-bottom: solid 1px #aaaaaa;
+                        "
+                      ></div>
+                    </div>
+
+                    <div class="row m-0 p-0 pt-2 pb-2">
+                      <div
+                        class="col-12 m-0 p-0 pt-2"
+                        *ngFor="let ratePrice of extraRates.lratePrice"
+                      >
+                        <div class="row m-0 p-0 pl-3 pr-3">
+                          <div
+                            class="col-12 m-0 p-0 det-test21"
+                            style="
+                              display: flex !important;
+                              justify-content: center !important;
+                              align-items: center !important;
+                              border: 1px solid #818181;
+                            "
+                          >
+                            {{ ratePrice.paymentType }}
+                          </div>
+
+                          <div
+                            class="col-12 m-0 p-0"
+                            style="
+                              border: 1px solid #818181;
+                              height: 45px;
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+                            "
+                          >
+                            <span class="pr-2 det-test22">{{
+                              ratePrice.currency
+                            }}</span>
+                            <span class="det-test23">{{
+                              ratePrice.baseAmount
+                            }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

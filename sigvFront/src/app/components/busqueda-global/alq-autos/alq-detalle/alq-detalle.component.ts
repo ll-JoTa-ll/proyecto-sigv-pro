@@ -31,6 +31,30 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
   flagTabDatos: boolean = false;
   flagTabInfo: boolean = false;
   carSelect;
+  lstInclusions: any[] = [];
+  lstExtraRates: any[] = [];
+  lstDivParaCompletar = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+  ];
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -61,6 +85,10 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
     this.categoriaDescription = this.sessionStorageService.retrieve(
       "ss_categoriaDescription_alq"
     );
+    this.lstExtraRates = this.carSelect.lextraRates;
+    const cantLextraRates = this.lstExtraRates.length;
+    const extraRatesMax = this.lstExtraRates[cantLextraRates - 1];
+    this.lstInclusions = extraRatesMax.linclusions;
 
     moment.locale("es");
   }

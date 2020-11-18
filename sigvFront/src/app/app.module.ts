@@ -178,6 +178,7 @@ import { MomentModule } from "ngx-moment";
 import { SoloEnteroPipe } from './pipes/solo-entero.pipe';
 import { ValidarEnteroPipe } from './pipes/validar-entero.pipe';
 import { AlqDetalleComponent } from './components/busqueda-global/alq-autos/alq-detalle/alq-detalle.component';
+import { CreateDivVacioPipe } from './pipes/create-div-vacio.pipe';
 
 @NgModule({
   declarations: [
@@ -323,6 +324,7 @@ import { AlqDetalleComponent } from './components/busqueda-global/alq-autos/alq-
     SoloEnteroPipe,
     ValidarEnteroPipe,
     AlqDetalleComponent,
+    CreateDivVacioPipe,
   ],
   imports: [
     BrowserModule,
