@@ -437,13 +437,13 @@
               <div class="col-12">
                 <div class="row m-0 p-0">
                   <div class="col-1"></div>
-                  <div class="col-11 det-test8">Pago en Origen</div>
+                  <div class="col-11 det-test8">{{ infoAuto1 }}</div>
                 </div>
               </div>
               <div class="col-12 pt-3">
                 <div class="row m-0 p-0">
                   <div class="col-1"></div>
-                  <div class="col-11 det-test8">Sólo auto</div>
+                  <div class="col-11 det-test8">{{ infoAuto2 }}</div>
                 </div>
               </div>
               <div class="col-12 pt-3">
@@ -473,7 +473,7 @@
             </div>
           </div>
 
-          <div class="col-12 m-p p-0 pt-5">
+          <div class="col-12 m-p p-0 pt-5 pb-3">
             <div class="row m-p p-0">
               <div class="col-2 m-p p-0">
                 <div class="row m-0 p-0">
@@ -494,111 +494,329 @@
               <div class="col-10 m-p p-0">
                 <div class="row m-0 p-0">
                   <div
-                    *ngFor="let extraRates of lstExtraRates"
                     class=""
                     style="
-                      width: 228px !important;
-                      margin-right: 20px;
-                      border-radius: 20px 0 20px 0;
-                      border: solid 1px #aaaaaa;
-                      padding-bottom: 10px;
+                      width: 5%;
+                      display: flex !important;
+                      justify-content: center !important;
+                      align-items: center !important;
                     "
                   >
-                    <div class="row m-0 p-0">
-                      <div
-                        class="col-12 m-0 p-0 det-test20"
-                        style="
-                          height: 50px !important;
-                          display: flex;
-                          justify-content: center;
-                          align-items: center;
-                          background-color: #aaaaaa;
-                          border-radius: 20px 0 0 0;
-                        "
-                      >
-                        {{ extraRates.name }}
-                      </div>
+                    <img
+                      style="cursor: pointer; width: 32px"
+                      (click)="moverIzq('div_container')"
+                      src="./assets/images/autos/keyboard-left-arrow_72692.svg"
+                      alt=""
+                    />
+                  </div>
 
-                      <div
-                        *ngFor="
-                          let inclusion of extraRates.linclusions;
-                          let i = index
-                        "
-                        class="col-12"
-                        style="
-                          height: 50px !important;
-                          display: flex;
-                          justify-content: center;
-                          align-items: center;
-                          border-bottom: solid 1px #aaaaaa;
-                        "
-                      >
-                        <span *ngIf="inclusion.alias === lstInclusions[i].alias"
-                          >X</span
+                  <div
+                    id="div_container"
+                    class="scrollmenu"
+                    style="width: 90% !important"
+                  >
+                    <div
+                      *ngFor="let extraRates of lstExtraRates"
+                      class=""
+                      style="
+                        width: 228px !important;
+                        margin-right: 20px;
+                        border-radius: 20px 0 20px 0;
+                        border: solid 1px #aaaaaa;
+                        padding-bottom: 10px;
+                        min-width: 250px !important;
+                      "
+                    >
+                      <div class="row m-0 p-0">
+                        <div
+                          class="col-12 m-0 p-0 det-test20"
+                          [id]="idDivCabecera + '_' + extraRates.rateId"
+                          style="
+                            height: 50px !important;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            background-color: #aaaaaa;
+                            border-radius: 20px 0 0 0;
+                          "
                         >
+                          {{ extraRates.name }}
+                        </div>
+
+                        <div
+                          *ngFor="
+                            let inclusion of extraRates.linclusions;
+                            let i = index
+                          "
+                          class="col-12"
+                          style="
+                            height: 50px !important;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-bottom: solid 1px #aaaaaa;
+                          "
+                        >
+                          <span
+                            *ngIf="inclusion.alias === lstInclusions[i].alias"
+                            >X</span
+                          >
+                        </div>
+
+                        <div
+                          *ngFor="
+                            let item of lstDivParaCompletar
+                              | createDivVacio
+                                : lstInclusions.length -
+                                    extraRates.linclusions.length
+                          "
+                          class="col-12"
+                          style="
+                            height: 50px !important;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-bottom: solid 1px #aaaaaa;
+                          "
+                        ></div>
                       </div>
 
-                      <div
-                        *ngFor="
-                          let item of lstDivParaCompletar
-                            | createDivVacio
-                              : lstInclusions.length -
-                                  extraRates.linclusions.length
-                        "
-                        class="col-12"
-                        style="
-                          height: 50px !important;
-                          display: flex;
-                          justify-content: center;
-                          align-items: center;
-                          border-bottom: solid 1px #aaaaaa;
-                        "
-                      ></div>
-                    </div>
+                      <div class="row m-0 p-0 pt-2 pb-2">
+                        <div
+                          class="col-12 m-0 p-0 pt-2"
+                          *ngFor="
+                            let ratePrice of extraRates.lratePrice;
+                            let indexPrice = index
+                          "
+                        >
+                          <div class="row m-0 p-0 pl-3 pr-3">
+                            <div
+                              class="col-12 m-0 p-0 det-test21"
+                              style="
+                                display: flex !important;
+                                justify-content: center !important;
+                                align-items: center !important;
+                                border: 1px solid #818181;
+                              "
+                              [id]="
+                                idDivRatePrice1 +
+                                '_' +
+                                extraRates.rateId +
+                                '_' +
+                                indexPrice
+                              "
+                            >
+                              {{ ratePrice.paymentType }}
+                            </div>
 
-                    <div class="row m-0 p-0 pt-2 pb-2">
-                      <div
-                        class="col-12 m-0 p-0 pt-2"
-                        *ngFor="let ratePrice of extraRates.lratePrice"
-                      >
-                        <div class="row m-0 p-0 pl-3 pr-3">
-                          <div
-                            class="col-12 m-0 p-0 det-test21"
-                            style="
-                              display: flex !important;
-                              justify-content: center !important;
-                              align-items: center !important;
-                              border: 1px solid #818181;
-                            "
-                          >
-                            {{ ratePrice.paymentType }}
-                          </div>
-
-                          <div
-                            class="col-12 m-0 p-0"
-                            style="
-                              border: 1px solid #818181;
-                              height: 45px;
-                              display: flex;
-                              justify-content: center;
-                              align-items: center;
-                            "
-                          >
-                            <span class="pr-2 det-test22">{{
-                              ratePrice.currency
-                            }}</span>
-                            <span class="det-test23">{{
-                              ratePrice.baseAmount
-                            }}</span>
+                            <div
+                              class="col-12 m-0 p-0"
+                              style="
+                                border: 1px solid #818181;
+                                height: 45px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                              "
+                              [id]="
+                                idDivRatePrice2 +
+                                '_' +
+                                extraRates.rateId +
+                                '_' +
+                                indexPrice
+                              "
+                            >
+                              <input
+                                type="radio"
+                                [id]="
+                                  idRadioBtn +
+                                  '_' +
+                                  extraRates.rateId +
+                                  '_' +
+                                  indexPrice
+                                "
+                                (click)="
+                                  selectRadioBtnRatePrice(
+                                    idRadioBtn +
+                                      '_' +
+                                      extraRates.rateId +
+                                      '_' +
+                                      indexPrice,
+                                    ratePrice,
+                                    extraRates
+                                  )
+                                "
+                              />
+                              <span
+                                [id]="
+                                  idSpanRatePrice1 +
+                                  '_' +
+                                  extraRates.rateId +
+                                  '_' +
+                                  indexPrice
+                                "
+                                class="pr-2 pl-2 det-test22"
+                                >{{ ratePrice.currency }}</span
+                              >
+                              <span
+                                [id]="
+                                  idSpanRatePrice2 +
+                                  '_' +
+                                  extraRates.rateId +
+                                  '_' +
+                                  indexPrice
+                                "
+                                class="det-test23"
+                                >{{ ratePrice.baseAmount }}</span
+                              >
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+
+                  <div
+                    class=""
+                    style="
+                      width: 5%;
+                      display: flex !important;
+                      justify-content: center !important;
+                      align-items: center !important;
+                    "
+                  >
+                    <img
+                      style="cursor: pointer; width: 32px"
+                      (click)="moverDer('div_container')"
+                      src="./assets/images/autos/keyboard-right-arrow_72690.svg"
+                      alt=""
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div class="col-12 pt-4">
+            <div class="row">
+              <div class="col-12 det-test18">
+                Sucursal disponible para este vehículo
+              </div>
+              <div class="col-12 fondo-rojo-tri" style="height: 2px"></div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="row">
+              <div class="col-12 pt-3 det-test24">
+                ¿Dónde quieres recogerlo?
+              </div>
+
+              <div class="col-12 pt-3 pl-4 det-test25">
+                {{ carSelect.oinformation.oitineraryInfo.pickUpAddress }}
+              </div>
+
+              <div class="col-12 pt-3 det-test24">
+                ¿Dónde quieres entregarlo?
+              </div>
+
+              <div class="col-12 pt-3 pl-4 det-test25">
+                {{ carSelect.oinformation.oitineraryInfo.dropOffAddress }}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 pt-4" *ngIf="listAditionals.length > 0">
+            <div class="row">
+              <div class="col-12 det-test18">Agregar adicionales</div>
+              <div class="col-12 fondo-rojo-tri" style="height: 2px"></div>
+            </div>
+          </div>
+
+          <div class="col-12 pt-3" *ngIf="listAditionals.length > 0">
+            <div class="row">
+              <div
+                class="col-11 det-test19 text-center"
+                style="
+                  border-radius: 20px 0 20px 0;
+                  background-color: #e5e5e5;
+                  height: 60px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <img
+                  class="pr-3"
+                  src="./assets/images/autos/informacion_rojo.svg"
+                  alt=""
+                />
+                Los servicios adicionales están sujetos a verificación y deben
+                ser pagados en el mostrador al momento de retirar tu vehículo
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 pt-3">
+            <div class="row">
+              <div class="col-11 pt-3" *ngFor="let item of listAditionals">
+                <div
+                  class="row"
+                  style="
+                    border-radius: 20px 0 20px 0;
+                    border: solid 1px #e5e5e5;
+                    height: 60px;
+                  "
+                >
+                  <div
+                    class="col-4 det-test26"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      border-right: solid 1px #e5e5e5;
+                    "
+                  >
+                    <mat-checkbox
+                      [id]="item.code"
+                      color="warn"
+                      (click)="checkAditional(item)"
+                    >
+                      {{ item.description }}
+                    </mat-checkbox>
+                  </div>
+
+                  <div
+                    class="col-4 det-test26"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      border-right: solid 1px #e5e5e5;
+                    "
+                  >
+                    Sujeto a disponibilidad en agencia
+                  </div>
+
+                  <div
+                    class="col-3 det-test26"
+                    style="display: flex; align-items: center"
+                  >
+                    {{ carSelect.lextraRates[0].lratePrice[0].currency }}
+                    {{ item.amount }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 m-0 p-0 pt-5">
+            <button (click)="reservarAuto()" class="btn det-test27">
+              Reservar
+            </button>
+          </div>
+
+          <div class="col-12"></div>
+
+          <div class="col-12" style="height: 50px !important"></div>
         </div>
       </div>
     </div>

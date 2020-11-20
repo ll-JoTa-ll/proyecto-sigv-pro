@@ -740,6 +740,8 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
       Language: "es",
     };
 
+    console.log("data: " + JSON.stringify(data));
+
     this.carsService.selectCar(data).subscribe(
       (result) => {
         this.sessionStorageService.store("ss_sel_car_result", result);

@@ -55,6 +55,19 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
     19,
     20,
   ];
+  idRadioBtn: string = "idRadioBtn";
+  idDivCabecera = "idDivCabecera";
+  idDivRatePrice1 = "idDivRatePrice1";
+  idDivRatePrice2 = "idDivRatePrice2";
+  idSpanRatePrice1 = "idSpanRatePrice1";
+  idSpanRatePrice2 = "idSpanRatePrice2";
+  selCarRateIdDeschecar;
+  indexDeschecar;
+  infoAuto1;
+  infoAuto2;
+  ratePriceSel;
+  extraRatesSel;
+  listAditionals: any[] = [];
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -89,6 +102,11 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
     const cantLextraRates = this.lstExtraRates.length;
     const extraRatesMax = this.lstExtraRates[cantLextraRates - 1];
     this.lstInclusions = extraRatesMax.linclusions;
+
+    const laditionals = this.carSelect.laditionals;
+    if (laditionals != null) {
+      this.listAditionals = laditionals;
+    }
 
     moment.locale("es");
   }
@@ -154,5 +172,184 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
 
     this.currency = this.carRecomendacion.oprice.currency;
     this.amount = this.carRecomendacion.oprice.amount;
+
+    const selCarRateId = this.carSelect.oinformation.ocarInfo.rateId;
+
+    const lstExtraRates = this.lstExtraRates;
+    const idRadioBtn = this.idRadioBtn;
+    const idDivCabecera = this.idDivCabecera;
+    const idDivRatePrice1 = this.idDivRatePrice1;
+    const idDivRatePrice2 = this.idDivRatePrice2;
+    const idSpanRatePrice1 = this.idSpanRatePrice1;
+    const idSpanRatePrice2 = this.idSpanRatePrice2;
+
+    let selCarRateIdDeschecar = 0;
+    let indexDeschecar = 0;
+    let infoAuto1 = "";
+    let infoAuto2 = "";
+
+    lstExtraRates.forEach(function (item, index) {
+      if (selCarRateId == item.rateId) {
+        if (index === 0) {
+          const idRadioSelPrice =
+            "#" + idRadioBtn + "_" + selCarRateId + "_" + index;
+          console.log(idRadioSelPrice);
+          console.log(idRadioSelPrice);
+          console.log(idRadioSelPrice);
+          console.log(idRadioSelPrice);
+          console.log(idRadioSelPrice);
+
+          $("#" + idRadioBtn + "_" + selCarRateId + "_" + index).prop(
+            "checked",
+            true
+          );
+
+          $("#" + idDivCabecera + "_" + selCarRateId).addClass(
+            "div-sel-radio-1"
+          );
+
+          $("#" + idDivRatePrice1 + "_" + selCarRateId + "_" + index).addClass(
+            "div-sel-radio-1"
+          );
+
+          $("#" + idDivRatePrice2 + "_" + selCarRateId + "_" + index).addClass(
+            "div-sel-radio-1"
+          );
+
+          $("#" + idSpanRatePrice1 + "_" + selCarRateId + "_" + index).addClass(
+            "div-sel-radio-1"
+          );
+
+          $("#" + idSpanRatePrice2 + "_" + selCarRateId + "_" + index).addClass(
+            "div-sel-radio-1"
+          );
+
+          selCarRateIdDeschecar = parseInt(selCarRateId);
+          indexDeschecar = index;
+          infoAuto2 = item.name;
+          infoAuto1 = item.lratePrice[0].paymentType;
+        }
+      }
+    });
+
+    this.selCarRateIdDeschecar = selCarRateIdDeschecar;
+    this.indexDeschecar = indexDeschecar;
+    this.infoAuto1 = infoAuto1;
+    this.infoAuto2 = infoAuto2;
   }
+
+  selectRadioBtnRatePrice(valor, ratePrice, extraRates) {
+    const idRadioBtn = this.idRadioBtn;
+    const idDivCabecera = this.idDivCabecera;
+    const idDivRatePrice1 = this.idDivRatePrice1;
+    const idDivRatePrice2 = this.idDivRatePrice2;
+    const idSpanRatePrice1 = this.idSpanRatePrice1;
+    const idSpanRatePrice2 = this.idSpanRatePrice2;
+
+    //DESPINTAR ANTERIOR RADIO
+    const selCarRateIdDeschecar = this.selCarRateIdDeschecar;
+    const indexDeschecar = this.indexDeschecar;
+    $(
+      "#" + idRadioBtn + "_" + selCarRateIdDeschecar + "_" + indexDeschecar
+    ).prop("checked", false);
+
+    $("#" + idDivCabecera + "_" + selCarRateIdDeschecar).removeClass(
+      "div-sel-radio-1"
+    );
+
+    $(
+      "#" + idDivRatePrice1 + "_" + selCarRateIdDeschecar + "_" + indexDeschecar
+    ).removeClass("div-sel-radio-1");
+
+    $(
+      "#" + idDivRatePrice2 + "_" + selCarRateIdDeschecar + "_" + indexDeschecar
+    ).removeClass("div-sel-radio-1");
+
+    $(
+      "#" +
+        idSpanRatePrice1 +
+        "_" +
+        selCarRateIdDeschecar +
+        "_" +
+        indexDeschecar
+    ).removeClass("div-sel-radio-1");
+
+    $(
+      "#" +
+        idSpanRatePrice2 +
+        "_" +
+        selCarRateIdDeschecar +
+        "_" +
+        indexDeschecar
+    ).removeClass("div-sel-radio-1");
+
+    //PINTAR NUEVO RADIO
+    const selCarRateId = valor.split("_")[1];
+    const index = valor.split("_")[2];
+
+    $("#" + idRadioBtn + "_" + selCarRateId + "_" + index).prop(
+      "checked",
+      true
+    );
+
+    $("#" + idDivCabecera + "_" + selCarRateId).addClass("div-sel-radio-1");
+
+    $("#" + idDivRatePrice1 + "_" + selCarRateId + "_" + index).addClass(
+      "div-sel-radio-1"
+    );
+
+    $("#" + idDivRatePrice2 + "_" + selCarRateId + "_" + index).addClass(
+      "div-sel-radio-1"
+    );
+
+    $("#" + idSpanRatePrice1 + "_" + selCarRateId + "_" + index).addClass(
+      "div-sel-radio-1"
+    );
+
+    $("#" + idSpanRatePrice2 + "_" + selCarRateId + "_" + index).addClass(
+      "div-sel-radio-1"
+    );
+
+    //NUEVOS VALORES A DESPINTAR
+    this.selCarRateIdDeschecar = parseInt(selCarRateId);
+    this.indexDeschecar = parseInt(index);
+    this.infoAuto2 = extraRates.name;
+    this.infoAuto1 = ratePrice.paymentType;
+    this.amount = ratePrice.baseAmount;
+    this.extraRatesSel = extraRates;
+    this.ratePriceSel = ratePrice;
+  }
+
+  sideScroll(element, direction, speed, distance, step) {
+    var scrollAmount = 0;
+    var slideTimer = window.setInterval(function () {
+      if (direction == "left") {
+        element.scrollLeft -= step;
+      } else {
+        element.scrollLeft += step;
+      }
+      scrollAmount += step;
+      if (scrollAmount >= distance) {
+        window.clearInterval(slideTimer);
+      }
+    }, speed);
+  }
+
+  moverIzq(id_container) {
+    console.log("id_container: " + id_container);
+
+    const container = document.getElementById(id_container);
+    this.sideScroll(container, "left", 5, 200, 10);
+  }
+
+  moverDer(id_container) {
+    console.log("id_container: " + id_container);
+
+    const container = document.getElementById(id_container);
+    this.sideScroll(container, "right", 5, 200, 10);
+  }
+
+  checkAditional(item) {}
+
+  reservarAuto() {}
 }
