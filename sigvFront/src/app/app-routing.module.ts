@@ -37,6 +37,7 @@ import { AutosComponent } from "./components/autos/autos.component";
 import { AlqAutosComponent } from "./components/busqueda-global/alq-autos/alq-autos.component";
 import { AlqSearchComponent } from "./components/busqueda-global/alq-autos/alq-search/alq-search.component";
 import { AlqDetalleComponent } from "./components/busqueda-global/alq-autos/alq-detalle/alq-detalle.component";
+import { AlqCompletarReservaComponent } from "./components/busqueda-global/alq-autos/alq-completar-reserva/alq-completar-reserva.component";
 
 const routes: Routes = [
   {
@@ -212,6 +213,11 @@ const routes: Routes = [
   {
     path: "auto-detalle",
     component: AlqDetalleComponent,
+    runGuardsAndResolvers: "always",
+  },
+  {
+    path: "auto-completar-reserva",
+    component: AlqCompletarReservaComponent,
     runGuardsAndResolvers: "always",
   },
   {

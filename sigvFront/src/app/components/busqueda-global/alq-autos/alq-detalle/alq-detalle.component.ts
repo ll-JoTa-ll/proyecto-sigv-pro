@@ -187,6 +187,8 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
     let indexDeschecar = 0;
     let infoAuto1 = "";
     let infoAuto2 = "";
+    let extraRates;
+    let ratePrice;
 
     lstExtraRates.forEach(function (item, index) {
       if (selCarRateId == item.rateId) {
@@ -228,6 +230,8 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
           indexDeschecar = index;
           infoAuto2 = item.name;
           infoAuto1 = item.lratePrice[0].paymentType;
+          extraRates = item;
+          ratePrice = item.lratePrice[0];
         }
       }
     });
@@ -236,6 +240,11 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
     this.indexDeschecar = indexDeschecar;
     this.infoAuto1 = infoAuto1;
     this.infoAuto2 = infoAuto2;
+    this.extraRatesSel = extraRates;
+    this.ratePriceSel = ratePrice;
+    this.amount = ratePrice.totalAmount;
+    this.sessionStorageService.store("ss_extraRates", this.extraRatesSel);
+    this.sessionStorageService.store("ss_ratePrice", this.ratePriceSel);
   }
 
   selectRadioBtnRatePrice(valor, ratePrice, extraRates) {
@@ -315,9 +324,11 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
     this.indexDeschecar = parseInt(index);
     this.infoAuto2 = extraRates.name;
     this.infoAuto1 = ratePrice.paymentType;
-    this.amount = ratePrice.baseAmount;
+    this.amount = ratePrice.totalAmount;
     this.extraRatesSel = extraRates;
     this.ratePriceSel = ratePrice;
+    this.sessionStorageService.store("ss_extraRates", this.extraRatesSel);
+    this.sessionStorageService.store("ss_ratePrice", this.ratePriceSel);
   }
 
   sideScroll(element, direction, speed, distance, step) {
@@ -351,5 +362,7 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
 
   checkAditional(item) {}
 
-  reservarAuto() {}
+  reservarAuto() {
+    this.router.navigate(["/auto-completar-reserva"]);
+  }
 }
