@@ -47,4 +47,12 @@ export class CarsService {
       httpOptions
     );
   }
+
+  confirmationCar(dataPost) {
+    return this.http.post(
+      this._url_cars2 + "ConfirmationCar",
+      dataPost,
+      httpOptions
+    );
+  }
 }

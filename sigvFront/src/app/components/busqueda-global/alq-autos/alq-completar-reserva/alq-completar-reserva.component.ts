@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import * as moment from "moment";
 import { NgxSpinnerService } from "ngx-spinner";
 import { SessionStorageService } from "ngx-webstorage";
+import { CarsService } from "src/app/services/cars.service";
 
 declare var jquery: any;
 declare var $: any;
@@ -20,11 +21,13 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
   carSelect;
   ratePriceSel;
   extraRatesSel;
+  lstAditionals: any[] = [];
 
   constructor(
     private sessionStorageService: SessionStorageService,
     private spinner: NgxSpinnerService,
-    private router: Router
+    private router: Router,
+    private carsService: CarsService
   ) {
     $("#menu-vuelo-1").show();
     $("#menu-vuelo-2").hide();
@@ -82,5 +85,69 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
     $("#menu-seguro-2").hide();
     $("#menu-autos-1").hide();
     $("#menu-autos-2").show();
+  }
+
+  comppletarReserva() {
+    const data = {
+      Token: this.carSelect.token,
+      Language: "es",
+      OInformation: {
+        PaymentCode: this.ratePriceSel.paymentCode,
+        RateId: this.extraRatesSel.rateId,
+        CompanyCode: this.carSelect.oinformation.ocarInfo.companyCode,
+        SippCode: this.ratePriceSel.sippCode,
+        Ccrc: this.carSelect.oinformation.ocarInfo.ccrc,
+        PromotionalCode: "",
+        PickUpLocation: this.carSelect.oinformation.oitineraryInfo
+          .pickUpLocation,
+        DropOffLocation: this.carSelect.oinformation.oitineraryInfo
+          .dropOffLocation,
+        PickUpDate: this.carSelect.oinformation.oitineraryInfo.pickUpDate,
+        DropOffDate: this.carSelect.oinformation.oitineraryInfo.dropOffDate,
+        PickUpHour: this.carSelect.oinformation.oitineraryInfo.pickUpHour,
+        DropOffHour: this.carSelect.oinformation.oitineraryInfo.dropOffHour,
+        PickUpAddress: this.carSelect.oinformation.oitineraryInfo.pickUpAddress,
+        DropOffAddress: this.carSelect.oinformation.oitineraryInfo
+          .dropOffAddress,
+        Aditionals: this.lstAditionals,
+        OnHold: false,
+      },
+      Opassenger: {
+        FirstName: "Ricardo",
+        LastName: "Metzger",
+        Age: "25",
+        Email: "r7metzger@gmail.com",
+        MembershipNumber: "",
+      },
+      Oprice: {
+        RealBase: this.ratePriceSel.realBaseAmount,
+        RealTax: this.ratePriceSel.realTaxAmount,
+        Total: this.ratePriceSel.totalAmount,
+        Currency: this.ratePriceSel.currency,
+      },
+      OextraInfoFlight: {
+        FlightNumber: "",
+        FrequentFlyer: "",
+        Carrier: "",
+      },
+    };
+    console.log("request ConfirmationCar");
+    console.log(JSON.stringify(data));
+
+    this.spinner.show();
+    this.carsService.confirmationCar(data).subscribe(
+      (result: any) => {
+        console.log("result ConfirmationCar");
+        console.log(JSON.stringify(result));
+      },
+      (error) => {
+        console.log("result ConfirmationCar");
+        console.log(JSON.stringify(error));
+        this.spinner.hide();
+      },
+      () => {
+        this.spinner.hide();
+      }
+    );
   }
 }
