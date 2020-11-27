@@ -22,6 +22,7 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
   ratePriceSel;
   extraRatesSel;
   lstAditionals: any[] = [];
+  chbxAceptar: boolean;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -135,10 +136,15 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
     console.log(JSON.stringify(data));
 
     this.spinner.show();
+    let flagResult = 1;
     this.carsService.confirmationCar(data).subscribe(
       (result: any) => {
         console.log("result ConfirmationCar");
         console.log(JSON.stringify(result));
+        this.sessionStorageService.store("ss_confirma_reserva_alq", result);
+        if (result.ovoucher.pnr === null) {
+          flagResult = 0;
+        }
       },
       (error) => {
         console.log("result ConfirmationCar");
@@ -147,6 +153,11 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
       },
       () => {
         this.spinner.hide();
+        if (flagResult === 1) {
+          this.router.navigate(["/auto-reserva-fin"]);
+        } else {
+          alert("Mucho tiempo");
+        }
       }
     );
   }

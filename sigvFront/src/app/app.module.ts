@@ -180,6 +180,7 @@ import { ValidarEnteroPipe } from './pipes/validar-entero.pipe';
 import { AlqDetalleComponent } from './components/busqueda-global/alq-autos/alq-detalle/alq-detalle.component';
 import { CreateDivVacioPipe } from './pipes/create-div-vacio.pipe';
 import { AlqCompletarReservaComponent } from './components/busqueda-global/alq-autos/alq-completar-reserva/alq-completar-reserva.component';
+import { AlqReservaFinComponent } from './components/busqueda-global/alq-autos/alq-reserva-fin/alq-reserva-fin.component';
 
 @NgModule({
   declarations: [
@@ -327,6 +328,7 @@ import { AlqCompletarReservaComponent } from './components/busqueda-global/alq-a
     AlqDetalleComponent,
     CreateDivVacioPipe,
     AlqCompletarReservaComponent,
+    AlqReservaFinComponent,
   ],
   imports: [
     BrowserModule,

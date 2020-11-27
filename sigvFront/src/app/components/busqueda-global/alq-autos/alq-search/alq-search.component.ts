@@ -536,7 +536,7 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     );
   }
 
-  seleccionarCategoria(description) {
+  seleccionarCategoria(description, index) {
     console.log("seleccionarCategoria");
     console.log(description);
     this.selCategoriaDescription = description;
@@ -548,6 +548,9 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
         item.visible = false;
       }
     });
+
+    $(".base-general").removeClass("div-base-2");
+    $("#diBase_" + index).addClass("div-base-2");
 
     this.carsSearch = carsSearch;
   }
@@ -561,6 +564,7 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     });
 
     this.carsSearch = carsSearch;
+    $(".base-general").removeClass("div-base-2");
   }
 
   seleccionarTipoCaja(valor) {

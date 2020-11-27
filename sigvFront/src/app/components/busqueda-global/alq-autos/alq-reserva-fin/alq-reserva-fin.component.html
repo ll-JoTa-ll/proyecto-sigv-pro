@@ -1,0 +1,216 @@
+<ng-container>
+  <app-header>
+    <div class="row m-0 p-0">
+      <div class="col-12 m-0 p-0 pt-5"></div>
+
+      <div class="col-12 m-0 p-0 pl-5 pr-5 pb-5">
+        <div class="row m-0 p-0">
+          <div class="col-3 m-0 p-0"></div>
+
+          <div
+            class="col-6 m-0 p-0 text-center"
+            style="
+              background: #f5fbf6 0% 0% no-repeat padding-box;
+              border: 1px solid #40b23d;
+              border-radius: 20px 0px;
+              opacity: 1;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 51px !important;
+            "
+          >
+            <span class="frc-test1 pr-1">Felicitaciones!</span>
+            <span class="frc-test2"
+              >tu reserva ha sido completada con exito.</span
+            >
+          </div>
+
+          <div class="col-3 m-0 p-0"></div>
+        </div>
+      </div>
+
+      <div class="col-12 m-0 p-0 pb-5">
+        <div class="row m-0 p-0">
+          <div class="col-4 m-0 p-0"></div>
+          <div
+            class="col-4 m-0 p-0"
+            style="
+              background: #fdfdfd 0% 0% no-repeat padding-box;
+              border: 1px solid #e2e2e2;
+              border-radius: 20px 0px;
+              opacity: 1;
+            "
+          >
+            <div class="row m-0 p-0 pt-4">
+              <div
+                class="col-12 m-0 p-0 text-center frc-test3"
+                style="
+                  background: transparent
+                    linear-gradient(
+                      97deg,
+                      #ed1c24 0%,
+                      #d51a2c 34%,
+                      #3c4749 100%
+                    )
+                    0% 0% no-repeat padding-box;
+                  opacity: 1;
+                "
+              >
+                Tu reserva
+              </div>
+
+              <div class="col-12 m-0 p-0 pt-4 text-center frc-test4">
+                Numero de Reserva:
+                <span class="frc-test5">{{
+                  confirma_reserva_alq.ovoucher.pnr
+                }}</span>
+              </div>
+
+              <div class="col-12 m-0 p-0 pt-3 pb-4 text-center frc-test4">
+                Titular:
+                <span class="frc-test5"
+                  >{{ confirma_reserva_alq.opassenger.name }}
+                  {{ confirma_reserva_alq.opassenger.lastName }}</span
+                >
+              </div>
+
+              <div class="col-12 m-0 p-0"></div>
+
+              <div class="col-12 m-0 p-0"></div>
+
+              <div class="col-12 m-0 p-0"></div>
+            </div>
+          </div>
+          <div class="col-4 m-0 p-0"></div>
+        </div>
+      </div>
+
+      <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+          <div class="col-2 m-0 p-0"></div>
+
+          <div
+            class="col-8 m-0 p-0"
+            style="
+              background: #fdfdfd 0% 0% no-repeat padding-box;
+              border: 1px solid #e2e2e2;
+              border-radius: 20px 0px;
+              opacity: 1;
+            "
+          >
+            <div class="row m-0 p-0 pt-4 pb-4">
+              <div class="col-12 m-0 p-0"></div>
+
+              <div
+                class="col-4 m-0 p-0 text-center frc-test3"
+                style="
+                  background: transparent
+                    linear-gradient(
+                      99deg,
+                      #ed1c24 0%,
+                      #d51a2c 34%,
+                      #3c4749 100%
+                    )
+                    0% 0% no-repeat padding-box;
+                  border: 1px solid #e2e2e2;
+                  border-radius: 0px 23px 23px 0px;
+                  opacity: 1;
+                "
+              >
+                Detalle des la reserva
+              </div>
+
+              <div class="col-12 m-0 p-0 pt-4 pl-5 pr-5">
+                <div class="row m-0 p-0">
+                  <div class="col-6 m-0 p-0">
+                    <div class="row m-0 p-0">
+                      <div class="col-12 m-0 p-0 frc-test6">
+                        FECHA DE RECOJO:
+                        <span class="frc-test7">{{
+                          confirma_reserva_alq.otimeLocation.pickUpDate
+                        }}</span>
+                      </div>
+
+                      <div class="col-12 m-0 p-0 frc-test6">
+                        HORA DE RECOJO:
+                        <span class="frc-test7">{{
+                          confirma_reserva_alq.otimeLocation.pickUpHour
+                        }}</span>
+                      </div>
+
+                      <div class="col-12 m-0 p-0 frc-test6">
+                        LUGAR DE RECOJO:
+                        <span class="frc-test7">{{
+                          confirma_reserva_alq.otimeLocation.pickUpAddress
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6 m-0 p-0">
+                    <div class="row m-0 p-0">
+                      <div class="col-12 m-0 p-0 frc-test6">
+                        FECHA DE DEVOLUCION:
+                        <span class="frc-test7">{{
+                          confirma_reserva_alq.otimeLocation.dropOffDate
+                        }}</span>
+                      </div>
+
+                      <div class="col-12 m-0 p-0 frc-test6">
+                        HORA DE DEVOLUCION:
+                        <span class="frc-test7">{{
+                          confirma_reserva_alq.otimeLocation.dropOffHour
+                        }}</span>
+                      </div>
+
+                      <div class="col-12 m-0 p-0 frc-test6">
+                        LUGAR DE DEVOLUCION:
+                        <span class="frc-test7">{{
+                          confirma_reserva_alq.otimeLocation.dropOffAddress
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 m-0 p-0"></div>
+
+              <div class="col-12 m-0 p-0"></div>
+
+              <div class="col-12 m-0 p-0"></div>
+            </div>
+          </div>
+
+          <div class="col-2 m-0 p-0"></div>
+        </div>
+      </div>
+
+      <div class="col-12 m-0 p-0">
+        <div class="row m-0 p-0">
+          <div class="col-8 m-0 p-0"></div>
+
+          <div class="col-4 m-0 p-0"></div>
+        </div>
+      </div>
+
+      <div class="col-12 m-0 p-0"></div>
+
+      <div class="col-12 m-0 p-0"></div>
+
+      <div class="col-12 m-0 p-0"></div>
+
+      <div class="col-12 m-0 p-0"></div>
+
+      <div class="col-12 m-0 p-0"></div>
+
+      <div class="col-12 m-0 p-0"></div>
+
+      <div class="col-12 m-0 p-0"></div>
+
+      <div class="col-12 m-0 p-0"></div>
+
+      <div class="col-12 m-0 p-0"></div>
+    </div>
+  </app-header>
+</ng-container>

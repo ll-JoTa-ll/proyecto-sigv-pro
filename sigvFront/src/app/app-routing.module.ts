@@ -38,6 +38,7 @@ import { AlqAutosComponent } from "./components/busqueda-global/alq-autos/alq-au
 import { AlqSearchComponent } from "./components/busqueda-global/alq-autos/alq-search/alq-search.component";
 import { AlqDetalleComponent } from "./components/busqueda-global/alq-autos/alq-detalle/alq-detalle.component";
 import { AlqCompletarReservaComponent } from "./components/busqueda-global/alq-autos/alq-completar-reserva/alq-completar-reserva.component";
+import { AlqReservaFinComponent } from "./components/busqueda-global/alq-autos/alq-reserva-fin/alq-reserva-fin.component";
 
 const routes: Routes = [
   {
@@ -218,6 +219,11 @@ const routes: Routes = [
   {
     path: "auto-completar-reserva",
     component: AlqCompletarReservaComponent,
+    runGuardsAndResolvers: "always",
+  },
+  {
+    path: "auto-reserva-fin",
+    component: AlqReservaFinComponent,
     runGuardsAndResolvers: "always",
   },
   {
