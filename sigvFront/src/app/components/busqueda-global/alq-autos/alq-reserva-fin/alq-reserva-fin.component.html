@@ -20,7 +20,8 @@
               height: 51px !important;
             "
           >
-            <span class="frc-test1 pr-1">Felicitaciones!</span>
+            <img class="pr-3" src="./assets/images/autos/Ok.svg" alt="" />
+            <span class="frc-test1 pr-1">¡Felicitaciones!</span>
             <span class="frc-test2"
               >tu reserva ha sido completada con exito.</span
             >
@@ -126,22 +127,37 @@
                   <div class="col-6 m-0 p-0">
                     <div class="row m-0 p-0">
                       <div class="col-12 m-0 p-0 frc-test6">
+                        <img
+                          class="pr-1"
+                          src="./assets/images/autos/calendario.svg"
+                          alt=""
+                        />
                         FECHA DE RECOJO:
-                        <span class="frc-test7">{{
+                        <span class="pl-1 frc-test7">{{
                           confirma_reserva_alq.otimeLocation.pickUpDate
                         }}</span>
                       </div>
 
                       <div class="col-12 m-0 p-0 frc-test6">
+                        <img
+                          class="pr-1"
+                          src="./assets/images/autos/hora.svg"
+                          alt=""
+                        />
                         HORA DE RECOJO:
-                        <span class="frc-test7">{{
+                        <span class="pl-1 frc-test7">{{
                           confirma_reserva_alq.otimeLocation.pickUpHour
                         }}</span>
                       </div>
 
                       <div class="col-12 m-0 p-0 frc-test6">
+                        <img
+                          class="pr-1"
+                          src="./assets/images/autos/marcador.svg"
+                          alt=""
+                        />
                         LUGAR DE RECOJO:
-                        <span class="frc-test7">{{
+                        <span class="pl-1 frc-test7">{{
                           confirma_reserva_alq.otimeLocation.pickUpAddress
                         }}</span>
                       </div>
@@ -150,22 +166,37 @@
                   <div class="col-6 m-0 p-0">
                     <div class="row m-0 p-0">
                       <div class="col-12 m-0 p-0 frc-test6">
+                        <img
+                          class="pr-1"
+                          src="./assets/images/autos/calendario.svg"
+                          alt=""
+                        />
                         FECHA DE DEVOLUCION:
-                        <span class="frc-test7">{{
+                        <span class="pl-1 frc-test7">{{
                           confirma_reserva_alq.otimeLocation.dropOffDate
                         }}</span>
                       </div>
 
                       <div class="col-12 m-0 p-0 frc-test6">
+                        <img
+                          class="pr-1"
+                          src="./assets/images/autos/hora.svg"
+                          alt=""
+                        />
                         HORA DE DEVOLUCION:
-                        <span class="frc-test7">{{
+                        <span class="pl-1 frc-test7">{{
                           confirma_reserva_alq.otimeLocation.dropOffHour
                         }}</span>
                       </div>
 
                       <div class="col-12 m-0 p-0 frc-test6">
+                        <img
+                          class="pr-1"
+                          src="./assets/images/autos/marcador.svg"
+                          alt=""
+                        />
                         LUGAR DE DEVOLUCION:
-                        <span class="frc-test7">{{
+                        <span class="pl-1 frc-test7">{{
                           confirma_reserva_alq.otimeLocation.dropOffAddress
                         }}</span>
                       </div>
@@ -174,7 +205,7 @@
                 </div>
               </div>
 
-              <div class="col-12 m-0 p-0"></div>
+              <div class="col-12 m-0 p-0 pt-4"></div>
 
               <div class="col-12 m-0 p-0"></div>
 
@@ -380,7 +411,7 @@
                     </div>
                   </div>
 
-                  <div class="col-12 m-0 p-0"></div>
+                  <div class="col-12 m-0 p-0 pt-4"></div>
 
                   <div class="col-12 m-0 p-0"></div>
 
@@ -428,7 +459,7 @@
                   <div class="col-12 m-0 p-0 pt-4 pl-4">
                     <div class="row m-0 p-0">
                       <div class="col-6 m-0 p-0 frc-test11">TIPO DE PAGO:</div>
-                      <div class="col-6 m-0 p-0 frc-test11">
+                      <div class="col-6 pl-3 m-0 p-0 frc-test11">
                         {{ confirma_reserva_alq.oprice.paymentType }}
                       </div>
                     </div>
@@ -437,7 +468,7 @@
                   <div class="col-12 m-0 p-0 pt-3 pl-4">
                     <div class="row m-0 p-0">
                       <div class="col-6 m-0 p-0 frc-test11">TARIFA:</div>
-                      <div class="col-6 m-0 p-0 frc-test11">
+                      <div class="col-6 pl-3 m-0 p-0 frc-test11">
                         <span class="pr-1 frc-test13">
                           {{ confirma_reserva_alq.oprice.currency }}
                         </span>
@@ -452,9 +483,9 @@
                     IMPUESTOS Y SOBRECARGOS:
                   </div>
 
-                  <div class="col-12 m-0 p-0 pl-4">
+                  <div class="col-12 m-0 p-0 pt-2 pl-4">
                     <div class="row m-0 p-0">
-                      <div class="col-7 m-0 p-0">
+                      <div class="col-6 m-0 p-0">
                         <div
                           class="row m-0 p-0"
                           style="
@@ -472,9 +503,15 @@
                               border: 1px solid #ff8800;
                               border-radius: 5px 0px 0px 5px;
                               opacity: 1;
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
                             "
                           >
-                            <img src="" alt="" />
+                            <img
+                              src="./assets/images/autos/informacion_v4.svg"
+                              alt=""
+                            />
                           </div>
 
                           <div
@@ -486,7 +523,7 @@
                         </div>
                       </div>
 
-                      <div class="col-5 m-0 p-0">
+                      <div class="col-6 pl-3 m-0 p-0">
                         <span class="pr-1 frc-test13">
                           {{ confirma_reserva_alq.oprice.currency }}
                         </span>
@@ -512,9 +549,9 @@
 
                   <div class="col-12 m-0 p-0 pl-4">
                     <div class="row m-0 p-0">
-                      <div class="col-7 m-0 p-0 frc-test15">PRECIO TOTAL:</div>
+                      <div class="col-6 m-0 p-0 frc-test15">PRECIO TOTAL:</div>
 
-                      <div class="col-5 m-0 p-0">
+                      <div class="col-6 m-0 p-0">
                         <span class="pr-1 frc-test16">
                           {{ confirma_reserva_alq.oprice.currency }}
                         </span>
@@ -537,19 +574,191 @@
         </div>
       </div>
 
-      <div class="col-12 m-0 p-0"></div>
+      <div class="col-12 m-0 p-0 pt-5">
+        <div class="row m-0 p-0">
+          <div class="col-2 m-0 p-0"></div>
+          <div class="col-8 m-0 p-0 frc-test18">Regulaciones y Condiciones</div>
+          <div class="col-2 m-0 p-0"></div>
+        </div>
+      </div>
 
-      <div class="col-12 m-0 p-0"></div>
+      <div class="col-12 m-0 p-0 pb-4">
+        <div class="row m-0 p-0">
+          <div class="col-2 m-0 p-0"></div>
+          <div class="col-8 m-0 p-0 fondo-rojo-tri" style="height: 2px"></div>
+          <div class="col-2 m-0 p-0"></div>
+        </div>
+      </div>
 
-      <div class="col-12 m-0 p-0"></div>
+      <div class="col-12 m-0 p-0 pb-4">
+        <div class="row m-0 p-0">
+          <div class="col-2 m-0 p-0"></div>
+          <div
+            class="col-8 m-0 p-0"
+            style="
+              background: #fdfdfd 0% 0% no-repeat padding-box;
+              box-shadow: -1px 2px 6px #00000029;
+              border-radius: 20px 0px;
+              opacity: 1;
+            "
+          >
+            <div class="row m-0 p-0">
+              <div
+                class="col-12 m-0 p-0 pl-3 frc-test19"
+                style="
+                  background: #fbf6f6 0% 0% no-repeat padding-box;
+                  border-radius: 20px 0px 0px 0px;
+                  opacity: 1;
+                  height: 50px !important;
+                  display: flex;
+                  align-items: center;
+                "
+              >
+                ¿Qué me exigen para alquilar un vehículo?
+              </div>
 
-      <div class="col-12 m-0 p-0"></div>
+              <div class="col-12 m-0 p-0 pl-3 pr-3 pt-3 frc-test20">
+                Ser adulto mayor de 25 años y menor de 75 años Pasaporte vigente
+                o Documento Nacional de Identidad Licencia de Conducción Vigente
+                (Nacional o Extranjera) de todas las personas que van a conducir
+                el vehículo con antigüedad de mínimo 1 año. En caso que la
+                Licencia de Conducción no esté en alfabeto romano, se deberá
+                presentar un  Permiso Internacional de conducción.
+              </div>
 
-      <div class="col-12 m-0 p-0"></div>
+              <div class="col-12 m-0 p-0 pl-3 pr-3 pt-3 pb-4 frc-test20">
+                Tarjeta de Crédito como garantía/depósito del Contrato de
+                Alquiler,  con cupo disponible de USD 800 a USD 1.500 al momento
+                de recoger el vehículo.  El depósito será desbloqueado al
+                finalizar el periodo de alquiler, siempre y cuando el vehículo
+                sea devuelto en las mismas condiciones a como fue
+                entregado. Tener en cuenta que: debido a las fluctuaciones en la
+                tasa de cambio y otras posibles tasas administrativas bancarias,
+                la compañía de alquiler ni Alkilautos.com se harán responsables
+                de ninguna diferencia existente entre el monto pagado y el
+                reembolsado.
+              </div>
 
-      <div class="col-12 m-0 p-0"></div>
+              <div class="col-12 m-0 p-0"></div>
 
-      <div class="col-12 m-0 p-0"></div>
+              <div class="col-12 m-0 p-0"></div>
+            </div>
+          </div>
+          <div class="col-2 m-0 p-0"></div>
+        </div>
+      </div>
+
+      <div class="col-12 m-0 p-0 pb-4">
+        <div class="row m-0 p-0">
+          <div class="col-2 m-0 p-0"></div>
+          <div
+            class="col-8 m-0 p-0"
+            style="
+              background: #fdfdfd 0% 0% no-repeat padding-box;
+              box-shadow: -1px 2px 6px #00000029;
+              border-radius: 20px 0px;
+              opacity: 1;
+            "
+          >
+            <div class="row m-0 p-0">
+              <div
+                class="col-12 m-0 pl-3 p-0 frc-test19"
+                style="
+                  background: #fbf6f6 0% 0% no-repeat padding-box;
+                  border-radius: 20px 0px 0px 0px;
+                  opacity: 1;
+                  height: 50px !important;
+                  display: flex;
+                  align-items: center;
+                "
+              >
+                ¿Medios de Pago para pagar el alquiler?
+              </div>
+
+              <div class="col-12 m-0 p-0 pl-3 pr-3 pt-3 frc-test20">
+                El pago del alquiler de tu vehículo debe realizarse únicamente
+                en tarjeta crédito. La tarjeta de crédito debe estar a nombre de
+                quien realizó la reserva y debe tener cupo suficiente para
+                cubrir el depósito que te bloquearán hasta que finalice el
+                alquiler. Con la misma tarjeta deberás pagar los impuestos
+                locales, servicios adicionales o cualquier otro recargo
+                contratado.
+              </div>
+
+              <div class="col-12 m-0 p-0 pl-3 pr-3 pt-3 pb-4 frc-test20">
+                No se acepta efectivo ó tarjeta débito en la agencia al recoger
+                el vehículo. Tampoco se aceptan tarjetas de crédito prepagadas,
+                virtuales o sin relieve.
+              </div>
+
+              <div class="col-12 m-0 p-0"></div>
+
+              <div class="col-12 m-0 p-0"></div>
+
+              <div class="col-12 m-0 p-0"></div>
+            </div>
+          </div>
+          <div class="col-2 m-0 p-0"></div>
+        </div>
+      </div>
+
+      <div class="col-12 m-0 p-0 pb-4">
+        <div class="row m-0 p-0">
+          <div class="col-2 m-0 p-0"></div>
+          <div
+            class="col-8 m-0 p-0"
+            style="
+              background: #fdfdfd 0% 0% no-repeat padding-box;
+              box-shadow: -1px 2px 6px #00000029;
+              border-radius: 20px 0px;
+              opacity: 1;
+            "
+          >
+            <div class="row m-0 p-0">
+              <div
+                class="col-12 m-0 p-0 pl-3 frc-test19"
+                style="
+                  background: #fbf6f6 0% 0% no-repeat padding-box;
+                  border-radius: 20px 0px 0px 0px;
+                  opacity: 1;
+                  height: 50px !important;
+                  display: flex;
+                  align-items: center;
+                "
+              >
+                Importante para tener en cuenta:
+              </div>
+
+              <div class="col-12 m-0 p-0 pl-3 pr-3 pt-3 frc-test20">
+                Cupo de Garantía/Depósito tomado de la tarjeta de crédito: El
+                cupo de la Tarjeta de crédito es para avalar la garantía, esta
+                suma permanecerá congelada durante el tiempo de alquiler del
+                vehículo. Al finalizar el servicio se solicita el desbloqueo del
+                cupo a la franquicia correspondiente.
+              </div>
+
+              <div class="col-12 m-0 p-0 pl-3 pr-3 pt-3 pb-4 frc-test20">
+                Tarjetas de Crédito NO aceptadas para pago en agencia ó creación
+                de deposito: La rentadora NO acepta tarjetas  prepago, virtuales
+                ó cualquier otro tipo de tarjeta que no tenga los números o
+                estampado en relieve para la creación de la garantía. Tarjetas
+                de Crédito Marca propia de cualquier establecimiento no
+                bancario, NO son aceptadas, excepto que cuenten con las
+                franquicias mundiales como VISA, Mastercard, American Express ó
+                Diners. Aplican condiciones y restricciones. Por favor referirse
+                a las políticas de la rentadora directamente.
+              </div>
+
+              <div class="col-12 m-0 p-0"></div>
+            </div>
+          </div>
+          <div class="col-2 m-0 p-0"></div>
+        </div>
+      </div>
+
+      <div class="col-12 m-0 p-0 pb-4"></div>
+
+      <div class="col-12 m-0 p-0 pb-4"></div>
 
       <div class="col-12 m-0 p-0"></div>
 

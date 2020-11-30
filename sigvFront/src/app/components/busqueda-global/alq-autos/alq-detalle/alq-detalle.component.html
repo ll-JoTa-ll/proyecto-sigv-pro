@@ -19,7 +19,7 @@
           <div class="col-12">
             <div class="row">
               <div class="col-1">
-                <img src="" alt="" />
+                <img src="./assets/images/autos/marcador.svg" alt="" />
               </div>
               <div class="col-11 det-test3">
                 {{ origenLugar }}
@@ -63,7 +63,7 @@
           <div class="col-12">
             <div class="row">
               <div class="col-1">
-                <img src="" alt="" />
+                <img src="./assets/images/autos/marcador.svg" alt="" />
               </div>
               <div class="col-11 det-test3">
                 {{ destinoLugar }}
@@ -266,7 +266,7 @@
                             <img
                               src="./assets/images/autos/accessory.svg"
                               alt=""
-                              tooltip="pasajeros"
+                              tooltip="mochila o carry on"
                             />
                             <span class="pl-2 det-test3">
                               {{
@@ -280,7 +280,7 @@
                             <img
                               src="./assets/images/autos/suitcase.svg"
                               alt=""
-                              tooltip="pasajeros"
+                              tooltip="maleta de 23kg"
                             />
                             <span class="pl-2 det-test3">
                               {{
@@ -297,9 +297,9 @@
                             class="pl-3"
                           >
                             <img
-                              src="./assets/images/autos/suitcase.svg"
+                              src="./assets/images/autos/aire_Acondicionado.svg"
                               alt=""
-                              tooltip="pasajeros"
+                              tooltip=""
                             />
                             <span class="pl-2 det-test3">
                               Aire acondicionado
@@ -374,7 +374,7 @@
                                   src="./assets/images/autos/combustible.svg"
                                   alt=""
                                 />
-                                Politica de combustible
+                                Política de combustible
                               </div>
                               <div
                                 class="col-12 det-test8"
@@ -436,14 +436,18 @@
               </div>
               <div class="col-12">
                 <div class="row m-0 p-0">
-                  <div class="col-1"></div>
-                  <div class="col-11 det-test8">{{ infoAuto1 }}</div>
+                  <div class="col-1">
+                    <img class="" src="./assets/images/autos/Ok.svg" alt="" />
+                  </div>
+                  <div class="col-10 det-test8">{{ infoAuto1 }}</div>
                 </div>
               </div>
               <div class="col-12 pt-3">
                 <div class="row m-0 p-0">
-                  <div class="col-1"></div>
-                  <div class="col-11 det-test8">{{ infoAuto2 }}</div>
+                  <div class="col-1">
+                    <img class="" src="./assets/images/autos/Ok.svg" alt="" />
+                  </div>
+                  <div class="col-10 det-test8">{{ infoAuto2 }}</div>
                 </div>
               </div>
               <div class="col-12 pt-3">
@@ -491,7 +495,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-10 m-p p-0">
+              <div class="col-9 m-p p-0">
                 <div class="row m-0 p-0">
                   <div
                     class=""
@@ -557,10 +561,11 @@
                             border-bottom: solid 1px #aaaaaa;
                           "
                         >
-                          <span
+                          <img
                             *ngIf="inclusion.alias === lstInclusions[i].alias"
-                            >X</span
-                          >
+                            src="./assets/images/autos/check_ok.svg"
+                            alt=""
+                          />
                         </div>
 
                         <div
@@ -711,12 +716,22 @@
               <div class="col-12 pt-3 det-test24">Sucursal de recojo</div>
 
               <div class="col-12 pt-3 pl-4 det-test25">
+                <img
+                  class="pr-1"
+                  src="./assets/images/autos/marcador.svg"
+                  alt=""
+                />
                 {{ carSelect.oinformation.oitineraryInfo.pickUpAddress }}
               </div>
 
               <div class="col-12 pt-3 det-test24">Sucursal de entrega</div>
 
               <div class="col-12 pt-3 pl-4 det-test25">
+                <img
+                  class="pr-1"
+                  src="./assets/images/autos/marcador.svg"
+                  alt=""
+                />
                 {{ carSelect.oinformation.oitineraryInfo.dropOffAddress }}
               </div>
             </div>
@@ -786,6 +801,9 @@
                       display: flex;
                       align-items: center;
                       border-right: solid 1px #e5e5e5;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
                     "
                   >
                     Sujeto a disponibilidad en agencia
@@ -793,8 +811,17 @@
 
                   <div
                     class="col-3 det-test26"
-                    style="display: flex; align-items: center"
+                    style="
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                    "
                   >
+                    <img
+                      class="pr-3"
+                      src="./assets/images/autos/informacion_verde.svg"
+                      alt=""
+                    />
                     {{ carSelect.lextraRates[0].lratePrice[0].currency }}
                     {{ item.amount }}
                   </div>

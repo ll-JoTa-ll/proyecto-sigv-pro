@@ -23,6 +23,10 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
   extraRatesSel;
   listAditionalCheck: any[] = [];
   chbxAceptar: boolean;
+  flagCentralizador: boolean;
+  model: any = {};
+  loginData;
+  campoDisable: boolean = false;
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -59,6 +63,10 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
     this.listAditionalCheck = this.sessionStorageService.retrieve(
       "ss_listAditionalCheck"
     );
+    this.flagCentralizador = this.sessionStorageService.retrieve(
+      "ss_flagCentralizador"
+    );
+    this.loginData = this.sessionStorageService.retrieve("ss_login_data");
   }
 
   ngOnInit() {
@@ -89,9 +97,78 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
     $("#menu-seguro-2").hide();
     $("#menu-autos-1").hide();
     $("#menu-autos-2").show();
+
+    if (this.flagCentralizador === false) {
+      this.campoDisable = true;
+      this.model.nombre = this.loginData.userName;
+      this.model.apellido = this.loginData.userLastName;
+      this.model.email1 = this.loginData.email;
+      this.model.email2 = this.loginData.email;
+      this.model.celular = this.loginData.phoneNumber;
+    }
   }
 
   comppletarReserva() {
+    //VALIDAR CAMPOS
+    let flagVal = 0;
+
+    if ($.trim(this.model.nombre) === "") {
+      flagVal++;
+      $("#txtNombre").addClass("campo-invalido-vacio");
+    } else {
+      $("#txtNombre").removeClass("campo-invalido-vacio");
+    }
+
+    if ($.trim(this.model.apellido) === "") {
+      flagVal++;
+      $("#txtApellido").addClass("campo-invalido-vacio");
+    } else {
+      $("#txtApellido").removeClass("campo-invalido-vacio");
+    }
+
+    if ($.trim(this.model.email1) === "") {
+      flagVal++;
+      $("#txtEmail1").addClass("campo-invalido-vacio");
+      $("#txtEmail2").addClass("campo-invalido-vacio");
+    } else {
+      $("#txtEmail1").removeClass("campo-invalido-vacio");
+      $("#txtEmail2").removeClass("campo-invalido-vacio");
+    }
+
+    if ($.trim(this.model.email1) !== $.trim(this.model.email2)) {
+      flagVal++;
+      $("#txtEmail1").addClass("campo-invalido-vacio");
+      $("#txtEmail2").addClass("campo-invalido-vacio");
+    } else {
+      $("#txtEmail1").removeClass("campo-invalido-vacio");
+      $("#txtEmail2").removeClass("campo-invalido-vacio");
+    }
+
+    if ($.trim(this.model.telPais) === "") {
+      flagVal++;
+      $("#xxxxxxxxxx").addClass("campo-invalido-vacio");
+    } else {
+      $("#xxxxxxxxxx").removeClass("campo-invalido-vacio");
+    }
+
+    if ($.trim(this.model.celular) === "") {
+      flagVal++;
+      $("#txtCelular").addClass("campo-invalido-vacio");
+    } else {
+      $("#txtCelular").removeClass("campo-invalido-vacio");
+    }
+
+    if ($.trim(this.model.edad) === "") {
+      flagVal++;
+      $("#txtEdad").addClass("campo-invalido-vacio");
+    } else {
+      $("#txtEdad").removeClass("campo-invalido-vacio");
+    }
+
+    if (flagVal > 0) {
+      return false;
+    }
+
     const data = {
       Token: this.carSelect.token,
       Language: "es",
@@ -117,11 +194,11 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
         OnHold: false,
       },
       Opassenger: {
-        FirstName: "Ricardo",
-        LastName: "Metzger",
-        Age: "25",
-        Email: "r7metzger@gmail.com",
-        MembershipNumber: "",
+        FirstName: this.model.nombre,
+        LastName: this.model.apellido,
+        Age: this.model.edad,
+        Email: this.model.email1,
+        MembershipNumber: this.model.telPais + this.model.celular,
       },
       Oprice: {
         RealBase: this.ratePriceSel.realBaseAmount,
@@ -130,7 +207,7 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
         Currency: this.ratePriceSel.currency,
       },
       OextraInfoFlight: {
-        FlightNumber: "",
+        FlightNumber: this.model.numeroVuelo,
         FrequentFlyer: "",
         Carrier: "",
       },

@@ -34,7 +34,13 @@
                     <div class="row m-0 p-0">
                       <div class="col-12 m-0 p-0 con-test18">Nombre*</div>
                       <div class="col-12 m-0 p-0">
-                        <input type="text" class="input-text-1" />
+                        <input
+                          [disabled]="campoDisable"
+                          [(ngModel)]="model.nombre"
+                          type="text"
+                          class="input-text-1"
+                          id="txtNombre"
+                        />
                       </div>
                     </div>
                   </div>
@@ -42,7 +48,13 @@
                     <div class="row m-0 p-0">
                       <div class="col-12 m-0 p-0 con-test18">Apellido*</div>
                       <div class="col-12 m-0 p-0">
-                        <input type="text" class="input-text-1" />
+                        <input
+                          [disabled]="campoDisable"
+                          [(ngModel)]="model.apellido"
+                          type="text"
+                          class="input-text-1"
+                          id="txtApellido"
+                        />
                       </div>
                     </div>
                   </div>
@@ -55,7 +67,13 @@
                     <div class="row m-0 p-0">
                       <div class="col-12 m-0 p-0 con-test18">Email*</div>
                       <div class="col-12 m-0 p-0">
-                        <input type="text" class="input-text-1" />
+                        <input
+                          [disabled]="campoDisable"
+                          [(ngModel)]="model.email1"
+                          type="text"
+                          class="input-text-1"
+                          id="txtEmail1"
+                        />
                       </div>
                     </div>
                   </div>
@@ -65,7 +83,13 @@
                         Confirme su Email*
                       </div>
                       <div class="col-12 m-0 p-0">
-                        <input type="text" class="input-text-1" />
+                        <input
+                          [disabled]="campoDisable"
+                          [(ngModel)]="model.email2"
+                          type="text"
+                          class="input-text-1"
+                          id="txtEmail2"
+                        />
                       </div>
                     </div>
                   </div>
@@ -80,7 +104,11 @@
                         Telephone Country*
                       </div>
                       <div class="col-12 m-0 p-0">
-                        <input type="text" class="input-text-1" />
+                        <input
+                          [(ngModel)]="model.telPais"
+                          type="text"
+                          class="input-text-1"
+                        />
                       </div>
                     </div>
                   </div>
@@ -90,7 +118,13 @@
                         Telephone Number*
                       </div>
                       <div class="col-12 m-0 p-0">
-                        <input type="text" class="input-text-1" />
+                        <input
+                          [disabled]="campoDisable"
+                          [(ngModel)]="model.celular"
+                          type="text"
+                          class="input-text-1"
+                          id="txtCelular"
+                        />
                       </div>
                     </div>
                   </div>
@@ -98,7 +132,12 @@
                     <div class="row m-0 p-0">
                       <div class="col-12 m-0 p-0 con-test18">Edad*</div>
                       <div class="col-12 m-0 p-0">
-                        <input type="text" class="input-text-1" />
+                        <input
+                          [(ngModel)]="model.edad"
+                          type="text"
+                          class="input-text-1"
+                          id="txtEdad"
+                        />
                       </div>
                     </div>
                   </div>
@@ -140,11 +179,15 @@
 
               <div class="col-12 m-0 p-0 pl-5 pt-4 pb-4">
                 <div class="row m-0 p-0">
-                  <div class="col-12 m-0 p-0 con-test19">Numero de vuelo</div>
+                  <div class="col-12 m-0 p-0 con-test19">Número de vuelo</div>
                   <div class="col-6 m-0 p-0">
                     <div class="row m-0 p-0">
                       <div class="m-0 p-0" style="width: 90%">
-                        <input type="text" class="input-text-2" />
+                        <input
+                          [(ngModel)]="model.numeroVuelo"
+                          type="text"
+                          class="input-text-2"
+                        />
                       </div>
                       <div
                         class="m-0 p-0"
@@ -274,7 +317,7 @@
                         <img
                           src="./assets/images/autos/accessory.svg"
                           alt=""
-                          tooltip="pasajeros"
+                          tooltip="mochila o carry on"
                         />
                         <span class="pl-2 con-test4">
                           {{
@@ -288,7 +331,7 @@
                         <img
                           src="./assets/images/autos/suitcase.svg"
                           alt=""
-                          tooltip="pasajeros"
+                          tooltip="maleta de 23kg"
                         />
                         <span class="pl-2 con-test4">
                           {{
@@ -302,9 +345,9 @@
                         class="pl-3"
                       >
                         <img
-                          src="./assets/images/autos/suitcase.svg"
+                          src="./assets/images/autos/aire_Acondicionado.svg"
                           alt=""
-                          tooltip="pasajeros"
+                          tooltip="aire acondicionado"
                         />
                         <span class="pl-2 con-test4"> Si </span>
                       </div>
@@ -336,6 +379,7 @@
           </div>
 
           <div class="col-12 m-0 p-0 pl-3 pr-3 con-test4">
+            <img class="pr-1" src="./assets/images/autos/marcador.svg" alt="" />
             {{ carSelect.oinformation.oitineraryInfo.pickUpAddress }}
           </div>
 
@@ -373,6 +417,7 @@
           </div>
 
           <div class="col-12 m-0 p-0 pl-3 pr-3 con-test4">
+            <img class="pr-1" src="./assets/images/autos/marcador.svg" alt="" />
             {{ carSelect.oinformation.oitineraryInfo.dropOffAddress }}
           </div>
 
