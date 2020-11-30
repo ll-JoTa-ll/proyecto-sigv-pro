@@ -86,7 +86,7 @@
         </div>
       </div>
 
-      <div class="col-12 m-0 p-0">
+      <div class="col-12 m-0 p-0 pb-5">
         <div class="row m-0 p-0">
           <div class="col-2 m-0 p-0"></div>
 
@@ -188,9 +188,352 @@
 
       <div class="col-12 m-0 p-0">
         <div class="row m-0 p-0">
-          <div class="col-8 m-0 p-0"></div>
+          <div class="col-2 m-0 p-0"></div>
 
-          <div class="col-4 m-0 p-0"></div>
+          <div class="col-8 m-0 p-0">
+            <div class="row m-0 p-0">
+              <div
+                class="col-8 m-0 p-0"
+                style="
+                  background: #fdfdfd 0% 0% no-repeat padding-box;
+                  border: 1px solid #e2e2e2;
+                  border-radius: 20px 0px;
+                  opacity: 1;
+                "
+              >
+                <div class="row m-0 p-0">
+                  <div class="col-12 m-0 p-0 pt-4"></div>
+
+                  <div
+                    class="col-5 m-0 p-0 text-center frc-test3"
+                    style="
+                      background: transparent
+                        linear-gradient(
+                          99deg,
+                          #ed1c24 0%,
+                          #d51a2c 34%,
+                          #3c4749 100%
+                        )
+                        0% 0% no-repeat padding-box;
+                      border: 1px solid #e2e2e2;
+                      border-radius: 0px 23px 23px 0px;
+                      opacity: 1;
+                    "
+                  >
+                    Detalles del auto
+                  </div>
+
+                  <div class="col-12 m-0 p-0 pt-4"></div>
+
+                  <div class="col-12 m-0 p-0 pl-3">
+                    <div class="row m-0 p-0">
+                      <div class="col-3 m-0 p-0">
+                        <div class="row m-0 p-0">
+                          <div class="col-12 m-0 p-0 frc-test8">
+                            {{ confirma_reserva_alq.ocarInfo.model }}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-3 m-0 p-0">
+                        <div class="row m-0 p-0">
+                          <div
+                            class="col-12 m-0 p-0 text-center frc-test9"
+                            style="
+                              background: #ffffff 0% 0% no-repeat padding-box;
+                              border: 1px solid #0090ff;
+                              border-radius: 6px 0px;
+                              opacity: 1;
+                            "
+                          >
+                            {{ confirma_reserva_alq.ocarInfo.category }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 m-0 p-0 pt-2 pb-4 pl-3">
+                    <div class="row m-0 p-0">
+                      <div
+                        class="col-6 m-0 p-0"
+                        style="
+                          border: 1px solid #707070;
+                          opacity: 0.24;
+                          height: 2px !important;
+                        "
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 m-0 p-0 pl-3">
+                    <div class="row m-0 p-0">
+                      <div class="col-6 m-0 p-0">
+                        <div class="row m-0 p-0">
+                          <div class="col-6 m-0 p-0">
+                            <div class="row m-0 p-0">
+                              <div
+                                *ngIf="
+                                  confirma_reserva_alq.ocarInfo.doors !== null
+                                "
+                                class="col-12 m-0 p-0 frc-test5"
+                              >
+                                {{ confirma_reserva_alq.ocarInfo.doors }} Doors
+                              </div>
+
+                              <div class="col-12 m-0 p-0 frc-test5">
+                                {{ confirma_reserva_alq.ocarInfo.passengers }}
+                                Passengers
+                              </div>
+
+                              <div class="col-12 m-0 p-0 frc-test5">
+                                {{
+                                  confirma_reserva_alq.ocarInfo.bags
+                                    | validarEntero
+                                }}
+                                Large bags
+                              </div>
+
+                              <div class="col-12 m-0 p-0 frc-test5">
+                                {{
+                                  confirma_reserva_alq.ocarInfo.bags
+                                    | slice: 0:1
+                                }}
+                                Small bag
+                              </div>
+
+                              <div
+                                *ngIf="
+                                  confirma_reserva_alq.ocarInfo.airConditioner
+                                "
+                                class="col-12 m-0 p-0 frc-test5"
+                              >
+                                Air Conditioning
+                              </div>
+
+                              <div class="col-12 m-0 p-0 frc-test5">
+                                {{ confirma_reserva_alq.ocarInfo.type }}
+                              </div>
+
+                              <div class="col-12 m-0 p-0 frc-test5">
+                                <img
+                                  class="img-fuild"
+                                  [src]="confirma_reserva_alq.ocompany.image"
+                                  alt=""
+                                />
+                                {{ confirma_reserva_alq.ocompany.name }}
+                              </div>
+
+                              <div class="col-12 m-0 p-0 frc-test5"></div>
+                            </div>
+                          </div>
+
+                          <div
+                            class="col-6 m-0 p-0 img-fluid"
+                            style="
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+                            "
+                          >
+                            <img
+                              [src]="carSelect.oinformation.ocarInfo.image"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-6 m-0 p-0 pr-3">
+                        <div
+                          class="row m-0 p-0"
+                          style="
+                            background: #fffbfb 0% 0% no-repeat padding-box;
+                            border: 1px solid #f1f1f1;
+                            border-radius: 15px 0px;
+                            opacity: 1;
+                          "
+                        >
+                          <div class="col-12 m-0 p-0">
+                            <span class="pr-2 frc-test10">
+                              Tarifa seleccionada:
+                            </span>
+                            <span class="frc-test11">
+                              {{ confirma_reserva_alq.ocarInfo.orate.name }}
+                            </span>
+                          </div>
+
+                          <div
+                            *ngFor="
+                              let inclusion of confirma_reserva_alq.ocarInfo
+                                .orate.inclusions
+                            "
+                            class="col-12 m-0 p-0"
+                          >
+                            <span class="pr-2 frc-test10">
+                              {{ inclusion }}:
+                            </span>
+                            <span class="frc-test11"> Si </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 m-0 p-0"></div>
+
+                  <div class="col-12 m-0 p-0"></div>
+
+                  <div class="col-12 m-0 p-0"></div>
+
+                  <div class="col-12 m-0 p-0"></div>
+
+                  <div class="col-12 m-0 p-0"></div>
+
+                  <div class="col-12 m-0 p-0"></div>
+                </div>
+              </div>
+
+              <div class="col-4 m-0 p-0 pl-3">
+                <div
+                  class="row m-0 p-0"
+                  style="
+                    background: #fdfdfd 0% 0% no-repeat padding-box;
+                    border: 1px solid #e2e2e2;
+                    border-radius: 20px 0px;
+                    opacity: 1;
+                  "
+                >
+                  <div class="col-12 m-0 p-0 pt-4"></div>
+
+                  <div
+                    class="col-6 m-0 p-0 text-center frc-test3"
+                    style="
+                      background: transparent
+                        linear-gradient(
+                          99deg,
+                          #ed1c24 0%,
+                          #d51a2c 34%,
+                          #3c4749 100%
+                        )
+                        0% 0% no-repeat padding-box;
+                      border: 1px solid #e2e2e2;
+                      border-radius: 0px 23px 23px 0px;
+                      opacity: 1;
+                    "
+                  >
+                    Detalles de la tarifa
+                  </div>
+
+                  <div class="col-12 m-0 p-0 pt-4 pl-4">
+                    <div class="row m-0 p-0">
+                      <div class="col-6 m-0 p-0 frc-test11">TIPO DE PAGO:</div>
+                      <div class="col-6 m-0 p-0 frc-test11">
+                        {{ confirma_reserva_alq.oprice.paymentType }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 m-0 p-0 pt-3 pl-4">
+                    <div class="row m-0 p-0">
+                      <div class="col-6 m-0 p-0 frc-test11">TARIFA:</div>
+                      <div class="col-6 m-0 p-0 frc-test11">
+                        <span class="pr-1 frc-test13">
+                          {{ confirma_reserva_alq.oprice.currency }}
+                        </span>
+                        <span class="frc-test14">
+                          {{ confirma_reserva_alq.oprice.voucherAmount }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 m-0 p-0 frc-test11 pt-3 pl-4">
+                    IMPUESTOS Y SOBRECARGOS:
+                  </div>
+
+                  <div class="col-12 m-0 p-0 pl-4">
+                    <div class="row m-0 p-0">
+                      <div class="col-7 m-0 p-0">
+                        <div
+                          class="row m-0 p-0"
+                          style="
+                            background: #ffffff 0% 0% no-repeat padding-box;
+                            border: 1px solid #ff8800;
+                            border-radius: 5px;
+                            opacity: 1;
+                          "
+                        >
+                          <div
+                            class="m-0 p-0"
+                            style="
+                              width: 10% !important;
+                              background: #ff8800 0% 0% no-repeat padding-box;
+                              border: 1px solid #ff8800;
+                              border-radius: 5px 0px 0px 5px;
+                              opacity: 1;
+                            "
+                          >
+                            <img src="" alt="" />
+                          </div>
+
+                          <div
+                            class="m-0 p-0 frc-test12 text-center"
+                            style="width: 90% !important"
+                          >
+                            Pago en el mostrador
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-5 m-0 p-0">
+                        <span class="pr-1 frc-test13">
+                          {{ confirma_reserva_alq.oprice.currency }}
+                        </span>
+                        <span class="frc-test14">
+                          {{ confirma_reserva_alq.oprice.taxAmount }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 m-0 p-0 pt-3 pb-3">
+                    <div class="row m-0 p-0">
+                      <div
+                        class="col-12 m-0 p-0"
+                        style="
+                          border: 1px solid #707070;
+                          opacity: 0.28;
+                          height: 2px;
+                        "
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 m-0 p-0 pl-4">
+                    <div class="row m-0 p-0">
+                      <div class="col-7 m-0 p-0 frc-test15">PRECIO TOTAL:</div>
+
+                      <div class="col-5 m-0 p-0">
+                        <span class="pr-1 frc-test16">
+                          {{ confirma_reserva_alq.oprice.currency }}
+                        </span>
+                        <span class="frc-test17">
+                          {{ confirma_reserva_alq.oprice.rateAmount }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 m-0 p-0 pt-4"></div>
+
+                  <div class="col-12 m-0 p-0"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-2 m-0 p-0"></div>
         </div>
       </div>
 

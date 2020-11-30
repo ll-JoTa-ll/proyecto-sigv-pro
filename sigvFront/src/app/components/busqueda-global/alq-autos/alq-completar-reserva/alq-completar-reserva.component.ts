@@ -21,7 +21,7 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
   carSelect;
   ratePriceSel;
   extraRatesSel;
-  lstAditionals: any[] = [];
+  listAditionalCheck: any[] = [];
   chbxAceptar: boolean;
 
   constructor(
@@ -56,6 +56,9 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
     );
     this.extraRatesSel = this.sessionStorageService.retrieve("ss_extraRates");
     this.ratePriceSel = this.sessionStorageService.retrieve("ss_ratePrice");
+    this.listAditionalCheck = this.sessionStorageService.retrieve(
+      "ss_listAditionalCheck"
+    );
   }
 
   ngOnInit() {
@@ -110,7 +113,7 @@ export class AlqCompletarReservaComponent implements OnInit, AfterViewInit {
         PickUpAddress: this.carSelect.oinformation.oitineraryInfo.pickUpAddress,
         DropOffAddress: this.carSelect.oinformation.oitineraryInfo
           .dropOffAddress,
-        Aditionals: this.lstAditionals,
+        Aditionals: this.listAditionalCheck,
         OnHold: false,
       },
       Opassenger: {

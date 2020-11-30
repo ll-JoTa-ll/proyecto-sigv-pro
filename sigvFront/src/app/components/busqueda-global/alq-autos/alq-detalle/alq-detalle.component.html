@@ -773,9 +773,8 @@
                     "
                   >
                     <mat-checkbox
-                      [id]="item.code"
                       color="warn"
-                      (click)="checkAditional(item)"
+                      (change)="checkAditional($event.checked, item.code)"
                     >
                       {{ item.description }}
                     </mat-checkbox>

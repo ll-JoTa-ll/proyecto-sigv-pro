@@ -63,6 +63,8 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
 
   flagResult: boolean;
 
+  countResultCars: number;
+
   constructor(
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
@@ -200,6 +202,12 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
       fecha2_split[2] + "-" + fecha2_split[1] + "-" + fecha2_split[0]
     );
     this.cantDiasAlquiler = fecha2.diff(fecha1, "days");
+
+    let cantidad = 0;
+    this.carsSearch.lcategories.forEach(function (element) {
+      cantidad += element.lrecommendations.length;
+    });
+    this.countResultCars = cantidad;
   }
 
   obtenerMesTexto(fecha) {
@@ -553,6 +561,18 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     $("#diBase_" + index).addClass("div-base-2");
 
     this.carsSearch = carsSearch;
+
+    let cantidad = 0;
+    this.carsSearch.lcategories.forEach(function (element) {
+      if (element.visible === true) {
+        element.lrecommendations.forEach(function (recommendation) {
+          if (recommendation.visible === true) {
+            cantidad++;
+          }
+        });
+      }
+    });
+    this.countResultCars = cantidad;
   }
 
   mostrarTodasCategorias() {
@@ -565,6 +585,18 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
 
     this.carsSearch = carsSearch;
     $(".base-general").removeClass("div-base-2");
+
+    let cantidad = 0;
+    this.carsSearch.lcategories.forEach(function (element) {
+      if (element.visible === true) {
+        element.lrecommendations.forEach(function (recommendation) {
+          if (recommendation.visible === true) {
+            cantidad++;
+          }
+        });
+      }
+    });
+    this.countResultCars = cantidad;
   }
 
   seleccionarTipoCaja(valor) {
@@ -630,6 +662,18 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     });
 
     this.carsSearch = carsSearch;
+
+    let cantidad = 0;
+    this.carsSearch.lcategories.forEach(function (element) {
+      if (element.visible === true) {
+        element.lrecommendations.forEach(function (recommendation) {
+          if (recommendation.visible === true) {
+            cantidad++;
+          }
+        });
+      }
+    });
+    this.countResultCars = cantidad;
   }
 
   seleccionarMasPasajeros(valor) {
@@ -694,6 +738,18 @@ export class AlqSearchComponent implements OnInit, AfterViewInit {
     });
 
     this.carsSearch = carsSearch;
+
+    let cantidad = 0;
+    this.carsSearch.lcategories.forEach(function (element) {
+      if (element.visible === true) {
+        element.lrecommendations.forEach(function (recommendation) {
+          if (recommendation.visible === true) {
+            cantidad++;
+          }
+        });
+      }
+    });
+    this.countResultCars = cantidad;
   }
 
   sideScroll(element, direction, speed, distance, step) {

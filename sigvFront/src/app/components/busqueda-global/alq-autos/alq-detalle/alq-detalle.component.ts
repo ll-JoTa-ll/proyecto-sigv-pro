@@ -68,6 +68,7 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
   ratePriceSel;
   extraRatesSel;
   listAditionals: any[] = [];
+  listAditionalCheck: any[] = [];
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -360,7 +361,27 @@ export class AlqDetalleComponent implements OnInit, AfterViewInit {
     this.sideScroll(container, "right", 5, 200, 10);
   }
 
-  checkAditional(item) {}
+  checkAditional(checked, code) {
+    console.log("checked: " + checked);
+    console.log("code: " + code);
+
+    if (checked === true) {
+      this.listAditionalCheck.push(code);
+    } else {
+      this.listAditionalCheck = this.listAditionalCheck.filter(function (item) {
+        return item !== code;
+      });
+    }
+
+    console.log(
+      "this.listAditionalCheck: " + JSON.stringify(this.listAditionalCheck)
+    );
+
+    this.sessionStorageService.store(
+      "ss_listAditionalCheck",
+      this.listAditionalCheck
+    );
+  }
 
   reservarAuto() {
     this.router.navigate(["/auto-completar-reserva"]);
