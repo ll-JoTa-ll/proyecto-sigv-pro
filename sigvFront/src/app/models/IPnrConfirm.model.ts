@@ -2,6 +2,7 @@ export class IPnrConfirm {
     pnr: string;
     createdDate: string;
     pseudo: string;
+    timeLimitShow;
     gds: string;
     reasonFlightId: number;
     timeLimit: string;

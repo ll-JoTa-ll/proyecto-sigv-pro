@@ -56,10 +56,12 @@ export class AprobacionReservaComponent implements OnInit, AfterViewInit {
   };
   odiscount: any;
   modalerror: BsModalRef;
+  timeLimitShow;
 
   constructor(private sessionStorageService: SessionStorageService, private modalservice: BsModalService, private service: AirportService,
               private spinner: NgxSpinnerService, private router: Router, private http: HttpClient, private toastr: ToastrService) {
     this.reserva = this.sessionStorageService.retrieve('getreserva');
+    this.timeLimitShow = this.reserva.timeLimitShow;
     this.lusers = this.reserva.lpassenger;
     this.LPolicies = this.reserva.lpolicies;
     this.lsapprover = this.reserva.lauthorizers;
@@ -80,7 +82,10 @@ export class AprobacionReservaComponent implements OnInit, AfterViewInit {
     this.ObtenerstringVueloAprobado();
     this.ObtenerstringVueloRechazado();
     this.ObtenerstringVueloCancelado();
+
   }
+
+
 
   ngAfterViewInit() {
     console.log('ngAfterViewInit vuelos');

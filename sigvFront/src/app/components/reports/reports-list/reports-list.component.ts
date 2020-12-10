@@ -17,7 +17,7 @@ declare var $: any;
   templateUrl: './reports-list.component.html',
   styleUrls: ['./reports-list.component.sass']
 })
-export class ReportsListComponent implements OnInit , AfterViewInit {
+export class ReportsListComponent implements OnInit, AfterViewInit {
 
   listReports;
   intervaloDatas: Date[] = null;
@@ -50,11 +50,16 @@ export class ReportsListComponent implements OnInit , AfterViewInit {
   disabled = 'dropdown-item disabled';
   validDisabled = false;
   nameView;
+  textQuery = null;
+  setFecIni;
+  setFecFin;
+  setValueIni;
+  setValueFin;
 
-  constructor(private formBuilder: FormBuilder,private modalService: BsModalService,private reportService : ReportsService,
-              public spinner: NgxSpinnerService,private sessionStorageService: SessionStorageService,
-              private toastr: ToastrService) {
- }
+  constructor(private formBuilder: FormBuilder, private modalService: BsModalService, private reportService: ReportsService,
+    public spinner: NgxSpinnerService, private sessionStorageService: SessionStorageService,
+    private toastr: ToastrService) {
+  }
 
   ngOnInit() {
     this.seleccionar();
@@ -63,7 +68,7 @@ export class ReportsListComponent implements OnInit , AfterViewInit {
     this.listReports = [];
     this.listHeads = [];
     this.maxDate.setDate(this.maxDate.getDate() - 7);
-    this.intervaloDatas = [this.maxDate,this.bsValue];
+    this.intervaloDatas = [this.maxDate, this.bsValue];
     this.loginData = this.sessionStorageService.retrieve('ss_login_data');
     this.getViews();
     /* this.validColumn = false;
@@ -89,7 +94,7 @@ export class ReportsListComponent implements OnInit , AfterViewInit {
     $('#menu-seguro-2').hide();
   }
 
-  getViews(){
+  getViews() {
     this.reportService.getCompanyReport(this.loginData.ocompany.companyId).subscribe(
       result => {
         this.listViews = result.lreports;
@@ -98,7 +103,7 @@ export class ReportsListComponent implements OnInit , AfterViewInit {
     )
   }
 
-  getViewsTwo(){
+  getViewsTwo() {
     this.reportService.getCompanyReport(this.loginData.ocompany.companyId).subscribe(
       result => {
         this.listViews = result.lreports;
@@ -125,7 +130,7 @@ export class ReportsListComponent implements OnInit , AfterViewInit {
 
   */
 
-  hola(){
+  hola() {
     this.spinner.show();
     this.reportService.getReportField(0).subscribe(
       x => {
@@ -139,7 +144,7 @@ export class ReportsListComponent implements OnInit , AfterViewInit {
     )
   }
 
-  getField(){
+  getField() {
     this.spinner.show();
     this.bookingForm = this.formBuilder.group({
       vista: new FormControl(this.textButton, [Validators.maxLength(12)]),
@@ -160,132 +165,135 @@ export class ReportsListComponent implements OnInit , AfterViewInit {
 
   exportAsXLSX(): void {
     this.reportService.exportAsExcelFile(this.listReports, this.title);
- }
+  }
 
- initForm() {
-  this.bookingForm = this.formBuilder.group({
-    vista: new FormControl('', [Validators.maxLength(12)]),
-  });
-}
+  initForm() {
+    this.bookingForm = this.formBuilder.group({
+      vista: new FormControl('', [Validators.maxLength(12)]),
+    });
+  }
 
- grabarCampos(){
-   let name = this.bookingForm.controls.vista.value;
-   name = name.trim();
-   console.log(name);
+  grabarCampos() {
+    let name = this.bookingForm.controls.vista.value;
+    name = name.trim();
+    console.log(name);
 
-   if (name === '') {
-     this.toastr.error('', 'Se requiere poner un nombre a la vista.', {
-       timeOut: 5000
-     });
-   } else {
-    if (this.setListData === undefined || this.setListData.length === 0) {
-      this.toastr.error('', 'Debe selecciona al menos un campo a mostrar.', {
+    if (name === '') {
+      this.toastr.error('', 'Se requiere poner un nombre a la vista.', {
         timeOut: 5000
       });
     } else {
-      this.spinner.show();
-      if (this.validView === 1) {
-        this.listCodes = [];
-        this.listReports = [];
-        this.listHeads = [];
-        this.setListData.forEach(element => {
-          this.listCodes.push(element.code);
+      if (this.setListData === undefined || this.setListData.length === 0) {
+        this.toastr.error('', 'Debe selecciona al menos un campo a mostrar.', {
+          timeOut: 5000
         });
-        /* const data = {
-          UserId: this.listaIds
-        } */
-        const objData = {
-          IsInsert: true,
-          CompanyReportId: 0,
-          NameView: name,
-          Codes: this.listCodes,
-          CompanyId: this.loginData.ocompany.companyId,
-          CreatedUserId: this.loginData.userId,
-          IsActive: true
-        }
-        this.reportService.insertUpdateCompany(objData).subscribe(
-          result => {
-            if (result.status === 500) {
-              this.spinner.hide();
-              this.toastr.error('', result.message, {
-                timeOut: 6000
-              });
-            } else {
-              this.companyReportId = result.companyReportId;
-              this.textButton = name;
-              this.validColumn = false;
-              this.listReports = result.oreportData.dynamics;
-              this.getHeadColumns();
-              this.getViewsTwo();
-            }
-          }
-        )
       } else {
-        this.listCodes = [];
-        this.listReports = [];
-        this.listHeads = [];
-        this.setListData.forEach(element => {
-          this.listCodes.push(element.code);
-        });
-        /* const data = {
-          UserId: this.listaIds
-        } */
-        const objData = {
-          IsInsert: false,
-          CompanyReportId: this.companyReportId,
-          NameView: name,
-          Codes: this.listCodes,
-          CompanyId: this.loginData.ocompany.companyId,
-          CreatedUserId: this.loginData.userId,
-          IsActive: true
-        }
-        this.reportService.insertUpdateCompany(objData).subscribe(
-          result => {
-            if (result.status === 500) {
-              this.spinner.hide();
-              this.toastr.error('', result.message, {
-                timeOut: 6000
-              });
-            } else {
-              this.textButton = name;
-              this.companyReportId = result.companyReportId;
-              this.validColumn = false;
-              this.listReports = result.oreportData.dynamics;
-              this.getHeadColumns();
-              this.getViewsTwo();
-            }
+        this.spinner.show();
+        if (this.validView === 1) {
+          this.listCodes = [];
+          this.listReports = [];
+          this.listHeads = [];
+          this.setListData.forEach(element => {
+            this.listCodes.push(element.code);
+          });
+          /* const data = {
+            UserId: this.listaIds
+          } */
+          const objData = {
+            IsInsert: true,
+            CompanyReportId: 0,
+            NameView: name,
+            Codes: this.listCodes,
+            CompanyId: this.loginData.ocompany.companyId,
+            CreatedUserId: this.loginData.userId,
+            IsActive: true
           }
-        )
+          this.reportService.insertUpdateCompany(objData).subscribe(
+            result => {
+              if (result.status === 500) {
+                this.spinner.hide();
+                this.toastr.error('', result.message, {
+                  timeOut: 6000
+                });
+              } else {
+                this.companyReportId = result.companyReportId;
+                this.textButton = name;
+                this.validColumn = false;
+                this.listReports = result.oreportData.dynamics;
+                this.textQuery = result.query;
+                this.getHeadColumns();
+                this.getViewsTwo();
+              }
+            }
+          )
+        } else {
+          this.listCodes = [];
+          this.listReports = [];
+          this.listHeads = [];
+          this.setListData.forEach(element => {
+            this.listCodes.push(element.code);
+          });
+          /* const data = {
+            UserId: this.listaIds
+          } */
+          const objData = {
+            IsInsert: false,
+            CompanyReportId: this.companyReportId,
+            NameView: name,
+            Codes: this.listCodes,
+            CompanyId: this.loginData.ocompany.companyId,
+            CreatedUserId: this.loginData.userId,
+            IsActive: true
+          }
+          this.reportService.insertUpdateCompany(objData).subscribe(
+            result => {
+              if (result.status === 500) {
+                this.spinner.hide();
+                this.toastr.error('', result.message, {
+                  timeOut: 6000
+                });
+              } else {
+                this.textButton = name;
+                this.companyReportId = result.companyReportId;
+                this.validColumn = false;
+                this.textQuery = result.query;
+                this.listReports = result.oreportData.dynamics;
+                this.getHeadColumns();
+                this.getViewsTwo();
+              }
+            }
+          )
+        }
       }
     }
-   }
 
 
 
 
- }
+  }
 
- drop(event: CdkDragDrop<string[]>, valor: any) {
-  console.log(valor);
-  this.setListData = [];
-  if (event.previousContainer === event.container) {
-    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  } else {
-    transferArrayItem(event.previousContainer.data,
-                      event.container.data,
-                      event.previousIndex,
-                      event.currentIndex);
+  drop(event: CdkDragDrop<string[]>, valor: any) {
+    console.log(valor);
+    this.setListData = [];
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+
+    }
     if (valor === 1) {
       this.setListData = event.container.data;
     } else {
       this.setListData = event.previousContainer.data;
     }
   }
-}
 
-openModal(template: TemplateRef<any>) {
-  this.modalRef = this.modalService.show(template, {class: 'modal-lm'});
-}
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-lm' });
+  }
 
 
   confirm(): void {
@@ -309,31 +317,44 @@ openModal(template: TemplateRef<any>) {
       this.intervaloDatas = intervaloDatas;
       this.inicioDate = this.intervaloDatas[0];
       this.finDate = this.intervaloDatas[1];
+      /* this.setFecIni = this.intervaloDatas[0];
+      this.setFecFin = this.intervaloDatas[1];
+      this.setFecIni.setMonth(this.setFecIni.getMonth() + 1);
+      this.setFecFin.setMonth(this.setFecFin.getMonth() + 1); */
       this.inicioShow = this.inicioDate.getDate() + '/' + this.inicioDate.getMonth() + '/' + this.inicioDate.getFullYear();
       this.finalShow = this.finDate.getDate() + '/' + this.finDate.getMonth() + '/' + this.finDate.getFullYear();
+     /*  this.setValueIni = this.setFecIni.getDate() + '/' + this.setFecIni.getMonth() + '/' + this.setFecIni.getFullYear();
+      this.setValueFin = this.setFecFin.getDate() + '/' + this.setFecFin.getMonth() + '/' + this.setFecFin.getFullYear(); */
       this.title = 'REPORTES DEL' + this.inicioShow.toString() + this.finalShow.toString();
-      this.getReportGeneral(this.inicioShow,this.finalShow);
+      this.getReportGeneral(this.inicioShow, this.finalShow);
     }
-}
+  }
 
   cancel() {
     window.location.reload();
   }
 
-  getHeadColumns(){
-    var myVar =  this.listReports[0];
+  getHeadColumns() {
+    var myVar = this.listReports[0];
     for (var key in myVar) {
       this.listHeads.push(key);
     }
     console.log(this.listHeads);
   }
 
-  getReportGeneralAll(){
+  getReportGeneralAll() {
     this.spinner.show();
+    this.textQuery = null;
     this.validColumn = false;
+    const fechaIni = this.inicioShow.split('/');
+    const fechaFin = this.finalShow.split('/');
+    fechaIni[1] = parseFloat(fechaIni[1]) + 1 ;
+    fechaFin[1] = parseFloat(fechaFin[1]) + 1 ;
+    const setIni = fechaIni[0] + '/' + fechaIni[1].toString() + '/' + fechaIni[2];
+    const setFin = fechaFin[0] + '/' + fechaFin[1].toString() + '/' + fechaFin[2];
     const dataReport = {
-      DateFrom: this.inicioShow,
-      DateUntil: this.finalShow,
+      DateFrom: setIni,
+      DateUntil: setFin,
       CompanyDK: this.loginData.ocompany.companyDK,
       Query: ''
     }
@@ -361,17 +382,33 @@ openModal(template: TemplateRef<any>) {
     )
   }
 
-  getReportGeneral(ini,fin){
+  getReportGeneral(ini, fin) {
+    const fechaIni = ini.split('/');
+    const fechaFin = fin.split('/');
+    fechaIni[1] = parseFloat(fechaIni[1]) + 1 ;
+    fechaFin[1] = parseFloat(fechaFin[1]) + 1 ;
+    const setIni = fechaIni[0] + '/' + fechaIni[1].toString() + '/' + fechaIni[2];
+    const setFin = fechaFin[0] + '/' + fechaFin[1].toString() + '/' + fechaFin[2];
     this.spinner.show();
+    let dato;
     this.validColumn = false;
+    if (this.textQuery != null) {
+      dato = this.textQuery;
+    } else {
+      dato = '';
+    }
     const dataReport = {
-      DateFrom: ini,
-      DateUntil: fin,
+      DateFrom: setIni,
+      DateUntil: setFin,
       CompanyDK: this.loginData.ocompany.companyDK,
-      Query: ''
+      Query: dato
     }
     this.reportService.ListReportGeneral(dataReport).subscribe(
       result => {
+        if (this.textQuery === null) {
+          this.textButton = 'Mostrar todos';
+          this.disabled = 'dropdown-item disabled';
+        }
         if (result === null) {
           this.validColumn = true;
           this.spinner.hide();
@@ -390,7 +427,7 @@ openModal(template: TemplateRef<any>) {
     )
   }
 
-  getReportGeneralTwo(valor){
+  getReportGeneralTwo(valor) {
     this.listReports = [];
     this.listHeads = [];
     this.spinner.show();
@@ -398,9 +435,16 @@ openModal(template: TemplateRef<any>) {
     this.companyReportId = valor.companyReportId;
     this.validColumn = false;
     this.textButton = valor.nameView;
+    this.textQuery = valor.query;
+    const fechaIni = this.inicioShow.split('/');
+    const fechaFin = this.finalShow.split('/');
+    fechaIni[1] = parseFloat(fechaIni[1]) + 1 ;
+    fechaFin[1] = parseFloat(fechaFin[1]) + 1 ;
+    const setIni = fechaIni[0] + '/' + fechaIni[1].toString() + '/' + fechaIni[2];
+    const setFin = fechaFin[0] + '/' + fechaFin[1].toString() + '/' + fechaFin[2];
     const dataReport = {
-      DateFrom: this.inicioShow ,
-      DateUntil: this.finalShow,
+      DateFrom: setIni,
+      DateUntil: setFin,
       CompanyDK: this.loginData.ocompany.companyDK,
       Query: valor.query
     }
@@ -424,7 +468,7 @@ openModal(template: TemplateRef<any>) {
     )
   }
 
-  home(){
+  home() {
     $(location).attr('href', '/vuelos');
   }
 

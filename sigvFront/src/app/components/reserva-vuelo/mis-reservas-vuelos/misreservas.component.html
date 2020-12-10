@@ -197,7 +197,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="body-table">
-                                    <tr *ngFor="let item of getreservahotel | paginate: { itemsPerPage: 7, currentPage: p}">
+                                    <tr *ngFor="let item of getreservahotel">
                                         <td>{{item.pnr}}</td>
                                         <td>{{item.codeConfirmation}}</td>
                                         <td>{{item.cityCode}}</td>
@@ -209,7 +209,7 @@
                                 </tbody>
                             </table>
                             <div class="col-12 m-0 p-0 text-center pt-5">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
                             </div>
                         </div>
                     </div>
@@ -375,7 +375,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="body-table">
-                                    <tr *ngFor="let item of getreservahotel | paginate: { itemsPerPage: 7, currentPage: p}">
+                                    <tr *ngFor="let item of getreservahotel">
                                         <td>{{item.pnr}}</td>
                                         <td>{{item.codeConfirmation}}</td>
                                         <td>{{item.cityCode}}</td>
@@ -387,7 +387,7 @@
                                 </tbody>
                             </table>
                             <div class="col-12 m-0 p-0 text-center pt-5">
-                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
                             </div>
                         </div>
                     </div>

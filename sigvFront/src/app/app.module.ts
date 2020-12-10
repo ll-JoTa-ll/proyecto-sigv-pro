@@ -168,6 +168,7 @@ import { RecomendacionHotelDetailComponent } from './components/busqueda-global/
 import { ReservaHotelVueloComponent } from './components/busqueda-global/vuelos/reserva-hotel-vuelo/reserva-hotel-vuelo.component';
 import { ResumenVueloHotelComponent } from './components/busqueda-global/vuelos/resumen-vuelo-hotel/resumen-vuelo-hotel.component';
 import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global/vuelos/reserva-generada-vuelo-hotel/reserva-generada-vuelo-hotel.component';
+import { ModalErrorSizeComponent } from './components/shared/modal-error-size/modal-error-size.component';
 
 @NgModule({
   declarations: [
@@ -306,7 +307,8 @@ import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global
     RecomendacionHotelComponent,
     RecomendacionHotelDetailComponent,
     ReservaHotelVueloComponent,
-    ResumenVueloHotelComponent
+    ResumenVueloHotelComponent,
+    ModalErrorSizeComponent
   ],
   imports: [
     BrowserModule,
@@ -354,7 +356,7 @@ import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global
                      ModalHabitacionErroneaComponent, ModalSesionExpiradaVuelosComponent,
                      ModalSesionWarningVuelosComponent, ModalAvisoSesionComponent, ModalFamiliasVaciasComponent,
                      ModalHotelErroneoComponent, ModalCambiarPasswordComponent, ModalRecuperarPasswordComponent,
-                     ModalCerrarSesionComponent, ModalErrorServiceComponent],
+                     ModalCerrarSesionComponent, ModalErrorSizeComponent],
   providers: [BnNgIdleService, ResizeService],
   bootstrap: [AppComponent]
 })

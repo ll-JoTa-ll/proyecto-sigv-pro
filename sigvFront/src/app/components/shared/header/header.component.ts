@@ -151,6 +151,8 @@ export class HeaderComponent implements OnInit {
   }
 
   cerrarSesion() {
+    this.localStorageService.store('ss_credenciales', null);
+    this.localStorageService.store('ss_crypto', null);
     this.idinterval = this.sessionStorageService.retrieve("ss_interval");
     clearInterval(this.idinterval);
     this.idinterval1 = this.sessionStorageService.retrieve('idinterval');

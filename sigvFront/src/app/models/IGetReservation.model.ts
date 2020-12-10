@@ -16,6 +16,7 @@ export class iGetReservation {
     isAuthorizer: boolean;
     timeLimit: string;
     comment: string;
+    timeLimitShow;
     allowedIssue: boolean;
     allowedApproved: boolean;
     litineraries: [

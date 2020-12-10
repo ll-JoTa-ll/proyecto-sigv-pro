@@ -33,7 +33,7 @@
                                                 <span class="ml-3" *ngIf="habitacion.ohotel.stars  === 2"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
                                                 <span class="ml-3" *ngIf="habitacion.ohotel.stars  === 1"><img src="./assets/images/star.svg"></span>
                                                 <br>
-                                                <span class="txtdis pr-4">{{habitacion.ohotel.cityName}}. A {{lhotel.oairportDistance.distance}} km  del  aeropuerto</span>
+                                                <span class="txtdis pr-4">{{habitacion.ohotel.cityName}}. A {{habitacion.ohotel.oairportDistance.distance}} km  del  aeropuerto</span>
 
                                                 <img for="happy" class="option-happy pb-2" (click)="Mostrarmapa()" style="width:23px;" src="./assets/images/qqq.png"><label for="happy" class="option-happy" (click)="Mostrarmapa()">Ver Mapa</label>
 
@@ -43,8 +43,8 @@
                                                 <div class="tooltipBagDiv box-shadow animated fadeIn fast">
                                                     <span class="title-modal">Vista de mapa</span>
                                                     <a class="btn-close" (click)="OcultarMapa()">X</a>
-                                                    <agm-map [latitude]="lhotel.oposition.latitude" [zoom]="15" [longitude]="lhotel.oposition.longitude">
-                                                        <agm-marker [latitude]="lhotel.oposition.latitude" [longitude]="lhotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
+                                                    <agm-map [latitude]="habitacion.ohotel.oposition.latitude" [zoom]="15" [longitude]="habitacion.ohotel.oposition.longitude">
+                                                        <agm-marker [latitude]="habitacion.ohotel.oposition.latitude" [longitude]="habitacion.ohotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
                                                     </agm-map>
                                                     <span class="hotel-nombre">{{habitacion.ohotel.hotelName}}</span>
                                                 </div>
@@ -164,8 +164,8 @@
                                         <div class="row m-0 p-0 pt-5">
                                             <div class="col-12 m-0 p-0">
                                                 <button class="btn" (click)="Mostrarmapa()">
-                                                        
-                                                       
+
+
                                                         <span style="color: #FFFFFF">Ver Mapa</span>
                                                     </button>
                                             </div>
@@ -239,8 +239,8 @@
                             <div class="col-3 m-0 p-0">
 
                                 <button class="btn1" (click)="BackSearch()">
-                                            
-                                           
+
+
                                             <span style="color: #FFFFFF">Aceptar</span>
                                         </button>
 

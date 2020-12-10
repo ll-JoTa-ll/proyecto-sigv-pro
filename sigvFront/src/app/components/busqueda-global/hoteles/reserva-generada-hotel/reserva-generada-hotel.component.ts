@@ -40,7 +40,7 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
   }
 
   reserva : IGetPnrHotel;
-  habitacion : IHabitacionResults;
+  habitacion : any;
   confirmacion : IGetEnhancedHotel;
   user: IGetUserById;
   modalRefSessionExpired: BsModalRef;
@@ -51,7 +51,7 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
   phone;
   urlimg = './assets/images/hotel-icon.png';
 
-  constructor(private modalService: BsModalService,private eRef: ElementRef,private localStorageService: LocalStorageService,private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService) { 
+  constructor(private modalService: BsModalService,private eRef: ElementRef,private localStorageService: LocalStorageService,private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService) {
 
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
   }
@@ -101,7 +101,7 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
   Mostrarmapa() {
     $('#mapa').show();
  }
- 
+
  OcultarMapa() {
    $('#mapa').hide();
  }
@@ -120,7 +120,7 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
       html += element.description
       html += "</span>";
       html +=   "</div>";
-      
+
     }
  }
 

@@ -20,6 +20,9 @@ export class DetallePagoComponent implements OnInit {
 
   ngOnInit() {
     this.hotel = this.sessionStorageService.retrieve("lstHabication");
+    if (this.vuelo === undefined) {
+      this.vuelo = null;
+    }
   }
 
 }

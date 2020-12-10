@@ -520,7 +520,7 @@ export class HotelesComponent implements OnInit, AfterViewInit {
           else{
 
             if (result !== null && result.length > 0) {
-              result = this.changeImage(result);
+              /* result = this.changeImage(result); */
               this.sessionStorageService.store('ls_search_hotel', result);
               this.sessionStorageService.store('ss_minibuscador',null);
               this.LlistaHotel = result;

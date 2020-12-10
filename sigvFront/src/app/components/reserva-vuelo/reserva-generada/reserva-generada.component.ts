@@ -24,9 +24,11 @@ export class ReservaGeneradaComponent implements OnInit, AfterViewInit {
   fechatimelimit;
   horatimelimit;
   loginDataUser;
+  timelimitShow;
 
   constructor(private sessionStorageService: SessionStorageService, private service: AirportService, private router: Router) {
      this.lspnrresults = this.sessionStorageService.retrieve('datapnr');
+     this.timelimitShow = this.lspnrresults.timeLimitShow;
      this.Lsection = this.sessionStorageService.retrieve('sectioninfo');
      this.lsflightavailability = this.sessionStorageService.retrieve('ss_FlightAvailability_result');
      this.dataflightavalilability = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
@@ -87,15 +89,15 @@ export class ReservaGeneradaComponent implements OnInit, AfterViewInit {
 
   Cerrar() {
   if (this.loginDataUser.orole.roleDescription === 'Centralizador') {
-    this.router.navigate(['/gestion-reserva-vuelo']);
+    this.router.navigate(['/vuelos']);
   }
 
   if (this.loginDataUser.orole.roleDescription === 'Autorizador') {
-    this.router.navigate(['/mis-reservas-vuelo']);
+    this.router.navigate(['/vuelos']);
   }
 
   if (this.loginDataUser.orole.roleDescription === 'Usuario') {
-    this.router.navigate(['/mis-reservas-vuelo']);
+    this.router.navigate(['/vuelos']);
   }
   }
 

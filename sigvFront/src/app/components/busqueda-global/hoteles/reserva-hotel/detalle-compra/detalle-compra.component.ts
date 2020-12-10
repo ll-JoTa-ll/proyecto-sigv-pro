@@ -14,7 +14,7 @@ export class DetalleCompraComponent implements OnInit {
   @Input('hideTitle') hideTitle?: boolean;
 
   lstConfirmacion : IGetEnhancedHotel;
-  lstHabi : IHabitacionResults;
+  lstHabi : any;
   lhotel;
 
   urlimg = './assets/images/hotel-icon.png';
@@ -23,7 +23,7 @@ export class DetalleCompraComponent implements OnInit {
    }
 
   ngOnInit() {
-  
+
 
     this.lstHabi = this.sessionStorageService.retrieve("lstHabication");
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
@@ -32,7 +32,7 @@ export class DetalleCompraComponent implements OnInit {
   Mostrarmapa() {
     $('#mapa').show();
  }
- 
+
  OcultarMapa() {
    $('#mapa').hide();
  }

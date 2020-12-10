@@ -4,10 +4,10 @@
 
         <div class="row m-0 p-0">
             <div class="col-3">
-                <div class="row m-0 p-0 pt-4">
+                <div  class="row m-0 p-0 pt-4">
 
                     <app-busqueda-mini-habitacion (ShowComponent)="showComponente($event)" [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" (messagelistado)="Obtenerlistado($event)" [destino]="destinoText" [fchingreso]="dateingreso"
-                        [fchsalida]="datesalida" (messagelistado)="listadoHoteles($event)" [habitaciones]="habitaciones" [adultos]="LHoteles.numberPassenger" (hideComponent)="hideComponente($event)" (flagShowMap)="showHideMap($event)">
+                        [fchsalida]="datesalida" (messagelistado)="listadoHoteles($event)" [habitaciones]="habitaciones" [adultos]="1" (hideComponent)="hideComponente($event)" (flagShowMap)="showHideMap($event)">
                     </app-busqueda-mini-habitacion>
 
                 </div>
@@ -60,12 +60,12 @@
                                             <span class="ml-3" *ngIf="lsthabitacion.ohotel.stars  === 1"><img src="./assets/images/star.svg"></span>
 
                                         </div>
-                                        <div *ngIf="lhotel.lpolicies != null" class="col-2 m-0 p-0" style="display: flex;
+                                        <div *ngIf="lsthabitacion.lroom[0].lpolicies != null" class="col-2 m-0 p-0" style="display: flex;
                                         align-items: center;
                                         ">
                                             <span (click)="openModal1(modalinfraccion, modalerror)" class="txt-infraccion pr-4" style="cursor: pointer;">Ver infracción</span>
-                                            <span *ngIf="lhotel.lpolicies.length > 0" class="circulo-politica"></span>
-                                            <span *ngIf="lhotel.lpolicies.length === 0" class="circulo-politica1"></span>
+                                            <span *ngIf="lsthabitacion.lroom[0].lpolicies.length > 0" class="circulo-politica"></span>
+                                            <span *ngIf="lsthabitacion.lroom[0].lpolicies.length === 0" class="circulo-politica1"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -73,16 +73,16 @@
                                     <div class="row m-0 p-0">
                                         <div class="col-12 m-0 p-0">
                                             <span class="Info">{{lsthabitacion.ohotel.cityName}} </span>
-                                            <span class="Info">    .A {{lhotel.oairportDistance.distance}} km  del  aeropuerto</span>
+                                            <span *ngIf="lsthabitacion.ohotel.oairportDistance.distance != null" class="Info">    .A {{lsthabitacion.ohotel.oairportDistance.distance}} km  del  aeropuerto</span>
                                             <span class="txt-mapa pl-3" (click)="Mostrarmapa()"><img  (click)="Mostrarmapa()" style="width:23px; cursor: pointer;" src="./assets/images/qqq.png">Ver mapa</span>
 
                                         </div>
-                                        <div *ngIf="lhotel.oposition != null" class="PopupContainer" id="mapa">
+                                        <div *ngIf="lsthabitacion.ohotel.oposition != null" class="PopupContainer" id="mapa">
                                             <div class="tooltipBagDiv box-shadow animated fadeIn fast">
                                                 <span class="title-modal">Vista de mapa</span>
                                                 <a class="btn-close" (click)="OcultarMapa()">X</a>
-                                                <agm-map [latitude]="lhotel.oposition.latitude" [zoom]="15" [longitude]="lhotel.oposition.longitude">
-                                                    <agm-marker [latitude]="lhotel.oposition.latitude" [longitude]="lhotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
+                                                <agm-map [latitude]="lsthabitacion.ohotel.oposition.latitude" [zoom]="15" [longitude]="lsthabitacion.ohotel.oposition.longitude">
+                                                    <agm-marker [latitude]="lsthabitacion.ohotel.oposition.latitude" [longitude]="lsthabitacion.ohotel.oposition.longitude" [iconUrl]="urlimg"></agm-marker>
                                                 </agm-map>
                                                 <span class="hotel-nombre">{{lsthabitacion.ohotel.hotelName}}</span>
                                             </div>
@@ -108,7 +108,12 @@
                             </div>
                             <div class="row m-0 p-0">
                                 <div class="col-12 m-0 p-0">
-                                    <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0; else elseTemplate2 " class="row m-0 p-0">
+
+
+
+
+
+                                     <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0; else elseTemplate2 " class="row m-0 p-0">
                                         <div *ngIf="lsthabitacion.ohotel.limagens[0].url != null && lsthabitacion.ohotel.limagens[0].url != '' " class="col-8 m-0 p-0">
                                             <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;cursor: pointer;" src="{{lsthabitacion.ohotel.limagens[0].url}}" (click)="openModal(template)">
                                             <ng-template #template>
@@ -130,7 +135,7 @@
 
                                             </ng-template>
 
-                                            <!-- <img *ngFor="let imga of lsthabitacion.ohotel.limagens" class="imagenG" src="{{imga.url}}"> -->
+
                                         </div>
                                         <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0" class="col-4 m-0 p-0">
                                             <div *ngIf="lsthabitacion.ohotel.limagens[0].url != null && lsthabitacion.ohotel.limagens[0].url != '' " class="row m-0 p-0">
@@ -161,18 +166,19 @@
                                                             <span class="Pricefin">Precio Final</span>
                                                         </div>
                                                         <div class="col-7 m-0 p-0 pt-4">
-                                                            <span class=""><span class="Moneda">{{lhotel.oprice.currency}}</span><span class="Amount pl-2">{{lhotel.oprice.pricePerAllNights}}</span></span>
+                                                            <span class=""><span class="Moneda">{{lsthabitacion.ohotel.oprice.currency}}</span><span class="Amount pl-2">{{lsthabitacion.ohotel
+                                                              .oprice.pricePerAllNights}}</span></span>
                                                         </div>
                                                     </div>
 
-                                                    <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate" class="row m-0 p-0 pt-3">
+                                                    <ng-container *ngIf="lsthabitacion.ohotel.numberNights == 1; else elseTemplate" class="row m-0 p-0 pt-3">
                                                         <div class="col-12 m-0 p-0">
-                                                            <span class="textopre">{{lhotel.numberNights}} noche para {{lhotel.numberPassenger}} {{this.adultos}}</span>
+                                                            <span class="textopre">{{lsthabitacion.ohotel.numberNights}} noche para {{lsthabitacion.ohotel.numberPassenger}} {{this.adultos}}</span>
                                                         </div>
                                                     </ng-container>
                                                     <ng-template #elseTemplate class="row m-0 p-0 pt-3">
                                                         <div class="col-12 m-0 p-0">
-                                                            <span class="textopre">{{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} {{this.adultos}}</span>
+                                                            <span class="textopre">{{lsthabitacion.ohotel.numberNights}} noches para {{lsthabitacion.ohotel.numberPassenger}} {{this.adultos}}</span>
                                                         </div>
                                                     </ng-template>
 
@@ -193,15 +199,116 @@
                                                 <div class="col-12 m-0 p-0">
                                                     <span class="pl-0">
                                                                 <button class="botonver" class="btn btn-danger col-lg-12" (click)="getChatMessages()">Ver habitaciones</button>
-                                                                <!--<a class="btn btn-danger col-lg-12">
-                                                                     <span class="ver">Ver habitaciones</span>
-                                                    </a>-->
+
 
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+
+
+
+
+
+                                    <!-- <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0; else elseTemplate2 " class="row m-0 p-0">
+                                      <div *ngIf="lsthabitacion.ohotel.limagens[0].url != null && lsthabitacion.ohotel.limagens[0].url != '' " class="col-8 m-0 p-0">
+                                          <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;cursor: pointer;" src="{{imagesHotel[0].value}}" (click)="openModal(template)">
+                                          <ng-template #template>
+
+                                              <div class="modal-content" style="width: 1000px;">
+                                                  <div class="modal-body" style="width: 1000px;">
+                                                      <carousel [(activeSlide)]="activeSlideIndex">
+                                                          <slide *ngFor="let imga of imagesHotel; let index=index">
+                                                              <img style="width: 1000px; height: 600px;" src="{{imga.value}}">
+                                                              <div class="carousel-caption">
+
+                                                              </div>
+                                                          </slide>
+                                                      </carousel>
+                                                  </div>
+                                              </div>
+
+
+
+                                          </ng-template>
+
+
+                                      </div>
+                                      <div *ngIf="lsthabitacion.ohotel.limagens != null && lsthabitacion.ohotel.limagens.length > 0" class="col-4 m-0 p-0">
+                                          <div *ngIf="lsthabitacion.ohotel.limagens[0].url != null && lsthabitacion.ohotel.limagens[0].url != '' " class="row m-0 p-0">
+                                              <img class="pl-2 pt-4" style="width: 400px; height: 270px; border-radius: 15px 0px 15px 0px;cursor: pointer;" src="{{imagesHotel[1].value}}" (click)="openModal(template)">
+                                              <ng-template #template>
+
+                                                  <div class="modal-content" style="width: 1000px;">
+                                                      <div class="modal-body" style="width: 1000px;">
+                                                          <carousel [(activeSlide)]="activeSlideIndex">
+                                                              <slide *ngFor="let imga of imagesHotel; let index=index">
+                                                                  <img style="width: 1000px; height: 600px;" src="{{imga.value}}">
+                                                                  <div class="carousel-caption">
+
+                                                                  </div>
+                                                              </slide>
+                                                          </carousel>
+                                                      </div>
+                                                  </div>
+
+
+
+                                              </ng-template>
+                                          </div>
+                                          <div class="row m-0 p-0 pt-3 pb-4">
+                                              <div class="col-12 m-0 p-0 box-shadow">
+                                                  <div class="row m-0 p-0 pb-3">
+                                                      <div class="col-5 m-0 p-0 pt-4">
+                                                          <span class="Pricefin">Precio Final</span>
+                                                      </div>
+                                                      <div class="col-7 m-0 p-0 pt-4">
+                                                          <span class=""><span class="Moneda">{{lsthabitacion.ohotel.oprice.currency}}</span><span class="Amount pl-2">{{lsthabitacion.ohotel
+                                                            .oprice.pricePerAllNights}}</span></span>
+                                                      </div>
+                                                  </div>
+
+                                                  <ng-container *ngIf="lsthabitacion.ohotel.numberNights == 1; else elseTemplate" class="row m-0 p-0 pt-3">
+                                                      <div class="col-12 m-0 p-0">
+                                                          <span class="textopre">{{lsthabitacion.ohotel.numberNights}} noche para {{lsthabitacion.ohotel.numberPassenger}} {{this.adultos}}</span>
+                                                      </div>
+                                                  </ng-container>
+                                                  <ng-template #elseTemplate class="row m-0 p-0 pt-3">
+                                                      <div class="col-12 m-0 p-0">
+                                                          <span class="textopre">{{lsthabitacion.ohotel.numberNights}} noches para {{lsthabitacion.ohotel.numberPassenger}} {{this.adultos}}</span>
+                                                      </div>
+                                                  </ng-template>
+
+
+
+                                                  <div class="row m-0 p-0">
+                                                      <div class="col-1 m-0 p-0">
+
+                                                      </div>
+                                                      <div class="col-11 m-0 p-0 pb-3 pr-2">
+                                                          <span class="textopremin">✓ {{lsthabitacion.lroom[0].description}}</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                          <div class="row m-0 p-0">
+                                              <div class="col-12 m-0 p-0">
+                                                  <span class="pl-0">
+                                                              <button class="botonver" class="btn btn-danger col-lg-12" (click)="getChatMessages()">Ver habitaciones</button>
+
+
+                                                  </span>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div> -->
+
+
+
+
                                     <ng-template class="col-12 m-0 p-0" #elseTemplate2>
                                         <div class="row m-0 p-0">
                                             <div class="col-8 m-0 p-0">
@@ -218,18 +325,18 @@
                                                                 <span class="Pricefin">Precio Final</span>
                                                             </div>
                                                             <div class="col-8 m-0 p-0">
-                                                                <span class="pl-4"><span class="Moneda">{{lhotel.oprice.currency}}</span><span class="Amount pl-2">{{lhotel.oprice.pricePerAllNights}}</span></span>
+                                                                <span class="pl-4"><span class="Moneda">{{lsthabitacion.ohotel.oprice.currency}}</span><span class="Amount pl-2">{{lsthabitacion.ohotel.oprice.pricePerAllNights}}</span></span>
                                                             </div>
                                                         </div>
 
                                                         <ng-container *ngIf="lhotel.numberNights == 1; else elseTemplate" class="row m-0 p-0 pt-3">
                                                             <div class="col-12 m-0 p-0">
-                                                                <span class="textopre">{{lhotel.numberNights}} noche para {{lhotel.numberPassenger}} persona</span>
+                                                                <span class="textopre">{{lsthabitacion.ohotel.numberNights}} noche para {{lsthabitacion.ohotel.numberPassenger}} persona</span>
                                                             </div>
                                                         </ng-container>
                                                         <ng-template #elseTemplate class="row m-0 p-0 pt-3">
                                                             <div class="col-12 m-0 p-0">
-                                                                <span class="textopre">{{lhotel.numberNights}} noches para {{lhotel.numberPassenger}} persona</span>
+                                                                <span class="textopre">{{lsthabitacion.ohotel.numberNights}} noches para {{lsthabitacion.ohotel.numberPassenger}} persona</span>
                                                             </div>
                                                         </ng-template>
 
@@ -250,9 +357,7 @@
                                                     <div class="col-12 m-0 p-0">
                                                         <span class="pl-0">
                                                                                 <button class="botonver" class="btn btn-danger col-lg-12" (click)="getChatMessages()">Ver habitaciones</button>
-                                                                                <!--<a class="btn btn-danger col-lg-12">
-                                                                                     <span class="ver">Ver habitaciones</span>
-                                                        </a>-->
+
 
                                                         </span>
                                                     </div>
@@ -332,10 +437,19 @@
 
                             </div>
 
+                            <ng-template #templateHabiVacio style="margin-top: 20px;">
+                              <alert type="warning" style="text-align: center;">
+                                No se encontraron habitaciones para esta búsqueda
+                              </alert>
+                            </ng-template>
 
-                            <app-detalle-habitacion id="destination" *ngFor="let habitacion of lsthabitacion.lroom; let i = index;" [index]="i" [lhabitaciones]="habitacion" [breakFast]="habitacion.breakFast" [lPolicies]="habitacion.lpolicies" [hotel]="lsthabitacion.ohotel.lguestPerRoom">
 
-                            </app-detalle-habitacion>
+                            <div *ngIf="lsthabitacion.lroom.length > 0;else templateHabiVacio">
+                              <app-detalle-habitacion id="destination" *ngFor="let habitacion of lsthabitacion.lroom; let i = index;" [index]="i" [lhabitaciones]="habitacion" [breakFast]="habitacion.breakFast" [lPolicies]="habitacion.lpolicies" [hotel]="lsthabitacion.ohotel.lguestPerRoom">
+
+                              </app-detalle-habitacion>
+                            </div>
+
 
                         </div>
                     </div>
@@ -356,7 +470,7 @@
                                     </button>
             </div>
             <div class="modal-body m-0 p-0">
-                <app-modal-habitacion-hab [currency]="currency" [LPolicies]="lhotel.lpolicies"></app-modal-habitacion-hab>
+                <app-modal-habitacion-hab [currency]="currency" [LPolicies]="lsthabitacion.lroom[0].lpolicies"></app-modal-habitacion-hab>
             </div>
             <div class="row m-0 p-0">
                 <div class="col-12 m-0 p-0 text-center pb-3">

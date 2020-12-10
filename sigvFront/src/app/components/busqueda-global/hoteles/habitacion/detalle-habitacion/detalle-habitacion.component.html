@@ -1,4 +1,4 @@
-<div *ngIf="lhotel.typeHotel === 'Value Hotel';else TemplateGuar ">
+<div *ngIf="lsthabitacion.ohotel.typeHotel === 'Value Hotel';else TemplateGuar ">
   <div class="col-12 m-0 p-0 pb-3">
     <div style="width: 100%;display: inline-flex;background: #F2F2F2 0% 0% no-repeat padding-box;">
       <div style="width: 70%;">
@@ -58,7 +58,7 @@
           </div>
           <div style="width: 100%;text-align: center;padding-top: 12px;">
             <div>
-              <span class="niches">{{lhotel.numberNights}} noches,{{lhotel.numberPassenger}} {{this.personas}}</span>
+              <span class="niches">{{lsthabitacion.ohotel.numberNights}} noches,{{lsthabitacion.ohotel.numberPassenger}} {{this.personas}}</span>
             </div>
 
           </div>
@@ -332,7 +332,7 @@
           </div>
           <div style="width: 100%;text-align: center;padding-top: 12px;">
             <div>
-              <span class="niches">{{lhotel.numberNights}} noches,{{lhotel.numberPassenger}} {{this.personas}}</span>
+              <span class="niches">{{lsthabitacion.ohotel.numberNights}} noches,{{lsthabitacion.ohotel.numberPassenger}} {{this.personas}}</span>
             </div>
 
           </div>

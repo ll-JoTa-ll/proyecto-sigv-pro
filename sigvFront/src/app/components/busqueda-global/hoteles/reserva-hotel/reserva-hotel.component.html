@@ -23,7 +23,7 @@
                 </div>
                 <div class="row m-0 p-0">
                     <div class="col-8 m-0 p-0 pr-4">
-                        <app-pago *ngIf="lhotel.typeHotel !== 'Value Hotel' " [policyroom]="this.police" (outNumTarjeta)="setNumTarjeta($event)" (outVencimiento)="setFechVencimiento($event)" (outTitular)="setTitular($event)" (outCodSeguridad)="setCodSeguridad($event)" (outNomTarjeta)="setNombreTarjeta($event)"></app-pago>
+                        <app-pago *ngIf="lsthabitacion.ohotel.typeHotel !== 'Value Hotel' " [policyroom]="this.police" (outNumTarjeta)="setNumTarjeta($event)" (outVencimiento)="setFechVencimiento($event)" (outTitular)="setTitular($event)" (outCodSeguridad)="setCodSeguridad($event)" (outNomTarjeta)="setNombreTarjeta($event)"></app-pago>
                         <app-titulares-reserva (outTelefono)="setTelefono($event)" (outCorreo)="setCorreo($event)"></app-titulares-reserva>
                         <app-contacto (outArea)="setAreaContacto($event)" (outTelefono)="setTelefonoContacto($event)" (outCorreo)="setCorreoContacto($event)" (outNombre)="setNombreContacto($event)"></app-contacto>
                         <div class="row m-0 p-0">

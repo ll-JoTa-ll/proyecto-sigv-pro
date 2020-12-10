@@ -7,7 +7,7 @@
 
         <div class="col-12 m-0 p-0 pl-4 pr-4 mt-3">
             <div id="destinosa" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
-                <ng-autocomplete id="dest" [(ngModel)]="sessionMini1.destino" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                <ng-autocomplete id="dest" [(ngModel)]="destinoShow" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                     [notFoundTemplate]="notFoundTemplate">
                 </ng-autocomplete>
 
@@ -48,7 +48,7 @@
                                            class="input-image">
                                     <input type="text"
                                            id="fechaInicio"
-                                           [(ngModel)]="fchingreso"
+                                           [(ngModel)]="fechaSalidaShow"
                                            value="{{sessionMini.fechaentrada}}"
                                            placeholder="Ingreso"
                                            class="p-0 pl-2 v-texto-3"
@@ -73,7 +73,7 @@
                                            id="fechaFin"
                                            placeholder="Salida"
                                            value="{{sessionMini.fechasalida}}"
-                                           [(ngModel)]="fchsalida"
+                                           [(ngModel)]="fechaRetornoShow"
                                            class="p-0 pl-2 v-texto-3"
                                            #datepickerSalida="bsDatepicker"
                                            (keypress)="validarTodo($event)"

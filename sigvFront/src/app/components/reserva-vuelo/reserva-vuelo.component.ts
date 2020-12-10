@@ -141,12 +141,12 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     let count = this.sessionStorageService.retrieve('count');
-    /* if (count === undefined || count === null || count === '') {
+    if (count === undefined || count === null || count === '') {
       count = true;
     }
     if (count === true) {
-      this.startCountDown(600, this.modalexpired);
-    } */
+      this.startCountDown(720, this.modalexpired);
+    }
     $('#menu-vuelo-1').hide();
     $('#menu-vuelo-2').show();
     $('#menu-hotel-1').show();
@@ -639,12 +639,12 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   Comprar(template, template2,template3) {
-    this.spinner.show();
     console.log("Comprar");
     const valIni = this.ValidarCampos();
     if (!valIni) {
       return valIni
     }
+
     var rason = $('#reason').val();
     let idmotivo = $('#cbomotivo option:selected').val();
     let idprofile = $('#cboprofile option:selected').val();
@@ -671,6 +671,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       let nrodoc;
       let email1: any;
       let telefono1;
+      let constcenterU50;
+      let constcenterU5;
 
       let fechatotal;
       let fecha = item.birthDate.substr(0, 10);
@@ -689,6 +691,23 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       prefix = $('#cbotratamiento_' + (index + 1) + ' ' + 'option:selected').val();
       email1 = $('#txtcorreo_' + (index + 1)).val();
       telefono1 = $('#txttelefono_' + (index + 1)).val();
+      constcenterU50 = $('#p_U50_' + (index + 1)).val();
+      constcenterU5 = $('#p_U5_' + (index + 1)).val();
+      if (constcenterU50 != undefined && constcenterU50 != null && constcenterU50 != '' && item.lcostCenter.length > 0) {
+        item.lcostCenter[0].code = constcenterU50.trim();
+        item.lcostCenter[0].description = constcenterU50.trim();
+      } else if (constcenterU5 != undefined && constcenterU5 != null && constcenterU5 != '' && item.lcostCenter.length > 0) {
+        item.lcostCenter[0].code = constcenterU5.trim();
+        item.lcostCenter[0].description = constcenterU5.trim();
+      }
+
+      if (constcenterU50 != undefined && constcenterU50 != null && constcenterU50 != '') {
+        constcenterU50.trim();
+      } else if (constcenterU5 != undefined && constcenterU5 != null && constcenterU5 != '') {
+        constcenterU5.trim();
+      }
+
+
       const lcodes =
         [
           {
@@ -1023,6 +1042,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       "Ocompany": this.ocompany,
       "Lpassenger": datosusuario
       };
+    this.spinner.show();
     this.service.DuplicatePnr(data).subscribe (
       result => {
         this.spinner.hide();

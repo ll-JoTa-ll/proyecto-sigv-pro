@@ -170,7 +170,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   }
 
   AddPassenger(template, template3) {
-    this.spinner.show();
+
     var reason = this.sessionStorageService.retrieve('reason');
     let phones = [];
     let email = [];
@@ -228,6 +228,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       "Ltaxes": this.lsflightavailability.ltaxes,
       "LcompanyUIDs": this.LcompanyUIDs
     };
+    this.spinner.show();
     this.service.DuplicatePnr(data).subscribe(
       x => {
         this.mensajeDuplicate = x;
@@ -620,7 +621,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     console.log("this.idmotivo: " + this.idmotivo);
     console.log("this.idmotivo: " + this.idmotivo);
     console.log("this.idmotivo: " + this.idmotivo);
-    this.spinner.show();
+
     var reason = this.sessionStorageService.retrieve('reason');
     let idinterval = this.sessionStorageService.retrieve('idinterval');
     let phones = [];
@@ -676,6 +677,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       "Ltaxes": this.lsflightavailability.ltaxes,
       "LcompanyUIDs": this.LcompanyUIDs
     };
+    this.spinner.show();
     this.service.DuplicatePnr(data).subscribe(
       m => {
         this.mensajeDuplicate = m;

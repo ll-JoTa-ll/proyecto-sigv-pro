@@ -26,7 +26,7 @@ export class PagoComponent implements OnInit {
 
   isCollapsed = false;
   reserva: any;
-  habitacion: IHabitacionResults;
+  habitacion: any;
   lhotel;
   isOpen = false;
   numTarjeta: string;

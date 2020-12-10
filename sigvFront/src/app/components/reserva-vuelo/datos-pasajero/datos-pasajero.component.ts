@@ -52,6 +52,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datos;
   tratamiento;
   fecha;
+  listCenter;
   //valtelefono = false;
   //valcorreo = false;
 
@@ -87,6 +88,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     //console.log("DatosPasajeroComponent ngOnInit");
     //console.log("index: " + this.index);
     this.loginData = this.sessionStorageService.retrieve('ss_login_data');
+    this.listCenter = this.sessionStorageService.retrieve('ss_lstpasajeros');
     this.document();
     if (this.user.gender === 'M') {
       this.tratamiento = 'MR';
@@ -266,6 +268,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
     const indexP = this.index;
     if (lstUidByCompanyP.length > 0) {
       let htmlTxtC = "";
+      const center = this.sessionStorageService.retrieve('ss_lstpasajeros');
       const lstTxtC = lstUidByCompanyP.filter(x => x.isList === false);
       const lstCbxC = lstUidByCompanyP.filter(x => x.isList === true);
       let flagC = 0;
@@ -312,7 +315,16 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
             htmlTxtC += "<input id='p_" + txt.codeUid + "_" + indexP + "' class='form-control' type='text'>";
           }
         } else {
-          htmlTxtC += "<input id='p_" + txt.codeUid + "_" + indexP + "' class='form-control' type='text'>";
+          if (txt.codeUid === 'U50' && center != null) {
+
+            /* console.log(this.listCenter[indexP - 1]); */
+            if (center[indexP - 1].lcostCenter.length != null && center[indexP - 1].lcostCenter.length > 0 ){
+
+              htmlTxtC += "<input id='p_" + txt.codeUid + "_" + indexP + "' class='form-control' value=' " + center[indexP - 1].lcostCenter[0].code + " '  type='text'>";
+            }
+          } else {
+            htmlTxtC += "<input id='p_" + txt.codeUid + "_" + indexP + "' class='form-control' type='text'>";
+          }
         }
 
         htmlTxtC += "";

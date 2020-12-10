@@ -31,7 +31,7 @@ export class DetalleHabitacionComponent implements OnInit {
 
   modalRefPoliticas: BsModalRef;
   modalRefSessionExpired: BsModalRef;
-  lsthabitacion: IHabitacionResults;
+  lsthabitacion: any;
   Confirmacion: IGetEnhancedHotel;
   loginDataUser: ILoginDatosModel;
   User: IGetUserById;
@@ -60,7 +60,7 @@ export class DetalleHabitacionComponent implements OnInit {
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.getUser();
-    if (this.lhotel.numberPassenger > 1) {
+    if (this.lsthabitacion.ohotel.numberPassenger > 1) {
       this.personas = "personas"
     } else {
       this.personas = "persona"

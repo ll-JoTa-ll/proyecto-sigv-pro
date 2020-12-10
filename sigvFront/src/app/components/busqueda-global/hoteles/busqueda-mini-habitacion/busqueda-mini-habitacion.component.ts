@@ -49,6 +49,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   estrellasSess;
   ss_minibuscador;
   ls_search_hotel;
+  dest;
 
   minDateIngreso: Date;
   minDateSalida: Date;
@@ -69,9 +70,10 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   noches: any;
   lstAutocomplete: any[] = [];
   citylist: any[] = [];
-  objSearch : any;
+  objSearch: any;
   objDestino: any;
   fechaSalidaShow;
+  habi;
   fechaRetornoShow;
   calendarSalidaValue: Date;
   SearchObj: any = {
@@ -86,6 +88,13 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   entradahab: any;
   salidahab: any;
   dateCustomClasses: DatepickerDateCustomClasses[];
+  destinoShow;
+  imagesHotel: any[] = [
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_1.png' },
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_2.png' },
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_3.png' },
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_4.png' },
+  ];
 
   constructor(
     private localeService: BsLocaleService,
@@ -105,25 +114,30 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.habi = this.sessionStorageService.retrieve('lstHabication');
     this.airportlist = this.localStorageService.retrieve('ls_airportlist');
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
     this.sessionMini1 = this.sessionStorageService.retrieve('ss_sessionmini1');
     this.sessionMini = this.sessionStorageService.retrieve('ss_sessionmini');
     this.citylist = this.localStorageService.retrieve('ls_citylist');
+    if (this.habi.ohotel != null) {
+      this.destinoShow = this.destinoFun();
+    }
     this.ss_minibuscador = this.localStorageService.retrieve('ss_minibuscador');
     this.ls_search_hotel = this.localStorageService.retrieve('ls_search_hotel');
     this.noches = this.sessionStorageService.retrieve('ss_noches');
-   // this.sessionStorageService.store('ss_token', this.loginDataUser.token);
-  //  this.token = this.sessionStorageService.retrieve('ss_token');
+    // this.sessionStorageService.store('ss_token', this.loginDataUser.token);
+    //  this.token = this.sessionStorageService.retrieve('ss_token');
     this.textoestrellas = this.sessionMini1.categoria;
-    if(this.textoestrellas === ""){
+    if (this.textoestrellas === "") {
       this.textoestrellas = '';
     }
+
     this.destinoValue = this.sessionMini1.iata;
     this.fechaSalidaShow = this.sessionMini.fechaentrada;
     this.fechaRetornoShow = this.sessionMini.fechasalida;
-    const fechaSalidaShowSp  =  this.fechaSalidaShow.split('-');
-    const fechaRetornoShowSp  =  this.fechaRetornoShow.split('-');
+    const fechaSalidaShowSp = this.fechaSalidaShow.split('-');
+    const fechaRetornoShowSp = this.fechaRetornoShow.split('-');
 
     this.fechaSalida = fechaSalidaShowSp[2] + "-" + fechaSalidaShowSp[1] + "-" + fechaSalidaShowSp[0];
     this.fechaRetorno = fechaRetornoShowSp[2] + "-" + fechaRetornoShowSp[1] + "-" + fechaRetornoShowSp[0];
@@ -156,7 +170,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       lstAutocomplete.push(obj1);
     });
 
-    lstAutocomplete.sort((a, b) => a.name - b.name );
+    lstAutocomplete.sort((a, b) => a.name - b.name);
     this.lstAutocomplete = lstAutocomplete;
   }
 
@@ -172,10 +186,28 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       categoria: this.textoestrellas,
       iata: this.destinoValue,
     };
-    this.sessionStorageService.store("ss_sessionmini2",this.objSearch);
+    this.sessionStorageService.store("ss_sessionmini2", this.objSearch);
   }
 
-  limpiarSession(){
+  destinoFun() {
+    this.airportlist.forEach(element => {
+      if (element.iataCode === this.habi.ohotel.cityCode) {
+        this.dest = element.name;
+      }
+    });
+
+    if (this.dest === undefined) {
+      this.citylist.forEach(element => {
+        if (element.iataCode === this.habi.ohotel.cityCode) {
+          this.dest = element.name;
+        }
+      });
+    }
+
+    return this.dest;
+  }
+
+  limpiarSession() {
     if (this.estrellas === undefined) {
       this.estrellas = 'Todas';
     }
@@ -184,8 +216,8 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       categoria: this.estrellas,
       iata: this.destinoValue
     };
-    this.sessionStorageService.store("ss_sessionmini1",null);
-    this.sessionStorageService.store("ss_sessionmini1",this.objSearch);
+    this.sessionStorageService.store("ss_sessionmini1", null);
+    this.sessionStorageService.store("ss_sessionmini1", this.objSearch);
     this.sessionMiniHab = this.sessionStorageService.retrieve('ss_sessionminihab');
     this.sessionMini2 = this.sessionStorageService.retrieve('ss_sessionmini2');
   }
@@ -201,7 +233,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
 
     this.destinoValue = item.iataCode;
     this.destinoText = item.name;
-    setTimeout(function() {
+    setTimeout(function () {
       $(".x").hide();
     }, 1000);
   }
@@ -211,7 +243,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     // And reassign the 'data' which is binded to 'data' property.
     $(".x").hide();
     if (val.length >= 3) {
-      const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0 );
+      const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) > 0);
       this.data = resultFilter;
 
       $(".x").hide();
@@ -246,10 +278,10 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       this.fechaSalida = value.getFullYear() + "-" + mes + "-" + dia;
       this.minDateSalida = value;
       this.dateCustomClasses = [
-        { date: this.minDateSalida, classes: ['bg-danger','text-warning'] }
+        { date: this.minDateSalida, classes: ['bg-danger', 'text-warning'] }
       ];
       console.log("value ====>" + value);
-    console.log("calendarSalidaValue ====>" + this.calendarSalidaValue);
+      console.log("calendarSalidaValue ====>" + this.calendarSalidaValue);
       if (value >= this.calendarSalidaValue) {
         $("#fechaFin").val("");
       }
@@ -258,7 +290,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       if (value >= this.calendarSalidaValue) {
         this.noches = 0;
       }
-      if($("#fechaFin").val() === ""){
+      if ($("#fechaFin").val() === "") {
         this.noches = 0;
       }
     }
@@ -269,7 +301,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       this.calendarSalidaValue = value;
       this.maxDateIngreso = value;
       this.dateCustomClasses = [
-        { date: null, classes: ['bg-danger','text-warning'] }
+        { date: null, classes: ['bg-danger', 'text-warning'] }
       ];
       if (value === null) {
         return;
@@ -301,27 +333,49 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
 
 
 
-      if ($.trim(this.sessionMini1.destino) === '' || $.trim(this.sessionMini1.destino) === undefined) {
-        $("#destinosa").addClass("campo-invalido");
-        val = false;
-      } else {
-        $("#destinosa").removeClass("campo-invalido");
-      }
-      if ($('#fechaInicio').val().length === 0) {
-        $("#ingresoa").addClass("campo-invalido");
-        val = false;
-      } else {
-        $("#ingresoa").removeClass("campo-invalido");
-      }
-      if ($('#fechaFin').val().length === 0) {
-        $("#destinoa").addClass("campo-invalido");
-        val = false;
-      } else {
-        $("#destinoa").removeClass("campo-invalido");
-      }
+    if ($.trim(this.destinoShow) === '' || $.trim(this.destinoShow) === undefined) {
+      $("#destinosa").addClass("campo-invalido");
+      val = false;
+    } else {
+      $("#destinosa").removeClass("campo-invalido");
+    }
+    if ($('#fechaInicio').val().length === 0) {
+      $("#ingresoa").addClass("campo-invalido");
+      val = false;
+    } else {
+      $("#ingresoa").removeClass("campo-invalido");
+    }
+    if ($('#fechaFin').val().length === 0) {
+      $("#destinoa").addClass("campo-invalido");
+      val = false;
+    } else {
+      $("#destinoa").removeClass("campo-invalido");
+    }
 
 
     return val;
+  }
+
+  changeImage(lstHotel) {
+    lstHotel.forEach(element => {
+      if (element.gds === 'Amadeus' && element.limagens.length > 0) {
+        /* this.imagesHotel.forEach(element1 => {
+          element.limagens[0].url = element1.value;
+        }); */
+        const newImg = this.imagesHotel[Math.floor(Math.random() * this.imagesHotel.length)];
+        element.limagens[0].url = newImg.value;
+      }
+    });
+
+    /* this.imagesHotel.forEach(element => {
+      lstHotel.forEach(hotel => {
+        if (hotel.gds === 'Amadeus' && hotel.limagens.length > 0) {
+          hotel.limagens[0].url = element.value;
+        }
+      });
+    }); */
+
+    return lstHotel;
   }
 
   SeachHotel() {
@@ -338,42 +392,42 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
     let fechaRess = fechaRe.split('-');
     fechaSalShow = fechaSalss[2] + "-" + fechaSalss[1] + "-" + fechaSalss[0];
     fechaReShow = fechaRess[2] + "-" + fechaRess[1] + "-" + fechaRess[0];
-    if ( this.fchingreso == undefined) {
+    if (this.fchingreso == undefined) {
       //fechaSal = fechaSal.split("-");
       //fechaRe = fechaRe.split("-");
       //fechaSal= fechaSal[2] + "-" + fechaSal[1] + "-" + fechaSal[0];
       //fechaRe= fechaRe[2] + "-" + fechaRe[1] + "-" + fechaRe[0];
     }
-    const val= this.ValidarCampos();
+    const val = this.ValidarCampos();
     if (!val) {
       return val;
     }
-      else{
-        this.spinner.show();
+    else {
+      this.spinner.show();
       this.flagShowMap.emit(false);
       let data = {
-        "Lusers":[{
+        "Lusers": [{
           "RoleId": this.loginDataUser.orole.roleId,
           "LcostCenter": this.loginDataUser.lcostCenter,
           "UserId": this.loginDataUser.userId
         }],
         "Lhotel":
-        [
-          {
-            "HotelCityCode": this.destinoValue,
-            "Stars": this.estrellas,
-            "StartDate": fechaSal,
-            "EndDate": fechaRe,
-            "LguestPerRoom":
-            [
-              {
-                "RoomQuantity": $('#txthabitacion').val(),
-                "NumberPassengers": $('#txtpersonas').val(),
-                "TypePassenger": "ADT"
-              }
-            ]
-          }
-        ],
+          [
+            {
+              "HotelCityCode": this.destinoValue,
+              "Stars": this.estrellas,
+              "StartDate": fechaSal,
+              "EndDate": fechaRe,
+              "LguestPerRoom":
+                [
+                  {
+                    "RoomQuantity": $('#txthabitacion').val(),
+                    "NumberPassengers": $('#txtpersonas').val(),
+                    "TypePassenger": "ADT"
+                  }
+                ]
+            }
+          ],
         "Ocompany": this.loginDataUser.ocompany
       }
 
@@ -381,16 +435,16 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
         destino: this.destinoText,
         desc: $("#dest").val()
       };
-      this.sessionStorageService.store("ss_destino",this.objDestino);
+      this.sessionStorageService.store("ss_destino", this.objDestino);
       this.objSearch = {
         destino: $('#destinosa').val(),
         fechaentrada: fechaSalShow,
         fechasalida: fechaReShow,
-        categoria : this.estrellas,
+        categoria: this.estrellas,
         habi: $('#txthabitacion').val(),
         personas: $('#txtpersonas').val()
       };
-      this.sessionStorageService.store("ss_sessionmini",this.objSearch);
+      this.sessionStorageService.store("ss_sessionmini", this.objSearch);
       console.log("SESIOM MINI ====>" + JSON.stringify(this.objSearch));
 
 
@@ -398,13 +452,14 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
       this.adultos = $('#txtpersonas').val();
       this.service.SearchHotel(data).subscribe(
         result => {
-            if (result[0].oerror != null) {
-              this.flagDinData = true;
-              this.LResultshotel = result;
-              //this.flagShowMap.emit(true);
-              this.messagelistado.emit(this.LResultshotel);
-            }
-            else {
+          if (result[0].oerror != null) {
+            this.flagDinData = true;
+            this.LResultshotel = result;
+            //this.flagShowMap.emit(true);
+            this.messagelistado.emit(this.LResultshotel);
+          }
+          else {
+            /* result = this.changeImage(result); */
             this.sessionStorageService.store('ss_minibuscador', result);
 
             //this.sessionStorageService.store('ls_search_hotel', result);
@@ -419,7 +474,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
             this.ShowComponent.emit(true);
             this.hideComponent.emit(false);
             this.flagDinData = false;
-            }
+          }
         },
         err => {
           this.spinner.hide();
@@ -428,95 +483,95 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
           this.spinner.hide();
 
         }
-    );
+      );
     }
 
- }
+  }
 
- SeleccionarEstrella(codeestrella, texto) {
-  this.estrellas = codeestrella;
-  this.textoestrellas = texto;
-}
+  SeleccionarEstrella(codeestrella, texto) {
+    this.estrellas = codeestrella;
+    this.textoestrellas = texto;
+  }
 
 
 
-validarNumerosN(e){
-  var tecla = (document.all) ? e.keyCode : e.which;
-   if (tecla == 8) return true;
+  validarNumerosN(e) {
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
     var patron = /^([])*$/;
-     var teclaFinal = String.fromCharCode(tecla);
-     if(tecla == 505) return false;
-      return patron.test(teclaFinal);
-};
+    var teclaFinal = String.fromCharCode(tecla);
+    if (tecla == 505) return false;
+    return patron.test(teclaFinal);
+  };
 
-ObtenerDias(fecha1, fecha2) {
-  //const fecha1 = this.fchingreso;
-  //const fecha2 = this.fchsalida;
-  const n1 = fecha1.split('-');
-  const n2 = fecha2.split('-');
-  let nuevafecha = new Date(parseInt(n1[2]), parseInt(n1[1]) - 1, parseInt(n1[0]));
-  let nuevafecha2 = new Date(parseInt(n2[2]), parseInt(n2[1]) - 1, parseInt(n2[0]));
-  //const dias = nuevafecha2.diff(nuevafecha, 'days');
-  //let dias = nuevafecha2 - nuevafecha;
-
-
-  const r1 = nuevafecha.getTime();
-  const r2 = nuevafecha2.getTime();
-
-  const r = r2 - r1;
-
-  let dias = Math.floor(r / (1000 * 60 * 60 * 24));
-  this.cantidadnoches = dias;
-
-  this.fechaSalida = n1[2] + "-" + n1[1] + "-" + n1[0];
-  this.fechaRetorno = n2[2] + "-" + n2[1] + "-" + n2[0];
-}
-
-ObtenerDias2(fecha1, fecha2) {
-
-  console.log("fecha1: " + fecha1);
-  console.log("fecha2: " + fecha2);
-
-  const n1 = fecha1.split('-');
-  const n2 = fecha2.split('-');
-  let nuevafecha = new Date(parseInt(n1[0]), parseInt(n1[1]) - 1, parseInt(n1[2]));
-  let nuevafecha2 = new Date(parseInt(n2[0]), parseInt(n2[1]) - 1, parseInt(n2[2]));
-  //const dias = nuevafecha2.diff(nuevafecha, 'days');
-  //let dias = nuevafecha2 - nuevafecha;
+  ObtenerDias(fecha1, fecha2) {
+    //const fecha1 = this.fchingreso;
+    //const fecha2 = this.fchsalida;
+    const n1 = fecha1.split('-');
+    const n2 = fecha2.split('-');
+    let nuevafecha = new Date(parseInt(n1[2]), parseInt(n1[1]) - 1, parseInt(n1[0]));
+    let nuevafecha2 = new Date(parseInt(n2[2]), parseInt(n2[1]) - 1, parseInt(n2[0]));
+    //const dias = nuevafecha2.diff(nuevafecha, 'days');
+    //let dias = nuevafecha2 - nuevafecha;
 
 
-  const r1 = nuevafecha.getTime();
-  const r2 = nuevafecha2.getTime();
+    const r1 = nuevafecha.getTime();
+    const r2 = nuevafecha2.getTime();
 
-  const r = r2 - r1;
+    const r = r2 - r1;
 
-  let dias = Math.floor(r / (1000 * 60 * 60 * 24));
-  this.cantidadnoches = dias;
-  this.noches = this.sessionStorageService.store('ss_noches',this.cantidadnoches);
-}
+    let dias = Math.floor(r / (1000 * 60 * 60 * 24));
+    this.cantidadnoches = dias;
 
-validarNumeros(e){
-  var tecla = (document.all) ? e.keyCode : e.which;
-   if (tecla == 8) return true;
+    this.fechaSalida = n1[2] + "-" + n1[1] + "-" + n1[0];
+    this.fechaRetorno = n2[2] + "-" + n2[1] + "-" + n2[0];
+  }
+
+  ObtenerDias2(fecha1, fecha2) {
+
+    console.log("fecha1: " + fecha1);
+    console.log("fecha2: " + fecha2);
+
+    const n1 = fecha1.split('-');
+    const n2 = fecha2.split('-');
+    let nuevafecha = new Date(parseInt(n1[0]), parseInt(n1[1]) - 1, parseInt(n1[2]));
+    let nuevafecha2 = new Date(parseInt(n2[0]), parseInt(n2[1]) - 1, parseInt(n2[2]));
+    //const dias = nuevafecha2.diff(nuevafecha, 'days');
+    //let dias = nuevafecha2 - nuevafecha;
+
+
+    const r1 = nuevafecha.getTime();
+    const r2 = nuevafecha2.getTime();
+
+    const r = r2 - r1;
+
+    let dias = Math.floor(r / (1000 * 60 * 60 * 24));
+    this.cantidadnoches = dias;
+    this.noches = this.sessionStorageService.store('ss_noches', this.cantidadnoches);
+  }
+
+  validarNumeros(e) {
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
     var patron = /^([0-9])*$/;
-     var teclaFinal = String.fromCharCode(tecla);
-      return patron.test(teclaFinal);
-};
+    var teclaFinal = String.fromCharCode(tecla);
+    return patron.test(teclaFinal);
+  };
 
-validarTodo(e){
-  var tecla = (document.all) ? e.keyCode : e.which;
-   if (tecla == 8) return true;
+  validarTodo(e) {
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
     var patron = /^([])*$/;
-     var teclaFinal = String.fromCharCode(tecla);
-      return patron.test(teclaFinal);
-};
+    var teclaFinal = String.fromCharCode(tecla);
+    return patron.test(teclaFinal);
+  };
 
-validarLetras(e){
-  var tecla = (document.all) ? e.keyCode : e.which;
-   if (tecla == 8) return true;
+  validarLetras(e) {
+    var tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla == 8) return true;
     var patron = /^([a-zA-Z ])*$/;
-     var teclaFinal = String.fromCharCode(tecla);
-      return patron.test(teclaFinal);
-};
+    var teclaFinal = String.fromCharCode(tecla);
+    return patron.test(teclaFinal);
+  };
 
 }

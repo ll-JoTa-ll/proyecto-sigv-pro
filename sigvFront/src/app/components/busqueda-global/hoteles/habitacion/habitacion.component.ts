@@ -58,7 +58,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
 
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
 
-  lsthabitacion: IHabitacionResults;
+  lsthabitacion: any;
   loginDataUser: ILoginDatosModel;
   Confirmacion: IGetEnhancedHotel;
   divwarning: boolean;
@@ -112,19 +112,38 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   t: number;
   modalRefSessionExpired: BsModalRef;
   adultos: any;
+  hotelKey;
+  showkey;
+  imagesHotel: any[] = [
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_1.png'},
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_2.png'},
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_3.png'},
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_4.png'},
+  ];
 
   @ViewChild("modalexpired", { static: false }) modalexpired;
 
 
-  constructor(private eRef: ElementRef, private localStorageService: LocalStorageService, private router: Router, private sessionStorageService: SessionStorageService, private modalService: BsModalService, private spinner: NgxSpinnerService, private _scrollToService: ScrollToService) {
+  constructor(private eRef: ElementRef, private localStorageService: LocalStorageService,
+              private router: Router, private sessionStorageService: SessionStorageService,
+              private modalService: BsModalService, private spinner: NgxSpinnerService,
+              private _scrollToService: ScrollToService) {
     this.localfinish = this.localStorageService.retrieve("ss_countersession");
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.ocultar = this.sessionStorageService.retrieve("ss_oculta");
+    this.hotelKey = this.sessionStorageService.retrieve("ss_hotel_key");
     this.flagDinData = false;
 
-    this.personas = this.LHoteles.numberPassenger;
+    if (this.hotelKey === true) {
+      this.personas = 1;
+      this.showkey = false;
+    } else {
+      this.showkey = true;
+      this.personas = this.LHoteles.numberPassenger;
+    }
+
     this.divwarning = false;
 
     if (this.localfinish === false) {
@@ -136,11 +155,17 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     if (cerrarsesion == false || cerrarsesion == '' || cerrarsesion === null) {
     }
 
-    if (this.lhotel.numberPassenger > 1) {
-      this.adultos = "personas";
-    } else {
+    if (this.hotelKey === true) {
       this.adultos = "persona";
+    } else {
+      if (this.lhotel.numberPassenger > 1) {
+        this.adultos = "personas";
+      } else {
+        this.adultos = "persona";
+      }
     }
+
+
 
 
 
@@ -230,7 +255,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   }
 
   openModal1(template: TemplateRef<any>, template2: TemplateRef<any>) {
-    if (this.lhotel.lpolicies.length === 0) {
+    if (this.lsthabitacion.lroom[0].lpolicies.length === 0) {
       this.modalRef = this.modalService.show(
         template2,
         Object.assign({}, { class: 'gray modal-lg m-infraccion' })

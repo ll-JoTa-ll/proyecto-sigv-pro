@@ -29,6 +29,9 @@ export class MisReservasVueloComponent implements OnInit, AfterViewInit {
   listadoreserva;
   listadoreservahotel;
   p: number[] = [];
+  c: number[] = [];
+  x: number[] = [];
+  m: number[] = [];
   idinterval: any;
   idinterval1: any;
   modalerror: BsModalRef;
@@ -49,7 +52,7 @@ export class MisReservasVueloComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.ObtenerReservas();
-    this.ObtenerReservasHoteles();
+
     this.idinterval = this.sessionstorage.retrieve("ss_interval");
     clearInterval(this.idinterval);
     this.idinterval1 = this.sessionstorage.retrieve('idinterval');
@@ -80,7 +83,7 @@ export class MisReservasVueloComponent implements OnInit, AfterViewInit {
            this.lsreservas = results;
            this.sessionstorage.store('listreservas', this.lsreservas);
            this.listadoreserva = this.sessionstorage.retrieve('listreservas');
-           this.spinner.hide();
+           this.ObtenerReservasHoteles();
       },
       err => {
         this.spinner.hide();
@@ -90,7 +93,6 @@ export class MisReservasVueloComponent implements OnInit, AfterViewInit {
 }
 
 ObtenerReservasHoteles() {
-  this.spinner.show();
   const data = {
     Id: this.loginDataUser.userId
   }

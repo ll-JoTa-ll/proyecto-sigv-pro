@@ -5,7 +5,7 @@ import { IHotelResultsModel } from '../models/IHotelResults.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IHabitacionResults } from '../models/IHabitacionResults';
-import { SessionStorageService } from 'ngx-webstorage';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { listLocales } from 'ngx-bootstrap/chronos';
 import { IGetEnhancedHotel } from '../models/IGetEnhancedHotel';
 import { IGetPnrHotel } from '../models/IGetPnrHotel.model';
@@ -40,12 +40,12 @@ export class HotelService {
   private url_insertUpdate: string = environment.url_5 + 'User/InsertUpdateUser';
   private url_companys: string = environment.url_customer + 'Company/GetCompany';
 
-  constructor(  private http: HttpClient,private sessionSt: SessionStorageService) {
+  constructor(  private http: HttpClient,private sessionSt: SessionStorageService,private localSt: LocalStorageService) {
     this.key = environment.key;
    }
 
   SearchHotel(data): Observable<IHotelResultsModel[]> {
-    this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.localSt.retrieve('ss_token');
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
@@ -63,7 +63,17 @@ export class HotelService {
   }
 
 GetHabitacion(data): Observable<IHabitacionResults> {
-  this.token = this.sessionSt.retrieve('ss_token');
+  this.token = this.localSt.retrieve('ss_token');
+  httpOptions.headers = new HttpHeaders({
+    'Authorization': "Bearer " + this.token,
+    'Content-Type': "application/json",
+    'Ocp-Apim-Subscription-Key': this.key
+  });
+  return this.http.post<IHabitacionResults>(`${this.url_habitacion}`, data, httpOptions);
+}
+
+GetHabitacionLogin(data): Observable<IHabitacionResults> {
+  this.token = this.localSt.retrieve('ss_token');
   httpOptions.headers = new HttpHeaders({
     'Authorization': "Bearer " + this.token,
     'Content-Type': "application/json",
@@ -137,7 +147,7 @@ PasswordRecovery(data): Observable<IDisplayLogin> {
 }
 
   GetConfirmacion(data): Observable<IGetEnhancedHotel> {
-    this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.localSt.retrieve('ss_token');
     console.log("token: " + this.token);
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
@@ -150,7 +160,7 @@ PasswordRecovery(data): Observable<IDisplayLogin> {
   }
 
   GetReserva(data): Observable<IGetPnrHotel>{
-    this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.localSt.retrieve('ss_token');
     console.log("token: " + this.token);
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
@@ -194,7 +204,7 @@ PasswordRecovery(data): Observable<IDisplayLogin> {
   }
 
   GetReservationHotel(data): Observable<IGetReservaDetalleHotel> {
-    this.token = this.sessionSt.retrieve('ss_token');
+    this.token = this.localSt.retrieve('ss_token');
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",

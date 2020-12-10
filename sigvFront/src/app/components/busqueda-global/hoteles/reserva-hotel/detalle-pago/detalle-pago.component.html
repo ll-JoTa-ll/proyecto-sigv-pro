@@ -12,6 +12,7 @@
                     </div>
                     <div class="col-5 m-0 p-0">
                         <span class="lblmoneda">{{lstConfirmacion.oroom.oprice.currency}}</span>
+                        <span *ngIf="vuelo === null" class="PagoAlojamiento pl-2">{{lstConfirmacion.oroom.oprice.totalPrice}}</span>
                         <span class="PagoAlojamiento pl-2"
                             *ngIf="vuelo?.totalFareAmount">{{(lstConfirmacion.oroom.oprice.totalPrice*1 + vuelo?.totalFareAmount*1).toFixed(2)}}</span>
                     </div>

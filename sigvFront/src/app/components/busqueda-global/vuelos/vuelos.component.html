@@ -1,10 +1,11 @@
 <app-header
-  *ngIf="loginDataUser.orole.roleId === 1 && loginDataUser.ocompany.ocompanyConfiguration.crossSellingHotel === true;else notCentralizador">
+  *ngIf="loginDataUser.orole.roleId !== 3 && loginDataUser.ocompany.ocompanyConfiguration.crossSellingHotel === true;else notCentralizador">
 
   <div *ngIf="flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
     <app-add-pax-centralizador (flagCentralizado)="updateCentralizador($event)"></app-add-pax-centralizador>
   </div>
   <div *ngIf="!flagBuscar; then buscarFull"></div>
+
 
   <mat-horizontal-stepper *ngIf="!flagCentralizador && flagAutoCroselling && flagBuscar"
     (selectionChange)="onStepChange($event)" linear labelPosition="bottom" #stepper
@@ -605,10 +606,9 @@
             </div>
           </div>
 
-          <div *ngIf="tipoVuelo!='MC'" class="row m-0 p-0 pt-4 pl-2">
+          <div *ngIf="tipoVuelo!='MC'" class="containerFlex">
 
-            <div style="width: 30%" class=" m-0 p-0 v-texto-2">
-
+            <div class="tres">
               <div class="row m-0 p-0" style="height: 40px !important;">
 
                 <div class="m-0 p-0 d-flex align-items-center" style="width: 25%; font-size: 17px; color:#626262;">
@@ -649,8 +649,7 @@
               </div>
             </div>
 
-            <div style="width: 30%" class=" m-0 p-0 v-texto-2">
-
+            <div class="tres">
               <div class="row m-0 p-0" style="height: 40px !important;">
 
                 <div class=" m-0 p-0 text-center d-flex justify-content-center align-items-center"
@@ -695,11 +694,9 @@
                 </div>
 
               </div>
-
             </div>
 
-            <div style="width: 40%" class=" m-0 p-0 v-texto-2">
-
+            <div class="cuatro">
               <div class="row m-0 p-0" style="height: 40px !important;">
 
                 <div class="m-0 p-0 text-center d-flex justify-content-center align-items-center"
@@ -736,7 +733,6 @@
                 </div>
 
               </div>
-
             </div>
 
           </div>
