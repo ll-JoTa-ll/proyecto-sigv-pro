@@ -169,6 +169,9 @@ import { ReservaHotelVueloComponent } from './components/busqueda-global/vuelos/
 import { ResumenVueloHotelComponent } from './components/busqueda-global/vuelos/resumen-vuelo-hotel/resumen-vuelo-hotel.component';
 import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global/vuelos/reserva-generada-vuelo-hotel/reserva-generada-vuelo-hotel.component';
 import { ModalErrorSizeComponent } from './components/shared/modal-error-size/modal-error-size.component';
+import { MatButtonModule } from '@angular/material/button';
+import { ReportScheduledComponent } from './components/reports/report-scheduled/report-scheduled.component';
+import { ReportNewComponent } from './components/reports/report-new/report-new.component';
 
 @NgModule({
   declarations: [
@@ -308,7 +311,9 @@ import { ModalErrorSizeComponent } from './components/shared/modal-error-size/mo
     RecomendacionHotelDetailComponent,
     ReservaHotelVueloComponent,
     ResumenVueloHotelComponent,
-    ModalErrorSizeComponent
+    ModalErrorSizeComponent,
+    ReportScheduledComponent,
+    ReportNewComponent
   ],
   imports: [
     BrowserModule,
@@ -342,6 +347,7 @@ import { ModalErrorSizeComponent } from './components/shared/modal-error-size/mo
     PopoverModule.forRoot(),
     SessionExpirationAlert.forRoot(),
     NgbModule,
+    MatButtonModule,
     IntlInputPhoneModule,
     IgxInputGroupModule,
     IgxSliderModule,

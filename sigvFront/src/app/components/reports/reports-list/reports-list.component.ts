@@ -8,6 +8,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AnimationStyleMetadata } from '@angular/animations';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 declare var jquery: any;
 declare var $: any;
@@ -55,21 +56,21 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
   setFecFin;
   setValueIni;
   setValueFin;
+  listMenu;
 
   constructor(private formBuilder: FormBuilder, private modalService: BsModalService, private reportService: ReportsService,
-    public spinner: NgxSpinnerService, private sessionStorageService: SessionStorageService,
-    private toastr: ToastrService) {
+              public spinner: NgxSpinnerService, private sessionStorageService: SessionStorageService,
+              private toastr: ToastrService,private router: Router) {
   }
 
   ngOnInit() {
-    this.seleccionar();
-    this.initForm();
     this.loginData = this.sessionStorageService.retrieve('ss_login_data');
+    this.listaMenu();
+    this.initForm();
     this.listReports = [];
     this.listHeads = [];
     this.maxDate.setDate(this.maxDate.getDate() - 7);
     this.intervaloDatas = [this.maxDate, this.bsValue];
-    this.loginData = this.sessionStorageService.retrieve('ss_login_data');
     this.getViews();
     /* this.validColumn = false;
 
@@ -92,6 +93,19 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
     $('#menu-paquete-2').hide();
     $('#menu-seguro-1').show();
     $('#menu-seguro-2').hide();
+    this.seleccionar();
+  }
+
+  programmerReport(){
+    this.router.navigate(['reportes-programados']);
+  }
+
+  listaMenu(){
+    this.loginData.lmenu.forEach(element => {
+      if(element.menuId === 4){
+        this.listMenu = element.lmenu;
+      }
+    });
   }
 
   getViews() {
@@ -472,11 +486,26 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
     $(location).attr('href', '/vuelos');
   }
 
+  seleccionado(i) {
+    if (i === 1) {
+      window.open('http://report-kp.domiruth.com/Modulos/Reportes/ReporteKP.aspx' , '_blank', 'toolbar=0,location=0,menubar=0');
+    }
+  }
+
+
   seleccionar() {
-    const report = document.getElementById('report');
+    const report = document.getElementById('report_0');
+    const report1 = document.getElementById('textVertical_1');
+    const img = document.getElementById('img_1');
     report.style.background = 'white';
     report.style.clipPath = 'polygon(155% 0, 77% 50%, 155% 100%, 0 100%, 0% 50%, 0 0)';
     report.style.marginTop = '40px';
+    if (report1 != null && img != null) {
+      report1.style.color = 'white';
+      img.style.filter = 'invert(1)';
+    }
+
+
   }
 
 

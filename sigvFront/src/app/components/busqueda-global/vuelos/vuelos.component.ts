@@ -390,7 +390,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
     if (this.router.url.indexOf('vuelo-habitacion') >= 0) {
       let recomendation = this.sessionStorageService.retrieve('ss_flightavailability_request1_recomendacion');
-      this.adicionarHotel(recomendation);
+      /* this.adicionarHotel(recomendation); */
     }
     if (this.router.url.indexOf('reserva-vuelo-hotel') >= 0) {
       // let recomendation = this.sessionStorageService.retrieve('ss_flightavailability_request1_recomendacion');

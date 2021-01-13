@@ -34,6 +34,8 @@ import { ReservaHotelVueloComponent } from './components/busqueda-global/vuelos/
 import { ResumenVueloHotelComponent } from './components/busqueda-global/vuelos/resumen-vuelo-hotel/resumen-vuelo-hotel.component';
 import { ReservaGeneradaVueloHotelComponent } from './components/busqueda-global/vuelos/reserva-generada-vuelo-hotel/reserva-generada-vuelo-hotel.component';
 import { CargaMasivaComponent } from './components/administrador/pasajeros/carga-masiva/carga-masiva.component';
+import { ReportScheduledComponent } from './components/reports/report-scheduled/report-scheduled.component';
+import { ReportNewComponent } from './components/reports/report-new/report-new.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent, runGuardsAndResolvers: 'always' },
@@ -65,6 +67,8 @@ const routes: Routes = [
   { path: 'aprobar-reserva-vuelo', component: AprobacionReservaComponent, runGuardsAndResolvers: 'always' },
   { path: 'detalle-reserva-hotel', component: DetalleReservaHotelComponent, runGuardsAndResolvers: 'always' },
   { path: 'calendar-shopping', component: CalendarShoppingComponent, runGuardsAndResolvers: 'always' },
+  { path: 'reportes-programados', component: ReportScheduledComponent, runGuardsAndResolvers: 'always' },
+  { path: 'nuevo-reporte', component: ReportNewComponent, runGuardsAndResolvers: 'always' },
   { path: 'reportes', component: ReportsListComponent, runGuardsAndResolvers: 'always' },
   { path: 'reports', component: ReportsComponent, runGuardsAndResolvers: 'always' },
   { path: 'partner', component: PartnerComponent, runGuardsAndResolvers: 'always' },

@@ -87,13 +87,13 @@
 
     <div class="containerFlex" style="background: #F5F5F5;">
       <div class="two">
-        <div style="width: 6%;float: left;margin-top: 40px;position: absolute;overflow: hidden;background: linear-gradient(240.91deg, #ED1C24 19.85%, #D51A2C 42.53%, #3C4749 97.6%);height: -webkit-fill-available;border-radius: 0px 40px 40px 0px;">
+        <div *ngIf="listMenu.length > 0; else templateMenu" style="width: 6%;float: left;margin-top: 40px;position: absolute;overflow: hidden;background: linear-gradient(240.91deg, #ED1C24 19.85%, #D51A2C 42.53%, #3C4749 97.6%);height: -webkit-fill-available;border-radius: 0px 40px 40px 0px;">
           <!-- <div  style="width: 100%;text-align: center;margin-top: 40px;margin-bottom: 20px;" (click)="home()">
             <img src="./assets/images/reports/logo.svg" style="width: 30%;margin: 14px 0px;cursor: pointer;"><br>
           </div> -->
-          <div id="report" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionar()">
-            <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 0px;"><br>
-            <span class="textVertical">Reporte General</span>
+          <div *ngFor="let item of listMenu;let i = index;" id="report_{{i}}" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionado(i)">
+            <img id="img_{{i}}" src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 0px;"><br>
+            <span id="textVertical_{{i}}">{{item.nameMenu}}</span>
           </div>
          <!--  <div style="width: 100%;text-align: center;">
             <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
@@ -105,6 +105,26 @@
             <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
           </div> -->
         </div>
+        <ng-template #templateMenu>
+          <div  style="width: 6%;float: left;margin-top: 40px;position: absolute;overflow: hidden;background: linear-gradient(240.91deg, #ED1C24 19.85%, #D51A2C 42.53%, #3C4749 97.6%);height: -webkit-fill-available;border-radius: 0px 40px 40px 0px;">
+            <!-- <div  style="width: 100%;text-align: center;margin-top: 40px;margin-bottom: 20px;" (click)="home()">
+              <img src="./assets/images/reports/logo.svg" style="width: 30%;margin: 14px 0px;cursor: pointer;"><br>
+            </div> -->
+            <div  id="report_0" style="width: 100%;text-align: center;cursor: pointer;">
+              <img id="img_0" src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 0px;"><br>
+              <span id="textVertical_0">Reporte General</span>
+            </div>
+           <!--  <div style="width: 100%;text-align: center;">
+              <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+            </div>
+            <div style="width: 100%;text-align: center;">
+              <img src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+            </div>
+            <div style="width: 100%;text-align: center;">
+              <img src="./assets/images/reports/avionpapel.svg" style="width: 30%;margin: 14px 13px;cursor: pointer;"><br>
+            </div> -->
+          </div>
+        </ng-template>
       </div>
       <div class="eigth" style="border: 1px solid #DEDEDE;margin-top: 40px;border-radius: 20px 20px;background: #FFFFFF;box-sizing: border-box;">
         <div class="container">
@@ -242,18 +262,31 @@
         </div>
         <div class="container">
           <div class="containerFlex">
-            <div style="width: 30%;">
+            <div style="width: 20%;">
+              <div *ngIf="showButton" (click)="programmerReport()" class="buttonExport">
+                Programar Reporte
+              </div>
+            </div>
+            <div style="width: 20%;">
 
             </div>
-            <div style="width: 40%;text-align: center;">
-              <img *ngIf="showButton" (click)="exportAsXLSX()" src="./assets/images/reports/export.svg" style="width: 55%;margin: 14px 0px;cursor: pointer;">
+            <div style="width: 20%;text-align: center;">
+              <!-- <button *ngIf="showButton" (click)="exportAsXLSX()" mat-raised-button color="orange">Exportar</button> -->
+              <div *ngIf="showButton" (click)="exportAsXLSX()" class="buttonExport">
+                Exportar
+              </div>
+              <!-- <img *ngIf="showButton" (click)="exportAsXLSX()" src="./assets/images/reports/export.svg" style="width: 55%;margin: 14px 0px;cursor: pointer;"> -->
               <section *ngIf="!showButton">
                 <button mat-raised-button (click)="cancel()">Cancelar</button>
                 <button mat-raised-button color="warn" (click)="grabarCampos()">Grabar Campos</button>
               </section>
 
             </div>
-            <div style="width: 30%;">
+
+            <div style="width: 20%;">
+
+            </div>
+            <div style="width: 20%;">
 
             </div>
 

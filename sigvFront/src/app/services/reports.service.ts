@@ -25,6 +25,14 @@ export class ReportsService {
   private urlInsertUpdate: string = environment.url_customer + 'CompanyReport/InsertUpdateCompanyReport';
   private urlGeneralReport: string = environment.url_reportGeneral + 'Report/GetGeneralReport';
 
+
+  private urlReportConfig: string = environment.url_customer + 'ConfigurationReport/GetConfigurationReportByCompany';
+  private urlGetConfig: string = environment.url_customer + 'ConfigurationReport/GetConfigurationReport';
+  private urlSelectReport: string = environment.url_customer + 'Reports/ListReports';
+  private urlListCompanyReport: string = environment.url_customer + 'CompanyReport/ListCompanyReport';
+  private urlInsertUpdateReport: string = environment.url_customer + 'ConfigurationReport/InsertUpdateConfigurationReport';
+  private urlFrequencyReport: string = environment.url_customer + 'FrequencyReport/ListFrequencyReport';
+
   constructor(private http: HttpClient) {
    }
 
@@ -43,8 +51,17 @@ export class ReportsService {
    ListReport(data): Observable<any[]> {
     httpOptions.headers = new HttpHeaders({
       'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': environment.key
     });
     return this.http.post<any[]>(`${this.urlReports}`, data, httpOptions);
+  }
+
+  ListFrequencyReport(): Observable<any[]> {
+    httpOptions.headers = new HttpHeaders({
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': environment.key
+    });
+    return this.http.get<any[]>(`${this.urlFrequencyReport}`, httpOptions);
   }
 
     ListReportGeneral(objData): Observable<any[]>{
@@ -55,12 +72,55 @@ export class ReportsService {
       return this.http.post<any[]>(`${this.urlGeneralReport}`, objData, httpOptions);
     }
 
+    ListSelectReport(): Observable<any[]>{
+      httpOptions.headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': environment.key
+      });
+      return this.http.get<any[]>(`${this.urlSelectReport}`, httpOptions);
+    }
+
+    InsertUpdateReport(objData): Observable<any[]>{
+      httpOptions.headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': environment.key
+      });
+      return this.http.post<any[]>(`${this.urlInsertUpdateReport}`, objData, httpOptions);
+    }
+
     getReportField(data): Observable<any> {
       httpOptions.headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Ocp-Apim-Subscription-Key': environment.key
       });
       const url = `${this.urlField}?${'companyReportId=' + data}`;
+      return this.http.get<any>(url, httpOptions);
+    }
+
+    ListCompanyReport(data): Observable<any> {
+      httpOptions.headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': environment.key
+      });
+      const url = `${this.urlListCompanyReport}?${'companyId=' + data}`;
+      return this.http.get<any>(url, httpOptions);
+    }
+
+    GetConfigurationReportByCompany(data): Observable<any> {
+      httpOptions.headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': environment.key
+      });
+      const url = `${this.urlReportConfig}?${'CompanyId=' + data}`;
+      return this.http.get<any>(url, httpOptions);
+    }
+
+    GetConfigurationReport(data): Observable<any> {
+      httpOptions.headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': environment.key
+      });
+      const url = `${this.urlGetConfig}?${'configurationReportId=' + data}`;
       return this.http.get<any>(url, httpOptions);
     }
 
