@@ -173,6 +173,8 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   flagDinData2: boolean = false;
   dateCustomClasses: DatepickerDateCustomClasses[];
   showHotel = false;
+  flagCrosselling;
+  validCrosselingHotel;
 
   // @ViewChild(MatVerticalStepper) vert_stepper: MatVerticalStepper;
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
@@ -260,7 +262,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     this.sessionStorageService.store('ss_token', this.loginDataUser.token);
     this.token = this.sessionStorageService.retrieve('ss_token');
     this.flagCentralizador = this.sessionStorageService.retrieve('ss_flagCentralizador');
-    this.flagAutoCroselling = this.sessionStorageService.retrieve('ss_login_data').ocompany.ocompanyConfiguration.crossSellingHotel;
+    if (this.loginDataUser.ocompany != null) {
+      this.flagAutoCroselling = this.loginDataUser.ocompany.ocompanyConfiguration.crossSellingHotel;
+    }
     //console.log('this.flagCentralizador: ' + this.flagCentralizador);
     //console.log(this.locales);
     this.localeService.use(this.locale);
@@ -390,7 +394,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
     $('#menu-seguro-2').hide();
     if (this.router.url.indexOf('vuelo-habitacion') >= 0) {
       let recomendation = this.sessionStorageService.retrieve('ss_flightavailability_request1_recomendacion');
-      /* this.adicionarHotel(recomendation); */
+      this.adicionarHotel(recomendation);
     }
     if (this.router.url.indexOf('reserva-vuelo-hotel') >= 0) {
       // let recomendation = this.sessionStorageService.retrieve('ss_flightavailability_request1_recomendacion');

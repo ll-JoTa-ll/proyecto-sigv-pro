@@ -54,6 +54,7 @@ export class ResultadoComponent implements OnInit {
   @Input() cantidadhabitaciones: string;
   @Input() fecharetorno: string;
   @Input() vuelo: any | null;
+  @Input() marcar: any;
 
   flagAutoCroselling: boolean;
   localfinish;

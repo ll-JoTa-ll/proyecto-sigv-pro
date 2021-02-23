@@ -1,7 +1,186 @@
 <div *ngIf="isvisible" class="col-12 m-0 p-0" style="height: 30px !important;">
 
 </div>
-<div *ngIf="isvisible" class="col-12 m-0 p-0" style="background: white; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5)">
+<div *ngIf="isvisible && marcar" class="col-12" style="background: white; border: 5px solid #dc3545; box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);margin: 0px;padding: 3px;">
+  <div class="row p-0 m-0">
+      <div class="m-0 p-0 div-result-1">
+
+          <!--
+                      <div class="row m-0 p-0">
+                          <div class="col-12 m-0 p-0">
+                              <img *ngIf="urlHotel" class="img-fluid img-hotel" src="{{urlHotel}}" alt="">
+                          </div>
+                      </div>
+                  -->
+          <img *ngIf="urlHotel" class="img-fluid img-hotel" src="{{urlHotel}}" alt="">
+      </div>
+      <div class="m-0 p-0 pl-4 div-result-2">
+          <div class="row m-0 p-0 pt-4">
+              <div class="col-12">
+                  <span class="name-hotel">{{name}}</span>
+              </div>
+          </div>
+          <div class="row m-0 p-0 pt-4">
+              <div class="col-12">
+                  <span *ngIf="businessName != null" class="name-business">{{typeHotel}}</span>
+              </div>
+          </div>
+          <div class="row m-0 p-0">
+              <div class="col-12 mt-3">
+                  <span class="direccion-hotel">{{direccion}}  </span><br/>
+                  <span class="distance">A {{distancia}} km del aeropuerto</span>
+              </div>
+          </div>
+          <div class="row m-0 p-0">
+              <div class="col-12">
+                  <label class="txt-mapa" (click)="Mostrarmapa(index)">Ver mapa</label>
+              </div>
+
+          </div>
+          <div class="PopupContainer" id="mapa_{{index}}">
+              <div class="tooltipBagDiv box-shadow animated fadeIn fast">
+                  <span class="title-modal">Vista de mapa</span>
+                  <a class="btn-close" (click)="OcultarMapa(index)">X</a>
+                  <agm-map [latitude]="latitud" [zoom]="15" [longitude]="longitud">
+                      <agm-marker [latitude]="latitud" [longitude]="longitud" [iconUrl]="urlimg"></agm-marker>
+                  </agm-map>
+                  <span class="hotel-nombre">{{name}}</span>
+              </div>
+          </div>
+          <div class="row m-0 p-0">
+              <div class="col-12 mt-2">
+
+                  <span class="ml-3" *ngIf="estrellas === 5"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                  <span class="ml-3" *ngIf="estrellas === 4"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                  <span class="ml-3" *ngIf="estrellas === 3"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                  <span class="ml-3" *ngIf="estrellas === 2"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"></span>
+                  <span class="ml-3" *ngIf="estrellas === 1"><img src="./assets/images/star.svg"></span>
+
+              </div>
+          </div>
+
+      </div>
+
+      <div class="m-0 p-0 div-result-3">
+          <div *ngIf="vuelo">
+                  <div class="row m-0 p-0 pt-4" style=" align-items: center;">
+                      <div *ngIf="lPolicies != null" class="col-4 m-0 p-0 text-center">
+                          <span tooltip="Hospedaje con infracción de políticas." (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer" *ngIf="lPolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
+                          <span tooltip="El hospedaje cumple las políticas de viaje de la empresa." *ngIf="lPolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
+                      </div>
+                      <div *ngIf="lPolicies != null" class="col-8 m-0 p-0 text-center">
+                          <span>Precio final por {{cantidadnoche}} noches :</span>
+                      </div>
+                  </div>
+                  <div class="row m-0 p-0">
+                      <div class="col-12 text-right mt-3">
+                          <span class="tipomonedahotel pr-2">{{currency}}</span>
+                          <span class="precionochehotel " >{{precioxnoche}}</span>
+                      </div>
+                  </div>
+                  <ng-container *ngIf="cantidadnoche == '1'; else elseTemplate" class="row m-0 p-0">
+                      <div class="col-12 div-price-noche text-right mt-2">
+                          <span>Precio total de hotel {{ vuelo?.totalFareAmount ? ' + Vuelo' : '' }}</span>
+                      </div>
+                  </ng-container>
+                  <ng-template #elseTemplate class="row m-0 p-0">
+                      <div class="col-12 div-price-noche text-right mt-2">
+                          <span>Precio total de hotel {{ vuelo?.totalFareAmount ? ' + Vuelo' : '' }}</span>
+                      </div>
+                  </ng-template>
+                  <div class="row m-0 p-0">
+                      <div class="col-12 m-0 p-0 text-right preciopromedioconteiner " >
+                          <span class="price-currency tipomoneda pr-2">{{currency}}</span>
+                          <span class="preciopromediohotel" *ngIf="vuelo?.totalFareAmount">{{(precioxnoche*1 + vuelo?.totalFareAmount*1).toFixed(2)}}</span>
+                          <span class="preciopromediohotel" *ngIf="!vuelo?.totalFareAmount">{{precioxnoche }}</span>
+                      </div>
+                  </div>
+                  <div class="row m-0 p-0">
+                      <div class="col-12 text-right mt-3">
+                          <button class="btn r-btn-2" (click)="getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas)">
+                                                  Seleccionar
+                                              </button>
+                      </div>
+                  </div>
+
+          </div>
+
+          <div *ngIf="!vuelo">
+              <div class="row m-0 p-0 pt-4">
+                  <div class="col-6 m-0 p-0 text-center div-price">
+                      <span>Precio promedio noche</span>
+
+                  </div>
+                  <div *ngIf="lPolicies != null" class="col-6 m-0 p-0 text-right" style="display: flex;
+                  align-items: center;">
+                      <span tooltip="Hospedaje con infracción de políticas." (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer" *ngIf="lPolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
+                      <span tooltip="El hospedaje cumple las políticas de viaje de la empresa." *ngIf="lPolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
+                  </div>
+              </div>
+              <div class="row m-0 p-0">
+                  <div class="col-12 text-center mt-3">
+                      <span class="tipomoneda pr-2">{{currency}}</span>
+                      <span class="precionoche">{{precioprom}}</span>
+                  </div>
+              </div>
+              <ng-container *ngIf="cantidadnoche == '1'; else elseTemplate" class="row m-0 p-0">
+                  <div class="col-12 div-price-noche text-center mt-2">
+                      <span>Precio final por {{cantidadnoche}} noche para {{cantpersonas}} {{this.personas}}</span>
+                  </div>
+              </ng-container>
+              <ng-template #elseTemplate class="row m-0 p-0">
+                  <div class="col-12 div-price-noche text-center mt-2">
+                      <span>Precio final por {{cantidadnoche}} noches para {{cantpersonas}} {{this.personas}}</span>
+                  </div>
+              </ng-template>
+
+
+
+              <div class="row m-0 p-0">
+                  <div class="col-12 m-0 p-0 text-center">
+                      <span class="price-currency pr-2">{{currency}}</span>
+                      <span class="preciopromedio">{{precioxnoche}}</span>
+                  </div>
+              </div>
+              <div class="row m-0 p-0">
+                  <div class="col-12 text-center mt-3">
+                      <button class="btn r-btn-2" (click)="getHotel(hotelcode,fechasalida,fecharetorno,cantpersonas)">
+                                              Seleccionar
+                                            </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <ng-template #modalPolitica let-c="close" let-d="dismiss">
+
+          <div class="modal-header pb-0" style="border: none;">
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+
+          <div class="modal-body m-0 p-0">
+
+              <div class="row m-0 p-0 pb-3">
+                  <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+                      <u>Infracción de Políticas de Hotel</u>
+                  </div>
+              </div>
+
+              <div class="row m-0 p-0">
+
+                  <app-hoteles-politicas style="padding-right: 5px;" [politica]="politica" [politicaIndex]="i+1" [politicaslength]="lPolicies.length" *ngFor="let politica of lPolicies; let i=index"></app-hoteles-politicas>
+
+              </div>
+
+          </div>
+
+      </ng-template>
+
+  </div>
+
+</div>
+<div *ngIf="isvisible && !marcar" class="col-12 m-0 p-0" style="background: white; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5)">
     <div class="row p-0 m-0">
         <div class="m-0 p-0 div-result-1">
 
@@ -60,7 +239,7 @@
             </div>
 
         </div>
-        
+
         <div class="m-0 p-0 div-result-3">
             <div *ngIf="vuelo">
                     <div class="row m-0 p-0 pt-4" style=" align-items: center;">
@@ -102,14 +281,14 @@
                                                 </button>
                         </div>
                     </div>
-                
-            </div> 
-            
+
+            </div>
+
             <div *ngIf="!vuelo">
                 <div class="row m-0 p-0 pt-4">
                     <div class="col-6 m-0 p-0 text-center div-price">
                         <span>Precio promedio noche</span>
-    
+
                     </div>
                     <div *ngIf="lPolicies != null" class="col-6 m-0 p-0 text-right" style="display: flex;
                     align-items: center;">
@@ -133,9 +312,9 @@
                         <span>Precio final por {{cantidadnoche}} noches para {{cantpersonas}} {{this.personas}}</span>
                     </div>
                 </ng-template>
-    
-    
-    
+
+
+
                 <div class="row m-0 p-0">
                     <div class="col-12 m-0 p-0 text-center">
                         <span class="price-currency pr-2">{{currency}}</span>
@@ -149,7 +328,7 @@
                                               </button>
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
         <ng-template #modalPolitica let-c="close" let-d="dismiss">
 
@@ -180,3 +359,5 @@
     </div>
 
 </div>
+
+

@@ -59,7 +59,7 @@ export class DetalleHabitacionComponent implements OnInit {
 
     this.habitacion = this.sessionStorageService.retrieve("lstHabication");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
-    this.getUser();
+
     if (this.lsthabitacion.ohotel.numberPassenger > 1) {
       this.personas = "personas"
     } else {
@@ -126,27 +126,33 @@ export class DetalleHabitacionComponent implements OnInit {
   }
 
   getUser() {
-    let data = {
-      userId: this.userId
+    const datos = this.sessionStorageService.retrieve('ss_user');
+    if (datos != null && datos !== undefined) {
+      console.log("1");
+    } else {
+      let data = {
+        userId: this.userId
+      }
+
+      this.service.GetUser(data.userId).subscribe(
+        result => {
+
+          this.User = result;
+
+          this.sessionStorageService.store("ss_user", this.User);
+          //this.router.navigate(['/reserva-habitacion-hotel']);
+        },
+        err => {
+          this.spinner.hide();
+
+        },
+        () => {
+
+
+        }
+      )
     }
 
-    this.service.GetUser(data.userId).subscribe(
-      result => {
-
-        this.User = result;
-
-        this.sessionStorageService.store("ss_user", this.User);
-        //this.router.navigate(['/reserva-habitacion-hotel']);
-      },
-      err => {
-        this.spinner.hide();
-
-      },
-      () => {
-
-
-      }
-    )
   }
 
 }

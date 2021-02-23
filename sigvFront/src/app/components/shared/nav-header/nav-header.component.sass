@@ -1,4 +1,4 @@
-
+$break-very-low: 831px
 
 
 
@@ -19,3 +19,24 @@
 
 .radiusFin
   border-radius: 0 0 30px 0
+
+.cont
+  width: 50%
+  display: none
+
+.nav-options1
+  display: none
+
+
+@media (max-width: $break-very-low)
+
+    .nav-header
+      display: none
+
+    .cont
+      display: block
+
+    .nav-options1
+      display: block
+      z-index: 1035 !important
+      position: absolute

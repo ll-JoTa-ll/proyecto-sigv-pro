@@ -55,6 +55,7 @@ export class AirportService {
   private url_usebnus: string = environment.url_5 + "AsesorCompany/";
   private url_asesors: string = environment .url_5 + "AsesorCompany/";
   private url_regulaciones: string = environment.url_2 + "Search/";
+  private url_temp: string = environment.url_2 + 'SearchTemp/';
 
   constructor(
     private http: HttpClient,
@@ -110,6 +111,17 @@ export class AirportService {
     console.log(httpOptions2);
     return this.http.post<ISearchFlightModel[]>(this._url3 + "SearchFlight", data, httpOptions2);
   }
+
+  searchFlightTemp(data): Observable<any> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+       'Authorization': "Bearer " + this.token,
+       'Content-Type': "application/json",
+       'Ocp-Apim-Subscription-Key': this.key
+     });
+     console.log(httpOptions2);
+     return this.http.post<any>(this.url_temp + "SearchFlight", data, httpOptions2);
+   }
 
   CalendarShopping(data): Observable<any[]> {
     this.token = this.sessionSt.retrieve('ss_token');

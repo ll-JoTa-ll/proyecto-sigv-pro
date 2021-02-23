@@ -98,6 +98,12 @@ export class RecomendacionHotelComponent implements OnInit {
   mayorPrecioHotel: number;
   menorPrecioHotel: number;
   mapafiltro: boolean;
+  imagesHotel: any[] = [
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_1.png'},
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_2.png'},
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_3.png'},
+    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_4.png'},
+  ];
 
   vuelo: any;
   // model: any = {};
@@ -157,208 +163,231 @@ export class RecomendacionHotelComponent implements OnInit {
     this.SeachHotel();
   }
 
-  goToLastStep() {
-    this.skipeHotel.next('goToLastStep');
-  }
-
-  SeachHotel() {
-    this.hiddeShowSpiner.next(true);
-    this.LlistaHotel = [];
-    const val = this.ValidarCampos();
-    if (!val) {
-      return val;
-    }
-    else {
-      this.cantidadhabitaciones = this.personas + '';
-      let data = {
-        "Lusers": [{
-          "RoleId": this.loginDataUser.orole.roleId,
-          "LcostCenter": this.loginDataUser.lcostCenter,
-          "UserId": this.loginDataUser.userId
-        }],
-        "Lhotel":
-          [
-            {
-              "HotelCityCode": this.destinoValue,
-              "Stars": this.estrellas,
-              "StartDate": this.dateingreso.split('-')[2] + '-' + this.dateingreso.split('-')[1] + '-' + this.dateingreso.split('-')[0],
-              "EndDate": this.datesalida.split('-')[2] + '-' + this.datesalida.split('-')[1] + '-' + this.datesalida.split('-')[0],
-              "LguestPerRoom":
-                [
-                  {
-                    "RoomQuantity": this.personas,
-                    "NumberPassengers": this.personas,
-                    "TypePassenger": "ADT"
-                  }
-                ]
-            }
-          ],
-        "Ocompany": this.loginDataUser.ocompany
-      }
-      this.habitaciones = this.personas + '';
-      this.service.SearchHotel(data).subscribe(
-        result => {
-          this.mostrarInfo = true;
-          if (result == null || result.length == 0 || result[0].oerror != null) {
-            // this.flagDinData = true;
-            this.hiddeShowSpiner.next(false);
-            this.goToLastStep();
-          }
-          else {
-            if (result !== null && result.length > 0) {
-              this.sessionStorageService.store('ls_search_hotel', result);
-              this.sessionStorageService.store('ss_minibuscador', null);
-              this.LlistaHotel = result;
-              this.LlistaHotel.forEach(item => {
-                item.vuelo = this.vuelo;
-              })
-              this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
-              this.flagBuscar = true;
-              let menorValor = 1000000;
-              let mayorValor = 0;
-              let currency;
-              let cantnoche;
-              result.forEach((item, index1) => {
-                let mmm = 1000000;
-                if (item.oprice.pricePerAllNights < menorValor) {
-                  menorValor = item.oprice.pricePerAllNights;
-                }
-                if (item.oprice.pricePerAllNights > mayorValor) {
-                  mayorValor = item.oprice.pricePerAllNights;
-                }
-                if (index1 == (result.length - 1)) {
-                  console.log(result)
-                  this.hiddeShowSpiner.next(false);
-                }
-              });
-              this.cantidadnoches = cantnoche;
-              this.currency = currency;
-              this.menorPrecioHotel = menorValor;
-              this.mayorPrecioHotel = mayorValor;
-            } else {
-              this.flagDinData = true;
-            }
-          }
-
-        },
-        err => {
-          this.flagDinData = true;
-        },
-        () => {
-          this.flagPriceHotel = true;
+  changeImage(lstHotel){
+    lstHotel.forEach(element => {
+        if (element.gds === 'Amadeus' && element.limagens.length > 0) {
+          /* this.imagesHotel.forEach(element1 => {
+            element.limagens[0].url = element1.value;
+          }); */
+          const newImg = this.imagesHotel[Math.floor(Math.random() * this.imagesHotel.length)];
+          element.limagens[0].url = newImg.value;
         }
-      );
-    }
+    });
 
-  }
-
-  ValidarCampos() {
-    return true;
-  }
-
-  Obtenerlistado($event) {
-    this.LlistaHotel = [];
-    this.LlistaHotel = $event;
-
-    let menorValor = 1000000;
-    let mayorValor = 0;
-
-    if (this.LlistaHotel[0].oerror != null) {
-      //this.flagDinData = true;
-      this.flagDinDataMini = true;
-      this.vistalistado = false;
-    } else {
-      this.vistalistado = true;
-      this.LlistaHotel.forEach(function (item) {
-        if (item.oprice.pricePerAllNights < menorValor) {
-          menorValor = item.oprice.pricePerAllNights;
+    /* this.imagesHotel.forEach(element => {
+      lstHotel.forEach(hotel => {
+        if (hotel.gds === 'Amadeus' && hotel.limagens.length > 0) {
+          hotel.limagens[0].url = element.value;
         }
-        if (item.oprice.pricePerAllNights > mayorValor) {
-          mayorValor = item.oprice.pricePerAllNights;
-        }
-
       });
+    }); */
 
-      this.menorPrecioHotel = menorValor;
-      this.mayorPrecioHotel = mayorValor;
-      this.sessionStorageService.store("ls_search_hotel", this.LlistaHotel);
-      this.mapafiltro = true;
-    }
+    return lstHotel;
   }
 
-  searchFlightBuscador($event) {
-    console.log($event)
-  }
-
-
-  ObtenerListaFiltroEstrella($event) {
-    this.divwarning = false;
-    this.LlistaHotel = [];
-    this.LlistaHotel = $event;
-    this.flagDinDataMini = false;
-    if (this.LlistaHotel.length === 0) {
-      this.divwarning = true;
-      this.flagDinDataMini = true;
-    }
-  }
-
-  ObtenerListaFiltroPrecio($event) {
-    this.divwarning = false;
-    this.LlistaHotel = [];
-    this.LlistaHotel = $event;
-    this.flagDinDataMini = false;
-    if (this.LlistaHotel.length === 0) {
-      this.divwarning = true;
-      this.flagDinDataMini = true;
-    }
-  }
-
-  ObtenerListaFiltroNombre($event) {
-    this.LlistaHotel = [];
-    this.LlistaHotel = $event;
-    this.flagDinDataMini = false;
-    if (this.LlistaHotel.length === 0) {
-      this.divwarning = true;
-      this.flagDinDataMini = true;
+    goToLastStep() {
+      this.skipeHotel.next('goToLastStep');
     }
 
-  }
+    SeachHotel() {
+      this.hiddeShowSpiner.next(true);
+      this.LlistaHotel = [];
+      const val = this.ValidarCampos();
+      if (!val) {
+        return val;
+      }
+      else {
+        this.cantidadhabitaciones = this.personas + '';
+        let data = {
+          "Lusers": [{
+            "RoleId": this.loginDataUser.orole.roleId,
+            "LcostCenter": this.loginDataUser.lcostCenter,
+            "UserId": this.loginDataUser.userId
+          }],
+          "Lhotel":
+            [
+              {
+                "HotelCityCode": this.destinoValue,
+                "Stars": this.estrellas,
+                "StartDate": this.dateingreso.split('-')[2] + '-' + this.dateingreso.split('-')[1] + '-' + this.dateingreso.split('-')[0],
+                "EndDate": this.datesalida.split('-')[2] + '-' + this.datesalida.split('-')[1] + '-' + this.datesalida.split('-')[0],
+                "LguestPerRoom":
+                  [
+                    {
+                      "RoomQuantity": this.personas,
+                      "NumberPassengers": this.personas,
+                      "TypePassenger": "ADT"
+                    }
+                  ]
+              }
+            ],
+          "Ocompany": this.loginDataUser.ocompany
+        }
+        this.habitaciones = this.personas + '';
+        this.service.SearchHotel(data).subscribe(
+          result => {
+            this.mostrarInfo = true;
+            if (result == null || result.length == 0 || result[0].oerror != null) {
+              // this.flagDinData = true;
+              this.hiddeShowSpiner.next(false);
+              this.goToLastStep();
+            }
+            else {
+              if (result !== null && result.length > 0) {
+                result = this.changeImage(result);
+                this.sessionStorageService.store('ls_search_hotel', result);
+                this.sessionStorageService.store('ss_minibuscador', null);
+                this.LlistaHotel = result;
+                this.LlistaHotel.forEach(item => {
+                  item.vuelo = this.vuelo;
+                })
+                this.sessionStorageService.store('hotel', this.LlistaHotel[0]);
+                this.flagBuscar = true;
+                let menorValor = 1000000;
+                let mayorValor = 0;
+                let currency;
+                let cantnoche;
+                result.forEach((item, index1) => {
+                  let mmm = 1000000;
+                  if (item.oprice.pricePerAllNights < menorValor) {
+                    menorValor = item.oprice.pricePerAllNights;
+                  }
+                  if (item.oprice.pricePerAllNights > mayorValor) {
+                    mayorValor = item.oprice.pricePerAllNights;
+                  }
+                  if (index1 == (result.length - 1)) {
+                    console.log(result)
+                    this.hiddeShowSpiner.next(false);
+                  }
+                });
+                this.cantidadnoches = cantnoche;
+                this.currency = currency;
+                this.menorPrecioHotel = menorValor;
+                this.mayorPrecioHotel = mayorValor;
+              } else {
+                this.flagDinData = true;
+              }
+            }
 
-  ObtenerListFiltro($event) {
-    this.LlistaHotel = [];
-    this.LlistaHotel = $event;
-  }
+          },
+          err => {
+            this.flagDinData = true;
+          },
+          () => {
+            this.flagPriceHotel = true;
+          }
+        );
+      }
+
+    }
+
+    ValidarCampos() {
+      return true;
+    }
+
+    Obtenerlistado($event) {
+      this.LlistaHotel = [];
+      this.LlistaHotel = $event;
+
+      let menorValor = 1000000;
+      let mayorValor = 0;
+
+      if (this.LlistaHotel[0].oerror != null) {
+        //this.flagDinData = true;
+        this.flagDinDataMini = true;
+        this.vistalistado = false;
+      } else {
+        this.vistalistado = true;
+        this.LlistaHotel.forEach(function (item) {
+          if (item.oprice.pricePerAllNights < menorValor) {
+            menorValor = item.oprice.pricePerAllNights;
+          }
+          if (item.oprice.pricePerAllNights > mayorValor) {
+            mayorValor = item.oprice.pricePerAllNights;
+          }
+
+        });
+
+        this.menorPrecioHotel = menorValor;
+        this.mayorPrecioHotel = mayorValor;
+        this.sessionStorageService.store("ls_search_hotel", this.LlistaHotel);
+        this.mapafiltro = true;
+      }
+    }
+
+    searchFlightBuscador($event) {
+      console.log($event)
+    }
 
 
-  MostrarMapa($event) {
-    this.vistamapa = $event;
-    this.vistalistado = false;
-  }
+    ObtenerListaFiltroEstrella($event) {
+      this.divwarning = false;
+      this.LlistaHotel = [];
+      this.LlistaHotel = $event;
+      this.flagDinDataMini = false;
+      if (this.LlistaHotel.length === 0) {
+        this.divwarning = true;
+        this.flagDinDataMini = true;
+      }
+    }
 
-  MostrarMapaMini($event) {
-    this.vistamapa = $event;
-    this.vistalistado = false;
-  }
+    ObtenerListaFiltroPrecio($event) {
+      this.divwarning = false;
+      this.LlistaHotel = [];
+      this.LlistaHotel = $event;
+      this.flagDinDataMini = false;
+      if (this.LlistaHotel.length === 0) {
+        this.divwarning = true;
+        this.flagDinDataMini = true;
+      }
+    }
 
-  MostrarListado($event) {
-    this.vistalistado = $event;
-    this.vistamapa = false;
-  }
+    ObtenerListaFiltroNombre($event) {
+      this.LlistaHotel = [];
+      this.LlistaHotel = $event;
+      this.flagDinDataMini = false;
+      if (this.LlistaHotel.length === 0) {
+        this.divwarning = true;
+        this.flagDinDataMini = true;
+      }
 
-  MostrarListadoMini($event) {
-    this.vistalistado = $event;
-    this.vistamapa = false;
-  }
-  showHideMap($event) {
-    this.mapafiltro = $event;
-  }
-  updateMiniBusqueda($event) {
-    console.log($event);
-    this.flagPriceHotel = $event;
-  }
-  ObtenerListFiltroMini($event) {
-    this.LlistaHotel = [];
-    this.LlistaHotel = $event;
-  }
+    }
 
-}
+    ObtenerListFiltro($event) {
+      this.LlistaHotel = [];
+      this.LlistaHotel = $event;
+    }
+
+
+    MostrarMapa($event) {
+      this.vistamapa = $event;
+      this.vistalistado = false;
+    }
+
+    MostrarMapaMini($event) {
+      this.vistamapa = $event;
+      this.vistalistado = false;
+    }
+
+    MostrarListado($event) {
+      this.vistalistado = $event;
+      this.vistamapa = false;
+    }
+
+    MostrarListadoMini($event) {
+      this.vistalistado = $event;
+      this.vistamapa = false;
+    }
+    showHideMap($event) {
+      this.mapafiltro = $event;
+    }
+    updateMiniBusqueda($event) {
+      console.log($event);
+      this.flagPriceHotel = $event;
+    }
+    ObtenerListFiltroMini($event) {
+      this.LlistaHotel = [];
+      this.LlistaHotel = $event;
+    }
+
+  }

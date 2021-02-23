@@ -8,7 +8,7 @@
             <div class="two">
               <div *ngIf="listMenu.length > 0; else templateMenu" style="width: 6%;float: left;margin-top: 40px;position: absolute;overflow: hidden;background: linear-gradient(240.91deg, #ED1C24 19.85%, #D51A2C 42.53%, #3C4749 97.6%);height: -webkit-fill-available;border-radius: 0px 40px 40px 0px;">
 
-                <div *ngFor="let item of listMenu;let i = index;" id="report_{{i}}" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionado(i)">
+                <div *ngFor="let item of listMenu;let i = index;" id="report_{{i}}" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionado(item.menuId, item.urlMenu)">
                   <img id="img_{{i}}" src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 0px;"><br>
                   <span id="textVertical_{{i}}">{{item.nameMenu}}</span>
                 </div>
@@ -51,14 +51,19 @@
 
 
               </div>
-              <div class="container">
+              <div class="containerOverflow">
                 <div *ngFor="let item of listaReports"  (click)="getConfigByReportId(item.configurationReportId)"  class="containerFlex">
                   <div style="width: 5%;">
 
                   </div>
-                  <div  style="width: 90%;">
+                  <div  style="width: 90%;background-color: #F4FAF7;padding: 12px;margin-top: 10px;cursor: pointer;">
                     <span>{{item.reportName}}</span><br>
                     <span>{{item.description}}</span>
+                    <div  style="float: right;">
+                      <img *ngIf="item.isActive === true" src="./assets/images/reports/activado.svg" style="width: 30%;">
+                      <img *ngIf="item.isActive === false" src="./assets/images/reports/inhabilitar.svg" style="width: 36px;margin-right: 110px;">
+                    </div>
+
                   </div>
 
                   <div style="width: 5%;">

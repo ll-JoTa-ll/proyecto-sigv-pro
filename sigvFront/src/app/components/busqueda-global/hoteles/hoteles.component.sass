@@ -1,3 +1,11 @@
+$break-large: 1116px
+$break-med: 900px
+$break-low: 820px
+$break-very-low: 720px
+$break-ultra-low: 660px
+$break-phone: 490px
+$break-phone-low: 400px
+
 .v-btn-buscar
   color: white
   background-color: #ED1C24
@@ -20,7 +28,7 @@
 
 .number-star
   font-family: Omnes-med
-        
+
 .v-texto-2
   color: #898989
   font-family: Omnes-med
@@ -28,51 +36,51 @@
 
 .div-autocomplete
   width: 95%
-    
+
 .div-destino
   width: 35%
 
 .div-fechas
-  width: 35%  
+  width: 35%
 
 .div-habitaciones
   width: 30%
 
 .div-estrellas
   width: 40%
-    
+
 .label-fecha
-  width: 100% !important 
-  padding: 0px 
-  padding: 9px    
-      
+  width: 100% !important
+  padding: 0px
+  padding: 9px
+
 .input-img
-  outline: none 
-  border: 0 
+  outline: none
+  border: 0
   width: 10% !important
 
 .input-date
   outline: none
-  border: 0 
+  border: 0
   width: 80%
   color: #3D3D3D
   font-family: Omnes-med
   font-size: 15px
 
 .label-habitaciones
-  width: 100% !important 
-  padding: 0px 
+  width: 100% !important
+  padding: 0px
   padding: 9px
 
 .input-text2
-  outline: none 
-  border: 0 
-  width: 50% 
+  outline: none
+  border: 0
+  width: 50%
   margin-left: 70px
   color: #3D3D3D
   font-family: Omnes-med
   font-size: 15px
-    
+
 .div-btn-star
   width: 100% !important
 
@@ -81,9 +89,140 @@
   font-family: Omnes-med
   font-size: 15px
 
-      
-    
-    
-        
-      
-  
+.four
+  width: 37%
+
+.tercio
+  width: 15%
+
+.containerFlex
+  width: 100%
+  display: flex
+
+.tres
+  width: 30%
+  margin-left: 15px
+
+.dos
+  width: 20%
+
+.onlyTres
+  width: 30%
+
+.dosMargin
+  width: 20%
+  margin-left: 20px
+
+@media (max-width: $break-large)
+    .containerFlex
+      width: 100%
+      display: block
+      align-content: center
+      align-items: center
+      text-align: -webkit-center
+
+    .tercio
+      width: 20%
+      margin-left: 0px
+
+    .tres
+      width: 40%
+
+    .list-star
+      width: 114%
+      color: #3D3D3D
+      font-family: Omnes-med
+      font-size: 15px
+
+@media (max-width: $break-med)
+    .tercio
+      width: 25%
+
+    .list-star
+      width: 130%
+      color: #3D3D3D
+      font-family: Omnes-med
+      font-size: 15px
+
+@media (max-width: $break-low)
+    .tres
+      width: 50%
+
+    .four
+      width: 60%
+
+    .tercio
+      width: 30%
+      margin-left: 0px
+
+    .list-star
+      width: 145%
+      color: #3D3D3D
+      font-family: Omnes-med
+      font-size: 15px
+
+@media (max-width: $break-very-low)
+    .dosMargin
+      width: 30%
+      margin-left: 0px
+
+    .list-star
+      width: 164%
+      color: #3D3D3D
+      font-family: Omnes-med
+      font-size: 15px
+
+
+@media (max-width: $break-ultra-low)
+    .tres
+      width: 70%
+
+    .four
+      width: 80%
+
+    .tercio
+      width: 40%
+      margin-left: 0px
+
+    .list-star
+      width: 200%
+      color: #3D3D3D
+      font-family: Omnes-med
+      font-size: 15px
+
+@media (max-width: $break-phone)
+    .dosMargin
+      width: 40%
+      margin-left: 0px
+
+    .onlyTres
+      width: 50%
+
+    .tercio
+      width: 50%
+      margin-left: 0px
+
+    .tres
+      width: 85%
+
+@media (max-width: $break-phone-low)
+    .tres
+      width: 100%
+      margin: 0px
+
+    .tercio
+      width: 60%
+      margin-left: 0px
+
+    .four
+      width: 100%
+
+    .dosMargin
+      width: 50%
+
+
+
+
+
+
+

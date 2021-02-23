@@ -76,12 +76,15 @@
                         <div class="row m-0 p-0">
                             <div class="col-12 m-0 p-0">
                                 <div class="row m-0 p-0">
-                                    <ng-container *ngIf="habitacion.ohotel.limagens != null && habitacion.ohotel.limagens.length > 0; else elseTemplate1" class="col-8 m-0 p-0">
+                                    <!-- <ng-container *ngIf="habitacion.ohotel.limagens != null && habitacion.ohotel.limagens.length > 0; else elseTemplate1" class="col-8 m-0 p-0">
                                         <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="{{habitacion.ohotel.limagens[0].url}}">
                                     </ng-container>
                                     <ng-template #elseTemplate1>
                                         <img class="pl-2 pt-4" style="width: 800px; height: 600px; border-radius: 15px 0px 15px 0px;" src="./assets/images/imagenotfound.jfif">
-                                    </ng-template>
+                                    </ng-template> -->
+                                    <ng-container  class="col-8 m-0 p-0">
+                                      <img class="pl-2 pt-4" style="width: 700px; height: 570px; border-radius: 15px 0px 15px 0px;" src="{{imagesHotel[0].value}}">
+                                  </ng-container>
                                     <div class="col-4 m-0 p-0">
                                         <div class="row m-0 p-0 pt-3 pb-4">
                                             <div class="col-12 m-0 p-0" style="padding: 1em; background: white; border: 2px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5); border-radius: 15px 0px 15px 0px">

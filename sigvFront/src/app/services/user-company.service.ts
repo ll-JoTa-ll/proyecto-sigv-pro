@@ -32,7 +32,7 @@ export class UserCompanyService {
   private url_role: string = environment.url_5 + 'Role/';
   private url_costCenter: string = environment.url_5 + 'CostCenter/';
   private url_costCenterApproval: string = environment.url_5 + "Approval/";
-
+  private url_listMenu: string = environment.url_5 + "Menu/";
 
 
   constructor(
@@ -52,47 +52,59 @@ export class UserCompanyService {
     return this.http.post<IUserCompanyModel[]>(this._url5 + "GetUserByFreeText", data, httpOptions2);
   }
 
-  getRole(data): Observable<IRole[]> {
+  getRole(data, data1): Observable<any> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    return this.http.post<IRole[]>(this.url_role + "GetRole", data, httpOptions2);
+    const url = `${this.url_role + 'GetRoleList'}?${'isAdministrator=' + data}&${'companyId=' + data1}`;
+    return this.http.get<any[]>(url, httpOptions2);
   }
 
-  getPersonByCompany(data): Observable<IPersonCompany[]> {
+  getListMenu(data, data1,data2): Observable<any> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    const url = `${this.url_getreservation + 'GetPersonByCompany'}?${'companyId=' + data}`;
-    return this.http.get<IPersonCompany[]>(url, httpOptions2);
+    const url = `${this.url_listMenu + 'GetMenuList'}?${'isAdministrator=' + data}&${'companyId=' + data1}&${'agencyId=' + data2}`;
+    return this.http.get<any[]>(url, httpOptions2);
   }
 
-  getPersonById(data): Observable<IPersonId[]> {
+  getPersonByCompany(data,data2): Observable<any> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    const url = `${this.url_getreservation + 'GetPersonById'}?${'personId=' + data}`;
-    return this.http.get<IPersonId[]>(url, httpOptions2);
+    const url = `${this._url5 + 'GetPersonUserList'}?${'companyId=' + data}&${'agencyId=' + data2}`;
+    return this.http.get<any>(url, httpOptions2);
   }
 
-  getDocument(): Observable<IDocumentType[]> {
+  getPersonById(data,data2): Observable<any> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    const url = `${this.url_document + 'GetDocumentType'}`;
-    return this.http.get<IDocumentType[]>(url, httpOptions2);
+    const url = `${this._url5 + 'GetPersonUserDetail'}?${'personId=' + data}&${'userId=' + data2}`;
+    return this.http.get<any>(url, httpOptions2);
+  }
+
+  getDocument(data): Observable<any> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+      'Authorization': "Bearer " + this.token,
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': this.key
+    });
+    const url = `${this.url_document + 'GetDocumentTypeList'}?${'isAdministrator=' + data}`;
+    return this.http.get<any>(url, httpOptions2);
   }
 
   getCostCenterCompany(data): Observable<ICostCenterCompany[]> {

@@ -59,7 +59,7 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
 
   lsthabitacion: any;
-  loginDataUser: ILoginDatosModel;
+
   Confirmacion: IGetEnhancedHotel;
   divwarning: boolean;
   currency: string;
@@ -109,31 +109,36 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
   texto2: string;
   texto3: string;
   contador: number;
+  userId;
   t: number;
   modalRefSessionExpired: BsModalRef;
   adultos: any;
   hotelKey;
   showkey;
+  User;
+  loginDataUser;
   imagesHotel: any[] = [
-    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_1.png'},
-    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_2.png'},
-    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_3.png'},
-    {value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_4.png'},
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_1.png' },
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_2.png' },
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_3.png' },
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_4.png' },
   ];
 
   @ViewChild("modalexpired", { static: false }) modalexpired;
 
 
   constructor(private eRef: ElementRef, private localStorageService: LocalStorageService,
-              private router: Router, private sessionStorageService: SessionStorageService,
-              private modalService: BsModalService, private spinner: NgxSpinnerService,
-              private _scrollToService: ScrollToService) {
+    private router: Router, private sessionStorageService: SessionStorageService,
+    private modalService: BsModalService, private spinner: NgxSpinnerService,
+    private _scrollToService: ScrollToService, private service: HotelService) {
     this.localfinish = this.localStorageService.retrieve("ss_countersession");
     this.lhotel = this.sessionStorageService.retrieve("lhotel");
     this.LHoteles = this.sessionStorageService.retrieve("ls_search_hotel");
     this.lsthabitacion = this.sessionStorageService.retrieve("lstHabication");
     this.ocultar = this.sessionStorageService.retrieve("ss_oculta");
     this.hotelKey = this.sessionStorageService.retrieve("ss_hotel_key");
+    this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
+    this.userId = this.loginDataUser.userId;
     this.flagDinData = false;
 
     if (this.hotelKey === true) {
@@ -383,6 +388,32 @@ export class HabitacionComponent implements OnInit, AfterViewInit {
     this.texto2 = this.lsthabitacion.ohotel.hotelDescription.substring(250, this.lsthabitacion.ohotel.hotelDescription.length);
     this.texto3 = this.lsthabitacion.ohotel.hotelDescription;
     this.lsthabitacion.contador = this.contador;
+    this.getUser();
+
+  }
+
+  getUser() {
+    let data = {
+      userId: this.userId
+    }
+
+    this.service.GetUser(data.userId).subscribe(
+      result => {
+
+        this.User = result;
+
+        this.sessionStorageService.store("ss_user", this.User);
+        //this.router.navigate(['/reserva-habitacion-hotel']);
+      },
+      err => {
+        this.spinner.hide();
+
+      },
+      () => {
+
+
+      }
+    )
 
 
   }

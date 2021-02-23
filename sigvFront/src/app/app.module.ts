@@ -172,6 +172,8 @@ import { ModalErrorSizeComponent } from './components/shared/modal-error-size/mo
 import { MatButtonModule } from '@angular/material/button';
 import { ReportScheduledComponent } from './components/reports/report-scheduled/report-scheduled.component';
 import { ReportNewComponent } from './components/reports/report-new/report-new.component';
+import { ReportTimePickerComponent } from './components/reports/report-time-picker/report-time-picker.component';
+import { ReportSalesComponent } from './components/reports/report-sales/report-sales.component';
 
 @NgModule({
   declarations: [
@@ -313,7 +315,9 @@ import { ReportNewComponent } from './components/reports/report-new/report-new.c
     ResumenVueloHotelComponent,
     ModalErrorSizeComponent,
     ReportScheduledComponent,
-    ReportNewComponent
+    ReportNewComponent,
+    ReportTimePickerComponent,
+    ReportSalesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 <app-header
-  *ngIf="loginDataUser.orole.roleId !== 3 && loginDataUser.ocompany.ocompanyConfiguration.crossSellingHotel === true;else notCentralizador">
+  *ngIf="loginDataUser.orole.roleId !== 3 && flagAutoCroselling === true;else notCentralizador">
 
   <div *ngIf="flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
     <app-add-pax-centralizador (flagCentralizado)="updateCentralizador($event)"></app-add-pax-centralizador>
@@ -69,7 +69,7 @@
 
           <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
           <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)"
-            [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
+            [tipoVuelo]="tipoVuelo"  [indexTramo]="indexTramo"></app-filtro-horarios>
 
           <app-filtro-aerolineas [lstAerolineas]="aerolineas" (searchFlightFilter)="busquedaFiltros($event)">
           </app-filtro-aerolineas>
@@ -582,13 +582,13 @@
     </div>
 
     <div *ngIf="!flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
-      <div *ngIf="!flagBuscar" class="row m-0 p-0 animated fadeIn fast"
-        style="width: 100% !important; position: relative !important; z-index: 1">
+      <div *ngIf="!flagBuscar" class="animated fadeIn fast"
+        style="width: 100% !important;display:flex; position: relative !important; z-index: 1">
 
-        <div class="col-2 m-0 p-0"></div>
+        <div style="width:15%"></div>
 
-        <div class="col-8 m-0 p-0 box-shadow animated fadeIn fast"
-          style="background-color: white; border-radius:  0 0 20px 0;">
+        <div class="box-shadow animated fadeIn fast"
+          style="width:70% ;background-color: white; border-radius:  0 0 20px 0;">
 
           <div class="containerFlex">
             <div class="tercio">

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { SessionStorageService } from 'ngx-webstorage';
 import { ReportsService } from 'src/app/services/reports.service';
 
@@ -15,12 +16,14 @@ export class ReportScheduledComponent implements OnInit, AfterViewInit {
   listaReports;
   constructor( private sessionStorageService: SessionStorageService,
                private reportService: ReportsService,
-               private router: Router) { }
+               private router: Router,
+               public spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.loginData = this.sessionStorageService.retrieve('ss_login_data');
     this.listaMenu();
-    this.reportConfig(this.loginData.ocompany.companyId);
+    this.validService();
+
   }
 
   ngAfterViewInit() {
@@ -37,7 +40,30 @@ export class ReportScheduledComponent implements OnInit, AfterViewInit {
     this.seleccionar();
   }
 
+  seleccionado(item1,item2) {
+    if (item1 === 6) {
+      window.open('http://report-kp.domiruth.com/Modulos/Reportes/ReporteKP.aspx', '_blank', 'toolbar=0,location=0,menubar=0');
+    } else {
+      const r = window.location.origin + item2;
+      window.location.replace(r);
+    }
+  }
+
+  validService(){
+    let idCompany;
+    let idAgency;
+    if (this.loginData.ocompany != null) {
+      idCompany = this.loginData.ocompany.companyId;
+      idAgency = "";
+    } else {
+      idCompany = "";
+      idAgency = this.loginData.oagency.agencyId;
+    }
+    this.reportConfig(idCompany, idAgency);
+  }
+
   newProgrammer(){
+    this.sessionStorageService.store('editreport', null);
     this.router.navigate(['nuevo-reporte']);
   }
 
@@ -45,10 +71,12 @@ export class ReportScheduledComponent implements OnInit, AfterViewInit {
     this.router.navigate(['reportes']);
   }
 
-  reportConfig(data) {
-    this.reportService.GetConfigurationReportByCompany(data).subscribe(
+  reportConfig(data, data1) {
+    this.spinner.show();
+    this.reportService.GetConfigurationReportByCompany(data, data1).subscribe(
       result => {
         this.listaReports = result.listConfigurationReports;
+        this.spinner.hide();
       }
     );
   }
@@ -64,15 +92,16 @@ export class ReportScheduledComponent implements OnInit, AfterViewInit {
   getConfigByReportId(data){
     this.reportService.GetConfigurationReport(data).subscribe(
       result => {
-
+        this.sessionStorageService.store('editReport', result);
+        this.router.navigate(['nuevo-reporte']);
       }
     );
   }
 
   seleccionar() {
-    const report = document.getElementById('report_0');
-    const report1 = document.getElementById('textVertical_1');
-    const img = document.getElementById('img_1');
+    const report = document.getElementById('report_1');
+    const report1 = document.getElementById('textVertical_0');
+    const img = document.getElementById('img_0');
     report.style.background = 'white';
     report.style.clipPath = 'polygon(155% 0, 77% 50%, 155% 100%, 0 100%, 0% 50%, 0 0)';
     report.style.marginTop = '40px';
