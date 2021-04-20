@@ -12,7 +12,7 @@ export class FiltroPrecioComponent implements OnInit {
 
   @Output() searchFlightFilter = new EventEmitter<ISearchFlightModel[]>();
   textoPrecio;
-  searchFlight: ISearchFlightModel[] = [];
+  searchFlight: any[] = [];
 
   constructor(
     private sessionStorageService: SessionStorageService,
@@ -41,11 +41,11 @@ export class FiltroPrecioComponent implements OnInit {
     this.searchFlight = this.sessionStorageService.retrieve('ss_searchFlight');
     if (valor1 === 'mas') {
       this.sessionStorageService.store('ss_filterPrecio', 'mas');
-      this.searchFlight.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
+      this.searchFlight.sort((a, b) => a.oprice.totalAmount - b.oprice.totalAmount );
     }
     if (valor1 === 'menos') {
       this.sessionStorageService.store('ss_filterPrecio', 'menos');
-      this.searchFlight.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
+      this.searchFlight.sort((a, b) => b.oprice.totalAmount - a.oprice.totalAmount );
     }
     this.sessionStorageService.store('ss_searchFlight', this.searchFlight);
     this.searchFlightFilter.emit(this.searchFlight);

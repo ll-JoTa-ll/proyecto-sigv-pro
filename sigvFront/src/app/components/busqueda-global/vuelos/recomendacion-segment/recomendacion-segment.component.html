@@ -1,4 +1,4 @@
-<div *ngIf="segment.isVisible" class="m-0 p-0 pt-2 pb-2" style="width: 100%">
+<div *ngIf="section.isVisible" class="m-0 p-0 pt-2 pb-2" style="width: 100%">
 
     <div class="row m-0 p-0">
         <div class="col-9 m-0 p-0" style="border-right: 1px solid #898989;">
@@ -18,8 +18,8 @@
                                 </div>
                                 <div class="col-12 m-0 p-0 pt-2">
                                     <div class="row m-0 p-0">
-                                        <span *ngIf="lSectionGroups[0].fareFamilyName != null" class="div-familia">
-                                       {{lSectionGroups[0].fareFamilyName}}
+                                        <span *ngIf="segment.lsegments[0].fareFamilyName != null" class="div-familia">
+                                       {{segment.lsegments[0].fareFamilyName}}
                                     </span>
                                     </div>
                                 </div>
@@ -43,11 +43,11 @@
                                 <div *ngIf="lSegmentGroupsLength>1" class="col-12 m-0 p-0 text-center sm-text-2 tooltipEscalas">
                                     {{lSegmentGroupsLength - 1}} escalas
                                     <div class="m-0 p-0 tooltipBagDivEsc">
-                                        <div *ngFor="let segmentgroup of segment.lSegmentGroups" class="col-12 m-0 p-0 box-shadow pl-2 pt-2 pr-2 pb-2">
+                                        <div *ngFor="let segmentgroup of segment.lsegments" class="col-12 m-0 p-0 box-shadow pl-2 pt-2 pr-2 pb-2">
                                             <div class="col-12 m-0 p-0 pb-2">
                                                 <div class="row m-0 p-0 tramo">
                                                     <div class="col-6 m-0 p-0">
-                                                        <span class="pr-2">{{segmentgroup.origin}}</span> <span><i class="fas fa-chevron-right"></i></span><span class="pl-2">{{segmentgroup.destination}}</span>
+                                                        <span class="pr-2">{{segmentgroup.oorigin.iataCode}}</span> <span><i class="fas fa-chevron-right"></i></span><span class="pl-2">{{segmentgroup.odestination.iataCode}}</span>
                                                     </div>
                                                     <div class="col-6 m-0 p-0">
                                                         <span>{{segmentgroup.totalFlightTimeShow}}</span>
@@ -58,7 +58,7 @@
 
                                                 <div class="row m-0 p-0 escala">
                                                     <div class="col-6 m-0 p-0">
-                                                        Espera en {{segmentgroup.destination}}
+                                                        Espera en {{segmentgroup.odestination.cityName}}
                                                     </div>
                                                     <div class="col-6 m-0 p-0">
                                                         {{segmentgroup.timeWaitAirport | formattimeairport}}
@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="col-3 m-0 p-0 text-center d-flex justify-content-center align-items-center">
-                    <img *ngIf="lSegmentGroups.length === 0" style="width: 40px; cursor: pointer;" (click)="listSegmentGroups(flagSegmentId, segment.lsegmentGroups)" src="./assets/images/arrow-down.svg" alt="">
+                    <img *ngIf="lSegmentGroups.length === 0" style="width: 40px; cursor: pointer;" (click)="listSegmentGroups(flagSegmentId, segment.lsegments)" src="./assets/images/arrow-down.svg" alt="">
                     <img *ngIf="lSegmentGroups.length > 0" style="width: 40px; cursor: pointer;" (click)="hideSegmentGroups(flagSegmentId)" src="./assets/images/arrow-up.svg" alt="">
                 </div>
 
@@ -127,7 +127,7 @@
 
     <div class="row m-0 p-0 pb-5 animated fadeIn fast" [id]="flagSegmentId" *ngIf="lSegmentGroups.length > 0">
         <div class="col-12 m-0 p-0">
-            <app-recomendacion-segment-group [lSegmentGroupsLength]="segment.lsegmentGroups.length" [totalFlightTimeShow]="segment.totalFlightTimeShow" [segmentGroup]="segmentGroup" [lSegmentGroupsIndex]="i+1" [sectionGroup]="lSectionGroups[i]" *ngFor="let segmentGroup of lSegmentGroups; let i=index"></app-recomendacion-segment-group>
+            <app-recomendacion-segment-group [lSegmentGroupsLength]="segment.lsegments.length" [totalFlightTimeShow]="segment.totalFlightTimeShow" [segmentGroup]="segmentGroup" [lSegmentGroupsIndex]="i+1" [sectionGroup]="lSectionGroups[i]" *ngFor="let segmentGroup of lSegmentGroups; let i=index"></app-recomendacion-segment-group>
         </div>
         <div class="col-12 m-0 p-0 p-4">
             <div class="row m-0 p-0 box-shadow p-3">

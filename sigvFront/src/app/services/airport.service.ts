@@ -41,7 +41,7 @@ export class AirportService {
 
   private _url: string = environment.url_2 + "CityAirport/";
   private _url2: string = environment.url_2 + "Search/";
-  private _url3: string = environment.url_2 + "Search/";
+  private _url3: string = environment.url_2 + "SearchTemp/";
   private _url4: string = environment.url_2 + "Booking/";
   private _url5: string = environment.url_5 + "User/";
   private _url6: string = environment.url_5 + "CostCenter/";
@@ -55,6 +55,7 @@ export class AirportService {
   private url_usebnus: string = environment.url_5 + "AsesorCompany/";
   private url_asesors: string = environment .url_5 + "AsesorCompany/";
   private url_regulaciones: string = environment.url_2 + "Search/";
+  private url_temp: string = environment.url_2 + 'SearchTemp/';
 
   constructor(
     private http: HttpClient,
@@ -100,7 +101,7 @@ export class AirportService {
     return this.http.get<IAirportList>(this._url + "GetPriorityAirports", httpOptions2);
   }
 
-  searchFlight(data): Observable<ISearchFlightModel[]> {
+  searchFlight(data): Observable<any> {
    this.token = this.sessionSt.retrieve('ss_token');
    httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
@@ -108,8 +109,19 @@ export class AirportService {
       'Ocp-Apim-Subscription-Key': this.key
     });
     console.log(httpOptions2);
-    return this.http.post<ISearchFlightModel[]>(this._url3 + "SearchFlight", data, httpOptions2);
+    return this.http.post<any>(this._url3 + "SearchFlight", data, httpOptions2);
   }
+
+  searchFlightTemp(data): Observable<any> {
+    this.token = this.sessionSt.retrieve('ss_token');
+    httpOptions2.headers = new HttpHeaders({
+       'Authorization': "Bearer " + this.token,
+       'Content-Type': "application/json",
+       'Ocp-Apim-Subscription-Key': this.key
+     });
+     console.log(httpOptions2);
+     return this.http.post<any>(this.url_temp + "SearchFlight", data, httpOptions2);
+   }
 
   CalendarShopping(data): Observable<any[]> {
     this.token = this.sessionSt.retrieve('ss_token');

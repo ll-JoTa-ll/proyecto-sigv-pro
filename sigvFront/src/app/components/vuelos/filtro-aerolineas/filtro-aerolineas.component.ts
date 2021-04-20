@@ -40,11 +40,11 @@ export class FiltroAerolineasComponent implements OnInit, AfterViewInit {
   }
 
   filtrarAerolinea(carrierId, eve: any) {
-    console.log("carrierId: " + carrierId);
+   /*  console.log("carrierId: " + carrierId); */
     if (carrierId === 'all') {
       if (this.checkAll === true) {
         let searchFlight = this.sessionStorageService.retrieve('ss_searchFlight');
-        console.log("searchFlight INI: " + JSON.stringify(searchFlight));
+       /*  console.log("searchFlight INI: " + JSON.stringify(searchFlight)); */
         //this.check = false;
 
         this.lstAerolineas.forEach(function(aerolinea) {
@@ -56,7 +56,7 @@ export class FiltroAerolineasComponent implements OnInit, AfterViewInit {
           item.isVisible = true;
         });
 
-        console.log("searchFlight FIN: " + JSON.stringify(searchFlight));
+        /* console.log("searchFlight FIN: " + JSON.stringify(searchFlight)); */
 
         this.sessionStorageService.store('ss_searchFlight', searchFlight);
 
@@ -66,7 +66,7 @@ export class FiltroAerolineasComponent implements OnInit, AfterViewInit {
       if (eve.currentTarget.checked) {
         this.checkAll = false;
         let searchFlight = this.sessionStorageService.retrieve('ss_searchFlight');
-        console.log("searchFlight INI: " + JSON.stringify(searchFlight));
+       /*  console.log("searchFlight INI: " + JSON.stringify(searchFlight)); */
 
         searchFlight.forEach(function(item) {
           item.isVisible = false;
@@ -82,7 +82,7 @@ export class FiltroAerolineasComponent implements OnInit, AfterViewInit {
 
         searchFlight.forEach(function(item) {
           lstAerolineas.forEach(function(item2) {
-            if (item.carrierId === item2.carrierId) {
+            if (item.ocarrier.carrierId === item2.carrierId) {
               if (item2.filter === 1) {
                 item.isVisible = true;
               }
@@ -90,7 +90,7 @@ export class FiltroAerolineasComponent implements OnInit, AfterViewInit {
           });
         });
 
-        console.log("searchFlight FIN: " + JSON.stringify(searchFlight));
+        /* console.log("searchFlight FIN: " + JSON.stringify(searchFlight)); */
 
         this.sessionStorageService.store('ss_searchFlight', searchFlight);
 
@@ -110,7 +110,7 @@ export class FiltroAerolineasComponent implements OnInit, AfterViewInit {
         this.searchFlightFilter.emit(searchFlight);
       } else {
         let searchFlight = this.sessionStorageService.retrieve('ss_searchFlight');
-        console.log("searchFlight INI: " + JSON.stringify(searchFlight));
+        /* console.log("searchFlight INI: " + JSON.stringify(searchFlight)); */
 
         searchFlight.forEach(function(item) {
           item.isVisible = false;
@@ -126,7 +126,7 @@ export class FiltroAerolineasComponent implements OnInit, AfterViewInit {
 
         searchFlight.forEach(function(item) {
           lstAerolineas.forEach(function(item2) {
-            if (item.carrierId === item2.carrierId) {
+            if (item.ocarrier.carrierId === item2.carrierId) {
               if (item2.filter === 1) {
                 item.isVisible = true;
               }
@@ -134,7 +134,7 @@ export class FiltroAerolineasComponent implements OnInit, AfterViewInit {
           });
         });
 
-        console.log("searchFlight FIN: " + JSON.stringify(searchFlight));
+        /* console.log("searchFlight FIN: " + JSON.stringify(searchFlight)); */
 
         this.sessionStorageService.store('ss_searchFlight', searchFlight);
 

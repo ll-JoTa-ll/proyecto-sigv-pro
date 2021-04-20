@@ -1,5 +1,5 @@
 <app-header
-  *ngIf="loginDataUser.orole.roleId !== 3 && loginDataUser.ocompany.ocompanyConfiguration.crossSellingHotel === true;else notCentralizador">
+  *ngIf="loginDataUser.orole.roleId !== 3 && flagAutoCroselling === true;else notCentralizador">
 
   <div *ngIf="flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
     <app-add-pax-centralizador (flagCentralizado)="updateCentralizador($event)"></app-add-pax-centralizador>
@@ -69,7 +69,7 @@
 
           <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
           <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)"
-            [tipoVuelo]="tipoVuelo" [indexTramo]="indexTramo"></app-filtro-horarios>
+            [tipoVuelo]="tipoVuelo"  [indexTramo]="indexTramo"></app-filtro-horarios>
 
           <app-filtro-aerolineas [lstAerolineas]="aerolineas" (searchFlightFilter)="busquedaFiltros($event)">
           </app-filtro-aerolineas>
@@ -79,17 +79,17 @@
 
           <div class="row m-0 p-0" *ngIf="searchData.length > 0">
             <div *ngIf="searchData[0].pseudoRepeat !== null && flagPseudoRepeat" class="col-12 m-0 p-0">
-              <app-multipaises-price [currency]="searchData[0].currency" [priceByPseudo]="searchData[0].priceByPseudo">
+              <app-multipaises-price [currency]="searchData[0].oprice.currency" >
               </app-multipaises-price>
             </div>
           </div>
 
-          <div *ngIf="!spin" class="content">
+         <!--  <div *ngIf="!spin" class="content">
 
             <div class="spinner">
 
             </div>
-          </div>
+          </div> -->
 
           <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini" class="row m-0 p-0 pt-5">
             <app-calendar-shopping (fechas)="onSelectDate($event)" [salida]="salida"></app-calendar-shopping>
@@ -106,16 +106,16 @@
 
           <div class="row m-0 p-0" *ngIf="searchData.length > 0">
             <app-recomendacion *ngFor="let recomendacion of searchData; let i = index"
-              [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency"
-              [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount"
-              [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
-              [taxAmountByPassenger]="recomendacion.taxAmountByPassenger"
-              [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger" [carrierId]="recomendacion.carrierId"
-              [numberPassengers]="recomendacion.numberPassengers" [pseudo]="recomendacion.pseudo"
+              [isVisible]="recomendacion.isVisible" [currency]="recomendacion.oprice.currency"
+              [totalFareAmount]="recomendacion.oprice.totalAmount" [totalTaxAmount]="recomendacion.oprice.totalTaxAmount"
+              [fareAmountByPassenger]="recomendacion.oprice.baseAmount"
+              [taxAmountByPassenger]="recomendacion.oprice.taxAmountByPassenger"
+              [fareTaxAmountByPassenger]="recomendacion.lpassengerPrices[0].baseAmount" [carrierId]="recomendacion.ocarrier.carrierId"
+              [numberPassengers]="recomendacion.lpassengerPrices[0].quantity" [pseudo]="recomendacion.pseudo"
               [gds]="recomendacion.gds" [flightNational]="recomendacion.flightNational"
               [lsections]="recomendacion.lsections" [lsectionLength]="recomendacion.lsections.length"
               [lpolicies]="recomendacion.lpolicies" [recommendationId]="recomendacion.recommendationId"
-              [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.pseudoRepeat" [index]='i + 1' [lstBnus]="lstBnus"
+              [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.lpseudoRepeats" [index]='i + 1' [lstBnus]="lstBnus"
               (addHotel)="adicionarHotel($event)">
             </app-recomendacion>
           </div>
@@ -582,13 +582,13 @@
     </div>
 
     <div *ngIf="!flagCentralizador" class="m-0 p-0" style="width: 100% !important;">
-      <div *ngIf="!flagBuscar" class="row m-0 p-0 animated fadeIn fast"
-        style="width: 100% !important; position: relative !important; z-index: 1">
+      <div *ngIf="!flagBuscar" class="animated fadeIn fast"
+        style="width: 100% !important;display:flex; position: relative !important; z-index: 1">
 
-        <div class="col-2 m-0 p-0"></div>
+        <div style="width:15%"></div>
 
-        <div class="col-8 m-0 p-0 box-shadow animated fadeIn fast"
-          style="background-color: white; border-radius:  0 0 20px 0;">
+        <div class="box-shadow animated fadeIn fast"
+          style="width:70% ;background-color: white; border-radius:  0 0 20px 0;">
 
           <div class="containerFlex">
             <div class="tercio">
@@ -1032,17 +1032,17 @@
 
             <div class="row m-0 p-0" *ngIf="searchData.length > 0">
               <div *ngIf="searchData[0].pseudoRepeat !== null && flagPseudoRepeat" class="col-12 m-0 p-0">
-                <app-multipaises-price [currency]="searchData[0].currency"
-                  [priceByPseudo]="searchData[0].priceByPseudo"></app-multipaises-price>
+                <app-multipaises-price [currency]="searchData[0].oprice.currency"
+                  ></app-multipaises-price>
               </div>
             </div>
 
-            <div *ngIf="!spin" class="content">
+            <!-- <div *ngIf="!spin" class="content">
 
               <div class="spinner">
 
               </div>
-            </div>
+            </div> -->
 
             <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini" class="row m-0 p-0 pt-5">
               <app-calendar-shopping (fechas)="onSelectDate($event)" [salida]="salida"></app-calendar-shopping>
@@ -1075,19 +1075,18 @@
 
             <div class="row m-0 p-0" *ngIf="searchData.length > 0">
               <app-recomendacion *ngFor="let recomendacion of searchData; let i = index"
-                [isVisible]="recomendacion.isVisible" [currency]="recomendacion.currency"
-                [totalFareAmount]="recomendacion.totalFareAmount" [totalTaxAmount]="recomendacion.totalTaxAmount"
-                [fareAmountByPassenger]="recomendacion.fareAmountByPassenger"
-                [taxAmountByPassenger]="recomendacion.taxAmountByPassenger"
-                [fareTaxAmountByPassenger]="recomendacion.fareTaxAmountByPassenger"
-                [carrierId]="recomendacion.carrierId" [numberPassengers]="recomendacion.numberPassengers"
-                [pseudo]="recomendacion.pseudo" [gds]="recomendacion.gds"
-                [flightNational]="recomendacion.flightNational" [lsections]="recomendacion.lsections"
-                [lsectionLength]="recomendacion.lsections.length" [lpolicies]="recomendacion.lpolicies"
-                [recommendationId]="recomendacion.recommendationId" [tipoVuelo]="tipoVuelo"
-                [recomen]="recomendacionHotel" [pseudoRepeat]="recomendacion.pseudoRepeat" [index]='i + 1'
-                [lstBnus]="lstBnus">
-              </app-recomendacion>
+              [isVisible]="recomendacion.isVisible" [currency]="recomendacion.oprice.currency"
+              [totalFareAmount]="recomendacion.oprice.totalAmount" [totalTaxAmount]="recomendacion.oprice.totalTaxAmount"
+              [fareAmountByPassenger]="recomendacion.oprice.baseAmount"
+              [taxAmountByPassenger]="recomendacion.oprice.taxAmountByPassenger"
+              [fareTaxAmountByPassenger]="recomendacion.lpassengerPrices[0].baseAmount" [carrierId]="recomendacion.ocarrier.carrierId"
+              [numberPassengers]="recomendacion.lpassengerPrices[0].quantity" [pseudo]="recomendacion.pseudo"
+              [gds]="recomendacion.gds" [flightNational]="recomendacion.flightNational"
+              [lsections]="recomendacion.lsections" [lsectionLength]="recomendacion.lsections.length"
+              [lpolicies]="recomendacion.lpolicies" [recommendationId]="recomendacion.recommendationId"
+              [tipoVuelo]="tipoVuelo" [pseudoRepeat]="recomendacion.lpseudoRepeats" [index]='i + 1' [lstBnus]="lstBnus"
+              (addHotel)="adicionarHotel($event)">
+            </app-recomendacion>
             </div>
 
           </div>

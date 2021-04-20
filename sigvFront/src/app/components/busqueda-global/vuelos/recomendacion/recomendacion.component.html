@@ -34,10 +34,10 @@
 
             <div class="col-5 m-0 p-0 text-right">
 
-              <img (click)="openModalDsctCop(templateDsctCorp)" class="pr-2" tooltip="Vuelo con descuento corporativo." *ngIf="lsections[0].lsectionGroups[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 30px; cursor:pointer;">
+              <img (click)="openModalDsctCop(templateDsctCorp)" class="pr-2" tooltip="Vuelo con descuento corporativo." *ngIf="lsections[0].lschedules[0].lsegments[0].fareType==='RB'" src="./assets/images/medalla.svg" alt="" style="width: 30px; cursor:pointer;">
 
-              <span tooltip="Vuelo con infracción de políticas." style="cursor: pointer" (click)="openModalPoliticas(modalPolitica)" *ngIf="lpolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
-              <span tooltip="El vuelo cumple las políticas de viaje de la empresa." *ngIf="lpolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
+              <span tooltip="Vuelo con infracción de políticas." style="cursor: pointer" (click)="openModalPoliticas(modalPolitica)" *ngIf="lpolicies != null && lpolicies.length>0" class="circulo-politica pl-1 r-span-1"></span>
+              <span tooltip="El vuelo cumple las políticas de viaje de la empresa." *ngIf="lpolicies != null && lpolicies.length===0" class="circulo-politica1 pl-1 r-span-2"></span>
             </div>
 
             <div class="col-1 m-0 p-0"></div>

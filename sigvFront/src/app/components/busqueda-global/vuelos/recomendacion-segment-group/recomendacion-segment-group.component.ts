@@ -19,13 +19,14 @@ export class RecomendacionSegmentGroupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.sectionGroup);
     if (this.lSegmentGroupsLength === this.lSegmentGroupsIndex) {
       this.textFlightTimeShow = "Duración total: " + this.totalFlightTimeShow;
     } else {
       this.textFlightTimeShow = "Espera en aeropuerto: " + this.segmentGroup.timeWaitAirport.replace("00d ", "");
     }
 
-    this.marketingCarrier = this.segmentGroup.marketingCarrier + '.png';
+    this.marketingCarrier = this.segmentGroup.ocarrier.marketingAirline + '.png';
   }
 
 }

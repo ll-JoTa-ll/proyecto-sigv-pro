@@ -44,13 +44,13 @@ export class RecomendacionSegmentComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.flagSegmentId = 'flagSegment_' + this.recommendationId + '' + this.sectionId + '' + this.segment.segmentId + '' + this.indexSegment;
     this.totalFlightTimeShow = this.segment.totalFlightTimeShow;
-    this.lSegmentGroupsLength = this.segment.lsegmentGroups.length;
+    this.lSegmentGroupsLength = this.segment.lsegments.length;
     const lSegmentGroupsLength = this.lSegmentGroupsLength;
     if (lSegmentGroupsLength > 0) {
-      this.carrierName = this.segment.lsegmentGroups[0].carrierName;
-      this.marketingCarrier = this.segment.lsegmentGroups[0].marketingCarrier + ".png";
-      this.timeOfDepartureShow = this.segment.lsegmentGroups[0].timeOfDepartureShow;
-      this.timeOfArrivalShow = this.segment.lsegmentGroups[lSegmentGroupsLength - 1].timeOfArrivalShow;
+      this.carrierName = this.segment.ocarrier.carrierName;
+      this.marketingCarrier = this.segment.ocarrier.marketingAirline + ".png";
+      this.timeOfDepartureShow = this.segment.departureTimeShow;
+      this.timeOfArrivalShow = this.segment.arrivalTimeShow;
     }
   }
 

@@ -29,10 +29,10 @@
                 <div class="col-3 m-0 p-0">
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 s-iata">
-                            {{section.origin}}
+                            {{section.oorigin.cityName}}
                         </div>
                         <div class="col-12 m-0 p-0 s-airport">
-                            {{section.airportOrigin}}
+                            {{section.oorigin.airportName}}
                         </div>
                     </div>
                 </div>
@@ -40,10 +40,10 @@
                 <div class="col-3 m-0 p-0">
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 s-iata">
-                            {{section.destination}}
+                            {{section.odestination.cityName}}
                         </div>
                         <div class="col-12 m-0 p-0 s-airport">
-                            {{section.airportDestination}}
+                            {{section.odestination.airportName}}
                         </div>
                     </div>
                 </div>
@@ -60,8 +60,8 @@
             <div class="row m-0 p-0">
                 <!-- style="border-right: 1px solid #898989;" -->
                 <div class="col-12 m-0 p-0 pt-4 pb-4">
-                    <app-recomendacion-segment [section]="section" [segment]="segment" [bagAllowed]="section.bagAllowed" [bagQuantity]="section.bagQuantity" [indexSegment]="i+1" [recommendationIndex]="recommendationIndex" [recommendationId]="recommendationId" [sectionId]="section.sectionId"
-                        [lSectionGroups]="section.lsectionGroups" (outSegmentCheck)="setSegmentCheck($event)" *ngFor="let segment of section.lsegments; let i=index"></app-recomendacion-segment>
+                    <app-recomendacion-segment [section]="section" [segment]="segment" [bagAllowed]="segment.obaggage.bagAllowed" [bagQuantity]="segment.obaggage.bagQuantity" [indexSegment]="i+1" [recommendationIndex]="recommendationIndex" [recommendationId]="recommendationId" [sectionId]="section.sectionId"
+                        [lSectionGroups]="section.lschedules" (outSegmentCheck)="setSegmentCheck($event)" *ngFor="let segment of section.lschedules; let i=index"></app-recomendacion-segment>
                 </div>
 
                 <!--

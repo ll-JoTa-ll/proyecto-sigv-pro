@@ -13,14 +13,14 @@
                 </div>
 
                 <div class="col-3 m-0 p-0 pt-3 g-text-airlane d-flex justify-content-center align-items-center">
-                    {{segmentGroup.carrierName}}
+                    {{segmentGroup.ocarrier.carrierName}}
                 </div>
 
                 <div class="col-5 m-0 p-0 pt-3 text-center g-text-2 d-flex justify-content-center align-items-center">
 
                     <div class="row">
                         <div class="col-12 m-0 p-0">
-                            Vuelo {{segmentGroup.flightOrtrainNumber}}
+                            Vuelo {{segmentGroup.ocarrier.flightNumber}}
                         </div>
                         <div class="col-12 m-0 p-0">
                             Tipo de avión - {{segmentGroup.equipmentType}}
@@ -52,19 +52,19 @@
                                 </div>
 
                                 <div class="col-12 m-0 p-0 text-center g-text-3">
-                                    {{segmentGroup.timeOfDepartureShow}}
+                                    {{segmentGroup.departureTimeShow}}
                                 </div>
 
                                 <div class="col-12 m-0 p-0 text-center g-text-4">
-                                    {{segmentGroup.origin}}
+                                    {{segmentGroup.oorigin.iataCode}}
                                 </div>
 
                                 <div class="col-12 m-0 p-0 text-center g-text-6">
-                                    {{segmentGroup.cityOrigin}}
+                                    {{segmentGroup.oorigin.cityName}}
                                 </div>
 
                                 <div class="col-12 m-0 p-0 pt-2 text-center g-text-6">
-                                    {{segmentGroup.airportOrigin}}
+                                    {{segmentGroup.oorigin.airportName}}
                                 </div>
 
                             </div>
@@ -103,13 +103,13 @@
 
                                     <div class="row m-0 p-0 pt-2">
                                         <div class="col-12 m-0 p-0 g-text-6">
-                                            Cabina: {{sectionGroup.cabinDescription}} - {{sectionGroup.classId}}
+                                            Cabina: {{segmentGroup.cabinDescription}} - {{segmentGroup.classId}}
                                         </div>
                                     </div>
 
                                     <div class="row m-0 p-0 pt-2">
                                         <div class="col-12 m-0 p-0 g-text-6">
-                                            Disponibilidad: {{sectionGroup.avlStatus}}
+                                            Disponibilidad: {{segmentGroup.avlStatus}}
                                         </div>
                                     </div>
                                 </div>
@@ -130,19 +130,19 @@
                                 </div>
 
                                 <div class="col-12 m-0 p-0 text-center g-text-3">
-                                    {{segmentGroup.timeOfArrivalShow}}
+                                    {{segmentGroup.arrivalTimeShow}}
                                 </div>
 
                                 <div class="col-12 m-0 p-0 text-center g-text-4">
-                                    {{segmentGroup.destination}}
+                                    {{segmentGroup.odestination.iataCode}}
                                 </div>
 
                                 <div class="col-12 m-0 p-0 text-center g-text-6">
-                                    {{segmentGroup.cityDestination}}
+                                    {{segmentGroup.odestination.cityName}}
                                 </div>
 
                                 <div class="col-12 m-0 p-0 pt-2 text-center g-text-6">
-                                    {{segmentGroup.airportDestination}}
+                                    {{segmentGroup.odestination.airportName}}
                                 </div>
 
                             </div>
