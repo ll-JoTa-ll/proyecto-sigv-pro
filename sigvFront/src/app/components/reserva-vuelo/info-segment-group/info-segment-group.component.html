@@ -11,29 +11,29 @@
                 <span [ngClass]="{
                     'text-airlane': tipo == 1,
                     'text-airlane-2': tipo == 2
-                }">Aerolinea Operadores: {{segmentGroup.CarrierName}} </span>
+                }">Aerolinea Operadores: {{segmentGroup.ocarrier.carrierName}} </span>
             </div>
             <div *ngIf="tipo==1" class="col-6 m-0 p-0 text-center">
                 <div class="row m-0 p-0 text-plane">
                     <div class="col-12 m-0 p-0">
-                        Vuelo {{segmentGroup.FlightOrtrainNumber}}
+                        Vuelo {{segmentGroup.flightNumber}}
                     </div>
                     <div class="col-12 m-0 p-0">
-                        Tipo de avión - {{segmentGroup.EquipmentType}}
+                        Tipo de avión - {{segmentGroup.equipmentType}}
                     </div>
                 </div>
             </div>
 
             <div *ngIf="tipo==2" class="col-12 m-0 p-0 text-center text-airlane-2">
-                Aerolinea Operadores: {{segmentGroup.CarrierName}}
+                Aerolinea Operadores: {{segmentGroup.ocarrier.carrierName}}
             </div>
             <div *ngIf="tipo==2" class="col-12 m-0 p-0 text-center text-plane">
                 <div class="row m-0 p-0">
                     <div class="col-12 m-0 p-0">
-                        Vuelo {{segmentGroup.FlightOrtrainNumber}}
+                        Vuelo {{segmentGroup.flightNumber}}
                     </div>
                     <div class="col-12 m-0 p-0">
-                        Tipo de avión - {{segmentGroup.EquipmentType}}
+                        Tipo de avión - {{segmentGroup.equipmentType}}
                     </div>
                 </div>
             </div>
@@ -44,15 +44,15 @@
     <div class="col-4 m-0 p-0">
         <div class="row m-0 p-0 div-city1 pl-5">
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-1': tipo == 1,
-            'texto1-1': tipo == 2}">{{segmentGroup.DepartureDateShow}}</div>
+            'texto1-1': tipo == 2}">{{segmentGroup.departureDateShow}}</div>
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-2': tipo == 1,
-            'texto2-1': tipo == 2}">{{segmentGroup.TimeOfDepartureShow}}</div>
+            'texto2-1': tipo == 2}">{{segmentGroup.departureTimeShow}}</div>
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-3': tipo == 1,
-            'texto3-1': tipo == 2}">{{segmentGroup.Origin}}</div>
+            'texto3-1': tipo == 2}">{{segmentGroup.oorigin.iataCode}}</div>
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-4': tipo == 1, 
-            'texto4-1': tipo == 2}">{{segmentGroup.CityOrigin}}</div>
+            'texto4-1': tipo == 2}">{{segmentGroup.oorigin.cityName}}</div>
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-5': tipo == 1,
-            'texto5-1': tipo == 2}">{{segmentGroup.AirportOrigin}}</div>
+            'texto5-1': tipo == 2}">{{segmentGroup.oorigin.airportName}}</div>
         </div>
     </div>
     <div class="col-4 m-0 p-0">
@@ -71,7 +71,7 @@
                             </div>
                             <div class="col-12 m-0 p-0" [ngClass]="{'text-timetotal': tipo == 1,
                             'text-timetotal1': tipo == 2}">
-                                {{segmentGroup.TotalFlightTimeShow}}
+                                {{segmentGroup.totalFlightTimeShow}}
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                 <div class="row m-0 p-0">
                     <div class="col-12 m-0 p-0">
                         <span class="pr-2" [ngClass]="{'txt-clase': tipo == 1, 'txt-clase1': tipo == 2}">Clase:</span>
-                        <span [ngClass]="{'txt-desclase': tipo == 1, 'txt-desclase1': tipo == 2}">{{segmentGroup.CabinDescription}} - {{segmentGroup.ClassId}}</span>
+                        <span [ngClass]="{'txt-desclase': tipo == 1, 'txt-desclase1': tipo == 2}">{{segmentGroup.cabinDescription}} - {{segmentGroup.classId}}</span>
                     </div>
                 </div>
             </div>
@@ -91,18 +91,18 @@
     </div>
     <div class="col-4 m-0 p-0">
         <div class="row m-0 p-0 div-city1 pr-5">
-            <div *ngIf="segmentGroup.DateVariation === 0" class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-1': tipo == 1,
-            'texto1-1': tipo == 2}">{{segmentGroup.ArrivalDateShow}}</div>
-            <div *ngIf="segmentGroup.DateVariation > 0" style="color: #ED1C24 !important;" class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-1': tipo == 1,
-            'texto1-1': tipo == 2}"> <span style="padding-right: 5px !important;">(+{{segmentGroup.DateVariation}})</span> {{segmentGroup.ArrivalDateShow}}</div>
+            <div *ngIf="segmentGroup.dateVariation === 0" class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-1': tipo == 1,
+            'texto1-1': tipo == 2}">{{segmentGroup.arrivalDateShow}}</div>
+            <div *ngIf="segmentGroup.dateVariation > 0" style="color: #ED1C24 !important;" class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-1': tipo == 1,
+            'texto1-1': tipo == 2}"> <span style="padding-right: 5px !important;">(+{{segmentGroup.dateVariation}})</span> {{segmentGroup.arrivalDateShow}}</div>
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-2': tipo == 1,
-            'texto2-1': tipo == 2}">{{segmentGroup.TimeOfArrivalShow}}</div>
+            'texto2-1': tipo == 2}">{{segmentGroup.arrivalTimeShow}}</div>
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-3': tipo == 1,
-            'texto3-1': tipo == 2}">{{segmentGroup.Destination}}</div>
+            'texto3-1': tipo == 2}">{{segmentGroup.odestination.iataCode}}</div>
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-4': tipo == 1, 
-            'texto4-1': tipo == 2}">{{segmentGroup.CityDestination}}</div>
+            'texto4-1': tipo == 2}">{{segmentGroup.odestination.cityName}}</div>
             <div class="col-12 m-0 p-0 text-center" [ngClass]="{'texto-5': tipo == 1,
-            'texto5-1': tipo == 2}">{{segmentGroup.AirportDestination}}</div>
+            'texto5-1': tipo == 2}">{{segmentGroup.odestination.airportName}}</div>
         </div>
     </div>
 </div>

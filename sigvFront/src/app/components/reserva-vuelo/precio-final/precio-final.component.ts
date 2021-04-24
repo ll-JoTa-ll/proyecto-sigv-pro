@@ -32,6 +32,7 @@ export class PrecioFinalComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("asdsads" + this.LSection);
   }
 
   openModal(template: TemplateRef<any>) {

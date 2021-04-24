@@ -1553,7 +1553,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         "Lpassengers": lPassengers,
         "CabinType": this.cabina,
         "Scales": this.escala,
-        "TypeSearch": 'V',
+        "TypeSearch": 'C',
         "IncludesBaggage": this.maleta,
         "Origin": origen,
         "Destination": destino,
@@ -1640,7 +1640,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       this.airportService.searchFlight(data).subscribe(
         result => {
           this.flagPseudoRepeat = true;
-          if (result !== null && result.length > 0) {
+          if (result.status === 200 && result.lrecommendations.length > 0) {
             this.fechaSalidaShow = this.salCalendar;
             this.fechaRetornoShow = this.llegCalendar;
             this.calendar = false;
@@ -1649,23 +1649,21 @@ export class VuelosComponent implements OnInit, AfterViewInit {
             this.sessionStorageService.store('ss_dataRequestMini', null);
             //aerolineas
             this.inicioBuscador = true;
-            this.searchData = result;
+            this.searchData = result.lrecommendations;
             this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
-            this.sessionStorageService.store('ss_searchFlight', result);
+            this.sessionStorageService.store('ss_searchFlight', result.lrecommendations);
             this.flagBuscar = true;
             this.flagBuscadorLateral = true;
-            this.setLstAerolineas(result);
-            this.airportService.CalendarShopping(data).subscribe(
-              x => {
-                x.forEach(element => {
-                  element.arrivalDate = element.arrivalDate.substring(0, 10);
-                  element.departureDate = element.departureDate.substring(0, 10);
-                });
-                this.sessionStorageService.store('ss_calendarshopping', x);
-                this.spin = true;
-                this.calendar = true;
-              },
-            )
+            this.setLstAerolineas(result.lrecommendations);
+
+            result.lcalendars.forEach(element => {
+              element.arrivalDate = element.arrivalDate.substring(0, 10);
+              element.departureDate = element.departureDate.substring(0, 10);
+            });
+            this.sessionStorageService.store('ss_calendarshopping', result.lcalendars);
+            this.spin = true;
+            this.calendar = true;
+
           } else {
             this.spin = true;
             this.sessionStorageService.store('ss_searchFlight', null);
@@ -1864,7 +1862,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         "Lpassengers": lPassengers,
         "CabinType": this.cabina,
         "Scales": this.escala,
-        "TypeSearch": 'V',
+        "TypeSearch": 'C',
         "IncludesBaggage": this.maleta,
         "Origin": origen,
         "Destination": destino,
@@ -1968,11 +1966,13 @@ export class VuelosComponent implements OnInit, AfterViewInit {
                 element.departureDate = element.departureDate.substring(0, 10);
               });
               this.sessionStorageService.store('ss_calendarshopping', result.lcalendars);
+              this.sessionStorageService.store('ss_lowcosto', result);
+
               this.salida = false;
 
             }
             //aerolineas
-            this.setLstAerolineas(result);
+            this.setLstAerolineas(result.lrecommendations);
             // this.sendDataToHotelFilters();
           } else {
             this.sessionStorageService.store('ss_searchFlight', null);
@@ -2711,7 +2711,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   setLstAerolineas(searchData) {
     this.aerolineas = [];
     let aerolineas = this.aerolineas;
-    searchData.lrecommendations.forEach(function (reco, indexreco) {
+    searchData.forEach(function (reco, indexreco) {
       if (reco.isVisible === true) {
         if (indexreco === 0) {
           const dataAero = {

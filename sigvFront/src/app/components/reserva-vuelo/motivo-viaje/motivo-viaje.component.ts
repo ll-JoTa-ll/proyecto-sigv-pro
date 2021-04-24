@@ -25,4 +25,8 @@ export class MotivoViajeComponent implements OnInit {
   getValues() {
     return { reason: $('#cbomotivo').val(), valor: $('#reason').val()}
   }
+
+  saveDescription(valor){
+    this.sessionStorageService.store('ss_motivo', valor);
+  }
 }

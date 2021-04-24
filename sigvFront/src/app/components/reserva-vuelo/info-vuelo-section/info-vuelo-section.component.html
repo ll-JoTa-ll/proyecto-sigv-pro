@@ -16,7 +16,7 @@
                                 </div>
                                 <div class="row m-0 p-0">
                                     <div class="col-12 m-0 p-0 text-date">
-                                        {{section.DepartureDateShow}}
+                                        {{section.departureDateShow}}
                                     </div>
                                 </div>
                             </div>
@@ -34,13 +34,13 @@
                         </div>
                         <div class="modal-body m-0 p-0">
 
-                            <app-modal-resumen-vuelo [lstBag]="lstBag" [LSection]="LSection"></app-modal-resumen-vuelo>
+                            <app-modal-resumen-vuelo [sect]="section"  [LSection]="LSection"></app-modal-resumen-vuelo>
                         </div>
                     </ng-template>
                 </div>
             </div>
-            <div *ngIf="section.Lsegments[0].LsegmentGroups[0].fareFamilyName != ''" class="col-12 m-0 p-0 pt-2 pl-3">
-                <span class="nombrefamilia">{{section.Lsegments[0].LsegmentGroups[0].fareFamilyName}}</span>
+            <div *ngIf="section.oschedule.lsegments[0].familyName != ''" class="col-12 m-0 p-0 pt-2 pl-3">
+                <span class="nombrefamilia">{{section.oschedule.lsegments[0].fareFamilyName}}</span>
             </div>
             <div class="col-12 m-0 p-0 pt-4 pl-3 pb-4">
                 <span><img src="./assets/images/airlines/{{marketingcarrier}}" style="width: 73px;"></span>
@@ -50,31 +50,31 @@
                     <div class="col-6 m-0 p-0">
                         <div class="row m-0 p-0">
                             <div class="col-12 text-city">
-                                {{section.Origin}}
+                                {{section.oorigin.iataCode}}
                             </div>
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 text-airport">
-                                {{section.AirportOrigin}}
+                                {{section.oorigin.airportName}}
                             </div>
                         </div>
                     </div>
                     <div class="col-6 m-0 p-0">
                         <div class="row m-0 p-0">
                             <div class="col-12 text-city">
-                                {{section.Destination}}
+                                {{section.odestination.iataCode}}
                             </div>
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-12 text-airport">
-                                {{section.AirportDestination}}
+                                {{section.odestination.airportName}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-12 m-0 p-0">
-                <app-info-vuelo-segment (msjairline)="ObtenerAirline($event)" *ngFor="let segment of section.Lsegments; let i = index" [segment]="segment" [bagAllowed]="lstBag[index].bagAllowed" [bagquantity]="lstBag[index].bagQuantity"></app-info-vuelo-segment>
+                <app-info-vuelo-segment (msjairline)="ObtenerAirline($event)" [lengthSegments]="section.oschedule.lsegments.length" *ngFor="let segment of section.oschedule.lsegments; let i = index" [segment]="segment"></app-info-vuelo-segment>
             </div>
         </div>
     </div>

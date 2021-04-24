@@ -10,7 +10,8 @@ export class VueloSectionComponent implements OnInit {
   @Input() section;
   @Input() tipo;
   lsegment;
-
+  segment = null;
+  
   constructor() { }
 
   ngOnInit() {

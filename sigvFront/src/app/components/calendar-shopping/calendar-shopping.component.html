@@ -138,22 +138,22 @@
                 <div class="rTableHead1">
                   <span style="color: #6A243B;font-weight: 700;">Aerolinea</span>
                 </div>
-                  <div *ngIf="lowCostAll[0].llowCostAirlines[0] != null;else elseTemplate2" class="rTableHead" style="background: #6A243B;color: white;"><span><img style="width: 50px;height: auto;object-fit: contain;margin:0px 7px;" src="./assets/images/airlines/{{lowCostAll[0].llowCostAirlines[0].carrierId}}.png">{{lowCostAll[0].llowCostAirlines[0].carrierName}}</span></div>
-                  <div *ngIf="lowCostAll[0].llowCostAirlines[1] != null;else elseTemplate2" class="rTableHead" style="background: #6A243B;color: white;"><span><img style="width: 50px;height: auto;object-fit: contain;margin:0px 7px;" src="./assets/images/airlines/{{lowCostAll[0].llowCostAirlines[1].carrierId}}.png">{{lowCostAll[0].llowCostAirlines[1].carrierName}}</span></div>
-                  <div *ngIf="lowCostAll[0].llowCostAirlines[2] != null;else elseTemplate2" class="rTableHead" style="background: #6A243B;color: white;"><span><img style="width: 50px;height: auto;object-fit: contain;margin:0px 7px;" src="./assets/images/airlines/{{lowCostAll[0].llowCostAirlines[2].carrierId}}.png">{{lowCostAll[0].llowCostAirlines[2].carrierName}}</span></div>
+                  <div *ngIf="lowCostAll.llowCostAirlines[0] != null;else elseTemplate2" class="rTableHead" style="background: #6A243B;color: white;"><span><img style="width: 50px;height: auto;object-fit: contain;margin:0px 7px;" src="./assets/images/airlines/{{lowCostAll.llowCostAirlines[0].ocarrier.carrierId}}.png">{{lowCostAll.llowCostAirlines[0].carrierName}}</span></div>
+                  <div *ngIf="lowCostAll.llowCostAirlines[1] != null;else elseTemplate2" class="rTableHead" style="background: #6A243B;color: white;"><span><img style="width: 50px;height: auto;object-fit: contain;margin:0px 7px;" src="./assets/images/airlines/{{lowCostAll.llowCostAirlines[1].ocarrier.carrierId}}.png">{{lowCostAll.llowCostAirlines[1].carrierName}}</span></div>
+                  <div *ngIf="lowCostAll.llowCostAirlines[2] != null;else elseTemplate2" class="rTableHead" style="background: #6A243B;color: white;"><span><img style="width: 50px;height: auto;object-fit: contain;margin:0px 7px;" src="./assets/images/airlines/{{lowCostAll.llowCostAirlines[2].ocarrier.carrierId}}.png">{{lowCostAll.llowCostAirlines[2].carrierName}}</span></div>
               </div>
               <div  class="rTableRow">
                   <div class="rTableCell" style="background: #6A243B;color: white;">
                     Vuelo con escalas</div>
-                    <div *ngIf="lowCostAll[0].llowCostAirlines[0] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[0].scales === true" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[0].amount}}</a></div>
-                    <div *ngIf="lowCostAll[0].llowCostAirlines[1] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[1].scales === true" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[1].amount}}</a></div>
-                    <div *ngIf="lowCostAll[0].llowCostAirlines[2] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[2].scales === true" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[2].amount}}</a></div>
+                    <div *ngIf="lowCostAll.llowCostAirlines[0] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll.llowCostAirlines[0].scales === true" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll.llowCostAirlines[0].amount}}</a></div>
+                    <div *ngIf="lowCostAll.llowCostAirlines[1] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll.llowCostAirlines[1].scales === true" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll.llowCostAirlines[1].amount}}</a></div>
+                    <div *ngIf="lowCostAll.llowCostAirlines[2] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll.llowCostAirlines[2].scales === true" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll.llowCostAirlines[2].amount}}</a></div>
               </div>
               <div class="rTableRow">
                 <div class="rTableCell1" style="background: #6A243B;color: white;">Vuelo Directo</div>
-                <div *ngIf="lowCostAll[0].llowCostAirlines[0] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[0].scales === false" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[0].amount}}</a></div>
-                <div *ngIf="lowCostAll[0].llowCostAirlines[1] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[1].scales === false" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[1].amount}}</a></div>
-                <div *ngIf="lowCostAll[0].llowCostAirlines[2] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll[0].llowCostAirlines[2].scales === false" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll[0].llowCostAirlines[2].amount}}</a></div>
+                <div *ngIf="lowCostAll.llowCostAirlines[0] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll.llowCostAirlines[0].scales === false" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll.llowCostAirlines[0].amount}}</a></div>
+                <div *ngIf="lowCostAll.llowCostAirlines[1] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll.llowCostAirlines[1].scales === false" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll.llowCostAirlines[1].amount}}</a></div>
+                <div *ngIf="lowCostAll.llowCostAirlines[2] != null;else elseTemplate1" class="rTableCell1"><a *ngIf="lowCostAll.llowCostAirlines[2].scales === false" class="showPlus" style="color: black;padding: 0px 12px;">{{currency}}{{lowCostAll.llowCostAirlines[2].amount}}</a></div>
               </div>
               </div>
           </div>

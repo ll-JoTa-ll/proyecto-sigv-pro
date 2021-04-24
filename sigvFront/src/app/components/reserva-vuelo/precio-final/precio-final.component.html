@@ -15,19 +15,19 @@
                     </div>
                     <div *ngIf="tipo === 1 || tipo === 2 || tipo === 3" class="col-4 m-0 p-0 text-right pt-3 pr-3 pb-3 right-precio-final">
                         <span tooltip="Vuelo con descuento corporativo."
-                            *ngIf="LSection[0].Lsegments[0].FareType==='RB'" class="pr-4"><img
+                            *ngIf="LSection[0].oschedule.lsegments[0].fareType==='RB'" class="pr-4"><img
                                 src="./assets/images/medalla.svg"></span>
-                        <span tooltip="Vuelo con infracción de políticas." *ngIf="Lpolicies.length > 0"
+                        <span tooltip="Vuelo con infracción de políticas." *ngIf="Lpolicies != null && Lpolicies.length > 0"
                             class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
-                        <span *ngIf="Lpolicies.length === 0" class="circulo-politica1"></span>
+                        <span *ngIf="Lpolicies != null && Lpolicies.length === 0" class="circulo-politica1"></span>
                     </div>
                     <div *ngIf="tipo === 4" class="col-6 m-0 p-0 text-right pt-3 pr-3 pb-3">
                         <span tooltip="Vuelo con descuento corporativo."
                             *ngIf="Litineraries[0].fareType ==='RB' && tipo === 4" class="pr-4"><img
                                 src="./assets/images/medalla.svg"></span>
-                        <span tooltip="Vuelo con infracción de políticas." *ngIf="Lpolicies.length > 0"
+                        <span tooltip="Vuelo con infracción de políticas." *ngIf="Lpolicies != null && Lpolicies.length > 0"
                             class="circulo-politica" (click)="openModal(modalinfraccion)"></span>
-                        <span *ngIf="Lpolicies.length === 0" class="circulo-politica1"></span>
+                        <span *ngIf="Lpolicies != null && Lpolicies.length === 0" class="circulo-politica1"></span>
                     </div>
                     <ng-template #modalinfraccion let-c="close" let-d="dismiss">
                         <div class="modal-header m-0 p-0" style="border: none;">
@@ -65,11 +65,11 @@
                     <div *ngIf="odiscount != null && odiscount.amount != 0" class="col-12 text-right m-0 p-0 pr-5">
                         <span class="text-precio pr-4" style="margin-right: 10px;">Monto de descuento</span>
                         <span class="currency1">{{currency}}</span>
-                        <span class="price1 pl-1">{{odiscount.amount}}</span>
+                        <span class="price1 pl-1">{{odiscount.discountAmount}}</span>
                     </div>
                     <div *ngIf="odiscount != null && odiscount.percentage != 0" class="col-12 text-right m-0 p-0 pr-5">
                         <span class="text-precio pr-4">Porcentaje de descuento</span>
-                        <span class="price1 pl-1">{{odiscount.percentage | formatporcentaje}}</span>
+                        <span class="price1 pl-1">{{odiscount.discountPercentage | formatporcentaje}}</span>
                         <span class="currency1">%</span>
                     </div>
                 </div>

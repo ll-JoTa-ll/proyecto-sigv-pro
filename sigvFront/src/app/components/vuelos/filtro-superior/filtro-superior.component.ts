@@ -51,7 +51,7 @@ export class FiltroSuperiorComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('this.tipoEscala: ' + this.tipoEscala);
+    /* console.log('this.tipoEscala: ' + this.tipoEscala); */
     if (this.tipoEscala === '') {
       this.flagVD = true;
     } else {
@@ -67,18 +67,18 @@ export class FiltroSuperiorComponent implements OnInit {
       this.flagVDactivo = !this.flagVDactivo;
     }
     let searchFlight = this.sessionStorageService.retrieve('ss_searchFlight');
-    console.log('this.flagVDactivo: ' + this.flagVDactivo);
-    console.log('searchFlight: ' + searchFlight);
+    /* console.log('this.flagVDactivo: ' + this.flagVDactivo);
+    console.log('searchFlight: ' + searchFlight); */
     if (this.flagVDactivo === true) {
       searchFlight.forEach(function(recomendacion, index1) {
         const lsections = recomendacion.lsections;
         let sectionCount = 0;
         lsections.forEach(function(section, index2) {
-          const lSegments = section.lsegments;
+          const lSegments = section.lschedules;
           const lSegmentsLength = lSegments.length;
           let segmentCount = 0;
           lSegments.forEach(function(segment, index3) {
-            const lSegmentGroups = segment.lsegmentGroups;
+            const lSegmentGroups = segment.lsegments;
             const nroEscalas = lSegmentGroups.length - 1;
             if (nroEscalas > 0) {
               segment.isVisible = false;
@@ -96,8 +96,8 @@ export class FiltroSuperiorComponent implements OnInit {
       });
       this.searchFilter.emit(searchFlight);
       this.refreshdata.emit(searchFlight);
-      console.log('resultados');
-      console.log(searchFlight);
+     /*  console.log('resultados');
+      console.log(searchFlight); */
     }
     if (this.flagVDactivo === false) {
       /*
@@ -110,7 +110,7 @@ export class FiltroSuperiorComponent implements OnInit {
         const lsections = recomendacion.lsections;
         lsections.forEach(function(section, index2) {
           section.isVisible = true;
-          const lSegments = section.lsegments;
+          const lSegments = section.lschedules;
           lSegments.forEach(function(segment, index3) {
             segment.isVisible = true;
           });
@@ -133,6 +133,7 @@ export class FiltroSuperiorComponent implements OnInit {
     this.filterTurn.emit(data);
     */
     this.spinner.show();
+    let lPassengers: any[] = [];
     if (tipo === 1) {
       this.flagSMactivo = !this.flagSMactivo;
       this.flagSNactivo = false;
@@ -142,19 +143,25 @@ export class FiltroSuperiorComponent implements OnInit {
     this.departureArrivalTimeTo = null;
 
     let dataRequestFlight = this.sessionStorageService.retrieve('ss_dataRequestFlight');
-    console.log('dataRequestFlight: ' + JSON.stringify(dataRequestFlight));
+   /*  console.log('dataRequestFlight: ' + JSON.stringify(dataRequestFlight)); */
+
+ 
+
+
     let data = {
       "Lusers": dataRequestFlight.Lusers,
-      "NumberPassengers": dataRequestFlight.NumberPassengers,
-      "NumberRecommendations": dataRequestFlight.NumberRecommendations,
+      "Lpassengers": dataRequestFlight.Lpassengers,
       "CabinType": dataRequestFlight.CabinType,
       "Scales": dataRequestFlight.Scales,
+      "TypeSearch": 'C',
+      "IncludesBaggage": dataRequestFlight.IncludesBaggage,
       "Origin": dataRequestFlight.Origin,
       "Destination": dataRequestFlight.Destination,
       "DepartureArrivalDate": dataRequestFlight.DepartureArrivalDate,
       "DepartureArrivalTimeFrom": dataRequestFlight.DepartureArrivalTimeFrom,
       "DepartureArrivalTimeTo": dataRequestFlight.DepartureArrivalTimeTo,
-      "Ocompany": dataRequestFlight.Ocompany
+      "Ocompany": dataRequestFlight.Ocompany,
+      "Oagency": dataRequestFlight.Oagency
     };
 
     /*
@@ -166,7 +173,7 @@ export class FiltroSuperiorComponent implements OnInit {
     this.departureArrivalTimeTo = departureArrivalTimeTo;
     */
 
-    console.log('this.flagSMactivo: ' + this.flagSMactivo);
+    /* console.log('this.flagSMactivo: ' + this.flagSMactivo); */
     if (this.flagSMactivo === true) {
       //console.log('ss_horasFrom: ' + this.ss_horasFrom);
       //console.log('ss_horasTo: ' + this.ss_horasTo);
@@ -187,8 +194,8 @@ export class FiltroSuperiorComponent implements OnInit {
     } else {
       const ss_horasFrom = this.sessionStorageService.retrieve('ss_horasFrom');
       const ss_horasTo = this.sessionStorageService.retrieve('ss_horasTo');
-      console.log('ss_horasFrom: ' + JSON.stringify(ss_horasFrom));
-      console.log('ss_horasTo: ' + JSON.stringify(ss_horasTo));
+      /* console.log('ss_horasFrom: ' + JSON.stringify(ss_horasFrom));
+      console.log('ss_horasTo: ' + JSON.stringify(ss_horasTo)); */
       data.DepartureArrivalTimeFrom = ss_horasFrom;
       data.DepartureArrivalTimeTo = ss_horasTo;
 
@@ -201,23 +208,23 @@ export class FiltroSuperiorComponent implements OnInit {
       data.DepartureArrivalTimeTo = departureArrivalTimeTo_;
     }
 
-    console.log('dataRequestFlight: ' + JSON.stringify(data));
+    /* console.log('dataRequestFlight: ' + JSON.stringify(data)); */
 
     this.airportService.searchFlight(data).subscribe(
       result => {
-        console.log(result);
-        this.sessionStorageService.store('ss_searchFlight', result);
+        /* console.log(result); */
+        this.sessionStorageService.store('ss_searchFlight', result.lrecommendations);
         //this.searchFilter.emit(result);
       },
       err => {
         this.spinner.hide();
-        console.log("ERROR dataRequestFlight: " + err);
+        /* console.log("ERROR dataRequestFlight: " + err); */
       },
       () => {
         //this.spinner.hide();
         dataRequestFlight = null;
         this.selDirectos(2);
-        console.log("this.airportService.searchFlight dataRequestFlight completado");
+        /* console.log("this.airportService.searchFlight dataRequestFlight completado"); */
       }
     );
   }
@@ -243,19 +250,21 @@ export class FiltroSuperiorComponent implements OnInit {
     this.departureArrivalTimeTo = null;
 
     let dataRequestFlight = this.sessionStorageService.retrieve('ss_dataRequestFlight');
-    console.log('dataRequestFlight: ' + JSON.stringify(dataRequestFlight));
+    /* console.log('dataRequestFlight: ' + JSON.stringify(dataRequestFlight)); */
     let data = {
       "Lusers": dataRequestFlight.Lusers,
-      "NumberPassengers": dataRequestFlight.NumberPassengers,
-      "NumberRecommendations": dataRequestFlight.NumberRecommendations,
+      "Lpassengers": dataRequestFlight.Lpassengers,
       "CabinType": dataRequestFlight.CabinType,
       "Scales": dataRequestFlight.Scales,
+      "TypeSearch": 'C',
+      "IncludesBaggage": dataRequestFlight.IncludesBaggage,
       "Origin": dataRequestFlight.Origin,
       "Destination": dataRequestFlight.Destination,
       "DepartureArrivalDate": dataRequestFlight.DepartureArrivalDate,
       "DepartureArrivalTimeFrom": dataRequestFlight.DepartureArrivalTimeFrom,
       "DepartureArrivalTimeTo": dataRequestFlight.DepartureArrivalTimeTo,
-      "Ocompany": dataRequestFlight.Ocompany
+      "Ocompany": dataRequestFlight.Ocompany,
+      "Oagency": dataRequestFlight.Oagency
     };
 
     /*
@@ -267,7 +276,7 @@ export class FiltroSuperiorComponent implements OnInit {
     this.departureArrivalTimeTo = departureArrivalTimeTo;
     */
 
-    console.log('this.flagSNactivo: ' + this.flagSNactivo);
+    /* console.log('this.flagSNactivo: ' + this.flagSNactivo); */
     if (this.flagSNactivo === true) {
       //console.log('ss_horasFrom: ' + this.ss_horasFrom);
       //console.log('ss_horasTo: ' + this.ss_horasTo);
@@ -289,8 +298,8 @@ export class FiltroSuperiorComponent implements OnInit {
 
       const ss_horasFrom = this.sessionStorageService.retrieve('ss_horasFrom');
       const ss_horasTo = this.sessionStorageService.retrieve('ss_horasTo');
-      console.log('ss_horasFrom: ' + JSON.stringify(ss_horasFrom));
-      console.log('ss_horasTo: ' + JSON.stringify(ss_horasTo));
+      /* console.log('ss_horasFrom: ' + JSON.stringify(ss_horasFrom));
+      console.log('ss_horasTo: ' + JSON.stringify(ss_horasTo)); */
       data.DepartureArrivalTimeFrom = ss_horasFrom;
       data.DepartureArrivalTimeTo = ss_horasTo;
 
@@ -303,23 +312,23 @@ export class FiltroSuperiorComponent implements OnInit {
       data.DepartureArrivalTimeTo = departureArrivalTimeTo_;
     }
 
-    console.log('dataRequestFlight: ' + JSON.stringify(data));
+    /* console.log('dataRequestFlight: ' + JSON.stringify(data)); */
 
     this.airportService.searchFlight(data).subscribe(
       result => {
-        console.log(result);
-        this.sessionStorageService.store('ss_searchFlight', result);
+        /* console.log(result); */
+        this.sessionStorageService.store('ss_searchFlight', result.lrecommendations);
         //this.searchFilter.emit(result);
       },
       err => {
         this.spinner.hide();
-        console.log("ERROR dataRequestFlight: " + err);
+        /* console.log("ERROR dataRequestFlight: " + err); */
       },
       () => {
         //this.spinner.hide();
         dataRequestFlight = null;
         this.selDirectos(2);
-        console.log("this.airportService.searchFlight dataRequestFlight completado");
+        /* console.log("this.airportService.searchFlight dataRequestFlight completado"); */
       }
     );
   }

@@ -66,16 +66,8 @@ export class ReservaGeneradaComponent implements OnInit, AfterViewInit {
     let recorte;
     let fecha;
     let hora;
-    data = this.lspnrresults.timeLimit;
-    recorte = data.split("T");
-    fecha = recorte[0];
-    var date = new Date(fecha);
-    hora =  recorte[1];
-    recorte = fecha.split("-");
-    fecha = (recorte[2] + " " + date.toLocaleString('default', { month: 'short' }) + " del " + recorte[0]);
-    hora = hora.substr(0,5);
-    this.fechatimelimit = fecha;
-    this.horatimelimit = hora;
+    data = this.lspnrresults.timeLimitShow;
+    this.fechatimelimit = data;
   }
 
   bloquearBotonAtras() {

@@ -21,9 +21,9 @@ textFlightTimeShow: string;
     if (this.lSegmentGroupsLength === this.lSegmentGroupsIndex) {
       this.textFlightTimeShow = "Duración total: " + this.totalFlightTimeShow;
     } else {
-      this.textFlightTimeShow = "Espera en aeropuerto: " + this.segmentGroup.TimeWaitAirport.replace("00d ", "");
+      this.textFlightTimeShow = "Espera en aeropuerto: " + this.segmentGroup.timeWaitAirport.replace("00d ", "");
     }
-    this.marketingCarrier = this.segmentGroup.MarketingCarrier + '.png';
+    this.marketingCarrier = this.segmentGroup.ocarrier.carrierId + '.png';
   }
 
 }

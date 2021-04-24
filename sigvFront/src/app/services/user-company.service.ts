@@ -84,15 +84,15 @@ export class UserCompanyService {
     return this.http.get<IPersonId[]>(url, httpOptions2);
   }
 
-  getDocument(): Observable<IDocumentType[]> {
+  getDocument(): Observable<any> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    const url = `${this.url_document + 'GetDocumentType'}`;
-    return this.http.get<IDocumentType[]>(url, httpOptions2);
+    const url = `${this.url_document + 'GetDocumentTypeList?isAdministrator=false'}`;
+    return this.http.get<any>(url, httpOptions2);
   }
 
   getCostCenterCompany(data): Observable<ICostCenterCompany[]> {

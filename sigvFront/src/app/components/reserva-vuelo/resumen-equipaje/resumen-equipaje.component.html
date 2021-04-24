@@ -18,30 +18,30 @@
         </div>
             <div class="col-12 m-0 p-0 pb-2">
                 <div class="row m-0 p-0">
-                    <div *ngIf="Lsection[0].BagAllowed === true" class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
+                    <div *ngIf="Lsection[0].oschedule.lsegments[0].obaggage.bagAllowed === true" class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
                         Maleta en cabina
                     </div>
-                    <div *ngIf="Lsection[0].BagAllowed === true" class="col-6 m-0 p-0 text-center">
+                    <div *ngIf="Lsection[0].oschedule.lsegments[0].obaggage.bagAllowed === true" class="col-6 m-0 p-0 text-center">
                         <img style="width: 33px;" class="img-bag" src="assets/images/bolsodemano-1.svg" alt="">
                     </div>
-                    <div *ngIf="Lsection[0].BagAllowed === false" class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
+                    <div *ngIf="Lsection[0].oschedule.lsegments[0].obaggage.bagAllowed === false" class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
                       No incluye maleta en cabina
                   </div>
-                  <div *ngIf="Lsection[0].BagAllowed === false" class="col-6 m-0 p-0 text-center">
+                  <div *ngIf="Lsection[0].oschedule.lsegments[0].obaggage.bagAllowed === false" class="col-6 m-0 p-0 text-center">
                       <img style="width: 33px;filter: grayscale(1);" class="img-bag" src="assets/images/accessory.svg" alt="">
                   </div>
                 </div>
             </div>
             <div class="col-12 m-0 p-0">
-                <div *ngIf="Lsection[0].BagAllowed === true" class="row m-0 p-0">
+                <div *ngIf="Lsection[0].oschedule.lsegments[0].obaggage.bagAllowed === true" class="row m-0 p-0">
                     <div class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
-                        Permite {{Lsection[0].BagQuantity}} maleta(s)
+                        Permite {{Lsection[0].oschedule.lsegments[0].obaggage.bagQuantity}} maleta(s)
                     </div>
                     <div class="col-6 m-0 p-0 text-center">
                         <img style="width: 33px;" class="img-bag" src="assets/images/maleta-si.svg" alt="">
                     </div>
                 </div>
-                <div *ngIf="Lsection[0].BagAllowed === false" class="row m-0 p-0">
+                <div *ngIf="Lsection[0].oschedule.lsegments[0].obaggage.bagAllowed === false" class="row m-0 p-0">
                     <div class="col-6 m-0 p-0 txt-bag pl-5 d-flex justify-content-center align-items-center">
                         No permite maleta
                     </div>

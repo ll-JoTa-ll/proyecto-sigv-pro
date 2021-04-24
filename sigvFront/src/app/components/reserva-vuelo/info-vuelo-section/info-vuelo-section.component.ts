@@ -29,6 +29,7 @@ export class InfoVueloSectionComponent implements OnInit {
   constructor(private modalService: BsModalService) { }
 
   ngOnInit() {
+    console.log("adsasdd"+ this.section);
     if (this.sectionLength === 1) {
       this.textType = 'Ida';
       this.imgIdaVuelta = 'airplane_ida.svg';

@@ -452,9 +452,9 @@ export class CalendarShoppingComponent implements OnInit , AfterViewInit {
 
   ngOnInit() {
     console.log(this.salida);
-    this.lowCostAll = this.sessionStorageService.retrieve('ss_searchflight');
-    this.lowCost = this.sessionStorageService.retrieve('ss_searchflight');
-    this.lowCost = this.lowCost[0].llowCostAirlines;
+    this.lowCostAll = this.sessionStorageService.retrieve('ss_lowcosto');
+    this.lowCost = this.sessionStorageService.retrieve('ss_lowcosto');
+    this.lowCost = this.lowCost.llowCostAirlines;
     this.spinner = this.sessionStorageService.retrieve('ss_spinner');
     this.buscador = this.sessionStorageService.retrieve('ss_databuscador');
     this.buscadormini = this.sessionStorageService.retrieve('ss_dataRequestMini');
@@ -590,56 +590,56 @@ export class CalendarShoppingComponent implements OnInit , AfterViewInit {
         this.listCheap.cheap1 = element.flightCheap;
         this.listSalida.salida1 = element.departureDate;
         this.listLlegada.llegada1 = element.arrivalDate;
-        this.listCarrier.carrier1 = element.carrierId;
-        this.list.price1 = element.totalFareAmount;
+        this.listCarrier.carrier1 = element.ocarrier.carrierId;
+        this.list.price1 = element.totalAmount;
       }
       if (this.b === element.horizontalDate && this.h === element.verticalDate) {
         this.listFare.fare2 = element.fareType;
         this.listCheap.cheap2 = element.flightCheap;
         this.listSalida.salida2 = element.departureDate;
         this.listLlegada.llegada2 = element.arrivalDate;
-        this.listCarrier.carrier2 = element.carrierId;
-        this.list.price2 = element.totalFareAmount;
+        this.listCarrier.carrier2 = element.ocarrier.carrierId;
+        this.list.price2 = element.totalAmount;
       }
       if (this.g === element.horizontalDate && this.h === element.verticalDate) {
         this.listFare.fare3 = element.fareType;
         this.listCheap.cheap3 = element.flightCheap;
         this.listSalida.salida3 = element.departureDate;
         this.listLlegada.llegada3 = element.arrivalDate;
-        this.listCarrier.carrier3 = element.carrierId;
-        this.list.price3 = element.totalFareAmount;
+        this.listCarrier.carrier3 = element.ocarrier.carrierId;
+        this.list.price3 = element.totalAmount;
       }
       if (this.c === element.horizontalDate && this.h === element.verticalDate) {
         this.listFare.fare4 = element.fareType;
         this.listCheap.cheap4 = element.flightCheap;
         this.listSalida.salida4 = element.departureDate;
         this.listLlegada.llegada4 = element.arrivalDate;
-        this.listCarrier.carrier4 = element.carrierId;
-        this.list.price4 = element.totalFareAmount;
+        this.listCarrier.carrier4 = element.ocarrier.carrierId;
+        this.list.price4 = element.totalAmount;
       }
       if (this.d === element.horizontalDate && this.h === element.verticalDate) {
         this.listFare.fare5 = element.fareType;
         this.listCheap.cheap5 = element.flightCheap;
         this.listSalida.salida5 = element.departureDate;
         this.listLlegada.llegada5 = element.arrivalDate;
-        this.listCarrier.carrier5 = element.carrierId;
-        this.list.price5 = element.totalFareAmount;
+        this.listCarrier.carrier5 = element.ocarrier.carrierId;
+        this.list.price5 = element.totalAmount;
       }
       if (this.e === element.horizontalDate && this.h === element.verticalDate) {
         this.listFare.fare6 = element.fareType;
         this.listCheap.cheap6 = element.flightCheap;
         this.listSalida.salida6 = element.departureDate;
         this.listLlegada.llegada6 = element.arrivalDate;
-        this.listCarrier.carrier6 = element.carrierId;
-        this.list.price6 = element.totalFareAmount;
+        this.listCarrier.carrier6 = element.ocarrier.carrierId;
+        this.list.price6 = element.totalAmount;
       }
       if (this.f === element.horizontalDate && this.h === element.verticalDate) {
         this.listFare.fare7 = element.fareType;
         this.listCheap.cheap7 = element.flightCheap;
         this.listSalida.salida7 = element.departureDate;
         this.listLlegada.llegada7 = element.arrivalDate;
-        this.listCarrier.carrier7 = element.carrierId;
-        this.list.price7 = element.totalFareAmount;
+        this.listCarrier.carrier7 = element.ocarrier.carrierId;
+        this.list.price7 = element.totalAmount;
       }
     });
     this.calendar.forEach(element => {
@@ -648,56 +648,56 @@ export class CalendarShoppingComponent implements OnInit , AfterViewInit {
         this.listCheap2.cheap1 = element.flightCheap;
         this.listSalida2.salida1 = element.departureDate;
         this.listLlegada2.llegada1 = element.arrivalDate;
-        this.listCarrier2.carrier1 = element.carrierId;
-        this.list2.price1 = element.totalFareAmount;
+        this.listCarrier2.carrier1 = element.ocarrier.carrierId;
+        this.list2.price1 = element.totalAmount;
       }
       if (this.b === element.horizontalDate && this.i === element.verticalDate) {
         this.listFare2.fare2 = element.fareType;
         this.listCheap2.cheap2 = element.flightCheap;
         this.listSalida2.salida2 = element.departureDate;
         this.listLlegada2.llegada2 = element.arrivalDate;
-        this.listCarrier2.carrier2 = element.carrierId;
-        this.list2.price2 = element.totalFareAmount;
+        this.listCarrier2.carrier2 = element.ocarrier.carrierId;
+        this.list2.price2 = element.totalAmount;
       }
       if (this.g === element.horizontalDate && this.i === element.verticalDate) {
         this.listFare2.fare3 = element.fareType;
         this.listCheap2.cheap3 = element.flightCheap;
         this.listSalida2.salida3 = element.departureDate;
         this.listLlegada2.llegada3 = element.arrivalDate;
-        this.listCarrier2.carrier3 = element.carrierId;
-        this.list2.price3 = element.totalFareAmount;
+        this.listCarrier2.carrier3 = element.ocarrier.carrierId;
+        this.list2.price3 = element.totalAmount;
       }
       if (this.c === element.horizontalDate && this.i === element.verticalDate) {
         this.listFare2.fare4 = element.fareType;
         this.listCheap2.cheap4 = element.flightCheap;
         this.listSalida2.salida4 = element.departureDate;
         this.listLlegada2.llegada4 = element.arrivalDate;
-        this.listCarrier2.carrier4 = element.carrierId;
-        this.list2.price4 = element.totalFareAmount;
+        this.listCarrier2.carrier4 = element.ocarrier.carrierId;
+        this.list2.price4 = element.totalAmount;
       }
       if (this.d === element.horizontalDate && this.i === element.verticalDate) {
         this.listFare2.fare5 = element.fareType;
         this.listCheap2.cheap5 = element.flightCheap;
         this.listSalida2.salida5 = element.departureDate;
         this.listLlegada2.llegada5 = element.arrivalDate;
-        this.listCarrier2.carrier5 = element.carrierId;
-        this.list2.price5 = element.totalFareAmount;
+        this.listCarrier2.carrier5 = element.ocarrier.carrierId;
+        this.list2.price5 = element.totalAmount;
       }
       if (this.e === element.horizontalDate && this.i === element.verticalDate) {
         this.listFare2.fare6 = element.fareType;
         this.listCheap2.cheap6 = element.flightCheap;
         this.listSalida2.salida6 = element.departureDate;
         this.listLlegada2.llegada6 = element.arrivalDate;
-        this.listCarrier2.carrier6 = element.carrierId;
-        this.list2.price6 = element.totalFareAmount;
+        this.listCarrier2.carrier6 = element.ocarrier.carrierId;
+        this.list2.price6 = element.totalAmount;
       }
       if (this.f === element.horizontalDate && this.i === element.verticalDate) {
         this.listFare2.fare7 = element.fareType;
         this.listCheap2.cheap7 = element.flightCheap;
         this.listSalida2.salida7 = element.departureDate;
         this.listLlegada2.llegada7 = element.arrivalDate;
-        this.listCarrier2.carrier7 = element.carrierId;
-        this.list2.price7 = element.totalFareAmount;
+        this.listCarrier2.carrier7 = element.ocarrier.carrierId;
+        this.list2.price7 = element.totalAmount;
       }
     });
     this.calendar.forEach(element => {
@@ -706,56 +706,56 @@ export class CalendarShoppingComponent implements OnInit , AfterViewInit {
         this.listCheap3.cheap1 = element.flightCheap;
         this.listSalida3.salida1 = element.departureDate;
         this.listLlegada3.llegada1 = element.arrivalDate;
-        this.listCarrier3.carrier1 = element.carrierId;
-        this.list3.price1 = element.totalFareAmount;
+        this.listCarrier3.carrier1 = element.ocarrier.carrierId;
+        this.list3.price1 = element.totalAmount;
       }
       if (this.b === element.horizontalDate && this.n === element.verticalDate) {
         this.listFare3.fare2 = element.fareType;
         this.listCheap3.cheap2 = element.flightCheap;
         this.listSalida3.salida2 = element.departureDate;
         this.listLlegada3.llegada2 = element.arrivalDate;
-        this.listCarrier3.carrier2 = element.carrierId;
-        this.list3.price2 = element.totalFareAmount;
+        this.listCarrier3.carrier2 = element.ocarrier.carrierId;
+        this.list3.price2 = element.totalAmount;
       }
       if (this.g === element.horizontalDate && this.n === element.verticalDate) {
         this.listFare3.fare3 = element.fareType;
         this.listCheap3.cheap3 = element.flightCheap;
         this.listSalida3.salida3 = element.departureDate;
         this.listLlegada3.llegada3 = element.arrivalDate;
-        this.listCarrier3.carrier3 = element.carrierId;
-        this.list3.price3 = element.totalFareAmount;
+        this.listCarrier3.carrier3 = element.ocarrier.carrierId;
+        this.list3.price3 = element.totalAmount;
       }
       if (this.c === element.horizontalDate && this.n === element.verticalDate) {
         this.listFare3.fare4 = element.fareType;
         this.listCheap3.cheap4 = element.flightCheap;
         this.listSalida3.salida4 = element.departureDate;
         this.listLlegada3.llegada4 = element.arrivalDate;
-        this.listCarrier3.carrier4 = element.carrierId;
-        this.list3.price4 = element.totalFareAmount;
+        this.listCarrier3.carrier4 = element.ocarrier.carrierId;
+        this.list3.price4 = element.totalAmount;
       }
       if (this.d === element.horizontalDate && this.n === element.verticalDate) {
         this.listFare3.fare5 = element.fareType;
         this.listCheap3.cheap5 = element.flightCheap;
         this.listSalida3.salida5 = element.departureDate;
         this.listLlegada3.llegada5 = element.arrivalDate;
-        this.listCarrier3.carrier5 = element.carrierId;
-        this.list3.price5 = element.totalFareAmount;
+        this.listCarrier3.carrier5 = element.ocarrier.carrierId;
+        this.list3.price5 = element.totalAmount;
       }
       if (this.e === element.horizontalDate && this.n === element.verticalDate) {
         this.listFare3.fare6 = element.fareType;
         this.listCheap3.cheap6 = element.flightCheap;
         this.listSalida3.salida6 = element.departureDate;
         this.listLlegada3.llegada6 = element.arrivalDate;
-        this.listCarrier3.carrier6 = element.carrierId;
-        this.list3.price6 = element.totalFareAmount;
+        this.listCarrier3.carrier6 = element.ocarrier.carrierId;
+        this.list3.price6 = element.totalAmount;
       }
       if (this.f === element.horizontalDate && this.n === element.verticalDate) {
         this.listFare3.fare7 = element.fareType;
         this.listCheap3.cheap7 = element.flightCheap;
         this.listSalida3.salida7 = element.departureDate;
         this.listLlegada3.llegada7 = element.arrivalDate;
-        this.listCarrier3.carrier7 = element.carrierId;
-        this.list3.price7 = element.totalFareAmount;
+        this.listCarrier3.carrier7 = element.ocarrier.carrierId;
+        this.list3.price7 = element.totalAmount;
       }
     });
     this.calendar.forEach(element => {
@@ -764,56 +764,56 @@ export class CalendarShoppingComponent implements OnInit , AfterViewInit {
         this.listCheap4.cheap1 = element.flightCheap;
         this.listSalida4.salida1 = element.departureDate;
         this.listLlegada4.llegada1 = element.arrivalDate;
-        this.listCarrier4.carrier1 = element.carrierId;
-        this.list4.price1 = element.totalFareAmount;
+        this.listCarrier4.carrier1 = element.ocarrier.carrierId;
+        this.list4.price1 = element.totalAmount;
       }
       if (this.b === element.horizontalDate && this.j === element.verticalDate) {
         this.listFare4.fare2 = element.fareType;
         this.listCheap4.cheap2 = element.flightCheap;
         this.listSalida4.salida2 = element.departureDate;
         this.listLlegada4.llegada2 = element.arrivalDate;
-        this.listCarrier4.carrier2 = element.carrierId;
-        this.list4.price2 = element.totalFareAmount;
+        this.listCarrier4.carrier2 = element.ocarrier.carrierId;
+        this.list4.price2 = element.totalAmount;
       }
       if (this.g === element.horizontalDate && this.j === element.verticalDate) {
         this.listFare4.fare3 = element.fareType;
         this.listCheap4.cheap3 = element.flightCheap;
         this.listSalida4.salida3 = element.departureDate;
         this.listLlegada4.llegada3 = element.arrivalDate;
-        this.listCarrier4.carrier3 = element.carrierId;
-        this.list4.price3 = element.totalFareAmount;
+        this.listCarrier4.carrier3 = element.ocarrier.carrierId;
+        this.list4.price3 = element.totalAmount;
       }
       if (this.c === element.horizontalDate && this.j === element.verticalDate) {
         this.listFare4.fare4 = element.fareType;
         this.listCheap4.cheap4 = element.flightCheap;
         this.listSalida4.salida4 = element.departureDate;
         this.listLlegada4.llegada4 = element.arrivalDate;
-        this.listCarrier4.carrier4 = element.carrierId;
-        this.list4.price4 = element.totalFareAmount;
+        this.listCarrier4.carrier4 = element.ocarrier.carrierId;
+        this.list4.price4 = element.totalAmount;
       }
       if (this.d === element.horizontalDate && this.j === element.verticalDate) {
         this.listFare4.fare5 = element.fareType;
         this.listCheap4.cheap5 = element.flightCheap;
         this.listSalida4.salida5 = element.departureDate;
         this.listLlegada4.llegada5 = element.arrivalDate;
-        this.listCarrier4.carrier5 = element.carrierId;
-        this.list4.price5 = element.totalFareAmount;
+        this.listCarrier4.carrier5 = element.ocarrier.carrierId;
+        this.list4.price5 = element.totalAmount;
       }
       if (this.e === element.horizontalDate && this.j === element.verticalDate) {
         this.listFare4.fare6 = element.fareType;
         this.listCheap4.cheap6 = element.flightCheap;
         this.listSalida4.salida6 = element.departureDate;
         this.listLlegada4.llegada6 = element.arrivalDate;
-        this.listCarrier4.carrier6 = element.carrierId;
-        this.list4.price6 = element.totalFareAmount;
+        this.listCarrier4.carrier6 = element.ocarrier.carrierId;
+        this.list4.price6 = element.totalAmount;
       }
       if (this.f === element.horizontalDate && this.j === element.verticalDate) {
         this.listFare4.fare7 = element.fareType;
         this.listCheap4.cheap7 = element.flightCheap;
         this.listSalida4.salida7 = element.departureDate;
         this.listLlegada4.llegada7 = element.arrivalDate;
-        this.listCarrier4.carrier7 = element.carrierId;
-        this.list4.price7 = element.totalFareAmount;
+        this.listCarrier4.carrier7 = element.ocarrier.carrierId;
+        this.list4.price7 = element.totalAmount;
       }
     });
     this.calendar.forEach(element => {
@@ -822,56 +822,56 @@ export class CalendarShoppingComponent implements OnInit , AfterViewInit {
         this.listCheap5.cheap1 = element.flightCheap;
         this.listSalida5.salida1 = element.departureDate;
         this.listLlegada5.llegada1 = element.arrivalDate;
-        this.listCarrier5.carrier1 = element.carrierId;
-        this.list5.price1 = element.totalFareAmount;
+        this.listCarrier5.carrier1 = element.ocarrier.carrierId;
+        this.list5.price1 = element.totalAmount;
       }
       if (this.b === element.horizontalDate && this.k === element.verticalDate) {
         this.listFare5.fare2 = element.fareType;
         this.listCheap5.cheap2 = element.flightCheap;
         this.listSalida5.salida2 = element.departureDate;
         this.listLlegada5.llegada2 = element.arrivalDate;
-        this.listCarrier5.carrier2 = element.carrierId;
-        this.list5.price2 = element.totalFareAmount;
+        this.listCarrier5.carrier2 = element.ocarrier.carrierId;
+        this.list5.price2 = element.totalAmount;
       }
       if (this.g === element.horizontalDate && this.k === element.verticalDate) {
         this.listFare5.fare3 = element.fareType;
         this.listCheap5.cheap3 = element.flightCheap;
         this.listSalida5.salida3 = element.departureDate;
         this.listLlegada5.llegada3 = element.arrivalDate;
-        this.listCarrier5.carrier3 = element.carrierId;
-        this.list5.price3 = element.totalFareAmount;
+        this.listCarrier5.carrier3 = element.ocarrier.carrierId;
+        this.list5.price3 = element.totalAmount;
       }
       if (this.c === element.horizontalDate && this.k === element.verticalDate) {
         this.listFare5.fare4 = element.fareType;
         this.listCheap5.cheap4 = element.flightCheap;
         this.listSalida5.salida4 = element.departureDate;
         this.listLlegada5.llegada4 = element.arrivalDate;
-        this.listCarrier5.carrier4 = element.carrierId;
-        this.list5.price4 = element.totalFareAmount;
+        this.listCarrier5.carrier4 = element.ocarrier.carrierId;
+        this.list5.price4 = element.totalAmount;
       }
       if (this.d === element.horizontalDate && this.k === element.verticalDate) {
         this.listFare5.fare5 = element.fareType;
         this.listCheap5.cheap5 = element.flightCheap;
         this.listSalida5.salida5 = element.departureDate;
         this.listLlegada5.llegada5 = element.arrivalDate;
-        this.listCarrier5.carrier5 = element.carrierId;
-        this.list5.price5 = element.totalFareAmount;
+        this.listCarrier5.carrier5 = element.ocarrier.carrierId;
+        this.list5.price5 = element.totalAmount;
       }
       if (this.e === element.horizontalDate && this.k === element.verticalDate) {
         this.listFare5.fare6 = element.fareType;
         this.listCheap5.cheap6 = element.flightCheap;
         this.listSalida5.salida6 = element.departureDate;
         this.listLlegada5.llegada6 = element.arrivalDate;
-        this.listCarrier5.carrier6 = element.carrierId;
-        this.list5.price6 = element.totalFareAmount;
+        this.listCarrier5.carrier6 = element.ocarrier.carrierId;
+        this.list5.price6 = element.totalAmount;
       }
       if (this.f === element.horizontalDate && this.k === element.verticalDate) {
         this.listFare5.fare7 = element.fareType;
         this.listCheap5.cheap7 = element.flightCheap;
         this.listSalida5.salida7 = element.departureDate;
         this.listLlegada5.llegada7 = element.arrivalDate;
-        this.listCarrier5.carrier7 = element.carrierId;
-        this.list5.price7 = element.totalFareAmount;
+        this.listCarrier5.carrier7 = element.ocarrier.carrierId;
+        this.list5.price7 = element.totalAmount;
       }
     });
     this.calendar.forEach(element => {
@@ -880,56 +880,56 @@ export class CalendarShoppingComponent implements OnInit , AfterViewInit {
         this.listCheap6.cheap1 = element.flightCheap;
         this.listSalida6.salida1 = element.departureDate;
         this.listLlegada6.llegada1 = element.arrivalDate;
-        this.listCarrier6.carrier1 = element.carrierId;
-        this.list6.price1 = element.totalFareAmount;
+        this.listCarrier6.carrier1 = element.ocarrier.carrierId;
+        this.list6.price1 = element.totalAmount;
       }
       if (this.b === element.horizontalDate && this.l === element.verticalDate) {
         this.listFare6.fare2 = element.fareType;
         this.listCheap6.cheap2 = element.flightCheap;
         this.listSalida6.salida2 = element.departureDate;
         this.listLlegada6.llegada2 = element.arrivalDate;
-        this.listCarrier6.carrier2 = element.carrierId;
-        this.list6.price2 = element.totalFareAmount;
+        this.listCarrier6.carrier2 = element.ocarrier.carrierId;
+        this.list6.price2 = element.totalAmount;
       }
       if (this.g === element.horizontalDate && this.l === element.verticalDate) {
         this.listFare6.fare3 = element.fareType;
         this.listCheap6.cheap3 = element.flightCheap;
         this.listSalida6.salida3 = element.departureDate;
         this.listLlegada6.llegada3 = element.arrivalDate;
-        this.listCarrier6.carrier3 = element.carrierId;
-        this.list6.price3 = element.totalFareAmount;
+        this.listCarrier6.carrier3 = element.ocarrier.carrierId;
+        this.list6.price3 = element.totalAmount;
       }
       if (this.c === element.horizontalDate && this.l === element.verticalDate) {
         this.listFare6.fare4 = element.fareType;
         this.listCheap6.cheap4 = element.flightCheap;
         this.listSalida6.salida4 = element.departureDate;
         this.listLlegada6.llegada4 = element.arrivalDate;
-        this.listCarrier6.carrier4 = element.carrierId;
-        this.list6.price4 = element.totalFareAmount;
+        this.listCarrier6.carrier4 = element.ocarrier.carrierId;
+        this.list6.price4 = element.totalAmount;
       }
       if (this.d === element.horizontalDate && this.l === element.verticalDate) {
         this.listFare6.fare5 = element.fareType;
         this.listCheap6.cheap5 = element.flightCheap;
         this.listSalida6.salida5 = element.departureDate;
         this.listLlegada6.llegada5 = element.arrivalDate;
-        this.listCarrier6.carrier5 = element.carrierId;
-        this.list6.price5 = element.totalFareAmount;
+        this.listCarrier6.carrier5 = element.ocarrier.carrierId;
+        this.list6.price5 = element.totalAmount;
       }
       if (this.e === element.horizontalDate && this.l === element.verticalDate) {
         this.listFare6.fare6 = element.fareType;
         this.listCheap6.cheap6 = element.flightCheap;
         this.listSalida6.salida6 = element.departureDate;
         this.listLlegada6.llegada6 = element.arrivalDate;
-        this.listCarrier6.carrier6 = element.carrierId;
-        this.list6.price6 = element.totalFareAmount;
+        this.listCarrier6.carrier6 = element.ocarrier.carrierId;
+        this.list6.price6 = element.totalAmount;
       }
       if (this.f === element.horizontalDate && this.l === element.verticalDate) {
         this.listFare6.fare7 = element.fareType;
         this.listCheap6.cheap7 = element.flightCheap;
         this.listSalida6.salida7 = element.departureDate;
         this.listLlegada6.llegada7 = element.arrivalDate;
-        this.listCarrier6.carrier7 = element.carrierId;
-        this.list6.price7 = element.totalFareAmount;
+        this.listCarrier6.carrier7 = element.ocarrier.carrierId;
+        this.list6.price7 = element.totalAmount;
       }
     });
     this.calendar.forEach(element => {
@@ -938,56 +938,56 @@ export class CalendarShoppingComponent implements OnInit , AfterViewInit {
         this.listCheap7.cheap1 = element.flightCheap;
         this.listSalida7.salida1 = element.departureDate;
         this.listLlegada7.llegada1 = element.arrivalDate;
-        this.listCarrier7.carrier1 = element.carrierId;
-        this.list7.price1 = element.totalFareAmount;
+        this.listCarrier7.carrier1 = element.ocarrier.carrierId;
+        this.list7.price1 = element.totalAmount;
       }
       if (this.b === element.horizontalDate && this.m === element.verticalDate) {
         this.listFare7.fare2 = element.fareType;
         this.listCheap7.cheap2 = element.flightCheap;
         this.listSalida7.salida2 = element.departureDate;
         this.listLlegada7.llegada2 = element.arrivalDate;
-        this.listCarrier7.carrier2 = element.carrierId;
-        this.list7.price2 = element.totalFareAmount;
+        this.listCarrier7.carrier2 = element.ocarrier.carrierId;
+        this.list7.price2 = element.totalAmount;
       }
       if (this.g === element.horizontalDate && this.m === element.verticalDate) {
         this.listFare7.fare3 = element.fareType;
         this.listCheap7.cheap3 = element.flightCheap;
         this.listSalida7.salida3 = element.departureDate;
         this.listLlegada7.llegada3 = element.arrivalDate;
-        this.listCarrier7.carrier3 = element.carrierId;
-        this.list7.price3 = element.totalFareAmount;
+        this.listCarrier7.carrier3 = element.ocarrier.carrierId;
+        this.list7.price3 = element.totalAmount;
       }
       if (this.c === element.horizontalDate && this.m === element.verticalDate) {
         this.listFare7.fare4 = element.fareType;
         this.listCheap7.cheap4 = element.flightCheap;
         this.listSalida7.salida4 = element.departureDate;
         this.listLlegada7.llegada4 = element.arrivalDate;
-        this.listCarrier7.carrier4 = element.carrierId;
-        this.list7.price4 = element.totalFareAmount;
+        this.listCarrier7.carrier4 = element.ocarrier.carrierId;
+        this.list7.price4 = element.totalAmount;
       }
       if (this.d === element.horizontalDate && this.m === element.verticalDate) {
         this.listFare7.fare5 = element.fareType;
         this.listCheap7.cheap5 = element.flightCheap;
         this.listSalida7.salida5 = element.departureDate;
         this.listLlegada7.llegada5 = element.arrivalDate;
-        this.listCarrier7.carrier5 = element.carrierId;
-        this.list7.price5 = element.totalFareAmount;
+        this.listCarrier7.carrier5 = element.ocarrier.carrierId;
+        this.list7.price5 = element.totalAmount;
       }
       if (this.e === element.horizontalDate && this.m === element.verticalDate) {
         this.listFare7.fare6 = element.fareType;
         this.listCheap7.cheap6 = element.flightCheap;
         this.listSalida7.salida6 = element.departureDate;
         this.listLlegada7.llegada6 = element.arrivalDate;
-        this.listCarrier7.carrier6 = element.carrierId;
-        this.list7.price6 = element.totalFareAmount;
+        this.listCarrier7.carrier6 = element.ocarrier.carrierId;
+        this.list7.price6 = element.totalAmount;
       }
       if (this.f === element.horizontalDate && this.m === element.verticalDate) {
         this.listFare7.fare7 = element.fareType;
         this.listCheap7.cheap7 = element.flightCheap;
         this.listSalida7.salida7 = element.departureDate;
         this.listLlegada7.llegada7 = element.arrivalDate;
-        this.listCarrier7.carrier7 = element.carrierId;
-        this.list7.price7 = element.totalFareAmount;
+        this.listCarrier7.carrier7 = element.ocarrier.carrierId;
+        this.list7.price7 = element.totalAmount;
       }
     });
   }

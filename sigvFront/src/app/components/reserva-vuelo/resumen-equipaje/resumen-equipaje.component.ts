@@ -12,6 +12,7 @@ export class ResumenEquipajeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("adsda" + this.Lsection);
   }
 
 }

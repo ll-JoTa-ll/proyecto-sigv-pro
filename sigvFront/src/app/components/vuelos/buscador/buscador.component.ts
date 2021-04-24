@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, AfterViewInit} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ILoginDatosModel } from '../../../models/ILoginDatos.model';
@@ -100,7 +100,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   airportlist: any[] = [];
   citylist: any[] = [];
   airportlistFilter: any[] = [];
-  loginDataUser: ILoginDatosModel;
+  loginDataUser: any;
   searchData: ISearchFlightModel[] = [];
   keyword = 'name';
   data: any[] = [];
@@ -193,7 +193,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       };
       lstAutocomplete.push(obj1);
     });
-    lstAutocomplete.sort((a, b) => b.priority - a.priority );
+    lstAutocomplete.sort((a, b) => b.priority - a.priority);
     this.lstAutocomplete = lstAutocomplete;
     this.minDateSalida = new Date();
   }
@@ -277,7 +277,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.origentTexto = item.name;
       this.origenText = item.name;
       $("#txtOrigen").removeClass("campo-invalido");
-     // $(".x").show();
+      // $(".x").show();
       this.origenAuto1 = this.origenAuto;
       this.origentTexto1 = this.origenText;
       this.origenValue = this.origenAuto;
@@ -288,7 +288,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.destinoTexto = item.name;
       this.destinoText = item.name;
       $("#txtDestino").removeClass("campo-invalido");
-     // $(".x").show();
+      // $(".x").show();
 
       this.destinoAuto1 = this.destinoAuto;
       this.destinoTexto1 = this.destinoText;
@@ -302,7 +302,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 1) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+        const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0);
         this.data = resultFilter;
         $(".x").hide();
       }
@@ -311,7 +311,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 2) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+        const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0);
         this.data2 = resultFilter;
 
         $(".x").hide();
@@ -321,7 +321,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 3) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+        const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0);
         this.data3 = resultFilter;
 
         $(".x").hide();
@@ -331,7 +331,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 4) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+        const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0);
         this.data4 = resultFilter;
 
         $(".x").hide();
@@ -341,7 +341,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 5) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+        const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0);
         this.data5 = resultFilter;
 
         $(".x").hide();
@@ -351,7 +351,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 6) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+        const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0);
         this.data6 = resultFilter;
 
         $(".x").hide();
@@ -361,7 +361,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 7) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+        const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0);
         this.data7 = resultFilter;
 
         $(".x").hide();
@@ -371,7 +371,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 8) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+        const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0);
         this.data8 = resultFilter;
 
         $(".x").hide();
@@ -381,7 +381,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 9) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+        const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0);
         this.data9 = resultFilter;
 
         $(".x").hide();
@@ -391,7 +391,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (flag === 10) {
       $(".x").hide();
       if (val.length >= 3) {
-        const resultFilter = this.lstAutocomplete.filter( word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0 );
+        const resultFilter = this.lstAutocomplete.filter(word => word.searchName.toLowerCase().search(val.toLowerCase()) >= 0);
         this.data10 = resultFilter;
 
         $(".x").hide();
@@ -472,7 +472,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
     if (value != null) {
       this.calendarSalidaValue = value;
       this.dateCustomClasses = [
-        { date: null, classes: ['bg-danger','text-warning'] }
+        { date: null, classes: ['bg-danger', 'text-warning'] }
       ];
       let mes = "";
       let getMonth = value.getMonth() + 1;
@@ -504,7 +504,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       this.spinner.show();
       this.ValidarDestinos();
       this.inicioBuscar.emit(false);
-      this.sessionStorageService.store('ss_calendarshopping',null);
+      this.sessionStorageService.store('ss_calendarshopping', null);
 
       let origen: any[] = [];
       let destino: any[] = [];
@@ -524,14 +524,14 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       }
 
       if (this.tipoVuelo === "OW") {
-        this.sessionStorageService.store('ss_calendarmini',null);
+        this.sessionStorageService.store('ss_calendarmini', null);
         origen.push(this.origenAuto);
         destino.push(this.destinoAuto);
         fechas.push(this.fechaSalida);
       }
 
       if (this.tipoVuelo === "MC") {
-        this.sessionStorageService.store('ss_calendarmini',null);
+        this.sessionStorageService.store('ss_calendarmini', null);
         const indexTramo = this.indexTramo;
         switch (indexTramo) {
           case 2:
@@ -617,7 +617,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         }
       }
 
-      fechas.forEach(function(fe) {
+      fechas.forEach(function (fe) {
         horasFrom.push("");
         horasTo.push("");
       });
@@ -633,11 +633,12 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       }
 
       let lUsers_: any[] = [];
+      let lPassengers: any[] = [];
 
       const lstPasajeros = this.sessionStorageService.retrieve('ss_lstPasajeros');
       if (lstPasajeros != null) {
         if (lstPasajeros.length > 0) {
-          lstPasajeros.forEach(function(item, index) {
+          lstPasajeros.forEach(function (item, index) {
             const pax = {
               "RoleId": item.orole.id,
               "CostCenterId": null,
@@ -658,19 +659,19 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
       let objcampos;
 
       if (this.tipoVuelo === 'RT' || this.tipoVuelo === 'OW') {
-          let origenT;
-          let destinoT;
-          if(this.origenText.name === undefined){
-            origenT = this.origenText
-          } else {
-            origenT = this.origenText.name
-          }
-          if(this.destinoText.name === undefined){
-            destinoT = this.destinoText
-          } else {
-            destinoT = this.destinoText.name
-          }
-          objcampos = {
+        let origenT;
+        let destinoT;
+        if (this.origenText.name === undefined) {
+          origenT = this.origenText
+        } else {
+          origenT = this.origenText.name
+        }
+        if (this.destinoText.name === undefined) {
+          destinoT = this.destinoText
+        } else {
+          destinoT = this.destinoText.name
+        }
+        objcampos = {
           origen: origenT,
           origencode: this.origenAuto,
           destino: destinoT,
@@ -688,8 +689,8 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         };
       }
       if (this.tipoVuelo === 'MC') {
-          this.sessionStorageService.store('ss_calendarmini',null);
-          objcampos = {
+        this.sessionStorageService.store('ss_calendarmini', null);
+        objcampos = {
           origen1: this.origentTexto1,
           origen2: this.origentTexto2,
           origen3: this.origentTexto3,
@@ -728,25 +729,35 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
         };
       }
 
+      const passenger = {
+        Quantity: this.pasajeros,
+        TypePassenger: 'ADT'
+      }
+
+      lPassengers.push(passenger);
+
       let data = {
         "Lusers": lUsers_,
-        "NumberPassengers": this.pasajeros,
-        "NumberRecommendations": "50",
+        "Lpassengers": lPassengers,
         "CabinType": this.cabina,
         "Scales": this.escala,
+        "TypeSearch": 'C',
+        "IncludesBaggage": this.maleta,
         "Origin": origen,
         "Destination": destino,
         "DepartureArrivalDate": fechas,
         "DepartureArrivalTimeFrom": horasFrom,
         "DepartureArrivalTimeTo": horasTo,
         "Ocompany": this.loginDataUser.ocompany,
-        "IncludesBaggage": this.maleta
+        "Oagency": this.loginDataUser.oagency
       };
+
+
 
       this.sessionStorageService.store('objbuscador', objcampos);
       this.sessionStorageService.store('ss_dataRequestFlight', data);
       this.sessionStorageService.store('ss_databuscador', data);
-      if(this.tipoVuelo === 'RT'){
+      if (this.tipoVuelo === 'RT') {
         this.sessionStorageService.store('ss_dataRequestMini', data);
       }
       this.sessionStorageService.store('ss_horasFrom', horasFrom);
@@ -756,36 +767,37 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
 
       this.airportService.searchFlight(data).subscribe(
         result => {
-          if (result !== null && result.length > 0) {
+          if (result.status === 200 && result.lrecommendations.length > 0) {
             if (ss_filterPrecio === 'mas') {
-              result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
+              result.lrecommendations.sort((a, b) => a.oprice.totalAmount - b.oprice.totalAmount);
             }
             if (ss_filterPrecio === 'menos') {
-              result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
+              result.lrecommendations.sort((a, b) => b.oprice.totalAmount - a.oprice.totalAmount);
             }
             this.sessionStorageService.store('ss_searchFlight', result);
-            if(this.tipoVuelo === 'RT'){
-              this.airportService.CalendarShopping(data).subscribe(
-                x => {
-                  x.forEach(element => {
-                    element.arrivalDate = element.arrivalDate.substring(0,10);
-                    element.departureDate = element.departureDate.substring(0,10);
-                  });
-                  this.sessionStorageService.store('ss_calendarmini',true);
-                  this.sessionStorageService.store('ss_calendarshopping',x);
-                  this.lRecomendaciones.emit(result);
-                  this.outTipoVuelo.emit(this.tipoVuelo);
-                  this.outIndexTramo.emit(this.indexTramo);
-                  this.calendarShoping.emit(true);
-                  this.spinner.hide();
-                }
-              )
+            if (this.tipoVuelo === 'RT' && result.lcalendars != null) {
+
+              result.lcalendars.forEach(element => {
+                element.arrivalDate = element.arrivalDate.substring(0, 10);
+                element.departureDate = element.departureDate.substring(0, 10);
+              });
+              this.sessionStorageService.store('ss_calendarmini', true);
+              this.sessionStorageService.store('ss_calendarshopping', result.lcalendars);
+              this.lRecomendaciones.emit(result.lrecommendations);
+              this.outTipoVuelo.emit(this.tipoVuelo);
+              this.outIndexTramo.emit(this.indexTramo);
+              this.calendarShoping.emit(true);
+              this.spinner.hide();
+              this.sessionStorageService.store('ss_calendarshopping', result.lcalendars);
+              this.sessionStorageService.store('ss_lowcosto', result);
+
             }
+
           } else {
             this.spinner.hide();
           }
-          if(this.tipoVuelo !== 'RT'){
-            this.lRecomendaciones.emit(result);
+          if (this.tipoVuelo !== 'RT') {
+            this.lRecomendaciones.emit(result.lrecommendations);
             this.outTipoVuelo.emit(this.tipoVuelo);
             this.outIndexTramo.emit(this.indexTramo);
           }
@@ -795,7 +807,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
             destinoTexto: this.destinoTexto,
             pasajeros: this.pasajeros
           })
-          this.lRecomendaciones.emit(result);
+          this.lRecomendaciones.emit(result.lrecommendations);
           this.outTipoVuelo.emit(this.tipoVuelo);
           this.outIndexTramo.emit(this.indexTramo);
         },
@@ -804,7 +816,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
           this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
         },
         () => {
-          if(this.tipoVuelo != 'RT'){
+          if (this.tipoVuelo != 'RT') {
             this.spinner.hide();
           }
         }

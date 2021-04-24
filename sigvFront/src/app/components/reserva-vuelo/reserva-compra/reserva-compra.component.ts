@@ -15,6 +15,7 @@ import { BsModalService, BsModalRef, ModalDirective } from 'ngx-bootstrap/modal'
 import { BnNgIdleService } from 'bn-ng-idle';
 import { SafeHtml } from '@angular/platform-browser';
 import { ModalErrorServiceComponent } from '../../shared/modal-error-service/modal-error-service.component';
+import { NullTemplateVisitor } from '@angular/compiler';
 
 declare var jquery: any;
 declare var $: any;
@@ -30,7 +31,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   Lsection;
   Lsectionpassenger;
   lsusuario;
-  lsflightavailability: IFlightAvailability;
+  lsflightavailability: any;
   LPolicies;
   dataflightavalilability;
   osession;
@@ -44,10 +45,10 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   email;
   phone;
   osessionpnr;
-  pnrresults: IPnrConfirm;
+  pnrresults: any;
   userid;
   currency;
-  lsapprover: IGetApprovers[] = [];
+  lsapprover: any[] = [];
   flightnational;
   idmotivo;
   plantilla;
@@ -98,7 +99,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.dataflightavalilability = this.sessionStorageService.retrieve('ss_FlightAvailability_request2');
     this.lusers = this.sessionStorageService.retrieve('objusuarios');
     this.idmotivo = this.sessionStorageService.retrieve('idmotivo');
-    this.sessionStorageService.store('idmotivo', null);
+    
     this.plantilla = 'assets/plantillasEmail/plantillaaprobacion.html';
     this.plantillareserva = 'assets/plantillasEmail/plantillareservagenerada.html';
     this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
@@ -120,7 +121,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     window.scrollTo(0, 0);
     this.currency = this.dataflightavalilability.Currency;
     this.pseudo = this.dataflightavalilability.Pseudo;
-    this.gds = this.dataflightavalilability.Gds;
+    this.gds = this.dataflightavalilability.GDS;
     this.osession = this.lsflightavailability.osession;
     this.carrierId = this.dataflightavalilability.CarrierId;
     this.ocompany = this.dataflightavalilability.Ocompany;
@@ -188,6 +189,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     } else {
       extraprofile = false;
     }
+    let moti = this.sessionStorageService.retrieve("ss_motivo");
     this.Obtenerstring();
     this.ObtenerstringReserva();
     if (this.lsflightavailability.odiscount != null) {
@@ -198,38 +200,46 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       porcentaje = 0;
     }
     let idinterval = this.sessionStorageService.retrieve('idinterval');
+    let requestFlight = this.sessionStorageService.retrieve('ss_flightavailability_request2');
+    let priceRq = this.sessionStorageService.retrieve('ss_flightavailability_result');
+    let motivo = $('#cbomotivo').val()
+    const price = {
+      Currency: priceRq.oprice.currency,
+      BaseAmount: priceRq.oprice.baseAmount,
+      TotalTaxAmount: priceRq.oprice.totalTaxAmount,
+      TotalAmount: priceRq.oprice.totalAmount,
+      OdiscountPrice: priceRq.oprice.odiscountPrice
+    }
     let data = {
-      "UserId": this.loginDataUser.userId,
       "GDS": this.gds,
       "Pseudo": this.pseudo,
-      "FlightNational": this.flightnational,
-      "Infraction": infraction,
-      "Lsections": this.Lsectionpassenger,
-      "Ocompany": this.ocompany,
-      "osession": this.osession,
-      "Lpassenger": this.lsusuario,
+      "TypeSearch": 'C',
+      "UserId": this.loginDataUser.userId,
       "ReasonFlightId": parseFloat(this.idmotivo),
+      "ReasonFlight": moti,
       "ExtraReason": reason,
-      "CarrierId": this.carrierId,
-      "Lpolicies": this.LPolicies,
-      "Lauthorizer": this.lsapprover,
+      "FlightNational": this.flightnational,
+      "TypeFlight": this.tipovuelo,
       "ExtraProfile": extraprofile,
       "ProfileName": this.idprofile,
       "Comment": $('#motivoviaje').val(),
+      "Emission": false,
+      "Ocarrier": requestFlight.Ocarrier,
+      "LpseudoRepeats": requestFlight.LpseudoRepeats,
+      "Oprice": price,
+      "Lpassengers": this.lsusuario,
+      "Lsections": requestFlight.Lsections,
       "OContactInfo": this.contacto,
-      "FareTaxAmountByPassenger": this.lsflightavailability.fareAmountByPassenger,
-      "TotalFareAmount": this.lsflightavailability.totalFareAmount,
-      "Currency": this.lsflightavailability.currency,
-      "NumberPassengers": this.dataflightavalilability.NumberPassengers,
-      "RecommendationId": this.dataflightavalilability.RecommendationId,
-      "TypeFlight": this.tipovuelo,
-      "TotalDiscount": amount,
-      "PercentageDiscount": porcentaje,
-      "Ltaxes": this.lsflightavailability.ltaxes,
-      "LcompanyUIDs": this.LcompanyUIDs
+      "Lapprovers": priceRq.lapprovers,
+      "Lpolicies": this.LPolicies,
+      "LcompanyUIDs": this.LcompanyUIDs,
+      "osession": this.osession,
+      "Ocompany": this.ocompany,
+      "Oagency": this.loginDataUser.oagency
     };
     this.spinner.show();
-    this.service.DuplicatePnr(data).subscribe(
+    let datos = this.sessionStorageService.retrieve('ss_duplicatePNR');
+    this.service.DuplicatePnr(datos).subscribe(
       x => {
         this.mensajeDuplicate = x;
         if (x.length === 0 || x.length === []) {
@@ -250,13 +260,13 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
               this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
             },
             () => {
-              if (this.lsapprover.length > 0 && this.pnrresults.oerror === null) {
+              if (this.lsapprover.length > 0 && this.pnrresults.ostatus.status === 200) {
                 this.SendEmail();
               }
-              if (this.lsapprover.length === 0 && this.pnrresults.oerror === null) {
+              if (this.lsapprover.length === 0 && this.pnrresults.ostatus.status === 200) {
                 this.SendEmailReservaGenerada();
               }
-              if (this.pnrresults.oerror != null) {
+              if (this.pnrresults.ostatus.status != 200) {
                 this.spinner.hide();
                 this.modalRef = this.modalservice.show(
                   template,
@@ -285,14 +295,14 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
     for (let i = 0; i < this.Lsection.length; i++) {
       const section = this.Lsection[i];
-      const lsegment = section.Lsegments;
+      const lsegment = section.oschedule.lsegments;
 
       for (let k = 0; k < lsegment.length; k++) {
         const itemlsegment = lsegment[k];
         const segmentgroup = itemlsegment.LsegmentGroups;
 
-        for (let j = 0; j < segmentgroup.length; j++) {
-          const itemsegmentgroup = segmentgroup[j];
+        for (let j = 0; j < lsegment.length; j++) {
+          const itemsegmentgroup = lsegment[j];
           htmlsection += "<div class='row' style='padding-bottom:20px; padding-top:10px;'>";
           htmlsection += "<div style='width: 100%; border-radius: 20px 20px 20px 20px; background: white; padding: 1em; border: 1px solid rgba(219, 223, 227, 0.303017); box-shadow: 0px 5px 12px rgba(217, 226, 233, 0.5);'>";
 
@@ -309,19 +319,19 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
           htmlsection += "<div style='width: 50%;'>";
           htmlsection += "<div style='width: 100% !important'>";
           htmlsection += "<img style='width: 150px; position: relative;left: 36px;top: 21px;' class='m-0 p-0' src='https://domiruthuatsa.z13.web.core.windows.net/assets/images/airlines/";
-          htmlsection += itemsegmentgroup.MarketingCarrier + ".png'>";
+          htmlsection += itemsegmentgroup.ocarrier.carrierId + ".png'>";
           htmlsection += "</div>";
           htmlsection += "<div style='width: 100% !important;'>";
           htmlsection += "<span style='color: #676767; font-size: 9px; opacity: 100%;'>Aerolinea Operadora :";
-          htmlsection += itemsegmentgroup.CarrierName;
+          htmlsection += itemsegmentgroup.ocarrier.carrierName;
           htmlsection += "</span>";
           htmlsection += "</div>";
           htmlsection += "</div>";
           htmlsection += "<div style='text-align: center; padding-top: 20px;padding-left: 11%;'>";
           htmlsection += "<label style='color: #676767; font-size: 14px; opacity: 100%; width: 40%;'>Vuelo ";
-          htmlsection += itemsegmentgroup.FlightOrtrainNumber;
+          htmlsection += itemsegmentgroup.flightNumber;
           htmlsection += " - Tipo de avion - ";
-          htmlsection += itemsegmentgroup.EquipmentType;
+          htmlsection += itemsegmentgroup.equipmentType;
           htmlsection += "</label>";
           htmlsection += "</div>";
           htmlsection += "</div>";
@@ -329,19 +339,19 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
           htmlsection += "<div class='row' style='padding-top: 40px; padding-bottom: 30px;'>";
           htmlsection += "<div style='width: 40%; text-align: center;'>";
           htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 14px; opacity: 1;'>";
-          htmlsection += itemsegmentgroup.DepartureDateShow;
+          htmlsection += itemsegmentgroup.departureDateShow;
           htmlsection += "</div>";
           htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 28px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.TimeOfDepartureShow;
+          htmlsection += itemsegmentgroup.departureTimeShow;
           htmlsection += "</div>";
           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 18px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.Origin;
+          htmlsection += itemsegmentgroup.oorigin.iataCode;
           htmlsection += "</div>";
           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 12px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.CityOrigin;
+          htmlsection += itemsegmentgroup.oorigin.cityName;
           htmlsection += "</div>";
           htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 10px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.AirportOrigin;
+          htmlsection += itemsegmentgroup.oorigin.airportName;
           htmlsection += "</div>";
           htmlsection += "</div>";
           htmlsection += "<div style='width: 20%; padding-left: 40px; padding-top: 30px; text-align: center;'>";
@@ -349,29 +359,29 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
           htmlsection += "Duracion";
           htmlsection += "</div>";
           htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 11px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.TotalFlightTimeShow;
+          htmlsection += itemsegmentgroup.totalFlightTimeShow;
           htmlsection += "</div>";
           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 14px; opacity: 1; letter-spacing: 0;'>";
           htmlsection += "Clase: <label class='m-0 p-0 pl-3' style='color: #898989; font-size: 9px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.CabinDescription + " - " + itemsegmentgroup.ClassId;
+          htmlsection += itemsegmentgroup.cabinDescription + " - " + itemsegmentgroup.classId;
           htmlsection += "</label>";
           htmlsection += "</div>";
           htmlsection += "</div>";
           htmlsection += "<div style='width: 40%; padding-left: 50px; text-align: center;'>";
           htmlsection += "<div class='m-0 p-0 pt-4' style='color: #898989; font-size: 14px; opacity: 1;'>";
-          htmlsection += itemsegmentgroup.ArrivalDateShow;
+          htmlsection += itemsegmentgroup.arrivalDateShow;
           htmlsection += "</div>";
           htmlsection += "<div class='m-0 p-0' style='color: #676767; font-size: 28px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.TimeOfArrivalShow;
+          htmlsection += itemsegmentgroup.arrivalTimeShow;
           htmlsection += "</div>";
           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 18px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.Destination;
+          htmlsection += itemsegmentgroup.odestination.iataCode;
           htmlsection += "</div>";
           htmlsection += "<div class='m-0 p-0' style='color: #898989; font-size: 12px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.CityDestination;
+          htmlsection += itemsegmentgroup.odestination.cityName;
           htmlsection += "</div>";
           htmlsection += "<div class='m-0 p-0 pt-2' style='color: #898989; font-size: 10px; opacity: 1; letter-spacing: 0;'>";
-          htmlsection += itemsegmentgroup.AirportDestination;
+          htmlsection += itemsegmentgroup.odestination.airportName;
           htmlsection += "</div>";
           htmlsection += "</div>";
           htmlsection += "</div>";
@@ -387,7 +397,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
 
   PlantillaPreciovuelo() {
     let html = '';
-    if (this.lsflightavailability.odiscount != null && this.lsflightavailability.odiscount.amount != 0) {
+    if (this.lsflightavailability.oprice.odiscountPrice != null && this.lsflightavailability.oprice.odiscountPrice.discountAmount != 0) {
       html += "<div style='width: 100%; text-align: rigth'>";
       html += "<span style='font-size: 13px;color: #676767; margin-left: 7px;'>Monto de desc.</span>";
       html += "<span style=' font-size: 13px;color: #6B253C; margin-left: 25px;'>";
@@ -400,11 +410,11 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     }
 
     let htmlporcentaje = '';
-    if (this.lsflightavailability.odiscount != null && this.lsflightavailability.odiscount.percentage) {
+    if (this.lsflightavailability.oprice.odiscountPrice != null && this.lsflightavailability.oprice.odiscountPrice.discountPercentage) {
       htmlporcentaje += "<div style='width: 100%; text-align: rigth'>";
       htmlporcentaje += "<span style='font-size: 13px;color: #676767'>Porcentaje de desc.</span>";
       htmlporcentaje += "<span style='color: #898989; font-size: 13px; margin-left: 14px;'>";
-      htmlporcentaje += this.lsflightavailability.odiscount.percentage;
+      htmlporcentaje += this.lsflightavailability.oprice.odiscountPrice.discountPercentage;
       htmlporcentaje += "</span>";
       htmlporcentaje += "<span style=' font-size: 13px;color: #6B253C;'>%</span>";
       htmlporcentaje += "</div>";
@@ -416,10 +426,9 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     this.emailsolicitud = this.emailsolicitud.replace('@porcentajedescuento', htmlporcentaje);
     this.emailsolicitud = this.emailsolicitud.replace('@motivoaprobacion', motivo);
     this.emailsolicitud = this.emailsolicitud.replace("@fechatimelimit", this.fechatimelimit);
-    this.emailsolicitud = this.emailsolicitud.replace("@horatimelimit", this.horatimelimit);
-    this.emailsolicitud = this.emailsolicitud.replace(/@currency/gi, this.lsflightavailability.currency);
-    this.emailsolicitud = this.emailsolicitud.replace("@precioTotal", this.lsflightavailability.totalFareAmount);
-    this.emailsolicitud = this.emailsolicitud.replace("@preciounitario", this.lsflightavailability.fareAmountByPassenger);
+    this.emailsolicitud = this.emailsolicitud.replace(/@currency/gi, this.lsflightavailability.oprice.currency);
+    this.emailsolicitud = this.emailsolicitud.replace("@precioTotal", this.lsflightavailability.oprice.totalAmount);
+    this.emailsolicitud = this.emailsolicitud.replace("@preciounitario", this.lsflightavailability.oprice.baseAmount);
     this.emailsolicitud = this.emailsolicitud.replace('@pnr', this.pnrresults.pnr);
   }
 
@@ -429,18 +438,18 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       const item = this.lusers[j];
       html += "<tr>"
       html += "<td>"
-      html += item.firstName + " " + item.lastName;
+      html += item.Name + " " + item.LastName;
       html += "</td>"
       html += "<td>"
-      html += item.lpersonDocuments[0].docNumber;
+      html += item.Odocument.number;
       html += "</td>"
       html += "<td>"
-      html += item.email;
+      html += item.Email;
       html += "</td>"
       html += "<td>"
-      html += item.phone;
+      html += item.PhoneNumber;
       html += "</td>";
-      if (item.isVIP === true) {
+      if (item.IsVIP === true) {
         html += "<td>"
         html += 'Si';
         html += "</td>";
@@ -483,7 +492,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
         html += "</span>";
       } else {
         html += "<span style='color: #3D3D3D; font-size: 25px; opacity: 1; letter-spacing: 0; padding-right: 10px;'>";
-        html += this.lsflightavailability.currency;
+        html += this.lsflightavailability.oprice.currency;
         html += "</span>";
         html += "<span style='color: #3D3D3D; font-size: 38px; opacity: 1; letter-spacing: 0;'>";
         html += item.impact;
@@ -504,7 +513,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       const element = this.lsapprover[i];
       htmlautorizador += "<tr>";
       htmlautorizador += "<td>";
-      htmlautorizador += element.firstName + ' ' + element.lastName;
+      htmlautorizador += element.Name + ' ' + element.LastName;
       htmlautorizador += "</td>";
       htmlautorizador += "<td>";
       htmlautorizador += element.email;
@@ -520,24 +529,23 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     let recorte;
     let fecha;
     let hora;
-    data = this.pnrresults.timeLimit;
-    recorte = data.split("T");
+    data = this.pnrresults.timeLimitShow;
+/*     recorte = data.split("T");
     fecha = recorte[0];
     var date = new Date(fecha);
     hora = recorte[1];
     recorte = fecha.split("-");
     fecha = (recorte[2] + " " + date.toLocaleString('default', { month: 'short' }) + " del " + recorte[0]);
-    hora = hora.substr(0, 5);
-    this.fechatimelimit = fecha;
-    this.horatimelimit = hora;
+    hora = hora.substr(0, 5); */
+    this.fechatimelimit = data;
   }
 
   SendEmail() {
     this.PlantillaEmailSolicitud();
-    this.PlantillaPreciovuelo();
+    /* this.PlantillaPreciovuelo();
     this.PlantillaPasajeros();
     this.PlantillaPoliticas();
-    this.PlantillaAutorizadores();
+    this.PlantillaAutorizadores(); */
     let mails = [];
     this.lsapprover.forEach(function (item) {
       if (item.priority === 1) {
@@ -557,7 +565,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     }
     this.service.SendEmail(data).subscribe(
       results => {
-        if (results === true) {
+        this.router.navigate(['/reserva-generada-vuelo']);
+        /* if (results === true) {
           this.toastr.success('', 'Se envio correctamente', {
             timeOut: 3000
           });
@@ -566,7 +575,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
           this.toastr.error('', 'Error al envio', {
             timeOut: 3000
           });
-        }
+        } */
       },
       err => {
 
@@ -678,7 +687,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       "LcompanyUIDs": this.LcompanyUIDs
     };
     this.spinner.show();
-    this.service.DuplicatePnr(data).subscribe(
+    let datos = this.sessionStorageService.retrieve('ss_duplicatePNR');
+    this.service.DuplicatePnr(datos).subscribe(
       m => {
         this.mensajeDuplicate = m;
         if (m.length === 0 || m === []) {

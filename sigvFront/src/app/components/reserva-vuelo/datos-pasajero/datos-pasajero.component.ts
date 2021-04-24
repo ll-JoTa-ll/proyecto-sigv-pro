@@ -118,7 +118,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   document() {
     this.userCompanyService.getDocument().subscribe(
       result => {
-        this.Document = result;
+        this.Document = result.ldocumentTypeLists;
       },
       err => {
 

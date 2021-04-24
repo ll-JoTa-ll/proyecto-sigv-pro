@@ -68,8 +68,8 @@
                       </div>
                   </div>
                   <div class="col-5 m-0 p-0">
-                      <app-precio-final [LSection]="LSection" [tipo]="1" [Lpolicies]="LPolicies" [currency]="flightAvailability_result.currency" [precioadulto]="flightAvailability_result.fareAmountByPassenger" [preciototal]="flightAvailability_result.totalFareAmount" [odiscount]="flightAvailability_result.odiscount"></app-precio-final>
-                      <app-info-recomendacion [lstBag]="lstbag" [tipovuelo]="tipovuelo" [LSection]="LSection"></app-info-recomendacion>
+                      <app-precio-final [LSection]="LSection" [tipo]="1" [Lpolicies]="LPolicies" [currency]="flightAvailability_result.oprice.currency" [precioadulto]="flightAvailability_result.oprice.baseAmount" [preciototal]="flightAvailability_result.oprice.totalAmount" [odiscount]="flightAvailability_result.oprice.odiscountPrice"></app-precio-final>
+                      <app-info-recomendacion [tipovuelo]="tipovuelo" [LSection]="LSection"></app-info-recomendacion>
                       <div class="row m-0 p-0 pt-4 pb-5">
                           <!--   <div class="col-12 p-0 m-0 text-center">
                               <button class="btn bv-texto-3" (click)="GetRegulaciones(modalRegulaciones)">VER REGULACIONES</button>

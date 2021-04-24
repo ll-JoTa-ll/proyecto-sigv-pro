@@ -37,7 +37,7 @@
                         <app-vuelo-section [tipo]="1" [section]="section" *ngFor="let section of Lsection"></app-vuelo-section>
                     </div>
                     <div class="col-4 m-0 p-0">
-                        <app-precio-final [LSection]="Lsection" [Lpolicies]="LPolicies" [tipo]="3" [currency]="lsflightavailability.currency" [precioadulto]="lsflightavailability.fareAmountByPassenger" [preciototal]="lsflightavailability.totalFareAmount" [odiscount]="lsflightavailability.odiscount"></app-precio-final>
+                        <app-precio-final [LSection]="Lsection" [Lpolicies]="LPolicies" [tipo]="3" [currency]="lsflightavailability.oprice.currency" [precioadulto]="lsflightavailability.oprice.baseAmount" [preciototal]="lsflightavailability.oprice.totalAmount" [odiscount]="lsflightavailability.oprice.odiscountPrice"></app-precio-final>
                     </div>
                 </div>
                 <div class="row m-0 p-0">

@@ -9,10 +9,12 @@ export class InfoSegmentComponent implements OnInit {
 
   @Input() segment;
   @Input() tipo;
+  @Input() lsegments;
 
   constructor() { }
 
   ngOnInit() {
+    console.log("asd" + this.segment);
   }
 
 }

@@ -53,6 +53,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   LSection;
   mensajeDuplicate;
   LPolicies;
+  descMotivo;
   datosuser: any[] = [];
   listadocument: any[] = [];
   currency;
@@ -125,7 +126,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.GetExtraProfile();
     window.scrollTo(0, 0);
-    this.LSection = this.flightAvailability_request.Lsections;
+    this.LSection = this.flightAvailability_result.lsections;
     this.LSectionPassenger = this.datarequest.Lsections;
     this.LPolicies = this.flightAvailability_result.lpolicies;
     this.ocompany = this.flightAvailability_request.Ocompany;
@@ -646,9 +647,15 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     }
 
     var rason = $('#reason').val();
-    let idmotivo = $('#cbomotivo option:selected').val();
+    let idmotivo = $('#cbomotivo').val();
+    this.lsReasonFlight.forEach(element => {
+      if (element.id === parseFloat(idmotivo)) {
+        this.descMotivo = element.description;
+      }
+    });
     let idprofile = $('#cboprofile option:selected').val();
     let datosusuario: any[] = [];
+    let datosPass: any [] = [];
     let contacto: any;
     let mail: any = [];
     let phone: any = [];
@@ -762,6 +769,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         odocument.Lcodes = lcodesTwo;
       }
 
+      const pass = {
+        UserId: item.userId,
+        PersonId: item.personId,
+        Name: nombre,
+        LastName: apellido
+      }
+
       const objuser = {
         "UserId": item.userId,
         "PassengerId": index + 1,
@@ -777,10 +791,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         "Odocument": odocument,
         "FrequentFlyer": item.frequentFlyer,
         "IsVIP": item.isVIP,
-        "LcostCenter": item.lcostCenter,
+        "OcostCenter": null,
+       /*  "OcostCenter": item.lcostCenter, */
         "Orole": item.orole
       };
       datosusuario.push(objuser);
+
+      datosPass.push(pass);
 
       //INI INFORMACION PASAJERO
       console.log("INI INFORMACION PASAJERO");
@@ -814,7 +831,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
         const ocompanyUIDs = {
           "CodeUid": txt.codeUid,
-          "TypeUid": "P",
+          "Title": "P",
           "PassengerId": indexPax + "",
           "ValueUid": valueUid
         };
@@ -831,7 +848,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         }
         const ocompanyUIDs = {
           "CodeUid": cbx.codeUid,
-          "TypeUid": "P",
+          "Title": "P",
           "PassengerId": indexPax + "",
           "ValueUid": valueUid
         };
@@ -870,7 +887,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
                   }
                   const ocompanyUIDsNieto = {
                     "CodeUid": codeUidNieto,
-                    "TypeUid": "P",
+                    "Title": "P",
                     "PassengerId": indexPax + "",
                     "ValueUid": valueUidNieto
                   };
@@ -891,7 +908,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       const id = "c_" + txt.codeUid + "_" + 1;
       const ocompanyUIDs = {
         "CodeUid": txt.codeUid,
-        "TypeUid": "C",
+        "Title": "C",
         "PassengerId": 1 + "",
         "ValueUid": $("#" + id).val()
       };
@@ -912,7 +929,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       }
       const ocompanyUIDs = {
         "CodeUid": cbx.codeUid,
-        "TypeUid": "C",
+        "Title": "C",
         "PassengerId": 1 + "",
         "ValueUid": valueUid
       };
@@ -951,7 +968,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
                 }
                 const ocompanyUIDsNieto = {
                   "CodeUid": codeUidNieto,
-                  "TypeUid": "C",
+                  "Title": "C",
                   "PassengerId": 1 + "",
                   "ValueUid": valueUidNieto
                 };
@@ -1027,21 +1044,18 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     }
 
     contacto = {
-      "ContactName": nombrecontacto,
-      "ContactEmail": email2,
-      "ContactPhone": telefono2
+      "Name": nombrecontacto,
+      "Email": email2,
+      "Phone": telefono2
     }
     const valcorreo = this.ValidarCorreo();
     const val = this.ValidarCampos();
     const valmail = this.ValidarCorreoContacto();
     let data = {
-      "UserId": this.loginDataUser.userId,
-      "GDS": this.gds,
-      "Pseudo": this.pseudo,
-      "Lsections": this.LSectionPassenger,
-      "Ocompany": this.ocompany,
-      "Lpassenger": datosusuario
+      "lsections": this.LSectionPassenger,
+      "Lpassengers": datosPass
       };
+    this.sessionStorageService.store('ss_duplicatePNR',data);
     this.spinner.show();
     this.service.DuplicatePnr(data).subscribe (
       result => {
@@ -1058,6 +1072,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
             this.sessionStorageService.store('sectionservice', this.LSectionPassenger);
             this.sessionStorageService.store('politicas', this.LPolicies);
             this.sessionStorageService.store('idmotivo', idmotivo);
+            this.sessionStorageService.store('ss_motivo', this.descMotivo);
             this.sessionStorageService.store('reason', rason);
             this.sessionStorageService.store('ss_LcompanyUIDs', this.LcompanyUIDs);
             this.router.navigate(['/reserva-vuelo-compra']);

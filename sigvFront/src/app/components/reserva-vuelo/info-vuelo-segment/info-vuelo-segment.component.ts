@@ -11,6 +11,7 @@ export class InfoVueloSegmentComponent implements OnInit {
   @Input() bagAllowed;
   @Output() msjairline = new EventEmitter<any>();
   @Input() bagquantity;
+  @Input() lengthSegments;
 
   marketingCarrier: string;
   lSegmentGroups: any[] = [];
@@ -24,13 +25,14 @@ export class InfoVueloSegmentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.totalFlightTimeShow = this.segment.TotalFlightTimeShow;
-    this.lSegmentGroupsLength = this.segment.LsegmentGroups.length;
+    console.log("asdsd" + this.segment);
+    this.totalFlightTimeShow = this.segment.totalFlightTimeShow;
+    this.lSegmentGroupsLength = this.lengthSegments;
     const lSegmentGroupsLength = this.lSegmentGroupsLength;
     if (lSegmentGroupsLength > 0) {
-      this.marketingCarrier = this.segment.LsegmentGroups[0].MarketingCarrier + ".png";
-      this.timeOfDepartureShow = this.segment.LsegmentGroups[0].TimeOfDepartureShow;
-      this.timeOfArrivalShow = this.segment.LsegmentGroups[lSegmentGroupsLength - 1].TimeOfArrivalShow;
+      this.marketingCarrier = this.segment.ocarrier.carrierId + ".png";
+      this.timeOfDepartureShow = this.segment.departureTimeShow;
+      this.timeOfArrivalShow = this.segment.arrivalTimeShow;
       this.msjairline.emit(this.marketingCarrier);
     }
   }

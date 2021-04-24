@@ -57,6 +57,8 @@ export class AirportService {
   private url_regulaciones: string = environment.url_2 + "Search/";
   private url_temp: string = environment.url_2 + 'SearchTemp/';
 
+  private url_bookingTemp: string = environment.url_2 + "BookingTemp/";
+
   constructor(
     private http: HttpClient,
     private sessionSt: SessionStorageService
@@ -134,14 +136,14 @@ export class AirportService {
      return this.http.post<any[]>(this._url3 + "GetCalendarShopping", data, httpOptions2);
    }
 
-  fligthAvailibility(data): Observable<IFlightAvailability> {
+  fligthAvailibility(data): Observable<any> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    return this.http.post<IFlightAvailability>(this._url4 + "FlightAvailability", data, httpOptions2);
+    return this.http.post<any>(this.url_bookingTemp + "GetFlightAvailability", data, httpOptions2);
   }
 
   FlightPrice(data): Observable<IFlightAvailability> {
@@ -186,14 +188,14 @@ export class AirportService {
     return this.http.get<IReasonFlight[]>(url, httpOptions2);
   }
 
-  AddPassenger(data): Observable<IPnrConfirm> {
+  AddPassenger(data): Observable<any> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    return this.http.post<IPnrConfirm>(this._url4 + "GeneratePNR", data, httpOptions2);
+    return this.http.post<any>(this.url_bookingTemp + "GeneratePNR", data, httpOptions2);
   }
 
   GetApprovers(data): Observable<IGetApprovers[]> {
@@ -304,7 +306,7 @@ export class AirportService {
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    return this.http.post<any>(this._url4  + "ValidatePnrDuplicate", data, httpOptions2);
+    return this.http.post<any>(this.url_bookingTemp  + "ValidatePnrDuplicate", data, httpOptions2);
   }
 
   GetPaises(): Observable<IGetPaisesModel[]> {

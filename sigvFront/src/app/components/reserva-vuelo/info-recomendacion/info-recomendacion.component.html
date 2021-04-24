@@ -2,7 +2,7 @@
     <div class="col-12 m-0 p-0 contenedor-form">
         <div class="row m-0 p-0">
             <div class="col-12 m-0 p-0">
-                <app-info-vuelo-section [lstBag]="lstBag" [LSection]="LSection" *ngFor="let section of LSection; let i = index" [index]="i" [section]="section" [sectionLength]="LSection.length" [tipoVuelo]="tipovuelo" [posicion]="i + 1"></app-info-vuelo-section>
+                <app-info-vuelo-section  [LSection]="LSection" *ngFor="let section of LSection; let i = index" [index]="i" [section]="section" [sectionLength]="LSection.length" [tipoVuelo]="tipovuelo" [posicion]="i + 1"></app-info-vuelo-section>
             </div>
         </div>
         <div class="row m-0 p-0">

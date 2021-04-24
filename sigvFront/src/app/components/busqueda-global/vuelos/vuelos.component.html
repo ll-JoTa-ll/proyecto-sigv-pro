@@ -109,6 +109,7 @@
               [isVisible]="recomendacion.isVisible" [currency]="recomendacion.oprice.currency"
               [totalFareAmount]="recomendacion.oprice.totalAmount" [totalTaxAmount]="recomendacion.oprice.totalTaxAmount"
               [fareAmountByPassenger]="recomendacion.oprice.baseAmount"
+              [recomen]="recomendacion"
               [taxAmountByPassenger]="recomendacion.oprice.taxAmountByPassenger"
               [fareTaxAmountByPassenger]="recomendacion.lpassengerPrices[0].baseAmount" [carrierId]="recomendacion.ocarrier.carrierId"
               [numberPassengers]="recomendacion.lpassengerPrices[0].quantity" [pseudo]="recomendacion.pseudo"
@@ -1076,6 +1077,7 @@
             <div class="row m-0 p-0" *ngIf="searchData.length > 0">
               <app-recomendacion *ngFor="let recomendacion of searchData; let i = index"
               [isVisible]="recomendacion.isVisible" [currency]="recomendacion.oprice.currency"
+              [recomen]="recomendacion"
               [totalFareAmount]="recomendacion.oprice.totalAmount" [totalTaxAmount]="recomendacion.oprice.totalTaxAmount"
               [fareAmountByPassenger]="recomendacion.oprice.baseAmount"
               [taxAmountByPassenger]="recomendacion.oprice.taxAmountByPassenger"

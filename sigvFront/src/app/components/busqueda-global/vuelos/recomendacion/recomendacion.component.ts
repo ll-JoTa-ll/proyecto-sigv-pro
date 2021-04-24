@@ -430,7 +430,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     console.log(datosusuario);
     let infraction;
 
-    if (this.lpolicies.length > 0) {
+    if (this.lpolicies != null && this.lpolicies.length > 0) {
       infraction = true;
     } else {
       infraction = false;
@@ -588,6 +588,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   getFlightAvailability(recommendationId, template: TemplateRef<any>) {
     this.datosuser = this.sessionStorageService.retrieve("objusuarios");
+    let requestFlight = this.sessionStorageService.retrieve('ss_databuscador');
     // tslint:disable-next-line: max-line-length
     let Lsections_: any[] = [];
     let datosusuario: any[] = [];
@@ -605,25 +606,32 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lsegmentGroups.forEach(function (group, i) {
+      segment.lsegments.forEach(function (group, i) {
         const dataGroup = {
-          Id: i + 1,
-          ClassId: section.lsectionGroups[i].classId,
-          CabinId: section.lsectionGroups[i].cabinId,
-          CabinDescription: section.lsectionGroups[i].cabinDescription,
-          DepartureDate: group.departureDate,
-          TimeOfDeparture: group.timeOfDeparture,
-          ArrivalDate: group.arrivalDate,
-          TimeOfArrival: group.timeOfArrival,
-          Origin: group.origin,
-          Destination: group.destination,
-          MarketingCarrier: group.marketingCarrier,
-          FlightOrtrainNumber: group.flightOrtrainNumber,
-          EquipmentType: group.equipmentType,
-          FareBasis: section.lsectionGroups[i].fareBasis,
-          TimeWaitAirport: group.timeWaitAirport,
-          fareFamilyName: section.lsectionGroups[i].fareFamilyName,
-          TotalFlightTimeShow: group.totalFlightTimeShow,
+          oorigin: group.oorigin,
+          odestination: group.odestination,
+          departureDate: group.departureDate,
+          departureDateShow: group.departureDateShow,
+          departureTime: group.departureTime,
+          departureTimeShow: group.departureTimeShow,
+          arrivalDate: group.arrivalDate,
+          arrivalDateShow: group.arrivalDateShow,
+          arrivalTime: group.arrivalTime,
+          arrivalTimeShow: group.arrivalTimeShow,
+          totalFlightTime: group.totalFlightTime,
+          totalFlightTimeShow: group.totalFlightTimeShow,
+          dateVariation: group.dateVariation,
+          timeWaitAirport: group.timeWaitAirport,
+          flightNumber: group.flightNumber,
+          equipmentType: group.equipmentType,
+          ocarrier: group.ocarrier,
+          classId: group.classId,
+          cabinId: group.cabinId,
+          cabinDescription: group.cabinDescription,
+          marriageGrp: group.marriageGrp,
+          FareType: group.fareType,
+          FareBasis: group.fareBasis,
+          FamilyName: group.fareFamilyName
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -631,20 +639,18 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       //Lsegments
       let Lsegments_: any[] = [];
       const lsegment = {
-        SegmentID: segment.segmentId,
-        FareType: section.lsectionGroups[0].fareType,
         TotalFlightTime: segment.totalFlightTime,
-        LsegmentGroups: LsegmentGroups_,
+        Lsegments: LsegmentGroups_,
       };
       Lsegments_.push(lsegment);
 
       //Lsections
       const lsection = {
-        SectionID: section.sectionId,
-        Origin: section.origin,
-        Destination: section.destination,
-        Lsegments: Lsegments_,
-        DepartureDate: section.departureDate,
+        Oorigin: section.oorigin,
+        Odestination: section.odestination,
+        Oschedule: lsegment,
+        departureDate: section.departureDate,
+        departureDateShow: section.departureDateShow
       };
       Lsections_.push(lsection);
     });
@@ -691,27 +697,33 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     console.log(datosusuario);
     let infraction;
 
-    if (this.lpolicies.length > 0) {
+    if (this.lpolicies != null && this.lpolicies.length > 0) {
       infraction = true;
     } else {
       infraction = false;
     }
+    console.log(this.recomen);
+    const price = {
+      Currency: this.recomen.oprice.currency,
+      TotalAmount: this.recomen.oprice.totalAmount
+    }
     let dataFamilias = {
-      NumberPassengers: this.numberPassengers,
-      Currency: this.currency,
-      CarrierId: this.carrierId,
-      Lsections: Lsections_,
-      Ocompany: this.loginDataUser.ocompany,
       GDS: this.gds,
       Pseudo: this.pseudo,
-      Lpassenger: datosusuario,
-      TotalFareAmount: this.totalFareAmount,
-      FareTaxAmountByPassenger: this.fareTaxAmountByPassenger,
-      RecommendationId: this.recommendationId,
-      UserId: this.loginDataUser.userId,
-      Infraction: infraction,
+      TypeSearch: "C",
       FlightNational: this.flightNational,
-      Lpolicies: this.lpolicies,
+      UserId: this.loginDataUser.userId,
+      IncludesBaggage: requestFlight.IncludesBaggage,
+      CabinType: requestFlight.CabinType,
+      Lusers: requestFlight.Lusers,
+      Lpassengers: requestFlight.Lpassengers,
+      LpseudoRepeats: this.recomen.lpseudoRepeats,
+      Oprice: price,
+      Ocarrier: this.recomen.ocarrier,
+      Lsections: Lsections_,
+      Lpolicies: this.recomen.lpolicies,
+      Ocompany: this.loginDataUser.ocompany,
+      Oagency: this.loginDataUser.oagency,
     };
     this.sessionStorageService.store(
       "ss_FlightAvailability_request1",
@@ -722,6 +734,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   ObtenerSecciones() {
     let Lsections_: any[] = [];
+    let requestFlight = this.sessionStorageService.retrieve('ss_databuscador');
     const lstRadioCheck = this.lstRadioCheck;
     lstRadioCheck.forEach(function (item) {
       const sectionId = item.sectionId_;
@@ -733,33 +746,32 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lsegmentGroups.forEach(function (group, i) {
+      segment.lsegments.forEach(function (group, i) {
         const dataGroup = {
-          ClassId: section.lsectionGroups[i].classId,
-          DepartureDate: group.departureDate,
-          TimeOfDeparture: group.timeOfDeparture,
-          TimeOfDepartureShow: group.timeOfDepartureShow,
-          ArrivalDate: group.arrivalDate,
-          ArrivalDateShow: group.arrivalDateShow,
-          DepartureDateShow: group.departureDateShow,
-          TimeOfArrival: group.timeOfArrival,
-          TimeOfArrivalShow: group.timeOfArrivalShow,
-          Origin: group.origin,
-          Destination: group.destination,
-          MarketingCarrier: group.marketingCarrier,
-          FlightOrtrainNumber: group.flightOrtrainNumber,
-          EquipmentType: group.equipmentType,
-          FareBasis: section.lsectionGroups[i].fareBasis,
-          TotalFlightTimeShow: group.totalFlightTimeShow,
-          CityOrigin: group.cityOrigin,
-          CityDestination: group.cityDestination,
-          CarrierName: group.carrierName,
-          AirportOrigin: group.airportOrigin,
-          AirportDestination: group.airportDestination,
-          CabinDescription: section.lsectionGroups[i].cabinDescription,
-          TimeWaitAirport: group.timeWaitAirport,
-          DateVariation: group.dateVariation,
-          fareFamilyName: section.lsectionGroups[i].fareFamilyName,
+          oorigin: group.oorigin,
+          odestination: group.odestination,
+          departureDate: group.departureDate,
+          departureDateShow: group.departureDateShow,
+          departureTime: group.departureTime,
+          departureTimeShow: group.departureTimeShow,
+          arrivalDate: group.arrivalDate,
+          arrivalDateShow: group.arrivalDateShow,
+          arrivalTime: group.arrivalTime,
+          arrivalTimeShow: group.arrivalTimeShow,
+          totalFlightTime: group.totalFlightTime,
+          totalFlightTimeShow: group.totalFlightTimeShow,
+          dateVariation: group.dateVariation,
+          timeWaitAirport: group.timeWaitAirport,
+          flightNumber: group.flightNumber,
+          equipmentType: group.equipmentType,
+          ocarrier: group.ocarrier,
+          classId: group.classId,
+          cabinId: group.cabinId,
+          cabinDescription: group.cabinDescription,
+          marriageGrp: group.marriageGrp,
+          FareType: group.fareType,
+          FareBasis: group.fareBasis,
+          FamilyName: group.fareFamilyName
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -767,43 +779,44 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       //Lsegments
       let Lsegments_: any[] = [];
       const lsegment = {
-        SegmentID: segment.segmentId,
-        FareType: section.lsectionGroups[0].fareType,
         TotalFlightTime: segment.totalFlightTime,
-        TotalFlightTimeShow: segment.totalFlightTimeShow,
-        LsegmentGroups: LsegmentGroups_,
+        Lsegments: LsegmentGroups_,
       };
       Lsegments_.push(lsegment);
 
       //Lsections
       const lsection = {
-        SectionID: section.sectionId,
-        Origin: section.origin,
-        Destination: section.destination,
-        AirportDestination: section.airportDestination,
-        AirportOrigin: section.airportOrigin,
-        DepartureDateShow: section.departureDateShow,
-        BagAllowed: section.bagAllowed,
-        BagQuantity: section.bagQuantity,
-        Lsegments: Lsegments_,
-        lsectionGroups: section.lsectionGroups[0],
-        DepartureDate: section.departureDate,
+        Oorigin: section.oorigin,
+        Odestination: section.odestination,
+        Oschedule: lsegment,
+        departureDate: section.departureDate,
+        departureDateShow: section.departureDateShow
       };
-
       Lsections_.push(lsection);
     });
 
+    const price = {
+      Currency: this.recomen.oprice.currency,
+      TotalAmount: this.recomen.oprice.totalAmount
+    }
+
     let dataFamilias = {
-      NumberPassengers: this.numberPassengers,
-      Currency: this.currency,
-      CarrierId: this.carrierId,
-      Lsections: Lsections_,
-      lpolicies: this.lpolicies,
-      Ocompany: this.loginDataUser.ocompany,
-      Gds: this.gds,
+      GDS: this.gds,
       Pseudo: this.pseudo,
+      TypeSearch: "C",
       FlightNational: this.flightNational,
-      RecommendationId: this.recommendationId,
+      UserId: this.loginDataUser.userId,
+      IncludesBaggage: requestFlight.IncludesBaggage,
+      CabinType: requestFlight.CabinType,
+      Lusers: requestFlight.Lusers,
+      Lpassengers: requestFlight.Lpassengers,
+      LpseudoRepeats: this.recomen.lpseudoRepeats,
+      Oprice: price,
+      Ocarrier: this.recomen.ocarrier,
+      Lsections: Lsections_,
+      Lpolicies: this.recomen.lpolicies,
+      Ocompany: this.loginDataUser.ocompany,
+      Oagency: this.loginDataUser.oagency,
     };
     this.sessionStorageService.store(
       "ss_FlightAvailability_request2",
@@ -833,7 +846,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   TraerAutorizador() {
     let infraction;
-    if (this.lpolicies.length > 0) {
+    if (this.lpolicies != null && this.lpolicies.length > 0) {
       infraction = true;
     } else {
       infraction = false;
@@ -928,7 +941,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     let flagResult = 0;
     this.airportService.fligthAvailibility(data).subscribe(
       (results) => {
-        if (results.oerror === null) {
+        if (results.ostatus.status === 200) {
           this.lsFlightAvailabilty = results;
           this.osessionflightaval = this.lsFlightAvailabilty.osession;
           this.sessionStorageService.store(

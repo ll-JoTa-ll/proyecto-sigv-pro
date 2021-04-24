@@ -29,23 +29,23 @@
                 <div class="col-12 m-0 p-0 pt-3">
                     <div class="row m-0 p-0">
                         <div class="col-2 m-0 p-0 d-flex justify-content-center align-items-center">
-                            <img style="width: 33px;" *ngIf="lstBag[0].bagAllowed === true" src="./assets/images/maleta-si.svg" alt="">
-                            <img style="width: 33px;" *ngIf="lstBag[0].bagAllowed === false" src="./assets/images/maleta-no.svg" alt="">
+                            <img style="width: 33px;" *ngIf="sect.oschedule.lsegments[0].obaggage.bagAllowed === true" src="./assets/images/maleta-si.svg" alt="">
+                            <img style="width: 33px;" *ngIf="sect.oschedule.lsegments[0].obaggage.bagAllowed === false" src="./assets/images/maleta-no.svg" alt="">
                         </div>
-                        <div *ngIf="lstBag[0].bagQuantity > 0" class="col-10 m-0 p-0">
+                        <div *ngIf="sect.oschedule.lsegments[0].obaggage.bagQuantity > 0" class="col-10 m-0 p-0">
                             <div class="row m-0 p-0">
                                 <div class="col-12 m-0 p-0 s-texto-5">
                                     Incluye equipaje para documentar
                                 </div>
                                 <div class="col-12 m-0 p-0 s-texto-6">
-                                    {{lstBag[0].bagQuantity}} maleta(s) por adulto.
+                                    {{sect.oschedule.lsegments[0].obaggage.bagQuantity}} maleta(s) por adulto.
                                 </div>
                                 <div class="col-12 m-0 p-0 s-texto-6">
                                     Se documenta en el aeropuerto durante el Check-in.
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="lstBag[0].bagQuantity == 0" class="col-10 m-0 p-0">
+                        <div *ngIf="sect.oschedule.lsegments[0].obaggage.bagQuantity == 0" class="col-10 m-0 p-0">
                             <div class="row m-0 p-0">
                                 <div class="col-12 m-0 p-0 s-texto-5">
                                     No incluye maleta

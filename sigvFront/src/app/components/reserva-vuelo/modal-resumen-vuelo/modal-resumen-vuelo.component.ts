@@ -9,10 +9,12 @@ export class ModalResumenVueloComponent implements OnInit {
 
   @Input() LSection;
   @Input() lstBag;
+  @Input() sect;
 
   constructor() { }
 
   ngOnInit() {
+    console.log("asdsd" + this.LSection);
   }
 
 }

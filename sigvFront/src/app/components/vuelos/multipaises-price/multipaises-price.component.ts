@@ -21,9 +21,12 @@ export class MultipaisesPriceComponent implements OnInit {
     console.log('priceByPseudo: ' + JSON.stringify(this.priceByPseudo));
     console.log('currency: ' + this.currency);
     const priceByPseudo = this.priceByPseudo;
-    priceByPseudo.forEach(function(price) {
-      price.pseudo = price.pseudo + '.png';
-    });
+    if (this.priceByPseudo != null) {
+      priceByPseudo.forEach(function(price) {
+        price.pseudo = price.pseudo + '.png';
+      });
+    }
+    
   }
 
   openModal(template: TemplateRef<any>) {
