@@ -175,6 +175,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   showHotel = false;
   flagCrosselling;
   validCrosselingHotel;
+  listaPseudos;
 
   // @ViewChild(MatVerticalStepper) vert_stepper: MatVerticalStepper;
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
@@ -1641,6 +1642,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         result => {
           this.flagPseudoRepeat = true;
           if (result.status === 200 && result.lrecommendations.length > 0) {
+            this.listaPseudos = result.lpseudoPrices;
             this.fechaSalidaShow = this.salCalendar;
             this.fechaRetornoShow = this.llegCalendar;
             this.calendar = false;
@@ -1951,6 +1953,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
           this.flagPseudoRepeat = true;
           if (result.status === 200 && result.lrecommendations.length > 0) {
             /* console.log(result); */
+            this.listaPseudos = result.lpseudoPrices;
             this.searchData = result.lrecommendations;
             this.sessionStorageService.store('tipovuelo', this.tipoVuelo);
             this.sessionStorageService.store('ss_searchFlight', result.lrecommendations);

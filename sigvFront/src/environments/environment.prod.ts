@@ -31,7 +31,7 @@ export const environment = {
      url_project : "https://localhost:4200",
      cod_rol_autogestion: [1],
      cod_rol_autorizador: [2],
-     cod_rol_centralizador: [3],
+     cod_rol_centralizador: [3], 
      max_pax: 8,
      url_bnus: 'https://ws-bnu.domiruth.com/api/',
      key: '78e06a82cb2e4ddfb445f10d4ac6b36e',

@@ -73,7 +73,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   //lstFamilyResult: IFareFamilyModel[] = [];
   lstFamilyResult: IFamilyResultModel;
-  lsFlightAvailabilty: IFlightAvailability;
+  lsFlightAvailabilty: any;
   flagResultFamilias: number;
   flagPseudoRepeat: boolean;
   lstPseudoRepeat: any[] = [];
@@ -157,12 +157,12 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     }
     const pseudoRepeat = this.pseudoRepeat;
     //console.log('pseudoRepeat: ' + pseudoRepeat);
-    if (pseudoRepeat === null) {
+   /*  if (pseudoRepeat === null) {
       this.flagPseudoRepeat = false;
     } else {
       this.flagPseudoRepeat = true;
       if (pseudoRepeat.indexOf("-") >= 0) {
-        const lstPseudoRepeat = pseudoRepeat.split("-");
+        const lstPseudoRepeat = pseudoRepeat;;
         for (let i = 0; i < lstPseudoRepeat.length; i++) {
           lstPseudoRepeat[i] = lstPseudoRepeat[i] + ".png";
         }
@@ -177,7 +177,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         //console.log('lstPseudoRepeat: ' + lstPseudoRepeat);
         this.lstPseudoRepeat = lstPseudoRepeat;
       }
-    }
+    } */
   }
 
   ngAfterViewInit() {
@@ -631,7 +631,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           marriageGrp: group.marriageGrp,
           FareType: group.fareType,
           FareBasis: group.fareBasis,
-          FamilyName: group.fareFamilyName
+          fareFamilyName: group.fareFamilyName,
+          BrandId: group.brandId,
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -771,7 +772,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           marriageGrp: group.marriageGrp,
           FareType: group.fareType,
           FareBasis: group.fareBasis,
-          FamilyName: group.fareFamilyName
+          fareFamilyName: group.fareFamilyName,
+          BrandId: group.brandId,
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -894,7 +896,11 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Lpolicies: this.lpolicies,
     };
 
-    this.airportService.GetApprovers(data).subscribe(
+    this.lsapprovers = this.lsFlightAvailabilty.lapprovers;
+    this.sessionStorageService.store("lsapprover", null);
+        this.sessionStorageService.store("lsapprover", this.lsapprovers);
+
+    /* this.airportService.GetApprovers(data).subscribe(
       (results) => {
         this.lsapprovers = results;
         this.sessionStorageService.store("lsapprover", null);
@@ -903,7 +909,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       (err) => {
         //  this.modalerror = this.modalService.show(ModalErrorServiceComponent, this.config);
       }
-    );
+    ); */
   }
 
   validateHotel() {
@@ -933,10 +939,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   flightAvailability(data, template, tipo, modalFam, dataseccion) {
     this.vuelosComponent.spinner.show();
-    if (tipo === 1) {
-      // tslint:disable-next-line: max-line-length
-      this.TraerAutorizador();
-    }
+   
     // tslint:disable-next-line: max-line-length
     let flagResult = 0;
     this.airportService.fligthAvailibility(data).subscribe(
@@ -948,6 +951,38 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
             "ss_FlightAvailability_result",
             this.lsFlightAvailabilty
           );
+          if (tipo === 1) {
+            // tslint:disable-next-line: max-line-length
+            this.TraerAutorizador();
+          }
+          if (tipo === 2) {
+            this.TraerAutorizador();
+            // tslint:disable-next-line: max-line-length
+            /*  if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
+              this.GetUsers();
+              this.sessionStorageService.store('objusuarios', this.datosuser);
+            }
+            if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
+              this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
+              this.sessionStorageService.store('objusuarios', this.datosuser);
+              this.TraerAutorizador();
+             }*/
+            this.sessionStorageService.store(
+              "ss_FlightAvailability_request1",
+              data
+            );
+            this.sessionStorageService.store(
+              "ss_FlightAvailability_request2",
+              dataseccion
+            );
+            this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
+            this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
+            this.flagMsgErrorSelFam = false;
+            this.modalRef = this.modalService.show(
+              modalFam,
+              Object.assign({}, { class: "gray modal-lg" })
+            );
+          }
           this.ObtenerSecciones();
           this.sessionStorageService.store("tipovuelo", this.tipoVuelo);
           //this.router.navigate(['/reserva-vuelo']);
@@ -981,34 +1016,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
               this.validateHotel();
             }
           }
-          if (tipo === 2) {
-            this.TraerAutorizador();
-            // tslint:disable-next-line: max-line-length
-            /*  if (this.loginDataUser.orole.roleId === this.lst_rol_autogestion[0] || this.loginDataUser.orole.roleId === this.lst_rol_autorizador[0] || this.loginDataUser.orole.roleId != this.lst_rol_centralizador[2] && this.loginDataUser.orole.roleId != this.lst_rol_centralizador[0]) {
-              this.GetUsers();
-              this.sessionStorageService.store('objusuarios', this.datosuser);
-            }
-            if (this.loginDataUser.orole.roleDescription === 'Centralizador' || this.loginDataUser.orole.roleId === this.lst_rol_centralizador[2]) {
-              this.datosuser = this.sessionStorageService.retrieve('ss_lstPasajeros');
-              this.sessionStorageService.store('objusuarios', this.datosuser);
-              this.TraerAutorizador();
-             }*/
-            this.sessionStorageService.store(
-              "ss_FlightAvailability_request1",
-              data
-            );
-            this.sessionStorageService.store(
-              "ss_FlightAvailability_request2",
-              dataseccion
-            );
-            this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;
-            this.famFareAmountByPassenger = this.lsFlightAvailabilty.fareAmountByPassenger;
-            this.flagMsgErrorSelFam = false;
-            this.modalRef = this.modalService.show(
-              modalFam,
-              Object.assign({}, { class: "gray modal-lg" })
-            );
-          }
+          
 
           if (tipo === 3) {
             this.famTotalFareAmount = this.lsFlightAvailabilty.totalFareAmount;

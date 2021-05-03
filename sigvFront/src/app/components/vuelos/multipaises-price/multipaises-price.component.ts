@@ -23,7 +23,8 @@ export class MultipaisesPriceComponent implements OnInit {
     const priceByPseudo = this.priceByPseudo;
     if (this.priceByPseudo != null) {
       priceByPseudo.forEach(function(price) {
-        price.pseudo = price.pseudo + '.png';
+        price.pseudo = "https://domiruthgeneral.z13.web.core.windows.net/images/Country/" + price.countryCode + ".png";
+        
       });
     }
     

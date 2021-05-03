@@ -78,8 +78,8 @@
         <div class="col-9 m-0 p-0 pr-5" *ngIf="inicioBuscador">
 
           <div class="row m-0 p-0" *ngIf="searchData.length > 0">
-            <div *ngIf="searchData[0].pseudoRepeat !== null && flagPseudoRepeat" class="col-12 m-0 p-0">
-              <app-multipaises-price [currency]="searchData[0].oprice.currency" >
+            <div *ngIf="listaPseudos !== null && flagPseudoRepeat && listaPseudos.length > 0" class="col-12 m-0 p-0">
+              <app-multipaises-price [priceByPseudo]="listaPseudos" [currency]="searchData[0].oprice.currency" >
               </app-multipaises-price>
             </div>
           </div>
@@ -1032,8 +1032,8 @@
           <div class="col-9 m-0 p-0 pr-5" *ngIf="inicioBuscador">
 
             <div class="row m-0 p-0" *ngIf="searchData.length > 0">
-              <div *ngIf="searchData[0].pseudoRepeat !== null && flagPseudoRepeat" class="col-12 m-0 p-0">
-                <app-multipaises-price [currency]="searchData[0].oprice.currency"
+              <div *ngIf="listaPseudos !== null && flagPseudoRepeat && listaPseudos.length > 0" class="col-12 m-0 p-0">
+                <app-multipaises-price [priceByPseudo]="listaPseudos" [currency]="searchData[0].oprice.currency"
                   ></app-multipaises-price>
               </div>
             </div>

@@ -217,14 +217,14 @@ export class AirportService {
     return this.http.post(this._url8 + "SendMail", data, httpOptions2);
   }
 
-  GenerateTicket(data): Observable<IGenerateTicket> {
+  GenerateTicket(data): Observable<any> {
     this.token = this.sessionSt.retrieve('ss_token');
     httpOptions2.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    return this.http.post<IGenerateTicket>(this._url4 + "GenerateTicket", data, httpOptions2);
+    return this.http.post<any>(this.url_bookingTemp + "GeneratePnr", data, httpOptions2);
   }
 
   ListaReservas(data): Observable<IReservaModel[]> {

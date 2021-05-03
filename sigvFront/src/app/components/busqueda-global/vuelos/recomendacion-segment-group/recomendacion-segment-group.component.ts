@@ -19,7 +19,7 @@ export class RecomendacionSegmentGroupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.sectionGroup);
+    console.log(this.segmentGroup);
     if (this.lSegmentGroupsLength === this.lSegmentGroupsIndex) {
       this.textFlightTimeShow = "Duración total: " + this.totalFlightTimeShow;
     } else {

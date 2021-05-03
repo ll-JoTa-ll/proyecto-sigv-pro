@@ -165,7 +165,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   GetExtraProfile() {
-    let data = {
+   /*  let data = {
       userId: this.loginDataUser.userId
     };
     this.service.GetExtraProfile(data.userId).subscribe(
@@ -186,7 +186,17 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       },
       () => {
       }
-    )
+    ) */
+    this.lstprofiles = this.flightAvailability_result.lextraProfiles;
+    if (this.lstprofiles != null) {
+      if (this.lstprofiles.oerror === null) {
+        this.flagactive = true;
+      } else {
+        this.flagactive = false;
+      }
+    } else {
+      this.flagactive = true;
+    }
   }
 
   CostCenter() {
@@ -225,7 +235,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   }
 
   ReasonFlight() {
-    let data = {
+    /* let data = {
       CompanyId: this.ocompany.companyId
     };
 
@@ -238,7 +248,9 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       () => {
         this.getUidByCompany();
       }
-    );
+    ); */
+    this.lsReasonFlight = this.flightAvailability_result.lreasonFlights;
+    this.getUidByCompany();
   }
 
 
@@ -428,10 +440,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         //console.log("selectValue: " + selectValue);
         if (selectValue != "0" && selectValue != "") {
           //console.log("XDXD");
-          if (cbx.listUids.length > 0) {
-            const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
-            const lstHijos = oPadre.listUids;
-            if (lstHijos.length > 0) {
+          if (cbx.lcompanyUidLists.length > 0) {
+            const oPadre = cbx.lcompanyUidLists.filter(p => p.id == selectValue.split('_')[1])[0];
+            const lstHijos = oPadre.lcompanyUidLists;
+            if (lstHijos != null && lstHijos.length > 0) {
               const codeUidHijo = lstHijos[0].codeUid;
               const idHijo = "comboH_" + codeUidHijo + "_" + indexPax;
               const selectValueHijo = $("#" + idHijo).val();
@@ -449,8 +461,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
               if (selectValueHijo != "0" && selectValueHijo != "") {
                 const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
-                const lstNietos = oHijo.listUids;
-                if (lstNietos.length > 0) {
+                const lstNietos = oHijo.lcompanyUidLists;
+                if (lstNietos != null && lstNietos.length > 0) {
                   const codeUidNieto = lstNietos[0].codeUid;
                   const idNieto = "comboN_" + codeUidNieto + "_" + indexPax;
                   const selectValueNieto = $("#" + idNieto).val();
@@ -525,10 +537,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       }
 
       if (selectValue != "0" && selectValue != "") {
-        if (cbx.listUids.length > 0) {
-          const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
-          const lstHijos = oPadre.listUids;
-          if (lstHijos.length > 0) {
+        if (cbx.lcompanyUidLists != null && cbx.lcompanyUidLists.length > 0) {
+          const oPadre = cbx.lcompanyUidLists.filter(p => p.id == selectValue.split('_')[1])[0];
+          const lstHijos = oPadre.lcompanyUidLists;
+          if (lstHijos != null && lstHijos.length > 0) {
             const codeUidHijo = lstHijos[0].codeUid;
             const idHijo = "c_comboH_" + codeUidHijo;
             const selectValueHijo = $("#" + idHijo).val();
@@ -543,8 +555,8 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
 
             if (selectValueHijo != "0" && selectValueHijo != "") {
               const oHijo = lstHijos.filter(h => h.id == selectValueHijo.split('_')[1])[0];
-              const lstNietos = oHijo.listUids;
-              if (lstNietos.length > 0) {
+              const lstNietos = oHijo.lcompanyUidLists;
+              if (lstNietos != null && lstNietos.length > 0) {
                 const codeUidNieto = lstNietos[0].codeUid;
                 const idNieto = "c_comboN_" + codeUidNieto;
                 const selectValueNieto = $("#" + idNieto).val();
@@ -855,10 +867,10 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
         LcompanyUIDs.push(ocompanyUIDs);
 
         if (selectValue != "0" || selectValue != "") {
-          if (cbx.listUids.length > 0) {
-            const oPadre = cbx.listUids.filter(p => p.id == selectValue.split('_')[1])[0];
-            const lstHijos = oPadre.listUids;
-            if (lstHijos.length > 0) {
+          if (cbx.lcompanyUidLists.length > 0) {
+            const oPadre = cbx.lcompanyUidLists.filter(p => p.id == selectValue.split('_')[1])[0];
+            const lstHijos = oPadre.lcompanyUidLists;
+            if (lstHijos != null && lstHijos.length > 0) {
               const codeUidHijo = lstHijos[0].codeUid;
               const idHijo = "comboH_" + codeUidHijo + "_" + indexPax;
               const selectValueHijo = $("#" + idHijo).val();
@@ -1096,7 +1108,22 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     const pseudo = this.pseudo;//LIMPE28AX
     console.log("companyId: " + companyId);
     console.log("pseudo: " + pseudo);
-    this.flightService.getUidByCompany(companyId, pseudo).subscribe(
+    let resultado = this.flightAvailability_result.lcompanyUids;
+    if (resultado != null) {
+      this.uidByCompanyC = resultado.filter(x => x.typeUid === 'C');
+      this.uidByCompanyP = resultado.filter(x => x.typeUid === 'P');
+    }
+    if (this.uidByCompanyC.length > 0) {
+      this.setInformacionAdicional(this.uidByCompanyC);
+    }
+
+    if (this.uidByCompanyP.length > 0) {
+     /*  this.setInformacionPasajeros(this.uidByCompanyP); */
+    }
+    this.lstCostCenter = this.flightAvailability_result.lcostCenters;
+    this.flagPasajeros = true;
+    //this.flagPasajeros = true;
+   /*  this.flightService.getUidByCompany(companyId, pseudo).subscribe(
       result => {
         //console.log("result: " + JSON.stringify(result));
         if (result != null) {
@@ -1132,7 +1159,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
           }
         );
       }
-    );
+    ); */
   }
 
 
@@ -1279,7 +1306,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
       lstCbxC.forEach(function (cbx, index) {
         flagC = 1;
 
-        const llistUid = cbx.listUids;
+        const llistUid = cbx.lcompanyUidLists;
         if (llistUid != null) {
           const lstPadre = llistUid.filter(x => x.parent === 0);
           const lstHijosNietos = llistUid.filter(x => x.parent > 0);

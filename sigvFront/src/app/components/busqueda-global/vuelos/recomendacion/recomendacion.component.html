@@ -6,10 +6,10 @@
 
   <div class="row m-0 p-0">
 
-    <div *ngIf="flagPseudoRepeat" class="col-12 m-0 p-0">
+    <div *ngIf="pseudoRepeat != null &&  pseudoRepeat.length > 0" class="col-12 m-0 p-0">
       <div class="row m-0 p-0">
-        <div *ngFor="let pais of lstPseudoRepeat" style="width: 50px" class="m-0 p-0 text-center">
-          <img src="./assets/images/pseudos/{{pais}}" alt="" style="width: 40px;">
+        <div *ngFor="let pais of pseudoRepeat" style="width: 50px" class="m-0 p-0 text-center">
+          <img src="https://domiruthgeneral.z13.web.core.windows.net/images/Country/{{pais.countryCode}}.png"  alt="" style="width: 40px;">
         </div>
       </div>
     </div>

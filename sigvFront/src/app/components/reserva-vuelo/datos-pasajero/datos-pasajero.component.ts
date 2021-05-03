@@ -292,9 +292,9 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
         let flagU5 = 0;
         if (txt.codeUid === 'U5') {
-          if (txt.listUids === null) {
+          if (txt.lcompanyUidLists === null) {
             flagU5 = 1;
-          } else if (txt.listUids.length === 0) {
+          } else if (txt.lcompanyUidLists.length === 0) {
             flagU5 = 1;
           }
         }
@@ -363,7 +363,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
       lstCbxC.forEach(function(cbx) {
         flagC = 1;
 
-        const llistUid = cbx.listUids;
+        const llistUid = cbx.lcompanyUidLists;
         if (llistUid != null) {
           const lstPadre = llistUid.filter(x => x.parent === 0);
           const lstHijosNietos = llistUid.filter(x => x.parent > 0);

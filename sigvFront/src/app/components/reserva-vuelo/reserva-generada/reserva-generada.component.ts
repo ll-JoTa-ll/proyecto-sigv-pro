@@ -25,6 +25,7 @@ export class ReservaGeneradaComponent implements OnInit, AfterViewInit {
   horatimelimit;
   loginDataUser;
   timelimitShow;
+  texto = 'Solo tienes hasta:';
 
   constructor(private sessionStorageService: SessionStorageService, private service: AirportService, private router: Router) {
      this.lspnrresults = this.sessionStorageService.retrieve('datapnr');
@@ -41,8 +42,14 @@ export class ReservaGeneradaComponent implements OnInit, AfterViewInit {
     this.bloquearBotonAtras();
     this.LPolicies = this.sessionStorageService.retrieve('politicas');
     this.lsapprover = this.sessionStorageService.retrieve('lsapprover');
+    if (this.lsapprover != null && this.lsapprover.length > 0) {
+      this.texto = "Los aprobadores solo tienen hasta:";
+    } 
     if (this.lsapprover === null) {
       this.lsapprover = [];
+    }
+    if (this.LPolicies === null) {
+      this.LPolicies = [];
     }
     this.FormatearFechaPnr();
   }

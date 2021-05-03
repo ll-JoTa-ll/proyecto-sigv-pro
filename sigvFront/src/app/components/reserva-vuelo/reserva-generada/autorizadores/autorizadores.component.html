@@ -4,7 +4,7 @@
             <span class="spanAutorizador">Autorizadores</span>
         </div>
         <label class="txtApro pl-5 pt-4">(Las personas en la siguiente lista se encargaran de revisar su solicitud y gestionarla.</label>
-        <div class="col-12 m-0 p-0">
+        <div *ngIf="lsapprovers != null && lsapprovers.length > 0" class="col-12 m-0 p-0">
             <div *ngFor="let item of lsapprovers" class="row m-0 p-0 pl-4 pr-4">
                 <div class="col-4 m-0 p-0 pr-3">
                     <div class="row m-0 p-0">
@@ -14,7 +14,7 @@
                     </div>
                     <div class="row m-0 p-0">
                         <div class="col-12 m-0 p-0 box-shadow input-pasajero text-center">
-                            {{item.firstName}}
+                            {{item.name}}
                         </div>
                     </div>
                 </div>

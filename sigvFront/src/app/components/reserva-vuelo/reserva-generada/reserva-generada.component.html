@@ -4,7 +4,7 @@
             <div class="col-2 m-0 p-0">
 
             </div>
-            <div class="col-8 m-0 p-0">
+            <div  class="col-8 m-0 p-0">
                 <div class="row m-0 p-0">
                 </div>
                 <p *ngIf="LPolicies.length === 0 && lsapprover.length === 0" class="txtSolicitud m-0 p-0 pb-3 pt-5"><span style="font-size: 40px;padding-right: 10px;">¡Felicidades!</span>Tu reserva ha sido generada</p>
@@ -26,8 +26,8 @@
                 <div class="row m-0 p-0">
                     <div class="col-8 m-0 p-0">
                         <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0 box-shadow pl-5 pr-3 text-center" style="border-radius: 15px 0px 0px 0px">
-                                <label *ngIf="LPolicies.length > 0 && lsapprover.length > 0" class="txtReserva pb-3 pt-4 pr-5 pl-5">La reserva tiene infracción de políticas</label>
+                            <div *ngIf="LPolicies != null" class="col-12 m-0 p-0 box-shadow pl-5 pr-3 text-center" style="border-radius: 15px 0px 0px 0px">
+                                <label *ngIf="LPolicies.length > 0" class="txtReserva pb-3 pt-4 pr-5 pl-5">La reserva tiene infracción de políticas</label>
                             </div>
                         </div>
                         <div class="row m-0 p-0 box-shadow pl-5 pb-5 pt-5 pr-5" style="border-radius: 0px 0px 15px 0px">
@@ -42,12 +42,8 @@
                     </div>
                     <div class="col-4 m-0 p-0">
                         <div class="row m-0 p-0 pl-4">
-                            <div *ngIf="lsapprover.length > 0" class="col-12 m-0 p-0 box-shadow pl-3 pt-3 pb-2" style="border-radius: 20px 0px 0px 0px">
-                                <span class="m-0 p-0"><img src="assets/images/time.svg" style="width: 40px;"></span> <label class="txtGestion pl-2">Los aprobadores solo tienen hasta:</label>
-                                <label class="txtSolicitud m-0 p-0 pl-5">{{timelimitShow}}</label>
-                            </div>
-                            <div *ngIf="lsapprover.length === 0 || LPolicies.length > 0 && lsapprover.length === 0" class="col-12 m-0 p-0 box-shadow pl-3 pt-3 pb-2" style="border-radius: 20px 0px 0px 0px">
-                                <span class="m-0 p-0"><img src="assets/images/time.svg" style="width: 40px;"></span> <label class="txtGestion pl-2">Solo tienes hasta:</label>
+                            <div  class="col-12 m-0 p-0 box-shadow pl-3 pt-3 pb-2" style="border-radius: 20px 0px 0px 0px">
+                                <span class="m-0 p-0"><img src="assets/images/time.svg" style="width: 40px;"></span> <label class="txtGestion pl-2">{{texto}}</label>
                                 <label class="txtSolicitud m-0 p-0 pl-5">{{timelimitShow}}</label>
                             </div>
                             <!--   <div *ngIf="LPolicies.length === 0 && lsapprover.length === 0 || LPolicies.length > 0 && lsapprover.length === 0" class="col-12 m-0 p-0 box-shadow pl-5 pt-2" style="border-radius: 0px 0px 20px 0px">

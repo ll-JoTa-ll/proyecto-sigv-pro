@@ -52,7 +52,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   flightnational;
   idmotivo;
   plantilla;
-  ticketresults: IGenerateTicket;
+  ticketresults: any;
   emailsolicitud;
   htmlvuelosection;
   htmlpreciofinal;
@@ -170,8 +170,13 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     };
   }
 
-  AddPassenger(template, template3) {
-
+  AddPassenger(valor,template, template3) {
+    let emmi;
+    if (valor === 1) {
+      emmi = false;
+    } else {
+      emmi = true;
+    }
     var reason = this.sessionStorageService.retrieve('reason');
     let phones = [];
     let email = [];
@@ -223,7 +228,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       "ExtraProfile": extraprofile,
       "ProfileName": this.idprofile,
       "Comment": $('#motivoviaje').val(),
-      "Emission": false,
+      "Emission": emmi,
       "Ocarrier": requestFlight.Ocarrier,
       "LpseudoRepeats": requestFlight.LpseudoRepeats,
       "Oprice": price,
@@ -587,9 +592,9 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   }
 
   SendEmailReservaGenerada() {
-    this.PlantillaItinerarioReserva();
+    /* this.PlantillaItinerarioReserva();
     this.PlantillaPrecioReserva();
-    this.PlantillaPasajeroReserva();
+    this.PlantillaPasajeroReserva(); */
     let mails = [];
     this.lsusuario.forEach(function (item) {
       mails.push(item.Email);
@@ -605,7 +610,8 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
     }
     this.service.SendEmail(data).subscribe(
       results => {
-        if (results === true) {
+        this.router.navigate(['/reserva-generada-vuelo']);
+       /*  if (results === true) {
           this.toastr.success('', 'Se envio correctamente', {
             timeOut: 3000
           });
@@ -614,7 +620,7 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
           this.toastr.error('', 'Error al envio', {
             timeOut: 3000
           });
-        }
+        } */
       },
       err => {
 
@@ -656,35 +662,42 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
       amount = 0;
       porcentaje = 0;
     }
+    let requestFlight = this.sessionStorageService.retrieve('ss_flightavailability_request2');
+    let priceRq = this.sessionStorageService.retrieve('ss_flightavailability_result');
+    let moti = this.sessionStorageService.retrieve("ss_motivo");
+    const price = {
+      Currency: priceRq.oprice.currency,
+      BaseAmount: priceRq.oprice.baseAmount,
+      TotalTaxAmount: priceRq.oprice.totalTaxAmount,
+      TotalAmount: priceRq.oprice.totalAmount,
+      OdiscountPrice: priceRq.oprice.odiscountPrice
+    }
     let data = {
-      "UserId": this.loginDataUser.userId,
       "GDS": this.gds,
       "Pseudo": this.pseudo,
-      "FlightNational": this.flightnational,
-      "Infraction": infraction,
-      "Lsections": this.Lsectionpassenger,
-      "Ocompany": this.ocompany,
-      "osession": this.osession,
-      "Lpassenger": this.lsusuario,
+      "TypeSearch": 'C',
+      "UserId": this.loginDataUser.userId,
       "ReasonFlightId": parseFloat(this.idmotivo),
+      "ReasonFlight": moti,
       "ExtraReason": reason,
-      "CarrierId": this.carrierId,
-      "Lpolicies": this.LPolicies,
-      "OContactInfo": this.contacto,
+      "FlightNational": this.flightnational,
+      "TypeFlight": this.tipovuelo,
       "ExtraProfile": extraprofile,
       "ProfileName": this.idprofile,
-      "FareTaxAmountByPassenger": this.lsflightavailability.fareAmountByPassenger,
-      "TotalFareAmount": this.lsflightavailability.totalFareAmount,
-      "Currency": this.lsflightavailability.currency,
-      "NumberPassengers": this.dataflightavalilability.NumberPassengers,
-      "RecommendationId": this.dataflightavalilability.RecommendationId,
-      "Comment": "Reserva de emision",
-      "Lauthorizer": this.lsapprover,
-      "TypeFlight": this.tipovuelo,
-      "TotalDiscount": amount,
-      "PercentageDiscount": porcentaje,
-      "Ltaxes": this.lsflightavailability.ltaxes,
-      "LcompanyUIDs": this.LcompanyUIDs
+      "Comment": $('#motivoviaje').val(),
+      "Emission": true,
+      "Ocarrier": requestFlight.Ocarrier,
+      "LpseudoRepeats": requestFlight.LpseudoRepeats,
+      "Oprice": price,
+      "Lpassengers": this.lsusuario,
+      "Lsections": requestFlight.Lsections,
+      "OContactInfo": this.contacto,
+      "Lapprovers": priceRq.lapprovers,
+      "Lpolicies": this.LPolicies,
+      "LcompanyUIDs": this.LcompanyUIDs,
+      "osession": this.osession,
+      "Ocompany": this.ocompany,
+      "Oagency": this.loginDataUser.oagency
     };
     this.spinner.show();
     let datos = this.sessionStorageService.retrieve('ss_duplicatePNR');
@@ -696,10 +709,10 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
             results => {
               this.ticketresults = results;
               this.sessionStorageService.store('dataticket', this.ticketresults);
-              if (this.ticketresults.oerror === null) {
+              if (this.ticketresults.ostatus.status === 200) {
                 clearInterval(idinterval);
               }
-              if (this.ticketresults.oerror === null) {
+              if (this.ticketresults.ostatus.status === 200) {
                 this.router.navigate(['/reserva-ticket-vuelo']);
               }
             },

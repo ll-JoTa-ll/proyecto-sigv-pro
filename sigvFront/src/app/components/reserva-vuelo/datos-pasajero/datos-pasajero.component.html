@@ -11,8 +11,8 @@
           </div>
           <div class="col-6 m-0 p-0 text-right pr-4">
             <span (click)="openModal(modalinfraccion, modalerror)" class="txt-infraccion pr-4" style="cursor: pointer">Ver infracción</span>
-            <span *ngIf="LPolicies.length > 0" class="circulo-politica"></span>
-            <span *ngIf="LPolicies.length === 0" class="circulo-politica1"></span>
+            <span *ngIf="LPolicies != null && LPolicies.length > 0" class="circulo-politica"></span>
+            <span *ngIf="LPolicies != null && LPolicies.length === 0" class="circulo-politica1"></span>
             <ng-template #modalinfraccion let-c="close" let-d="dismiss">
               <div class="modal-header m-0 p-0" style="border: none;">
                 <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
