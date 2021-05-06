@@ -22,7 +22,7 @@ export class FamilyService {
   token;
   key;
 
-  private _url3: string = environment.url_2 + "Search/";
+  private _url3: string = environment.url_2 + "SearchTemp/";
 
   constructor(
     private http: HttpClient,
@@ -37,7 +37,7 @@ export class FamilyService {
     });
   }
 
-  getFareFamily(dataPost): Observable<IFamilyResultModel> {
-    return this.http.post<IFamilyResultModel>(this._url3 + 'GetFareFamily', dataPost, httpOptions);
+  getFareFamily(dataPost): Observable<any> {
+    return this.http.post<any>(this._url3 + 'GetFamilyDescription', dataPost, httpOptions);
   }
 }

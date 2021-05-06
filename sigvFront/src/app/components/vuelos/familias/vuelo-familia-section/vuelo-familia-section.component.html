@@ -14,7 +14,7 @@
               {{ textoTipo }}
             </div>
             <div class="col-12 m-0 p-0 ff-text-2">
-              {{ sectionFamily.lsegments[0].odeparture.dateShow }}
+              {{ sectionFamily.lsegments[0].departureDateShow }}
             </div>
           </div>
         </div>
@@ -24,10 +24,10 @@
     <div class="col-2 m-0 p-0">
       <div class="row m-0 p-0">
         <div class="col-12 m-0 p-0 ff-text-1">
-          {{ sectionFamily.oorigin.city }}
+          {{ sectionFamily.oorigin.cityName }}
         </div>
         <div class="col-12 m-0 p-0 ff-text-2">
-          {{ sectionFamily.oorigin.airportCity }}
+          {{ sectionFamily.oorigin.airportName }}
         </div>
       </div>
       <div class="row m-0 p-0">
@@ -40,21 +40,21 @@
 
       <div class="row m-0 p-0">
         <div
-          *ngIf="sectionFamily.lsegments[0].numberScales > 0"
+          *ngIf="sectionFamily.numberScales > 0"
           class="col-12 m-0 p-0 ff-text-5 text-center"
         >
-          {{ sectionFamily.lsegments[0].numberScales }} escala(s)
+          {{ sectionFamily.numberScales }} escala(s)
         </div>
 
         <div
-          *ngIf="sectionFamily.lsegments[0].numberScales === 0"
+          *ngIf="sectionFamily.numberScales === 0"
           class="col-12 m-0 p-0 ff-text-5 text-center"
         >
           Directo
         </div>
 
         <div
-          *ngIf="sectionFamily.lsegments[0].numberScales > 0"
+          *ngIf="sectionFamily.numberScales > 0"
           class="col-12 m-0 p-0 text-center"
           style="width: 205px; height: 4px"
         >
@@ -62,7 +62,7 @@
         </div>
 
         <div
-          *ngIf="sectionFamily.lsegments[0].numberScales === 0"
+          *ngIf="sectionFamily.numberScales === 0"
           class="col-12 m-0 p-0 text-center"
           style="width: 205px; height: 4px"
         >
@@ -74,10 +74,10 @@
     <div class="col-4 m-0 p-0">
       <div class="row m-0 p-0">
         <div class="col-12 m-0 p-0 ff-text-1">
-          {{ sectionFamily.odestination.city }}
+          {{ sectionFamily.odestination.cityName }}
         </div>
         <div class="col-12 m-0 p-0 ff-text-2">
-          {{ sectionFamily.odestination.airportCity }}
+          {{ sectionFamily.odestination.airportName }}
         </div>
       </div>
 
@@ -85,8 +85,7 @@
         <!--   <div class="col-4 m-0 p-0 ff-text-3">{{sectionFamily.lsegments[sectionFamilyIndex].oarrival.timeShow}}</div> -->
         <div class="col-4 m-0 p-0 ff-text-4 d-flex align-items-center">
           {{
-            sectionFamily.lsegments[sectionFamily.lsegments.length - 1].otime
-              .totalFlightTimeShow
+            sectionFamily.lsegments[sectionFamily.lsegments.length - 1].totalFlightTimeShow
           }}
         </div>
         <div class="col-4 m-0 p-0">

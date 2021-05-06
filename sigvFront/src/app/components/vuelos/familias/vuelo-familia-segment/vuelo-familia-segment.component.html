@@ -8,26 +8,26 @@
             <img style="width: 110px;" class="img-fluid vertical-center pl-4" src="./assets/images/airlines/{{marketingCarrier}}" alt="">
           </div>
           <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center name-airlane">
-            {{segment.oairline.carrierName}}
+            {{segment.ocarrier.carrierName}}
           </div>
           <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center t-tipo-vuelo">
-            Vuelo {{segment.oairline.flightOrtrainNumber}} - {{segment.oairline.equipmentType}}
+            Vuelo {{segment.flightNumber}} - {{segment.equipmentType}}
           </div>
         </div>
       </div>
       <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
         <div class="row m-0 p-0">
           <div class="col-12 m-0 p-0 ff-date-show">
-            {{segment.odeparture.dateShow}}
+            {{segment.departureDateShow}}
           </div>
           <div class="col-12 m-0 p-0 ff-time-show">
-            {{segment.odeparture.timeShow}}
+            {{segment.departureTimeShow}}
           </div>
           <div class="col-12 m-0 p-0 ff-city">
-            {{segment.oorigin.city}}
+            {{segment.oorigin.cityName}}
           </div>
           <div class="col-12 m-0 p-0 ff-airport">
-            {{segment.oorigin.airportCity}}
+            {{segment.oorigin.airportName}}
           </div>
         </div>
       </div>
@@ -37,23 +37,23 @@
             Duración
           </div>
           <div class="col-12 m-0 p-0 ff-time-duration">
-            {{segment.otime.totalFlightTimeShow}}
+            {{segment.totalFlightTimeShow}}
           </div>
         </div>
       </div>
       <div class="col-4 m-0 p-0 text-center d-flex justify-content-center align-items-center">
         <div class="row m-0 p-0">
           <div class="col-12 m-0 p-0 ff-date-show">
-            {{segment.oarrival.dateShow}}
+            {{segment.arrivalDateShow}}
           </div>
           <div class="col-12 m-0 p-0 ff-time-show">
-            {{segment.oarrival.timeShow}}
+            {{segment.arrivalTimeShow}}
           </div>
           <div class="col-12 m-0 p-0 ff-city">
-            {{segment.odestination.city}}
+            {{segment.odestination.cityName}}
           </div>
           <div class="col-12 m-0 p-0 ff-airport">
-            {{segment.odestination.airportCity}}
+            {{segment.odestination.airportName}}
           </div>
         </div>
       </div>

@@ -60,7 +60,7 @@
         <div class="col-1 m-0 p-0"></div>
 
         <div class="col-11 m-0 p-0 text-right r-div-btn-1" style="padding-top: 30px !important;">
-          <button class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId, modalerror, templateSinFares)">
+          <button *ngIf="gds === 'Amadeus'" class="btn r-btn-1" (click)="openModal(modalFamilias, recommendationId, modalerror, templateSinFares)">
             Ver familias
           </button>
 
@@ -86,7 +86,7 @@
                 [modalRef]="modalRef"
                 (outIdRadioBtnFareFam)="famFlightAvailability($event)"
                 (flagCloseModal)="flagCloseModal($event)"
-                [lcombinations]="lstFamilyResult.lcombinations"
+                [lcombinations]="lstFamilyResult.lfamilyCombinations"
               ></app-familias>
             </div>
 

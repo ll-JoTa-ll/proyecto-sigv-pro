@@ -121,7 +121,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log("FamiliasComponent ngOnInit");
+    console.log("dsad" + this.lstFamilyResult);
     this.loginDataUser = this.sessionStorageService.retrieve("ss_login_data");
     this.flagAutoCroselling = this.sessionStorageService.retrieve(
       "ss_login_data"
@@ -179,10 +179,8 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
       indexSectionVal
     ) {
       if (indexSectionVal === 0) {
-        sectionVal.Lsegments.forEach(function (segmentVal) {
-          segmentVal.LsegmentGroups.forEach(function (segmentGroupVal) {
-            section0_fareBasis.push(segmentGroupVal.FareBasis);
-          });
+        sectionVal.Oschedule.Lsegments.forEach(function (segmentVal) {
+            section0_fareBasis.push(segmentVal.FareBasis);
         });
       }
     });
@@ -196,7 +194,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     let lstCombinacionesSection = [];
     let flagSection0 = 0;
     lcombinations.forEach(function (combinacion, indexCombinacion) {
-      const lbasisCombinations = combinacion.lbasisCombinations;
+      const lbasisCombinations = combinacion.lfareBasisCombinations;
       flagSection0 = 0;
       lbasisCombinations.forEach(function (valor, indexValor) {
         if (valor.sectionId == 1) {
@@ -239,7 +237,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     );
     //        vamos ocultar los radio q no existan
     lstCombinacionesSection.forEach(function (valor, valorIndex) {
-      const lbasisCombinations = valor.lbasisCombinations;
+      const lbasisCombinations = valor.lfareBasisCombinations;
       lbasisCombinations.forEach(function (combi, combiIndex) {
         if (combi.sectionId != "1") {
           const cardId =
@@ -257,17 +255,19 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
 
     //PASO 5
     const colorsFare = this.colorsFare;
-    console.log("PASO 5");
+    /* console.log("PASO 5"); */
     const combinacionInicial = lstCombinacionesSection[0];
-    console.log("combinacionInicial: " + JSON.stringify(combinacionInicial));
-    const totalPrice_0 = combinacionInicial.totalPrice;
-    console.log("totalPrice_0: " + totalPrice_0);
-    const currency_0 = combinacionInicial.currency;
-    console.log("currency_0: " + currency_0);
-    const lbasisCombinations_0 = combinacionInicial.lbasisCombinations;
-    console.log(
+   /*  console.log("combinacionInicial: " + JSON.stringify(combinacionInicial)); */
+    const totalPrice_0 = combinacionInicial.oprice.totalAmount;
+
+    const priceByPass = combinacionInicial.oprice.amountByPassenger;
+   /*  console.log("totalPrice_0: " + totalPrice_0); */
+    const currency_0 = combinacionInicial.oprice.currency;
+   /*  console.log("currency_0: " + currency_0); */
+    const lbasisCombinations_0 = combinacionInicial.lfareBasisCombinations;
+    /* console.log(
       "lbasisCombinations_0: " + JSON.stringify(lbasisCombinations_0)
-    );
+    ); */
     lbasisCombinations_0.forEach(function (combo, comboIndex) {
       //$('#' + idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + (fareFamilyIndex)).prop("checked", true);
     });
@@ -328,8 +328,8 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
         });
       });
     });
-    this.famTotalFareAmount = Number(totalPrice_0) * this.nroPersonas;
-    this.famFareAmountByPassenger = Number(totalPrice_0);
+    this.famTotalFareAmount = totalPrice_0;
+    this.famFareAmountByPassenger = priceByPass;
   }
 
   sumTotal($event) {

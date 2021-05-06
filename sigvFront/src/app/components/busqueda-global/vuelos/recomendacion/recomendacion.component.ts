@@ -72,7 +72,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   familyname;
 
   //lstFamilyResult: IFareFamilyModel[] = [];
-  lstFamilyResult: IFamilyResultModel;
+  lstFamilyResult: any;
   lsFlightAvailabilty: any;
   flagResultFamilias: number;
   flagPseudoRepeat: boolean;
@@ -231,63 +231,73 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lsegmentGroups.forEach(function (group, i) {
+      segment.lsegments.forEach(function (group, i) {
         const dataGroup = {
-          Id: idVal,
-          ClassId: section.lsectionGroups[i].classId,
-          DepartureDate: group.departureDate,
-          TimeOfDeparture: group.timeOfDeparture,
-          ArrivalDate: group.arrivalDate,
-          TimeOfArrival: group.timeOfArrival,
-          Origin: group.origin,
-          Destination: group.destination,
-          MarketingCarrier: group.marketingCarrier,
-          FlightOrtrainNumber: group.flightOrtrainNumber,
-          EquipmentType: group.equipmentType,
-          FareBasis: section.lsectionGroups[i].fareBasis,
-          CabinId: section.lsectionGroups[i].cabinId,
-          CabinDescription: section.lsectionGroups[i].cabinDescription,
-          TimeWaitAirport: group.timeWaitAirport,
-          fareFamilyName: "",
+          oorigin: group.oorigin,
+          odestination: group.odestination,
+          departureDate: group.departureDate,
+          departureDateShow: group.departureDateShow,
+          departureTime: group.departureTime,
+          departureTimeShow: group.departureTimeShow,
+          arrivalDate: group.arrivalDate,
+          arrivalDateShow: group.arrivalDateShow,
+          arrivalTime: group.arrivalTime,
+          arrivalTimeShow: group.arrivalTimeShow,
+          totalFlightTime: group.totalFlightTime,
+          totalFlightTimeShow: group.totalFlightTimeShow,
+          dateVariation: group.dateVariation,
+          timeWaitAirport: group.timeWaitAirport,
+          flightNumber: group.flightNumber,
+          equipmentType: group.equipmentType,
+          ocarrier: group.ocarrier,
+          classId: group.classId,
+          cabinId: group.cabinId,
+          cabinDescription: group.cabinDescription,
+          marriageGrp: group.marriageGrp,
+          FareType: group.fareType,
+          FareBasis: group.fareBasis,
+          fareFamilyName: group.fareFamilyName,
+          BrandId: group.brandId,
         };
         LsegmentGroups_.push(dataGroup);
         idVal++;
-        lstFareBasis.push(section.lsectionGroups[i].fareBasis);
+        lstFareBasis.push(group.fareBasis);
       });
 
       //Lsegments
       let Lsegments_: any[] = [];
       const lsegment = {
-        SegmentID: segment.segmentId,
-        FareType: section.lsectionGroups[0].fareType,
         TotalFlightTime: segment.totalFlightTime,
-        LsegmentGroups: LsegmentGroups_,
+        Lsegments: LsegmentGroups_,
       };
       Lsegments_.push(lsegment);
 
       //Lsections
       const lsection = {
-        SectionID: section.sectionId,
-        Origin: section.origin,
-        Destination: section.destination,
-        Lsegments: Lsegments_,
+        Oorigin: section.oorigin,
+        Odestination: section.odestination,
+        Oschedule: lsegment,
+        departureDate: section.departureDate,
+        departureDateShow: section.departureDateShow
       };
       Lsections_.push(lsection);
     });
 
     this.lstFareBasis = lstFareBasis;
 
-    Lsections_ = Lsections_.sort((a, b) => a.sectionId - b.sectionId);
-
+    /* Lsections_ = Lsections_.sort((a, b) => a.sectionId - b.sectionId); */
+    let requestFlight = this.sessionStorageService.retrieve('ss_databuscador');
     let dataFamilias = {
-      NumberPassengers: this.numberPassengers,
-      Currency: this.currency,
-      CarrierId: this.carrierId,
-      Lsections: Lsections_,
+      GDS: this.gds,
+      Pseudo: this.pseudo,
+      TypeSearch: "C",
       Ocompany: this.loginDataUser.ocompany,
-      Gds: this.gds,
-      PSeudo: this.pseudo,
+      Oagency: this.loginDataUser.oagency,
+      LpseudoRepeats: this.recomen.lpseudoRepeats,
+      Lsections: Lsections_,
+      Lpassengers: requestFlight.Lpassengers,
     };
+
     this.requestFamilia = dataFamilias;
     this.getFareFamilyV2(dataFamilias, template, modalerror, templateSinFares);
   }
@@ -344,25 +354,33 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
       //LsegmentGroups
       let LsegmentGroups_: any[] = [];
-      segment.lsegmentGroups.forEach(function (group, i) {
+      segment.lsegments.forEach(function (group, i) {
         const dataGroup = {
-          Id: i + 1,
-          ClassId: section.lsectionGroups[i].classId,
-          CabinId: section.lsectionGroups[i].cabinId,
-          CabinDescription: section.lsectionGroups[i].cabinDescription,
-          DepartureDate: group.departureDate,
-          TimeOfDeparture: group.timeOfDeparture,
-          ArrivalDate: group.arrivalDate,
-          TimeOfArrival: group.timeOfArrival,
-          Origin: group.origin,
-          Destination: group.destination,
-          MarketingCarrier: group.marketingCarrier,
-          FlightOrtrainNumber: group.flightOrtrainNumber,
-          EquipmentType: group.equipmentType,
-          FareBasis: section.lsectionGroups[i].fareBasis,
-          TimeWaitAirport: group.timeWaitAirport,
-          fareFamilyName: "",
-          TotalFlightTimeShow: group.totalFlightTimeShow,
+          oorigin: group.oorigin,
+          odestination: group.odestination,
+          departureDate: group.departureDate,
+          departureDateShow: group.departureDateShow,
+          departureTime: group.departureTime,
+          departureTimeShow: group.departureTimeShow,
+          arrivalDate: group.arrivalDate,
+          arrivalDateShow: group.arrivalDateShow,
+          arrivalTime: group.arrivalTime,
+          arrivalTimeShow: group.arrivalTimeShow,
+          totalFlightTime: group.totalFlightTime,
+          totalFlightTimeShow: group.totalFlightTimeShow,
+          dateVariation: group.dateVariation,
+          timeWaitAirport: group.timeWaitAirport,
+          flightNumber: group.flightNumber,
+          equipmentType: group.equipmentType,
+          ocarrier: group.ocarrier,
+          classId: group.classId,
+          cabinId: group.cabinId,
+          cabinDescription: group.cabinDescription,
+          marriageGrp: group.marriageGrp,
+          FareType: group.fareType,
+          FareBasis: group.fareBasis,
+          fareFamilyName: group.fareFamilyName,
+          BrandId: group.brandId,
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -370,25 +388,23 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       //Lsegments
       let Lsegments_: any[] = [];
       const lsegment = {
-        SegmentID: segment.segmentId,
-        FareType: section.lsectionGroups[0].fareType,
         TotalFlightTime: segment.totalFlightTime,
-        LsegmentGroups: LsegmentGroups_,
+        Lsegments: LsegmentGroups_,
       };
       Lsegments_.push(lsegment);
 
       //Lsections
       const lsection = {
-        SectionID: section.sectionId,
-        Origin: section.origin,
-        Destination: section.destination,
-        Lsegments: Lsegments_,
-        DepartureDate: section.departureDate,
+        Oorigin: section.oorigin,
+        Odestination: section.odestination,
+        Oschedule: lsegment,
+        departureDate: section.departureDate,
+        departureDateShow: section.departureDateShow
       };
       Lsections_.push(lsection);
     });
 
-    console.log(this.datosuser);
+    //console.log(this.datosuser);
     this.datosuser.forEach(function (item, index) {
       let recorte;
       let fecha;
@@ -427,30 +443,35 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       };
       datosusuario.push(obj);
     });
-    console.log(datosusuario);
+  //  console.log(datosusuario);
     let infraction;
-
+    let requestFlight = this.sessionStorageService.retrieve('ss_databuscador');
     if (this.lpolicies != null && this.lpolicies.length > 0) {
       infraction = true;
     } else {
       infraction = false;
     }
+    const price = {
+      Currency: this.recomen.oprice.currency,
+      TotalAmount: this.recomen.oprice.totalAmount
+    }
     let dataFamilias = {
-      NumberPassengers: this.numberPassengers,
-      Currency: this.currency,
-      CarrierId: this.carrierId,
-      Lsections: Lsections_,
-      Ocompany: this.loginDataUser.ocompany,
       GDS: this.gds,
       Pseudo: this.pseudo,
-      Lpassenger: datosusuario,
-      TotalFareAmount: this.totalFareAmount,
-      FareTaxAmountByPassenger: this.fareTaxAmountByPassenger,
-      RecommendationId: this.recommendationId,
-      UserId: this.loginDataUser.userId,
-      Infraction: infraction,
+      TypeSearch: "C",
       FlightNational: this.flightNational,
-      Lpolicies: this.lpolicies,
+      UserId: this.loginDataUser.userId,
+      IncludesBaggage: requestFlight.IncludesBaggage,
+      CabinType: requestFlight.CabinType,
+      Lusers: requestFlight.Lusers,
+      Lpassengers: requestFlight.Lpassengers,
+      LpseudoRepeats: this.recomen.lpseudoRepeats,
+      Oprice: price,
+      Ocarrier: this.recomen.ocarrier,
+      Lsections: Lsections_,
+      Lpolicies: this.recomen.lpolicies,
+      Ocompany: this.loginDataUser.ocompany,
+      Oagency: this.loginDataUser.oagency,
     };
 
     return dataFamilias;
@@ -490,14 +511,10 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
                     const fareFamilyName = fare.fareFamilyName;
                     dataflighavailability.Lsections[
                       indexSection
-                    ].Lsegments[0].LsegmentGroups[
-                      indexSegment
-                    ].fareFamilyName = fareFamilyName;
+                    ].Oschedule.Lsegments[0].fareFamilyName = fareFamilyName;
                     datasecciones.Lsections[
                       indexSection
-                    ].Lsegments[0].LsegmentGroups[
-                      indexSegment
-                    ].fareFamilyName = fareFamilyName;
+                    ].Oschedule.Lsegments[0].fareFamilyName = fareFamilyName;
                   }
                 });
               });
@@ -510,7 +527,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         this.flagResultFamilias = flagResultFamilias;
       },
       (err) => {
-        console.log("ERROR: " + JSON.stringify(err));
+   //     console.log("ERROR: " + JSON.stringify(err));
         this.vuelosComponent.spinner.hide();
         this.modalerror = this.modalService.show(
           ModalErrorServiceComponent,
@@ -593,7 +610,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     let Lsections_: any[] = [];
     let datosusuario: any[] = [];
     const lstRadioCheck = this.lstRadioCheck;
-    console.log(lstRadioCheck);
+   // console.log(lstRadioCheck);
     lstRadioCheck.sort((a, b) => a.sectionId_ - b.sectionId_);
     this.lstRadioCheck = lstRadioCheck;
     lstRadioCheck.forEach(function (item) {
@@ -656,7 +673,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Lsections_.push(lsection);
     });
 
-    console.log(this.datosuser);
+ //   console.log(this.datosuser);
     this.datosuser.forEach(function (item, index) {
       let recorte;
       let fecha;
@@ -695,7 +712,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       };
       datosusuario.push(obj);
     });
-    console.log(datosusuario);
+  //.log(datosusuario);
     let infraction;
 
     if (this.lpolicies != null && this.lpolicies.length > 0) {
@@ -703,7 +720,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     } else {
       infraction = false;
     }
-    console.log(this.recomen);
+ //   console.log(this.recomen);
     const price = {
       Currency: this.recomen.oprice.currency,
       TotalAmount: this.recomen.oprice.totalAmount
@@ -1007,7 +1024,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         this.vuelosComponent.spinner.hide();
         if (flagResult === 1) {
           if (tipo === 1) {
-            console.log(this.flagAutoCroselling);
+  //          console.log(this.flagAutoCroselling);
             // tslint:disable-next-line: max-line-length
             // tslint:disable-next-line: max-line-length
             if (!this.flagAutoCroselling) {
@@ -1125,25 +1142,17 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
                   requestFamilia.Lsections[
                     section_
-                  ].Lsegments[0].LsegmentGroups[segment_].ClassId = classId;
+                  ].Oschedule.Lsegments[0].ClassId = classId;
                   requestFamilia.Lsections[
                     section_
-                  ].Lsegments[0].LsegmentGroups[segment_].FareBasis = fareBasis;
+                  ].Oschedule.Lsegments[0].FareBasis = fareBasis;
                   requestFamilia.Lsections[
                     section_
-                  ].Lsegments[0].LsegmentGroups[
-                    segment_
-                  ].fareFamilyName = fareFamilyName;
+                  ].Oschedule.Lsegments[0].fareFamilyName = fareFamilyName;
 
-                  seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[
-                    segment_
-                  ].ClassId = classId;
-                  seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[
-                    segment_
-                  ].FareBasis = fareBasis;
-                  seccionvuelos.Lsections[section_].Lsegments[0].LsegmentGroups[
-                    segment_
-                  ].fareFamilyName = fareFamilyName;
+                  seccionvuelos.Lsections[section_].Oschedule.Lsegments[0].ClassId = classId;
+                  seccionvuelos.Lsections[section_].Oschedule.Lsegments[0].FareBasis = fareBasis;
+                  seccionvuelos.Lsections[section_].Oschedule.Lsegments[0].fareFamilyName = fareFamilyName;
                 }
                 console.log(fareFamilyName);
               }
@@ -1248,13 +1257,13 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     let lstFareBasis = this.lstFareBasis;
     lstFareBasis = [];
 
-    const lcombinations = this.lstFamilyResult.lcombinations;
+    const lcombinations = this.lstFamilyResult.lfamilyCombinations;
 
     requestFamilia.Lsections.forEach(function (sectionVal) {
-      sectionVal.Lsegments.forEach(function (segmentVal) {
-        segmentVal.LsegmentGroups.forEach(function (segmentGroupVal) {
-          lstFareBasis.push(segmentGroupVal.FareBasis);
-        });
+      sectionVal.Oschedule.Lsegments.forEach(function (segmentVal) {
+       
+          lstFareBasis.push(segmentVal.FareBasis);
+       
       });
     });
 
@@ -1265,22 +1274,19 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       console.log("indexSectionVal: " + indexSectionVal);
       console.log("parseInt(section_): " + parseInt(section_));
       if (parseInt(section_) > indexSectionVal) {
-        sectionVal.Lsegments.forEach(function (segmentVal, indexSegmentVal) {
-          segmentVal.LsegmentGroups.forEach(function (segmentGroupVal) {
-            section0_fareBasis.push(segmentGroupVal.FareBasis);
-          });
+        sectionVal.Oschedule.Lsegments.forEach(function (segmentVal, indexSegmentVal) {
+         
+            section0_fareBasis.push(segmentVal.FareBasis);
+        
         });
       }
       if (indexSectionVal === parseInt(section_)) {
-        sectionVal.Lsegments.forEach(function (segmentVal, indexSegmentVal) {
-          segmentVal.LsegmentGroups.forEach(function (
-            segmentGroupVal,
-            indexSegmentGroupVal
-          ) {
-            if (parseInt(segment_) >= indexSegmentGroupVal) {
-              section0_fareBasis.push(segmentGroupVal.FareBasis);
+        sectionVal.Oschedule.Lsegments.forEach(function (segmentVal, indexSegmentVal) {
+          
+            if (parseInt(segment_) >= indexSegmentVal) {
+              section0_fareBasis.push(segmentVal.FareBasis);
             }
-          });
+         
         });
       }
     });
@@ -1294,7 +1300,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     let flagSection0 = 0;
     const cantFareBasis = section0_fareBasis.length;
     lcombinations.forEach(function (combinacion, indexCombinacion) {
-      const lbasisCombinations = combinacion.lbasisCombinations;
+      const lbasisCombinations = combinacion.lfareBasisCombinations;
       flagSection0 = 0;
       lbasisCombinations.forEach(function (valor, indexValor) {
         if (cantFareBasis > indexValor) {
@@ -1393,7 +1399,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     //        vamos ocultar los radio q no existan
     var flagExisteShow = 0;
     lstCombinacionesSection.forEach(function (valor, valorIndex) {
-      const lbasisCombinations = valor.lbasisCombinations;
+      const lbasisCombinations = valor.lfareBasisCombinations;
       lbasisCombinations.forEach(function (combi, combiIndex) {
         /*
         const combSectionId = parseInt(combi.sectionId);
@@ -1448,9 +1454,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   FlightPrice(request, seccionvuelos) {
-    console.log("FlightPrice");
+    /* console.log("FlightPrice"); */
     this.vuelosComponent.spinner.show();
-    console.log(request);
+    /* console.log(request); */
     let data = {
       NumberPassengers: request.NumberPassengers,
       CarrierId: request.CarrierId,
@@ -1460,7 +1466,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
       Gds: request.GDS,
       PSeudo: request.Pseudo,
     };
-    console.log("data: " + JSON.stringify(data));
+    /* console.log("data: " + JSON.stringify(data)); */
     this.airportService.FlightPrice(data).subscribe(
       (result) => {
         this.lsFlightAvailabilty = result;
@@ -1502,8 +1508,8 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
   }
 
   getFareFamilyV2(dataPost, template, modalerror, templateSinFares) {
-    console.log("getFareFamily");
-    console.log("dataPost: " + JSON.stringify(dataPost));
+    /* console.log("getFareFamily");
+    console.log("dataPost: " + JSON.stringify(dataPost)); */
     this.flagMsgErrorSelFam = false;
     this.vuelosComponent.spinner.show();
     this.ObtenerSecciones();
@@ -1539,14 +1545,10 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
                     const fareFamilyName = fare.fareFamilyName;
                     dataflighavailability.Lsections[
                       indexSection
-                    ].Lsegments[0].LsegmentGroups[
-                      indexSegment
-                    ].fareFamilyName = fareFamilyName;
+                    ].Oschedule.Lsegments[0].fareFamilyName = fareFamilyName;
                     datasecciones.Lsections[
                       indexSection
-                    ].Lsegments[0].LsegmentGroups[
-                      indexSegment
-                    ].fareFamilyName = fareFamilyName;
+                    ].Oschedule.Lsegments[0].fareFamilyName = fareFamilyName;
                   }
                 });
               });
@@ -1643,43 +1645,45 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
   resultGetFareFamily() {
     console.log("resultGetFareFamily");
-    const lcombinations = this.lstFamilyResult.lcombinations;
+    const lcombinations = this.lstFamilyResult.lfamilyCombinations;
     const lstFareBasis = this.lstFareBasis;
     console.log("lstFareBasis: " + JSON.stringify(lstFareBasis));
     let flagExistCount = 0;
     let flagExist = 0;
-    let totalPrice = "";
+    let totalPrice = 0;
     let currency = "";
+    let pricePass = 0;
     lcombinations.forEach(function (item, indexItem) {
       flagExistCount = 0;
 
-      console.log("item.fareBasis: " + JSON.stringify(item.fareBasis));
+      /* console.log("item.fareBasis: " + JSON.stringify(item.fareBasis)); */
       lstFareBasis.forEach(function (fareBasis, indexFareBasis) {
         /*
         if (fareBasis === item.fareBasis[indexFareBasis]) {
           flagExistCount++;
         }
         */
-        if (fareBasis === item.lbasisCombinations[indexFareBasis].fareBasis) {
+        if (fareBasis === item.lfareBasisCombinations[indexFareBasis].fareBasis) {
           flagExistCount++;
         }
       });
 
-      console.log("item.fareBasis: " + item.fareBasis);
+      /* console.log("item.fareBasis: " + item.fareBasis); */
 
       if (flagExistCount === lstFareBasis.length) {
         flagExist = 1;
-        totalPrice = item.totalPrice;
-        currency = item.currency;
+        pricePass = item.oprice.amountByPassenger;
+        totalPrice = item.oprice.totalAmount;
+        currency = item.oprice.currency;
       }
     });
 
     console.log("flagExist: " + flagExist);
 
     if (flagExist === 1) {
-      this.famTotalFareAmount = Number(totalPrice) * this.numberPassengers;
+      this.famTotalFareAmount = totalPrice;
       this.currency = currency;
-      this.famFareAmountByPassenger = Number(totalPrice);
+      this.famFareAmountByPassenger = pricePass;
       return true;
     } else {
       return false;

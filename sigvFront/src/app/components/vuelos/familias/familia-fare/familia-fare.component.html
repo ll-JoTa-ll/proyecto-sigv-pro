@@ -15,13 +15,13 @@
       <label>
         <input
           type="radio"
-          *ngIf="fareFamily.oprice.basePrice>0"
+          *ngIf="fareFamily.oprice.amountByPassenger>0"
           [name]="nameRadioBtn + '_' + sectionIndex + '_' + segmentIndex"
           [id]="idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex"
           (click)="selectRadioBtnFam(idRadioBtn + '_' + sectionIndex + '_' + segmentIndex + '_' + fareFamilyIndex)"
         >
         <span class="pl-1 ff-text-currency">{{fareFamily.oprice.currency}}</span>
-        <span class="pl-1 ff-text-price">{{fareFamily.oprice.basePrice}}</span><br>
+        <span class="pl-1 ff-text-price">{{fareFamily.oprice.amountByPassenger}}</span><br>
         <span class="pl-1" style="font-family: Omnes-med ;font-size: 11px; color: #FFFFFF;">No incluye impuestos</span>
         <!--fareFamily.fareFamilyPrice-->
       </label>

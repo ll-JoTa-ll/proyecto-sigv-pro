@@ -180,8 +180,7 @@ export class FamiliaFareComponent implements OnInit, AfterViewInit {
         this.segmentIndex
       ].lfareFamilies[this.fareFamilyIndex - 1].fareBasis;
     const fareBasisServ =
-      ss_FlightAvailability_request1.Lsections[sectionIndex].Lsegments[0]
-        .LsegmentGroups[this.segmentIndex].FareBasis;
+      ss_FlightAvailability_request1.Lsections[sectionIndex].Oschedule.Lsegments[0].FareBasis;
     if (fareBasisVal == fareBasisServ) {
       $(
         "#" +

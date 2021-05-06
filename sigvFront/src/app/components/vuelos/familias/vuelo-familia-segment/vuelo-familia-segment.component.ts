@@ -35,7 +35,7 @@ export class VueloFamiliaSegmentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.marketingCarrier = this.segment.oairline.carrierId + '.png';
+    this.marketingCarrier = this.segment.ocarrier.carrierId + '.png';
     let flagCountInc = 0;
     let flagCountNof = 0;
     let flagCountCha = 0;
