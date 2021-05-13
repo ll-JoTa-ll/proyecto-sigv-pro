@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class InfoVueloSegmentComponent implements OnInit {
 
   @Input() segment;
+  @Input() section;
   @Input() bagAllowed;
   @Output() msjairline = new EventEmitter<any>();
   @Input() bagquantity;
@@ -26,13 +27,13 @@ export class InfoVueloSegmentComponent implements OnInit {
 
   ngOnInit() {
     console.log("asdsd" + this.segment);
-    this.totalFlightTimeShow = this.segment.totalFlightTimeShow;
+    this.totalFlightTimeShow = this.section.totalFlightTimeShow;
     this.lSegmentGroupsLength = this.lengthSegments;
     const lSegmentGroupsLength = this.lSegmentGroupsLength;
     if (lSegmentGroupsLength > 0) {
-      this.marketingCarrier = this.segment.ocarrier.carrierId + ".png";
-      this.timeOfDepartureShow = this.segment.departureTimeShow;
-      this.timeOfArrivalShow = this.segment.arrivalTimeShow;
+      this.marketingCarrier = this.section.ocarrier.carrierId + ".png";
+      this.timeOfDepartureShow = this.section.departureTimeShow;
+      this.timeOfArrivalShow = this.section.arrivalTimeShow;
       this.msjairline.emit(this.marketingCarrier);
     }
   }

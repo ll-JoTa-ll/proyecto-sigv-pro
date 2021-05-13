@@ -125,7 +125,7 @@
                             <div class="col-12 m-0 p-0">
                             </div>
                         </div>
-                        <app-precio-final [LSection]="Lsection" [tipo]="2" [Lpolicies]="LPolicies" [currency]="lsflightavailability.oprice.currency" [precioadulto]="lsflightavailability.oprice.baseAmount" [preciototal]="lsflightavailability.oprice.totalAmount" [odiscount]="lsflightavailability.oprice.odiscountPrice"></app-precio-final>
+                        <app-precio-final [LSection]="Lsection" [tipo]="2" [Lpolicies]="LPolicies" [currency]="lsflightavailability.oprice.currency" [precioadulto]="lsflightavailability.oprice.lpassengerPrices[0].baseAmount" [preciototal]="lsflightavailability.oprice.totalAmount" [odiscount]="lsflightavailability.oprice.odiscountPrice"></app-precio-final>
                         <app-resumen-pasajero [lsusers]="lsusuario"></app-resumen-pasajero>
                         <app-resumen-equipaje [Lsection]="Lsection"></app-resumen-equipaje>
                         <!-- <app-resumen-regulaciones></app-resumen-regulaciones> -->

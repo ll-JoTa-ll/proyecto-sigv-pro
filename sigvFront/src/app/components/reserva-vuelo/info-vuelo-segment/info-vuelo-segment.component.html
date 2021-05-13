@@ -4,7 +4,7 @@
             <div class="col-8 m-0 p-0">
                 <div class="row m-0 p-0">
                     <div class="col-4 m-0 p-0 text-departure pl-2">
-                        {{timeOfDepartureShow}}
+                        {{section.departureTimeShow}}
                     </div>
                     <div class="col-4 m-0 p-0 pr-5">
                         <div class="row m-0 p-0">
@@ -23,21 +23,21 @@
                         </div>
                     </div>
                     <div class="col-4 m-0 p-0 text-arrival pl-2">
-                        {{timeOfArrivalShow}}
+                        {{section.arrivalTimeShow}}
                     </div>
                 </div>
             </div>
             <div class="col-4 m-0 p-0">
                 <div class="row m-0 p-0">
                     <div class="col-6 m-0 p-0 text-totaltime pt-1">
-                        {{totalFlightTimeShow}}
+                        {{section.totalFlightTimeShow}}
                     </div>
-                    <div class="col-6 m-0 p-0 div-bag">
+                    <div *ngIf="section.obaggage != null" class="col-6 m-0 p-0 div-bag">
                       <span tooltip="Permite mochila" class="pr-3"><img  style="width: 33px;margin-top: 7px;margin-bottom: 7px;" src="assets/images/mochila.svg" alt=""></span>
-                        <span *ngIf="segment.obaggage.bagAllowed" tooltip="Incluye maleta en cabina." class="pr-3"><img style="width: 33px;" src="./assets/images/bolsodemano-1.svg" alt=""></span>
-                        <span *ngIf="!segment.obaggage.bagAllowed" tooltip="No incluye maleta en cabina." class="pr-3"><img style="width: 33px;filter: grayscale(1);" src="./assets/images/accessory.svg" alt=""></span>
-                        <span> <img style="width: 33px;" tooltip="Incluye equipaje para documentar. {{segment.obaggage.bagquantity}} maleta(s) por adulto." *ngIf="segment.obaggage.bagAllowed" src="./assets/images/maleta-si.svg" alt="">
-                            <img style="width: 33px;" tooltip="No incluye maleta." *ngIf="!segment.obaggage.bagAllowed" src="./assets/images/maleta-no.svg" alt=""></span>
+                        <span *ngIf="section.obaggage.bagAllowed" tooltip="Incluye maleta en cabina." class="pr-3"><img style="width: 33px;" src="./assets/images/bolsodemano-1.svg" alt=""></span>
+                        <span *ngIf="!section.obaggage.bagAllowed" tooltip="No incluye maleta en cabina." class="pr-3"><img style="width: 33px;filter: grayscale(1);" src="./assets/images/accessory.svg" alt=""></span>
+                        <span> <img style="width: 33px;" tooltip="Incluye equipaje para documentar. {{section.obaggage.bagquantity}} maleta(s) por adulto." *ngIf="section.obaggage.bagAllowed" src="./assets/images/maleta-si.svg" alt="">
+                            <img style="width: 33px;" tooltip="No incluye maleta." *ngIf="!section.obaggage.bagAllowed" src="./assets/images/maleta-no.svg" alt=""></span>
                     </div>
                 </div>
             </div>

@@ -1142,17 +1142,17 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
 
                   requestFamilia.Lsections[
                     section_
-                  ].Oschedule.Lsegments[0].ClassId = classId;
+                  ].Oschedule.Lsegments[segment_].ClassId = classId;
                   requestFamilia.Lsections[
                     section_
-                  ].Oschedule.Lsegments[0].FareBasis = fareBasis;
+                  ].Oschedule.Lsegments[segment_].FareBasis = fareBasis;
                   requestFamilia.Lsections[
                     section_
-                  ].Oschedule.Lsegments[0].fareFamilyName = fareFamilyName;
+                  ].Oschedule.Lsegments[segment_].fareFamilyName = fareFamilyName;
 
-                  seccionvuelos.Lsections[section_].Oschedule.Lsegments[0].ClassId = classId;
-                  seccionvuelos.Lsections[section_].Oschedule.Lsegments[0].FareBasis = fareBasis;
-                  seccionvuelos.Lsections[section_].Oschedule.Lsegments[0].fareFamilyName = fareFamilyName;
+                  seccionvuelos.Lsections[section_].Oschedule.Lsegments[segment_].ClassId = classId;
+                  seccionvuelos.Lsections[section_].Oschedule.Lsegments[segment_].FareBasis = fareBasis;
+                  seccionvuelos.Lsections[section_].Oschedule.Lsegments[segment_].fareFamilyName = fareFamilyName;
                 }
                 console.log(fareFamilyName);
               }

@@ -84,6 +84,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
   @Input() maleta: boolean;
 
   @Output() lRecomendaciones = new EventEmitter<ISearchFlightModel[]>();
+  @Output() lpseudosPrice = new EventEmitter<ISearchFlightModel[]>();
   @Output() inicioBuscar = new EventEmitter<boolean>();
   @Output() outTipoVuelo = new EventEmitter<string>();
   @Output() outIndexTramo = new EventEmitter<number>();
@@ -784,6 +785,7 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
               this.sessionStorageService.store('ss_calendarmini', true);
               this.sessionStorageService.store('ss_calendarshopping', result.lcalendars);
               this.lRecomendaciones.emit(result.lrecommendations);
+              this.lpseudosPrice.emit(result.lpseudoPrices);
               this.outTipoVuelo.emit(this.tipoVuelo);
               this.outIndexTramo.emit(this.indexTramo);
               this.calendarShoping.emit(true);

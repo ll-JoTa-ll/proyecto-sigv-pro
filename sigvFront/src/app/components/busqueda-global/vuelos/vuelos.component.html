@@ -1019,7 +1019,7 @@
               [destinoAuto6]="destinoAuto6" [destinoTexto1]="destinoTexto1" [destinoTexto2]="destinoTexto2"
               [destinoTexto3]="destinoTexto3" [destinoTexto4]="destinoTexto4" [destinoTexto5]="destinoTexto5"
               (calendarShoping)="setCalendar($event)" [destinoTexto6]="destinoTexto6" [inIndexTramo]="indexTramo"
-              (lRecomendaciones)="searchFlightBuscador($event)" (inicioBuscar)="inicioBuscadorLateral($event)"
+              (lRecomendaciones)="searchFlightBuscador($event)" (lpseudosPrice)="searchPseudosPrice($event)" (inicioBuscar)="inicioBuscadorLateral($event)"
               (outTipoVuelo)="setOutputTipoVuelo($event)" (outIndexTramo)="setOutIndexTramo($event)"></app-buscador>
             <app-filtro-precio (searchFlightFilter)="busquedaFiltrosPrecio($event)"></app-filtro-precio>
             <app-filtro-horarios *ngIf="inicioBuscador" (searchFilter)="busquedaFiltrosHoras($event)"

@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="col-12 m-0 p-0">
-                <app-info-vuelo-segment (msjairline)="ObtenerAirline($event)" [lengthSegments]="section.oschedule.lsegments.length" *ngFor="let segment of section.oschedule.lsegments; let i = index" [segment]="segment"></app-info-vuelo-segment>
+                <app-info-vuelo-segment (msjairline)="ObtenerAirline($event)" [section]="section" [lengthSegments]="section.oschedule.lsegments.length" ></app-info-vuelo-segment>
             </div>
         </div>
     </div>

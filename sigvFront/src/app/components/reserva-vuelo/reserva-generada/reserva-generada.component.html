@@ -77,7 +77,7 @@
                         </div>
                         <div class="rowAdulto">
                             <div class="col-12 m-0 p-0">
-                                <app-precio-final [LSection]="Lsection" [tipo]="3" [Lpolicies]="LPolicies" [currency]="lsflightavailability.oprice.currency" [precioadulto]="lsflightavailability.oprice.baseAmount" [preciototal]="lsflightavailability.oprice.totalAmount" [odiscount]="lsflightavailability.oprice.odiscountPrice">
+                                <app-precio-final [LSection]="Lsection" [tipo]="3" [Lpolicies]="LPolicies" [currency]="lsflightavailability.oprice.currency" [precioadulto]="lsflightavailability.oprice.lpassengerPrices[0].baseAmount" [preciototal]="lsflightavailability.oprice.totalAmount" [odiscount]="lsflightavailability.oprice.odiscountPrice">
 
                                 </app-precio-final>
                             </div>

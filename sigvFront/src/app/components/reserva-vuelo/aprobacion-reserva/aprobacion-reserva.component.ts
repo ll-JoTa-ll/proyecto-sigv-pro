@@ -70,13 +70,14 @@ export class AprobacionReservaComponent implements OnInit, AfterViewInit {
     this.plantillavueloaprobado = 'assets/plantillasEmail/plantilla_vueloaprobado.html';
     this.plantillavuelorechazado = 'assets/plantillasEmail/plantilla_vuelorechazado.html';
     this.plantillavuelocancelado = 'assets/plantillasEmail/plnatilla_vuelocancelado.html';
-    this.odiscount = {
-      amount: this.reserva.totalDiscount,
-      percentage: this.reserva.percentageDiscount
-    }
+   
   }
 
   ngOnInit() {
+    this.odiscount = {
+      discountAmount: this.reserva.totalDiscount,
+      discountPercentage: this.reserva.percentageDiscount
+    }
     this.FormatearFechaPnr();
     this.Obtenerstring();
     this.ObtenerstringVueloAprobado();
@@ -245,186 +246,19 @@ EncolarReserva() {
 }
 
 SendMailVueloAprobado() {
-  this.spinner.show();
-  this.PlantillaEmailSolicitudVueloAprobado();
-  this.PlantillaPreciovueloAprobado();
-  this.PlantillaPasajerosVueloAprobado();
-  this.PlantillaPoliticasVueloAprobado();
-  this.PlantillaAutorizadores();
-  let mails = [];
-  this.reserva.lpassenger.forEach(function(item) {
-      if (item.email != null && item.email != '') {
-        let mail = item.email.split(';');
-        mail.forEach(function(item) {
-          mails.push(item);
-        });
-      }
-  });
-  this.modalRef.hide();
-  let data = {
-    "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
-    "Recipients": mails,
-    "RecipientsCopy": [],
-    "RecipientsHiddenCopy": [],
-    "Subject": "VUELO APROBADO",
-    "Message": this.emailvueloaprobado
-  }
-  this.service.SendEmail(data).subscribe(
-    results => {
-         if (results === true) {
-          this.toastr.success('', 'Se envio correctamente', {
-            timeOut: 3000
-           });
-           this.router.navigate(['/gestion-reserva-vuelo']);
-         } else {
-          this.toastr.error('', 'Error al envio', {
-            timeOut: 3000
-          });
-         }
-    },
-    err => {
-      this.spinner.hide();
-      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
-    },
-    () => {
-      this.spinner.hide();
-    }
-  );
+  this.router.navigate(['/gestion-reserva-vuelo']);
 }
 
 SendMail() {
-  this.spinner.show();
-  this.PlantillaEmailSolicitud()
-  this.PlantillaPreciovuelo();
-  this.PlantillaPasajeros();
-  this.PlantillaPoliticas();
-  let mails = [];
-  this.resultAprobacion.lauthorizers.forEach(function(item) {
-       mails.push(item.authorizerEmail);
-  });
-  let data = {
-    "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
-    "Recipients": mails,
-    "RecipientsCopy": [],
-    "RecipientsHiddenCopy": [],
-    "Subject": "SOLICITUD APROBACION DE EXCEPCION",
-    "Message": this.emailsolicitud
-  }
-  this.service.SendEmail(data).subscribe(
-    results => {
-         if (results === true) {
-          this.toastr.success('', 'Se envio correctamente', {
-            timeOut: 3000
-           });
-           this.router.navigate(['/gestion-reserva-vuelo']);
-         } else {
-          this.toastr.error('', 'Error al envio', {
-            timeOut: 3000
-          });
-         }
-    },
-    err => {
-      this.spinner.hide();
-      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
-    },
-    () => {
-      this.spinner.hide();
-    }
-  );
+  this.router.navigate(['/gestion-reserva-vuelo']);
 }
 
 SendMailVueloRechazado() {
-  this.spinner.show();
-  this.PlantillaEmailSolicitudVueloRechazado();
-  this.PlantillaPreciovueloRechazado();
-  this.PlantillaPasajerosVueloRechazado();
-  this.PlantillaPoliticasVueloRechazado();
-  this.PlantillaAutorizadoresRechazo();
-  let mails = [];
-  this.reserva.lpassenger.forEach(function(item) {
-    if (item.email != null && item.email != '') {
-      let mail = item.email.split(';');
-      mail.forEach(function(item) {
-        mails.push(item);
-      });
-    }
-  });
-  let data = {
-    "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
-    "Recipients": mails,
-    "RecipientsCopy": [],
-    "RecipientsHiddenCopy": [],
-    "Subject": "VUELO RECHAZADO",
-    "Message": this.emailvuelorechazado
-  }
-  this.service.SendEmail(data).subscribe(
-    results => {
-         if (results === true) {
-           this.modalRef.hide();
-           this.toastr.success('', 'Se envio correctamente', {
-            timeOut: 3000
-           });
-           this.router.navigate(['/gestion-reserva-vuelo']);
-         } else {
-          this.toastr.error('', 'Error al envio', {
-            timeOut: 3000
-          });
-         }
-    },
-    err => {
-      this.spinner.hide();
-      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
-    },
-    () => {
-      this.spinner.hide();
-    }
-  );
+  this.router.navigate(['/gestion-reserva-vuelo']);
 }
 
 SendMailVueloCancelado() {
-  this.spinner.show();
-  this.PlantillaEmailSolicitudVueloCancelado();
-  this.PlantillaPreciovueloCancelado();
-  this.PlantillaPasajerosVueloCancelado();
-  let mails = [];
-  this.reserva.lpassenger.forEach(function(item) {
-    if (item.email != null && item.email != '') {
-      let mail = item.email.split(';');
-      mail.forEach(function(item) {
-        mails.push(item);
-      });
-    }
-  });
-  let data = {
-    "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
-    "Recipients": mails,
-    "RecipientsCopy": [],
-    "RecipientsHiddenCopy": [],
-    "Subject": "VUELO CANCELADO",
-    "Message": this.emailvuelocancelado
-  }
-  this.service.SendEmail(data).subscribe(
-    results => {
-         if (results === true) {
-           this.modalRef.hide();
-           this.toastr.success('', 'Se envio correctamente', {
-            timeOut: 3000
-           });
-           this.router.navigate(['/mis-reservas-vuelo']);
-         } else {
-          this.toastr.error('', 'Error al envio', {
-            timeOut: 3000
-          });
-         }
-    },
-    err => {
-      this.spinner.hide();
-      this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
-    },
-    () => {
-      this.spinner.hide();
-    }
-  );
+  this.router.navigate(['/mis-reservas-vuelo']);
 }
 
 

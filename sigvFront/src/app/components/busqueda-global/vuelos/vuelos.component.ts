@@ -101,7 +101,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   destinoTexto4: string;
   destinoTexto5: string;
   destinoTexto6: string;
-
+  validCalendar;
   minDateSalida: Date;
   minDateRetorno: Date;
   maxDateIngreso: Date;
@@ -373,11 +373,20 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         }
       }
     }
+    this.validCalendar = this.sessionStorageService.retrieve('ss_calendarshopping');
     if (tipovuelo != 'RT') {
       this.spin = true;
+      this.calendar = false;
+      this.calendarmini = false;
     } else {
-      this.calendar = true;
-      this.spin = true;
+      if (this.validCalendar === null) {
+        this.calendar = false;
+        this.calendarmini = false;
+      } else {
+        this.calendar = true;
+        this.spin = true;
+      }
+
     }
   }
 
@@ -1645,6 +1654,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
             this.listaPseudos = result.lpseudoPrices;
             this.fechaSalidaShow = this.salCalendar;
             this.fechaRetornoShow = this.llegCalendar;
+            this.validCalendar = result.lcalendars;
             this.calendar = false;
             this.miniBuscador = true;
             this.sessionStorageService.store('ss_calendarshopping', null);
@@ -1658,10 +1668,13 @@ export class VuelosComponent implements OnInit, AfterViewInit {
             this.flagBuscadorLateral = true;
             this.setLstAerolineas(result.lrecommendations);
 
-            result.lcalendars.forEach(element => {
-              element.arrivalDate = element.arrivalDate.substring(0, 10);
-              element.departureDate = element.departureDate.substring(0, 10);
-            });
+            if (result.lcalendars != null) {
+              result.lcalendars.forEach(element => {
+                element.arrivalDate = element.arrivalDate.substring(0, 10);
+                element.departureDate = element.departureDate.substring(0, 10);
+              });
+            }
+
             this.sessionStorageService.store('ss_calendarshopping', result.lcalendars);
             this.spin = true;
             this.calendar = true;
@@ -1693,6 +1706,10 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         }
       );
     }
+  }
+
+  searchPseudosPrice(valor){
+    this.listaPseudos = valor;
   }
 
   searchFlight() {
@@ -1959,6 +1976,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
             this.sessionStorageService.store('ss_searchFlight', result.lrecommendations);
             this.flagBuscar = true;
             this.flagBuscadorLateral = true;
+            this.validCalendar = result.lcalendars;
             this.spinner.hide();
             if (this.tipoVuelo === 'RT' && result.lcalendars != null) {
               this.spin = false;
@@ -1968,12 +1986,13 @@ export class VuelosComponent implements OnInit, AfterViewInit {
                 element.arrivalDate = element.arrivalDate.substring(0, 10);
                 element.departureDate = element.departureDate.substring(0, 10);
               });
-              this.sessionStorageService.store('ss_calendarshopping', result.lcalendars);
+              
               this.sessionStorageService.store('ss_lowcosto', result);
 
               this.salida = false;
 
             }
+            this.sessionStorageService.store('ss_calendarshopping', result.lcalendars);
             //aerolineas
             this.setLstAerolineas(result.lrecommendations);
             // this.sendDataToHotelFilters();

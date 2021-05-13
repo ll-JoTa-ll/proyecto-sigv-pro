@@ -506,21 +506,22 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
       "ss_flightavailability_request1"
     );
     let data = {
-      NumberPassengers: request.NumberPassengers,
-      Currency: request.Currency,
-      CarrierId: request.CarrierId,
-      Lsections: request.Lsections,
-      Ocompany: request.Ocompany,
-      Gds: request.GDS,
-      PSeudo: request.Pseudo,
-      Lpassenger: request.Lpassenger,
-      TotalFareAmount: request.TotalFareAmount,
-      FareTaxAmountByPassenger: request.FareTaxAmountByPassenger,
-      RecommendationId: request.RecommendationId,
-      UserId: request.UserId,
-      Infraction: request.Infraction,
+      GDS: request.GDS,
+      Pseudo: request.Pseudo,
+      TypeSearch: "C",
       FlightNational: request.FlightNational,
+      UserId: request.UserId,
+      IncludesBaggage: request.IncludesBaggage,
+      CabinType: request.CabinType,
+      Lusers: request.Lusers,
+      Lpassengers: request.Lpassengers,
+      LpseudoRepeats: request.LpseudoRepeats,
+      Oprice: request.Oprice,
+      Ocarrier: request.Ocarrier,
+      Lsections: request.Lsections,
       Lpolicies: request.Lpolicies,
+      Ocompany: request.Ocompany,
+      Oagency: request.Oagency
     };
     this.flightAvailability(data, template);
   }
@@ -532,7 +533,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
     let flagResult = 0;
     this.airportService.fligthAvailibility(data).subscribe(
       (results) => {
-        if (results.oerror === null) {
+        if (results.ostatus.status === 200) {
           this.lsFlightAvailabilty = results;
           this.sessionStorageService.store(
             "ss_FlightAvailability_result",
@@ -587,7 +588,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
 
   TraerAutorizador() {
     let infraction;
-    if (this.lpolicies.length > 0) {
+    if (this.lpolicies != null && this.lpolicies.length > 0) {
       infraction = true;
     } else {
       infraction = false;
