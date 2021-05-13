@@ -546,89 +546,11 @@ export class ReservaCompraComponent implements OnInit, AfterViewInit {
   }
 
   SendEmail() {
-    this.PlantillaEmailSolicitud();
-    /* this.PlantillaPreciovuelo();
-    this.PlantillaPasajeros();
-    this.PlantillaPoliticas();
-    this.PlantillaAutorizadores(); */
-    let mails = [];
-    this.lsapprover.forEach(function (item) {
-      if (item.priority === 1) {
-        mails.push(item.email);
-      }
-    });
-    let mailcontacto = this.contacto.ContactEmail;
-    //   console.log(this.emailsolicitud);
-    let email = this.emailsolicitud.replace(/\n|\r/g, '');
-    let data = {
-      "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
-      "Recipients": mails,
-      "RecipientsCopy": [mailcontacto],
-      "RecipientsHiddenCopy": [],
-      "Subject": "SOLICITUD APROBACION DE EXCEPCION",
-      "Message": email
-    }
-    this.service.SendEmail(data).subscribe(
-      results => {
-        this.router.navigate(['/reserva-generada-vuelo']);
-        /* if (results === true) {
-          this.toastr.success('', 'Se envio correctamente', {
-            timeOut: 3000
-          });
-          this.router.navigate(['/reserva-generada-vuelo']);
-        } else {
-          this.toastr.error('', 'Error al envio', {
-            timeOut: 3000
-          });
-        } */
-      },
-      err => {
-
-      },
-      () => {
-        this.spinner.hide();
-      }
-    );
+    this.router.navigate(['/reserva-generada-vuelo']);
   }
 
   SendEmailReservaGenerada() {
-    /* this.PlantillaItinerarioReserva();
-    this.PlantillaPrecioReserva();
-    this.PlantillaPasajeroReserva(); */
-    let mails = [];
-    this.lsusuario.forEach(function (item) {
-      mails.push(item.Email);
-    });
-    let mailcontacto = this.contacto.ContactEmail;
-    let data = {
-      "AgencyId": "305E642B-6643-410C-98E9-6E0F4BBAB785",
-      "Recipients": mails,
-      "RecipientsCopy": [mailcontacto],
-      "RecipientsHiddenCopy": [],
-      "Subject": "RESERVA GENERADA",
-      "Message": this.emailreserva
-    }
-    this.service.SendEmail(data).subscribe(
-      results => {
-        this.router.navigate(['/reserva-generada-vuelo']);
-       /*  if (results === true) {
-          this.toastr.success('', 'Se envio correctamente', {
-            timeOut: 3000
-          });
-          this.router.navigate(['/reserva-generada-vuelo']);
-        } else {
-          this.toastr.error('', 'Error al envio', {
-            timeOut: 3000
-          });
-        } */
-      },
-      err => {
-
-      },
-      () => {
-        this.spinner.hide();
-      }
-    );
+    this.router.navigate(['/reserva-generada-vuelo']);
   }
 
   Emitir(template) {

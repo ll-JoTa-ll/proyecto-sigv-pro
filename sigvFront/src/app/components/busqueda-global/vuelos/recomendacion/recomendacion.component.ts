@@ -650,6 +650,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           FareBasis: group.fareBasis,
           fareFamilyName: group.fareFamilyName,
           BrandId: group.brandId,
+          obaggage: group.obaggage
         };
         LsegmentGroups_.push(dataGroup);
       });
@@ -791,6 +792,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           FareBasis: group.fareBasis,
           fareFamilyName: group.fareFamilyName,
           BrandId: group.brandId,
+          obaggage: group.obaggage
         };
         LsegmentGroups_.push(dataGroup);
       });
