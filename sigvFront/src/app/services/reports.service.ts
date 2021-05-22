@@ -20,17 +20,18 @@ let httpOptions = {
 export class ReportsService {
 
   private urlReports: string = environment.url_reports + 'Report/MasterData';
+  private urlReportSales: string = environment.url_reportGeneral + 'Report/GetSalesReport';
   private urlField: string = environment.url_customer + 'ReportField/GetReportFields';
   private urlCompanyReport: string = environment.url_customer + 'CompanyReport/ListCompanyReport';
   private urlInsertUpdate: string = environment.url_customer + 'CompanyReport/InsertUpdateCompanyReport';
   private urlGeneralReport: string = environment.url_reportGeneral + 'Report/GetGeneralReport';
 
 
-  private urlReportConfig: string = environment.url_customer + 'ConfigurationReport/GetConfigurationReportByCompany';
-  private urlGetConfig: string = environment.url_customer + 'ConfigurationReport/GetConfigurationReport';
+  private urlReportConfig: string = environment.url_customer + 'ConfigurationReport/GetConfigurationReport';
+  private urlGetConfig: string = environment.url_customer + 'ConfigurationReport/GetConfigurationReportDetail';
   private urlSelectReport: string = environment.url_customer + 'Reports/ListReports';
   private urlListCompanyReport: string = environment.url_customer + 'CompanyReport/ListCompanyReport';
-  private urlInsertUpdateReport: string = environment.url_customer + 'ConfigurationReport/InsertUpdateConfigurationReport';
+  private urlInsertUpdateReport: string = environment.url_customer + 'ConfigurationReport/ManageConfigurationReport';
   private urlFrequencyReport: string = environment.url_customer + 'FrequencyReport/ListFrequencyReport';
 
   constructor(private http: HttpClient) {
@@ -56,6 +57,14 @@ export class ReportsService {
     return this.http.post<any[]>(`${this.urlReports}`, data, httpOptions);
   }
 
+  ListReportSales(data): Observable<any> {
+    httpOptions.headers = new HttpHeaders({
+      'Content-Type': "application/json",
+      'Ocp-Apim-Subscription-Key': environment.key
+    });
+    return this.http.post<any>(`${this.urlReportSales}`, data, httpOptions);
+  }
+
   ListFrequencyReport(): Observable<any[]> {
     httpOptions.headers = new HttpHeaders({
       'Content-Type': "application/json",
@@ -72,20 +81,21 @@ export class ReportsService {
       return this.http.post<any[]>(`${this.urlGeneralReport}`, objData, httpOptions);
     }
 
-    ListSelectReport(): Observable<any[]>{
+    ListSelectReport(data,data1): Observable<any>{
       httpOptions.headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Ocp-Apim-Subscription-Key': environment.key
       });
-      return this.http.get<any[]>(`${this.urlSelectReport}`, httpOptions);
+      const url = `${this.urlSelectReport}?${'companyId=' + data}&${'agencyId=' + data1}`;
+      return this.http.get<any>(url, httpOptions);
     }
 
-    InsertUpdateReport(objData): Observable<any[]>{
+    InsertUpdateReport(objData): Observable<any>{
       httpOptions.headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Ocp-Apim-Subscription-Key': environment.key
       });
-      return this.http.post<any[]>(`${this.urlInsertUpdateReport}`, objData, httpOptions);
+      return this.http.post<any>(`${this.urlInsertUpdateReport}`, objData, httpOptions);
     }
 
     getReportField(data): Observable<any> {
@@ -97,21 +107,21 @@ export class ReportsService {
       return this.http.get<any>(url, httpOptions);
     }
 
-    ListCompanyReport(data): Observable<any> {
+    ListCompanyReport(data, report): Observable<any> {
       httpOptions.headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Ocp-Apim-Subscription-Key': environment.key
       });
-      const url = `${this.urlListCompanyReport}?${'companyId=' + data}`;
+      const url = `${this.urlListCompanyReport}?${'companyId=' + data}&${'reportId=' + report}`;
       return this.http.get<any>(url, httpOptions);
     }
 
-    GetConfigurationReportByCompany(data): Observable<any> {
+    GetConfigurationReportByCompany(data,data1): Observable<any> {
       httpOptions.headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Ocp-Apim-Subscription-Key': environment.key
       });
-      const url = `${this.urlReportConfig}?${'CompanyId=' + data}`;
+      const url = `${this.urlReportConfig}?${'companyId=' + data}&${'agencyId=' + data1}`;
       return this.http.get<any>(url, httpOptions);
     }
 

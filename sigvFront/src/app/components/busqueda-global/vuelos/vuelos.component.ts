@@ -1652,7 +1652,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         result => {
           this.flagDinDataCalendar = false;
           this.flagPseudoRepeat = true;
-          if (result.status === 200 && result.lrecommendations.length > 0) {
+          if (result.status === 200 && result.lrecommendations != null && result.lrecommendations.length > 0) {
             this.listaPseudos = result.lpseudoPrices;
             this.fechaSalidaShow = this.salCalendar;
             this.fechaRetornoShow = this.llegCalendar;
@@ -1971,7 +1971,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
         result => {
           this.flagPseudoRepeat = true;
           this.flagDinDataCalendar = false;
-          if (result.status === 200 && result.lrecommendations.length > 0) {
+          if (result.status === 200 && result.lrecommendations != null && result.lrecommendations.length > 0) {
             /* console.log(result); */
             this.listaPseudos = result.lpseudoPrices;
             this.searchData = result.lrecommendations;

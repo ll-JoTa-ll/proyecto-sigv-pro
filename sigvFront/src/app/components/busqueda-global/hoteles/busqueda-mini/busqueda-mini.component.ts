@@ -355,7 +355,7 @@ export class BusquedaMiniComponent implements OnInit, AfterViewInit {
             this.sessionStorageService.store('ss_minibuscador', result);
             //this.sessionStorageService.store('ls_search_hotel', result);
             //this.LlistaHotel = result;
-            /* result = this.changeImage(result); */
+            result = this.changeImage(result);
 
             this.sessionStorageService.store('hotel', null);
             this.sessionStorageService.store('hotel', result[0]);

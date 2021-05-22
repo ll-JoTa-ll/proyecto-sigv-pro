@@ -38,7 +38,7 @@ export const environment = {
    url_reportGeneral: 'https://domiruth-prd.azure-api.net/report/',
    url_customer: 'https://domiruth-prd.azure-api.net/customer/'
 
-  /*  production: true,
+   /* production: true,
    url: "https://domiruth-uat.azure-api.net/security/",
    url_2: "https://domiruth-uat.azure-api.net/flight/",
    url_5: 'https://domiruth-uat.azure-api.net/customer/',

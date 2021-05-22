@@ -16,6 +16,7 @@ export class FiltroHorariosComponent implements OnInit, AfterViewInit {
 
   @Input() indexTramo;
   @Input() tipoVuelo;
+  maleta;
 
   @Output() searchFilter = new EventEmitter<ISearchFlightModel[]>();
 
@@ -109,7 +110,8 @@ export class FiltroHorariosComponent implements OnInit, AfterViewInit {
     //console.log('timepicker1.val(): ', $('.timepicker1').val());
 
     this.spinner.show();
-
+    const leta = document.getElementById('chkmaleta');
+    this.maleta = leta;
     let dataRequestFlight = this.sessionStorageService.retrieve('ss_dataRequestFlight');
     let data = {
       "Lusers": dataRequestFlight.Lusers,

@@ -55,9 +55,10 @@ export class AirportService {
   private url_usebnus: string = environment.url_5 + "AsesorCompany/";
   private url_asesors: string = environment .url_5 + "AsesorCompany/";
   private url_regulaciones: string = environment.url_2 + "Search/";
-  private url_temp: string = environment.url_2 + 'Search/';
+
 
   private url_bookingTemp: string = environment.url_2 + "Booking/";
+  private url_temp: string = environment.url_2 + 'SearchTemp/';
 
   constructor(
     private http: HttpClient,

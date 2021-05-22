@@ -5,6 +5,7 @@ import { ThrowStmt } from '@angular/compiler';
 import { VueloFamiliaSectionComponent } from '../../vuelos/familias/vuelo-familia-section/vuelo-familia-section.component';
 import { SCREEN_SIZE } from '../../../pipes/screen-size.enum';
 import { ResizeService } from '../../../services/resize.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var jquery: any;
 declare var $: any;
 
@@ -28,9 +29,11 @@ export class HeaderComponent implements OnInit {
   idinterval1: any;
   showProfile: any;
   isvip;
+  cambiar = 0;
 
   constructor(
     private router: Router,
+    private spinner: NgxSpinnerService,
     private sessionStorageService: SessionStorageService,
     private localStorageService: LocalStorageService,
   ) {
@@ -40,7 +43,13 @@ export class HeaderComponent implements OnInit {
     this.nombreUsuario = this.loginDataUser.userName;
     this.gender = this.loginDataUser.gender;
     this.role = this.loginDataUser.orole.roleDescription;
-    this.empresa = this.loginDataUser.ocompany.companyName;
+    if (this.loginDataUser.ocompany != null) {
+      this.empresa = this.loginDataUser.ocompany.companyName;
+    } else {
+      if (this.loginDataUser.oagency) {
+        this.empresa = this.loginDataUser.oagency.agencyName;
+      }
+    }
     this.isvip = this.loginDataUser.vip;
     this.showProfile = false;
   }
@@ -51,6 +60,79 @@ export class HeaderComponent implements OnInit {
   }
 
 
+  siguiente(){
+    if (this.cambiar === 0) {
+      var tipo1 = document.getElementById('tipo1');
+      var tipo2 = document.getElementById('tipo2');
+      var tipo3 = document.getElementById('tipo3');
+      var tipo4 = document.getElementById('tipo4');
+      tipo1.style.transition = 'all 300ms';
+      tipo2.style.transition = 'all 300ms';
+      tipo1.style.display = 'none';
+      tipo2.style.display = 'none';
+      tipo3.style.display = 'block';
+      tipo4.style.display = 'block';
+      tipo3.style.transition = 'all 300ms';
+      tipo4.style.transition = 'all 300ms';
+      this.cambiar++;
+    } else if (this.cambiar === 1) {
+      var tipo1 = document.getElementById('tipo1');
+      var tipo2 = document.getElementById('tipo2');
+      var tipo3 = document.getElementById('tipo3');
+      var tipo4 = document.getElementById('tipo4');
+      var tipo5 = document.getElementById('tipo5');
+      var tipo6 = document.getElementById('tipo6');
+      tipo1.style.transition = 'all 300ms';
+      tipo2.style.transition = 'all 300ms';
+      tipo1.style.display = 'none';
+      tipo2.style.display = 'none';
+      tipo3.style.display = 'none';
+      tipo4.style.display = 'none';
+      tipo3.style.transition = 'all 300ms';
+      tipo4.style.transition = 'all 300ms';
+      tipo5.style.display = 'block';
+      tipo6.style.display = 'block';
+      this.cambiar++;
+    } else {
+      console.log('retraer');
+    }
+
+  }
+
+  anterior(){
+    if (this.cambiar === 2) {
+      var tipo5 = document.getElementById('tipo5');
+      var tipo6 = document.getElementById('tipo6');
+      var tipo3 = document.getElementById('tipo3');
+      var tipo4 = document.getElementById('tipo4');
+      tipo5.style.transition = 'all 600ms';
+      tipo6.style.transition = 'all 600ms';
+      tipo3.style.display = 'block';
+      tipo4.style.display = 'block';
+      tipo3.style.transition = 'all 600ms';
+      tipo4.style.transition = 'all 600ms';
+      tipo5.style.display = 'none';
+      tipo6.style.display = 'none';
+      this.cambiar--;
+    } else if (this.cambiar === 1) {
+      var tipo1 = document.getElementById('tipo1');
+      var tipo2 = document.getElementById('tipo2');
+      var tipo3 = document.getElementById('tipo3');
+      var tipo4 = document.getElementById('tipo4');
+      tipo1.style.transition = 'all 600ms';
+      tipo2.style.transition = 'all 600ms';
+      tipo1.style.display = 'block';
+      tipo2.style.display = 'block';
+      tipo3.style.transition = 'all 600ms';
+      tipo4.style.transition = 'all 600ms';
+      tipo3.style.display = 'none';
+      tipo4.style.display = 'none';
+      this.cambiar--;
+    } else {
+      console.log('retraer');
+    }
+
+  }
 
   changeProfile(){
     var z = document.getElementById("profile");
@@ -75,6 +157,7 @@ export class HeaderComponent implements OnInit {
 
       case 2:
         this.router.navigate(['/hoteles']);
+        this.spinner.hide();
         this.idinterval = this.sessionStorageService.retrieve("ss_interval");
         clearInterval(this.idinterval);
         this.idinterval1 = this.sessionStorageService.retrieve('idinterval');
@@ -82,6 +165,7 @@ export class HeaderComponent implements OnInit {
         this.sessionStorageService.store('ss_sessionmini', null);
         this.sessionStorageService.store('ss_sessionmini1', null);
         this.sessionStorageService.store('ss_minibuscador', null);
+        this.sessionStorageService.store('LoginHotel', null);
         this.sessionStorageService.store('ss_lhotel', null);
         this.sessionStorageService.store('ss_hotel', null);
         break;
@@ -110,6 +194,9 @@ export class HeaderComponent implements OnInit {
         clearInterval(this.idinterval1);
         break;
 
+      case 6:
+        console.log('autos');
+        break;
     }
   }
 

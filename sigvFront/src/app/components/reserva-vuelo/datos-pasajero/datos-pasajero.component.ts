@@ -40,7 +40,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
   datosPax;
   flagValDatosPAsajeros: boolean = false;
   datosuser;
-  Document: IDocumentType[] = [];
+  Document;
   mdtelefono: string;
   configOption3: ConfigurationOptions;
   centroCosto;
@@ -116,7 +116,7 @@ export class DatosPasajeroComponent implements OnInit, AfterViewInit {
 
 
   document() {
-    this.userCompanyService.getDocument().subscribe(
+    this.userCompanyService.getDocument(false).subscribe(
       result => {
         this.Document = result.ldocumentTypeLists;
       },

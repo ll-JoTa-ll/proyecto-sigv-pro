@@ -1,336 +1,380 @@
 <ng-container>
 
-    <app-header>
+  <app-header>
 
-        <div *ngIf="!flagBuscar" class="row m-0 p-0 animated fadeIn fast" style="width: 100% !important;">
+    <div *ngIf="!flagBuscar && !spin" class="animated fadeIn fast" style="width: 100% !important;display: flex;">
 
-            <div class="col-2 m-0 p-0">
+      <div style="width: 15%;">
 
-            </div>
-            <div class="col-8 m-0 p-0 pl-2 pr-2 pb-5 pt-4 box-shadow animated fadeIn fast" style="background-color: white;">
-                <div class="row m-0 p-0">
-                    <div class="m-0 p-0 v-texto-2 div-destino">
-                        <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0">
-                                <label for="">Destino</label>
-                            </div>
-                        </div>
-                        <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0">
+      </div>
+      <div class="box-shadow animated fadeIn fast" style="width:70%;background-color: white;">
+        <!-- <div class="containerFlex">
+          <div class="four">
+            <span class="v-texto-2">Destino</span>
+          </div>
+          <div class="tercio">
+            <span class="v-texto-2">Fechas</span>
+          </div>
+          <div class="tercio" style="margin-left: 10px;">
 
-                                <div id="txtOrigen" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
-                                    <ng-autocomplete [(ngModel)]="model.origentTexto" style="color: #898989 !important;" [data]="data" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                        [notFoundTemplate]="notFoundTemplate">
-                                    </ng-autocomplete>
+          </div>
+          <div class="tres">
+            <span class="v-texto-2">Habitaciones</span>
+          </div>
+        </div> -->
+        <div class="containerFlex">
+          <div class="four">
+            <span class="v-texto-2">Destino</span><br>
+            <div id="txtOrigen" class="ng-autocomplete div-autocomplete" (keypress)="validarLetras($event)">
+              <ng-autocomplete [(ngModel)]="model.origentTexto" style="color: #898989 !important;" [data]="data"
+                [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)'
+                (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+              </ng-autocomplete>
 
-                                    <ng-template #itemTemplate let-item>
+              <ng-template #itemTemplate let-item>
 
-                                        <div class="" style="width: 100%">
-                                            <div class="row">
-                                                <div class="col-1">
+                <div class="" style="width: 100%">
+                  <div class="row">
+                    <div class="col-1">
 
-                                                    <img *ngIf="item.categoryId===2;" style="width: 25px; padding-right: 5px;" src="./assets/images/ciudad1.png" alt="">
-                                                    <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;" src="./assets/images/aeropuerto2.jpeg" alt="">
-                                                </div>
-                                                <div class="col-11">
-                                                    <a class="m-0 p-0" [innerHTML]="item.name"></a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </ng-template>
-                                    <ng-template #notFoundTemplate let-notFound>
-                                        <!--<div [innerHTML]="notFound"></div>-->
-                                    </ng-template>
-                                </div>
-                            </div>
-                        </div>
+                      <img *ngIf="item.categoryId===2;" style="width: 25px; padding-right: 5px;"
+                        src="./assets/images/ciudad1.png" alt="">
+                      <img *ngIf="item.categoryId===1" style="width: 25px; padding-right: 5px;"
+                        src="./assets/images/aeropuerto2.jpeg" alt="">
                     </div>
-                    <div class="v-texto-2 div-fechas">
-                        <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0">
-                                <label for="">Fechas</label>
-                            </div>
-                        </div>
-                        <div class="row m-0 p-0">
-                            <div class="col-6 m-0 p-0 pr-3">
-                                <label id="ingreso" for="" class="d-inline-flex box-shadow label-fecha">
-                                            <input type="image"
-                                                   src="./assets/images/home/calendario.svg"
-                                                   (click)="datepickerIngreso.toggle()"
-                                                   class="input-img">
-                                            <input type="text"
-                                                   placeholder="Ingreso"
-                                                   class="p-0 pl-2 input-date"
-                                                   (keypress)="validarTodo($event)"
-                                                   #datepickerIngreso="bsDatepicker"
-                                                   (onHidden)="handlerIngreso($event)"
-                                                   (bsValueChange)="onValueChangeIngreso($event)"
-                                                   [minDate]="minDateIngreso"
-                                                   bsDatepicker
-                                                   id="dateingreso"
-                                                   [(bsValue)]="bsValue"
-                                                   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-                                            >
-                                          </label>
-                            </div>
-                            <div class="col-6 m-0 p-0 pr-3">
-                                <label id="salida" for="" class="d-inline-flex box-shadow label-fecha">
-                                            <input type="image"
-                                                   src="./assets/images/home/calendario.svg"
-                                                   (click)="datepickerSalida.toggle()"
-                                                   class="input-img">
-                                            <input type="text"
-                                                   placeholder="Salida"
-                                                   class="p-0 pl-2 input-date"
-                                                   #datepickerSalida="bsDatepicker"
-                                                   (keypress)="validarTodo($event)"
-                                                   (bsValueChange)="onValueChangeSalida($event)"
-                                                   [minDate]="minDateSalida"
-                                                   [dateCustomClasses]="dateCustomClasses"
-                                                   bsDatepicker
-                                                   id="datesalida"
-                                                   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
-                                            >
-                                          </label>
-                            </div>
-                        </div>
+                    <div class="col-11">
+                      <a class="m-0 p-0" [innerHTML]="item.name"></a>
                     </div>
-                    <div class="v-texto-2 div-habitaciones">
-                        <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0">
-                                <label for="">Habitaciones</label>
-                            </div>
-                        </div>
-
-
-                        <div *ngIf="loginDataUser.orole.roleDescription == 'Centralizador'; else elseTemplate">
-                            <div class="row m-0 p-0" onclick="MostrarModal()" id="habitacion">
-                                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
-                                      <input type="image"
-                                      src="./assets/images/cama.svg"
-                                      class="input-img"
-
-                                      >
-                                      <input readonly (keypress)="validarNumeros($event)" type="text"
-                                      id="txthabitacion"
-                                      class="input-text2"
-                                      value="1"
-                                      >
-                                    </label>
-                                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
-                                    <input type="image"
-                                    src="./assets/images/pasajero.svg"
-                                    class="input-img"
-                                    >
-                                    <input readonly (keypress)="validarNumeros($event)" type="text"
-                                    id="txtpersonas"
-                                    class="input-text2"
-                                    value="1"
-                                    >
-                                    </label>
-                            </div>
-                        </div>
-                        <ng-template #elseTemplate class="row m-0 p-0">
-                            <div class="row m-0 p-0" id="habitacion">
-                                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
-                                      <input readonly type="image"
-                                      src="./assets/images/cama.svg"
-                                      class="input-img"
-
-                                      >
-                                      <input readonly (keypress)="validarNumerosN($event)" type="text"
-                                      id="txthabitacion"
-                                      class="input-text2"
-                                      value="1"
-                                      >
-                                    </label>
-                                <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
-                                    <input readonly type="image"
-                                    src="./assets/images/pasajero.svg"
-                                    class="input-img"
-                                    >
-                                    <input readonly (keypress)="validarNumerosN($event)" type="text"
-                                    id="txtpersonas"
-                                    class="input-text2"
-                                    value="1"
-                                    >
-                                    </label>
-                            </div>
-                        </ng-template>
-
-
-                        <input type="hidden" id="hdnCountAddHab" value="1">
-
-                        <div class="modal-info tooltipBagDiv box-shadow" id="pop1" style="display: none;">
-                            <div id="habitacion_1">
-                                <div id="seccion_habitacion">
-                                    <div class="title-room">
-                                        <span>Habitacion #1</span>
-                                    </div>
-                                    <hr>
-                                    <div class="number-adults">
-                                        <span>Adultos</span>
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn">
-                                                                <button class="btn btn-danger" data-dir="dwn"><i class="fas fa-minus"></i></button>
-                                                            </span>
-                                            <input readonly (keypress)="validarTodo($event)" type="text" class="form-control text-center" id="txtadultos_1" value="1">
-                                            <span class="input-group-btn">
-                                                                <button  class="btn btn-danger" id="btnUp_1" data-dir="up"><i class="fas fa-plus"></i></button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </div>
-                            </div>
-                            <div id="habitacion_2"></div>
-                            <div id="options_1">
-                                <div class="btn-agregar" id="divbotones_1" style="display: block;">
-                                    <button class="btn btn-danger text-btn" onclick="AddHabitaciones(1)">Añadir habitacion</button>
-                                    <button class="btn btn-danger añadir" onclick="Aplicar(1)">Aplicar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-                <div class="row m-0 p-0 v-texto-2 div-estrellas">
-                    <div style="width: 60%">
-                        <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0 txt-estrellas">
-                                <label for="">Estrellas</label>
-                            </div>
-                        </div>
-                        <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0">
-                                <div class="btn-group div-btn-star" dropdown>
-                                    <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
-                                        <span class="star-filtro" *ngIf="textoestrellas === 'Todas'">     {{textoestrellas}}</span>
-                                        <span class="star-filtro" *ngIf="textoestrellas === '5'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
-                                        <span class="star-filtro" *ngIf="textoestrellas === '4'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
-                                        <span class="star-filtro" *ngIf="textoestrellas === '3'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
-                                        <span class="star-filtro" *ngIf="textoestrellas === '2'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">     {{textoestrellas}}</span>
-                                        <span class="star-filtro" *ngIf="textoestrellas === '1'"><img src="./assets/images/star.svg">     {{textoestrellas}}</span>
-                                            </button>
-                                    <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3 list-star pl-3 pr-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
-                                        <li role="menuitem"><a class="dropdown-item" (click)="SeleccionarEstrella('', 'Todas')">Todas</a></li>
-                                        <li role="menuitem" class="row m-0 p-0">
-                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('5', '5')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
-                                            <div class="col-1 m-0 p-0 number-star">5</div>
-                                        </li>
-                                        <li role="menuitem" class="row m-0 p-0">
-                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('4', '4')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
-                                            <div class="col-1 m-0 p-0 number-star">4</div>
-                                        </li>
-                                        <li role="menuitem" class="row m-0 p-0">
-                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('3', '3')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
-                                            <div class="col-1 m-0 p-0 number-star">3</div>
-                                        </li>
-                                        <li role="menuitem" class="row m-0 p-0">
-                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('2', '2')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
-                                            <div class="col-1 m-0 p-0 number-star">2</div>
-                                        </li>
-                                        <li role="menuitem" class="row m-0 p-0">
-                                            <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('1', '1')"><img src="./assets/images/estrellas.svg"></div>
-                                            <div class="col-1 m-0 p-0 number-star">1</div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="width: 40%">
-                        <div class="row m-0 p-0">
-                            <div class="col-12 m-0 p-0">
-                                <label for=""></label>
-                            </div>
-                        </div>
-                        <div class="row m-0 p-0">
-                            <div class="col-12 mt-2">
-                                <button class="btn v-btn-buscar" (click)="SeachHotel()">
-                                    <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
-                                    Buscar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-2 m-0 p-0"></div>
+              </ng-template>
+              <ng-template #notFoundTemplate let-notFound>
+                <!--<div [innerHTML]="notFound"></div>-->
+              </ng-template>
+            </div>
+          </div>
+          <div class="tercio">
+            <span class="v-texto-2">Fechas</span><br>
+            <label id="ingreso" for="" class="d-inline-flex box-shadow label-fecha">
+              <input type="image"
+                     src="./assets/images/home/calendario.svg"
+                     (click)="datepickerIngreso.toggle()"
+                     class="input-img">
+              <input type="text"
+                     placeholder="Ingreso"
+                     class="p-0 pl-2 input-date"
+                     (keypress)="validarTodo($event)"
+                     #datepickerIngreso="bsDatepicker"
+                     (onHidden)="handlerIngreso($event)"
+                     (bsValueChange)="onValueChangeIngreso($event)"
+                     [minDate]="minDateIngreso"
+                     bsDatepicker
+                     id="dateingreso"
+                     [(bsValue)]="bsValue"
+                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+              >
+            </label>
+          </div>
+          <div class="tercio" style="margin-left: 10px;">
+            <span class="v-texto-2"></span><br>
+            <label id="salida" for="" class="d-inline-flex box-shadow label-fecha">
+              <input type="image"
+                     src="./assets/images/home/calendario.svg"
+                     (click)="datepickerSalida.toggle()"
+                     class="input-img">
+              <input type="text"
+                     placeholder="Salida"
+                     class="p-0 pl-2 input-date"
+                     #datepickerSalida="bsDatepicker"
+                     (keypress)="validarTodo($event)"
+                     (bsValueChange)="onValueChangeSalida($event)"
+                     [minDate]="minDateSalida"
+                     [dateCustomClasses]="dateCustomClasses"
+                     bsDatepicker
+                     id="datesalida"
+                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+              >
+            </label>
+          </div>
+          <div class="tres">
+            <span class="v-texto-2">Habitaciones</span><br>
+            <div *ngIf="loginDataUser.orole.roleDescription == 'Centralizador'; else elseTemplate">
+              <div class="row m-0 p-0" onclick="MostrarModal()" id="habitacion">
+                  <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                        <input type="image"
+                        src="./assets/images/cama.svg"
+                        class="input-img"
+
+                        >
+                        <input readonly (keypress)="validarNumeros($event)" type="text"
+                        id="txthabitacion"
+                        class="input-text2"
+                        value="1"
+                        >
+                      </label>
+                  <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                      <input type="image"
+                      src="./assets/images/pasajero.svg"
+                      class="input-img"
+                      >
+                      <input readonly (keypress)="validarNumeros($event)" type="text"
+                      id="txtpersonas"
+                      class="input-text2"
+                      value="1"
+                      >
+                      </label>
+              </div>
+          </div>
+          <ng-template #elseTemplate class="row m-0 p-0">
+              <div class="row m-0 p-0" id="habitacion">
+                  <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                        <input readonly type="image"
+                        src="./assets/images/cama.svg"
+                        class="input-img"
+
+                        >
+                        <input readonly (keypress)="validarNumerosN($event)" type="text"
+                        id="txthabitacion"
+                        class="input-text2"
+                        value="1"
+                        >
+                      </label>
+                  <label for="" class="d-inline-flex box-shadow col-6 label-habitaciones">
+                      <input readonly type="image"
+                      src="./assets/images/pasajero.svg"
+                      class="input-img"
+                      >
+                      <input readonly (keypress)="validarNumerosN($event)" type="text"
+                      id="txtpersonas"
+                      class="input-text2"
+                      value="1"
+                      >
+                      </label>
+              </div>
+          </ng-template>
+
+
+          <input type="hidden" id="hdnCountAddHab" value="1">
+
+          <div class="modal-info tooltipBagDiv box-shadow" id="pop1" style="display: none;">
+              <div id="habitacion_1">
+                  <div id="seccion_habitacion">
+                      <div class="title-room">
+                          <span>Habitacion #1</span>
+                      </div>
+                      <hr>
+                      <div class="number-adults">
+                          <span>Adultos</span>
+                          <div class="input-group number-spinner">
+                              <span class="input-group-btn">
+                                                  <button class="btn btn-danger" data-dir="dwn"><i class="fas fa-minus"></i></button>
+                                              </span>
+                              <input readonly (keypress)="validarTodo($event)" type="text" class="form-control text-center" id="txtadultos_1" value="1">
+                              <span class="input-group-btn">
+                                                  <button  class="btn btn-danger" id="btnUp_1" data-dir="up"><i class="fas fa-plus"></i></button>
+                              </span>
+                          </div>
+                      </div>
+                      <hr>
+                  </div>
+              </div>
+              <div id="habitacion_2"></div>
+              <div id="options_1">
+                  <div class="btn-agregar" id="divbotones_1" style="display: block;">
+                      <button class="btn btn-danger text-btn" onclick="AddHabitaciones(1)">Añadir habitacion</button>
+                      <button class="btn btn-danger añadir" onclick="Aplicar(1)">Aplicar</button>
+                  </div>
+              </div>
+          </div>
+          </div>
+        </div>
+        <!-- <div class="containerFlex">
+          <div class="onlyTres">
+            <span class="v-texto-2">Estrellas</span>
+          </div>
+        </div> -->
+        <div class="containerFlex">
+          <div class="onlyTres">
+            <span class="v-texto-2">Estrellas</span><br>
+            <div class="btn-group div-btn-star" dropdown>
+              <button id="button-basic" dropdownToggle type="button" class="btn v-texto-3 dropdown-toggle box-shadow" style="padding-bottom: 10px; padding-top: 10px;" aria-controls="dropdown-basic">
+                  <span class="star-filtro" *ngIf="textoestrellas === 'Todas'">     {{textoestrellas}}</span>
+                  <span class="star-filtro" *ngIf="textoestrellas === '5'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
+                  <span class="star-filtro" *ngIf="textoestrellas === '4'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
+                  <span class="star-filtro" *ngIf="textoestrellas === '3'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">      {{textoestrellas}}</span>
+                  <span class="star-filtro" *ngIf="textoestrellas === '2'"><img src="./assets/images/star.svg"><img src="./assets/images/star.svg">     {{textoestrellas}}</span>
+                  <span class="star-filtro" *ngIf="textoestrellas === '1'"><img src="./assets/images/star.svg">     {{textoestrellas}}</span>
+                      </button>
+              <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu v-texto-3 list-star pl-3 pr-3" style="cursor: pointer" role="menu" aria-labelledby="button-basic">
+                  <li role="menuitem"><a class="dropdown-item" (click)="SeleccionarEstrella('', 'Todas')">Todas</a></li>
+                  <li role="menuitem" class="row m-0 p-0">
+                      <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('5', '5')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                      <div class="col-1 m-0 p-0 number-star">5</div>
+                  </li>
+                  <li role="menuitem" class="row m-0 p-0">
+                      <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('4', '4')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                      <div class="col-1 m-0 p-0 number-star">4</div>
+                  </li>
+                  <li role="menuitem" class="row m-0 p-0">
+                      <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('3', '3')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                      <div class="col-1 m-0 p-0 number-star">3</div>
+                  </li>
+                  <li role="menuitem" class="row m-0 p-0">
+                      <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('2', '2')"><img src="./assets/images/estrellas.svg"><img src="./assets/images/estrellas.svg"></div>
+                      <div class="col-1 m-0 p-0 number-star">2</div>
+                  </li>
+                  <li role="menuitem" class="row m-0 p-0">
+                      <div class="star dropdown-item col-11" (click)="SeleccionarEstrella('1', '1')"><img src="./assets/images/estrellas.svg"></div>
+                      <div class="col-1 m-0 p-0 number-star">1</div>
+                  </li>
+              </ul>
+          </div>
+          </div>
+          <div class="dosMargin">
+            <span class="v-texto-2"></span><br>
+            <button class="btn v-btn-buscar" (click)="SeachHotel()">
+              <img src="./assets/images/home/buscador-musical.svg" alt="" style="width: 15px">
+              Buscar
+          </button>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+    <div *ngIf="spin" class="content">
+
+      <div class="spinner">
+
+      </div>
+    </div>
+    <div *ngIf="flagDinData" class="col-12">
+      <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+        <div class="col-3 m-0 p-0"></div>
+
+        <div class="col-6 m-0 p-0">
+          <div class="col-12 m-0 p-0 text-center">
+
+            <alert type="warning">
+              No se encontraron hospedajes para esta búsqueda
+            </alert>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="flagDinDataMini" class="col-12">
+      <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+        <div class="col-3 m-0 p-0"></div>
+
+        <div class="col-6 m-0 p-0">
+          <div class="col-12 m-0 p-0 text-center" style="left: 200px;">
+
+            <alert type="warning">
+              No se encontraron hospedajes para esta búsqueda
+            </alert>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
+      <div class="row m-0 p-0">
+        <div class="col-3 m-0 p-0 pt-4 pr-4 pl-5">
+          <app-busqueda-mini [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche"
+            [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event);searchFlightBuscador($event);"
+            [destino]="destinoText" [fchingreso]="dateingreso" [fchsalida]="datesalida" [habitaciones]="habitaciones"
+            [adultos]="personas" (flagShowMap)="showHideMap($event)" (flagBuscarMini)="updateMiniBusqueda($event)">
+          </app-busqueda-mini>
+
+
+          <app-filtro-estrellas [listado]="LlistaHotel" (resultfiltro)="ObtenerListaFiltroEstrella($event)">
+          </app-filtro-estrellas>
+
+
+          <app-filtro-precio-hotel *ngIf="flagPriceHotel" [cantnoche]="cantidadnoche" [currency]="currency"
+            (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel"
+            [mayorprecio]="mayorPrecioHotel"></app-filtro-precio-hotel>
+
+
+          <app-filtro-nombrehotel (resultFiltro)="ObtenerListaFiltroNombre($event)" [listado]="LlistaHotel">
+          </app-filtro-nombrehotel>
+
+          <div *ngIf="divScroll" style="padding-left: 15px;padding-top: 40px;padding-right: 15px;padding-bottom: 20px;">
+            <app-filtros-mini *ngIf="LlistaHotel[0].oerror === null && LlistaHotel.length > 0"
+              [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltroMini($event)"
+              (vistamapa)="MostrarMapaMini($event)" (vistalistado)="MostrarListadoMini($event)"></app-filtros-mini>
+          </div>
+        </div>
+        <div class="col-9 m-0 p-0 pt-4 pl-4 pr-5">
+
+          <div *ngIf="LlistaHotel.length > 0">
+            <app-filtros *ngIf="LlistaHotel[0].oerror === null" [ListaHotel]="LlistaHotel"
+              (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)"
+              (vistalistado)="MostrarListado($event)"></app-filtros>
+          </div>
+          <div *ngIf="vistalistado">
+            <app-resultado *ngFor="let lHotel of LlistaHotel; let i = index" [isvisible]="lHotel.isvisible"
+              [businessName]="lHotel.businessName" [typeHotel]="lHotel.typeHotel" [name]="lHotel.name"
+              [tipoPago]="lHotel.guaranteeType" [direccion]="lHotel.address"
+              [distancia]="lHotel.oairportDistance.distance" [estrellas]="lHotel.stars"
+              [currency]="lHotel.oprice.currency" [precioxnoche]="lHotel.oprice.pricePerAllNights"
+              [precioprom]="lHotel.oprice.pricePerNight" [urlHotel]="lHotel.limagens | getimghotel" [index]="i + 1"
+              [latitud]="lHotel.oposition.latitude" [longitud]="lHotel.oposition.longitude"
+              [cantidadnoche]="lHotel.numberNights" [cantpersonas]="lHotel.numberPassenger"
+              [lPolicies]="lHotel.lpolicies" [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida"
+              [hotelcode]="lHotel.code" [marcar]="lHotel.chooseHotel" [cantidadhabitaciones]="cantidadhabitaciones">
+            </app-resultado>
+          </div>
+
+          <app-mapa-hoteles *ngIf="vistamapa && mapafiltro" [listado]="LlistaHotel" [fechasalida]="fechaSalida"
+            [fecharetorno]="fechaRetorno" [estrellas]="estrellas"></app-mapa-hoteles>
+
 
         </div>
-        <div *ngIf="flagDinData" class="col-12">
-            <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
-
-                <div class="col-3 m-0 p-0"></div>
-
-                <div class="col-6 m-0 p-0">
-                    <div class="col-12 m-0 p-0 text-center">
-
-                        <alert type="warning">
-                            No se encontraron hospedajes para esta búsqueda
-                        </alert>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="flagDinDataMini" class="col-12">
-            <div class="row m-0 p-0">
-                <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
-
-                <div class="col-3 m-0 p-0"></div>
-
-                <div class="col-6 m-0 p-0">
-                    <div class="col-12 m-0 p-0 text-center" style="left: 200px;">
-
-                        <alert type="warning">
-                            No se encontraron hospedajes para esta búsqueda
-                        </alert>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div *ngIf="flagBuscar" class="col-12 m-0 p-0 animated fadeIn fast" style="background-color: white;">
-            <div class="row m-0 p-0">
-                <div class="col-3 m-0 p-0 pt-4 pr-4 pl-5">
-                    <app-busqueda-mini [destinoValue]="destinoValue" [destinoText]="destinoText" [cantidadnoches]="cantidadnoche" [textoestrellas]="textoestrellas" (messagelistado)="Obtenerlistado($event);searchFlightBuscador($event);" [destino]="destinoText" [fchingreso]="dateingreso"
-                        [fchsalida]="datesalida" [habitaciones]="habitaciones" [adultos]="personas" (flagShowMap)="showHideMap($event)" (flagBuscarMini)="updateMiniBusqueda($event)"></app-busqueda-mini>
-
-
-                    <app-filtro-estrellas [listado]="LlistaHotel" (resultfiltro)="ObtenerListaFiltroEstrella($event)"></app-filtro-estrellas>
-
-
-                    <app-filtro-precio-hotel *ngIf="flagPriceHotel" [cantnoche]="cantidadnoche" [currency]="currency" (filtroprecio)="ObtenerListaFiltroPrecio($event)" [listado]="LlistaHotel" [menorprecio]="menorPrecioHotel" [mayorprecio]="mayorPrecioHotel"></app-filtro-precio-hotel>
-
-
-                    <app-filtro-nombrehotel (resultFiltro)="ObtenerListaFiltroNombre($event)" [listado]="LlistaHotel"></app-filtro-nombrehotel>
-
-                    <div *ngIf="divScroll" style="padding-left: 15px;padding-top: 40px;padding-right: 15px;padding-bottom: 20px;">
-                        <app-filtros-mini *ngIf="LlistaHotel[0].oerror === null && LlistaHotel.length > 0" [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltroMini($event)" (vistamapa)="MostrarMapaMini($event)" (vistalistado)="MostrarListadoMini($event)"></app-filtros-mini>
-                    </div>
-                </div>
-                <div class="col-9 m-0 p-0 pt-4 pl-4 pr-5">
-
-                    <div *ngIf="LlistaHotel.length > 0">
-                        <app-filtros *ngIf="LlistaHotel[0].oerror === null" [ListaHotel]="LlistaHotel" (messagelistado)="ObtenerListFiltro($event)" (vistamapa)="MostrarMapa($event)" (vistalistado)="MostrarListado($event)"></app-filtros>
-                    </div>
-                    <div *ngIf="vistalistado">
-                        <app-resultado *ngFor="let lHotel of LlistaHotel; let i = index" [isvisible]="lHotel.isvisible" [businessName]="lHotel.businessName" [typeHotel]="lHotel.typeHotel"  [name]="lHotel.name" [tipoPago]="lHotel.guaranteeType" [direccion]="lHotel.address" [distancia]="lHotel.oairportDistance.distance" [estrellas]="lHotel.stars"
-                            [currency]="lHotel.oprice.currency" [precioxnoche]="lHotel.oprice.pricePerAllNights" [precioprom]="lHotel.oprice.pricePerNight" [urlHotel]="lHotel.limagens | getimghotel"  [index]="i + 1" [latitud]="lHotel.oposition.latitude" [longitud]="lHotel.oposition.longitude"
-                            [cantidadnoche]="lHotel.numberNights" [cantpersonas]="lHotel.numberPassenger" [lPolicies]="lHotel.lpolicies" [fecharetorno]="fechaRetorno" [fechasalida]="fechaSalida" [hotelcode]="lHotel.code" [cantidadhabitaciones]="cantidadhabitaciones">
-                        </app-resultado>
-                    </div>
-
-                    <app-mapa-hoteles *ngIf="vistamapa && mapafiltro" [listado]="LlistaHotel" [fechasalida]="fechaSalida" [fecharetorno]="fechaRetorno" [estrellas]="estrellas"></app-mapa-hoteles>
-
-
-                </div>
-            </div>
-        </div>
-        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
-    </app-header>
+      </div>
+    </div>
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating"
+      style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+  </app-header>
 </ng-container>
+
+<style>
+  .content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+  }
+
+  .spinner {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 5px solid black;
+    background: transparent;
+    border-top-color: #efef;
+    border-bottom-color: #efef;
+    border-left-color: black;
+    animation: spin 1.5s linear infinite;
+    position: relative;
+  }
+
+  @keyframes spin {
+    0% {
+      background: transparent;
+      transform: rotate(720deg);
+    }
+
+  }
+</style>

@@ -91,7 +91,7 @@
           <!-- <div  style="width: 100%;text-align: center;margin-top: 40px;margin-bottom: 20px;" (click)="home()">
             <img src="./assets/images/reports/logo.svg" style="width: 30%;margin: 14px 0px;cursor: pointer;"><br>
           </div> -->
-          <div *ngFor="let item of listMenu;let i = index;" id="report_{{i}}" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionado(i)">
+          <div *ngFor="let item of listMenu;let i = index;" id="report_{{i}}" style="width: 100%;text-align: center;cursor: pointer;" (click)="seleccionado(item.menuId, item.urlMenu)">
             <img id="img_{{i}}" src="./assets/images/reports/document.svg" style="width: 30%;margin: 14px 0px;"><br>
             <span id="textVertical_{{i}}">{{item.nameMenu}}</span>
           </div>
@@ -185,10 +185,6 @@
                   role="menu" aria-labelledby="button-basic">
                 <li role="menuitem"><a class="dropdown-item" (click)="confirm()"  style="cursor: pointer;">Nueva vista</a></li>
                 <li role="menuitem"><a class="{{disabled}}" (click)="getField()" style="cursor: pointer;">Modificar vista</a></li>
-                <li role="menuitem"><a class="dropdown-item disabled" style="cursor: pointer;">Clonar</a></li>
-                <li class="divider dropdown-divider"></li>
-                <li role="menuitem"><a class="dropdown-item disabled" style="cursor: pointer;">Borrar</a>
-                </li>
               </ul>
             </div>
           </div>
@@ -201,9 +197,9 @@
               <mat-form-field appearance="outline" class="dm-form-field">
                 <mat-label>Nombre de la vista</mat-label>
                 <input formControlName="vista"  matInput autocomplete="off" >
-                <mat-error *ngIf="bookingForm.get('vista').hasError('maxlength')">
+                <!-- <mat-error *ngIf="bookingForm.get('vista').hasError('maxlength')">
                   El nombre de la vista debe contener 12 caracteres como maximo.
-                </mat-error>
+                </mat-error> -->
             </mat-form-field>
           </form>
           </div>
@@ -263,9 +259,9 @@
         <div class="container">
           <div class="containerFlex">
             <div style="width: 20%;">
-              <div *ngIf="showButton" (click)="programmerReport()" class="buttonExport">
+              <!-- <div *ngIf="showButton" (click)="programmerReport()" class="buttonExport">
                 Programar Reporte
-              </div>
+              </div> -->
             </div>
             <div style="width: 20%;">
 

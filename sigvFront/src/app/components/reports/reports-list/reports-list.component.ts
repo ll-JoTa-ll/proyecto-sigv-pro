@@ -59,19 +59,24 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
   listMenu;
 
   constructor(private formBuilder: FormBuilder, private modalService: BsModalService, private reportService: ReportsService,
-              public spinner: NgxSpinnerService, private sessionStorageService: SessionStorageService,
-              private toastr: ToastrService,private router: Router) {
+    public spinner: NgxSpinnerService, private sessionStorageService: SessionStorageService,
+    private toastr: ToastrService, private router: Router) {
   }
 
   ngOnInit() {
     this.loginData = this.sessionStorageService.retrieve('ss_login_data');
-    this.listaMenu();
-    this.initForm();
-    this.listReports = [];
-    this.listHeads = [];
-    this.maxDate.setDate(this.maxDate.getDate() - 7);
-    this.intervaloDatas = [this.maxDate, this.bsValue];
-    this.getViews();
+    if (this.loginData.orole.roleId === 11) {
+      this.router.navigate(['reportes-ventas']);
+    } else {
+      this.listaMenu();
+      this.initForm();
+      this.listReports = [];
+      this.listHeads = [];
+      this.maxDate.setDate(this.maxDate.getDate() - 7);
+      this.intervaloDatas = [this.maxDate, this.bsValue];
+
+    }
+
     /* this.validColumn = false;
 
     console.log(this.intervaloDatas);
@@ -96,22 +101,24 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
     this.seleccionar();
   }
 
-  programmerReport(){
+  programmerReport() {
     this.router.navigate(['reportes-programados']);
   }
 
-  listaMenu(){
+  listaMenu() {
     this.loginData.lmenu.forEach(element => {
-      if(element.menuId === 4){
+      if (element.menuId === 4) {
         this.listMenu = element.lmenu;
       }
     });
   }
 
   getViews() {
+    this.spinner.show();
     this.reportService.getCompanyReport(this.loginData.ocompany.companyId).subscribe(
       result => {
         this.listViews = result.lreports;
+        this.spinner.hide();
 
       }
     )
@@ -161,7 +168,7 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
   getField() {
     this.spinner.show();
     this.bookingForm = this.formBuilder.group({
-      vista: new FormControl(this.textButton, [Validators.maxLength(12)]),
+      vista: new FormControl(this.textButton),
     });
     this.validView = 2;
     this.reportService.getReportField(this.companyReportId).subscribe(
@@ -169,6 +176,7 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
         this.todo = x.lavailableFields;
         this.showPartner = false;
         this.done = x.lusedFields;
+        this.setListData = this.done;
         this.showButton = false;
         this.showActions = false;
         this.validDisabled = true;
@@ -183,7 +191,7 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
 
   initForm() {
     this.bookingForm = this.formBuilder.group({
-      vista: new FormControl('', [Validators.maxLength(12)]),
+      vista: new FormControl(''),
     });
   }
 
@@ -219,6 +227,7 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
             NameView: name,
             Codes: this.listCodes,
             CompanyId: this.loginData.ocompany.companyId,
+            ReportId: 1,
             CreatedUserId: this.loginData.userId,
             IsActive: true
           }
@@ -256,6 +265,7 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
             NameView: name,
             Codes: this.listCodes,
             CompanyId: this.loginData.ocompany.companyId,
+            ReportId: 1,
             CreatedUserId: this.loginData.userId,
             IsActive: true
           }
@@ -267,6 +277,9 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
                   timeOut: 6000
                 });
               } else {
+                this.toastr.success('', result.message, {
+                  timeOut: 6000
+                });
                 this.textButton = name;
                 this.companyReportId = result.companyReportId;
                 this.validColumn = false;
@@ -312,7 +325,7 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
 
   confirm(): void {
     this.bookingForm = this.formBuilder.group({
-      vista: new FormControl('', [Validators.maxLength(12)]),
+      vista: new FormControl(''),
     });
     this.validView = 1;
     this.hola();
@@ -337,8 +350,8 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
       this.setFecFin.setMonth(this.setFecFin.getMonth() + 1); */
       this.inicioShow = this.inicioDate.getDate() + '/' + this.inicioDate.getMonth() + '/' + this.inicioDate.getFullYear();
       this.finalShow = this.finDate.getDate() + '/' + this.finDate.getMonth() + '/' + this.finDate.getFullYear();
-     /*  this.setValueIni = this.setFecIni.getDate() + '/' + this.setFecIni.getMonth() + '/' + this.setFecIni.getFullYear();
-      this.setValueFin = this.setFecFin.getDate() + '/' + this.setFecFin.getMonth() + '/' + this.setFecFin.getFullYear(); */
+      /*  this.setValueIni = this.setFecIni.getDate() + '/' + this.setFecIni.getMonth() + '/' + this.setFecIni.getFullYear();
+       this.setValueFin = this.setFecFin.getDate() + '/' + this.setFecFin.getMonth() + '/' + this.setFecFin.getFullYear(); */
       this.title = 'REPORTES DEL' + this.inicioShow.toString() + this.finalShow.toString();
       this.getReportGeneral(this.inicioShow, this.finalShow);
     }
@@ -362,8 +375,8 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
     this.validColumn = false;
     const fechaIni = this.inicioShow.split('/');
     const fechaFin = this.finalShow.split('/');
-    fechaIni[1] = parseFloat(fechaIni[1]) + 1 ;
-    fechaFin[1] = parseFloat(fechaFin[1]) + 1 ;
+    fechaIni[1] = parseFloat(fechaIni[1]) + 1;
+    fechaFin[1] = parseFloat(fechaFin[1]) + 1;
     const setIni = fechaIni[0] + '/' + fechaIni[1].toString() + '/' + fechaIni[2];
     const setFin = fechaFin[0] + '/' + fechaFin[1].toString() + '/' + fechaFin[2];
     const dataReport = {
@@ -399,8 +412,8 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
   getReportGeneral(ini, fin) {
     const fechaIni = ini.split('/');
     const fechaFin = fin.split('/');
-    fechaIni[1] = parseFloat(fechaIni[1]) + 1 ;
-    fechaFin[1] = parseFloat(fechaFin[1]) + 1 ;
+    fechaIni[1] = parseFloat(fechaIni[1]) + 1;
+    fechaFin[1] = parseFloat(fechaFin[1]) + 1;
     const setIni = fechaIni[0] + '/' + fechaIni[1].toString() + '/' + fechaIni[2];
     const setFin = fechaFin[0] + '/' + fechaFin[1].toString() + '/' + fechaFin[2];
     this.spinner.show();
@@ -432,7 +445,7 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
           this.ver = true;
           this.getHeadColumns();
           this.validColumn = true;
-          this.spinner.hide();
+          this.getViews();
         }
       },
       () => {
@@ -452,8 +465,8 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
     this.textQuery = valor.query;
     const fechaIni = this.inicioShow.split('/');
     const fechaFin = this.finalShow.split('/');
-    fechaIni[1] = parseFloat(fechaIni[1]) + 1 ;
-    fechaFin[1] = parseFloat(fechaFin[1]) + 1 ;
+    fechaIni[1] = parseFloat(fechaIni[1]) + 1;
+    fechaFin[1] = parseFloat(fechaFin[1]) + 1;
     const setIni = fechaIni[0] + '/' + fechaIni[1].toString() + '/' + fechaIni[2];
     const setFin = fechaFin[0] + '/' + fechaFin[1].toString() + '/' + fechaFin[2];
     const dataReport = {
@@ -486,9 +499,12 @@ export class ReportsListComponent implements OnInit, AfterViewInit {
     $(location).attr('href', '/vuelos');
   }
 
-  seleccionado(i) {
-    if (i === 1) {
-      window.open('http://report-kp.domiruth.com/Modulos/Reportes/ReporteKP.aspx' , '_blank', 'toolbar=0,location=0,menubar=0');
+  seleccionado(item1,item2) {
+    if (item1 === 6) {
+      window.open('http://report-kp.domiruth.com/Modulos/Reportes/ReporteKP.aspx', '_blank', 'toolbar=0,location=0,menubar=0');
+    } else {
+      const r = window.location.origin + item2;
+      window.location.replace(r);
     }
   }
 

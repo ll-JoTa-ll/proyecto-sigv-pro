@@ -459,7 +459,7 @@ export class BusquedaMiniHabitacionComponent implements OnInit, AfterViewInit {
             this.messagelistado.emit(this.LResultshotel);
           }
           else {
-            /* result = this.changeImage(result); */
+            result = this.changeImage(result);
             this.sessionStorageService.store('ss_minibuscador', result);
 
             //this.sessionStorageService.store('ls_search_hotel', result);

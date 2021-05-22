@@ -95,6 +95,10 @@ export class ReservaGeneradaComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/vuelos']);
   }
 
+  if (this.loginDataUser.orole.roleDescription === 'Autogestión') {
+    this.router.navigate(['/vuelos']);
+  }
+
   if (this.loginDataUser.orole.roleDescription === 'Usuario') {
     this.router.navigate(['/vuelos']);
   }

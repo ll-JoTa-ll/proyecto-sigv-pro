@@ -50,6 +50,12 @@ export class ReservaGeneradaHotelComponent implements OnInit, AfterViewInit {
 
   phone;
   urlimg = './assets/images/hotel-icon.png';
+  imagesHotel: any[] = [
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_1.png' },
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_2.png' },
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_3.png' },
+    { value: 'https://domiruthgeneral.blob.core.windows.net/domiruth/Images/Hoteles%20Default/DefaultHotel_4.png' },
+  ];
 
   constructor(private modalService: BsModalService,private eRef: ElementRef,private localStorageService: LocalStorageService,private router: Router,private bnIdle: BnNgIdleService,private sessionStorageService: SessionStorageService) {
 

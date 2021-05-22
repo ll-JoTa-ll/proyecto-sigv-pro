@@ -9,7 +9,8 @@ import { SessionStorageService, LocalStorageService } from 'ngx-webstorage';
 })
 export class NavHeaderComponent implements OnInit {
 
-  expanded = false
+  expanded = false;
+  expanded1 = false;
   nameAdmin: string;
   flagTipo: number;
   nombreUsuario: string;
@@ -32,6 +33,10 @@ export class NavHeaderComponent implements OnInit {
 
   toggleMenu() {
     this.expanded = this.expanded === true ? false : true;
+  }
+
+  toggleMenu1() {
+    this.expanded1 = this.expanded1 === true ? false : true;
   }
 
 }

@@ -1,679 +1,829 @@
 <ng-container>
-    <app-header>
-        <div class="row m-0 p-0">
-            <div class="col-2 m-0 p-0">
+  <app-header>
+    <div class="row m-0 p-0">
+      <div class="col-2 m-0 p-0">
 
-            </div>
-            <div class="col-8 m-0 p-0 pb-5">
-                <div class="row m-0 p-0">
-                    <div class="col-12" style="padding-top: 50px;padding-bottom: 60px;text-align: center;">
-                        <span class="titulo">Gestión de Usuarios y Pasajeros</span>
-                    </div>
-                </div>
-                <div class="row m-0 p-0">
-                    <div class="col-12" style="padding-top: 10px;padding-bottom: 15px;">
-                        <span class="titulo1">En este modulo puedes crear, ver y administrar usuarios.</span>
-                    </div>
-                </div>
-                <div class="row m-0 p-0" style="display: flex;flex-wrap: wrap;">
-                    <div class="col-4" style="padding-top: 32px;padding-bottom: 60px;">
-                        <span class="title pr-2">Buscar</span>
-                        <input (keyup)="change($event)" (click)="refrescar()" class="input-names" style="width: 75%; height: 79%;display: flex;flex-wrap: wrap;" placeholder="Ingresa el nombre o apellido del pasajero" id="nombrehotel">
-                    </div>
-                    <div class="col-3" style="padding-top: 50px;">
-                        <span class="title box-shadow" (click)="openModalPoliticas(modalPolitica)" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 95%;justify-content: center;">Nuevo Pasajero / Usuario</span>
-                    </div>
-                    <div class="col-3" style="padding-top: 50px;">
-                        <span class="title box-shadow" (click)="open(modalReestablecer)" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 93%;justify-content: center;">Reestablecer Contraseña</span>
-                    </div>
-                    <div class="col-2" style="padding-top: 50px;">
-                      <span class="title box-shadow" routerLink="/pasajeros/carga-masiva" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 94%;justify-content: center;">Carga Masiva</span>
-                        <!-- <span class="title box-shadow" (click)="openModalPoliticasMedium(modalMasivo)" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 94%;justify-content: center;">Carga Masiva</span> -->
-                        <!--  <input type="file" id="file" class="title box-shadow" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;" />
+      </div>
+      <div class="col-8 m-0 p-0 pb-5">
+        <div class="row m-0 p-0">
+          <div class="col-12" style="padding-top: 50px;padding-bottom: 60px;text-align: center;">
+            <span class="titulo">Gestión de Usuarios y Pasajeros</span>
+          </div>
+        </div>
+        <div class="row m-0 p-0">
+          <div class="col-12" style="padding-top: 10px;padding-bottom: 15px;">
+            <span class="titulo1">En este modulo puedes crear, ver y administrar usuarios.</span>
+          </div>
+        </div>
+        <div class="row m-0 p-0" style="display: flex;flex-wrap: wrap;">
+          <div class="col-4" style="padding-top: 32px;padding-bottom: 60px;">
+            <span class="title pr-2">Buscar</span>
+            <input (keyup)="change($event)" (click)="refrescar()" class="input-names"
+              style="width: 75%; height: 79%;display: flex;flex-wrap: wrap;"
+              placeholder="Ingresa el nombre o apellido del pasajero" id="nombrehotel">
+          </div>
+          <div class="col-3" style="padding-top: 50px;">
+            <span class="title box-shadow" (click)="openModalPoliticas(modalPolitica)"
+              style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 95%;justify-content: center;">Nuevo
+              Pasajero / Usuario</span>
+          </div>
+          <div class="col-3" style="padding-top: 50px;">
+            <span class="title box-shadow" (click)="open(modalReestablecer)"
+              style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 93%;justify-content: center;">Reestablecer
+              Contraseña</span>
+          </div>
+          <div class="col-2" style="padding-top: 50px;">
+            <span class="title box-shadow" routerLink="/pasajeros/carga-masiva"
+              style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 94%;justify-content: center;">Carga
+              Masiva</span>
+            <!-- <span class="title box-shadow" (click)="openModalPoliticasMedium(modalMasivo)" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;display: flex;flex-wrap: wrap;width: 94%;justify-content: center;">Carga Masiva</span> -->
+            <!--  <input type="file" id="file" class="title box-shadow" style="cursor: pointer;border-radius: 10px;color: white;border: 1px solid;background: #ED1C24;" />
 
                         <input (click)="openModalPoliticasMedium(modalMasivo)" accept=".xlsx" type="file" id="real-file" hidden="hidden" />
                         <button class="title" type="button" id="custom-button">Carga Masiva</button>
                         <span id="custom-text">No file chosen, yet.</span>-->
 
-                    </div>
-                </div>
-                <div class="row m-0 p-0">
+          </div>
+        </div>
+        <div class="row m-0 p-0">
 
-                    <div class="col-11 m-0 p-0">
-                        <div class="row m-0 p-0 box-shadow">
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 5% !important;font-weight: 700;">Editar</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Nombres</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 17% !important;font-weight: 700;">Apellidos</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Usuario</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 18% !important;font-weight: 700;">Correo Electrónico</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;font-weight: 700;">Tipo de Documento</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Numero de Documento</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Perfil</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 5% !important;font-weight: 700;">Activo</div>
-                        </div>
-                    </div>
-                    <div class="col-1 m-0 p-0 text-center">
-                        <div class="row m-0 p-0">
-                            <div class="m-0 p-0" style="width: 10%"></div>
-                            <div class="m-0 p-0" style="width: 15%"></div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row m-0 p-0" *ngFor="let emp of lstPerson | paginate: { itemsPerPage: 10, currentPage: p};let i=index;" id="fila_{{i}}">
-
-                    <div class="col-11 m-0 p-0">
-                        <div class="row m-0 p-0 box-shadow">
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 5% !important;"><span id="edit_{{i}}" style="cursor: pointer;" (click)="Editar(emp.personId,modalEditar);"><img style="width: 20px;" src="./assets/images/editar.svg"></span></div>
-                            <div id="nombre_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;">{{emp.firstName}}</div>
-                            <div id="apellido_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 17% !important;">{{emp.lastName}}</div>
-                            <div id="usuario_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;">{{emp.loginUser}}</div>
-                            <div id="correo_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 18% !important;">{{emp.email}}</div>
-                            <div id="dni_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">{{emp.documentType}}</div>
-                            <div id="dni_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;">{{emp.numberDocument}}</div>
-                            <div id="role_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;">{{emp.role}}</div>
-                            <div *ngIf="emp.isActive === true;else elseHola" class="m-0 p-0 text-center apc-text-2" style="width: 5% !important;"><img style="width: 20px;" src="./assets/images/comprobar.svg"></div>
-                            <ng-template #elseHola>
-                                <td><img style="width: 20px;margin-left: 20px;" src="./assets/images/borrar.svg"></td>
-                            </ng-template>
-                        </div>
-                    </div>
-                    <div class="col-1 m-0 p-0 text-center">
-                        <div class="row m-0 p-0">
-                            <div class="m-0 p-0" style="width: 10%"></div>
-                            <div class="m-0 p-0 d-flex pl-1 justify-content-center align-items-center" style="width: 15%">
-                                <!--<button (click)="agregarPasajero(person)" class="" style="background-color: #6B253C; color: white; border-radius: 25px 25px 25px 25px">+</button>-->
-                                <a style="cursor: pointer" (click)="agregarPasajero(emp)"><img style="width: 30px;" src="./assets/images/mas.png"></a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div class="row m-0 p-0">
-                    <div class="col-12" style="padding-top: 10px;padding-bottom: 15px;text-align: center;">
-                        <span *ngIf="max" style="font-size: 19px;color: red;">Puedes seleccionar como maximo 10 usuarios.</span>
-                    </div>
-                </div>
-
-                <div class="col-12 m-0 p-0 text-center pt-5">
-                    <pagination-controls autoHide="true" responsive="true" (pageChange)="p = $event"></pagination-controls>
-
-                </div>
-                <div class="row m-0 p-0">
-                    <div class="col-12" style="padding-top: 10px;padding-bottom: 15px;">
-                        <span class="titulo1">Usuarios a Reestablecer Contraseña.</span>
-                    </div>
-                </div>
-                <div class="row m-0 p-0">
-
-                    <div class="col-11 m-0 p-0">
-                        <div class="row m-0 p-0 box-shadow">
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;font-weight: 700;">Nombres</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;font-weight: 700;">Apellidos</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Usuario</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;font-weight: 700;">Correo Electrónico</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Numero de Documento</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Perfil</div>
-                            <div class="m-0 p-0 text-center apc-text-2" style="width: 5% !important;font-weight: 700;">Activo</div>
-                        </div>
-                    </div>
-                    <div class="col-1 m-0 p-0 text-center">
-                        <div class="row m-0 p-0">
-                            <div class="m-0 p-0" style="width: 10%"></div>
-                            <div class="m-0 p-0" style="width: 15%"></div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row m-0 p-0" *ngFor="let pasajero of lstPasajeros">
-
-                    <div class="col-11 m-0 p-0">
-                        <div class="row m-0 p-0 box-shadow">
-                            <div id="nombre_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;">{{pasajero.firstName}}</div>
-                            <div id="apellido_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;">{{pasajero.lastName}}</div>
-                            <div id="usuario_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;">{{pasajero.loginUser}}</div>
-                            <div id="correo_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;">{{pasajero.email}}</div>
-                            <div id="dni_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;">{{pasajero.numberDocument}}</div>
-                            <div id="role_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;">{{pasajero.role}}</div>
-                            <div *ngIf="pasajero.isActive === true;else elseHola" class="m-0 p-0 text-center apc-text-2" style="width: 5% !important;"><img style="width: 20px;" src="./assets/images/comprobar.svg"></div>
-                            <ng-template #elseHola>
-                                <td><img style="width: 20px;margin-left: 20px;" src="./assets/images/borrar.svg"></td>
-                            </ng-template>
-                        </div>
-                    </div>
-                    <div class="col-1 m-0 p-0 text-center">
-                        <div class="row m-0 p-0">
-                            <div class="m-0 p-0" style="width: 10%"></div>
-                            <div class="m-0 p-0 d-flex pl-1 justify-content-center align-items-center" style="width: 15%">
-                                <img (click)="eliminarPasajero(pasajero)" style="width: 15px; cursor: pointer" src="./assets/images/papelera_reciclaje.svg" alt="">
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
+          <div class="col-11 m-0 p-0">
+            <div class="row m-0 p-0 box-shadow">
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Editar</div>
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;font-weight: 700;">Nombres</div>
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;font-weight: 700;">Correo
+                Electrónico</div>
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;font-weight: 700;">Numero de
+                Documento</div>
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;font-weight: 700;">Perfil</div>
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Activo</div>
             </div>
-
-            <div class="col-2 m-0 p-0">
-
+          </div>
+          <div class="col-1 m-0 p-0 text-center">
+            <div class="row m-0 p-0">
+              <div class="m-0 p-0" style="width: 10%"></div>
+              <div class="m-0 p-0" style="width: 15%"></div>
             </div>
+          </div>
+
+        </div>
+        <div class="row m-0 p-0"
+          *ngFor="let emp of lstPerson | paginate: { itemsPerPage: 10, currentPage: p};let i=index;" id="fila_{{i}}">
+
+          <div class="col-11 m-0 p-0">
+            <div class="row m-0 p-0 box-shadow">
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 5% !important;"><span id="edit_{{i}}"
+                  style="cursor: pointer;" (click)="Editar(emp.personId,emp.userId,modalEditar);"><img style="width: 20px;"
+                    src="./assets/images/editar.svg"></span></div>
+
+              <div id="nombre_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 20% !important;">
+                {{emp.fullName}}</div>
+              <div id="correo_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;">{{emp.corporateEmail}}
+              </div>
+              <div id="dni_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">
+                {{emp.documentNumber}}</div>
+              <div id="role_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">{{emp.roleName}}
+              </div>
+              <div *ngIf="emp.isActive === true;else elseHola" class="m-0 p-0 text-center apc-text-2"
+                style="width: 10% !important;"><img style="width: 20px;" src="./assets/images/comprobar.svg"></div>
+              <ng-template #elseHola>
+                <td><img style="width: 20px;margin-left: 20px;" src="./assets/images/borrar.svg"></td>
+              </ng-template>
+            </div>
+          </div>
+          <div class="col-1 m-0 p-0 text-center">
+            <div class="row m-0 p-0">
+              <div class="m-0 p-0" style="width: 10%"></div>
+              <div class="m-0 p-0 d-flex pl-1 justify-content-center align-items-center" style="width: 15%">
+                <!--<button (click)="agregarPasajero(person)" class="" style="background-color: #6B253C; color: white; border-radius: 25px 25px 25px 25px">+</button>-->
+                <a style="cursor: pointer" (click)="agregarPasajero(emp)"><img style="width: 30px;"
+                    src="./assets/images/mas.png"></a>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="row m-0 p-0">
+          <div class="col-12" style="padding-top: 10px;padding-bottom: 15px;text-align: center;">
+            <span *ngIf="max" style="font-size: 19px;color: red;">Puedes seleccionar como maximo 10 usuarios.</span>
+          </div>
+        </div>
+
+        <div class="col-12 m-0 p-0 text-center pt-5">
+          <pagination-controls autoHide="true" responsive="true" (pageChange)="p = $event"></pagination-controls>
+
+        </div>
+        <div class="row m-0 p-0">
+          <div class="col-12" style="padding-top: 10px;padding-bottom: 15px;">
+            <span class="titulo1">Usuarios a Reestablecer Contraseña.</span>
+          </div>
+        </div>
+        <div class="row m-0 p-0">
+
+          <div class="col-11 m-0 p-0">
+            <div class="row m-0 p-0 box-shadow">
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;font-weight: 700;">Nombres</div>
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;font-weight: 700;">Correo
+                Electrónico</div>
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;font-weight: 700;">Numero de
+                Documento</div>
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;font-weight: 700;">Perfil</div>
+              <div class="m-0 p-0 text-center apc-text-2" style="width: 10% !important;font-weight: 700;">Activo</div>
+            </div>
+          </div>
+          <div class="col-1 m-0 p-0 text-center">
+            <div class="row m-0 p-0">
+              <div class="m-0 p-0" style="width: 10%"></div>
+              <div class="m-0 p-0" style="width: 15%"></div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row m-0 p-0" *ngFor="let pasajero of lstPasajeros">
+
+          <div class="col-11 m-0 p-0">
+            <div class="row m-0 p-0 box-shadow">
+              <div id="nombre_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;">
+                {{pasajero.fullName}}</div>
+              <div id="correo_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 25% !important;">
+                {{pasajero.corporateEmail}}</div>
+              <div id="dni_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">
+                {{pasajero.documentNumber}}</div>
+              <div id="role_{{i}}" class="m-0 p-0 text-center apc-text-2" style="width: 15% !important;">
+                {{pasajero.roleName}}</div>
+              <div *ngIf="pasajero.isActive === true;else elseHola" class="m-0 p-0 text-center apc-text-2"
+                style="width: 10% !important;"><img style="width: 20px;" src="./assets/images/comprobar.svg"></div>
+              <ng-template #elseHola>
+                <td><img style="width: 20px;margin-left: 20px;" src="./assets/images/borrar.svg"></td>
+              </ng-template>
+            </div>
+          </div>
+          <div class="col-1 m-0 p-0 text-center">
+            <div class="row m-0 p-0">
+              <div class="m-0 p-0" style="width: 10%"></div>
+              <div class="m-0 p-0 d-flex pl-1 justify-content-center align-items-center" style="width: 15%">
+                <img (click)="eliminarPasajero(pasajero)" style="width: 15px; cursor: pointer"
+                  src="./assets/images/papelera_reciclaje.svg" alt="">
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="col-2 m-0 p-0">
+
+      </div>
+    </div>
+
+
+
+    <ng-template #modalPolitica let-c="close" let-d="dismiss" style="height: 600px;">
+
+      <div class="modal-header pb-0" style="border: none;">
+        <button type="button" class="close pull-right" aria-label="Close"
+          (click)="modalRefPoliticas.hide();limpiarVal();">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body m-0 p-0">
+        <div class="row m-0 p-0 pb-3">
+          <div class="col-12 m-0 p-0 text-center ip-text-1"
+            style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+            <span class="tituloModal">Registrar Nuevo Pasajero o Usuario</span>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeNombre()" (keypress)="validarLetras($event)" (paste)="false"
+                  class="form__field" placeholder="Nombres" name="nombre" id='nombre' required />
+                <label for="nombre" class="form__label">Nombres</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeApellido()" (keypress)="validarLetras($event)" (paste)="false"
+                  class="form__field" placeholder="Apellidos" name="apellido" id='apellido' required />
+                <label for="apellido" class="form__label">Apellidos</label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeTelefono()" (keypress)="validarNumeros($event)" (paste)="false"
+                  class="form__field" placeholder="Telefono" name="telefono" id='telefono' required />
+                <label for="telefono" class="form__label">Teléfono Personal</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeTelefonoCor()" (keypress)="validarNumeros($event)" (paste)="false"
+                  class="form__field" placeholder="Telefono" name="telefonoCor" id='telefonoCor' required />
+                <label for="telefonoCor" class="form__label">Teléfono Corporativo</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeCorreo()" (keydown)="ValidarCorreo()" (keyup)="ValidarCorreo()"
+                  class="form__field" placeholder="Correo" name="correo" id='correo' required />
+                <label for="correo" class="form__label">Correo Personal</label>
+                <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La dirección de correo es invalida</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeCorreoCor()" (keydown)="ValidarCorreoCor()" class="form__field"
+                  placeholder="Correo" name="correoCor" id='correoCor' required />
+                <label for="correoCor" class="form__label">Correo Corporativo</label>
+                <div *ngIf="inderror1" class="pt-2" style="color: #ED1C24;">La dirección de correo es invalida</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select (change)="onChange($event)" type="text" name="" id="cbo_document">
+                  <option *ngFor="let item of this.Document.ldocumentTypeLists" (click)="hola11(item.name)">
+                    {{item.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (paste)="false" class="form__field" placeholder="Documento de Identidad" name="dni"
+                  id='dni' required />
+                <label for="dni" class="form__label">{{documentName}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="documento" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select (change)="onChange1($event)" type="text" name="" id="cbo_document_1">
+                  <option *ngFor="let item of this.Document.ldocumentTypeLists">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (paste)="false" class="form__field" placeholder="Documento de Identidad"
+                  name="pasaporte" id='pasaporte' required />
+                <label for="pasaporte" class="form__label" style="font-size: 18px;">{{documentName1}}</label>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1 m-0">
+            <div class="row m-0">
+              <div>
+                <img style="width: 30px;cursor: pointer;" src="./assets/images/eliminar.png"
+                  (click)="removePasaporte()">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="documento2" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select (change)="onChange2($event)" type="text" name="" id="cbo_document_2">
+                  <option *ngFor="let item of this.Document.ldocumentTypeLists">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (paste)="false" class="form__field" placeholder="Documento de Identidad"
+                  name="carne" id='carne' required />
+                <label for="carne" class="form__label" style="font-size: 18px;">{{documentName2}}</label>
+                <!-- <img style="width: 30px;margin-left: 15px;cursor: pointer;" src="./assets/images/eliminar.png" (click)="removeDocument()"> -->
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1 m-0">
+            <div class="row m-0">
+              <div>
+                <img style="width: 30px;cursor: pointer;" src="./assets/images/eliminar.png" (click)="removeDocument()">
+              </div>
+            </div>
+          </div>
         </div>
 
 
-
-        <ng-template #modalPolitica let-c="close" let-d="dismiss" style="height: 600px;">
-
-            <div class="modal-header pb-0" style="border: none;">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide();limpiarVal();">
-              <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select type="text" name="" id="cbo_perfil">
+                  <option *ngFor="let item of this.getRole.lroleLists" value="{{item.roleId}}">{{item.name}}</option>
+                </select>
+              </div>
             </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (bsValueChange)="onValueChangeIngreso($event)" (keypress)="validarNumeros($event)"
+                  [maxDate]="maxDate" maxlength="10" #datepickerSalida="bsDatepicker" bsDatepicker
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                  (paste)="false" class="form__field" placeholder="Fecha de Nacimiento" name="txtfecha" id='txtfecha'
+                  required />
+                <label for="txtfecha" class="form__label">Fecha de Nacimiento</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select type="text" name="" id="cbo_nacionalidad">
+                  <option *ngFor="let item of lstpaises" value="{{item.iataCode}}">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select type="text" id="cbo_genero">
+                  <option value="M">Masculino</option>
+                  <option value="F">Femenino</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <div class="modal-body m-0 p-0">
-                <div class="row m-0 p-0 pb-3">
-                    <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
-                        <span class="tituloModal">Registrar Nuevo Pasajero o Usuario</span>
-                    </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-4 m-0 text-center" style="padding-left: 60px;">
+                <span class="titulo1">Vip :</span>
+              </div>
+              <div class="col-8 m-0 p-0">
+                <div class="toggle-btn active" (click)="active()">
+                  <input type="checkbox" checked class="cb-value" />
+                  <span class="round-btn"></span>
                 </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeNombre()" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Nombres" name="nombre" id='nombre' required />
-                                <label for="nombre" class="form__label">Nombres</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeApellido()" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Apellidos" name="apellido" id='apellido' required />
-                                <label for="apellido" class="form__label">Apellidos</label>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeTelefono()" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Telefono" name="telefono" id='telefono' required />
-                                <label for="telefono" class="form__label">Telefono</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeCorreo()" (keydown)="ValidarCorreo()" (keyup)="ValidarCorreo()" class="form__field" placeholder="Correo" name="correo" id='correo' required />
-                                <label for="correo" class="form__label">Correo</label>
-                                <div *ngIf="inderror" class="pt-2" style="color: #ED1C24;">La dirección de correo es invalida</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-8 m-0 p-0">
-                                <select (change)="onChange($event.target.value)" type="text" name="" id="cbo_document">
-                                    <option *ngFor="let item of this.Document" value="{{item.id}}">{{item.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeDni()" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Documento de Identidad" name="dni" id='dni' maxlength="8" required />
-                                <label for="dni" class="form__label">Documento de Identidad</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="documento" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Pasaporte :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <select (change)="onChange($event.target.value)" type="text" name="" id="cbo_document">
-                                    <option value="2">Pasaporte</option>
-                                    <option value="3">Carné de Extranjería</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Pasaporte" name="pasaporte" maxlength="8" id='pasaporte' required />
-                                <label for="pasaporte" class="form__label">Pasaporte</label>
-                                <img style="width: 30px;margin-left: 15px;cursor: pointer;" src="./assets/images/eliminar.png" (click)="removePasaporte()">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="documento2" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Documento de Identidad :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <select (change)="onChange($event.target.value)" type="text" name="" id="cbo_document">
-                                    <option value="1">Documento Nacional</option>
-                                    <option value="3">Carné de Extranjería</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Numero de Identidad :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="pasaporte" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el documento de identidad" maxlength="8">
-                                <img style="width: 30px;margin-left: 15px;cursor: pointer;" src="./assets/images/eliminar.png" (click)="removeDocument()">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="documento3" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Documento de Identidad :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <select (change)="onChange($event.target.value)" type="text" name="" id="cbo_document">
-                                    <option value="1">Documento Nacional</option>
-                                    <option value="2">Pasaporte</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-4 m-0 text-center">
-                                <span class="titulo1">Numero de Identidad :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <input type="text" id="pasaporte" (keypress)="validarNumeros($event)" (paste)="false" placeholder="Ingrese el documento de identidad" maxlength="8">
-                                <img style="width: 30px;margin-left: 15px;cursor: pointer;" src="./assets/images/eliminar.png" (click)="removeDocument3()">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-8 m-0 p-0">
-                                <select type="text" name="" id="cbo_perfil">
-                                    <option *ngFor="let item of this.getRole" value="{{item.id}}">{{item.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (bsValueChange)="onValueChangeIngreso($event)" (keypress)="validarNumeros($event)" [maxDate]="maxDate" maxlength="10" #datepickerSalida="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }" (paste)="false" class="form__field" placeholder="Fecha de Nacimiento" name="txtfecha" id='txtfecha' required />
-                                <label for="txtfecha" class="form__label">Fecha de Nacimiento</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-8 m-0 p-0">
-                                <select type="text" name="" id="cbo_nacionalidad">
-                                    <option *ngFor="let item of lstpaises" value="{{item.iataCode}}">{{item.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-8 m-0 p-0">
-                                <select type="text" id="cbo_genero">
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Femenino</option>
-                                    </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-4 m-0 text-center" style="padding-left: 60px;">
-                                <span class="titulo1">Vip :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <div class="toggle-btn active" (click)="active()">
-                                    <input type="checkbox" checked class="cb-value" />
-                                    <span class="round-btn"></span>
-                                </div>
-                                <!--   <div class="boxes">
+                <!--   <div class="boxes">
                                     <input class="check" type="checkbox" id="box-1">
                                     <label for="box-1"></label>
                                 </div>-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writePasajero()" (paste)="false" class="form__field" placeholder="Pasajero Frecuente" name="pasajero" id='pasajero' required />
-                                <label for="pasajero" class="form__label">Pasajero Frecuente</label>
-                            </div>
-                        </div>
-                    </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writePasajero()" (paste)="false" class="form__field"
+                  placeholder="Pasajero Frecuente" name="pasajero" id='pasajero' required />
+                <label for="pasajero" class="form__label">Pasajero Frecuente</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-4 m-0 text-center" style="padding-left: 80px;">
+                <span class="titulo1">Activo</span>
+              </div>
+              <div class="col-8 m-0 p-0">
+                <div class="toggle-btn1 active" (click)="active1()">
+                  <input type="checkbox" checked class="cb-value1" />
+                  <span class="round-btn"></span>
                 </div>
-
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-4 m-0 text-center" style="padding-left: 80px;">
-                                <span class="titulo1">Activo</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <div class="toggle-btn1 active" (click)="active1()">
-                                    <input type="checkbox" checked class="cb-value1" />
-                                    <span class="round-btn"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-8 m-0 p-0">
-                                <select type="text" name="" id="cbo_costo">
-                                    <option *ngFor="let item of this.lstCostCenter" value="{{item.costCenterId}}">{{item.description}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select type="text" name="" id="cbo_costo">
+                  <option *ngFor="let item of this.lstCostCenter" value="{{item.costCenterId}}">{{item.description}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeUsuario()"  (paste)="false" class="form__field" placeholder="Usuario" name="usuario" id='usuario' required />
-                                <label for="usuario" class="form__label">Usuario</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-6 m-0 text-center" style="padding-left: 80px;">
+                <span class="titulo1">Lista de Menu</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
-                <!--        <div class="col-3" style="position: absolute;left: 850px;top: 740px;background: darkseagreen;color: white;border-radius: 10px;border: 1px solid black;">
+        <div style="width:100%;display:flex;padding-bottom: 30px;padding-top: 20px;">
+
+          <div style="width: 100%;display: flex;margin-left: 11%;">
+            <section *ngFor="let item of lstMenus;let i = index;" class="example-section" style="margin-right: 25px;">
+              <mat-checkbox (change)="onChangeMenu($event,i,item.menuId)" class="example-margin" id="chkBox_{{i}}">
+                {{item.name}}</mat-checkbox>
+            </section>
+          </div>
+        </div>
+
+        <div *ngIf="showSubMenu" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 text-center" style="padding-left: 45px;">
+                <span class="titulo1">Lista de Sub Menu</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div *ngIf="showSubMenu" style="width:100%;display:flex;padding-bottom: 30px;padding-top: 20px;">
+
+          <div style="width: 100%;display: flex;margin-left: 11%;">
+            <section *ngFor="let item of lstSubMenusShow;let i = index;" class="example-section"
+              style="margin-right: 25px;">
+              <mat-checkbox (change)="onChangeSubMenu($event,i,item.menuId)" class="example-margin"
+                id="chkSubBox_{{i}}">{{item.name}}</mat-checkbox>
+            </section>
+          </div>
+        </div>
+
+
+        <!-- <div *ngIf="showSubMenu" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+
+        <div class="col-md-6 m-0">
+          <div class="row m-0">
+
+            <div class="col-8 m-0 p-0">
+              <select (change)="onChangeSubMenu($event)" type="text" name="" id="cbo_Submenu">
+                <option *ngFor="let item of this.lstSubMenus" value="{{item.menuId}}">{{item.name}}</option>
+              </select>
+            </div>
+
+
+          </div>
+        </div>
+      </div> -->
+
+
+        <!--        <div class="col-3" style="position: absolute;left: 850px;top: 740px;background: darkseagreen;color: white;border-radius: 10px;border: 1px solid black;">
                     <div class="row m-0 p-0">
                         <div class="col-6 m-0 p-0" style="cursor: pointer;border-right: 1px solid black;text-align: center;">Pasaporte</div>
                         <div class="col-6 m-0 p-0" style="cursor: pointer;text-align: center;">Carné de Extranjería</div>
                     </div>
                 </div>-->
 
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-7" style="text-align: end;">
-                        <span class="title box-shadow" (click)="registrar()" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Registrar Pasajero</span>
-                    </div>
-                    <div class="col-2">
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-7" style="text-align: end;">
+            <span class="title box-shadow" (click)="registrar()"
+              style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Registrar
+              Pasajero</span>
+          </div>
+          <div class="col-2">
 
-                    </div>
-              <!--     <div class="col-3" style="cursor: pointer;" (click)="addDocument()">
-                        <img style="width: 30px;" src="./assets/images/add.png"> Agregar documento de Identidad
-                    </div>-->
-                </div>
+          </div>
+          <div class="col-3" style="cursor: pointer;" (click)="addDocument()">
+            <img style="width: 30px;" src="./assets/images/add.png"> Agregar documento de Identidad
+          </div>
+        </div>
 
+      </div>
+    </ng-template>
+
+    <ng-template #modalEditar let-c="close" let-d="dismiss">
+
+      <div class="modal-header pb-0" style="border: none;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="limpiar()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body m-0 p-0">
+        <div class="row m-0 p-0 pb-3">
+          <div class="col-12 m-0 p-0 text-center ip-text-1"
+            style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+            <span class="tituloModal">Actualizar Nuevo Pasajero o Usuario</span>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeNombreEdit()" value="{{this.PersonId.name}}"
+                  (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Nombres"
+                  name="nombreEdit" id='nombreEdit' required />
+                <label for="nombreEdit" class="form__label">Nombres</label>
+              </div>
             </div>
-        </ng-template>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeApellidoEdit()" value="{{this.PersonId.lastName}}"
+                  (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Apellidos"
+                  name="apellidoEdit" id='apellidoEdit' required />
+                <label for="apellidoEdit" class="form__label">Apellidos</label>
+              </div>
+            </div>
+          </div>
 
-        <ng-template #modalEditar let-c="close" let-d="dismiss">
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeTelefonoEdit()" value="{{this.PersonId.personalPhone}}"
+                  (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Telefono"
+                  name="telefonoEdit" id='telefonoEdit' required />
+                <label for="telefonoEdit" class="form__label">Teléfono Personal</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeTelefonoEdit()" value="{{this.PersonId.corporatePhone}}"
+                  (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Telefono"
+                  name="telefonoEditCor" id='telefonoEditCor' required />
+                <label for="telefonoEditCor" class="form__label">Teléfono Corporativo</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeCorreoEdit()" value="{{this.PersonId.personalEmail}}"
+                  (keydown)="ValidarCorreo()" (keyup)="ValidarCorreo()" (paste)="false" class="form__field"
+                  placeholder="Correo" name="correoEdit" id='correoEdit' required />
+                <label for="correoEdit" class="form__label">Correo Personal</label>
+                <div *ngIf="inderrorEdit" class="pt-2" style="color: #ED1C24;">La dirección de correo es invalida</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeCorreoEdit()" value="{{this.PersonId.corporateEmail}}"
+                  (keydown)="ValidarCorreoCor()" (keyup)="ValidarCorreoCor()" (paste)="false" class="form__field"
+                  placeholder="Correo" name="correoEditCor" id='correoEditCor' required />
+                <label for="correoEditCor" class="form__label">Correo Corporativo</label>
+                <div *ngIf="inderrorEdit" class="pt-2" style="color: #ED1C24;">La dirección de correo es invalida</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let doc of this.PersonId.lpersonDocumentDetails;let i = index" class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select (change)="onChangeEdit($event.target.value)" type="text" name="" id="cbo_documentEdit_{{i}}"
+                  value="{{doc.docTypeId}}">
+                  <option *ngFor="let item of this.Document.ldocumentTypeLists" value="{{item.docTypeId}}">{{item.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writeDniEdit()" value="{{doc.documentNumber}}"
+                  (keypress)="validarNumeros($event)" (paste)="false" class="form__field"
+                  placeholder="Documento de Identidad" name="dniEdit" id='dniEdit' maxlength="15" required />
+                <label for="dniEdit" class="form__label">Documento de Identidad</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select type="text" name="" id="cbo_perfilEdit" value="{{this.PersonId.ouserDetail.roleId}}">
+                  <option *ngFor="let item of this.getRole.lroleLists" value="{{item.roleId}}">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (bsValueChange)="onValueChangeIngresoEdit($event)" (keyup)="writeFechaEdit()"
+                  (keypress)="validarNumeros($event)" [maxDate]="maxDate" [(bsValue)]="bsValue"
+                  value="{{this.PersonId.birthDate | fechaformat}}" [maxDate]="maxDate" #datepickerSalida="bsDatepicker"
+                  bsDatepicker
+                  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }"
+                  (paste)="false" class="form__field" placeholder="Fecha de Nacimiento" name="txtfechaEdit"
+                  id='txtfechaEdit' required />
+                <label for="txtfecha" class="form__label">Fecha de Nacimiento</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select type="text" name="" id="cbo_nacionalidadEdit" value="{{this.PersonId.countryCode}}">
+                  <option *ngFor="let item of lstpaises" value="{{item.iataCode}}">{{item.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select type="text" id="cbo_generoEdit" value={{this.PersonId.gender}}>
+                  <option value="M">Masculino</option>
+                  <option value="F">Femenino</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <div class="modal-header pb-0" style="border: none;">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="limpiar()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-4 m-0 text-center" style="padding-left: 60px;">
+                <span class="titulo1">Vip :</span>
+              </div>
+              <div class="col-8 m-0 p-0">
+                <div class="toggle-EditVip active" (click)="activeEditVip()">
+                  <input type="checkbox" checked class="cb-EditVip" />
+                  <span class="round-btn"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="form__group field">
+                <input type="input" (keyup)="writePasajeroEdit()" (paste)="false"
+                  value="{{this.PersonId.ouserDetail.frequentFlyer}}" class="form__field" placeholder="Pasajero Frecuente"
+                  name="pasajeroEdit" id='pasajeroEdit' required />
+                <label for="pasajeroEdit" class="form__label">Pasajero Frecuente</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-4 m-0 text-center" style="padding-left: 80px;">
+                <span class="titulo1">Activo</span>
+              </div>
+              <div class="col-8 m-0 p-0">
+                <div class="toggle-EditActive active" (click)="activeEditActive()">
+                  <input type="checkbox" checked class="cb-EditActive" />
+                  <span class="round-btn"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-8 m-0 p-0">
+                <select type="text" name="" id="cbo_costoEdit" value="{{this.PersonId.ocostCenter.costCenterId}}">
+                  <option *ngFor="let item of this.lstCostCenter" value="{{item.costCenterId}}">{{item.description}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div> -->
+        </div>
+
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-md-6 m-0">
+            <div class="row m-0">
+              <div class="col-6 m-0 text-center" style="padding-left: 80px;">
+                <span class="titulo1">Lista de Menu</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div style="width:100%;display:flex;padding-bottom: 30px;padding-top: 20px;">
+
+          <div style="width: 100%;display: flex;margin-left: 11%;">
+            <section *ngFor="let item of lstMenusEdit;let i = index;" class="example-section" style="margin-right: 25px;">
+              <mat-checkbox (change)="onChangeMenu($event,i,item.menuId)" [checked]="item.isActive"  class="example-margin" id="chkBoxEdit_{{i}}">
+                {{item.name}}</mat-checkbox>
+            </section>
+          </div>
+        </div>
+
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-12 m-0 text-center">
+
+            <span class="title box-shadow" (click)="actualizar()"
+              style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Actualizar
+              Pasajero</span>
+
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #modalReestablecer let-c="close" let-d="dismiss">
+
+      <div class="modal-header pb-0" style="border: none;">
+        <button type="button" class="close pull-right" aria-label="Close"
+          (click)="modalRefPoliticas.hide();closeValid()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+        <div class="row m-0 p-0 pb-3">
+          <div class="col-12 m-0 p-0 text-center ip-text-1"
+            style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+            <span class="tituloModal">Reestablecer Contraseña</span>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-12 m-0">
+            <input type="password" id="allNewPass" (keyup)="write()" placeholder="Ingrese la contraseña"
+              class="input-names box-shadow" style="width: 100%; height: 44px;border-radius: 10px;border: 1px solid;">
+            <label *ngIf="validPass" style="font-size: 14px;margin-left: 5px;color: red;">Por favor ingresa la
+              contraseña.</label>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-12 m-0 text-center">
+            <span class="title box-shadow" (click)="changePassword()"
+              style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Grabar
+              Nueva Contraseña</span>
+          </div>
+        </div>
+      </div>
+
+    </ng-template>
+
+    <ng-template #modalMasivo let-c="close" let-d="dismiss">
+      <div class="modal-header pb-0" style="border: none;">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body m-0 p-0">
+        <div class="row m-0 p-0 pb-3">
+          <div class="col-12 m-0 p-0 text-center ip-text-1"
+            style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
+            <span class="tituloModal">Carga Masiva de Pasajeros</span>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-12 m-0">
+            <span>Usted esta apunto de cargar este listado de pasajeros:</span>
+
+            <div class="button-wrap">
+              <label for="file" class="new-button">Seleccionar Archivo</label>
+              <input accept=".xlsx" type="file" id="file" (change)="handleFileInput($event.target.files)">
             </div>
 
-            <div class="modal-body m-0 p-0">
-                <div class="row m-0 p-0 pb-3">
-                    <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
-                        <span class="tituloModal">Actualizar Nuevo Pasajero o Usuario</span>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeNombreEdit()" value="{{this.PersonId.firstName}}" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Nombres" name="nombreEdit" id='nombreEdit' required />
-                                <label for="nombreEdit" class="form__label">Nombres</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeApellidoEdit()" value="{{this.PersonId.lastName}}" (keypress)="validarLetras($event)" (paste)="false" class="form__field" placeholder="Apellidos" name="apellidoEdit" id='apellidoEdit' required />
-                                <label for="apellidoEdit" class="form__label">Apellidos</label>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeTelefonoEdit()" value="{{this.PersonId.phone}}" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Telefono" name="telefonoEdit" id='telefonoEdit' required />
-                                <label for="telefonoEdit" class="form__label">Telefono</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeCorreoEdit()" value="{{this.PersonId.email}}" (keydown)="ValidarCorreo()" (keyup)="ValidarCorreo()" (paste)="false" class="form__field" placeholder="Correo" name="correoEdit" id='correoEdit' required />
-                                <label for="correoEdit" class="form__label">Correo</label>
-                                <div *ngIf="inderrorEdit" class="pt-2" style="color: #ED1C24;">La dirección de correo es invalida</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-8 m-0 p-0">
-                                <select (change)="onChangeEdit($event.target.value)" type="text" name="" id="cbo_documentEdit" value="{{this.PersonId.odocument.id}}">
-                                    <option *ngFor="let item of this.Document" value="{{item.id}}">{{item.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeDniEdit()" value="{{this.PersonId.odocument.number}}" (keypress)="validarNumeros($event)" (paste)="false" class="form__field" placeholder="Documento de Identidad" name="dniEdit" id='dniEdit' maxlength="15" required />
-                                <label for="dniEdit" class="form__label">Documento de Identidad</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-8 m-0 p-0">
-                                <select type="text" name="" id="cbo_perfilEdit" value="{{this.PersonId.orole.id}}">
-                                    <option *ngFor="let item of this.getRole" value="{{item.id}}">{{item.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (bsValueChange)="onValueChangeIngresoEdit($event)" (keyup)="writeFechaEdit()" (keypress)="validarNumeros($event)" [maxDate]="maxDate" [(bsValue)]="bsValue" value="{{this.PersonId.birthDate | fechaformat}}"  [maxDate]="maxDate" #datepickerSalida="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-red',  selectFromOtherMonth: true }" (paste)="false" class="form__field" placeholder="Fecha de Nacimiento" name="txtfechaEdit" id='txtfechaEdit' required />
-                                <label for="txtfecha" class="form__label">Fecha de Nacimiento</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-8 m-0 p-0">
-                                <select type="text" name="" id="cbo_nacionalidadEdit" value="{{this.PersonId.onationality.iataCode}}">
-                                    <option *ngFor="let item of lstpaises" value="{{item.iataCode}}">{{item.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-8 m-0 p-0">
-                                <select type="text" id="cbo_generoEdit" value={{this.PersonId.gender}}>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Femenino</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-4 m-0 text-center" style="padding-left: 60px;">
-                                <span class="titulo1">Vip :</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <div class="toggle-EditVip active" (click)="activeEditVip()">
-                                    <input type="checkbox" checked class="cb-EditVip" />
-                                    <span class="round-btn"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writePasajeroEdit()" (paste)="false" value="{{this.PersonId.frequentFlyer}}" class="form__field" placeholder="Pasajero Frecuente" name="pasajeroEdit" id='pasajeroEdit' required />
-                                <label for="pasajeroEdit" class="form__label">Pasajero Frecuente</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-4 m-0 text-center" style="padding-left: 80px;">
-                                <span class="titulo1">Activo</span>
-                            </div>
-                            <div class="col-8 m-0 p-0">
-                                <div class="toggle-EditActive active" (click)="activeEditActive()">
-                                    <input type="checkbox" checked class="cb-EditActive" />
-                                    <span class="round-btn"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="col-8 m-0 p-0">
-                                <select type="text" name="" id="cbo_costoEdit" value="{{this.PersonId.ocostCenter.costCenterId}}">
-                                    <option *ngFor="let item of this.lstCostCenter" value="{{item.costCenterId}}">{{item.description}}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-md-6 m-0">
-                        <div class="row m-0">
-                            <div class="form__group field">
-                                <input type="input" (keyup)="writeUsuarioEdit()"  disabled value="{{this.PersonId.loginUser}}" class="form__field" placeholder="Usuario" name="usuarioEdit" id='usuarioEdit' required />
-                                <label for="usuarioEdit" class="form__label">Usuario</label>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-12 m-0 text-center">
-
-                        <span class="title box-shadow" (click)="actualizar()" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Actualizar Pasajero</span>
-
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-
-        <ng-template #modalReestablecer let-c="close" let-d="dismiss">
-
-            <div class="modal-header pb-0" style="border: none;">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide();closeValid()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body m-0 p-0">
-                <div class="row m-0 p-0 pb-3">
-                    <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
-                        <span class="tituloModal">Reestablecer Contraseña</span>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-12 m-0">
-                        <input type="password" id="allNewPass" (keyup)="write()" placeholder="Ingrese la contraseña" class="input-names box-shadow" style="width: 100%; height: 44px;border-radius: 10px;border: 1px solid;">
-                        <label *ngIf="validPass" style="font-size: 14px;margin-left: 5px;color: red;">Por favor ingresa la contraseña.</label>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-12 m-0 text-center">
-                        <span class="title box-shadow" (click)="changePassword()" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Grabar Nueva Contraseña</span>
-                    </div>
-                </div>
-            </div>
-
-        </ng-template>
-
-        <ng-template #modalMasivo let-c="close" let-d="dismiss">
-            <div class="modal-header pb-0" style="border: none;">
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRefPoliticas.hide()">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body m-0 p-0">
-                <div class="row m-0 p-0 pb-3">
-                    <div class="col-12 m-0 p-0 text-center ip-text-1" style="font-family: Omnes-med; font-size: 22px; color: #6B253C">
-                        <span class="tituloModal">Carga Masiva de Pasajeros</span>
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-12 m-0">
-                        <span>Usted esta apunto de cargar este listado de pasajeros:</span>
-
-                        <div class="button-wrap">
-                            <label for="file" class="new-button">Seleccionar Archivo</label>
-                            <input accept=".xlsx" type="file" id="file" (change)="handleFileInput($event.target.files)">
-                        </div>
 
 
-
-                        <!--  <input accept=".xlsx" type="file" id="real-file" (change)="handleFileInput($event.target.files)" hidden="hidden" />
+            <!--  <input accept=".xlsx" type="file" id="real-file" (change)="handleFileInput($event.target.files)" hidden="hidden" />
                         <button class="title" type="button" id="custom-button">Elegir archivo</button>
                         <span id="custom-text">No file chosen, yet.</span>
                          <input type="file" id="fileUpload" multiple="false" />
@@ -688,329 +838,337 @@
                             </tbody>
                         </table>
                           <iframe src="http://docs.google.com/gview?url={{this.fileToUpload.}}"></iframe>-->
-                    </div>
-                </div>
-                <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
-                    <div class="col-6 m-0 text-center">
-                        <span class="title box-shadow" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: rgb(9, 221, 90);">Confirmar</span>
-                    </div>
-                    <div class="col-6 m-0 text-center">
-                        <span class="title box-shadow" style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Cancelar</span>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
+          </div>
+        </div>
+        <div class="row m-0" style="padding-bottom: 30px;padding-top: 20px;">
+          <div class="col-6 m-0 text-center">
+            <span class="title box-shadow"
+              style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: rgb(9, 221, 90);">Confirmar</span>
+          </div>
+          <div class="col-6 m-0 text-center">
+            <span class="title box-shadow"
+              style="cursor: pointer;color: white;border-radius: 10px;border: 1px solid;background: #ED1C24;">Cancelar</span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
 
-        <style>
-            .form__group {
-  position: relative;
-  padding: 15px 0 0;
-  margin-top: 10px;
-  width: 50%;
-  margin-left: 100px;
-}
+    <style>
+      .form__group {
+        position: relative;
+        padding: 15px 0 0;
+        margin-top: 10px;
+        width: 50%;
+        margin-left: 100px;
+      }
 
-.form__field {
-  font-family: inherit;
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid #9b9b9b;
-  outline: 0;
-  font-size: 1.3rem;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
-}
-.form__field::placeholder {
-  color: transparent;
-}
-.form__field:placeholder-shown ~ .form__label {
-  font-size: 1.3rem;
-  cursor: text;
-  top: 20px;
-}
+      .form__field {
+        font-family: inherit;
+        width: 100%;
+        border: 0;
+        border-bottom: 2px solid #9b9b9b;
+        outline: 0;
+        font-size: 1.3rem;
+        padding: 7px 0;
+        background: transparent;
+        transition: border-color 0.2s;
+      }
 
-.form__label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: #9b9b9b;
-}
+      .form__field::placeholder {
+        color: transparent;
+      }
 
-.form__field:focus {
-  padding-bottom: 6px;
-  font-weight: 700;
-  border-width: 3px;
-  border-image: linear-gradient(to right, #11998e, #38ef7d);
-  border-image-slice: 1;
-}
-.form__field:focus ~ .form__label {
-  position: absolute;
-  top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: #11998e;
-  font-weight: 700;
-}
+      .form__field:placeholder-shown~.form__label {
+        font-size: 1.3rem;
+        cursor: text;
+        top: 20px;
+      }
 
-/* reset input */
-.form__field:required, .form__field:invalid {
-  box-shadow: none;
-}
-            input[type="file"] {
-                position: relative;
-                top: 6px;
-                left: 0px;
-                font-size: 15px;
-                color: rgb(153, 153, 153);
-            }
+      .form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: #9b9b9b;
+      }
 
-            .new-button {
-                display: inline-block;
-                padding: 6px 2px;
-                cursor: pointer;
-                border-radius: 4px;
-                background-color: #ED1C24;
-                font-size: 16px;
-                color: #fff;
-                width: 136px;
-                z-index: 1;
-                position: absolute;
-                height: 40px;
-            }
+      .form__field:focus {
+        padding-bottom: 6px;
+        font-weight: 700;
+        border-width: 3px;
+        border-image: linear-gradient(to right, #11998e, #38ef7d);
+        border-image-slice: 1;
+      }
 
-            .button-wrap {
-                position: relative;
-            }
+      .form__field:focus~.form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: #11998e;
+        font-weight: 700;
+      }
 
-            input[type=text] {
-                display: block;
-                margin: 0 auto;
-                width: 80%;
-                border: 0;
-                border-bottom: 1px solid rgba(0, 0, 0, .2);
-                height: 45px;
-                line-height: 45px;
-                margin-bottom: 10px;
-                font-size: 1em;
-                color: rgba(0, 0, 0, .4);
-            }
+      /* reset input */
+      .form__field:required,
+      .form__field:invalid {
+        box-shadow: none;
+      }
 
-            input[type='text']:focus {
-                outline: none;
-                border-color: #53CACE;
-            }
+      input[type="file"] {
+        position: relative;
+        top: 6px;
+        left: 0px;
+        font-size: 15px;
+        color: rgb(153, 153, 153);
+      }
 
-            select[type=text] {
-                display: block;
-                margin: 0 auto;
-                width: 76%;
-                border: 0;
-                border-bottom: 2px solid #9b9b9b;
-                height: 45px;
-                line-height: 45px;
-                margin-bottom: 10px;
-                font-size: 1em;
-                margin-left: 98px;
-                color: rgba(0, 0, 0, .4);
-                margin-top: 15px;
-            }
+      .new-button {
+        display: inline-block;
+        padding: 6px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+        background-color: #ED1C24;
+        font-size: 16px;
+        color: #fff;
+        width: 136px;
+        z-index: 1;
+        position: absolute;
+        height: 40px;
+      }
 
-            select[type='text']:focus {
-                outline: none;
-                border-color: #53CACE;
-            }
+      .button-wrap {
+        position: relative;
+      }
 
-            .toggle-btn,
-            .toggle-EditVip,
-            .toggle-EditActive,
-            .toggle-btn1 {
-                width: 80px;
-                height: 40px;
-                margin: 10px;
-                border-radius: 50px;
-                display: inline-block;
-                position: relative;
-                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAyklEQVQ4T42TaxHCQAyENw5wAhLACVUAUkABOCkSwEkdhNmbpHNckzv689L98toIAKjqGcAFwElEFr5ln6ruAMwA7iLyFBM/TPDuQSrxwf6fCKBoX2UMIYGYkg8BLOnVg2RiAEexGaQQq4w9e9klcxGLLAUwgDAcihlYAR1IvZA1sz/+AAaQjXhTQQVoe2Yo3E7UQiT2ijeQdojRtClOfVKvMVyVpU594kZK9zzySWTlcNqZY9tjCsUds00+A57z1e35xzlzJjee8xf0HYp+cOZQUQAAAABJRU5ErkJggg==") no-repeat 50px center #e74c3c;
-                cursor: pointer;
-                -webkit-transition: background-color .40s ease-in-out;
-                -moz-transition: background-color .40s ease-in-out;
-                -o-transition: background-color .40s ease-in-out;
-                transition: background-color .40s ease-in-out;
-                cursor: pointer;
-                margin-left: 40px;
-            }
+      input[type=text] {
+        display: block;
+        margin: 0 auto;
+        width: 80%;
+        border: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
+        height: 45px;
+        line-height: 45px;
+        margin-bottom: 10px;
+        font-size: 1em;
+        color: rgba(0, 0, 0, .4);
+      }
 
-            .toggle-btn.active,
-            .toggle-EditVip.active,
-            .toggle-EditActive.active,
-            .toggle-btn1.active {
-                background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmUlEQVQ4T6WT0RWDMAhFeZs4ipu0mawZpaO4yevBc6hUIWLNd+4NeQDk5sE/PMkZwFvZywKSTxF5iUgH0C4JHGyF97IggFVSqyCFga0CvQSg70Mdwd8QSSr4sGBMcgavAgdvwQCtApvA2uKr1x7Pu++06ItrF5LXPB/CP4M0kKTwYRIDyRAOR9lJTuF0F0hOAJbKopVHOZN9ACS0UgowIx8ZAAAAAElFTkSuQmCC") no-repeat 10px center #2ecc71;
-            }
+      input[type='text']:focus {
+        outline: none;
+        border-color: #53CACE;
+      }
 
-            .toggle-btn.active .round-btn {
-                left: 45px;
-            }
+      select[type=text] {
+        display: block;
+        margin: 0 auto;
+        width: 76%;
+        border: 0;
+        border-bottom: 2px solid #9b9b9b;
+        height: 45px;
+        line-height: 45px;
+        margin-bottom: 10px;
+        font-size: 1em;
+        margin-left: 98px;
+        color: rgba(0, 0, 0, .4);
+        margin-top: 15px;
+      }
 
-            .toggle-EditVip.active .round-btn {
-                left: 45px;
-            }
+      select[type='text']:focus {
+        outline: none;
+        border-color: #53CACE;
+      }
 
-            .toggle-EditActive.active .round-btn {
-                left: 45px;
-            }
+      .toggle-btn,
+      .toggle-EditVip,
+      .toggle-EditActive,
+      .toggle-btn1 {
+        width: 80px;
+        height: 40px;
+        margin: 10px;
+        border-radius: 50px;
+        display: inline-block;
+        position: relative;
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAyklEQVQ4T42TaxHCQAyENw5wAhLACVUAUkABOCkSwEkdhNmbpHNckzv689L98toIAKjqGcAFwElEFr5ln6ruAMwA7iLyFBM/TPDuQSrxwf6fCKBoX2UMIYGYkg8BLOnVg2RiAEexGaQQq4w9e9klcxGLLAUwgDAcihlYAR1IvZA1sz/+AAaQjXhTQQVoe2Yo3E7UQiT2ijeQdojRtClOfVKvMVyVpU594kZK9zzySWTlcNqZY9tjCsUds00+A57z1e35xzlzJjee8xf0HYp+cOZQUQAAAABJRU5ErkJggg==") no-repeat 50px center #e74c3c;
+        cursor: pointer;
+        -webkit-transition: background-color .40s ease-in-out;
+        -moz-transition: background-color .40s ease-in-out;
+        -o-transition: background-color .40s ease-in-out;
+        transition: background-color .40s ease-in-out;
+        cursor: pointer;
+        margin-left: 40px;
+      }
 
-            .toggle-btn1.active .round-btn {
-                left: 45px;
-            }
+      .toggle-btn.active,
+      .toggle-EditVip.active,
+      .toggle-EditActive.active,
+      .toggle-btn1.active {
+        background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAmUlEQVQ4T6WT0RWDMAhFeZs4ipu0mawZpaO4yevBc6hUIWLNd+4NeQDk5sE/PMkZwFvZywKSTxF5iUgH0C4JHGyF97IggFVSqyCFga0CvQSg70Mdwd8QSSr4sGBMcgavAgdvwQCtApvA2uKr1x7Pu++06ItrF5LXPB/CP4M0kKTwYRIDyRAOR9lJTuF0F0hOAJbKopVHOZN9ACS0UgowIx8ZAAAAAElFTkSuQmCC") no-repeat 10px center #2ecc71;
+      }
 
-            .toggle-btn .round-btn {
-                width: 30px;
-                height: 30px;
-                background-color: #fff;
-                border-radius: 50%;
-                display: inline-block;
-                position: absolute;
-                left: 5px;
-                top: 50%;
-                margin-top: -15px;
-                -webkit-transition: all .30s ease-in-out;
-                -moz-transition: all .30s ease-in-out;
-                -o-transition: all .30s ease-in-out;
-                transition: all .30s ease-in-out;
-            }
+      .toggle-btn.active .round-btn {
+        left: 45px;
+      }
 
-            .toggle-btn .cb-value {
-                position: absolute;
-                left: 0;
-                right: 0;
-                width: 100%;
-                height: 100%;
-                opacity: 0;
-                z-index: 9;
-                cursor: pointer;
-                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-            }
+      .toggle-EditVip.active .round-btn {
+        left: 45px;
+      }
 
-            .toggle-btn1 .round-btn {
-                width: 30px;
-                height: 30px;
-                background-color: #fff;
-                border-radius: 50%;
-                display: inline-block;
-                position: absolute;
-                left: 5px;
-                top: 50%;
-                margin-top: -15px;
-                -webkit-transition: all .30s ease-in-out;
-                -moz-transition: all .30s ease-in-out;
-                -o-transition: all .30s ease-in-out;
-                transition: all .30s ease-in-out;
-            }
+      .toggle-EditActive.active .round-btn {
+        left: 45px;
+      }
 
-            .toggle-btn1 .cb-value1 {
-                position: absolute;
-                left: 0;
-                right: 0;
-                width: 100%;
-                height: 100%;
-                opacity: 0;
-                z-index: 9;
-                cursor: pointer;
-                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-            }
+      .toggle-btn1.active .round-btn {
+        left: 45px;
+      }
 
-            .toggle-EditVip .round-btn {
-                width: 30px;
-                height: 30px;
-                background-color: #fff;
-                border-radius: 50%;
-                display: inline-block;
-                position: absolute;
-                left: 5px;
-                top: 50%;
-                margin-top: -15px;
-                -webkit-transition: all .30s ease-in-out;
-                -moz-transition: all .30s ease-in-out;
-                -o-transition: all .30s ease-in-out;
-                transition: all .30s ease-in-out;
-            }
+      .toggle-btn .round-btn {
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        margin-top: -15px;
+        -webkit-transition: all .30s ease-in-out;
+        -moz-transition: all .30s ease-in-out;
+        -o-transition: all .30s ease-in-out;
+        transition: all .30s ease-in-out;
+      }
 
-            .toggle-EditVip .cb-EditVip {
-                position: absolute;
-                left: 0;
-                right: 0;
-                width: 100%;
-                height: 100%;
-                opacity: 0;
-                z-index: 9;
-                cursor: pointer;
-                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-            }
+      .toggle-btn .cb-value {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 9;
+        cursor: pointer;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      }
 
-            .toggle-EditActive .round-btn {
-                width: 30px;
-                height: 30px;
-                background-color: #fff;
-                border-radius: 50%;
-                display: inline-block;
-                position: absolute;
-                left: 5px;
-                top: 50%;
-                margin-top: -15px;
-                -webkit-transition: all .30s ease-in-out;
-                -moz-transition: all .30s ease-in-out;
-                -o-transition: all .30s ease-in-out;
-                transition: all .30s ease-in-out;
-            }
+      .toggle-btn1 .round-btn {
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        margin-top: -15px;
+        -webkit-transition: all .30s ease-in-out;
+        -moz-transition: all .30s ease-in-out;
+        -o-transition: all .30s ease-in-out;
+        transition: all .30s ease-in-out;
+      }
 
-            .toggle-EditActive .cb-EditActive {
-                position: absolute;
-                left: 0;
-                right: 0;
-                width: 100%;
-                height: 100%;
-                opacity: 0;
-                z-index: 9;
-                cursor: pointer;
-                -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-            }
+      .toggle-btn1 .cb-value1 {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 9;
+        cursor: pointer;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      }
 
-            .made-with-love {
-                position: fixed;
-                left: 0;
-                width: 100%;
-                bottom: 10px;
-                text-align: center;
-                font-size: 10px;
-                z-index: 9999;
-                font-family: arial;
-                color: #fff;
-            }
+      .toggle-EditVip .round-btn {
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        margin-top: -15px;
+        -webkit-transition: all .30s ease-in-out;
+        -moz-transition: all .30s ease-in-out;
+        -o-transition: all .30s ease-in-out;
+        transition: all .30s ease-in-out;
+      }
 
-            .made-with-love i {
-                font-style: normal;
-                color: #F50057;
-                font-size: 14px;
-                position: relative;
-                top: 2px;
-            }
+      .toggle-EditVip .cb-EditVip {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 9;
+        cursor: pointer;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      }
 
-            .made-with-love a {
-                color: #fff;
-                text-decoration: none;
-            }
+      .toggle-EditActive .round-btn {
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        margin-top: -15px;
+        -webkit-transition: all .30s ease-in-out;
+        -moz-transition: all .30s ease-in-out;
+        -o-transition: all .30s ease-in-out;
+        transition: all .30s ease-in-out;
+      }
 
-            .made-with-love a:hover {
-                text-decoration: underline;
-            }
-        </style>
-        <script>
-        </script>
+      .toggle-EditActive .cb-EditActive {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 9;
+        cursor: pointer;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      }
 
-        <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating" style="width: 100% !important; height: 100% !important;"></ngx-spinner>
-    </app-header>
+      .made-with-love {
+        position: fixed;
+        left: 0;
+        width: 100%;
+        bottom: 10px;
+        text-align: center;
+        font-size: 10px;
+        z-index: 9999;
+        font-family: arial;
+        color: #fff;
+      }
+
+      .made-with-love i {
+        font-style: normal;
+        color: #F50057;
+        font-size: 14px;
+        position: relative;
+        top: 2px;
+      }
+
+      .made-with-love a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .made-with-love a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script>
+    </script>
+
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="medium" color="#fff" type="ball-spin-fade-rotating"
+      style="width: 100% !important; height: 100% !important;"></ngx-spinner>
+  </app-header>
 </ng-container>

@@ -37,21 +37,21 @@ export class HotelService {
   private url_validateToken: string = environment.url_5 + 'PasswordRecovery/ValidateRecoveryToken';
   private url_passwordRecovery: string = environment.url_5 + 'PasswordRecovery/UpdateRecoveryPassword';
   private url_changePassword: string = environment.url_5 + 'User/ChangePassword';
-  private url_insertUpdate: string = environment.url_5 + 'User/InsertUpdateUser';
+  private url_insertUpdate: string = environment.url_5 + 'User/ManagePersonUser';
   private url_companys: string = environment.url_customer + 'Company/GetCompany';
 
   constructor(  private http: HttpClient,private sessionSt: SessionStorageService,private localSt: LocalStorageService) {
     this.key = environment.key;
    }
 
-  SearchHotel(data): Observable<IHotelResultsModel[]> {
+  SearchHotel(data): Observable<any[]> {
     this.token = this.localSt.retrieve('ss_token');
     httpOptions.headers = new HttpHeaders({
       'Authorization': "Bearer " + this.token,
       'Content-Type': "application/json",
       'Ocp-Apim-Subscription-Key': this.key
     });
-    return this.http.post<IHotelResultsModel[]>(`${this.url_search}`, data, httpOptions);
+    return this.http.post<any[]>(`${this.url_search}`, data, httpOptions);
 }
 
   ListCompany(): Observable<any[]> {

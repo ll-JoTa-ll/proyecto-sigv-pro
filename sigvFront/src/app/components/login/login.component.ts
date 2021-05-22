@@ -141,124 +141,89 @@ export class LoginComponent implements OnInit {
   }
 
   getHotel(hotelcode, fechasalida, fecharetorno, userId) {
-    this.sessionStorageService.store('ss_hotel_key', true);
-    this.loginDataUser = this.sessionStorageService.retrieve('ss_login_data');
-    if (this.loginDataUser.ocompany.blockHotel === true) {
-      /* this.modalRefSessionExpired = this.modalService.show(ModalInfraccionCompraComponent); */
-    } else {
-      this.localfinish = true;
-      this.localStorageService.store("ss_countersession", null);
-      this.localStorageService.store("ss_countersession", this.localfinish);
-      this.spinner.show();
-      let data = {
-        "Lusers": [{
-          "RoleId": this.loginDataUser.orole.roleId,
-          "LcostCenter": this.loginDataUser.lcostCenter,
-          "UserId": userId
-        }],
-        "Pseudo": "LIMPE2235",
-        "Lhotel":
-          [
-            {
-              "HotelCode": hotelcode,
-              "StartDate": fechasalida,
-              "EndDate": fecharetorno,
-              "LguestPerRoom":
-                [
-                  {
-                    "RoomQuantity": '1',
-                    "NumberPassengers": 1,
-                    "TypePassenger": "ADT"
-                  }
-                ]
-            }
-          ],
-        "Ocompany": this.loginDataUser.ocompany
-      }
+    const loginHotel = {
+      HotelCode: hotelcode,
+      FechaSalida: fechasalida,
+      FechaRetorno: fecharetorno,
+      UserId: userId
+    }
+    this.sessionStorageService.store('LoginHotel', loginHotel);
+    this.router.navigate(['hoteles']);
 
-      this.objSearch = {
-        destino: '',
-        fechaentrada: '',
-        fechasalida: '',
-        categoria: '',
-        habi: '1',
-        personas: '1'
-      };
-      this.sessionStorageService.store("ss_sessionmini", this.objSearch);
-
-      /*  let hotel;
-       for (let i = 0; i < this.lstHotel.length; i++) {
-         const element = this.lstHotel[i];
-
-         if (element.code === hotelcode) {
-           hotel = this.lstHotel[i];
-         }
-
-       }
-       this.sessionStorageService.store("lhotel", hotel); */
-
-      this.service.GetHabitacionLogin(data).subscribe(
+     /*  this.service.GetHabitacionLogin(data).subscribe(
         x => {
-          this.lstHabication = x;
-          if (x.ohotel != null) {
-            let dest;
-            let fecEntrada;
-            let fecSalida;
-            this.session1 = this.localStorageService.retrieve('ls_citylist');
-            this.session1.forEach(element => {
-              if (element.iataCode === x.ohotel.cityCode) {
-                dest = element.name;
-              }
-            });
-
-            if (dest === undefined) {
-              this.airport = this.localStorageService.retrieve('ls_airportlist');
+          if (x === null) {
+            const error = {
+              message: 'No encontramos hospedajes en este momento.'
+            }
+            const mensaje = {
+              oerror: error
+            }
+            this.sessionStorageService.store("lstHabication", mensaje);
+            this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
+          } else {
+            this.lstHabication = x;
+            if (x.ohotel != null) {
+              let dest;
+              let fecEntrada;
+              let fecSalida;
+              this.session1 = this.localStorageService.retrieve('ls_citylist');
               this.session1.forEach(element => {
                 if (element.iataCode === x.ohotel.cityCode) {
                   dest = element.name;
                 }
               });
+
+              if (dest === undefined) {
+                this.airport = this.localStorageService.retrieve('ls_airportlist');
+                this.session1.forEach(element => {
+                  if (element.iataCode === x.ohotel.cityCode) {
+                    dest = element.name;
+                  }
+                });
+              }
+
+              this.sessionStorageService.store("lstHabication", this.lstHabication);
+              const obj = {
+                categoria: 'Todas',
+                destino: dest,
+                iata: x.ohotel.cityCode
+              }
+
+              fecEntrada = fechasalida;
+              fecSalida = fecharetorno;
+
+              const fechaSalidaShowSp = fecEntrada.split('-');
+              const fechaRetornoShowSp = fecSalida.split('-');
+
+              fecEntrada = fechaSalidaShowSp[2] + "-" + fechaSalidaShowSp[1] + "-" + fechaSalidaShowSp[0];
+              fecSalida = fechaRetornoShowSp[2] + "-" + fechaRetornoShowSp[1] + "-" + fechaRetornoShowSp[0];
+
+              const obj1 = {
+                categoria: this.lstHabication.ohotel.stars,
+                destino: '',
+                fechaentrada: fecEntrada,
+                fechasalida: fecSalida,
+                habi: "1",
+                personas: "1"
+              }
+              this.sessionStorageService.store("ss_sessionmini", obj1);
+              this.sessionStorageService.store("ss_sessionmini1", obj);
             }
 
-            this.sessionStorageService.store("lstHabication", this.lstHabication);
-            const obj = {
-              categoria: 'Todas',
-              destino: dest,
-              iata: x.ohotel.cityCode
+            if (this.lstHabication.oerror != null) {
+              this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
+            } else {
+
+
+              window.location.replace(window.location.origin + "/habitacion");
+              this.ocultar = true;
+              this.ocultar = this.sessionStorageService.store("ss_oculta", this.ocultar);
             }
-
-            fecEntrada = fechasalida;
-            fecSalida = fecharetorno;
-
-            const fechaSalidaShowSp = fecEntrada.split('-');
-            const fechaRetornoShowSp = fecSalida.split('-');
-
-            fecEntrada = fechaSalidaShowSp[2] + "-" + fechaSalidaShowSp[1] + "-" + fechaSalidaShowSp[0];
-            fecSalida = fechaRetornoShowSp[2] + "-" + fechaRetornoShowSp[1] + "-" + fechaRetornoShowSp[0];
-
-            const obj1 = {
-              categoria: this.lstHabication.ohotel.stars,
-              destino: '',
-              fechaentrada: fecEntrada,
-              fechasalida: fecSalida,
-              habi: "1",
-              personas: "1"
-            }
-            this.sessionStorageService.store("ss_sessionmini", obj1);
-            this.sessionStorageService.store("ss_sessionmini1", obj);
           }
 
-          if (this.lstHabication.oerror != null) {
-            this.modalRefSessionExpired = this.modalService.show(ModalHotelErroneoComponent);
-          } else {
 
-            /* window.open(window.location.origin + "/habitacion"); */
-            window.location.replace(window.location.origin + "/habitacion");
-            this.ocultar = true;
-            this.ocultar = this.sessionStorageService.store("ss_oculta", this.ocultar);
-          }
 
-          //window.open(window.location.origin + "/habitacion");
         },
         err => {
           this.spinner.hide();
@@ -269,7 +234,7 @@ export class LoginComponent implements OnInit {
 
         }
       );
-    }
+    }  */
 
   }
 
@@ -289,7 +254,7 @@ export class LoginComponent implements OnInit {
       User: usuario,
       Password: password
     };
-    console.log("datos: " + JSON.stringify(datos));
+
     this.flagLogin = 0;
 
     const lstCentralizador = environment.cod_rol_centralizador;
@@ -313,7 +278,9 @@ export class LoginComponent implements OnInit {
             this.localStorageService.store('ss_token', result.token);
             this.sessionStorageService.store('ss_token', result.token);
             this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
-            this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
+            if (result.ocompany != null){
+              this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
+            }
             this.closedSesion = true;
             this.localStorageService.store("ss_closedSesion", null);
             this.localStorageService.store("ss_closedSesion", this.closedSesion);
@@ -357,7 +324,6 @@ export class LoginComponent implements OnInit {
         User: this.model.User,
         Password: crypto.SHA256(this.model.Password).toString()
       };
-      console.log("datos: " + JSON.stringify(datos));
       this.flagLogin = 0;
 
       const lstCentralizador = environment.cod_rol_centralizador;
@@ -368,6 +334,7 @@ export class LoginComponent implements OnInit {
           this.datoslogin = result;
           if (result != null) {
             if (this.datoslogin.oerror === null) {
+              this.sessionStorageService.store('LoginHotel', null);
               this.flagLogin = 1;
               let flagCentralizador = false;
               const roleId = result.orole.roleId;
@@ -381,13 +348,16 @@ export class LoginComponent implements OnInit {
               this.localStorageService.store('ss_token', result.token);
               this.sessionStorageService.store('ss_token', result.token);
               this.sessionStorageService.store('ss_flagCentralizador', flagCentralizador);
-              this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
+              if (result.ocompany != null){
+                this.sessionStorageService.store('ss_companyId', result.ocompany.companyId);
+              }
               this.closedSesion = true;
               this.localStorageService.store("ss_closedSesion", null);
               this.localStorageService.store("ss_closedSesion", this.closedSesion);
               if (this.userHotel !== '') {
                 this.getHotel(this.hotelCode, this.fechaIni, this.fechaFin, this.userId);
               } else {
+                this.sessionStorageService.store('LoginHotel', null);
                 this.sessionStorageService.store('ss_hotel_key', false);
               }
               //console.log(result);
@@ -461,6 +431,8 @@ export class LoginComponent implements OnInit {
     }
     if (this.userHotel !== '') {
       this.getHotel(this.hotelCode, this.fechaIni, this.fechaFin, this.userId);
+    } else {
+      this.sessionStorageService.store('LoginHotel', null);
     }
     this.airportService.getAirportList(this.token, data.priority).subscribe(
       (result: any) => {
