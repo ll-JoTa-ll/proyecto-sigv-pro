@@ -41,7 +41,7 @@ export class AirportService {
 
   private _url: string = environment.url_2 + "CityAirport/";
   private _url2: string = environment.url_2 + "Search/";
-  private _url3: string = environment.url_2 + "SearchTemp/";
+  private _url3: string = environment.url_2 + "Search/";
   private _url4: string = environment.url_2 + "Booking/";
   private _url5: string = environment.url_5 + "User/";
   private _url6: string = environment.url_5 + "CostCenter/";
@@ -55,9 +55,9 @@ export class AirportService {
   private url_usebnus: string = environment.url_5 + "AsesorCompany/";
   private url_asesors: string = environment .url_5 + "AsesorCompany/";
   private url_regulaciones: string = environment.url_2 + "Search/";
-  private url_temp: string = environment.url_2 + 'SearchTemp/';
+  private url_temp: string = environment.url_2 + 'Search/';
 
-  private url_bookingTemp: string = environment.url_2 + "BookingTemp/";
+  private url_bookingTemp: string = environment.url_2 + "Booking/";
 
   constructor(
     private http: HttpClient,

@@ -253,7 +253,8 @@ SendMail() {
   this.router.navigate(['/gestion-reserva-vuelo']);
 }
 
-SendMailVueloRechazado() {
+SendMailVueloRechazado(template) {
+  /* this.modalservice.hide(template); */
   this.router.navigate(['/gestion-reserva-vuelo']);
 }
 
@@ -262,7 +263,7 @@ SendMailVueloCancelado() {
 }
 
 
-RechazarReserva() {
+RechazarReserva(template) {
   this.spinner.show();
   let data = {
     "Pnr": this.reserva.pnr,
@@ -274,13 +275,14 @@ RechazarReserva() {
   this.service.RechazarReserva(data).subscribe(
      result => {
       this.CapturarHoraAprobacion();
+      this.modalRef.hide();
      },
      err => {
       this.spinner.hide();
       this.modalerror = this.modalservice.show(ModalErrorServiceComponent, this.config);
      },
      () => {
-     this.SendMailVueloRechazado();
+     this.SendMailVueloRechazado(template);
      }
    );
 }

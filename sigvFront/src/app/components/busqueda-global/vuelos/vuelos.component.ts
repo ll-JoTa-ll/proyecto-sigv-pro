@@ -171,6 +171,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   lstAsesors: iGetAsesors[];
   maleta: boolean = true;
   flagDinData2: boolean = false;
+  flagDinDataCalendar: boolean = false;
   dateCustomClasses: DatepickerDateCustomClasses[];
   showHotel = false;
   flagCrosselling;
@@ -1649,6 +1650,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
       this.airportService.searchFlight(data).subscribe(
         result => {
+          this.flagDinDataCalendar = false;
           this.flagPseudoRepeat = true;
           if (result.status === 200 && result.lrecommendations.length > 0) {
             this.listaPseudos = result.lpseudoPrices;
@@ -1968,6 +1970,7 @@ export class VuelosComponent implements OnInit, AfterViewInit {
       this.airportService.searchFlight(data).subscribe(
         result => {
           this.flagPseudoRepeat = true;
+          this.flagDinDataCalendar = false;
           if (result.status === 200 && result.lrecommendations.length > 0) {
             /* console.log(result); */
             this.listaPseudos = result.lpseudoPrices;
@@ -2690,10 +2693,14 @@ export class VuelosComponent implements OnInit, AfterViewInit {
   }
 
   busquedaFiltrosHoras($event) {
+    let datas = this.sessionStorageService.retrieve('ss_searchflight');
     this.searchData = [];
-    if ($event != null) {
+    if ($event != null && $event.length > 0) {
+      this.flagDinDataCalendar = false;
       this.searchData = $event;
       this.setLstAerolineas(this.searchData);
+    } else if ($event.length === 0 && datas.lcalendars.length > 0) {
+      this.flagDinDataCalendar = true;
     }
     const spinner = this.spinner;
     setTimeout(function () {
@@ -2707,11 +2714,9 @@ export class VuelosComponent implements OnInit, AfterViewInit {
 
   setOutputTipoVuelo($event) {
     this.tipoVuelo = $event;
-    if (this.tipoVuelo != 'RT') {
-      this.spin = true;
-      this.calendarmini = false;
+    if (this.tipoVuelo === 'RT') {
+      this.calendar = true;
     } else {
-      this.spin = false
       this.calendar = false;
       this.calendarmini = false;
     }

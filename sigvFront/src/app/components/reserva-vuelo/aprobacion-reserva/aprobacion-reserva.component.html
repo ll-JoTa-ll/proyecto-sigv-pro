@@ -251,7 +251,7 @@
                     <div class="col-6 m-0 p-0 text-center">
                         <!--  <button *ngIf="reserva.allowedIssue === true && reserva.allowedApproved === true" (click)="RechazarReserva()" class="btn btn-emitir">Rechazar</button> -->
                         <button *ngIf="reserva.isAuthorizer === false" (click)="CancelarReserva()" class="btn btn-emitir">Cancelar reserva</button>
-                        <button *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false || reserva.allowedApproved === true && reserva.allowedIssue === true || reserva.isAuthorizer === true" (click)="RechazarReserva()" class="btn btn-emitir">Rechazar</button>
+                        <button *ngIf="reserva.allowedApproved === true && reserva.allowedIssue === false || reserva.allowedApproved === true && reserva.allowedIssue === true || reserva.isAuthorizer === true" (click)="RechazarReserva(modalrechazar)" class="btn btn-emitir">Rechazar</button>
 
                     </div>
                     <div class="col-6 m-0 p-0 text-center">

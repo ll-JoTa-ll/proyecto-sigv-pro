@@ -91,7 +91,7 @@
             </div>
           </div> -->
 
-          <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini" class="row m-0 p-0 pt-5">
+          <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini" class="row m-0 p-0 pt-5 pl-5">
             <app-calendar-shopping (fechas)="onSelectDate($event)" [salida]="salida"></app-calendar-shopping>
           </div>
 
@@ -1045,7 +1045,7 @@
               </div>
             </div> -->
 
-            <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini" class="row m-0 p-0 pt-5">
+            <div *ngIf="calendar && tipoVuelo === 'RT' || calendarmini" class="row m-0 p-0 pt-5 pl-5">
               <app-calendar-shopping (fechas)="onSelectDate($event)" [salida]="salida"></app-calendar-shopping>
             </div>
 
@@ -1067,6 +1067,24 @@
                 <div class="col-6 m-0 p-0 text-center">
                   <alert type="warning" class="text-center">
                     No se encontraron itinerarios para esta búsqueda
+                  </alert>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div *ngIf="flagDinDataCalendar" class="col-12">
+
+              <div class="row m-0 p-0">
+
+                <div class="col-12 m-0 p-0" style="height: 30px !important;"></div>
+
+                <div class="col-3 m-0 p-0"></div>
+
+                <div class="col-6 m-0 p-0 text-center">
+                  <alert type="warning" class="text-center">
+                    No se encontraron recomendaciones en las fechas seleccionadas pero encontramos en estas fechas cercanas.
                   </alert>
                 </div>
 

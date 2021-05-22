@@ -788,11 +788,10 @@ export class BuscadorComponent implements OnInit, AfterViewInit {
               this.lpseudosPrice.emit(result.lpseudoPrices);
               this.outTipoVuelo.emit(this.tipoVuelo);
               this.outIndexTramo.emit(this.indexTramo);
-              this.calendarShoping.emit(true);
-              this.spinner.hide();
               this.sessionStorageService.store('ss_calendarshopping', result.lcalendars);
               this.sessionStorageService.store('ss_lowcosto', result);
-
+              this.calendarShoping.emit(true);
+              this.spinner.hide();
             }
 
           } else {

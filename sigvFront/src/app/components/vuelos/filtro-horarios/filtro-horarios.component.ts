@@ -113,16 +113,18 @@ export class FiltroHorariosComponent implements OnInit, AfterViewInit {
     let dataRequestFlight = this.sessionStorageService.retrieve('ss_dataRequestFlight');
     let data = {
       "Lusers": dataRequestFlight.Lusers,
-      "NumberPassengers": dataRequestFlight.NumberPassengers,
-      "NumberRecommendations": dataRequestFlight.NumberRecommendations,
+      "Lpassengers": dataRequestFlight.Lpassengers,
       "CabinType": dataRequestFlight.CabinType,
       "Scales": dataRequestFlight.Scales,
+      "TypeSearch": 'C',
+      "IncludesBaggage": dataRequestFlight.IncludesBaggage,
       "Origin": dataRequestFlight.Origin,
       "Destination": dataRequestFlight.Destination,
       "DepartureArrivalDate": dataRequestFlight.DepartureArrivalDate,
       "DepartureArrivalTimeFrom": dataRequestFlight.DepartureArrivalTimeFrom,
       "DepartureArrivalTimeTo": dataRequestFlight.DepartureArrivalTimeTo,
-      "Ocompany": dataRequestFlight.Ocompany
+      "Ocompany": dataRequestFlight.Ocompany,
+      "Oagency": dataRequestFlight.Oagency
     };
 
     const ss_filterPrecio = this.sessionStorageService.retrieve('ss_filterPrecio');
@@ -206,35 +208,35 @@ export class FiltroHorariosComponent implements OnInit, AfterViewInit {
     data.DepartureArrivalTimeFrom = departureArrivalTimeFrom_;
     data.DepartureArrivalTimeTo = departureArrivalTimeTo_;
 
-    console.log('dataRequestFlight: ' + JSON.stringify(data));
+    /* console.log('dataRequestFlight: ' + JSON.stringify(data)); */
     this.airportService.searchFlight(data).subscribe(
       result => {
-        if (result !== null && result.length > 0) {
+        if (result.status === 200 && result.lrecommendations.length > 0) {
           if (ss_filterPrecio === 'mas') {
-            result.sort((a, b) => a.totalFareAmount - b.totalFareAmount );
+            result.lrecommendations.sort((a, b) => a.oprice.totalAmount - b.oprice.totalAmount );
           }
           if (ss_filterPrecio === 'menos') {
-            result.sort((a, b) => b.totalFareAmount - a.totalFareAmount );
+            result.lrecommendations.sort((a, b) => b.oprice.totalAmount - a.oprice.totalAmount );
           }
         }
-        console.log(result);
+       /*  console.log(result); */
         this.sessionStorageService.store('ss_searchFlight', result);
-        this.searchFilter.emit(result);
+        this.searchFilter.emit(result.lrecommendations);
       },
       err => {
         this.spinner.hide();
-        console.log("ERROR dataRequestFlight: " + err);
+        /* console.log("ERROR dataRequestFlight: " + err); */
       },
       () => {
         //this.spinner.hide();
         //dataRequestFlight = null;
-        console.log("this.airportService.searchFlight dataRequestFlight completado");
+      /*   console.log("this.airportService.searchFlight dataRequestFlight completado"); */
       }
     );
   }
 
   getHoraMinuto(valor) {
-    console.log('valor: ' + valor);
+  /*   console.log('valor: ' + valor); */
     if (valor === '') {
       return '';
     } else {

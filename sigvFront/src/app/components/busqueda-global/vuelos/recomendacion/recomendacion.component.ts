@@ -1156,7 +1156,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
                   seccionvuelos.Lsections[section_].Oschedule.Lsegments[segment_].FareBasis = fareBasis;
                   seccionvuelos.Lsections[section_].Oschedule.Lsegments[segment_].fareFamilyName = fareFamilyName;
                 }
-                console.log(fareFamilyName);
+                /* console.log(fareFamilyName); */
               }
             }
           });
@@ -1252,9 +1252,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     });
     */
 
-    console.log("VALIDANDO CLICK DEL RADIO BUTTON");
+    /* console.log("VALIDANDO CLICK DEL RADIO BUTTON");
 
-    console.log("requestFamilia: " + JSON.stringify(requestFamilia));
+    console.log("requestFamilia: " + JSON.stringify(requestFamilia)); */
 
     let lstFareBasis = this.lstFareBasis;
     lstFareBasis = [];
@@ -1270,11 +1270,11 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     });
 
     //PASO 1: identificar lo seleccionado en la section 0
-    console.log("//PASO 1: identificar lo seleccionado en la section 0");
+  /*   console.log("//PASO 1: identificar lo seleccionado en la section 0"); */
     let section0_fareBasis = [];
     requestFamilia.Lsections.forEach(function (sectionVal, indexSectionVal) {
-      console.log("indexSectionVal: " + indexSectionVal);
-      console.log("parseInt(section_): " + parseInt(section_));
+     /*  console.log("indexSectionVal: " + indexSectionVal);
+      console.log("parseInt(section_): " + parseInt(section_)); */
       if (parseInt(section_) > indexSectionVal) {
         sectionVal.Oschedule.Lsegments.forEach(function (segmentVal, indexSegmentVal) {
          
@@ -1292,12 +1292,12 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         });
       }
     });
-    console.log("section0_fareBasis: " + JSON.stringify(section0_fareBasis));
+    /* console.log("section0_fareBasis: " + JSON.stringify(section0_fareBasis)); */
 
     //PASO 2: buscar esas sections en el listado de combinaciones
-    console.log(
+    /* console.log(
       "//PASO 2: buscar esas sections en el listado de combinaciones"
-    );
+    ); */
     let lstCombinacionesSection = [];
     let flagSection0 = 0;
     const cantFareBasis = section0_fareBasis.length;
@@ -1326,21 +1326,21 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         lstCombinacionesSection.push(combinacion);
       }
     });
-    console.log(
+    /* console.log(
       "lstCombinacionesSection: " + JSON.stringify(lstCombinacionesSection)
-    );
+    ); */
 
     const grupoActual = "idSegment_" + (Number(section_) + 1);
     const grupoSiguiente = "idSegment_" + (Number(section_) + 2);
-    console.log("grupoActual: " + grupoActual);
-    console.log("grupoSiguiente: " + grupoSiguiente);
+    /* console.log("grupoActual: " + grupoActual);
+    console.log("grupoSiguiente: " + grupoSiguiente); */
     //$("#" + grupoActual).hide();
     $("#" + grupoSiguiente).show();
 
     const arrowNext1 = "imgArrow1_" + (Number(section_) + 1);
     const arrowNext2 = "imgArrow2_" + (Number(section_) + 1);
-    console.log("arrowNext1: " + arrowNext1);
-    console.log("arrowNext2: " + arrowNext2);
+    /* console.log("arrowNext1: " + arrowNext1);
+    console.log("arrowNext2: " + arrowNext2); */
     $("#" + arrowNext1).hide();
     $("#" + arrowNext2).show();
 
@@ -1350,7 +1350,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     $("#divfamilia_" + (Number(section_) + 1)).hide();
 
     //PASO 3: hide los cards
-    console.log("PASO 3: hide los cards");
+    /* console.log("PASO 3: hide los cards"); */
     lstFamilyResult.lsections.forEach(function (section, indexSection) {
       if (indexSection === 0) {
         section.lsegments.forEach(function (segment, indexSegment) {
@@ -1367,7 +1367,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
                 (indexSegment + 1) +
                 "_" +
                 fareBasisGG;
-              console.log("cardId hide: " + cardId);
+             /*  console.log("cardId hide: " + cardId); */
               $("#" + cardId).hide();
             });
             //}
@@ -1387,7 +1387,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
               (indexSegment + 1) +
               "_" +
               fareBasisGG;
-            console.log("cardId hide: " + cardId);
+            /* console.log("cardId hide: " + cardId); */
             $("#" + cardId).hide();
           });
         });
@@ -1395,9 +1395,9 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
     });
 
     //PASO 4: teniendo las combinaciones q existe para el section seleccionado
-    console.log(
+   /*  console.log(
       "//PASO 4: teniendo las combinaciones q existe para el section seleccionado"
-    );
+    ); */
     //        vamos ocultar los radio q no existan
     var flagExisteShow = 0;
     lstCombinacionesSection.forEach(function (valor, valorIndex) {
@@ -1422,7 +1422,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           combi.segmentId +
           "_" +
           combi.fareBasis;
-        console.log("cardId show: " + cardId);
+       /*  console.log("cardId show: " + cardId); */
         $("#" + cardId).show();
         flagExisteShow = 1;
       });
@@ -1547,10 +1547,10 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
                     const fareFamilyName = fare.fareFamilyName;
                     dataflighavailability.Lsections[
                       indexSection
-                    ].Oschedule.Lsegments[0].fareFamilyName = fareFamilyName;
+                    ].Oschedule.Lsegments[indexSegment].fareFamilyName = fareFamilyName;
                     datasecciones.Lsections[
                       indexSection
-                    ].Oschedule.Lsegments[0].fareFamilyName = fareFamilyName;
+                    ].Oschedule.Lsegments[indexSegment].fareFamilyName = fareFamilyName;
                   }
                 });
               });
@@ -1563,7 +1563,7 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
         this.flagResultFamilias = flagResultFamilias;
       },
       (err) => {
-        console.log("ERROR: " + JSON.stringify(err));
+        /* console.log("ERROR: " + JSON.stringify(err)); */
         this.vuelosComponent.spinner.hide();
         this.modalerror = this.modalService.show(
           ModalErrorServiceComponent,
@@ -1591,13 +1591,13 @@ export class RecomendacionComponent implements OnInit, AfterViewInit {
           });
         }
 
+        /* console.log("flagResultFamilias: " + flagResultFamilias);
         console.log("flagResultFamilias: " + flagResultFamilias);
         console.log("flagResultFamilias: " + flagResultFamilias);
         console.log("flagResultFamilias: " + flagResultFamilias);
         console.log("flagResultFamilias: " + flagResultFamilias);
         console.log("flagResultFamilias: " + flagResultFamilias);
-        console.log("flagResultFamilias: " + flagResultFamilias);
-        console.log("flagResultFamilias: " + flagResultFamilias);
+        console.log("flagResultFamilias: " + flagResultFamilias); */
         if (flagResultFamilias === 1) {
           //vaidando
           let flagValFareFamilies = 1;

@@ -30,7 +30,7 @@
                       <app-info-adicional *ngIf="flagHtmlC" [htmlTxtC]="htmlTxtC" [uidByCompanyC]="uidByCompanyC" [lstValoresEmpresa]="lstValoresEmpresa"></app-info-adicional>
                       <app-motivo-viaje [lsReasonflight]="lsReasonFlight"></app-motivo-viaje>
                       <div class="m-0 p-0 pt-5 pr-5" *ngIf="lstprofiles != null">
-                          <div *ngIf="lstprofiles.oerror === null" class="col-12 m-0 p-0 contenedor-form">
+                          <div *ngIf="lstprofiles.length > 0" class="col-12 m-0 p-0 contenedor-form">
                               <div class="row m-0 p-0">
                                   <div class="col-12 m-0 p-0 title-form pt-3 pb-3 pl-5">
                                       SELECCIONAR TARJETA PRECARGADA
@@ -39,7 +39,7 @@
                                       <div class="row m-0 p-0">
                                           <div class="col-12 div-info text-left pt-3 pb-3">
                                               <select id="cboprofile" class="input-pasajero">
-                                                 <option value="{{item.profile}}" *ngFor="let item of lstprofiles.lprofileGDs">{{item.name}}</option>
+                                                 <option value="{{item.profile}}" *ngFor="let item of lstprofiles">{{item.name}}</option>
                                              </select>
                                           </div>
                                       </div>

@@ -88,7 +88,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
   lstrulestramo: any[] = [];
   flagrules;
   flagerror;
-  lstprofiles: IProfileModel;
+  lstprofiles: any;
   flagactive: boolean;
   numeropasajero;
   lstbag;
@@ -189,7 +189,7 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     ) */
     this.lstprofiles = this.flightAvailability_result.lextraProfiles;
     if (this.lstprofiles != null) {
-      if (this.lstprofiles.oerror === null) {
+      if (this.lstprofiles.length > 0) {
         this.flagactive = true;
       } else {
         this.flagactive = false;
@@ -1063,9 +1063,13 @@ export class ReservaVueloComponent implements OnInit, AfterViewInit {
     const valcorreo = this.ValidarCorreo();
     const val = this.ValidarCampos();
     const valmail = this.ValidarCorreoContacto();
+    let dataSesion = this.sessionStorageService.retrieve('ss_flightavailability_result');
+    let rquest = this.sessionStorageService.retrieve('ss_flightavailability_request2');
     let data = {
       "lsections": this.LSectionPassenger,
-      "Lpassengers": datosPass
+      "Lpassengers": datosPass,
+      "LcompanyUids": dataSesion.lcompanyUids,
+      "Ocompany": rquest.Ocompany
       };
     this.sessionStorageService.store('ss_duplicatePNR',data);
     this.spinner.show();

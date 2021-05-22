@@ -21,7 +21,7 @@ export class ReportsService {
 
   private urlReports: string = environment.url_reports + 'Report/MasterData';
   private urlField: string = environment.url_customer + 'ReportField/GetReportFields';
-  private urlCompanyReport: string = environment.url_customer + 'CompanyReport/GetListCompanyReport';
+  private urlCompanyReport: string = environment.url_customer + 'CompanyReport/ListCompanyReport';
   private urlInsertUpdate: string = environment.url_customer + 'CompanyReport/InsertUpdateCompanyReport';
   private urlGeneralReport: string = environment.url_reportGeneral + 'Report/GetGeneralReport';
 
@@ -129,7 +129,7 @@ export class ReportsService {
         'Content-Type': 'application/json',
         'Ocp-Apim-Subscription-Key': environment.key
       });
-      const url = `${this.urlCompanyReport}?${'companyId=' + data}`;
+      const url = `${this.urlCompanyReport}?${'companyId=' + data}&${'reportId=1'}`;
       return this.http.get<any>(url, httpOptions);
     }
 

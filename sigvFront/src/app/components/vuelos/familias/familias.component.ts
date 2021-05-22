@@ -563,7 +563,7 @@ export class FamiliasComponent implements OnInit, AfterViewInit {
         this.vuelosComponent.spinner.hide();
         //this.spinner.hide();
         if (flagResult === 1) {
-          this.TraerAutorizador();
+          this.router.navigate(["/reserva-vuelo"]);
           //this.router.navigate(["/reserva-vuelo"]);
           /*  if (!this.flagAutoCroselling) {
             this.router.navigate(['/reserva-vuelo']);
